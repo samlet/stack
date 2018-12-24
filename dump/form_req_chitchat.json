@@ -1,0 +1,314 @@
+{
+  "next_action": "restaurant_form",
+  "sender_id": "default",
+  "tracker": {
+    "sender_id": "default",
+    "slots": {
+      "cuisine": null,
+      "feedback": null,
+      "num_people": null,
+      "outdoor_seating": null,
+      "preferences": null,
+      "requested_slot": "cuisine"
+    },
+    "latest_message": {
+      "text": "/chitchat",
+      "intent": {
+        "name": "chitchat",
+        "confidence": 1.0
+      },
+      "intent_ranking": [
+        {
+          "name": "chitchat",
+          "confidence": 1.0
+        }
+      ],
+      "entities": []
+    },
+    "latest_event_time": 1545570398.566062,
+    "followup_action": null,
+    "paused": false,
+    "events": [
+      {
+        "event": "action",
+        "timestamp": 1545570398.398141,
+        "name": "action_listen",
+        "policy": null,
+        "confidence": null
+      },
+      {
+        "event": "user",
+        "timestamp": 1545570398.398227,
+        "text": "/request_restaurant",
+        "parse_data": {
+          "text": "/request_restaurant",
+          "intent": {
+            "name": "request_restaurant",
+            "confidence": 1.0
+          },
+          "intent_ranking": [
+            {
+              "name": "request_restaurant",
+              "confidence": 1.0
+            }
+          ],
+          "entities": []
+        },
+        "input_channel": null
+      },
+      {
+        "event": "action",
+        "timestamp": 1545570398.5502179,
+        "name": "restaurant_form",
+        "policy": "policy_2_MemoizationPolicy",
+        "confidence": 1.0
+      },
+      {
+        "event": "form",
+        "timestamp": 1545570398.5502248,
+        "name": "restaurant_form"
+      },
+      {
+        "event": "slot",
+        "timestamp": 1545570398.5502279,
+        "name": "requested_slot",
+        "value": "cuisine"
+      },
+      {
+        "event": "bot",
+        "timestamp": 1545570398.550238,
+        "text": "what cuisine?",
+        "data": {
+          "elements": null,
+          "buttons": null,
+          "attachment": null
+        }
+      },
+      {
+        "event": "action",
+        "timestamp": 1545570398.552834,
+        "name": "action_listen",
+        "policy": "policy_3_FormPolicy",
+        "confidence": 1.0
+      },
+      {
+        "event": "user",
+        "timestamp": 1545570398.554098,
+        "text": "/chitchat",
+        "parse_data": {
+          "text": "/chitchat",
+          "intent": {
+            "name": "chitchat",
+            "confidence": 1.0
+          },
+          "intent_ranking": [
+            {
+              "name": "chitchat",
+              "confidence": 1.0
+            }
+          ],
+          "entities": []
+        },
+        "input_channel": null
+      },
+      {
+        "event": "action_execution_rejected",
+        "timestamp": 1545570398.562358,
+        "name": "restaurant_form",
+        "policy": "policy_3_FormPolicy",
+        "confidence": 1.0
+      },
+      {
+        "event": "form_validation",
+        "timestamp": 1545570398.5658581,
+        "validate": false
+      },
+      {
+        "event": "action",
+        "timestamp": 1545570398.5660548,
+        "name": "utter_chitchat",
+        "policy": "policy_2_MemoizationPolicy",
+        "confidence": 1.0
+      },
+      {
+        "event": "bot",
+        "timestamp": 1545570398.566062,
+        "text": "chitchat",
+        "data": {
+          "elements": null,
+          "buttons": null,
+          "attachment": null
+        }
+      }
+    ],
+    "latest_input_channel": null,
+    "active_form": {
+      "name": "restaurant_form",
+      "validate": true,
+      "rejected": true
+    },
+    "latest_action_name": "utter_chitchat"
+  },
+  "domain": {
+    "config": {
+      "store_entities_as_slots": true
+    },
+    "intents": [
+      {
+        "request_restaurant": {
+          "use_entities": false
+        }
+      },
+      {
+        "chitchat": {
+          "use_entities": false
+        }
+      },
+      {
+        "inform": {
+          "use_entities": true
+        }
+      },
+      {
+        "affirm": {
+          "use_entities": true
+        }
+      },
+      {
+        "deny": {
+          "use_entities": true
+        }
+      },
+      {
+        "stop": {
+          "use_entities": true
+        }
+      },
+      {
+        "thankyou": {
+          "use_entities": true
+        }
+      }
+    ],
+    "entities": [
+      "cuisine",
+      "num_people",
+      "number",
+      "feedback",
+      "seating"
+    ],
+    "slots": {
+      "cuisine": {
+        "type": "rasa_core.slots.UnfeaturizedSlot",
+        "initial_value": null,
+        "auto_fill": false
+      },
+      "feedback": {
+        "type": "rasa_core.slots.UnfeaturizedSlot",
+        "initial_value": null,
+        "auto_fill": false
+      },
+      "num_people": {
+        "type": "rasa_core.slots.UnfeaturizedSlot",
+        "initial_value": null,
+        "auto_fill": false
+      },
+      "outdoor_seating": {
+        "type": "rasa_core.slots.UnfeaturizedSlot",
+        "initial_value": null,
+        "auto_fill": false
+      },
+      "preferences": {
+        "type": "rasa_core.slots.UnfeaturizedSlot",
+        "initial_value": null,
+        "auto_fill": false
+      },
+      "requested_slot": {
+        "type": "rasa_core.slots.UnfeaturizedSlot",
+        "initial_value": null,
+        "auto_fill": true
+      }
+    },
+    "templates": {
+      "utter_ask_cuisine": [
+        {
+          "text": "what cuisine?"
+        }
+      ],
+      "utter_ask_num_people": [
+        {
+          "text": "how many people?"
+        }
+      ],
+      "utter_ask_outdoor_seating": [
+        {
+          "text": "do you want to seat outside?"
+        }
+      ],
+      "utter_ask_preferences": [
+        {
+          "text": "please provide additional preferences"
+        }
+      ],
+      "utter_ask_feedback": [
+        {
+          "text": "please give your feedback"
+        }
+      ],
+      "utter_submit": [
+        {
+          "text": "done!"
+        }
+      ],
+      "utter_slots_values": [
+        {
+          "text": "got slots:\n - cuisine: {cuisine}\n - num_people: {num_people}\n - outdoor_seating: {outdoor_seating}\n - preferences: {preferences}\n - feedback: {feedback}"
+        }
+      ],
+      "utter_noworries": [
+        {
+          "text": "you are welcome :)"
+        }
+      ],
+      "utter_chitchat": [
+        {
+          "text": "chitchat"
+        }
+      ],
+      "utter_ask_continue": [
+        {
+          "text": "do you want to continue?"
+        }
+      ],
+      "utter_wrong_cuisine": [
+        {
+          "text": "cuisine type is not in the database, please try again"
+        }
+      ],
+      "utter_wrong_num_people": [
+        {
+          "text": "number of people should be a positive integer, please try again"
+        }
+      ],
+      "utter_wrong_outdoor_seating": [
+        {
+          "text": "could not convert input to boolean value, please try again"
+        }
+      ],
+      "utter_default": [
+        {
+          "text": "sorry, I didn't understand you, please try input something else"
+        }
+      ]
+    },
+    "actions": [
+      "utter_slots_values",
+      "utter_noworries",
+      "utter_chitchat",
+      "utter_ask_continue"
+    ],
+    "forms": [
+      "restaurant_form"
+    ]
+  }
+}

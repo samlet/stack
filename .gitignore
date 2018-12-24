@@ -1,0 +1,6 @@
+rasa-app-data/
+.idea/
+__pycache__
+model_temp/
+.ipynb_checkpoints/
+

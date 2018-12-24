@@ -1,0 +1,3 @@
+def welcome():
+    return "welcome"
+    

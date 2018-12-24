@@ -1,0 +1,40 @@
+version: '3.0'
+
+services:
+  rasanlu:
+    # image: rasa/rasa_nlu:latest-full
+    image: samlet/rasa_fr:0.13.8-full
+    networks: ['rasa-network']
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./rasa-app-data/projects:/app/models
+      - ./rasa-app-data/logs:/app/logs
+      - ./config:/app/config
+    command:
+      - start
+      - --path
+      - models
+      - -c
+      - config/config.yml
+  
+  duckling:
+    image: rasa/duckling:latest
+    networks: ['rasa-network']
+    ports:
+      - "8000:8000"
+
+  # url: http://action_server:5055/webhook
+  action_server:
+    image: rasa/rasa_core_sdk:0.12.1
+    volumes:
+      - ./actions:/app/actions
+    ports:
+      - "5055:5055"
+    command:
+      - start
+      - --actions
+      - actions.procs
+
+networks: {rasa-network: {}}
+

@@ -1,0 +1,72 @@
+version: '3.0'
+
+services:
+  rasanlu:
+    # image: rasa/rasa_nlu:latest-full
+    image: samlet/rasa_fr:0.13.8-full
+    # networks: ['rasa-network']
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./rasa-app-data/projects:/app/models
+      - ./rasa-app-data/logs:/app/logs
+      - ./config:/app/config
+    command:
+      - start
+      - --path
+      - models
+      - -c
+      - config/config.yml
+  
+  duckling:
+    image: rasa/duckling:latest
+    # networks: ['rasa-network']
+    ports:
+      - "8000:8000"
+
+  # url: http://action_server:5055/webhook
+  action_server:
+    image: rasa/rasa_core_sdk:0.12.1
+    volumes:
+      - ./actions:/app/actions
+    ports:
+      - "5055:5055"
+    command:
+      - start
+      - --actions
+      - actions.procs
+
+  ## odoo
+  postgres:
+    image: postgres:9.5
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=odoo
+    volumes:
+      - "postgres-volume:/var/lib/postgresql/data"
+  
+  adminer:
+    image: adminer
+    # restart: always
+    ports:
+      - 18080:8080
+
+  odoo:
+    # image: elicocorp/odoo-china:12.0
+    image: elicocorp/odoo-china:11.0
+    command: start
+    ports:
+      # - 127.0.0.1:8069:8069
+      - 8069:8069
+    links:
+      - postgres:db
+    volumes:
+      - ./addons:/mnt/extra-addons
+    environment:
+      - ODOO_DB_USER=odoo
+
+# networks: {rasa-network: {}}
+volumes:
+  postgres-volume:
+

@@ -1,0 +1,33 @@
+# all hashtags are comments :)
+intents:
+ - greet
+ - default
+ - goodbye
+ - affirm
+ - thank_you
+ - change_bank_details
+ - simple
+ - hello
+ - why
+ - next_intent
+
+entities:
+ - name
+
+slots:
+  name:
+    type: text
+
+templates:
+  utter_greet:
+    - "hey there {name}!"  # {name} will be filled by slot (same name) or by custom action code
+  utter_goodbye:
+    - "goodbye 😢"
+    - "bye bye 😢"   # multiple templates - bot will randomly pick one of them
+  utter_default:
+    - "default message"
+
+actions:
+  - utter_default
+  - utter_greet
+  - utter_goodbye

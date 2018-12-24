@@ -1,0 +1,6 @@
+<%!
+    def myescape(text):
+        return "<TAG>" + text + "</TAG>"
+%>
+
+Here's some tagged text: ${"text" | myescape}

@@ -1,0 +1,5 @@
+<%!
+    import myfilters
+%>
+
+Here's some tagged text: ${"text" | myfilters.tagfilter}
