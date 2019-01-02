@@ -24,6 +24,19 @@ services:
     ports:
       - "8000:8000"
 
+  ## providers
+  langprocs:
+    image: samlet/langprocs:0.1
+    ports:
+      - "10052:10052"
+    command:
+      - nlp
+
+  timeprocs:
+    image: samlet/timeprocs:0.1
+    ports:
+      - "25333:25333"
+
   # url: http://action_server:5055/webhook
   action_server:
     image: rasa/rasa_core_sdk:0.12.1

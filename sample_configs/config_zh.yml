@@ -1,0 +1,13 @@
+language: "en"
+
+pipeline:
+- name: "ner_duckling_http"
+  url: "http://localhost:8000"
+  dimensions:
+  - "NUMBER"
+- name: "sagas.provider.time_extractor.TimeExtractor"  
+  host: "127.0.0.1"
+  port: 25333
+  dimensions:
+  - "time"
+
