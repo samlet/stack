@@ -19,20 +19,20 @@ from rasa_nlu.training_data import TrainingData
 
 from client_wrapper import ServiceClient
 
-import nlpserv_pb2 as nlp_messages
-import nlpserv_pb2_grpc as nlp_service
+import ${package_name}_pb2 as nlp_messages
+import ${package_name}_pb2_grpc as nlp_service
 
 logger = logging.getLogger(__name__)
 
 if typing.TYPE_CHECKING:
     from rasa_nlu.model import Metadata
 
-class Hanlp(Component):
-    # name = "nlp_hanlp"
-    name="sagas.provider.hanlp_utils.Hanlp"
+class ${class_name}(Component):
+    # name = "nlp_xxx"
+    name="sagas.provider.${file_name}.${class_name}"
 
-    ## the hanlp_doc is protobuf object, hanlp is grpc client
-    provides = ["hanlp_doc", "hanlp"]
+    ## the ${component_name}_doc is protobuf object, ${component_name} is grpc client
+    provides = ["${component_name}_doc", "${component_name}"]
 
     defaults = {
         # name of the language model to load - if it is not set
@@ -54,7 +54,7 @@ class Hanlp(Component):
         # type: (Dict[Text, Any], ServiceClient) -> None
 
         self.nlp = nlp
-        super(Hanlp, self).__init__(component_config)
+        super(${class_name}, self).__init__(component_config)   
 
     @classmethod
     def required_packages(cls):
@@ -69,50 +69,45 @@ class Hanlp(Component):
 
             # if no model is specified, we fall back to the language string
             # if not spacy_model_name:
-            logger.info("Trying to connect hanlp rpc with "
+            logger.info("Trying to connect ${component_name} rpc with "
                         "address '{}:{}'".format(rpc_host, rpc_port))
 
-            client = ServiceClient(nlp_service, 'NlpProcsStub', rpc_host, int(rpc_port))
+            client = ServiceClient(nlp_service, '${service_name}Stub', rpc_host, int(rpc_port))
             return client
         except ValueError as e:  # pragma: no cover
-            raise Exception("hanlp init error. {}".format(e))
+            raise Exception("${component_name} init error. {}".format(e))
 
     @classmethod
     def create(cls, cfg):
-        # type: (RasaNLUModelConfig) -> Hanlp
-        # import spacy
+        # type: (RasaNLUModelConfig) -> ${class_name}
 
         component_conf = cfg.for_component(cls.name, cls.defaults)
 
         # cls.ensure_proper_language_model(nlp)
         client=cls.create_client(component_conf)
-        return Hanlp(component_conf, client)
+        return ${class_name}(component_conf, client)
 
     def provide_context(self):
         # type: () -> Dict[Text, Any]
 
-        return {"hanlp": self.nlp}
+        return {"${component_name}": self.nlp}
 
+    #* must be implement
     def doc_for_text(self, text):
-        if self.component_config.get("crf_lexical"):
-            request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
-            response = self.nlp.Tokenizer(request)
-            return response
-        else:
-            request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
-            response = self.nlp.EntityExtractor(request)
-            return response
+        request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
+        response = self.nlp.EntityExtractor(request)
+        return response      
 
     def train(self, training_data, config, **kwargs):
         # type: (TrainingData, RasaNLUModelConfig, **Any) -> None
 
         for example in training_data.training_examples:
-            example.set("hanlp_doc", self.doc_for_text(example.text))
+            example.set("${component_name}_doc", self.doc_for_text(example.text))
 
     def process(self, message, **kwargs):
         # type: (Message, **Any) -> None
 
-        message.set("hanlp_doc", self.doc_for_text(message.text))
+        message.set("${component_name}_doc", self.doc_for_text(message.text))
 
     @classmethod
     def load(cls,
@@ -120,10 +115,12 @@ class Hanlp(Component):
              model_metadata=None,
              cached_component=None,
              **kwargs):
-        # type: (Text, Metadata, Optional[Hanlp], **Any) -> Hanlp
+        # type: (Text, Metadata, Optional[${class_name}], **Any) -> ${class_name}
 
         if cached_component:
             return cached_component
 
         component_config = model_metadata.for_component(cls.name)
         return cls(component_config, cls.create_client(component_config))
+
+

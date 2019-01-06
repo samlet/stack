@@ -23,16 +23,16 @@ import py4j
 if typing.TYPE_CHECKING:
     from py4j.java_gateway import JavaObject, JavaGateway
 
-class TimeExtractor(EntityExtractor):
+class ${class_name}(EntityExtractor):
     """Adds entity normalization by analyzing found entities and
     transforming them into regular formats."""
 
     # name = "ner_xxx"
-    name = "sagas.provider.time_extractor.TimeExtractor"
+    name = "sagas.provider.${file_name}.${class_name}"
 
-    provides = ["entities", "time_clean_sent"]
+    provides = ["entities"]
 
-    defaults = {
+    defaults = {        
         # dimensions can be configured to contain an array of strings
         # with the names of the dimensions to filter for
         "dimensions": None,
@@ -43,12 +43,12 @@ class TimeExtractor(EntityExtractor):
     def __init__(self, component_config=None, gateway=None, bridge=None):
         # type: (Dict[Text, Any], JavaGateway, JavaObject) -> None
 
-        super(TimeExtractor, self).__init__(component_config)
+        super(${class_name}, self).__init__(component_config)
         self.gateway=gateway
         self.bridge = bridge
         if self.bridge is None:
-            self.bridge = gateway.entry_point.getTimeAnalyst()
-        self.DateUtil=gateway.jvm.com.time.util.DateUtil()
+            self.bridge = gateway.entry_point.get${component_name}()
+        # self.DateUtil=gateway.jvm.com.time.util.DateUtil()
 
     @classmethod
     def required_packages(cls):
@@ -60,22 +60,22 @@ class TimeExtractor(EntityExtractor):
         try:
             host = component_config.get("host")
             port= int(component_config.get("port"))
-            logging.info("time-nlp gateway host/port: {} {}".format(host, port))
+            logging.info("${class_name} gateway host/port: {} {}".format(host, port))
             gateway = JavaGateway(gateway_parameters=GatewayParameters(address=host, port=port))
-            analyst = gateway.entry_point.getTimeAnalyst()
-            return gateway, analyst
+            c = gateway.entry_point.get${component_name}()
+            return gateway, c
         except ValueError as e:  # pragma: no cover
-            raise Exception("time-nlp init error. {}".format(e))
+            raise Exception("${component_name} init error. {}".format(e))
 
     @classmethod
     def create(cls, config):
-        # type: (RasaNLUModelConfig) -> TimeExtractor
+        # type: (RasaNLUModelConfig) -> ${class_name}
 
         component_config = config.for_component(cls.name, cls.defaults)
         dims = component_config.get("dimensions")
         # if dims:
-        gateway, analyst=cls.create_bridge(component_config)
-        return TimeExtractor(component_config, gateway, analyst)
+        gateway, c=cls.create_bridge(component_config)
+        return ${class_name}(component_config, gateway, c)
 
     @classmethod
     def cache_key(cls, model_metadata):
@@ -86,48 +86,16 @@ class TimeExtractor(EntityExtractor):
     def f(self, object, fld):
         return py4j.java_gateway.get_field(object, fld)
 
-    def positions(self, words, text):
-        running_offset = 0
-        tokens = []
-        for word in words:
-            # print(word)
-            word_offset = text.index(word, running_offset)
-            word_len = len(word)
-            running_offset = word_offset + word_len
-            tokens.append({"start": word_offset, "end": running_offset})
-        return tokens
-
+    ##@ must be implement
     def process(self, message, **kwargs):
         # type: (Message, **Any) -> None
 
         if self.bridge is None:
-            logging.fatal("no time-nlp provider")
+            logging.fatal("no ${component_name} provider")
             return
 
-        normalizer = self.bridge.getNormalizer()
-        normalizer.parse(message.text)
-        units = normalizer.getTimeUnit()
         entities = []
-
-        # getting positions info
-        words = []
-        for unit in units:
-            expr = self.f(unit, "Time_Expression")
-            words.append(expr)
-
-        clean_sent=normalizer.getTarget()
-        message.set("time_clean_sent", clean_sent)
-        tokens = self.positions(words, clean_sent)
-
-        for index, ent in enumerate(units):
-            entities.append({
-                    "entity": "time",
-                    "value": self.DateUtil.formatDateDefault(ent.getTime()),
-                    "start": tokens[index]["start"],
-                    "confidence": None,
-                    "end": tokens[index]["end"],
-                    "additional_info": str(ent.getIsAllDayTime())
-                })
+        # .......
 
         extracted = self.add_extractor_name(entities)
         message.set("entities", message.get("entities", []) + extracted,
@@ -137,11 +105,12 @@ class TimeExtractor(EntityExtractor):
     def load(cls,
              model_dir=None,  # type: Text
              model_metadata=None,  # type: Metadata
-             cached_component=None,  # type: Optional[TimeExtractor]
+             cached_component=None,  # type: Optional[${class_name}]
              **kwargs  # type: **Any
              ):
-        # type: (...) -> TimeExtractor
+        # type: (...) -> ${class_name}
 
         component_config = model_metadata.for_component(cls.name)
-        gateway, analyst = cls.create_bridge(component_config)
-        return cls(component_config, gateway, analyst)
+        gateway, c = cls.create_bridge(component_config)
+        return cls(component_config, gateway, c)
+

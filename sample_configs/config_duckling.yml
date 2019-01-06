@@ -1,0 +1,9 @@
+language: "en"
+
+pipeline:
+- name: "ner_duckling_http"
+  url: "http://127.0.0.1:8000"
+  locale: en_US
+  dimensions:
+  - "number"
+  - "time"

@@ -12,9 +12,9 @@ from rasa_nlu.training_data import Message
 from rasa_nlu.training_data import TrainingData
 
 
-class HanlpTokenizer(Tokenizer, Component):
+class CabochaTokenizer(Tokenizer, Component):
     # name = "tokenizer_hanlp"
-    name="sagas.provider.hanlp_tokenizer.HanlpTokenizer"
+    name="sagas.provider.cabocha_tokenizer.CabochaTokenizer"
 
     provides = ["tokens"]
 
@@ -22,24 +22,33 @@ class HanlpTokenizer(Tokenizer, Component):
         # type: (TrainingData, RasaNLUModelConfig, **Any) -> None
 
         for example in training_data.training_examples:
-            example.set("tokens", self.tokenize(example.text, example.get("hanlp_doc")))
+            tokens, positions=self.tokenize(example.text, example.get("cabocha_doc"))
+            example.set("tokens", tokens)
+            example.set("positions", positions)
 
     def process(self, message, **kwargs):
         # type: (Message, **Any) -> None
 
-        message.set("tokens", self.tokenize(message.text, message.get("hanlp_doc")))
+        tokens, positions = self.tokenize(message.text, message.get("cabocha_doc"))
+        message.set("tokens", tokens)
+        message.set("positions", positions)
 
-    def tokenize(self, text, msg_tokens):
+    def tokenize(self, text, msg_chunks):
         words = []
-        for token in msg_tokens.entities:
-            words.append(token.value)
+        ids=[]
+        for chunk in msg_chunks.chunks:
+            for token in chunk.tokens:
+                # print(token, token.pos)
+                words.append(token.surface)
+                ids.append(token.id)
 
         running_offset = 0
         tokens = []
+        positions = []
         for word in words:
             word_offset = text.index(word, running_offset)
             word_len = len(word)
             running_offset = word_offset + word_len
             tokens.append(Token(word, word_offset))
-        return tokens
-
+            positions.append({"start":word_offset, "end":running_offset})
+        return tokens, zip(ids, positions)

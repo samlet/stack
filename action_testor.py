@@ -77,6 +77,8 @@ def test_action(default_dispatcher_collecting,
                                    default_domain.slots)
 
     endpoint = EndpointConfig("http://localhost:5055/webhook")
+    # endpoint = EndpointConfig("http://0.0.0.0:5057/webhook")
+    # endpoint = EndpointConfig("http://localhost:5055")
     remote_action = action.RemoteAction(fun_name, endpoint)
 
     events = remote_action.run(default_dispatcher_collecting,

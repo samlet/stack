@@ -21,7 +21,7 @@ if typing.TYPE_CHECKING:
 class AmountExtractor(EntityExtractor):
     # name = "ner_amount"
     name = "sagas.provider.amount_extractor.AmountExtractor"
-    
+
     provides = ["entities"]
 
     requires = ["hanlp"]

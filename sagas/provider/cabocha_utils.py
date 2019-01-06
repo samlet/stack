@@ -27,12 +27,11 @@ logger = logging.getLogger(__name__)
 if typing.TYPE_CHECKING:
     from rasa_nlu.model import Metadata
 
-class Hanlp(Component):
-    # name = "nlp_hanlp"
-    name="sagas.provider.hanlp_utils.Hanlp"
+class Cabocha(Component):
+    # name = "nlp_xxx"
+    name="sagas.provider.cabocha_utils.Cabocha"
 
-    ## the hanlp_doc is protobuf object, hanlp is grpc client
-    provides = ["hanlp_doc", "hanlp"]
+    provides = ["cabocha_doc", "cabocha"]
 
     defaults = {
         # name of the language model to load - if it is not set
@@ -47,14 +46,14 @@ class Hanlp(Component):
         # between these two words, therefore setting this to `True`.
         "case_sensitive": False,
         "host": "localhost",
-        "port": 10052
+        "port": 50051
     }
 
     def __init__(self, component_config=None, nlp=None):
         # type: (Dict[Text, Any], ServiceClient) -> None
 
         self.nlp = nlp
-        super(Hanlp, self).__init__(component_config)
+        super(Cabocha, self).__init__(component_config)
 
     @classmethod
     def required_packages(cls):
@@ -69,50 +68,44 @@ class Hanlp(Component):
 
             # if no model is specified, we fall back to the language string
             # if not spacy_model_name:
-            logger.info("Trying to connect hanlp rpc with "
+            logger.info("Trying to connect cabocha rpc with "
                         "address '{}:{}'".format(rpc_host, rpc_port))
 
-            client = ServiceClient(nlp_service, 'NlpProcsStub', rpc_host, int(rpc_port))
+            client = ServiceClient(nlp_service, 'CabochaNlpProcsStub', rpc_host, int(rpc_port))
             return client
         except ValueError as e:  # pragma: no cover
-            raise Exception("hanlp init error. {}".format(e))
+            raise Exception("cabocha init error. {}".format(e))
 
     @classmethod
     def create(cls, cfg):
-        # type: (RasaNLUModelConfig) -> Hanlp
-        # import spacy
+        # type: (RasaNLUModelConfig) -> Cabocha
 
         component_conf = cfg.for_component(cls.name, cls.defaults)
 
         # cls.ensure_proper_language_model(nlp)
         client=cls.create_client(component_conf)
-        return Hanlp(component_conf, client)
+        return Cabocha(component_conf, client)
 
     def provide_context(self):
         # type: () -> Dict[Text, Any]
 
-        return {"hanlp": self.nlp}
+        return {"cabocha": self.nlp}
 
     def doc_for_text(self, text):
-        if self.component_config.get("crf_lexical"):
-            request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
-            response = self.nlp.Tokenizer(request)
-            return response
-        else:
-            request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
-            response = self.nlp.EntityExtractor(request)
-            return response
+        request = nlp_messages.NlText(text=text)
+        response = self.nlp.Tokenizer(request)
+        return response
 
     def train(self, training_data, config, **kwargs):
         # type: (TrainingData, RasaNLUModelConfig, **Any) -> None
 
         for example in training_data.training_examples:
-            example.set("hanlp_doc", self.doc_for_text(example.text))
+            example.set("cabocha_doc", self.doc_for_text(example.text))
 
     def process(self, message, **kwargs):
         # type: (Message, **Any) -> None
 
-        message.set("hanlp_doc", self.doc_for_text(message.text))
+        message.set("cabocha_doc", self.doc_for_text(message.text))
 
     @classmethod
     def load(cls,
@@ -120,10 +113,12 @@ class Hanlp(Component):
              model_metadata=None,
              cached_component=None,
              **kwargs):
-        # type: (Text, Metadata, Optional[Hanlp], **Any) -> Hanlp
+        # type: (Text, Metadata, Optional[Cabocha], **Any) -> Cabocha
 
         if cached_component:
             return cached_component
 
         component_config = model_metadata.for_component(cls.name)
         return cls(component_config, cls.create_client(component_config))
+
+

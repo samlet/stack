@@ -12,6 +12,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import common_types_pb2 as common__types__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,8 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='nlpserv',
   syntax='proto3',
   serialized_options=_b('\n\022com.samlet.nlpservB\014NlpServProtoP\001\242\002\003NLP'),
-  serialized_pb=_b('\n\rnlpserv.proto\x12\x07nlpserv\"\x1b\n\x0bPingRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1c\n\tPingReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\xf7\x01\n\x0eNlCabochaToken\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x0f\x61\x64\x64itional_info\x18\x02 \x01(\t\x12\x14\n\x0c\x66\x65\x61ture_list\x18\x03 \x03(\t\x12\n\n\x02ne\x18\x04 \x01(\t\x12\x1a\n\x12normalized_surface\x18\x05 \x01(\t\x12\x0f\n\x07surface\x18\x06 \x01(\t\x12\x0b\n\x03pos\x18\x07 \x01(\t\x12\x0c\n\x04pos1\x18\x08 \x01(\t\x12\x0c\n\x04pos2\x18\t \x01(\t\x12\x0c\n\x04pos3\x18\n \x01(\t\x12\r\n\x05\x63type\x18\x0b \x01(\t\x12\r\n\x05\x63\x66orm\x18\x0c \x01(\t\x12\x0e\n\x06genkei\x18\r \x01(\t\x12\x0c\n\x04yomi\x18\x0e \x01(\t\"\xf5\x01\n\x0eNlCabochaChunk\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x0f\x61\x64\x64itional_info\x18\x02 \x01(\t\x12\x14\n\x0c\x66\x65\x61ture_list\x18\x03 \x03(\t\x12\x10\n\x08\x66unc_pos\x18\x04 \x01(\x05\x12\x10\n\x08head_pos\x18\x05 \x01(\x05\x12\x0c\n\x04link\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x02\x12\x11\n\ttoken_pos\x18\x08 \x01(\x05\x12\x14\n\x0cnext_link_id\x18\t \x01(\x05\x12\x15\n\rprev_link_ids\x18\n \x03(\x05\x12\'\n\x06tokens\x18\x0b \x03(\x0b\x32\x17.nlpserv.NlCabochaToken\":\n\x0fNlCabochaChunks\x12\'\n\x06\x63hunks\x18\x01 \x03(\x0b\x32\x17.nlpserv.NlCabochaChunk\"Y\n\x08NlEntity\x12\x0e\n\x06\x65ntity\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\r\n\x05start\x18\x03 \x01(\x05\x12\x12\n\nconfidence\x18\x04 \x01(\x02\x12\x0b\n\x03\x65nd\x18\x05 \x01(\x05\"1\n\nNlEntities\x12#\n\x08\x65ntities\x18\x01 \x03(\x0b\x32\x11.nlpserv.NlEntity\"A\n\x08NlAmount\x12!\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x11.nlpserv.NlEntity\x12\x12\n\nnumericVal\x18\x02 \x01(\t\"1\n\x0cNlAmountList\x12!\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x11.nlpserv.NlAmount\"a\n\x12NlTokenizerRequest\x12\x1d\n\x04text\x18\x01 \x01(\x0b\x32\x0f.nlpserv.NlText\x12,\n\x07options\x18\x02 \x01(\x0b\x32\x1b.nlpserv.NlTokenizerOptions\"6\n\x07NlToken\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0e\n\x06length\x18\x02 \x01(\x05\x12\r\n\x05label\x18\x03 \x01(\t\",\n\x08NlTokens\x12 \n\x06tokens\x18\x01 \x03(\x0b\x32\x10.nlpserv.NlToken\"\xe6\x01\n\x12NlTokenizerOptions\x12\x1d\n\x15japaneseNameRecognize\x18\x01 \x01(\x08\x12\x16\n\x0eplaceRecognize\x18\x02 \x01(\x08\x12\x1d\n\x15organizationRecognize\x18\x03 \x01(\x08\x12\x15\n\rnameRecognize\x18\x04 \x01(\x08\x12\x1f\n\x17translatedNameRecognize\x18\x05 \x01(\x08\x12!\n\x19numberQuantifierRecognize\x18\x06 \x01(\x08\x12\x1f\n\x17\x61llNamedEntityRecognize\x18\x07 \x01(\x08\"\x18\n\x08NlResult\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"$\n\x06NlText\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0c\n\x04lang\x18\x02 \x01(\t\"t\n\x06NlWord\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05lemma\x18\x02 \x01(\t\x12\x0f\n\x07postag1\x18\x03 \x01(\t\x12\x0f\n\x07postag2\x18\x04 \x01(\t\x12\x0f\n\x07head_id\x18\x05 \x01(\x05\x12\x0e\n\x06\x64\x65prel\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x01(\t\"\x1e\n\x0eNlParseRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\xaa\x01\n\x0fNlPinyinRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x41\n\x0cpresentation\x18\x02 \x01(\x0e\x32+.nlpserv.NlPinyinRequest.PinyinPresentation\"F\n\x12PinyinPresentation\x12\n\n\x06NUMBER\x10\x00\x12\x12\n\x0eWITH_TONE_MARK\x10\x01\x12\x10\n\x0cWITHOUT_TONE\x10\x02\",\n\nNlSentence\x12\x1e\n\x05words\x18\x01 \x03(\x0b\x32\x0f.nlpserv.NlWord\"5\n\x0bNlSentences\x12&\n\tsentences\x18\x01 \x03(\x0b\x32\x13.nlpserv.NlSentence\"O\n\x14NlDocumentSimilarity\x12\x12\n\ndocumentId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x12\n\nsimilarity\x18\x03 \x01(\x02\"F\n\x17NlDocumentSimilaritySet\x12+\n\x04\x64ocs\x18\x01 \x03(\x0b\x32\x1d.nlpserv.NlDocumentSimilarity\"!\n\rNlDocumentSet\x12\x10\n\x08textList\x18\x01 \x03(\t2\x88\x04\n\x08NlpProcs\x12\x32\n\x04Ping\x12\x14.nlpserv.PingRequest\x1a\x12.nlpserv.PingReply\"\x00\x12\x41\n\x0fParseDependency\x12\x17.nlpserv.NlParseRequest\x1a\x13.nlpserv.NlSentence\"\x00\x12\x38\n\tGetPinyin\x12\x18.nlpserv.NlPinyinRequest\x1a\x0f.nlpserv.NlText\"\x00\x12;\n\x0c\x41\x64\x64\x44ocuments\x12\x16.nlpserv.NlDocumentSet\x1a\x11.nlpserv.NlResult\"\x00\x12J\n\x13GetNearestDocuments\x12\x0f.nlpserv.NlText\x1a .nlpserv.NlDocumentSimilaritySet\"\x00\x12=\n\tTokenizer\x12\x1b.nlpserv.NlTokenizerRequest\x1a\x11.nlpserv.NlTokens\"\x00\x12\x45\n\x0f\x45ntityExtractor\x12\x1b.nlpserv.NlTokenizerRequest\x1a\x13.nlpserv.NlEntities\"\x00\x12<\n\x10ParseAmountTerms\x12\x0f.nlpserv.NlText\x1a\x15.nlpserv.NlAmountList\"\x00\x32K\n\x0f\x43\x61\x62ochaNlpProcs\x12\x38\n\tTokenizer\x12\x0f.nlpserv.NlText\x1a\x18.nlpserv.NlCabochaChunks\"\x00\x42*\n\x12\x63om.samlet.nlpservB\x0cNlpServProtoP\x01\xa2\x02\x03NLPb\x06proto3')
-)
+  serialized_pb=_b('\n\rnlpserv.proto\x12\x07nlpserv\x1a\x12\x63ommon_types.proto\"\xf7\x01\n\x0eNlCabochaToken\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x0f\x61\x64\x64itional_info\x18\x02 \x01(\t\x12\x14\n\x0c\x66\x65\x61ture_list\x18\x03 \x03(\t\x12\n\n\x02ne\x18\x04 \x01(\t\x12\x1a\n\x12normalized_surface\x18\x05 \x01(\t\x12\x0f\n\x07surface\x18\x06 \x01(\t\x12\x0b\n\x03pos\x18\x07 \x01(\t\x12\x0c\n\x04pos1\x18\x08 \x01(\t\x12\x0c\n\x04pos2\x18\t \x01(\t\x12\x0c\n\x04pos3\x18\n \x01(\t\x12\r\n\x05\x63type\x18\x0b \x01(\t\x12\r\n\x05\x63\x66orm\x18\x0c \x01(\t\x12\x0e\n\x06genkei\x18\r \x01(\t\x12\x0c\n\x04yomi\x18\x0e \x01(\t\"\xf5\x01\n\x0eNlCabochaChunk\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x0f\x61\x64\x64itional_info\x18\x02 \x01(\t\x12\x14\n\x0c\x66\x65\x61ture_list\x18\x03 \x03(\t\x12\x10\n\x08\x66unc_pos\x18\x04 \x01(\x05\x12\x10\n\x08head_pos\x18\x05 \x01(\x05\x12\x0c\n\x04link\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x02\x12\x11\n\ttoken_pos\x18\x08 \x01(\x05\x12\x14\n\x0cnext_link_id\x18\t \x01(\x05\x12\x15\n\rprev_link_ids\x18\n \x03(\x05\x12\'\n\x06tokens\x18\x0b \x03(\x0b\x32\x17.nlpserv.NlCabochaToken\":\n\x0fNlCabochaChunks\x12\'\n\x06\x63hunks\x18\x01 \x03(\x0b\x32\x17.nlpserv.NlCabochaChunk\"Y\n\x08NlEntity\x12\x0e\n\x06\x65ntity\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\r\n\x05start\x18\x03 \x01(\x05\x12\x12\n\nconfidence\x18\x04 \x01(\x02\x12\x0b\n\x03\x65nd\x18\x05 \x01(\x05\"1\n\nNlEntities\x12#\n\x08\x65ntities\x18\x01 \x03(\x0b\x32\x11.nlpserv.NlEntity\"A\n\x08NlAmount\x12!\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x11.nlpserv.NlEntity\x12\x12\n\nnumericVal\x18\x02 \x01(\t\"1\n\x0cNlAmountList\x12!\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x11.nlpserv.NlAmount\"a\n\x12NlTokenizerRequest\x12\x1d\n\x04text\x18\x01 \x01(\x0b\x32\x0f.nlpserv.NlText\x12,\n\x07options\x18\x02 \x01(\x0b\x32\x1b.nlpserv.NlTokenizerOptions\"6\n\x07NlToken\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0e\n\x06length\x18\x02 \x01(\x05\x12\r\n\x05label\x18\x03 \x01(\t\",\n\x08NlTokens\x12 \n\x06tokens\x18\x01 \x03(\x0b\x32\x10.nlpserv.NlToken\"\xe6\x01\n\x12NlTokenizerOptions\x12\x1d\n\x15japaneseNameRecognize\x18\x01 \x01(\x08\x12\x16\n\x0eplaceRecognize\x18\x02 \x01(\x08\x12\x1d\n\x15organizationRecognize\x18\x03 \x01(\x08\x12\x15\n\rnameRecognize\x18\x04 \x01(\x08\x12\x1f\n\x17translatedNameRecognize\x18\x05 \x01(\x08\x12!\n\x19numberQuantifierRecognize\x18\x06 \x01(\x08\x12\x1f\n\x17\x61llNamedEntityRecognize\x18\x07 \x01(\x08\"\x18\n\x08NlResult\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"$\n\x06NlText\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0c\n\x04lang\x18\x02 \x01(\t\"t\n\x06NlWord\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05lemma\x18\x02 \x01(\t\x12\x0f\n\x07postag1\x18\x03 \x01(\t\x12\x0f\n\x07postag2\x18\x04 \x01(\t\x12\x0f\n\x07head_id\x18\x05 \x01(\x05\x12\x0e\n\x06\x64\x65prel\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x01(\t\"\x1e\n\x0eNlParseRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\xaa\x01\n\x0fNlPinyinRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x41\n\x0cpresentation\x18\x02 \x01(\x0e\x32+.nlpserv.NlPinyinRequest.PinyinPresentation\"F\n\x12PinyinPresentation\x12\n\n\x06NUMBER\x10\x00\x12\x12\n\x0eWITH_TONE_MARK\x10\x01\x12\x10\n\x0cWITHOUT_TONE\x10\x02\",\n\nNlSentence\x12\x1e\n\x05words\x18\x01 \x03(\x0b\x32\x0f.nlpserv.NlWord\"5\n\x0bNlSentences\x12&\n\tsentences\x18\x01 \x03(\x0b\x32\x13.nlpserv.NlSentence\"O\n\x14NlDocumentSimilarity\x12\x12\n\ndocumentId\x18\x01 \x01(\x05\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x12\n\nsimilarity\x18\x03 \x01(\x02\"F\n\x17NlDocumentSimilaritySet\x12+\n\x04\x64ocs\x18\x01 \x03(\x0b\x32\x1d.nlpserv.NlDocumentSimilarity\"!\n\rNlDocumentSet\x12\x10\n\x08textList\x18\x01 \x03(\t2\x86\x04\n\x08NlpProcs\x12\x30\n\x04Ping\x12\x13.common.PingRequest\x1a\x11.common.PingReply\"\x00\x12\x41\n\x0fParseDependency\x12\x17.nlpserv.NlParseRequest\x1a\x13.nlpserv.NlSentence\"\x00\x12\x38\n\tGetPinyin\x12\x18.nlpserv.NlPinyinRequest\x1a\x0f.nlpserv.NlText\"\x00\x12;\n\x0c\x41\x64\x64\x44ocuments\x12\x16.nlpserv.NlDocumentSet\x1a\x11.nlpserv.NlResult\"\x00\x12J\n\x13GetNearestDocuments\x12\x0f.nlpserv.NlText\x1a .nlpserv.NlDocumentSimilaritySet\"\x00\x12=\n\tTokenizer\x12\x1b.nlpserv.NlTokenizerRequest\x1a\x11.nlpserv.NlTokens\"\x00\x12\x45\n\x0f\x45ntityExtractor\x12\x1b.nlpserv.NlTokenizerRequest\x1a\x13.nlpserv.NlEntities\"\x00\x12<\n\x10ParseAmountTerms\x12\x0f.nlpserv.NlText\x1a\x15.nlpserv.NlAmountList\"\x00\x32K\n\x0f\x43\x61\x62ochaNlpProcs\x12\x38\n\tTokenizer\x12\x0f.nlpserv.NlText\x1a\x18.nlpserv.NlCabochaChunks\"\x00\x42*\n\x12\x63om.samlet.nlpservB\x0cNlpServProtoP\x01\xa2\x02\x03NLPb\x06proto3')
+  ,
+  dependencies=[common__types__pb2.DESCRIPTOR,])
 
 
 
@@ -45,72 +47,10 @@ _NLPINYINREQUEST_PINYINPRESENTATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1652,
-  serialized_end=1722,
+  serialized_start=1613,
+  serialized_end=1683,
 )
 _sym_db.RegisterEnumDescriptor(_NLPINYINREQUEST_PINYINPRESENTATION)
-
-
-_PINGREQUEST = _descriptor.Descriptor(
-  name='PingRequest',
-  full_name='nlpserv.PingRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='nlpserv.PingRequest.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=26,
-  serialized_end=53,
-)
-
-
-_PINGREPLY = _descriptor.Descriptor(
-  name='PingReply',
-  full_name='nlpserv.PingReply',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='message', full_name='nlpserv.PingReply.message', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=55,
-  serialized_end=83,
-)
 
 
 _NLCABOCHATOKEN = _descriptor.Descriptor(
@@ -230,8 +170,8 @@ _NLCABOCHATOKEN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=86,
-  serialized_end=333,
+  serialized_start=47,
+  serialized_end=294,
 )
 
 
@@ -331,8 +271,8 @@ _NLCABOCHACHUNK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=336,
-  serialized_end=581,
+  serialized_start=297,
+  serialized_end=542,
 )
 
 
@@ -362,8 +302,8 @@ _NLCABOCHACHUNKS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=583,
-  serialized_end=641,
+  serialized_start=544,
+  serialized_end=602,
 )
 
 
@@ -421,8 +361,8 @@ _NLENTITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=643,
-  serialized_end=732,
+  serialized_start=604,
+  serialized_end=693,
 )
 
 
@@ -452,8 +392,8 @@ _NLENTITIES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=734,
-  serialized_end=783,
+  serialized_start=695,
+  serialized_end=744,
 )
 
 
@@ -490,8 +430,8 @@ _NLAMOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=785,
-  serialized_end=850,
+  serialized_start=746,
+  serialized_end=811,
 )
 
 
@@ -521,8 +461,8 @@ _NLAMOUNTLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=852,
-  serialized_end=901,
+  serialized_start=813,
+  serialized_end=862,
 )
 
 
@@ -559,8 +499,8 @@ _NLTOKENIZERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=903,
-  serialized_end=1000,
+  serialized_start=864,
+  serialized_end=961,
 )
 
 
@@ -604,8 +544,8 @@ _NLTOKEN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1002,
-  serialized_end=1056,
+  serialized_start=963,
+  serialized_end=1017,
 )
 
 
@@ -635,8 +575,8 @@ _NLTOKENS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1058,
-  serialized_end=1102,
+  serialized_start=1019,
+  serialized_end=1063,
 )
 
 
@@ -708,8 +648,8 @@ _NLTOKENIZEROPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1105,
-  serialized_end=1335,
+  serialized_start=1066,
+  serialized_end=1296,
 )
 
 
@@ -739,8 +679,8 @@ _NLRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1337,
-  serialized_end=1361,
+  serialized_start=1298,
+  serialized_end=1322,
 )
 
 
@@ -777,8 +717,8 @@ _NLTEXT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1363,
-  serialized_end=1399,
+  serialized_start=1324,
+  serialized_end=1360,
 )
 
 
@@ -850,8 +790,8 @@ _NLWORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1401,
-  serialized_end=1517,
+  serialized_start=1362,
+  serialized_end=1478,
 )
 
 
@@ -881,8 +821,8 @@ _NLPARSEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1519,
-  serialized_end=1549,
+  serialized_start=1480,
+  serialized_end=1510,
 )
 
 
@@ -920,8 +860,8 @@ _NLPINYINREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1552,
-  serialized_end=1722,
+  serialized_start=1513,
+  serialized_end=1683,
 )
 
 
@@ -951,8 +891,8 @@ _NLSENTENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1724,
-  serialized_end=1768,
+  serialized_start=1685,
+  serialized_end=1729,
 )
 
 
@@ -982,8 +922,8 @@ _NLSENTENCES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1770,
-  serialized_end=1823,
+  serialized_start=1731,
+  serialized_end=1784,
 )
 
 
@@ -1027,8 +967,8 @@ _NLDOCUMENTSIMILARITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1825,
-  serialized_end=1904,
+  serialized_start=1786,
+  serialized_end=1865,
 )
 
 
@@ -1058,8 +998,8 @@ _NLDOCUMENTSIMILARITYSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1906,
-  serialized_end=1976,
+  serialized_start=1867,
+  serialized_end=1937,
 )
 
 
@@ -1089,8 +1029,8 @@ _NLDOCUMENTSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1978,
-  serialized_end=2011,
+  serialized_start=1939,
+  serialized_end=1972,
 )
 
 _NLCABOCHACHUNK.fields_by_name['tokens'].message_type = _NLCABOCHATOKEN
@@ -1106,8 +1046,6 @@ _NLPINYINREQUEST_PINYINPRESENTATION.containing_type = _NLPINYINREQUEST
 _NLSENTENCE.fields_by_name['words'].message_type = _NLWORD
 _NLSENTENCES.fields_by_name['sentences'].message_type = _NLSENTENCE
 _NLDOCUMENTSIMILARITYSET.fields_by_name['docs'].message_type = _NLDOCUMENTSIMILARITY
-DESCRIPTOR.message_types_by_name['PingRequest'] = _PINGREQUEST
-DESCRIPTOR.message_types_by_name['PingReply'] = _PINGREPLY
 DESCRIPTOR.message_types_by_name['NlCabochaToken'] = _NLCABOCHATOKEN
 DESCRIPTOR.message_types_by_name['NlCabochaChunk'] = _NLCABOCHACHUNK
 DESCRIPTOR.message_types_by_name['NlCabochaChunks'] = _NLCABOCHACHUNKS
@@ -1130,20 +1068,6 @@ DESCRIPTOR.message_types_by_name['NlDocumentSimilarity'] = _NLDOCUMENTSIMILARITY
 DESCRIPTOR.message_types_by_name['NlDocumentSimilaritySet'] = _NLDOCUMENTSIMILARITYSET
 DESCRIPTOR.message_types_by_name['NlDocumentSet'] = _NLDOCUMENTSET
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-PingRequest = _reflection.GeneratedProtocolMessageType('PingRequest', (_message.Message,), dict(
-  DESCRIPTOR = _PINGREQUEST,
-  __module__ = 'nlpserv_pb2'
-  # @@protoc_insertion_point(class_scope:nlpserv.PingRequest)
-  ))
-_sym_db.RegisterMessage(PingRequest)
-
-PingReply = _reflection.GeneratedProtocolMessageType('PingReply', (_message.Message,), dict(
-  DESCRIPTOR = _PINGREPLY,
-  __module__ = 'nlpserv_pb2'
-  # @@protoc_insertion_point(class_scope:nlpserv.PingReply)
-  ))
-_sym_db.RegisterMessage(PingReply)
 
 NlCabochaToken = _reflection.GeneratedProtocolMessageType('NlCabochaToken', (_message.Message,), dict(
   DESCRIPTOR = _NLCABOCHATOKEN,
@@ -1301,16 +1225,16 @@ _NLPPROCS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2014,
-  serialized_end=2534,
+  serialized_start=1975,
+  serialized_end=2493,
   methods=[
   _descriptor.MethodDescriptor(
     name='Ping',
     full_name='nlpserv.NlpProcs.Ping',
     index=0,
     containing_service=None,
-    input_type=_PINGREQUEST,
-    output_type=_PINGREPLY,
+    input_type=common__types__pb2._PINGREQUEST,
+    output_type=common__types__pb2._PINGREPLY,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
@@ -1388,8 +1312,8 @@ _CABOCHANLPPROCS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=2536,
-  serialized_end=2611,
+  serialized_start=2495,
+  serialized_end=2570,
   methods=[
   _descriptor.MethodDescriptor(
     name='Tokenizer',
