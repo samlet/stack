@@ -1,8 +1,13 @@
 import odoorpc
+import logging
 
-class OdooFacade(object):
-    def __init__(self):
-        self.odoo = odoorpc.ODOO('localhost', port=8069)
+logger = logging.getLogger(__name__)
 
-facade=OdooFacade()
+odoo = odoorpc.ODOO('localhost', port=8069)
+logger.info(odoo.db.list())
+
+def login(db="sagas_odoo", username="samlet@sagas.ai", password="samlet"):
+    odoo.login(db, username, password)
+    user = odoo.env.user
+    return user
 
