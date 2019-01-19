@@ -1,0 +1,106 @@
+# model definitions
+name: planet
+models:
+  base_model:
+    name: Base model
+    abstract: true
+    fields:
+      created:
+        type: string
+        doc: Record created date.
+        input: false
+      edited:
+        type: string
+        doc: Record last updated date.
+        input: false
+
+  planet:
+    name: Planet
+    extends: base_model
+    fields:
+      id:
+        type: integer
+        primary: true
+        doc: Id of the planet
+        input: false
+      name:
+        type: string
+        doc: Name of the planet.
+      rotation_period:
+        type: string
+        doc: Rotation period of the planet.
+      orbital_period:
+        type: string
+        doc: Orbital period of the planet.
+      diameter:
+        type: string
+        doc: Diameter of the planet.
+      climate:
+        type: string
+        doc: Climate period of the planet.
+      gravity:
+        type: string
+        doc: Gravity of the planet.
+      terrain:
+        type: string
+        doc: Terrain of the planet.
+      surface_water:
+        type: string
+        doc: Surface water of the planet.
+      population:
+        type: string
+        doc: Population of the planet.
+      url:
+        type: string
+        doc: URL of the planet in the Star Wars API.
+      people_list:
+        type: relation
+        model: people
+        backref: planet
+
+  people:
+    name: People
+    extends: base_model
+    fields:
+      id:
+        type: integer
+        primary: true
+        doc: Id of the person.
+        input: false
+      name:
+        type: string
+        doc: Name of the person.
+      height:
+        type: string
+        doc: Height of the person.
+      mass:
+        type: string
+        doc: Mass of the person.
+      hair_color:
+        type: string
+        doc: Hair color of the person
+      skin_color:
+        type: string
+        doc: Skin color of the person.
+      eye_color:
+        type: string
+        doc: Eye color of the person.
+      birth_year:
+        type: string
+        doc: Birth year of the person
+      gender:
+        type: string
+        doc: Gender of the person.
+      planet_id:
+        type: integer
+        foreign_key: planet.id
+        doc: Id of the planet from which the person comes from.
+      url:
+        type: string
+        doc: URL of the person in the Star Wars API.
+
+database:
+  name: local cockroachdb
+  connect_args: {'sslmode': 'disable'}
+  url: cockroachdb://maxroach@localhost:26257/planet
+
