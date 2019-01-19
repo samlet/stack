@@ -11,8 +11,6 @@ def abbrev(data, l=15):
     return info
 
 def model_info():
-    login()
-
     # models = odoo.execute('ir.model', 'browse', [])
     # print(models)
     table_header = ['model','name', 'count']
@@ -32,8 +30,6 @@ def model_info():
     print(tabulate(table_data, headers=table_header, tablefmt='psql'))    
 
 def desc_model(model):
-    login()
-
     table_header = ['name','type', 'string']
     table_data = []
 
@@ -66,10 +62,12 @@ class OdooInfo(object):
         super(OdooInfo, self).__init__()
 
     def show_models(self):
+        login()
         model_info()
 
     ## odoo_info "res.country"
     def desc_model(self, model):
+        login()
         desc_model(model)
 
 if __name__ == '__main__':
