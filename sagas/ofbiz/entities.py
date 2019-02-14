@@ -1,5 +1,9 @@
+import datetime
+
 from sagas.ofbiz.runtime_context import platform
 import pandas as pd
+import pyarrow as pa
+import json
 
 oc=platform.oc
 finder=platform.finder
@@ -48,7 +52,9 @@ class OfEntity(object):
             elif self.operator == 'relations':
                 return create_relation_data_frame(method)
             else:
-                raise ValueError("Cannot support operator "+self.operator)
+                # raise ValueError("Cannot support operator "+self.operator)
+                # the others will process in entity_method
+                pass
 
         def entity_method(*args, **kwargs):
             """Return the result of the service request."""
@@ -63,27 +69,46 @@ class OfEntity(object):
                 entity = method[5:]
                 val = oc.delegator.makeValue(entity, params)
                 result = oc.delegator.createOrStore(val)
-            elif method.startswith('remove'):
+            elif method.startswith('delete'):
                 entity = method[6:]
                 pk = oc.delegator.makePK(entity, params)
                 result = oc.delegator.removeByPrimaryKey(pk)
+            elif method.startswith('remove'):
+                entity = method[6:]
+                result = oc.delegator.removeByAnd(entity, params)
             elif method.startswith('get'):
                 entity = method[3:]
                 result = oc.delegator.findOne(entity, params, True)
             elif method.startswith('query'):
                 entity = method[5:]
                 result = oc.delegator.findByAnd(entity, params, None, True)
+                if self.operator=='df':
+                    result=record_list_df(entity, result)
             elif method.startswith('list'):
                 entity = method[4:]
                 limit = 10
                 offset = 0
+                if '_limit' in kwargs:
+                    limit=kwargs['_limit']
+                if '_offset' in kwargs:
+                    offset=kwargs['_offset']
                 result = finder.find_list(entity, limit, offset)
+                if self.operator=='df':
+                    result=record_list_df(entity, result)
+                elif self.operator=='json':
+                    result = oc.j.ValueHelper.valueListToJson(result)
             elif method.startswith('all'):
                 entity = method[3:]
                 result = oc.delegator.findAll(entity, False)
+                if self.operator=='df':
+                    result=record_list_df(entity, result)
             elif method.startswith('ref'):
                 entity = method[3:]
                 result = MetaEntity(entity).record(args[0])
+                if self.operator == 'json':
+                    result = oc.j.ValueHelper.entityToJson(result, oc.jmap())
+                elif self.operator=='table':
+                    format(result)
                 if result is None:
                     raise ValueError("Cannot find record "+args[0])
             return result
@@ -92,6 +117,10 @@ class OfEntity(object):
 
     def __repr__(cls):
         return "OfEntity(%r)" % (cls._name)
+
+    @classmethod
+    def remove(cls, value):
+        oc.delegator.removeByPrimaryKey(value.getPrimaryKey())
 
 
 class MetaEntity(object):
@@ -173,3 +202,51 @@ def format(rec, show_null=True):
         else:
             table_data.append((k, v))
     print(tabulate(table_data, headers=table_header, tablefmt='psql'))
+
+def default_thru():
+    from datetime import date
+    import time
+    from datetime import timedelta
+
+    year = timedelta(days=365)
+    hundred_years = 100 * year
+    default_thru = date.today() + hundred_years
+    return default_thru
+
+def record_list_df(ent_name, records, drop_null_cols=True):
+    ent = MetaEntity(ent_name)
+    field_names = ent.field_names
+    data = []
+    skip_fields = ['lastModifiedDate']
+    pnames = []
+    for fld in field_names:
+        if fld not in skip_fields:
+            pnames.append(fld)
+
+            field_arr = []
+            model_fld = ent.model.getField(fld)
+            fld_type = model_fld.getType()
+            # print('- ', fld, fld_type)
+            for rec in records:
+                val = rec[fld]
+                if val is None:
+                    if fld == 'thruDate':
+                        val = default_thru()
+                elif fld_type == 'date-time':
+                    time_ms = rec[fld].getTime()
+                    val = datetime.datetime.fromtimestamp(time_ms / 1000)
+                elif fld_type in ('fixed-point', 'currency-amount', 'currency-precise'):
+                    val=float(val)
+
+                field_arr.append(val)
+            data.append(pa.array(field_arr))
+
+    batch = pa.RecordBatch.from_arrays(data, pnames)
+    batches = [batch]
+    table = pa.Table.from_batches(batches)
+    if drop_null_cols:
+        return table.to_pandas().dropna(axis=1,how='all')
+    else:
+        return table.to_pandas()
+
+

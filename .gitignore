@@ -4,4 +4,5 @@ __pycache__
 model_temp/
 .ipynb_checkpoints/
 test_models/
+out/
 

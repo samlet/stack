@@ -1,3 +1,4 @@
+import errno
 import os
 import io
 
@@ -33,6 +34,7 @@ def list_directory(path):
     If the path points to a file, returns the file. This is a recursive
     implementation returning files in any depth of the path."""
 
+    import six
     if not isinstance(path, six.string_types):
         raise ValueError("Resourcename must be a string type")
 
@@ -65,6 +67,7 @@ def list_subdirectories(path):
 
     If the path points to a file, returns an empty list."""
 
+    import glob
     return [fn
             for fn in glob.glob(os.path.join(path, '*'))
             if os.path.isdir(fn)]

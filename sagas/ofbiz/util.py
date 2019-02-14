@@ -60,3 +60,24 @@ class QueryHelper(object):
         setattr(output, "last_updated_stamp", val['lastUpdatedStamp'])
         return output
 
+
+def print_table(obj, *args):
+    """
+    Usage:
+        from sagas.ofbiz.util import print_table
+        model=s('model').createProductReview
+        print_table(model, 'location')
+
+    :param obj:
+    :param args:
+    :return:
+    """
+    from py4j.java_gateway import get_field
+    from tabulate import tabulate
+
+    table_header = ['name', 'value']
+    table_data = []
+    for arg in args:
+         table_data.append((arg, get_field(obj, arg)))
+    print(tabulate(table_data, headers=table_header, tablefmt='psql'))
+

@@ -1,5 +1,9 @@
 from py4j.java_gateway import JavaGateway, JavaObject
-from py4j.java_gateway import java_import
+from py4j.java_gateway import java_import, get_field
+from sagas.hybrid.srv_client import SrvClient
+import asyncio
+
+loop = asyncio.get_event_loop()
 
 class OfbizConnector(object):
     def __init__(self):
@@ -9,11 +13,36 @@ class OfbizConnector(object):
         self.ctx= self.dispatcher.getDispatchContext()
 
         self.j = self.gateway.new_jvm_view()
+        self.srv_rpc=None
         java_import(self.j, 'java.util.*')
         java_import(self.j, 'org.apache.ofbiz.base.util.*')
+        java_import(self.j, 'com.sagas.generic.*')
 
     def import_package(self, pkg):
         java_import(self.j, pkg)
+
+    def component(self, name):
+        """
+        Get a component: oc.component('entity_event_hub')
+        :param name:
+        :return:
+        """
+        return self.gateway.entry_point.getComponent(name)
+
+    async def srv_connector(self):
+        if self.srv_rpc is None:
+            self.srv_rpc = await SrvClient(loop).connect()
+        return self.srv_rpc
+
+    def get(self, obj, attr):
+        return get_field(obj, attr)
+    def string_array(self, count, second_index=0):
+        if second_index!=0:
+            return self.gateway.new_array(self.gateway.jvm.java.lang.String,count, second_index)
+        return self.gateway.new_array(self.gateway.jvm.java.lang.String, count)
+    def int_array(self, count):
+        int_class = self.gateway.jvm.int
+        return self.gateway.new_array(int_class,count)
 
     def all(self, entity) -> JavaObject:
         return self.delegator.findAll(entity, False)
@@ -38,6 +67,11 @@ class OfbizConnector(object):
         for e in args:
             m.append(e)
         return m
+    def jset(self, *args):
+        s = self.j.HashSet()
+        for e in args:
+            s.add(e)
+        return s
 
     def all_service_names(self):
         names = self.ctx.getAllServiceNames()

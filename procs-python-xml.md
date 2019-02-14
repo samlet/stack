@@ -1,6 +1,8 @@
 # procs-python-xml.md
 ⊕ [20.5. xml.etree.ElementTree — The ElementTree XML API — Python 3.6.8 documentation](https://docs.python.org/3.6/library/xml.etree.elementtree.html)
+⊕ [Python XML with ElementTree (article) - DataCamp](https://www.datacamp.com/community/tutorials/python-xml-elementtree)
 
+## start
 We’ll be using the following XML document as the sample data for this section:
 
 ```xml

@@ -10,3 +10,13 @@ $ cockroach sql --execute="SHOW DATABASES;" --insecure
 $ ./module_generator.py regen-models model_planet.yaml
 ```
 
+## pycharm (fail)
+with url: cockroachdb://maxroach@localhost:26257/planet
+    database: planet
+    user: maxroach
+    port: 26257
+
+- issue: 
+    Error encountered when performing Introspect database planet: ERROR: column "xmin" does not exist.
+
+    

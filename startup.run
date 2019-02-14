@@ -45,6 +45,33 @@ else
 	"show")
 		python -m sagas.crmsfa.odoo_info desc-model ${@:2}
 		;;
+	"movies")
+		python -m sagas.ofbiz.movies_api
+		;;
+	"eecas")
+		kafka-console-consumer --bootstrap-server $HOST_IP:9092 --topic measure.entities
+		;;
+	"secas")
+		python -m sagas.ofbiz.tools service_logs
+		;;
+	"ping")
+		python -m sagas.ofbiz.tools ping
+		;;
+	"users")
+		python -m sagas.ofbiz.tools users
+		;;
+	"minilang_clip")
+		python -m sagas.ofbiz.tools convert_minilang_from_clip
+		;;
+	"s-basic")
+	    python -m sagas.ofbiz.rpc_basic
+	    ;;
+	"srv")
+		python -m sagas.hybrid.hybrid_srv
+		;;
+	"routines")
+		python -m sagas.ofbiz.routines
+		;;
 	*)
 		# default proc
 		handle_cmd ${@:1}
