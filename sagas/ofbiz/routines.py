@@ -40,6 +40,9 @@ async def entites(*, entity, start, limit):
     except Py4JError as e:
         return error_routine(e)
 
+async def echo(*, value, message):
+    return json.dumps(dict(_result=0, value=value, message=message))
+
 async def routines():
     connection = await connect_robust(
         "amqp://guest:guest@127.0.0.1/"
@@ -52,6 +55,7 @@ async def routines():
     await rpc.register('multiply', multiply, auto_delete=True)
     await rpc.register('notes', notes, auto_delete=True)
     await rpc.register('entities', entites, auto_delete=True)
+    await rpc.register('echo', echo, auto_delete=True)
 
     return connection
 

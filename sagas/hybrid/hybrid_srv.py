@@ -164,6 +164,22 @@ class HybridServ(object):
         # return await self.send_text(request, result)
         return web.Response(text=result, status=200, content_type='application/json')
 
+    async def rpc(self, request):
+        """
+        POST - http://localhost:8099/rpc/echo
+        body(json) - {"value": 5.5, "message": "hello world"}
+        :param request:
+        :return:
+        """
+        await self.check_connect()
+
+        req=await request.json()
+        info = request.match_info.get('info', '')
+        print(info, '-', req)
+        result=await self.rpc.call(info, kwargs=req)
+
+        return web.Response(text=result, status=200, content_type='application/json')
+
     def init(self, loop):
         self.connected=False
         self.loop=loop
@@ -177,6 +193,7 @@ class HybridServ(object):
         app.router.add_get('/multiply/{count}', self.multiply)
         app.router.add_post('/post/{info}', self.post)
         app.router.add_post('/srv/{info}', self.srv)
+        app.router.add_post('/rpc/{info}', self.rpc)
         app.router.add_get('/list_notes/{start}/{limit}', self.list_notes)
         app.router.add_get('/list_entities/{entity}', self.list_entities)
 

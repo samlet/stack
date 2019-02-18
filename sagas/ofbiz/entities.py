@@ -164,15 +164,23 @@ def search_entity(name_filter):
         if name_filter in name.lower():
             print(name)
 
-def create_data_frame(ent_name):
+def all_entities():
+    model_reader=oc.delegator.getModelReader()
+    names=model_reader.getEntityNames()
+    return names
+
+def create_data_frame(ent_name, show_internal=True):
     ent=MetaEntity(ent_name)
     model_desc={'name':[str(fld.getName()) for fld in ent.model.getFieldsIterator()],
                 'type':[str(fld.getType()) for fld in ent.model.getFieldsIterator()],
-                'primary': ['*' if fld.getIsPk() else ' '  for fld in ent.model.getFieldsIterator()]
+                'primary': ['*' if fld.getIsPk() else ' '  for fld in ent.model.getFieldsIterator()],
+                'internal': ['*' if fld.getIsAutoCreatedInternal() else ' ' for fld in ent.model.getFieldsIterator()]
                }
     df = pd.DataFrame(model_desc)
     df['field type']=df['type'].astype('category')
     # df.sort_values(by='field type')
+    if not show_internal:
+        df=df[df['internal']!='*']
     return df
 
 def create_relation_data_frame(ent_name):
