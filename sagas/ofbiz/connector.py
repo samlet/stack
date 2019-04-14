@@ -1,4 +1,4 @@
-from py4j.java_gateway import JavaGateway, JavaObject
+from py4j.java_gateway import JavaGateway, JavaObject, GatewayParameters
 from py4j.java_gateway import java_import, get_field
 from sagas.hybrid.srv_client import SrvClient
 import asyncio
@@ -6,8 +6,10 @@ import asyncio
 loop = asyncio.get_event_loop()
 
 class OfbizConnector(object):
-    def __init__(self):
-        self.gateway = JavaGateway()  # connect to the JVM
+    def __init__(self, host="localhost", port=22333, callback_port=22334):
+        # self.gateway = JavaGateway()  # connect to the JVM
+        self.gateway = JavaGateway(python_proxy_port=callback_port,
+                                   gateway_parameters=GatewayParameters(address=host, port=port))
         self.delegator = self.gateway.entry_point.getDelegator()
         self.dispatcher=self.gateway.entry_point.getDispatcher()
         self.ctx= self.dispatcher.getDispatchContext()

@@ -3,6 +3,7 @@ from aiohttp import web
 
 from sagas.hybrid.hybrid_srv import HybridServ
 from sagas.ofbiz.routines import routines
+# import sagas.ofbiz.rpc_artifacts as artifacts
 import logging
 import sys
 
@@ -15,6 +16,9 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     connection = loop.run_until_complete(routines())
     print(".. routines serve.")
+
+    # start artifacts servant
+    # artifacts.serve(False)
 
     # start http-gateway * 这个服务将与rabbitmq服务一起部署在cloud-vm上, 作为网关
     # 这个服务不应该直接访问backend-cluster中运行的ofbiz/bots/hyperledger等服务

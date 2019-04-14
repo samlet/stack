@@ -81,3 +81,27 @@ def print_table(obj, *args):
          table_data.append((arg, get_field(obj, arg)))
     print(tabulate(table_data, headers=table_header, tablefmt='psql'))
 
+
+def norm_loc(loc):
+    pkg_prefixes = ['ofbiz-framework/applications',
+                    'ofbiz-framework/framework',
+                    'ofbiz-framework/plugins']
+    for pkg_prefix in pkg_prefixes:
+        idx = loc.find(pkg_prefix)
+        if idx != -1:
+            return loc[idx + len(pkg_prefix) + 1:].replace('servicedef/', '').replace('widget/', '').replace('.xml', '').replace('/',
+                                                                                                          '_').lower()
+    raise ValueError('Cannot normalize the location ' + loc)
+
+
+def component_loc(loc):
+    prefix="component://"
+    pkg_prefixes = ['ofbiz-framework/applications',
+                    'ofbiz-framework/framework',
+                    'ofbiz-framework/plugins']
+    for pkg_prefix in pkg_prefixes:
+        idx = loc.find(pkg_prefix)
+        if idx != -1:
+            return prefix+loc[idx + len(pkg_prefix) + 1:]
+    raise ValueError('Cannot normalize the location ' + loc)
+

@@ -51,6 +51,8 @@ class OfEntity(object):
                 return create_data_frame(method)
             elif self.operator == 'relations':
                 return create_relation_data_frame(method)
+            elif self.operator=='model':
+                return oc.delegator.getModelEntity(method)
             else:
                 # raise ValueError("Cannot support operator "+self.operator)
                 # the others will process in entity_method
@@ -148,7 +150,7 @@ class MetaEntity(object):
         pk = self.model.getOnlyPk()
         ctx = oc.j.HashMap()
         ctx.put(pk.getName(), id_val)
-        return oc.delegator.findOne(self.name, ctx, True)
+        return oc.delegator.findOne(self.name, ctx, False)
 
     def desc(self, include_auto_fields=True):
         from sagas.ofbiz.builder import desc_model
@@ -183,12 +185,19 @@ def create_data_frame(ent_name, show_internal=True):
         df=df[df['internal']!='*']
     return df
 
+def repr_keymaps(keymaps):
+    fields=[]
+    for k in keymaps:
+        fields.append(k.getFieldName()+'►'+k.getRelFieldName())
+    return ", ".join(fields)
+
 def create_relation_data_frame(ent_name):
     ent=MetaEntity(ent_name)
     rels=ent.model.getRelationsList(True, True, True)
     model_desc={'entity name':[str(fld.getRelEntityName()) for fld in rels],
                 'type':[str(fld.getType()) for fld in rels],
-                'relation':[rel.getTitle()+rel.getRelEntityName() for rel in rels]
+                'relation':[rel.getTitle()+rel.getRelEntityName() for rel in rels],
+                'mapping':[repr_keymaps(rel.getKeyMaps()) for rel in rels]
                }
     df = pd.DataFrame(model_desc)
     df['relation type']=df['type'].astype('category')
@@ -221,18 +230,20 @@ def default_thru():
     default_thru = date.today() + hundred_years
     return default_thru
 
-def record_list_df(ent_name, records, drop_null_cols=True):
+def record_list_df(ent_name, records, drop_null_cols=True, contains_internal=True):
     ent = MetaEntity(ent_name)
     field_names = ent.field_names
     data = []
     skip_fields = ['lastModifiedDate']
     pnames = []
     for fld in field_names:
-        if fld not in skip_fields:
+        model_fld = ent.model.getField(fld)
+        if not contains_internal and model_fld.getIsAutoCreatedInternal():
+            pass
+        elif fld not in skip_fields:
             pnames.append(fld)
 
             field_arr = []
-            model_fld = ent.model.getField(fld)
             fld_type = model_fld.getType()
             # print('- ', fld, fld_type)
             for rec in records:
@@ -258,3 +269,8 @@ def record_list_df(ent_name, records, drop_null_cols=True):
         return table.to_pandas()
 
 
+def get_package_entities(pkg):
+    model_reader = oc.delegator.getModelReader()
+    tree_map = model_reader.getEntitiesByPackage(None, None)
+    entries = tree_map[pkg]
+    return entries

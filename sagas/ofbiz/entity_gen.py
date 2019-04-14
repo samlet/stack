@@ -1,5 +1,5 @@
 from sagas.ofbiz.services import OfService as s, oc, track
-from sagas.ofbiz.entities import OfEntity as e
+from sagas.ofbiz.entities import OfEntity as e, get_package_entities
 from sagas.ofbiz.date_time import DateTime
 from sagas.util.str_converters import to_camel_case, to_snake_case
 
@@ -120,6 +120,7 @@ field_setter_mappings={"string":field_def,
                      "bytes":bytes_def
                     }
 
+
 def fix_field_name(field_name):
     if field_name=="toString":
         return "toStr"
@@ -145,17 +146,36 @@ def gen_bloc_jsonifier(lines, entity_name):
     lines.append('  }\n')
 
 
+## +add map support, at 2019.2.25
+entity_map_header='''  static {entity} overrides{entity}(Map<String, dynamic> map) {{
+    return {entity}('''
+field_map_def='''        {fix_name}: map['{name}'],'''
+default_map_fields='''        lastUpdatedStamp: map['lastUpdatedStamp'],
+        createdStamp: map['createdStamp']);'''
+id_map_field='''        entityId: create_id_from('{entity}', [{id_list}], map),'''
+
+def gen_map_overrides(lines, entity_name):
+    ent = oc.delegator.getModelEntity(entity_name)
+    lines.append(entity_map_header.format(entity=entity_name))
+    # id field setter
+    lines.append(id_map_field.format(entity=entity_name, id_list=get_id_list(entity_name)))
+    names = ent.getAllFieldNames()
+    for field_name in names:
+        fld = ent.getField(field_name)
+        if not fld.getIsAutoCreatedInternal():
+            # print()
+            lines.append(field_map_def.format(name=field_name,
+                                       fix_name=fix_field_name(field_name)
+                                       ))
+    # default fields setters
+    lines.append(default_map_fields)
+    lines.append('  }\n')
+
 def norm_package(pkg):
     if pkg.startswith('com.'):
         return pkg[4:].replace('.','_')
     else:
         return pkg.replace('org.apache.ofbiz.', '').replace('org.ofbiz.','').replace('.','_')
-
-def get_package_entities(pkg):
-    model_reader = oc.delegator.getModelReader()
-    tree_map = model_reader.getEntitiesByPackage(None, None)
-    entries = tree_map[pkg]
-    return entries
 
 class EntityGenerator(object):
     def gen_samples(self):
@@ -180,6 +200,7 @@ class EntityGenerator(object):
         entities = ['Testing', 'TestingType', 'TestFieldType', 'Person']
         for entity in entities:
             gen_bloc_jsonifier(lines, entity)
+            gen_map_overrides(lines, entity)
 
         # end package
         lines.append('}')
@@ -234,6 +255,7 @@ class EntityGenerator(object):
             for entity_name in entities:
                 print('.. generate', entity_name)
                 gen_bloc_jsonifier(lines, entity_name)
+                gen_map_overrides(lines, entity_name)
 
             lines.append('}')
             cnt=("\n".join(lines))

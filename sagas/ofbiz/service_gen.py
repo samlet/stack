@@ -4,6 +4,7 @@ from sagas.ofbiz.entities import OfEntity as e, oc, finder, MetaEntity
 import sagas.ofbiz.entities as ee
 from sagas.util.str_converters import to_camel_case, to_snake_case
 from py4j.java_gateway import get_field
+from sagas.ofbiz.util import norm_loc
 
 known_in_types={'String':'String',
                 'java.sql.Date':'DateTime',
@@ -167,18 +168,6 @@ def gen_service_stub(lines, name):
                  .format(name=name, ent=invoke_ent,
                          invoke_pars=', '.join(invoke_pars)))
     # lines.append('\n')
-
-
-def norm_loc(loc):
-    pkg_prefixes = ['ofbiz-framework/applications',
-                    'ofbiz-framework/framework',
-                    'ofbiz-framework/plugins']
-    for pkg_prefix in pkg_prefixes:
-        idx = loc.find(pkg_prefix)
-        if idx != -1:
-            return loc[idx + len(pkg_prefix) + 1:].replace('servicedef/', '').replace('.xml', '').replace('/',
-                                                                                                          '_').lower()
-    raise ValueError('Cannot normalize the location ' + loc)
 
 def get_service_package(srv):
     serv_model = oc.service_model(srv)

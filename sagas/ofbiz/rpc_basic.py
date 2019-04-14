@@ -10,6 +10,7 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 class BasicService(hello_pb2_grpc.HelloServiceServicer):
     def SayHello(self, request, context):
+        print('get %s'%request)
         return hello_pb2.ResponseHello(response="world")
 
 def serve():

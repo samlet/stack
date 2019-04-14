@@ -10,6 +10,11 @@ oc.import_package('org.apache.ofbiz.base.util.UtilDateTime')
 class DateTime(object):
     @classmethod
     def now_timestamp(cls):
+        """
+        from sagas.ofbiz.date_time import DateTime
+        productionRunStartDate=DateTime.now_timestamp()
+        :return:
+        """
         return oc.j.UtilDateTime.nowTimestamp()
     @classmethod
     def date(cls, date_str):
