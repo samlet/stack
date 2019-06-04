@@ -16,7 +16,7 @@ class BasicService(hello_pb2_grpc.HelloServiceServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     hello_pb2_grpc.add_HelloServiceServicer_to_server(BasicService(), server)
-    port='0.0.0.0:50051'
+    port='0.0.0.0:5051'
     server.add_insecure_port(port)
     server.start()
     print(".. service started on", port)

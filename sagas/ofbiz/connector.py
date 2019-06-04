@@ -19,6 +19,7 @@ class OfbizConnector(object):
         java_import(self.j, 'java.util.*')
         java_import(self.j, 'org.apache.ofbiz.base.util.*')
         java_import(self.j, 'com.sagas.generic.*')
+        java_import(self.j, 'org.apache.ofbiz.entity.transaction.TransactionUtil')
 
     def import_package(self, pkg):
         java_import(self.j, pkg)
@@ -77,7 +78,7 @@ class OfbizConnector(object):
 
     def all_service_names(self):
         names = self.ctx.getAllServiceNames()
-        return names
+        return [str(v) for v in names]
 
     def service_model(self, service) -> JavaObject:
         s = self.ctx.getModelService(service)
@@ -103,3 +104,5 @@ class OfbizConnector(object):
         else:
             print('ok')
 
+    def has_entity(self, entity):
+        return self.delegator.getModelEntity(entity) is not None

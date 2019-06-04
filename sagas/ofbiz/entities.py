@@ -113,6 +113,9 @@ class OfEntity(object):
                     format(result)
                 if result is None:
                     raise ValueError("Cannot find record "+args[0])
+            elif method.startswith('count'):
+                entity = method[len('count'):]
+                result = MetaEntity(entity).count()
             return result
 
         return entity_method
@@ -127,12 +130,18 @@ class OfEntity(object):
 
 class MetaEntity(object):
     def __init__(self, name):
+        from sagas.ofbiz.entity_global_ref import EntityGlobalRef
         self.name = name
         self.model = oc.delegator.getModelEntity(self.name)
+        if self.model is not None:
+            self.rels = self.model.getRelationsList(True, True, True)
+            self.global_ref=EntityGlobalRef(name)
+        else:
+            raise ValueError("Cannot find entity model {}".format(name))
 
     @property
     def primary(self):
-        return self.model.getPkFieldNames()
+        return [str(v) for v in self.model.getPkFieldNames()]
 
     @property
     def field_names(self):
@@ -143,19 +152,75 @@ class MetaEntity(object):
         params = oc.jmap(**kwargs)
         return oc.delegator.findOne(self.name, params, True)
 
+    def to_json(self, val, filter=False, contains_gid=False):
+        """
+        Usage::
+
+            import sagas.ofbiz.entities as ee
+            ent=ee.entity('Product')
+            val=ent.record('GZ-2002')
+            print(ent.to_json(val,True))
+
+        :param val:
+        :param filter:
+        :return:
+        """
+        import sagas.graph.value_filter as vf
+        ret= oc.j.ValueHelper.entityToJson(val, oc.jmap())
+        jval=json.loads(ret)
+        if filter:
+            jval=vf.filter_json_val(self.model, jval)
+        if contains_gid:
+            gid=self.global_ref.get_gid(val)
+            jval['gid']=gid
+            jval['uid']="_:"+gid
+            jval['mo_type']=self.name
+        return jval
+
     def find_list(self, limit=10, offset=0):
         return finder.find_list(self.name, limit, offset)
 
-    def record(self, id_val):
+    def all(self):
+        return oc.delegator.findAll(self.name, False)
+
+    def count(self):
+        total = oc.delegator.findCountByCondition(self.name, None, None, None)
+        return(total)
+
+    def record(self, id_val, to_json=False):
         pk = self.model.getOnlyPk()
         ctx = oc.j.HashMap()
         ctx.put(pk.getName(), id_val)
-        return oc.delegator.findOne(self.name, ctx, False)
+        val= oc.delegator.findOne(self.name, ctx, False)
+        if to_json:
+            return self.to_json(val)
+        else:
+            return val
 
     def desc(self, include_auto_fields=True):
         from sagas.ofbiz.builder import desc_model
         desc_model(self.name, include_auto_fields)
 
+    def get_rel_ent_names(self, only_get_entity_name=False):
+        if only_get_entity_name:
+            rel_ents = set([str(rel.getRelEntityName()) for rel in self.rels])
+        else:
+            # relation_name = rel.getTitle() + rel.getRelEntityName()
+            rel_ents = set([str(rel.getTitle() + rel.getRelEntityName()) for rel in self.rels])
+        return rel_ents
+
+
+def to_json(val, filter=False):
+    import sagas.graph.value_filter as vf
+    ret = oc.j.ValueHelper.entityToJson(val, oc.jmap())
+    jval = json.loads(ret)
+    model = oc.delegator.getModelEntity(val.getEntityName())
+    if filter:
+        return vf.filter_json_val(model, jval)
+    return jval
+
+def entity(entity_name):
+    return MetaEntity(entity_name)
 
 def search_entity(name_filter):
     name_filter=name_filter.lower()
@@ -166,10 +231,19 @@ def search_entity(name_filter):
         if name_filter in name.lower():
             print(name)
 
-def all_entities():
+def all_entities(include_view=True):
     model_reader=oc.delegator.getModelReader()
     names=model_reader.getEntityNames()
-    return names
+    # return names
+    if include_view:
+        return [str(v) for v in names]
+    else:
+        rs=[]
+        for name in names:
+            model=model_reader.getModelEntity(name)
+            if not oc.j.Utils.isViewEntity(model):
+                rs.append(name)
+        return rs
 
 def create_data_frame(ent_name, show_internal=True):
     ent=MetaEntity(ent_name)

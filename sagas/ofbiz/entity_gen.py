@@ -19,7 +19,13 @@ gl_mappings = {"string": "String",
                "time": "DateTime",
                "bytes": "Uint8List"
                }
-
+dgraph_mappings = {"string": "string",
+               "float": "float",
+               "int": "int",
+               "date": "datetime",
+               "time": "datetime",
+               "bytes": "string"
+               }
 
 def get_mapping_type(field_type):
     for k, v in type_mappings.items():
@@ -32,6 +38,9 @@ def get_dart_type(field_type):
     mt = get_mapping_type(field_type)
     return gl_mappings[mt]
 
+def get_dgraph_type(field_type):
+    mt = get_mapping_type(field_type)
+    return dgraph_mappings[mt]
 
 package_header='''import 'dart:typed_data';
 import 'package:meta/meta.dart';

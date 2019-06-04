@@ -57,7 +57,7 @@ class ResourceIndexer(object):
             self.idx = open_dir(self.out_dir)
 
         searcher = self.idx.searcher()
-        parser = QueryParser("zh", schema=self.idx.schema)
+        parser = QueryParser(lang, schema=self.idx.schema)
 
         q = parser.parse(keyword)
         results = searcher.search(q)

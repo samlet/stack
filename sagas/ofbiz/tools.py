@@ -66,6 +66,10 @@ class OfTools(object):
 
     def entity_model(self, entity_name):
         from sagas.ofbiz.entities import OfEntity as e, oc, create_data_frame, create_relation_data_frame
+        if not oc.has_entity(entity_name):
+            print("Not found entity", entity_name)
+            return
+
         df=create_data_frame(entity_name)
         print(df)
         print("---- ✁ relations")
@@ -77,9 +81,15 @@ class OfTools(object):
         delete_table(entity_name)
         print('done.')
 
-    def entity_data(self, entity_name):
+    def entity_data(self, entity_name, limit=10):
+        """
+        $ tool entity-data DataResourceType 1000
+        :param entity_name:
+        :param limit:
+        :return:
+        """
         from sagas.ofbiz.entities import OfEntity as e, finder, record_list_df
-        limit = 10
+        # limit = 10
         offset = 0
         result = finder.find_list(entity_name, limit, offset)
         result = record_list_df(entity_name, result, drop_null_cols=True, contains_internal=False)

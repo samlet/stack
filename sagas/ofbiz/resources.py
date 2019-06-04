@@ -4,6 +4,26 @@ import io_utils
 import xml.etree.ElementTree as ET
 from resources_pb2 import RsResource, RsProperty, RsIndex, RsLookups, RsStrings
 
+'''
+Usage:
+import sagas.ofbiz.resources as rs
+rd=rs.ResourceDigester()
+rd.lookup('产品')
+'''
+
+def property_json(prop_key, prop):
+    rs={'key':prop_key}
+    for key in prop.values.keys():
+        if key not in ['zh-TW']:
+            parts=key.split('-')
+            rs['value@'+parts[0]]=prop.values[key]
+    return rs
+
+def properties_json(props):
+    rs=[]
+    for k,v in props.items():
+        rs.append(property_json(k,v))
+    return rs
 
 class ResourceDigester(object):
     def __init__(self, verbose=True):
@@ -138,6 +158,7 @@ class ResourceDigester(object):
         $ python -m sagas.ofbiz.resources lookup '产品'
         $ lookup Product en
         $ lookup CommonStatus key
+        $ lookup EmplLeaveReasonType.description.CASUAL key
         :param word:
         :return:
         """
@@ -159,6 +180,10 @@ class ResourceDigester(object):
             else:
                 print('the word %s is not exists in resources'%word)
 
+    def get_all_properties(self):
+        resource, _ = read_resource()
+        return resource.properties
+
     def stats(self):
         from tabulate import tabulate
 
@@ -169,6 +194,28 @@ class ResourceDigester(object):
             lang_items = rs_lookups.indexTable[index]
             table_data.append((index, len(lang_items.indexes)))
         print(tabulate(table_data, headers=table_header, tablefmt='psql'))
+
+    def label_json(self, label):
+        """
+        $ python -m sagas.ofbiz.resources label_json 'CommonStatus'
+        :param label:
+        :return:
+        """
+        import json
+        props = self.get_all_properties()
+        jval = json.dumps(property_json(label, props[label]),
+                          indent=2, ensure_ascii=False)
+        print(jval)
+
+    def create_resources_data(self):
+        """
+        $ python -m sagas.ofbiz.resources create_resources_data
+        :return:
+        """
+        import json_utils
+        props = self.get_all_properties()
+        json_utils.write_json_to_file(
+            './data/labels/labels.json', properties_json(props))
 
 def read_resource():
     import protobuf_utils

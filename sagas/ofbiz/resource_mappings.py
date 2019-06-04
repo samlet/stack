@@ -20,6 +20,7 @@ class ResourceMappings(object):
         package = {}
 
         for form_loc in form_locs:
+            print('get form', form_loc)
             form=self.get_form(form_loc)
             py_form = MetaForm()
             form_data = form.toByteString().toByteArray()
@@ -35,7 +36,7 @@ class ResourceMappings(object):
                                                formUri=form_loc
                                                )
                     if key in package:
-                        package[key].fields.append(mapping)
+                        package[key].fields.extend([mapping])
                         # print('+', package[key])
                     else:
                         # print('add', key)
@@ -55,6 +56,51 @@ class ResourceMappings(object):
         mapflds=meta_package.mappings['PartyLastName']
         for mapfld in mapflds.fields:
             print(mapfld.fieldName, mapfld.fieldTitle)
+
+    def build(self):
+        """
+        $ python -m sagas.ofbiz.resource_mappings build
+        :return:
+        """
+        from sagas.ofbiz.forms import get_form_list, collect_forms
+        from protobuf_utils import write_proto_to, read_proto
+        from forms_pb2 import MetaForm, MetaMappingPackage, MetaFieldMapping, MetaFieldMappings, SUBMIT, RESET
+
+        form_list = get_form_list()
+        form_index = collect_forms(form_list)
+        print("total forms:", len(form_index.items()))
+
+        forms = []
+        for k, locs in form_index.items():
+            for loc in locs:
+                # loc.name, loc.location, loc.uri
+                form_loc = loc.uri + ';' + k + ';zh_CN'
+                forms.append(form_loc)
+
+        data_file = './data/resources/form_res.data'
+        rm = ResourceMappings()
+        meta_package = rm.build_package(forms)
+        write_proto_to(meta_package, data_file)
+        print('done.')
+
+    def query(self, label):
+        """
+        $ python -m sagas.ofbiz.resource_mappings query 'PartyLastName'
+        :param label:
+        :return:
+        """
+        from protobuf_utils import write_proto_to, read_proto
+        from forms_pb2 import MetaForm, MetaMappingPackage, MetaFieldMapping, MetaFieldMappings, SUBMIT, RESET
+
+        data_file = './data/resources/form_res.data'
+        meta_package = MetaMappingPackage()
+        read_proto(meta_package, data_file)
+        # 'PartyLastName'
+        mapflds = meta_package.mappings[label]
+        if mapflds is not None:
+            for mapfld in mapflds.fields:
+                print(mapfld.fieldName, mapfld.fieldTitle)
+                print('\t✡', mapfld.formUri)
 
 if __name__ == '__main__':
     import fire

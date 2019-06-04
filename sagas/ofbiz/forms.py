@@ -66,28 +66,44 @@ def get_form_list():
     logging.info("total form files %d", len(form_list))
     return form_list
 
-def collect_forms(form_list):
+def collect_forms(form_list, verbose=True):
     import xml.etree.ElementTree as ET
 
     total = 0
+    # key is form's name, value is FormResource list;
+    # each FormResource contains a FormDescriptor list
     form_index = {}
     for form_res in form_list:
         tree = ET.parse(form_res.location)
         root = tree.getroot()
-        for child in root:
-            # tag, name, type, target
-            fd = FormDescriptor(child.tag, child.get('name'),
-                                child.get('type'),
-                                child.get('target'),
-                                child.get('extends')
-                                )
-            form_res.forms.append(fd)
-            if fd.name not in form_index:
-                form_index[fd.name] = [form_res]
-            else:
-                form_index[fd.name].append(form_res)
-                logging.debug('duplicate form name %s, extends -> %s' % (fd.name, fd.extends))
-            total = total + 1
+        # print(root.tag)
+        if root.tag=='{http://ofbiz.apache.org/Widget-Form}forms':
+            for child in root:
+                # tag, name, type, target
+                form_name=child.get('name')
+                if child.tag=='{http://ofbiz.apache.org/Widget-Form}grid':
+                    form_name='@'+form_name
+                    if verbose:
+                        print('-> find a grid', form_name)
+                elif child.tag=='{http://ofbiz.apache.org/Widget-Form}form':
+                    pass
+                else:
+                    raise ValueError("cannot process tag", child.tag, '; in', form_res.location)
+
+                # print(child.tag, form_name)
+                fd = FormDescriptor(child.tag, form_name,
+                                    child.get('type'),
+                                    child.get('target'),
+                                    child.get('extends')
+                                    )
+                form_res.forms.append(fd)
+                if fd.name not in form_index:
+                    form_index[fd.name] = [form_res]
+                else:
+                    form_index[fd.name].append(form_res)
+                    logging.debug('duplicate form name %s, extends -> %s' % (fd.name, fd.extends))
+                total = total + 1
+
     logging.info("total forms %d", total)
     return form_index
 
@@ -130,6 +146,19 @@ def print_form_list():
         for loc in locs:
             print('\t✎', loc.name, loc.location, loc.uri)
 
+def get_form_locs():
+    form_list = get_form_list()
+    form_index = collect_forms(form_list)
+    print("total forms:", len(form_index.items()))
+
+    forms = []
+    for k, locs in form_index.items():
+        for loc in locs:
+            # loc.name, loc.location, loc.uri
+            form_loc = loc.uri + ';' + k + ';zh_CN'
+            forms.append(form_loc)
+    return forms
+
 def get_form_meta(form_name, locale='zh_CN'):
     form_list = get_form_list()
     form_index = collect_forms(form_list)
@@ -148,8 +177,8 @@ if __name__ == '__main__':
 
     # form_name='AddTimesheetEntry'
     # form_name = 'AddForumMessage'
-    form_name='EditCombo'
-    render_form(form_name)
+    # form_name='EditCombo'
+    render_form('EditCombo')
 
 
 
