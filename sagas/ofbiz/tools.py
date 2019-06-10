@@ -1,6 +1,6 @@
 import os
 
-from sagas.ofbiz.services import OfService as s, oc
+from sagas.ofbiz.services import OfService as s, oc, search_service
 from sagas.ofbiz.entities import OfEntity as e, MetaEntity
 
 
@@ -84,6 +84,7 @@ class OfTools(object):
     def entity_data(self, entity_name, limit=10):
         """
         $ tool entity-data DataResourceType 1000
+        $ tool entity-data WorkEffortType 1000
         :param entity_name:
         :param limit:
         :return:
@@ -109,10 +110,35 @@ class OfTools(object):
         else:
             format(result)
 
+    def search_entity(self, name_filter):
+        """
+        $ tool search_entity DataResourceType
+        $ tool search_entity WorkEffort
+        :param name_filter:
+        :return:
+        """
+        name_filter=name_filter.lower()
+        model_reader=oc.delegator.getModelReader()
+        names=model_reader.getEntityNames()
+        # print(len(names))
+        for name in names:
+            if name_filter in name.lower():
+                print(name)
+
     def service_model(self, service_name):
         from sagas.ofbiz.services import OfService as s, create_service_data_frame
         meta=create_service_data_frame(service_name)
         print(meta)
+
+    def search_service(self, name_filter):
+        """
+        $ tool search_service WorkEffort
+        :param name_filter:
+        :return:
+        """
+        rs=search_service(name_filter)
+        for el in rs:
+            print(el)
 
     def form(self, form_name):
         from sagas.ofbiz.entities import OfEntity as e, oc, finder
@@ -138,6 +164,15 @@ class OfTools(object):
         """
         from sagas.ofbiz.forms import print_form_list
         print_form_list()
+
+    def search_form(self, name_filter):
+        """
+        $ tool search_form WorkEffort
+        :param name_filter:
+        :return:
+        """
+        from sagas.ofbiz.forms import print_form_list
+        print_form_list(name_filter=name_filter)
 
     def convert_minilang_from_clip(self):
         """

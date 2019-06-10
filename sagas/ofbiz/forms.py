@@ -136,15 +136,26 @@ def render_form(form_name, locale='zh_CN', params=None, proto=False):
 
         print('uri:', loc.uri+";"+form_name+";"+locale)
 
-def print_form_list():
+
+def contains_loc(locs, name_filter):
+    if name_filter is None:
+        return True
+
+    for loc in locs:
+        if name_filter in loc.name:
+            return True
+    return False
+
+def print_form_list(name_filter=None):
     form_list = get_form_list()
     form_index = collect_forms(form_list)
     count=0
     for k,locs in form_index.items():
-        count=count+1
-        print('♥', count, k)
-        for loc in locs:
-            print('\t✎', loc.name, loc.location, loc.uri)
+        if contains_loc(locs, name_filter):
+            count=count+1
+            print('♥', count, k)
+            for loc in locs:
+                print('\t✎', loc.name, loc.location, loc.uri)
 
 def get_form_locs():
     form_list = get_form_list()

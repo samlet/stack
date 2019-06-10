@@ -70,7 +70,8 @@ class EntityPrefabs(object):
         return id_cnt, token, record
 
     def convert_to_record_set(self, root):
-        record_set = {}
+        # record_set = {}
+        record_set=[]
         ids=[] # preserve the record order
         for child in root:
             if child.tag not in ('delete', 'create', 'create-replace', 'create-update'):
@@ -80,7 +81,8 @@ class EntityPrefabs(object):
                     values[cc.tag]=cc.text
                 id_cnt, token, record = self.to_kv(child.tag, values, "protobuf")
                 # print(id_cnt, token, record)
-                record_set[token]=record
+                # record_set[token]=record
+                record_set.append((token,record))
                 ids.append(token)
         # return TaStringEntriesMap(entries=record_set), ids
         # print("++++++++++", record_set)
@@ -103,8 +105,9 @@ class EntityPrefabs(object):
                 rs, ids = self.convert_to_record_set(root)
                 groups[group_name]=TaIdBag(ids=ids)
                 # rs_map.update(rs.entries)
-                for k,v in rs.items():
-                    rs_map[k]=v
+                # for k,v in rs.items():
+                for item in rs:
+                    rs_map[item[0]]=item[1]
                 # rs_map.update(rs)
 
         rs_bag = TaRecordset(recordGroups=groups)

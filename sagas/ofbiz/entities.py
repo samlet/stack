@@ -145,6 +145,12 @@ class MetaEntity(object):
 
     @property
     def field_names(self):
+        """
+        import sagas.ofbiz.entities as ee
+        ent=ee.entity('Product')
+        ent.field_names
+        :return:
+        """
         names = self.model.getAllFieldNames()
         return names
 
