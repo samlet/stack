@@ -1,7 +1,7 @@
 import os
 
 from sagas.ofbiz.services import OfService as s, oc, search_service
-from sagas.ofbiz.entities import OfEntity as e, MetaEntity
+from sagas.ofbiz.entities import OfEntity as e, MetaEntity, load_xml_seed, get_serv
 
 
 def set_value(type, value):
@@ -124,6 +124,25 @@ class OfTools(object):
         for name in names:
             if name_filter in name.lower():
                 print(name)
+
+    def entity_model_list(self):
+        """
+        $ tool entity_model_list
+        :return:
+        """
+        import services_common_pb2 as sc
+        q = sc.InfoQuery(queryItems=[""])
+        serv=get_serv()
+        names = serv.GetEntityNames(q)
+        print(names)
+
+    def load_entity_data(self, data_file):
+        """
+        $ tool load_entity_data '/pi/stack/data/product/ProductPriceTestData.xml'
+        :param data_file:
+        :return:
+        """
+        load_xml_seed(data_file)
 
     def service_model(self, service_name):
         from sagas.ofbiz.services import OfService as s, create_service_data_frame

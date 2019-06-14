@@ -4,16 +4,9 @@ from client_wrapper import ServiceClient
 import services_common_pb2 as sc
 import services_common_pb2_grpc as sc_service
 from values_pb2 import TaStringEntries, TaStringEntriesBatch
-import datetime
-from dateutil.parser import parse
-import sagas.ofbiz.entities as ee
 
-def now():
-    return datetime.datetime.now().isoformat()
-def now_jdbc():
-    return datetime.datetime.now().isoformat(' ')
-def to_jdbc(dt):
-    return parse(dt).isoformat(' ')
+import sagas.ofbiz.entities as ee
+from sagas.util.date_time_util import *
 
 def parse_product(text, verbose=True):
     soup = BeautifulSoup(text, 'html.parser')
@@ -44,32 +37,6 @@ def get_product_attrs(entry):
     text=entry['summary']
     props, images=parse_product(text, verbose=False)
     return {**map_list(props), 'image':images[0]}
-
-def get_serv():
-    serv = ServiceClient(sc_service, 'EntityServantStub', 'localhost', 50051)
-    return serv
-
-def load_xml_seed(xml_file):
-    import xml.etree.ElementTree as ET
-    from sagas.ofbiz.entity_prefabs import EntityPrefabs
-    from sagas.util.string_util import abbrev
-
-    # xml_file = 'data/product/ProductPriceTestData.xml'
-    tree = ET.parse(xml_file)
-    root = tree.getroot()
-    ep = EntityPrefabs()
-    record_set, ids = ep.convert_to_record_set(root)
-    print(ids)
-
-    rs = []
-    for item in record_set:
-        rs.append(item[1])
-        print(item[1].entityName)  # TaStringEntries
-        print('\t', abbrev(item[0]))
-    batch = TaStringEntriesBatch(records=rs)
-    serv=get_serv()
-    ret = serv.StoreAll(batch)
-    print(ret)
 
 def extract_id(id):
     """
@@ -149,7 +116,7 @@ class ProductData(object):
                     rs.append(rec)
 
         batch = TaStringEntriesBatch(records=rs)
-        serv = get_serv()
+        serv = ee.get_serv()
         ret = serv.StoreAll(batch)
         print(ret)
 

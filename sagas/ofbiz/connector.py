@@ -1,12 +1,17 @@
+import logging
+
 from py4j.java_gateway import JavaGateway, JavaObject, GatewayParameters
 from py4j.java_gateway import java_import, get_field
 from sagas.hybrid.srv_client import SrvClient
 import asyncio
 
 loop = asyncio.get_event_loop()
+logger = logging.getLogger(__name__)
 
 class OfbizConnector(object):
     def __init__(self, host="localhost", port=22333, callback_port=22334):
+        logger.info("connect to py4j-gateway %s %d"%(host, port))
+
         # self.gateway = JavaGateway()  # connect to the JVM
         self.gateway = JavaGateway(python_proxy_port=callback_port,
                                    gateway_parameters=GatewayParameters(address=host, port=port))

@@ -1,25 +1,20 @@
 import asyncio
 from functools import partial
 from aio_pika import connect, IncomingMessage, Exchange, Message
-import json
-
-def fib(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fib(n-1) + fib(n-2)
-
+import hello_pb2
 
 async def on_message(exchange: Exchange, message: IncomingMessage):
     with message.process():
         # n = int(message.body.decode())
-        req=json.loads(message.body.decode())
-        n=req['n']
+        req=hello_pb2.ResponseHello()
+        req.ParseFromString(message.body)
+        # req=json.loads(message.body.decode())
 
-        print(" [.] fib(%d)" % n)
-        response = str(fib(n)).encode()
+        print(" [.] %s" % req)
+
+        resp=hello_pb2.ResponseHello(response=req.response+"+world")
+        # response = str(fib(n)).encode()
+        response=resp.SerializeToString()
 
         await exchange.publish(
             Message(
@@ -54,7 +49,7 @@ async def main(loop, queue_name):
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.create_task(main(loop, 'rpc_queue_1'))
+    loop.create_task(main(loop, 'rpc_queue_2'))
 
     # we enter a never-ending loop that waits for data
     # and runs callbacks whenever necessary.

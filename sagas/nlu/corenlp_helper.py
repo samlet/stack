@@ -35,6 +35,13 @@ def nlp_es():
     return stanfordnlp.Pipeline(models_dir=model_dir,
                               lang='es',
                               treebank='es_ancora')
+
+# ru_syntagrus_models
+def nlp_ru():
+    return stanfordnlp.Pipeline(models_dir=model_dir,
+                                lang='ru',
+                                treebank='ru_syntagrus')
+
 def nlp_fr():
     config = {
         'processors': 'tokenize,mwt,pos,lemma,depparse',  # Comma-separated list of processors to use
@@ -62,11 +69,21 @@ def nlp_en_common():
 langs={'zh':nlp_zh, 'en':nlp_en,
                     'fr':nlp_fr, 'ja':nlp_ja,
                     'it':nlp_it, 'pt':nlp_pt,
-                    'es':nlp_es,
+                    'es':nlp_es, 'ru':nlp_ru,
                     'de':nlp_de}
 
 #extract lemma
 def extract_lemma(doc):
+    """
+    from sagas.nlu.corenlp_helper import langs, extract_lemma, extract_pos
+    sents='Apple is looking at buying U.K. startup for $1 billion'
+    nlp=langs['en']()
+    doc = nlp(sents)
+    extract_lemma(doc)
+
+    :param doc:
+    :return:
+    """
     parsed_text = {'word':[], 'lemma':[]}
     for sent in doc.sentences:
         for wrd in sent.words:

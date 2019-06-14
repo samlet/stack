@@ -26,10 +26,14 @@ class DataSpace(object):
         :param fields: [b'A', b'B']
         """
         self.db_loc = './db'
+        self.name=name
         opts = rocksdb.Options(create_if_missing=True)
         # self.columns = {}
         if os.path.exists(os.path.join(self.db_loc, name)):
             column_families = {}
+            if fields is None or len(fields)==0:
+                fields=get_columns(self.db_loc, name)
+
             for fld in fields:
                 column_families[fld] = rocksdb.ColumnFamilyOptions()
             self.db = rocksdb.DB(os.path.join(self.db_loc, name), opts, column_families=column_families)
@@ -41,11 +45,15 @@ class DataSpace(object):
                 # self.columns[fld]=(self.db.create_column_family(fld, rocksdb.ColumnFamilyOptions()))
                 self.db.create_column_family(fld, rocksdb.ColumnFamilyOptions())
 
+    def add_col(self, fld):
+        self.db.create_column_family(fld, rocksdb.ColumnFamilyOptions())
+
     def cleanup_db(self):
         del self.db
         gc.collect()
-        if os.path.exists(self.db_loc):
-            shutil.rmtree(self.db_loc)
+        table_loc=os.path.join(self.db_loc, self.name)
+        if os.path.exists(table_loc):
+            shutil.rmtree(table_loc)
 
     def column_names(self):
         families = self.db.column_families
@@ -94,3 +102,20 @@ class DataSpace(object):
 
 sys_db=DataSpace('sys.db', [b'property', b'value'])
 
+def open_ds(ds_name):
+    fields = get_columns('./db', ds_name)
+    return DataSpace(ds_name, fields)
+
+class DataSpaces(object):
+    def cols(self, ds):
+        """
+        $ python -m sagas.storage.data_space cols sys.db
+        :param ds:
+        :return:
+        """
+        db_loc = './db'
+        print(get_columns(db_loc, ds))
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire(DataSpaces)
