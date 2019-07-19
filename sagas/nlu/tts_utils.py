@@ -1,12 +1,15 @@
 # tts_utils.py
-import pyttsx3
 ## ⊕ [langdetect · PyPI](https://pypi.org/project/langdetect/)
 # from langdetect import detect
 ## ⊕ [polyglot · PyPI](https://pypi.org/project/polyglot/)
-import polyglot
-from polyglot.text import Text, Word
 
+"""
+preqs:
+pip install pyobjc
+pip install pyttsx3
+"""
 def say_with(sentence, voicekind):
+    import pyttsx3
     engine = pyttsx3.init()
     engine.setProperty("voice", voicekind)
     engine.say(sentence)
@@ -15,7 +18,7 @@ def say_with(sentence, voicekind):
 def say_ja(sentence):
     say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
 
-def say_lang(sentence, lang):
+def say_lang(sentence, lang, verbose=True):
     """
     import sagas.nlu.tts_utils as tts
     tts.say_lang("私はサッカーをします", 'ja')
@@ -23,7 +26,8 @@ def say_lang(sentence, lang):
     :param lang:
     :return:
     """
-    print("speak language with "+lang+" ...")
+    if verbose:
+        print("speak language with "+lang+" ...")
     # langdetect supports 55 languages out of the box ([ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)):
     # af, ar, bg, bn, ca, cs, cy, da, de, el, en, es, et, fa, fi, fr, gu, he, hi, hr, hu, id, it, ja, kn, ko, lt, lv, mk, ml, mr, ne, nl, no, pa, pl, pt, ro, ru, sk, sl, so, sq, sv, sw, ta, te, th, tl, tr, uk, ur, vi, zh-cn, zh-tw
 
@@ -45,12 +49,25 @@ def say_lang(sentence, lang):
         say_with(sentence, "com.apple.speech.synthesis.voice.anna")
     elif lang=="ja":
         say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
+    elif lang=='it':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.luca')
+    elif lang=='pt':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.joana')
+    elif lang=='ru':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.yuri')
+    elif lang=='ar':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.maged')
+    elif lang=='ko':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.yuna')
     else:
         say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
 
-    print('done.')
+    if verbose:
+        print('done.')
 
 def say(sentence):
+    import polyglot
+    from polyglot.text import Text, Word
     # lang=detect(sentence)
     text = Text(sentence)
     print("Language Detected: Code={}, Name={}".format(text.language.code, text.language.name))

@@ -23,6 +23,15 @@ class HanlpClient(object):
         :return:
         """
         response=self.get_deps(text)
+        print('✔', response.summary)
+
+        if 'zh_SBV|text' in response.coreGraph:
+            print('♟ sbv', response.coreGraph['zh_SBV|text'])
+        if 'zh_VOB|head' in response.coreGraph:
+            print('\t► vob.head', response.coreGraph['zh_VOB|head'])
+        if 'zh_VOB|text' in response.coreGraph:
+            print('\t\t✜ vob', response.coreGraph['zh_VOB|text'])
+
         for k,v in response.coreGraph.items():
             print(k,v)
 
@@ -30,6 +39,11 @@ class HanlpClient(object):
         response = self.get_deps(sents)
         for k, v in response.coreGraph.items():
             props[k]=v
+
+    def extract(self, text):
+        request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
+        response = self.client.EntityExtractor(request)
+        return response
 
 if __name__ == '__main__':
     import fire

@@ -72,6 +72,12 @@ langs={'zh':nlp_zh, 'en':nlp_en,
                     'es':nlp_es, 'ru':nlp_ru,
                     'de':nlp_de}
 
+langs_models={}
+def get_nlp(lang):
+    if lang not in langs_models:
+        langs_models[lang]=langs[lang]()
+    return langs_models[lang]
+
 #extract lemma
 def extract_lemma(doc):
     """

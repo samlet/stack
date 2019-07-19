@@ -9,7 +9,8 @@ def test_sales():
     print(odoo.db.list())
 
     # Login
-    db="sagas_odoo"
+    # db="sagas_odoo"
+    db="odoo12"
     username="samlet@sagas.ai"
     password="samlet"
     # odoo.login('db_name', 'user', 'passwd')

@@ -13,7 +13,8 @@ class HanlpVizBase(object):
     def __init__(self):
         from graphviz import Digraph
         self.f = Digraph('deps', filename='deps.gv')
-        self.f.attr(rankdir='LR', size='8,5')
+        # self.f.attr(rankdir='LR', size='8,5')
+        self.f.attr(rankdir='LR', size='6,5')
         self.f.attr('node', shape='circle')
 
 class HanlpViz(HanlpVizBase):
@@ -60,6 +61,12 @@ def fix_desc(desc):
     if '，' in desc:
         desc=desc.split('，')[1]
     return desc.replace('-','_').replace(' ','_')
+
+def entities_df(ents):
+    rows=[]
+    for el in ents:
+        rows.append((el.start, el.end, el.value, el.entity))
+    return to_df(rows, ['start', 'end', 'word', 'entity'])
 
 class HanlpProtoViz(HanlpVizBase):
     """
@@ -113,3 +120,7 @@ class HanlpProtoViz(HanlpVizBase):
         self.print_dependencies(response, segs)
         return self.f
 
+    def extract(self, text):
+        request = nlp_messages.NlTokenizerRequest(text=nlp_messages.NlText(text=text))
+        response = self.client.EntityExtractor(request)
+        return response
