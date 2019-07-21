@@ -75,7 +75,12 @@ def handle_digest():
     nlp=get_nlp(lang)
     doc = nlp(sents)
     root, root_idx = get_doc_root_and_idx(doc)
-    rs = get_root_rel(doc, root_idx, ['subj', 'obj', 'cop'])
+
+    # subj(nsubj), obj(iobj, dobj, pobj)
+    # pobj : object of a preposition，介词的宾语
+    # obl类似pobj, obl关系用于名义（名词，代词，名词短语），作为非核心（倾斜）参数或附件。
+    # 这意味着它在功能上对应于附加在动词，形容词或其他副词上的状语。
+    rs = get_root_rel(doc, root_idx, ['subj', 'obj', 'cop', 'obl'])
     data = {'lang': lang, 'root': root, 'verbs': get_doc_verbs(doc)}
     for el in rs:
         data[el[0]]=el[1]

@@ -3,30 +3,6 @@ import sys, os
 import pandas as pd
 import sagas
 
-descs='''标记	说明
-ADV	adverbial, default tag ( 附加的，默认标记 )
-BNE	beneﬁciary ( 受益人 )
-CND	condition ( 条件 )
-DIR	direction ( 方向 )
-DGR	degree ( 程度 )
-EXT	extent ( 扩展 )
-FRQ	frequency ( 频率 )
-LOC	locative ( 地点 )
-MNR	manner ( 方式 )
-PRP	purpose or reason ( 目的或原因 )
-TMP	temporal ( 时间 )
-TPC	topic ( 主题 )
-CRD	coordinated arguments ( 并列参数 )
-PRD	predicate ( 谓语动词 )
-PSR	possessor ( 持有者 )
-PSE	possessee ( 被持有 )'''
-
-def get_role_defs():
-    desc_rs = []
-    for desc in descs.split('\n')[1:]:
-        desc_rs.append(desc.split('\t'))
-    return sagas.to_df(desc_rs, ['mark', 'description'])
-
 def join_words(words, arg_range):
     return ''.join([str(words[idx]) for idx in range(arg_range.start, arg_range.end+1)])
 

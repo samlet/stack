@@ -11,6 +11,8 @@ def print_terms(sents, result):
             sents = sents.replace(value, colored(value, 'blue'))
         if 'cop' in item:
             sents = sents.replace(value, colored(value, 'magenta'))
+        if 'obl' in item:
+            sents = sents.replace(value, colored(value, 'yellow'))
     print('%s: %s' % (result['lang'], sents))
 
 def print_terms_zh(sents, result):
@@ -39,7 +41,7 @@ class MiscTool(object):
         clipboard.copy(text)
         return text
 
-    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None):
+    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True):
         """
         $ trans
         $ trans auto en
@@ -100,20 +102,21 @@ class MiscTool(object):
                     result= response.json()
                     print_terms_zh(data['sents'], result)
 
-        if source in ['de', 'fr', 'ru', 'es', 'it', 'pt']:
-            data = {'lang': source, "sents": text}
-            query_serv(data)
+        if details:
+            if source in ['de', 'fr', 'ru', 'es', 'it', 'pt']:
+                data = {'lang': source, "sents": text}
+                query_serv(data)
 
-        # common targets
-        if 'en' in targets:
-            data = {'lang': 'en', "sents": sents_map['en']}
-            query_serv(data)
-        if 'ja' in targets:
-            data = {'lang': 'ja', "sents": sents_map['ja']}
-            query_serv(data)
-        if 'zh' in targets:
-            data = {'lang': 'zh', "sents": sents_map['zh']}
-            query_serv_zh(data)
+            # common targets
+            if 'en' in targets:
+                data = {'lang': 'en', "sents": sents_map['en']}
+                query_serv(data)
+            if 'ja' in targets:
+                data = {'lang': 'ja', "sents": sents_map['ja']}
+                query_serv(data)
+            if 'zh' in targets:
+                data = {'lang': 'zh', "sents": sents_map['zh']}
+                query_serv_zh(data)
 
         result='\n\t'.join([text]+target_sents)
         print(result)

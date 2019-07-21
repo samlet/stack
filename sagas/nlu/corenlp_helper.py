@@ -66,11 +66,18 @@ def nlp_en_common():
         processors="tokenize,mwt,lemma,pos,depparse",
         models_dir=model_dir, treebank='en_ewt')
 
+def load_model(lang,treebank):
+    return stanfordnlp.Pipeline(models_dir=model_dir,
+                                lang=lang,
+                                treebank=treebank)
+
 langs={'zh':nlp_zh, 'en':nlp_en,
-                    'fr':nlp_fr, 'ja':nlp_ja,
-                    'it':nlp_it, 'pt':nlp_pt,
-                    'es':nlp_es, 'ru':nlp_ru,
-                    'de':nlp_de}
+        'fr':nlp_fr, 'ja':nlp_ja,
+        'it':nlp_it, 'pt':nlp_pt,
+        'es':nlp_es, 'ru':nlp_ru,
+        'de':nlp_de,
+        'hi':lambda: load_model('hi', 'hi_hdtb')
+       }
 
 langs_models={}
 def get_nlp(lang):
@@ -184,16 +191,17 @@ class CoreNlpViz(object):
         self.f.attr(rankdir='LR', size='8,5')
         self.f.attr('node', shape='circle')
 
-    def print_dependencies(self, doc, segs, file=None):
+    def print_dependencies(self, doc, segs, node_maps, file=None):
         for dep_edge in doc.dependencies:
             print((dep_edge[2].text, dep_edge[0].index, dep_edge[1]), file=file)
             # head = int(dep_edge[0].index)
             # governor-id is index in words list + 1
             head = int(dep_edge[0].index)-1
-            self.f.edge(segs[head], dep_edge[2].text, label=dep_edge[1])
+            node_text=node_maps[dep_edge[2].text]
+            self.f.edge(segs[head], node_text, label=dep_edge[1])
             # self.f.edge(dep_edge[2].text, segs[head], label=dep_edge[1])
 
-    def analyse(self, sents, nlp):
+    def analyse(self, sents, nlp, node_maps=None):
         """
         Usage:
 
@@ -209,10 +217,15 @@ class CoreNlpViz(object):
         doc = nlp(sents)
         print(*[f'text: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for sent in
                 doc.sentences for word in sent.words], sep='\n')
+        if node_maps is None:
+            node_maps={}
+            for word in doc.sentences[0].words:
+                node_maps[word.text]=word.text
+
         for word in doc.sentences[0].words:
-            self.f.node(word.text)
-            segs.append(word.text)
-        self.print_dependencies(doc.sentences[0], segs)
+            self.f.node(node_maps[word.text])
+            segs.append(node_maps[word.text])
+        self.print_dependencies(doc.sentences[0], segs, node_maps)
         return self.f
 
 if __name__ == '__main__':
