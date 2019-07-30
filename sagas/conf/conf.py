@@ -5,10 +5,14 @@ class TransClipConf(object):
 
     def is_enabled(self, opt):
         """
-        is_enabled('collect_verbs')
+        import sagas.conf.conf as conf
+        cf=conf.TransClipConf()
+        print(cf.is_enabled('trans_cache'), cf.is_enabled('xx'))
+
         :param opt:
         :return:
         """
         return opt in self.conf and self.conf[opt]
 
+cf=TransClipConf()
 

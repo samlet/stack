@@ -110,9 +110,24 @@ class TransTracker(object):
         self.pronounce=[]
         # word translations as a pandas dataframe
         self.translations=None
+        self.obs = []
 
-def process_result(r, trans_verbose, options, tracker:TransTracker):
+    def add_observer(self, observer):
+        if observer not in self.obs:
+            self.obs.append(observer)
+
+    def delete_observer(self, observer):
+        self.obs.remove(observer)
+
+    def notify_observers(self, meta, arg=None):
+        localArray = self.obs[:]
+        # Updating is not required to be synchronized:
+        for observer in localArray:
+            observer.update(meta, arg)
+
+def process_result(meta, r, trans_verbose, options, tracker:TransTracker):
     import sagas
+    tracker.notify_observers(meta, r)
     if trans_verbose:
         print('❶ total result', len(r))
         for rl in r:
@@ -152,10 +167,31 @@ def process_result(r, trans_verbose, options, tracker:TransTracker):
             # tracker.translations=sagas.to_df(trans[0][2], ['word', 'translations', 'c', 'freq'])
             tracker.translations =translations_df(trans)
 
-def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=None):
+def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=None, tracker=None):
+  import sagas.conf.conf as conf
+  from sagas.nlu.trans_cacher import TransCacher
+
   if options is None:
       options = {}
-  tracker=TransTracker()
+
+  # tracker=TransTracker()
+  meta={'text':text, 'source':source, 'target':target}
+
+  if tracker is None:
+      if conf.cf.is_enabled('trans_cache'):
+          tracker=TransTracker()
+          cacher = TransCacher()
+          tracker.add_observer(cacher)
+
+          r = cacher.retrieve(meta)
+          # try to get from cacher
+          if r is not None:
+              cnt=r['content']
+              res = join_sentence(cnt)
+              process_result(meta, cnt, trans_verbose, options, tracker)
+              return res, tracker
+      else:
+          tracker = TransTracker()
 
   header={
     'authority':'translate.google.cn',
@@ -167,15 +203,16 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
     'accept-language':'zh-CN,zh;q=0.9',
     'cookie':'',
     'user-agent':'Mozilla/5.0 (Windows NT 10.0; WOW64)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
-'x-client-data':'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
+    'x-client-data':'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
   }
   url=buildUrl(text,js.getTk(text), source, target)
   res=''
   try:
       r=requests.get(url)
       result=json.loads(r.text)
-      if result[7]!=None:
       # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
+      # if result[7]!=None:
+      if result[7] != None and 'disable_correct' not in options:
           try:
               correctText=result[7][0].replace('<b><i>',' ').replace('</i></b>','')
               print(correctText)
@@ -185,13 +222,13 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
               # res=newResult[0][0][0]
               res=join_sentence(newResult)
 
-              process_result(newResult, trans_verbose, options, tracker)
+              process_result(meta, newResult, trans_verbose, options, tracker)
           except Exception as e:
               print(e)
               # res=result[0][0][0]
               res = join_sentence(result)
       else:
-          process_result(result, trans_verbose, options, tracker)
+          process_result(meta, result, trans_verbose, options, tracker)
           # res=result[0][0][0]
           res = join_sentence(result)
   except Exception as e:
@@ -201,6 +238,61 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
       print("错误信息:", e)
   finally:
       return res, tracker
+
+def marks(t, ips_idx):
+    if len(t.pronounce)>0:
+        return ','+t.pronounce[ips_idx][1:]
+    return ''
+
+def get_word_map(source, target, text, ips_idx=0, words=None):
+    """
+    Example 1:
+    from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+    ana=lambda sents: CoreNlpViz().analyse(sents, get_nlp('hi'), get_word_map('hi','en', sents))
+    ana('मेरे पास दो रेफ्रिजरेटर हैं')
+
+    Example 2:
+    get_word_map('hi','en', 'मेरे पास दो रेफ्रिजरेटर')
+
+    :param source:
+    :param target:
+    :param text:
+    :param ips_idx:
+    :return:
+    """
+    # from sagas.nlu.google_translator import translate
+    import time
+
+    rs = {}
+    verbose = False
+    options = {'get_pronounce', 'disable_correct'}
+    if words is None:
+        words=text.split(' ')
+    for sent in words:
+        res, t = translate(sent, source=source, target=target,
+                           trans_verbose=verbose, options=options)
+        # print(res, sent, t[ips_idx])
+        rs[sent] = '%s\n(%s%s)' % (sent, res, marks(t, ips_idx))
+        time.sleep(0.05)
+    return rs
+
+def trans_multi(sent, source, targets):
+    """
+    from sagas.nlu.google_translator import trans_multi
+    trans_multi('Jopará é unha forma falada da lingua guaraní que.', 'gl', ['en', 'es'])
+    :param sent:
+    :param source:
+    :param targets:
+    :return:
+    """
+    options = {'get_pronounce', 'disable_correct'}
+    verbose=False
+    rs=[]
+    for target in targets:
+        res, _ = translate(sent, source=source, target=target,
+            trans_verbose=verbose, options=options)
+        rs.append(res)
+    return rs
 
 class GoogleTranslator(object):
     def translate(self, text, target='zh-CN', source='auto', verbose=False):

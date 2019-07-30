@@ -55,6 +55,11 @@ class NlpProcsStub(object):
         request_serializer=nlpserv__pb2.NlText.SerializeToString,
         response_deserializer=nlpserv__pb2.NlAmountList.FromString,
         )
+    self.GetDependencyGraph = channel.unary_unary(
+        '/nlpserv.NlpProcs/GetDependencyGraph',
+        request_serializer=nlpserv__pb2.NlTexts.SerializeToString,
+        response_deserializer=nlpserv__pb2.NlDepWords.FromString,
+        )
 
 
 class NlpProcsServicer(object):
@@ -117,6 +122,13 @@ class NlpProcsServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def GetDependencyGraph(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_NlpProcsServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -159,6 +171,11 @@ def add_NlpProcsServicer_to_server(servicer, server):
           servicer.ParseAmountTerms,
           request_deserializer=nlpserv__pb2.NlText.FromString,
           response_serializer=nlpserv__pb2.NlAmountList.SerializeToString,
+      ),
+      'GetDependencyGraph': grpc.unary_unary_rpc_method_handler(
+          servicer.GetDependencyGraph,
+          request_deserializer=nlpserv__pb2.NlTexts.FromString,
+          response_serializer=nlpserv__pb2.NlDepWords.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

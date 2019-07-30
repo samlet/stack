@@ -20,6 +20,12 @@ else
 	"inventory")
 		start_inventory
 		;;
+	"bus")
+		cd compose/rabbit_ws && docker-compose up		
+		;;
+	"dev")
+		cd compose/dev && docker-compose up		
+		;;
 
 	## ja
 	"ja_backend")
@@ -30,6 +36,11 @@ else
 		;;
 	"ja_nlu_t")
 		python -m sagas.tests.ja_nlu_tests
+		;;
+
+	## cn
+	"hanlp")
+		hanlp serve
 		;;
 
 	## crmsfa
@@ -66,11 +77,47 @@ else
 	"s-basic")
 	    python -m sagas.ofbiz.rpc_basic
 	    ;;
-	"srv")
+	"hybrid")
 		python -m sagas.hybrid.hybrid_srv
+		;;
+	"srv")
+		python -m sagas.ofbiz.srv
 		;;
 	"routines")
 		python -m sagas.ofbiz.routines
+		;;
+	"as")
+		python -m sagas.ofbiz.rpc_artifacts
+		;;
+	"actions")
+		# python -m rasa_core_sdk.endpoint --actions actions.procs
+		python -m sagas.bots.servants.endpoint --actions actions.procs
+		;;
+	"broker")
+		python -m sagas.bots.action_broker
+		;;
+
+	"bert-multi")
+		bert-serving-start -model_dir /pi/ai/bert/multi_cased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization
+		;;
+	"bert-en")
+		bert-serving-start -model_dir /pi/ai/bert/uncased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50
+		;;
+	"bert-zh")
+		bert-serving-start -model_dir /pi/ai/bert/chinese_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization
+		;;
+	"duckling")
+		target_dir="$HOME/jcloud/assets/langs/workspace/data-procs/duckling/duckling"
+		cd $target_dir ; stack exec duckling-example-exe
+		;;
+	"servant_de")
+		python -m sagas.de.german_servant
+		;;
+	"servant_zh")
+		python -m sagas.zh.chinese_servant
+		;;
+	"tr")
+		cd ../turkish/zemberek-nlp ; java -jar all/target/zemberek-full.jar StartGrpcSeer --dataRoot /pi/ai/tr/data
 		;;
 	*)
 		# default proc

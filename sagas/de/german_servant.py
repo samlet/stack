@@ -88,6 +88,40 @@ def handle_digest():
     data_y = json.dumps(data, ensure_ascii=False)
     return data_y
 
+def fix_sents(lang, text):
+    # if lang in ['de', 'pt']:
+    if lang not in ['zh', 'zh-CN', 'zh-TW', 'ja',
+                    'ar', 'fa', 'ur', 'he']:
+        text=text.strip()
+        if text[-1] not in ['!','?','.']:
+            return '%s .'%text
+        if text[-2]!=' ':
+            return '%s %s'%(text[0:-1], text[-1])
+    return text
+
+# verb_domains
+@app.route('/verb_domains', methods = ['POST'])
+def handle_verb_domains():
+    from sagas.nlu.corenlp_parser import get_verb_domain, get_aux_domain, get_subj_domain
+
+    content = request.get_json()
+    sents = content['sents']
+    lang = content['lang']
+
+    sents=fix_sents(lang, sents)
+
+    nlp = get_nlp(lang)
+    doc = nlp(sents)
+    sent = doc.sentences[0]
+
+    r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+    if len(r)==0:
+        r=get_aux_domain(sent, ['obl', 'nsubj:pass'])
+    if len(r)==0:
+        r = get_subj_domain(sent)
+    data_y = json.dumps(r, ensure_ascii=False)
+    return data_y
+
 if __name__ == "__main__":
     # app.run(debug=True)
     # app.run(host='0.0.0.0', port=8090, debug=True)

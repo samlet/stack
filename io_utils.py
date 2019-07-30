@@ -84,4 +84,22 @@ def read_file(filename, encoding="utf-8-sig"):
     """Read text from a file."""
     with io.open(filename, encoding=encoding) as f:
         return f.read()
-                                
+
+def remove_dir(target_dir):
+    import shutil
+    if os.path.exists(target_dir):
+        shutil.rmtree(target_dir)
+
+def lines(filename):
+    with open(filename) as f:
+        lines = f.readlines()
+        return lines
+
+def list_with_suffix(dir, suffix):
+    import os
+    rs=[]
+    for root, dirs, files in os.walk(dir):
+        for file in files:
+            if file.endswith(suffix):
+                rs.append(os.path.join(root, file))
+    return rs

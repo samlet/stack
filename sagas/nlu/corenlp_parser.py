@@ -11,10 +11,23 @@ def get_children(sent, word, rs):
 def get_children_list(sent, word, include_self=True):
     rs = []
     get_children(sent, word, rs)
-    result = [w[1] for w in rs]
     if include_self:
-        result.append(word.text)
+        rs.append((word.index, word.text))
+    # sort by word's index
+    rs=sorted(rs, key=lambda _: int(_[0]))
+    result = [w[1] for w in rs]
+    # if include_self:
+    #     result.append(word.text)
     return result
+
+def get_word_features(word):
+    # 'c' represent a chunk
+    # return ['c_{}_{}'.format(word.lemma, word.upos).lower()]
+    return ['c_{}'.format(word.upos).lower()]
+
+def add_domain(domains, c, sent):
+    domains.append((c.dependency_relation, c.index, c.text, c.lemma,
+                    get_children_list(sent, c), get_word_features(c)))
 
 def get_verb_domain(sent, filters):
     rs = []
@@ -24,8 +37,55 @@ def get_verb_domain(sent, filters):
         domains = []
         for c in filter(lambda w: equals(w.governor, word.index), sent.words):
             # print('\t', c.index, c.text, get_children_list(sent, c))
-            domains.append((c.dependency_relation, c.index, c.text, get_children_list(sent, c)))
-        rs.append({'verb': word.text, 'index': word.index, 'domains': domains})
+            # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
+            #                 get_children_list(sent, c), get_word_features(c)))
+            add_domain(domains, c, sent)
+        rs.append({'type':'verb_domains', 'verb': word.text, 'index': word.index,
+                   'domains': domains})
+    return rs
+
+def get_aux_domain(sent, filters):
+    rs = []
+    for word in filter(lambda w: w.upos == "AUX", sent.words):
+        # dc=sent.words[word.governor-1]
+        if word.governor == 0:
+            # if the aux word is root; (这种情形会出现在德语依存分析中, 但在英语依存分析中是正常的)
+            dc = word
+            delegator=True
+        else:
+            dc = sent.words[word.governor - 1]
+            delegator=False
+        # print('℗', word.text, word.dependency_relation, word.governor, '☇' , dc.text)
+        # print('\t', dc.index, dc.text, get_children_list(sent, dc))
+        domains = []
+        # 需要收集的是aux单词依赖的对象的关联集, 而不是aux单词自身的关联集
+        for c in filter(lambda w: equals(w.governor, dc.index), sent.words):
+            # print('\t', c.index, c.text, get_children_list(sent, c))
+            # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
+            #                 get_children_list(sent, c), get_word_features(c)))
+            add_domain(domains, c, sent)
+        rs.append({'type':'aux_domains', 'aux': word.text,
+                   'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
+                   'head_pos': dc.upos.lower(), 'delegator':delegator,
+                   'index': word.index, 'domains': domains})
+    return rs
+
+def get_subj_domain(sent):
+    rs = []
+    for word in filter(lambda w: w.dependency_relation.endswith('subj'), sent.words):
+        dc=sent.words[word.governor-1]
+        # print('℗', word.text, word.dependency_relation, word.governor, '☇' , dc.text)
+        domains = []
+        # 需要收集的是subj依赖的对象的关联集
+        for c in filter(lambda w: equals(w.governor, dc.index), sent.words):
+            # print('\t', c.index, c.text, get_children_list(sent, c))
+            # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
+            #                 get_children_list(sent, c), get_word_features(c)))
+            add_domain(domains, c, sent)
+        rs.append({'type':'subj_domains', 'subj': word.text,
+                   'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
+                   'head_pos': dc.upos.lower(),
+                   'index': word.index, 'domains': domains})
     return rs
 
 class CoreNlpParser(object):

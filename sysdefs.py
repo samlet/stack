@@ -1,0 +1,2 @@
+FIXTURES_RECREATE=True
+

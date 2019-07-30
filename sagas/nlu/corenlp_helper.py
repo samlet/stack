@@ -71,18 +71,64 @@ def load_model(lang,treebank):
                                 lang=lang,
                                 treebank=treebank)
 
-langs={'zh':nlp_zh, 'en':nlp_en,
+langs={ 'zh':nlp_zh, 'en':nlp_en,
         'fr':nlp_fr, 'ja':nlp_ja,
         'it':nlp_it, 'pt':nlp_pt,
         'es':nlp_es, 'ru':nlp_ru,
         'de':nlp_de,
-        'hi':lambda: load_model('hi', 'hi_hdtb')
+        'hi':lambda: load_model('hi', 'hi_hdtb'),
+        'ar':lambda: load_model('ar', 'ar_padt'),
+        # Urdu(乌尔都语)
+        'ur':lambda: load_model('ur', 'ur_udtb'),
+        # Korean
+        'ko':lambda: load_model('ko', 'ko_kaist'),
+        # Vietnamese
+        'vi':lambda: load_model('vi', 'vi_vtb'),
+        # Persian
+        'fa':lambda: load_model('fa', 'fa_seraji'),
+        # Czech
+        'cs':lambda: load_model('cs', 'cs_pdt'),
+        # Slovak
+        'sk':lambda: load_model('sk', 'sk_snk'),
+        # Polish
+        'pl':lambda: load_model('pl', 'pl_lfg'),
+        # Turkish
+        'tr':lambda: load_model('tr', 'tr_imst'),
+        # Swedish
+        'sv':lambda: load_model('sv', 'sv_talbanken'),
+        # Norwegian	Bokmaal
+        'no':lambda: load_model('no', 'no_bokmaal'),
+        # Bulgarian (保加利亚语)
+        'bg':lambda: load_model('bg', 'bg_btb'),
+        # Croatian (克罗地亚语)
+        'hr':lambda: load_model('hr', 'hr_set'),
+        # Serbian (塞尔维亚语)
+        'sr':lambda: load_model('sr', 'sr_set'),
+        # Danish (丹麦语)
+        'da':lambda: load_model('da', 'da_ddt'),
+        # Dutch
+        'nl':lambda: load_model('da', 'nl_alpino'),
+        # Greek
+        'el':lambda: load_model('el', 'el_gdt'),
+        # Catalan (加泰罗尼亚语)
+        'ca':lambda: load_model('ca', 'ca_ancora'),
+        # Hungarian (匈牙利语)
+        'hu':lambda: load_model('hu', 'hu_szeged'),
+        # Irish (爱尔兰语)
+        'ga':lambda: load_model('ga', 'ga_idt'),
        }
 
 langs_models={}
 def get_nlp(lang):
     if lang not in langs_models:
-        langs_models[lang]=langs[lang]()
+        if lang in langs:
+            langs_models[lang]=langs[lang]()
+        else:
+            from sagas.nlu.treebanks import treebanks
+            bank=treebanks.query(lang)
+            if bank is None:
+                raise Exception('Cannot find treebank for language {}'.format(lang))
+            langs_models[lang]=load_model(bank['name'], bank['model'])
     return langs_models[lang]
 
 #extract lemma
@@ -185,11 +231,18 @@ class CoreNlp(object):
 
 
 class CoreNlpViz(object):
-    def __init__(self):
+    """
+    ana=lambda sents: CoreNlpViz(shape='ellipse', size='8,5', fontsize=20).analyse(sents, get_nlp('ar'),
+                                       get_word_map('ar','en', sents))
+    """
+    def __init__(self, shape='circle', size='8,5', fontsize=0):
         from graphviz import Digraph
         self.f = Digraph('deps', filename='deps.gv')
-        self.f.attr(rankdir='LR', size='8,5')
-        self.f.attr('node', shape='circle')
+        self.f.attr(rankdir='LR', size=size)
+        # font 'Calibri' support Arabic text
+        self.f.attr('node', shape=shape, fontname='Calibri')
+        if fontsize!=0:
+            self.f.attr(fontsize=str(fontsize))
 
     def print_dependencies(self, doc, segs, node_maps, file=None):
         for dep_edge in doc.dependencies:
@@ -202,6 +255,10 @@ class CoreNlpViz(object):
             # self.f.edge(dep_edge[2].text, segs[head], label=dep_edge[1])
 
     def analyse(self, sents, nlp, node_maps=None):
+        doc = nlp(sents)
+        return self.analyse_doc(doc, node_maps)
+
+    def analyse_doc(self, doc, node_maps=None):
         """
         Usage:
 
@@ -214,7 +271,6 @@ class CoreNlpViz(object):
         :return:
         """
         segs = []
-        doc = nlp(sents)
         print(*[f'text: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for sent in
                 doc.sentences for word in sent.words], sep='\n')
         if node_maps is None:
@@ -227,6 +283,35 @@ class CoreNlpViz(object):
             segs.append(node_maps[word.text])
         self.print_dependencies(doc.sentences[0], segs, node_maps)
         return self.f
+
+class LangDialect(object):
+    """
+    from sagas.nlu.corenlp_helper import LangDialect
+    LangDialect('ko').ana('나는 중국 출신이다.')
+    """
+    def __init__(self, lang):
+        from sagas.nlu.google_translator import get_word_map
+        self.lang=lang
+        def viz(sents, trans_it=True):
+            nlp=get_nlp(self.lang)
+            doc = nlp(sents)
+            cv=CoreNlpViz(shape='ellipse', size='8,5', fontsize=20)
+            words=[word.text for sent in doc.sentences for word in sent.words]
+            if trans_it:
+                tr_map=get_word_map(self.lang, 'en', sents, 0, words)
+            else:
+                tr_map=None
+            return cv.analyse_doc(doc, tr_map)
+
+        self.ana=viz
+        self.ana_en=lambda sents: self.ana(self.tra(sents))
+        self.ana_s = lambda sents: self.ana(sents, trans_it=False)
+
+    def tra(self, sents):
+        from sagas.nlu.google_translator import translate
+        r,_ = translate(sents, source='en', target=self.lang)
+        print(r)
+        return r
 
 if __name__ == '__main__':
     import fire

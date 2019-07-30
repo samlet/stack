@@ -17,3 +17,16 @@
 curl -XPOST localhost:5000/parse -d '{"q":"Lenge siden sist", "project":"norwegian"}'
 ```
 
+## quick start
+```sh
+# ofbiz (ofbiz-framework dir)
+start br
+# rabbit (stack dir)
+start bus
+# testing (stack dir)
+using bigdata
+. env.sh
+tool ping
+```
+
+
