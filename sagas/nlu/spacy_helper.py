@@ -1,7 +1,33 @@
-from spacy.tokens import Doc
 import spacy
 from spacy.symbols import nsubj, VERB
 import pandas as pd
+
+lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
+                     'fr':['fr_core_news_sm', 'fr_core_news_md'],
+                     'el':['el-core-news-sm', 'el-core-news-md'],
+                     'de':['de-core-news-sm', 'de-core-news-md']
+                     }
+
+class SpacyManager(object):
+    def __init__(self):
+        self.models={}
+
+    def get_model(self, lang='en', simple=True):
+        idx=0 if simple else 1
+        spacy_model = lang_spacy_mappings[lang][idx]
+        spacy_model=spacy_model.replace('-','_')
+        if spacy_model not in self.models:
+            spacy_nlp = spacy.load(spacy_model)
+            self.models[spacy_model]=spacy_nlp
+        else:
+            spacy_nlp=self.models[spacy_model]
+        return spacy_nlp
+
+spacy_mgr=SpacyManager()
+
+def spacy_doc(sents, lang):
+    spacy_nlp = spacy_mgr.get_model(lang)
+    return spacy_nlp(sents)
 
 def get_verbs(doc):
     verbs = set()

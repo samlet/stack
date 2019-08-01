@@ -42,18 +42,19 @@ def get_verb_domains(data, return_df=False):
             type_name=r['type']
 
             if type_name=='verb_domains':
-                print('[v]', r['verb'], r['index'])
-                verb_patterns(r['domains'])
+                print('[verb]', r['verb'], r['index'],
+                      '(%s, %s)'%(r['rel'], r['governor']))
+                verb_patterns({'rel':r['rel'], **data}, r['domains'])
             elif type_name=='aux_domains':
                 # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
                 delegator='☇' if not r['delegator'] else '☌'
-                print('[a]', r['aux'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
+                print('[aux]', r['aux'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
                 # verb_patterns(r['domains'])
-                aux_patterns({'pos':r['head_pos']}, r['domains'])
+                aux_patterns({'pos':r['head_pos'], **data}, r['domains'])
             elif type_name=='subj_domains':
-                print('[s]', r['subj'], r['rel'], '☇', "%s(%s)"%(r['head'], r['head_pos']))
+                print('[subj]', r['subj'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
                 # verb_patterns(r['domains'])
-                subj_patterns({'pos': r['head_pos']}, r['domains'])
+                subj_patterns({'pos': r['head_pos'], **data}, r['domains'])
             else:
                 raise Exception('Cannot process specific type: {}'.format(type_name))
 

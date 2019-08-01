@@ -23,7 +23,11 @@ def get_children_list(sent, word, include_self=True):
 def get_word_features(word):
     # 'c' represent a chunk
     # return ['c_{}_{}'.format(word.lemma, word.upos).lower()]
-    return ['c_{}'.format(word.upos).lower()]
+    feats=[]
+    feats.append('c_{}'.format(word.upos).lower())
+    if word.xpos!='_':
+        feats.append('x_{}'.format(word.xpos).lower())
+    return feats
 
 def add_domain(domains, c, sent):
     domains.append((c.dependency_relation, c.index, c.text, c.lemma,
@@ -41,6 +45,7 @@ def get_verb_domain(sent, filters):
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, c, sent)
         rs.append({'type':'verb_domains', 'verb': word.text, 'index': word.index,
+                   'rel': word.dependency_relation, 'governor': word.governor,
                    'domains': domains})
     return rs
 
@@ -84,9 +89,17 @@ def get_subj_domain(sent):
             add_domain(domains, c, sent)
         rs.append({'type':'subj_domains', 'subj': word.text,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
-                   'head_pos': dc.upos.lower(),
+                   'head_pos': dc.upos.lower(), 'head_feats':[dc.lemma, dc.upos, dc.xpos],
                    'index': word.index, 'domains': domains})
     return rs
+
+def get_chunks(sent):
+    r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+    if len(r) == 0:
+        r = get_aux_domain(sent, ['obl', 'nsubj:pass'])
+    if len(r) == 0:
+        r = get_subj_domain(sent)
+    return r
 
 class CoreNlpParser(object):
     def verb_domains(self, sents, lang='en'):

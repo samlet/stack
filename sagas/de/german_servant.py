@@ -102,7 +102,8 @@ def fix_sents(lang, text):
 # verb_domains
 @app.route('/verb_domains', methods = ['POST'])
 def handle_verb_domains():
-    from sagas.nlu.corenlp_parser import get_verb_domain, get_aux_domain, get_subj_domain
+    # from sagas.nlu.corenlp_parser import get_verb_domain, get_aux_domain, get_subj_domain
+    from sagas.nlu.corenlp_parser import get_chunks
 
     content = request.get_json()
     sents = content['sents']
@@ -114,11 +115,12 @@ def handle_verb_domains():
     doc = nlp(sents)
     sent = doc.sentences[0]
 
-    r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
-    if len(r)==0:
-        r=get_aux_domain(sent, ['obl', 'nsubj:pass'])
-    if len(r)==0:
-        r = get_subj_domain(sent)
+    # r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+    # if len(r)==0:
+    #     r=get_aux_domain(sent, ['obl', 'nsubj:pass'])
+    # if len(r)==0:
+    #     r = get_subj_domain(sent)
+    r= get_chunks(sent)
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y
 
