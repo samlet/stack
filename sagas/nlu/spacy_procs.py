@@ -95,8 +95,13 @@ def normalizeString(s):
     return s
 
 class SpacyProcs(object):
-    def __init__(self):
-        self.nlp = spacy.load('en_core_web_sm')
+    # def __init__(self):
+    #     self.nlp = spacy.load('en_core_web_sm')
+
+    def spacy_doc(self, sents, lang):
+        from sagas.nlu.spacy_helper import spacy_mgr
+        spacy_nlp = spacy_mgr.get_model(lang)
+        return spacy_nlp(sents)
 
     def stuffs(self):
         """
@@ -104,12 +109,28 @@ class SpacyProcs(object):
         :return:
         """
         # nlp = spacy.load('en_core_web_md')
-        doc = self.nlp(u"Credit and mortgage account holders must submit their requests")
+        doc = self.spacy_doc(u"Credit and mortgage account holders must submit their requests", 'en')
         analyse(doc)
         ## main
-        doc = self.nlp(u"You give this cheese to your child")
+        doc = self.spacy_doc(u"You give this cheese to your child", 'en')
         analyse(doc)  ## main
         print("ok.")
+
+    def ents(self, sents, lang='en'):
+        """
+        $ python -m sagas.nlu.spacy_procs ents 'New York'
+        $ python -m sagas.nlu.spacy_procs ents 'I am from China'
+        :param sents:
+        :param lang:
+        :return:
+        """
+        import sagas
+        rs = []
+        doc=self.spacy_doc(sents, lang)
+        for ent in doc.ents:
+            rs.append((ent.text, ent.start_char, ent.end_char, ent.label_))
+        r= sagas.to_df(rs, ['word', 'start', 'end', 'entity'])
+        sagas.print_df(r)
 
 if __name__ == '__main__':
     import fire

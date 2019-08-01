@@ -116,6 +116,9 @@ else
 	"servant_zh")
 		python -m sagas.zh.chinese_servant
 		;;
+	"servant_nlu")
+		python -m sagas.nlu.nlu_servant
+		;;
 	"tr")
 		cd ../turkish/zemberek-nlp ; java -jar all/target/zemberek-full.jar StartGrpcSeer --dataRoot /pi/ai/tr/data
 		;;

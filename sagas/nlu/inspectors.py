@@ -1,4 +1,4 @@
-from sagas.nlu.patterns import Inspector
+from sagas.nlu.patterns import Inspector, Context
 import time
 import requests
 import json
@@ -23,7 +23,7 @@ def query_duckling(text, lang):
         locale=locale_mappings[lang]
     else:
         return {'result':'fail', 'cause':"unsupport lang"}
-    data={'locale':'en_GB', 'text':text, 'reftime':current_milli_time()}
+    data={'locale':locale, 'text':text, 'reftime':current_milli_time()}
     response = requests.post('http://0.0.0.0:8000/parse', data=data)
     if response.status_code == 200:
         r=response.json()
@@ -38,26 +38,110 @@ class DateInspector(Inspector):
     def name(self):
         return "ins_date"
 
-    def run(self, key, ctx):
+    def run(self, key, ctx:Context):
         result = False
         lang = ctx.meta['lang']
-        cnt = ' '.join(ctx.chunks['obl'])
-        print(cnt)
-        resp = query_duckling(cnt, lang)
-        if resp['result'] == 'success':
-            if self.dim in [d['dim'] for d in resp['data']]:
-                result = True
+        # cnt = ' '.join(ctx.chunks['obl'])
+        # cnt = ' '.join(ctx.chunks[key])
+        for cnt in ctx.chunk_pieces(key):
+            print('query with duckling:', cnt)
+            resp = query_duckling(cnt, lang)
+            if resp['result'] == 'success':
+                if self.dim in [d['dim'] for d in resp['data']]:
+                    result = True
         return result
 
 class NegativeWordInspector(Inspector):
     def name(self):
         return "ins_negative_word"
 
-    def run(self, key, ctx):
+    def run(self, key, ctx:Context):
         result=False
         # domains=dispatcher.domains
         if ctx.meta['lang']=='da':
-            if 'ikke' in ctx.chunks[key] or 'ikke'==ctx.lemmas[key]:
+            # if 'ikke' in ctx.chunks[key] or 'ikke'==ctx.lemmas[key]:
+            if ctx.chunk_contains(key, 'ikke') or 'ikke' == ctx.lemmas[key]:
                 result=True
         return result
+
+def query_entities(data):
+    response = requests.post('http://localhost:8092/entities', json=data)
+    if response.status_code == 200:
+        r=response.json()
+        return {'result':'success', 'data':r}
+    return {'result':'fail', 'cause':'error response'}
+
+class EntityInspector(Inspector):
+    def __init__(self, dim):
+        self.dim = dim
+
+    def name(self):
+        return "ins_entity"
+
+    def run(self, key, ctx:Context):
+        result = False
+        lang = ctx.meta['lang']
+        # cnt = ' '.join(ctx.chunks[key])
+        # cnt=ctx.get_single_chunk_text(key)
+        for cnt in ctx.chunk_pieces(key):
+            resp = query_entities({'lang': lang, 'sents': cnt})
+            if resp['result'] == 'success':
+                dims = [d['entity'] for d in resp['data']]
+                print('entities ->', ', '.join(dims))
+                if self.dim in dims:
+                    print('\t%s ∈' % cnt, self.dim)
+                    result = True
+        return result
+
+class Inspectors(object):
+    def procs(self, data):
+        import requests
+        import json
+        from sagas.nlu.patterns import Patterns, print_result, Inspector
+
+        response = requests.post('http://localhost:8090/verb_domains', json=data)
+        rs = response.json()
+        r = rs[0]
+        print(json.dumps(r, indent=2, ensure_ascii=False))
+        domains = r['domains']
+        meta = {'rel': r['rel'], **data}
+        agency = ['c_pron', 'c_noun']
+        rs = [Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
+              Patterns(domains, meta, 2).verb(nsubj=agency, obj=agency, advmod=NegativeWordInspector()),
+              Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=DateInspector('time')),
+              Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=EntityInspector('GPE')),
+              ]
+        print_result(rs)
+
+    def ents(self, sents, lang='en'):
+        # ents = query_entities({"lang": "en", "sents": "I am from China"})
+        ents = query_entities({"lang": lang, "sents": sents})
+        print(ents)
+
+    def test_1(self):
+        """
+        $ python -m sagas.nlu.inspectors test_1
+        :return:
+        """
+        text = 'I was born in Beijing.'
+        data = {'lang': 'en', "sents": text}
+        self.procs(data)
+
+    def test_2(self):
+        """
+        $ python -m sagas.nlu.inspectors test_2
+        :return:
+        """
+        text = 'I was born in Beijing in the spring of 1982.'
+        data = {'lang': 'en', "sents": text}
+        self.procs(data)
+
+    def test_3(self):
+        text = 'Han har ikke tøjet på.'
+        data = {'lang': 'da', "sents": text}
+        self.procs(data)
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire(Inspectors)
 
