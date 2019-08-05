@@ -1,0 +1,240 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+
+message MetaQuery{
+    string infoType = 1;
+    string uri=2;
+    bytes data=3;
+}
+// The type of payload that should be returned.
+enum MetaPayloadType {
+  // Compressable text format.
+  ERROR_INFO = 0;
+  META_ENTITY=1;
+  META_SERVICE=2;
+  ENTITY_VALUE=3;
+  ENTITY_VALUE_LIST=4;
+  META_FORM=5;
+  META_FORM_DATA=6;
+  ACTION_RESULT=7;
+}
+
+enum ErrorType{
+    SUCCESS=0;
+    NOT_FOUND=1;
+    UNSUPPORT_META=2;
+    RETRIEVE_INFO_FAIL=3;
+}
+
+// A block of data, to simply increase gRPC message size.
+message MetaPayload {
+  // The type of data in body.
+  MetaPayloadType type = 1;
+  // Primary contents of payload.
+  bytes body = 2;
+}
+
+message ErrorInfo{
+    ErrorType errorType=1;
+    string message=2;
+}
+
+message MetaField{
+    string name=1;
+    string type=2;
+    bool pk=3;
+    bool notNull=4;
+    bool autoCreatedInternal=5;
+    bool enableAuditLog=6;
+    repeated string validators=7;
+    bool encrypt=8;
+}
+
+message MetaKeyMap{
+    /** name of the field in this entity */
+    string fieldName=1;
+    /** name of the field in related entity */
+    string relFieldName=2;
+    /** Full name of the key map (fieldName:relFieldName) */
+    string fullName=3;
+}
+message MetaRelation{
+    string title=1;
+    string type=2;
+    string relEntityName=3;
+    string fkName=4;
+    repeated MetaKeyMap keyMaps=5;
+    bool autoRelation=6;
+    // combinedName = title.concat(relEntityName)
+    string combinedName=7;
+}
+
+message MetaEntity{
+    string entityName=1;
+    string packageName=2;
+    string dependentOn=3;
+    repeated MetaField fields=4;
+    repeated MetaRelation relations=5;
+    repeated string viewEntities=6;
+    repeated string pks=7;
+    repeated string nopks=8;
+
+    string version=9;
+    /** The description for documentation purposes */
+    string description=10;
+    /** The title for documentation purposes */
+    string title=11;
+    /** The default-resource-name of the Entity, used with the getResource call to check for a value in a resource bundle */
+    string defaultResourceName=12;
+}
+
+message MetaMemberEntity{
+    string entityAlias=1;
+    string entityName=2;
+}
+message MetaAliasAll{
+    string entityAlias=1;
+    string prefix=2;
+    repeated string fieldsToExclude=3;
+    bool groupBy=4;
+    string function=5;
+    string fieldSet=6;
+}
+
+message MetaAlias{
+    string entityAlias=1;
+    string name=2;
+    string field=3;
+    string colAlias=4;
+    // this is a bool object for a tri-state: null, true or false
+    bool pk=5;
+    bool groupBy=6;
+    // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
+    string function=7;
+    string fieldSet=8;
+    bool isFromAliasAll=9;
+    // The description for documentation purposes
+    string description=10;
+}
+
+message MetaViewEntityCondition{
+    bool filterByDate=1;
+    bool distinct=2;
+    repeated string orderByList=3;
+}
+message MetaViewLink{
+    string entityAlias=1;
+    string relEntityAlias=2;
+    bool relOptional=3;
+    repeated MetaKeyMap keyMaps=4;
+    MetaViewEntityCondition viewEntityCondition=5;
+}
+
+message MetaViewEntity{
+    /// entity properties
+    string entityName=1;
+    string packageName=2;
+
+    // view
+    map<string, MetaMemberEntity> memberModelEntities=3;
+    repeated MetaAliasAll aliasAlls=4;
+    repeated MetaAlias aliases=5;
+    repeated MetaViewLink viewLinks=6;
+    repeated MetaField groupBys=7;
+}
+
+/// Services
+message MetaServiceIface{
+    string service=1;
+    bool optional=2;
+}
+message MetaPermission{
+    int32 permissionType=1;
+    string serviceModel=2;
+    string nameOrRole=3;
+    string action=4;
+    string permissionServiceName=5;
+    string permissionResourceDesc=6;
+    bool auth=7;
+    string clazz=8;
+}
+message MetaPermGroup{
+    string joinType=1;
+    repeated MetaPermission permissions=2;
+}
+message MetaNotification{
+    string notificationGroupName=1;
+    string notificationEvent=2;
+    string notificationMode=3;
+}
+/*
+message MetaParamValidator{
+    string className=1;
+    string methodName=2;
+    string failMessage=3;
+    string failResource=4;
+    string failProperty=5;
+}
+*/
+
+message MetaParam{
+    string name=1;
+    string description=2;
+    string type=3;
+    string mode=4;
+    string formLabel=5;
+    string entityName=6;
+    string fieldName=7;
+    // repeated MetaParamValidator validators=8;
+    string defaultValue=9;
+    /** Is this Parameter required or optional? Default to false, or required */
+    bool optional=10;
+    bool overrideOptional=11;
+    bool formDisplay=12;
+    bool overrideFormDisplay=13;
+    string allowHtml=14;
+    bool internal=15;
+}
+
+message MetaService{
+    string name=1;
+    string definitionLocation=2;
+    string description=3;
+    string engineName=4;
+    string nameSpace=5;
+    string location=6;
+    string invoke=7;
+    string defaultEntityName=8;
+    bool auth=9;
+    bool export=10;
+    bool debug=11;
+    bool validate=12;
+    /** Permission service name */
+    string permissionServiceName=13;
+
+    /** Permission service main-action */
+    string permissionMainAction=14;
+
+    /** Permission service resource-description */
+    string permissionResourceDesc=15;
+
+    /** Set of services this service implements */
+    repeated MetaServiceIface implServices=16;
+    repeated string overrideParameters=17;
+    repeated MetaPermGroup permissionGroups=18;
+    repeated MetaNotification notifications=19;
+
+    repeated MetaParam parameters=20;
+}
+
+message ServiceMetrics{
+    string name=1;
+    double serviceRate=2;
+    double threshold=3;
+    int64 totalEvents=4;
+}

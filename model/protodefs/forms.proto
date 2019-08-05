@@ -1,0 +1,241 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+
+enum MetaFormFieldType{
+    UNKNOWN = 0;
+    DISPLAY = 1;
+    HYPERLINK = 2;
+    TEXT = 3;
+    TEXTAREA = 4;
+    DATE_TIME = 5;
+    DROP_DOWN = 6;
+    CHECK = 7;
+    RADIO = 8;
+    SUBMIT = 9;
+    RESET = 10;
+    HIDDEN = 11;
+    IGNORED = 12;
+    TEXTQBE = 13;
+    DATEQBE = 14;
+    RANGEQBE = 15;
+    LOOKUP = 16;
+    FILE = 17;
+    PASSWORD = 18;
+    IMAGE = 19;
+    DISPLAY_ENTITY = 20;
+    CONTAINER = 21;
+    MENU = 22;
+    FORM = 23;
+    GRID = 24;
+    SCREEN = 25;
+}
+
+message MetaAltTarget{
+    string useWhen=1;
+    string targetExdr=2;
+}
+
+message MetaTextField{
+    string defaultValue=1;
+    bool disabled=2;
+    string mask=3;
+    int32 maxLength=4;
+    string placeHolder=5;
+    bool readonly=6;
+    int32 size=7;
+    bool clientAutocompleteField=8;
+}
+
+message MetaTextAreaField{
+    int32 cols=1;
+    int32 rows=2;
+    string defaultValue=3;
+    bool readonly=4;
+    int32 maxLength=5;
+}
+
+message MetaDateTimeField{
+    string clock=1;
+    string defaultValue=2;
+    string inputMethod=3;
+    string mask=4;
+    string step=5;
+    string type=6;
+}
+
+message MetaDisplayField{
+    bool alsoHidden=1;
+    string currency=2;
+    string date=3;
+    string defaultValue=4;
+    string description=5;
+    string imageLocation=6;
+    // matches type of field, currently text or currency
+    string type=7;
+    // maximum number of characters to display
+    int32 size=8;
+}
+
+message MetaSingleOption{
+    string key=1;
+    string description=2;
+}
+
+message MetaEntityOptions{
+    bool cache=1;
+    string description=2;
+    string entityName=3;
+    string filterByDate=4;
+    string keyFieldName=5;
+    repeated string orderByList=6;
+    repeated MetaSingleOption optionValues=7;
+}
+
+message MetaListOptions{
+    string description=1;
+    string listEntryName=2;
+    repeated MetaSingleOption optionValues=3;
+}
+
+message MetaOptionSource{
+    oneof source{
+        MetaSingleOption singleOption=1;
+        MetaEntityOptions entityOptions=2;
+        MetaListOptions listOptions=3;
+    }
+}
+
+message MetaCheckField{
+    bool allChecked=1;
+    bool disabled=2;
+    string noCurrentSelectedKey=3;
+    // All FieldInfoWithOptions with
+    repeated MetaOptionSource optionSources=4;
+}
+
+message MetaDropDownField{
+    bool allowEmpty=1;
+    bool allowMulti=2;
+    string current=3;
+    repeated MetaOptionSource optionSources=4;
+    string currentDescription=5;
+    string size=6;
+    string textSize=7;
+    int32 otherFieldSize=8;
+}
+
+message MetaRadioField{
+    repeated MetaOptionSource optionSources=1;
+}
+
+message MetaSubmitField{
+    string buttonType=1;
+    string confirmationMsg=2;
+    string imageLocation=3;
+    bool requestConfirmation=4;
+}
+
+message MetaFormField{
+    string name=1;
+    string title=2;
+    string fieldName=3;
+    string useWhen=4;
+    string redWhen=5;
+    bool requiredField=6;
+    string tooltip=7;
+    string ignoreWhen=8;
+    string event=9;
+    MetaFormFieldType fieldType=10;
+    string titleOriginal=11;  // includes the title original expression
+
+    oneof fieldInfo {
+        MetaTextField textField=20;
+        MetaDateTimeField dateTimeField=21;
+        MetaDisplayField displayField=22;
+        MetaCheckField checkField=23;
+        MetaDropDownField dropDownField=24;
+        MetaRadioField radioField=25;
+        MetaSubmitField submitField=26;
+        MetaTextAreaField textAreaField=27;
+    }
+}
+
+message MetaAction{
+    string actionClass=1;
+}
+
+message MetaForm{
+    string name=1;
+    string title=2;
+    string target=3;
+    string defaultMapName=4;
+    string defaultWidgetStyle=5;
+    string defaultTableStyle=6;
+    string type=7;
+    repeated MetaAltTarget altTargets=8;
+    repeated MetaFormField fields=9;
+    repeated MetaAction actions=10;
+}
+
+message MetaRow{
+    repeated string values=1;
+}
+message MetaListValues{
+    repeated MetaRow rows=1;
+}
+
+message MetaFieldData{
+    string fieldName=1;
+    string value=2;
+    MetaListValues listValues=3;
+    string widgetType=5;
+    map<string, string> widgetOptions=6;
+}
+
+message MetaSingleFormData{
+    string formName=1;
+    string formUri=2;
+    string formId=3;
+    repeated MetaFieldData fields=4;
+}
+
+message FormDataRequestor{
+    /*
+    string formName=1;
+    string location=2;
+    string localeName=3;
+    */
+    string uri=1;
+    string jsonParameters=2;
+}
+
+// ----- for intent slots
+message MetaFieldMapping{
+    string key=1;  // extract from title original
+    string fieldName=2;
+    string fieldTitle=3;
+    string fieldTitleOriginal=4;
+    string formUri=5;
+}
+
+message MetaFieldMappings{
+    repeated MetaFieldMapping fields=1;
+}
+
+message MetaMappingPackage{
+    map<string, MetaFieldMappings> mappings=1;
+}
+
+message MetaTuple{
+    repeated string values=1;
+}
+message MetaFormServices{
+    repeated MetaTuple formServices=1;
+    repeated MetaTuple formRequests=2;
+}
+

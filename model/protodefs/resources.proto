@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+// updated on 2019.4.11
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaResource";
+
+package model;
+
+message RsResource {
+    map<string, RsProperty> properties=1;
+}
+
+message RsProperty{
+    string key=1;
+    map<string, string> values=2;
+    string location=3;
+}
+
+message RsStrings{
+    repeated string value=1;
+}
+message RsIndex{
+    // key is lookup value, value is property key
+    map<string, RsStrings> indexes=1;
+}
+
+message RsLookups{
+    // key is lang
+    map<string, RsIndex> indexTable=1;
+}
+
+message RsEntityReference{
+    repeated string entities=1;
+    repeated string views=2;
+}
+
+message RsEntities{
+    map<string, RsEntityReference> fieldRefs=1;
+}
+
+message RsLang{
+    repeated string entries=1;
+    bytes store=2;
+    repeated string verbs=3;
+    repeated string verbLemmas=4;
+}
+
+message RsLangs{
+    repeated RsLang langs=1;
+}

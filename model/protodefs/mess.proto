@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+
+service MessService{
+    rpc SayHello(MessString) returns (TextLangInfo){}
+}
+
+message MessString{
+    string body = 1;
+}
+
+message TextLangInfo{
+    string lang=1;
+    string code=2;
+    float confidence=3;
+    bool reliable=4;
+}

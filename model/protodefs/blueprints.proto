@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+
+import "values.proto";
+
+message BlueOffer{
+    string user=1;
+    int64 offer=2;  // maybe current timestamp, use for health checker
+}
+
+message BlueMessage{
+    string actorPath=1;
+    string type=2;
+    bytes body=3;
+}
+
+service ArtifactService{
+    rpc Ping(PingRequest) returns (PingResponse) {}
+    rpc Talk(BotMessage) returns (BotResponse) {}
+    rpc SetSlot(BotSetSlot) returns (BotAck) {}
+}
+
+message BotMessage{
+    string sender=1;
+    string message=2;
+    repeated string attachments=3;
+    TaStringEntries slots=4;
+}
+
+message BotRecipient{
+    string id=1;
+    string text=2;
+}
+
+message BotResponse{
+    repeated BotRecipient recipients=1;
+}
+
+message BotSetSlot{
+    string event=1;
+    string name=2;
+    string value=3;
+}
+
+message BotAck{
+    int32 errorCode=1;
+    string message=2;
+}
+
+message PingRequest{
+    string message=1;
+}
+
+message PingResponse{
+    string response = 1;
+}
+
+// -- for bots interact
+
+message BlueInteract{
+    string uri=1;
+    string type=2;
+    bytes body=3;
+}
+

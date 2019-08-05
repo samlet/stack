@@ -50,6 +50,26 @@ class NluCli(object):
             else:
                 print({'result': 'fail'})
 
+    def testing_chains(self):
+        """
+        $ python -m sagas.nlu.nlu_cli testing_chains
+        :return:
+        """
+        data_set=[{'word': 'wolf', 'lang': 'en', 'pos': 'n',
+                   'kind':'animal/mammal'},
+                  {'word': 'amarelo', 'lang': 'pt', 'pos': 'n',
+                   'kind': 'color'},
+                  ]
+        for data in data_set:
+            response = requests.post('http://localhost:8093/predicate_chain',
+                                     json=data)
+            if response.status_code == 200:
+                resp=response.json()
+                print('%s (%s) %s is %s'%('✔' if resp['result'] else '✘',
+                    data['lang'], data['word'], data['kind']), resp)
+            else:
+                print('fail')
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NluCli)

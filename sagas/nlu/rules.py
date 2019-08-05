@@ -44,11 +44,13 @@ def verb_patterns(meta, domains):
 
           # 匹配继承链: O homem fica amarelo.
           Patterns(domains, meta, 2).verb(nsubj=agency, xcomp=kindof('color', 'n')),
+          Patterns(domains, meta, 2).verb(nsubj=kindof('activity', 'n')),
           ]
     print_result(pats)
 
 def aux_patterns(meta, domains):
-    agency = ['c_pron', 'c_noun']
+    agency = ['c_pron', 'c_noun', 'c_propn']
+    things = lambda rs: [Patterns(domains, meta, 2).aux('noun', nsubj=kindof(r, 'n')) for r in rs]
     pats=[Patterns(domains, meta).aux('pron', 'noun', nsubj=agency, cop='c_aux'),
           # Eine Teilnahme ist kostenlos. (Attendance is free of charge.)
           Patterns(domains, meta).aux('adj', nsubj=agency, cop='c_aux'),
@@ -58,6 +60,16 @@ def aux_patterns(meta, domains):
           Patterns(domains, meta).aux('noun', nsubj=agency, cop='c_aux', amod='c_adj', nmod='c_noun'),
           # Ben kimim?
           Patterns(domains, meta).aux('pron', 'noun', aux_q='c_aux'),
+
+          # 匹配继承链: Este juego es facilísimo. ([en] This game is very easy.)
+          Patterns(domains, meta, 2).aux('adj', nsubj=kindof('activity', 'n')),
+          Patterns(domains, meta, 2).aux('adj', nsubj=kindof('person', 'n')),
+          Patterns(domains, meta, 2).aux('adj', nsubj=kindof('fruit', 'n')),
+
+          # La manzana es una fruta saludable. ([zh] 苹果是一种健康的水果。)
+          *things(['fruit', 'food']),
+          # Leopard is a beast.
+          *things(['animal/living_thing', 'animal_product/material']),
           ]
     print_result(pats)
 

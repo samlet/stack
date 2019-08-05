@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+import "metainfo.proto";
+import "values.proto";
+
+service SysInfo{
+    rpc GetSysInfo(InfoQuery) returns (InfoMap){}
+    rpc QueryMeta(MetaQuery) returns (MetaPayload){}
+}
+
+service EntityServant{
+    rpc GetEntityNames(InfoQuery) returns (Names){}
+    rpc StoreAll(TaStringEntriesBatch) returns (ModifyInfo){}
+}
+
+message Names{
+    repeated string name=1;
+}
+
+message InfoQuery{
+    repeated string queryItems=1;
+}
+
+message InfoMap{
+    map<string, string> info = 1;
+}
+
+message ModifyInfo{
+    int64 total=1;
+    string message=2;
+}

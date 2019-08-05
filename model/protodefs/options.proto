@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+
+message TaFindOptions{
+    int32 limit=1;
+    int32 offset=2;
+    bool distinct=3;
+    bool useCache=4;
+}
+
+

@@ -44,10 +44,16 @@ class PredicateWordInspector(Inspector):
         else:
             pos=self.pos_indicator
 
-        data={'word': word, 'lang': lang, 'pos': pos,
-            'kind': self.kind, 'only_first': self.only_first}
-        response = requests.post('http://localhost:8093/predicate',
-                                 json=data)
+        if '/' in self.kind:
+            data = {'word': word, 'lang': lang, 'pos': pos,
+                    'kind': self.kind}
+            response = requests.post('http://localhost:8093/predicate_chain',
+                                     json=data)
+        else:
+            data={'word': word, 'lang': lang, 'pos': pos,
+                'kind': self.kind, 'only_first': self.only_first}
+            response = requests.post('http://localhost:8093/predicate',
+                                     json=data)
         if response.status_code == 200:
             r=response.json()
             result=r['result']

@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sagas.meta.model";
+// option java_outer_classname = "MetaProto";
+
+package model;
+
+message TaFieldValue{
+    oneof valueOf {
+        string stringVal = 1;
+        double doubleVal = 2;
+        int64 intVal = 3;
+        bytes blob=4;
+    }
+    string blobType=5;
+}
+
+message TaEntityValue{
+    string entityName=1;
+    bool mutable=2;
+    map<string, TaFieldValue> fields=3;
+}
+
+message TaEntityValues{
+    repeated TaEntityValue values=1;
+}
+
+message TaStringEntries{
+    map<string, string> values=1;
+    string entityName=2;  // optional
+}
+
+message TaStringEntriesBatch{
+    repeated TaStringEntries records=1;
+}
+
+message TaStringEntriesMap{
+    // key is global id
+    map<string, TaStringEntries> entries=1;
+}
+message TaIdBag{
+    repeated string ids=1;
+}
+message TaRecordset{
+    // key is entity data group name (a data file is a entity group)
+    map<string, TaIdBag> recordGroups=1;
+}
+
+enum JsonDataType{
+    MAP=0;
+    LIST=1;
+    SCALAR=2;
+}
+
+message TaJson{
+    string content=1;
+    JsonDataType dataType=2;
+}
+
+message TaJsonEntity{
+    string entityName=1;
+    string json=2; // json map
+}
+
+message TaJsonEntities{
+    repeated TaJsonEntity entities=1;
+}
+
+// external-links
+message ExternalLink{
+    string gid=1;
+    string name=2;
+    string description=3;
+}
+
+message ExternalLinks{
+    repeated ExternalLink links=1;
+}

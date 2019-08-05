@@ -9,6 +9,36 @@ def names(rs):
 def ensure(s):
     return '_' if s is None else str(s)
 
+def check_chains(synsets: list, kind):
+    kind_set = set(kind.split('/'))
+    for index, c in enumerate(synsets):
+        # c = wn.synset(synset)
+        chain = {}
+        chain_keys=[]
+        for c_c in [c] + list(c.closure(hyper)):
+            key = c_c.name().split('.')[0]
+            if key in chain:
+                print('!! duplicated key %s' % c_c.name())
+            chain[key] =c_c.name()
+            chain_keys.append(key)
+        container = set(chain.keys())
+        check_r = kind_set.issubset(container)
+        # print(index, check_r, container)
+        if check_r:
+            return True, {'index': 0, 'keys': chain_keys, 'maps': chain}
+    return False, None
+
+def predicate_chain(word, kind, lang='en', pos='n'):
+    from sagas.nlu.locales import iso_locales
+    print('.. checking %s is %s'%(word,kind))
+    loc, _ = iso_locales.get_code_by_part1(lang)
+    sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    ret = False
+    if len(sets) >= 0:
+        # c=[s.name() for s in sets]
+        return check_chains(sets, kind)
+    return ret, None
+
 class WordNetProcs(object):
     def all_langs(self, part1_format=False):
         """
@@ -20,7 +50,9 @@ class WordNetProcs(object):
         if part1_format:
             print(', '.join(sorted(iso_locales.iso_map.keys())))
         else:
-            print(len(langs), sorted(langs))
+            print('total', len(langs))
+            print(', '.join(sorted(langs)))
+            print(', '.join(sorted(iso_locales.iso_map.keys())))
 
     def get_word_sets(self, word, lang='en', pos=None):
         """
