@@ -28,10 +28,19 @@ def print_terms_zh(sents, result):
         #     sents = sents.replace(value, colored(value, 'magenta'))
     print('%s: %s' % (result['lang'], sents))
 
+# stem_filters=['obj', 'nsubj']
+def print_stem_chunks(r):
+    from termcolor import colored
+    for stem in r['stems']:
+        # if stem[0] in stem_filters:
+        if len(stem[1])>1:
+            value=' '.join(stem[1])
+            print('%s ->'%stem[0], colored(value, 'green'))
+
 def get_verb_domains(data, return_df=False):
     import requests
     import sagas
-    from sagas.nlu.patterns import verb_patterns, aux_patterns, subj_patterns
+    from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns
 
     response = requests.post('http://localhost:8090/verb_domains', json=data)
     # print(response.status_code, response.json())
@@ -62,7 +71,10 @@ def get_verb_domains(data, return_df=False):
             df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
             df_set.append(df)
             if not return_df:
+                # where 1 is the axis number (0 for rows and 1 for columns.)
+                df = df.drop('children', 1)
                 sagas.print_df(df)
+                print_stem_chunks(r)
     if return_df:
         return df_set
 
@@ -104,7 +116,7 @@ class MiscTool(object):
         clipboard.copy(text)
         return text
 
-    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True):
+    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
         """
         $ trans
         $ trans auto en
@@ -112,6 +124,9 @@ class MiscTool(object):
         $ trans ru 'zh-CN;ja'
         $ trans-ru
         $ trans-rus
+
+        $ alias sp="python -m sagas.tool.misc trans_clip pt 'en;it;ja' ja False"
+        $ sp 'O homem fica amarelo.'
         :return:
         """
         import clipboard
@@ -120,8 +135,12 @@ class MiscTool(object):
         from sagas.nlu.google_translator import translate
         import sagas.nlu.corenlp_helper as helper
 
-        text = clipboard.paste()
-        text = text.replace("\n", "")
+        if sents!='':
+            text=sents
+        else:
+            text = clipboard.paste()
+            text = text.replace("\n", "")
+
         target_sents=[]
         sents_map={}
         # print('❣', text)

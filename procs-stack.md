@@ -4,6 +4,15 @@
 * procs-nlu-cn-pipelines.ipynb
     - 测试中文nlu组件.
 
+## servants
+```sh
+$ start duckling
+$ start servant_nlu
+$ start servant_de
+$ start servant_zh
+$ start servant_words
+```
+
 ## odoo routines
 ```sh
 ./run-odoo.sh
@@ -17,3 +26,4 @@ $ start ja_backend
 $ start ja_nlu_t
 $ open http://localhost:8888/notebooks/procs-nlu-ja-pipelines.ipynb
 ```
+

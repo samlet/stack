@@ -1,7 +1,9 @@
-from sagas.nlu.patterns import Inspector, Context
 import time
 import requests
 import json
+from sagas.nlu.inspector_common import Inspector, Context
+from sagas.nlu.inspector_fixtures import InspectorFixture
+from sagas.nlu.patterns import Patterns, print_result
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
@@ -62,6 +64,9 @@ class NegativeWordInspector(Inspector):
             # if 'ikke' in ctx.chunks[key] or 'ikke'==ctx.lemmas[key]:
             if ctx.chunk_contains(key, 'ikke') or 'ikke' == ctx.lemmas[key]:
                 result=True
+        elif ctx.meta['lang']=='de':
+            if ctx.chunk_contains(key, 'nicht') or 'nicht' == ctx.lemmas[key]:
+                result=True
         return result
 
 def query_entities(data):
@@ -93,18 +98,9 @@ class EntityInspector(Inspector):
                     result = True
         return result
 
-class Inspectors(object):
-    def procs(self, data):
-        import requests
-        import json
-        from sagas.nlu.patterns import Patterns, print_result, Inspector
-
-        response = requests.post('http://localhost:8090/verb_domains', json=data)
-        rs = response.json()
-        r = rs[0]
-        print(json.dumps(r, indent=2, ensure_ascii=False))
-        domains = r['domains']
-        meta = {'rel': r['rel'], **data}
+class Inspectors(InspectorFixture):
+    def procs_common(self, data):
+        domains, meta=self.request_domains(data)
         agency = ['c_pron', 'c_noun']
         rs = [Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
               Patterns(domains, meta, 2).verb(nsubj=agency, obj=agency, advmod=NegativeWordInspector()),
@@ -125,7 +121,7 @@ class Inspectors(object):
         """
         text = 'I was born in Beijing.'
         data = {'lang': 'en', "sents": text}
-        self.procs(data)
+        self.procs_common(data)
 
     def test_2(self):
         """
@@ -134,12 +130,12 @@ class Inspectors(object):
         """
         text = 'I was born in Beijing in the spring of 1982.'
         data = {'lang': 'en', "sents": text}
-        self.procs(data)
+        self.procs_common(data)
 
     def test_3(self):
         text = 'Han har ikke tøjet på.'
         data = {'lang': 'da', "sents": text}
-        self.procs(data)
+        self.procs_common(data)
 
 if __name__ == '__main__':
     import fire

@@ -3,16 +3,17 @@ import sagas
 def equals(a, b):
     return str(a) == str(b)
 
-def get_children(sent, word, rs):
+# except_from_stems=['DET']
+def get_children(sent, word, rs, stem):
     for c in filter(lambda w: equals(w.governor, word.index), sent.words):
-        rs.append((c.index, c.text))
-        get_children(sent, c, rs)
+        rs.append((c.index, c.lemma if stem else c.text))
+        get_children(sent, c, rs, stem)
 
-def get_children_list(sent, word, include_self=True):
+def get_children_list(sent, word, include_self=True, stem=False):
     rs = []
-    get_children(sent, word, rs)
+    get_children(sent, word, rs, stem)
     if include_self:
-        rs.append((word.index, word.text))
+        rs.append((word.index, word.lemma if stem else word.text))
     # sort by word's index
     rs=sorted(rs, key=lambda _: int(_[0]))
     result = [w[1] for w in rs]
@@ -29,9 +30,10 @@ def get_word_features(word):
         feats.append('x_{}'.format(word.xpos).lower())
     return feats
 
-def add_domain(domains, c, sent):
+def add_domain(domains:list, stems:list,  c, sent):
     domains.append((c.dependency_relation, c.index, c.text, c.lemma,
                     get_children_list(sent, c), get_word_features(c)))
+    stems.append((c.dependency_relation, get_children_list(sent, c, include_self=True, stem=True)))
 
 def get_verb_domain(sent, filters):
     rs = []
@@ -39,14 +41,15 @@ def get_verb_domain(sent, filters):
         # if money.dep_ in ("attr", "dobj"):
         # print(word.index, word.text)
         domains = []
+        stems=[]
         for c in filter(lambda w: equals(w.governor, word.index), sent.words):
             # print('\t', c.index, c.text, get_children_list(sent, c))
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
-            add_domain(domains, c, sent)
+            add_domain(domains, stems, c, sent)
         rs.append({'type':'verb_domains', 'verb': word.text, 'index': word.index,
                    'rel': word.dependency_relation, 'governor': word.governor,
-                   'domains': domains})
+                   'domains': domains, 'stems':stems})
     return rs
 
 def get_aux_domain(sent, filters):
@@ -63,16 +66,17 @@ def get_aux_domain(sent, filters):
         # print('℗', word.text, word.dependency_relation, word.governor, '☇' , dc.text)
         # print('\t', dc.index, dc.text, get_children_list(sent, dc))
         domains = []
+        stems = []
         # 需要收集的是aux单词依赖的对象的关联集, 而不是aux单词自身的关联集
         for c in filter(lambda w: equals(w.governor, dc.index), sent.words):
             # print('\t', c.index, c.text, get_children_list(sent, c))
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
-            add_domain(domains, c, sent)
+            add_domain(domains, stems, c, sent)
         rs.append({'type':'aux_domains', 'aux': word.text,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
                    'head_pos': dc.upos.lower(), 'delegator':delegator,
-                   'index': word.index, 'domains': domains})
+                   'index': word.index, 'domains': domains, 'stems':stems})
     return rs
 
 def get_subj_domain(sent):
@@ -81,16 +85,17 @@ def get_subj_domain(sent):
         dc=sent.words[word.governor-1]
         # print('℗', word.text, word.dependency_relation, word.governor, '☇' , dc.text)
         domains = []
+        stems = []
         # 需要收集的是subj依赖的对象的关联集
         for c in filter(lambda w: equals(w.governor, dc.index), sent.words):
             # print('\t', c.index, c.text, get_children_list(sent, c))
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
-            add_domain(domains, c, sent)
+            add_domain(domains, stems, c, sent)
         rs.append({'type':'subj_domains', 'subj': word.text,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
                    'head_pos': dc.upos.lower(), 'head_feats':[dc.lemma, dc.upos, dc.xpos],
-                   'index': word.index, 'domains': domains})
+                   'index': word.index, 'domains': domains, 'stems':stems})
     return rs
 
 def get_chunks(sent):
@@ -105,6 +110,9 @@ class CoreNlpParser(object):
     def verb_domains(self, sents, lang='en'):
         """
         $ python -m sagas.nlu.corenlp_parser verb_domains "Barack Obama was born in Hawaii." en
+        # 我有一只阿比西尼亚猫
+        $ python -m sagas.nlu.corenlp_parser verb_domains "I have an Abyssinian cat." en
+
         $ python -m sagas.nlu.corenlp_parser verb_domains 'Что ты обычно ешь на ужин?' ru
         $ python -m sagas.nlu.corenlp_parser verb_domains 'Die Zeitschrift erscheint monatlich.' de
         :param sents:
@@ -117,11 +125,16 @@ class CoreNlpParser(object):
         # 分析依赖关系, 自下而上, 可用于抽取指定关系的子节点集合, 比如此例中的'nsubj:pass'和'obl'
         # word.governor即为当前word的parent
         sent = doc.sentences[0]
-        r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+        rs = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+        r=rs[0]
         # print(json.dumps(r, indent=2, ensure_ascii=False))
-        print(r[0]['verb'], r[0]['index'])
-        df=sagas.to_df(r[0]['domains'], ['rel', 'index', 'text', 'children'])
+        print(r['verb'], r['index'])
+        # df=sagas.to_df(r[0]['domains'], ['rel', 'index', 'text', 'children'])
+        df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
         sagas.print_df(df)
+        for stem in r['stems']:
+            if stem[0]=='obj':
+                print('object ->', ' '.join(stem[1]))
 
 if __name__ == '__main__':
     import fire

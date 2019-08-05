@@ -38,6 +38,19 @@ def handle_entities():
     data_y = json.dumps(rs, ensure_ascii=False)
     return data_y
 
+# @app.route('/word_sets', methods = ['POST'])
+# def handle_word_sets():
+#     from sagas.nlu.wordnet_procs import WordNetProcs
+#
+#     content = request.get_json()
+#     word = content['word']
+#     lang = content['lang']
+#
+#     procs=WordNetProcs()
+#     rs=procs.get_word_sets(word, lang)
+#     data_y = json.dumps(rs, ensure_ascii=False)
+#     return data_y
+
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=8091, debug=True)
     app.run(host='0.0.0.0', port=8092)

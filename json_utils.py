@@ -27,3 +27,5 @@ def write_json_to_file(filename, obj, **kwargs):
 def json_object(obj):
     return json.dumps(obj, default=lambda o: o.__dict__,
                sort_keys=True, indent=4)
+
+write_json=lambda f,o: write_json_to_file(f,o)
