@@ -38,6 +38,31 @@ class Patterns(object):
         self.track = track
         self.priority=priority
 
+        self.funcs={'aux':self.check_args,
+                    'subj':self.check_args,
+                    'verb': self.execute_args,
+                    }
+
+    def check_args(self, args, ctx, options):
+        result=True
+        opt_ret = check_item(self.meta, 'pos', args, ctx)
+        if not opt_ret:
+            result = False
+        options.append('{} is {}: {}'.format('pos', args, opt_ret))
+        return result
+
+    def execute_args(self, args, ctx:Context, options):
+        result=True
+        for arg in args:
+            if isinstance(arg, Inspector):
+                opt_ret = arg.run(ctx.meta['lemma'], ctx)
+                if not opt_ret:
+                    result = False
+                options.append('{} is {}: {}'.format('pos', arg, opt_ret))
+            else:
+                raise Exception('Unsupported argument class %s'%type(arg))
+        return result
+
     def __getattr__(self, method):
         """Provide a dynamic access to a service method."""
         if method.startswith('_'):
@@ -51,10 +76,11 @@ class Patterns(object):
             ctx = Context(self.meta, self.domains)
             # the args has been checked as pos
             if self.meta is not None and len(args)>0:
-                opt_ret=check_item(self.meta, 'pos', args, ctx)
-                if not opt_ret:
-                    result = False
-                options.append('{} is {}: {}'.format('pos', args, opt_ret))
+                # opt_ret=check_item(self.meta, 'pos', args, ctx)
+                # if not opt_ret:
+                #     result = False
+                # options.append('{} is {}: {}'.format('pos', args, opt_ret))
+                self.funcs[method](args, ctx, options)
 
             # rel_feats = {x[0]: x[5] for x in self.domains}
             rel_feats=ctx.feats

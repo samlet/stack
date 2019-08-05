@@ -2,11 +2,14 @@ from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins
 from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
+from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
+
 from sagas.nlu.patterns import Patterns, print_result
 
+agency=['c_pron', 'c_noun', 'c_propn']
 #⊕ [nmod](https://universaldependencies.org/u/dep/nmod.html)
 def verb_patterns(meta, domains):
-    agency=['c_pron', 'c_noun']
+    behaviours_obl = lambda rs: [Patterns(domains, meta, 2).verb(behaveof(r, 'v'), obl='c_noun') for r in rs]
     pats=[Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
           # 复合动词: Drengen har nederdelen på. (har..på是一个动词) ([en] The boy is wearing the skirt.)
           Patterns(domains, meta, 2).verb(compound_prt='c_adv', nsubj=agency, obj=agency),
@@ -45,11 +48,14 @@ def verb_patterns(meta, domains):
           # 匹配继承链: O homem fica amarelo.
           Patterns(domains, meta, 2).verb(nsubj=agency, xcomp=kindof('color', 'n')),
           Patterns(domains, meta, 2).verb(nsubj=kindof('activity', 'n')),
+
+          # 匹配行为: Ayer Roberto cenó en un restaurante excelente.
+          *behaviours_obl(['eat/consume']),
           ]
     print_result(pats)
 
 def aux_patterns(meta, domains):
-    agency = ['c_pron', 'c_noun', 'c_propn']
+    # agency = ['c_pron', 'c_noun', 'c_propn']
     things = lambda rs: [Patterns(domains, meta, 2).aux('noun', nsubj=kindof(r, 'n')) for r in rs]
     pats=[Patterns(domains, meta).aux('pron', 'noun', nsubj=agency, cop='c_aux'),
           # Eine Teilnahme ist kostenlos. (Attendance is free of charge.)
@@ -74,7 +80,7 @@ def aux_patterns(meta, domains):
     print_result(pats)
 
 def subj_patterns(meta, domains):
-    agency = ['c_pron', 'c_noun']
+    # agency = ['c_pron', 'c_noun', 'c_propn']
     pats=[Patterns(domains, meta).subj('pron', 'noun', nsubj=agency),
           # O nasıl? ([en] Who am I?)
           Patterns(domains, meta).subj('adv', nsubj=agency),

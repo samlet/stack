@@ -6,7 +6,7 @@ import requests
 feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 # feat_pos_mappings={'c_adj':['n','a','s'], 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 
-class PredicateWordInspector(Inspector):
+class WordInspector(Inspector):
     def __init__(self, kind, pos_indicator='~', only_first=True):
         """
         Init a predicate inspector
@@ -35,6 +35,10 @@ class PredicateWordInspector(Inspector):
             return feat_pos_mappings[att]
         return '*'
 
+    def __str__(self):
+        return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
+
+class PredicateWordInspector(WordInspector):
     def run(self, key, ctx:Context):
         result=False
         lang=ctx.meta['lang']
@@ -61,6 +65,33 @@ class PredicateWordInspector(Inspector):
 
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
+
+class VerbInspector(WordInspector):
+    def run(self, key, ctx:Context):
+        result=False
+        lang=ctx.meta['lang']
+        word=key  # the key == word
+        if self.pos_indicator=='~':
+            pos='v'
+        else:
+            pos=self.pos_indicator
+
+        data = {'word': word, 'lang': lang, 'pos': pos,
+                'kind': self.kind}
+        response = requests.post('http://localhost:8093/predicate_chain',
+                                 json=data)
+
+        if response.status_code == 200:
+            r=response.json()
+            result=r['result']
+        return result
+
+    def name(self):
+        return "behave_of"
+
+    def __str__(self):
+        return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
+
 
 class InspectorRunner(InspectorFixture):
     def __init__(self):

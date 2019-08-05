@@ -49,21 +49,21 @@ def get_verb_domains(data, return_df=False):
         rs = response.json()
         for r in rs:
             type_name=r['type']
-
+            common={'lemma':r['lemma']}
             if type_name=='verb_domains':
-                print('[verb]', r['verb'], r['index'],
+                print('[verb]', r['lemma'], r['index'],
                       '(%s, %s)'%(r['rel'], r['governor']))
-                verb_patterns({'rel':r['rel'], **data}, r['domains'])
+                verb_patterns({'rel':r['rel'], **common, **data}, r['domains'])
             elif type_name=='aux_domains':
                 # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
                 delegator='☇' if not r['delegator'] else '☌'
-                print('[aux]', r['aux'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
+                print('[aux]', r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
                 # verb_patterns(r['domains'])
-                aux_patterns({'pos':r['head_pos'], **data}, r['domains'])
+                aux_patterns({'pos':r['head_pos'], **common, **data}, r['domains'])
             elif type_name=='subj_domains':
-                print('[subj]', r['subj'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
+                print('[subj]', r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
                 # verb_patterns(r['domains'])
-                subj_patterns({'pos': r['head_pos'], **data}, r['domains'])
+                subj_patterns({'pos': r['head_pos'], **common, **data}, r['domains'])
             else:
                 raise Exception('Cannot process specific type: {}'.format(type_name))
 
@@ -137,10 +137,11 @@ class MiscTool(object):
 
         if sents!='':
             text=sents
+            interact_mode=False
         else:
             text = clipboard.paste()
             text = text.replace("\n", "")
-
+            interact_mode=True
         target_sents=[]
         sents_map={}
         # print('❣', text)
@@ -218,7 +219,8 @@ class MiscTool(object):
 
         result='\n\t'.join([text]+target_sents)
         print(result)
-        clipboard.copy(result+'\n')
+        if interact_mode:
+            clipboard.copy(result+'\n')
 
         if source in available_sources:
             data = {'lang': source, "sents": text}
@@ -234,7 +236,7 @@ class MiscTool(object):
                 data = {'lang': 'ja', "sents": sents_map['ja']}
                 get_verb_domains(data)
 
-        if says is not None:
+        if interact_mode and says is not None:
             from sagas.nlu.nlu_tools import NluTools
             NluTools().say(sents_map[says], says)
 
