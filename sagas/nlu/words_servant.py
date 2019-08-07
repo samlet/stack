@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 import json
-from sagas.nlu.wordnet_procs import WordNetProcs, predicate_chain
+from sagas.nlu.wordnet_procs import WordNetProcs, predicate_chain, get_chains
 
 app = Flask(__name__)
 
@@ -34,6 +34,31 @@ def handle_predicate_chain():
 
     r,c=predicate_chain(word, content['kind'], lang=lang, pos=pos)
     data_y = json.dumps({'result':r, 'data':c})
+    return data_y
+
+@app.route('/get_chains', methods = ['POST'])
+def handle_get_chains():
+    content = request.get_json()
+    word = content['word']
+    lang = content['lang']
+    pos=content['pos']
+    if pos=='*':
+        pos=None
+
+    r=get_chains(word, lang=lang, pos=pos)
+    data_y = json.dumps(r)
+    return data_y
+
+@app.route('/explore', methods = ['POST'])
+def handle_explore():
+    from sagas.nlu.wordnet_explore import explore
+    content = request.get_json()
+    word = content['word']
+    lang = content['lang']
+    targets=content['targets']
+
+    rs=explore(word, lang=lang, target_langs=targets)
+    data_y = json.dumps(rs)
     return data_y
 
 @app.route('/word_sets', methods = ['POST'])

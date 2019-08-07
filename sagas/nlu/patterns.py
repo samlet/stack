@@ -80,7 +80,8 @@ class Patterns(object):
                 # if not opt_ret:
                 #     result = False
                 # options.append('{} is {}: {}'.format('pos', args, opt_ret))
-                self.funcs[method](args, ctx, options)
+                if not self.funcs[method](args, ctx, options):
+                    result=False
 
             # rel_feats = {x[0]: x[5] for x in self.domains}
             rel_feats=ctx.feats

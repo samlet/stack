@@ -37,10 +37,13 @@ def print_stem_chunks(r):
             value=' '.join(stem[1])
             print('%s ->'%stem[0], colored(value, 'green'))
 
+# print_def=True
+print_def=False
 def get_verb_domains(data, return_df=False):
     import requests
     import sagas
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns
+    from sagas.nlu.nlu_cli import NluCli
 
     response = requests.post('http://localhost:8090/verb_domains', json=data)
     # print(response.status_code, response.json())
@@ -75,10 +78,16 @@ def get_verb_domains(data, return_df=False):
                 df = df.drop('children', 1)
                 sagas.print_df(df)
                 print_stem_chunks(r)
+
+                if print_def:
+                    NluCli().get_word_def(r['lemma'], data['lang'])
     if return_df:
         return df_set
 
 class MiscTool(object):
+    # def __init__(self):
+    #     self.print_def=True
+
     def plain(self):
         """
         $ python -m sagas.tool.misc plain

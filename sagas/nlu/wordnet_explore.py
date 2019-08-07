@@ -1,0 +1,28 @@
+from nltk.corpus import wordnet as wn
+from sagas.nlu.omw_extended import langsets
+
+hypo = lambda s: s.hyponyms()
+hyper = lambda s: s.hypernyms()
+
+def get_lemmas(synsets, target_langs):
+    rs=[]
+    for idx, c in enumerate(synsets):
+        # print('%d.'%idx, c.name())
+        chain={'index':idx, 'name':c.name(), 'hyper':[]}
+        for c_c in [c]+list(c.closure(hyper)):
+            level={'name':c_c.name(), 'definition':c_c.definition(), 'records':[]}
+            for lang in target_langs:
+                les=c_c.lemma_names(langsets[lang])
+                if len(les)>0:
+                    level['records'].append({'lang':lang, 'lemmas':les})
+            chain['hyper'].append(level)
+        rs.append(chain)
+    return rs
+
+def explore(word, lang='en', target_langs=None):
+    if target_langs is None:
+        target_langs = ['en', 'fr', 'ja', 'zh']
+    sets = wn.synsets(word, pos=None, lang=langsets[lang])
+    rs = get_lemmas(sets, target_langs)
+    return rs
+

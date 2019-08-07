@@ -39,6 +39,21 @@ def predicate_chain(word, kind, lang='en', pos='n'):
         return check_chains(sets, kind)
     return ret, None
 
+def get_chains(word, lang='en', pos=None):
+    from sagas.nlu.locales import iso_locales
+    loc, _ = iso_locales.get_code_by_part1(lang)
+    synsets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+
+    chains = []
+    for index, c in enumerate(synsets):
+        print(c.offset(), c.name())
+        chain_keys = []
+        for c_c in [c] + list(c.closure(hyper)):
+            key = c_c.name()
+            chain_keys.append(key)
+        chains.append({'offset':c.offset(), 'name':c.name(), 'chain':chain_keys})
+    return chains
+
 class WordNetProcs(object):
     def all_langs(self, part1_format=False):
         """
