@@ -128,6 +128,9 @@ class Locales(object):
 
 iso_locales=Locales()
 
+def is_available(lang):
+    return lang in iso_locales.iso_map
+
 if __name__ == '__main__':
     import fire
     fire.Fire(Locales)

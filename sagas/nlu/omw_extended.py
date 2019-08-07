@@ -28,6 +28,23 @@ class OmwExtended(object):
 
         return self.data_tables[lang]
 
+    def get_word(self, lang, offset, pos='n'):
+        """
+        $ python -m sagas.nlu.omw_extended get_word ru 9918554
+        :param lang:
+        :param offset:
+        :param pos:
+        :return:
+        """
+        id = '%s-%s' % (str(offset).zfill(8), pos)
+        # print('.. query', id)
+        rs = []
+        data = self.load_dicts(lang)
+        for row in data:
+            if row[0] == id:
+                rs.append({'id':row[0], 'word':row[2]})
+        return rs
+
     def disp_by_offset(self, lang, offset, pos = 'n'):
         """
         $ python -m sagas.nlu.omw_extended disp_by_offset ru 9918554

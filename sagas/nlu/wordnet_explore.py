@@ -1,8 +1,10 @@
 from nltk.corpus import wordnet as wn
-from sagas.nlu.omw_extended import langsets
+from sagas.nlu.omw_extended import langsets, OmwExtended
+from sagas.nlu.locales import is_available
 
 hypo = lambda s: s.hyponyms()
 hyper = lambda s: s.hypernyms()
+omw = OmwExtended()
 
 def get_lemmas(synsets, target_langs):
     rs=[]
@@ -12,7 +14,11 @@ def get_lemmas(synsets, target_langs):
         for c_c in [c]+list(c.closure(hyper)):
             level={'name':c_c.name(), 'definition':c_c.definition(), 'records':[]}
             for lang in target_langs:
-                les=c_c.lemma_names(langsets[lang])
+                # les=c_c.lemma_names(langsets[lang])
+                if not is_available(lang):
+                    les = [w['word'] for w in omw.get_word(lang, c_c.offset(), c_c.pos())]
+                else:
+                    les = c_c.lemma_names(langsets[lang])
                 if len(les)>0:
                     level['records'].append({'lang':lang, 'lemmas':les})
             chain['hyper'].append(level)

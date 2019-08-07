@@ -55,6 +55,10 @@ def get_chains(word, lang='en', pos=None):
     return chains
 
 class WordNetProcs(object):
+    def __init__(self):
+        from sagas.nlu.omw_extended import OmwExtended
+        self.omw = OmwExtended()
+
     def all_langs(self, part1_format=False):
         """
         $ python -m sagas.nlu.wordnet_procs all_langs
@@ -293,6 +297,33 @@ class WordNetProcs(object):
         :return:
         """
         return self.get_inherited(word, pos, hypo)
+
+    def print_lemmas(self, synsets, target_langs):
+        from sagas.nlu.omw_extended import langsets
+        from sagas.nlu.locales import is_available
+
+        for idx, c in enumerate(synsets):
+            print('%d.' % idx, c.name())
+            for c_c in [c] + list(c.closure(hyper)):
+                print('\t', c_c.name(), c_c.offset(), c_c.pos())
+                for lang in target_langs:
+                    if not is_available(lang):
+                        les=[w['word'] for w in self.omw.get_word(lang, c_c.offset(), c_c.pos())]
+                    else:
+                        les = c_c.lemma_names(langsets[lang])
+                    if len(les) > 0:
+                        print('\t\t[%s]' % lang, ', '.join(les))
+
+    def print_definition(self, word):
+        """
+        $ python -m sagas.nlu.wordnet_procs print_definition dog
+        :param word:
+        :return:
+        """
+        from sagas.nlu.omw_extended import langsets
+        sets = wn.synsets(word, pos=None, lang=langsets['en'])
+        # self.print_lemmas(sets, ['en', 'fr', 'ja', 'zh'])
+        self.print_lemmas(sets, ['en', 'ja', 'de', 'ru'])
 
 if __name__ == '__main__':
     import fire

@@ -153,6 +153,7 @@ class NluCli(object):
     def explore(self, word, lang, targets):
         """
         $ python -m sagas.nlu.nlu_cli explore world en en,fr,ja,zh
+        $ python -m sagas.nlu.nlu_cli explore dog en en,zh,de,ru
         :param word:
         :param lang:
         :param targets:
