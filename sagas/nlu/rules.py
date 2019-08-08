@@ -81,6 +81,11 @@ def aux_patterns(meta, domains):
 
 def subj_patterns(meta, domains):
     # agency = ['c_pron', 'c_noun', 'c_propn']
+    descs= lambda rs: [Patterns(domains, meta, 2).subj('pron', 'noun', nsubj=kindof(r, 'n')) for r in rs]
+    props = lambda rs: [Patterns(domains, meta, 2).subj('pron', 'noun',
+                                                        nsubj=kindof(r, 'n'),
+                                                        amod='c_adj'
+                                                        ) for r in rs]
     pats=[Patterns(domains, meta).subj('pron', 'noun', nsubj=agency),
           # O nasıl? ([en] Who am I?)
           Patterns(domains, meta).subj('adv', nsubj=agency),
@@ -94,5 +99,9 @@ def subj_patterns(meta, domains):
           Patterns(domains, meta).subj('adj', nsubj=agency, obl='c_propn'),
           # Ne kadar sütümüz var? ([en] How much milk do we have?)
           Patterns(domains, meta).subj('adj', nsubj=agency),
+          # Яблоко - это здоровый фрукт. ([zh] 苹果是一种健康的水果。)
+          *descs(['food/matter']),
+          # $ sr 'Яблоко - это здоровый фрукт.'
+          *props(['food/matter']),
           ]
     print_result(pats)

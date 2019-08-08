@@ -155,15 +155,19 @@ class WordNetProcs(object):
         $ python -m sagas.nlu.wordnet_procs word_sets menina pt
         $ python -m sagas.nlu.wordnet_procs word_sets lobo pt
         $ python -m sagas.nlu.wordnet_procs word_sets wolf en n
+
+        $ word здоровый ru
         :param word:
         :param lang:
         :return:
         """
         from termcolor import colored
-        from sagas.nlu.locales import iso_locales
-        loc, _=iso_locales.get_code_by_part1(lang)
-        print('.. query {} in language {}'.format(word, loc))
-        sets=wn.synsets(word, lang=loc, pos=None if pos=='*' else pos)
+        # from sagas.nlu.locales import iso_locales
+        # loc, _=iso_locales.get_code_by_part1(lang)
+        # print('.. query {} in language {}'.format(word, loc))
+        # sets=wn.synsets(word, lang=loc, pos=None if pos=='*' else pos)
+        from sagas.nlu.omw_extended import get_synsets
+        sets = get_synsets(lang, word, pos)
         print(sets)
         for s in sets:
             if s is not None:
