@@ -117,6 +117,8 @@ class NluCli(object):
                    'kind':'animal/mammal'},
                   {'word': 'amarelo', 'lang': 'pt', 'pos': 'n',
                    'kind': 'color'},
+                  {'word': 'колбаса', 'lang': 'ru', 'pos': 'n',
+                   'kind': 'food/matter'},
                   ]
         for data in data_set:
             response = requests.post('http://localhost:8093/predicate_chain',
@@ -150,16 +152,19 @@ class NluCli(object):
         else:
             print('none.')
 
-    def explore(self, word, lang, targets):
+    def explore(self, word, lang='en', targets=None):
         """
         $ python -m sagas.nlu.nlu_cli explore world en en,fr,ja,zh
         $ python -m sagas.nlu.nlu_cli explore dog en en,zh,de,ru
+        $ expl kick
         :param word:
         :param lang:
         :param targets:
         :return:
         """
         import requests
+        if targets is None:
+            targets=['en', 'zh', 'ja', 'es','fr', 'de', 'ru']
         # data = {'word': 'world', 'lang': 'en', 'targets': ['en', 'fr', 'ja', 'zh']}
         data={'word':word, 'lang':lang, 'targets':targets}
         response = requests.post('http://localhost:8093/explore',

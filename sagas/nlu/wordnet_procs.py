@@ -29,10 +29,12 @@ def check_chains(synsets: list, kind):
     return False, None
 
 def predicate_chain(word, kind, lang='en', pos='n'):
-    from sagas.nlu.locales import iso_locales
-    print('.. checking %s is %s'%(word,kind))
-    loc, _ = iso_locales.get_code_by_part1(lang)
-    sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    # from sagas.nlu.locales import iso_locales
+    # print('.. checking %s is %s'%(word,kind))
+    # loc, _ = iso_locales.get_code_by_part1(lang)
+    # sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    from sagas.nlu.omw_extended import get_synsets
+    sets = get_synsets(lang, word, pos)
     ret = False
     if len(sets) >= 0:
         # c=[s.name() for s in sets]
@@ -40,9 +42,11 @@ def predicate_chain(word, kind, lang='en', pos='n'):
     return ret, None
 
 def get_chains(word, lang='en', pos=None):
-    from sagas.nlu.locales import iso_locales
-    loc, _ = iso_locales.get_code_by_part1(lang)
-    synsets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    # from sagas.nlu.locales import iso_locales
+    # loc, _ = iso_locales.get_code_by_part1(lang)
+    # synsets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    from sagas.nlu.omw_extended import get_synsets
+    synsets = get_synsets(lang, word, pos)
 
     chains = []
     for index, c in enumerate(synsets):
@@ -56,8 +60,8 @@ def get_chains(word, lang='en', pos=None):
 
 class WordNetProcs(object):
     def __init__(self):
-        from sagas.nlu.omw_extended import OmwExtended
-        self.omw = OmwExtended()
+        from sagas.nlu.omw_extended import omw_ext
+        self.omw = omw_ext
 
     def all_langs(self, part1_format=False):
         """
@@ -73,16 +77,19 @@ class WordNetProcs(object):
             print(', '.join(sorted(langs)))
             print(', '.join(sorted(iso_locales.iso_map.keys())))
 
-    def get_word_sets(self, word, lang='en', pos=None):
+    def get_word_sets(self, word, lang='en', pos='*'):
         """
         $ python -m sagas.nlu.wordnet_procs get_word_sets menina pt
+        $ python -m sagas.nlu.wordnet_procs get_word_sets ложь ru
         :param word:
         :param lang:
         :return:
         """
-        from sagas.nlu.locales import iso_locales
-        loc, _ = iso_locales.get_code_by_part1(lang)
-        sets = wn.synsets(word, pos=pos, lang=loc)
+        # from sagas.nlu.locales import iso_locales
+        # loc, _ = iso_locales.get_code_by_part1(lang)
+        # sets = wn.synsets(word, pos=pos, lang=loc)
+        from sagas.nlu.omw_extended import get_synsets
+        sets=get_synsets(lang, word, pos)
         rs=[]
         for s in sets:
             # print("%s -> %s"%(colored(s.name(), 'green'), s.definition()))
@@ -124,9 +131,12 @@ class WordNetProcs(object):
         :param only_first:
         :return:
         """
-        from sagas.nlu.locales import iso_locales
-        loc, _ = iso_locales.get_code_by_part1(lang)
-        sets = wn.synsets(word, lang=loc, pos=None if pos=='*' else pos)
+        # from sagas.nlu.locales import iso_locales
+        # loc, _ = iso_locales.get_code_by_part1(lang)
+        # sets = wn.synsets(word, lang=loc, pos=None if pos=='*' else pos)
+        from sagas.nlu.omw_extended import get_synsets
+        sets = get_synsets(lang, word, pos)
+
         ret=False
         if len(sets)>=0:
             if only_first:

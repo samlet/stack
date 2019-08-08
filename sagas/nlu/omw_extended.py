@@ -45,6 +45,24 @@ class OmwExtended(object):
                 rs.append({'id':row[0], 'word':row[2]})
         return rs
 
+    def get_synset(self, lang, word):
+        """
+        $ python -m sagas.nlu.omw_extended get_synset ru ложь
+        :param lang:
+        :param word:
+        :return:
+        """
+        from nltk.corpus import wordnet as wn
+        rs = []
+        data = self.load_dicts(lang)
+        for row in data:
+            if row[2] == word:
+                refid=row[0]
+                offset, pos = refid.split('-')
+                syn = wn.synset_from_pos_and_offset(pos, int(offset))
+                rs.append({'id': refid, 'word': row[2], 'pos': pos, 'synset':syn})
+        return rs
+
     def disp_by_offset(self, lang, offset, pos = 'n'):
         """
         $ python -m sagas.nlu.omw_extended disp_by_offset ru 9918554
@@ -68,6 +86,33 @@ class OmwExtended(object):
         else:
             print('no data.')
 
+omw_ext=OmwExtended()
+
+def get_synsets(lang, word, pos='*'):
+    """
+    from sagas.nlu.omw_extended import get_synsets
+    sets=get_synsets(lang, word, pos)
+
+    :param lang:
+    :param word:
+    :param pos:
+    :return:
+    """
+    from nltk.corpus import wordnet as wn
+    from sagas.nlu.locales import is_available, iso_locales
+    sets=[]
+    if is_available(lang):
+        loc, _ = iso_locales.get_code_by_part1(lang)
+        sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    if len(sets)==0:
+        sets=omw_ext.get_synset(lang=lang, word=word)
+        if pos is not None and pos!='*':
+            sets=[s['synset'] for s in sets if s['pos']==pos]
+        else:
+            sets=[s['synset'] for s in sets]
+    return sets
+
 if __name__ == '__main__':
     import fire
     fire.Fire(OmwExtended)
+

@@ -1,10 +1,10 @@
 from nltk.corpus import wordnet as wn
-from sagas.nlu.omw_extended import langsets, OmwExtended
+from sagas.nlu.omw_extended import langsets, omw_ext
 from sagas.nlu.locales import is_available
 
 hypo = lambda s: s.hyponyms()
 hyper = lambda s: s.hypernyms()
-omw = OmwExtended()
+# omw = OmwExtended()
 
 def get_lemmas(synsets, target_langs):
     rs=[]
@@ -16,7 +16,7 @@ def get_lemmas(synsets, target_langs):
             for lang in target_langs:
                 # les=c_c.lemma_names(langsets[lang])
                 if not is_available(lang):
-                    les = [w['word'] for w in omw.get_word(lang, c_c.offset(), c_c.pos())]
+                    les = [w['word'] for w in omw_ext.get_word(lang, c_c.offset(), c_c.pos())]
                 else:
                     les = c_c.lemma_names(langsets[lang])
                 if len(les)>0:
