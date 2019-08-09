@@ -44,6 +44,7 @@ def translate(q, from_lang, to_lang):
         # print(result)
         data = json.loads(result)
         return data["trans_result"]
+        # return data
     except Exception as e:
         print(e)
         return ""
@@ -54,15 +55,23 @@ def translate(q, from_lang, to_lang):
 lang_mappings={
     'en':'en',
     'zh':'zh',
+    'zh-CN':'zh',
     "de":'de',
     'ja':'jp',
     'es':'spa',
     'fr':'fra',
     'vi':'vie',
-    'ko':'kor'
+    'ko':'kor',
+    'ru':'ru',
+    'pt':'pt',
+    'it':'it',
+    'el':'el',
 }
 
 class BaiduTranslator(object):
+    def trans(self, s, t, q):
+        return translate(q, lang_mappings[s], lang_mappings[t])
+
     def to_zh(self, s, t, q):
         """
         $ python -m sagas.nlu.baidu_translator to_zh en zh "tom is a bad student"

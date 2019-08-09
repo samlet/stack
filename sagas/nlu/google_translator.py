@@ -208,7 +208,8 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
   url=buildUrl(text,js.getTk(text), source, target)
   res=''
   try:
-      r=requests.get(url)
+      # r=requests.get(url)
+      r = requests.get(url, headers=header)
       result=json.loads(r.text)
       # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
       # if result[7]!=None:
