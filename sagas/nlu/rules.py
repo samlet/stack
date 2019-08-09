@@ -68,6 +68,7 @@ def verb_patterns(meta, domains):
 def aux_patterns(meta, domains):
     # agency = ['c_pron', 'c_noun', 'c_propn']
     things = lambda rs: [Patterns(domains, meta, 5).aux('noun', nsubj=kindof(r, 'n')) for r in rs]
+    categories= lambda rs: [Patterns(domains, meta, 5).cop(behaveof(r, 'n'), nsubj=agency) for r in rs]
     pats=[Patterns(domains, meta).aux('pron', 'noun', nsubj=agency, cop='c_aux'),
           # Eine Teilnahme ist kostenlos. (Attendance is free of charge.)
           Patterns(domains, meta).aux('adj', nsubj=agency, cop='c_aux'),
@@ -87,6 +88,8 @@ def aux_patterns(meta, domains):
           *things(['fruit', 'food']),
           # Leopard is a beast.
           *things(['animal/living_thing', 'animal_product/material']),
+          # $ se 'He is an optimist.'
+          *categories(['person/organism'])
           ]
     print_result(pats)
 

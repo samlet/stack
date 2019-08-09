@@ -11,8 +11,9 @@ def translate(q, from_lang, to_lang):
     import http.client
     import random
     import json
+    import requests
 
-    httpClient = None
+    # httpClient = None
     myurl = '/api/trans/vip/translate'
     # q = 'apple'
     # q = 'I am a teacher'
@@ -35,22 +36,25 @@ def translate(q, from_lang, to_lang):
         q) + '&from=' + from_lang + '&to=' + to_lang + '&salt=' + str(salt) + '&sign=' + sign
 
     try:
-        httpClient = http.client.HTTPConnection('api.fanyi.baidu.com')
-        httpClient.request('GET', myurl)
+        # httpClient = http.client.HTTPConnection('api.fanyi.baidu.com')
+        # httpClient.request('GET', myurl)
+        # # response是HTTPResponse对象
+        # response = httpClient.getresponse()
+        # result = response.read()
 
-        # response是HTTPResponse对象
-        response = httpClient.getresponse()
-        result = response.read()
-        # print(result)
-        data = json.loads(result)
-        return data["trans_result"]
-        # return data
+        response=requests.get(url='http://api.fanyi.baidu.com'+myurl)
+        if response.status_code == 200:
+            result = response.json()
+            # print(result)
+            # data = json.loads(result)
+            return result["trans_result"]
+        return []
     except Exception as e:
         print(e)
-        return ""
-    finally:
-        if httpClient:
-            httpClient.close()
+        return []
+    # finally:
+    #     if httpClient:
+    #         httpClient.close()
 
 lang_mappings={
     'en':'en',
@@ -76,6 +80,7 @@ class BaiduTranslator(object):
         """
         $ python -m sagas.nlu.baidu_translator to_zh en zh "tom is a bad student"
             [{'src': 'tom is a bad student', 'dst': '汤姆是个坏学生'}]
+        $ python -m sagas.nlu.baidu_translator to_zh en ja "tom is a bad student"
         $ python -m sagas.nlu.baidu_translator to_zh vi zh "Cậu bé uống nước ép."
         :return:
         """

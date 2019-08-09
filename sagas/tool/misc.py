@@ -38,7 +38,7 @@ def print_stem_chunks(r):
             print('%s ->'%stem[0], colored(value, 'green'))
 
 display_synsets_opts=['nsubj', 'obl', 'obj', 'iobj']
-def display_synsets(meta, r, lang):
+def display_synsets(theme, meta, r, lang):
     from sagas.nlu.nlu_cli import retrieve_word_info
     from termcolor import colored
 
@@ -52,7 +52,10 @@ def display_synsets(meta, r, lang):
         if len(rs) > 0:
             print('♥ %s(%s): %s' % (colored(word, 'magenta'), indicator, ', '.join(rs)))
             resp.append('♥ %s(%s): %s' % (word, indicator, ', '.join(rs)))
-    retrieve(word, '~')
+    retrieve(word, theme)
+    if 'head' in meta:
+        # print('.........')
+        retrieve(meta['head'], 'head')
     for opt in display_synsets_opts:
         if opt in ctx.lemmas:
             retrieve(ctx.lemmas[opt], opt)
@@ -76,22 +79,26 @@ def get_verb_domains(data, return_df=False):
         for r in rs:
             type_name=r['type']
             common={'lemma':r['lemma']}
+            theme=''
             if type_name=='verb_domains':
-                print('[verb]', r['lemma'], r['index'],
+                theme='[verb]'
+                print(theme, r['lemma'], r['index'],
                       '(%s, %s)'%(r['rel'], r['governor']))
                 meta={'rel':r['rel'], **common, **data}
                 verb_patterns(meta, r['domains'])
             elif type_name=='aux_domains':
+                theme='[aux]'
                 # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
                 delegator='☇' if not r['delegator'] else '☌'
-                print('[aux]', r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
+                print(theme, r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
                 # verb_patterns(r['domains'])
-                meta={'pos':r['head_pos'], **common, **data}
+                meta={'pos':r['head_pos'], 'head':r['head'], **common, **data}
                 aux_patterns(meta, r['domains'])
             elif type_name=='subj_domains':
-                print('[subj]', r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
+                theme='[subj]'
+                print(theme, r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
                 # verb_patterns(r['domains'])
-                meta={'pos': r['head_pos'], **common, **data}
+                meta={'pos': r['head_pos'], 'head':r['head'], **common, **data}
                 subj_patterns(meta, r['domains'])
             else:
                 meta = {}
@@ -109,7 +116,7 @@ def get_verb_domains(data, return_df=False):
                 if print_def:
                     NluCli().get_word_def(r['lemma'], data['lang'])
                 if print_synsets:
-                    r=display_synsets(meta, r, data['lang'])
+                    r=display_synsets(theme, meta, r, data['lang'])
                     result.extend(r)
 
 
@@ -137,7 +144,8 @@ class MiscTool(object):
         import sagas.conf.conf as conf
         cf = conf.TransClipConf()
         self.translator=cf.conf['translator']
-        print('.. using translator', self.translator)
+        self.retries=cf.conf['retries']
+        print('.. default translator - %s, retries times - %d'%(self.translator, self.retries))
         self.translators={'baidu':self.trans_baidu,
                           'google':self.trans_google}
 
@@ -195,10 +203,14 @@ class MiscTool(object):
                 options.add('get_pronounce')
 
             trans, tracker=translate(text, source=source, target=target, options=options)
-            if trans=='':
+            count = 0
+            while trans=='':
                 print('wait a second, try again ...')
                 sleep(1)
                 trans, tracker = translate(text, source=source, target=target, options=options)
+                count=count+1
+                if count>self.retries:
+                    break
 
             if trans != '':
                 # result=text+'\n\t* '+trans+'\n'
@@ -232,6 +244,16 @@ class MiscTool(object):
 
             time.sleep(1.0)  # must wait 1 second
         return True
+
+    def trans_clip_opt(self, source):
+        """
+        $ python -m sagas.tool.misc trans_clip_opt de
+        :param source:
+        :return:
+        """
+        self.translator='baidu' # set this option
+        print('.. set translator', self.translator)
+        self.trans_clip(source, targets='zh;ja', says='ja', details=False)
 
     def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
         """

@@ -40,7 +40,8 @@ class Patterns(object):
 
         self.funcs={'aux':self.check_args,
                     'subj':self.check_args,
-                    'verb': self.execute_args,
+                    'verb': self.execute_args_lemma,
+                    'cop': self.execute_args_head,
                     }
 
     def check_args(self, args, ctx, options):
@@ -51,17 +52,23 @@ class Patterns(object):
         options.append('{} is {}: {}'.format('pos', args, opt_ret))
         return result
 
-    def execute_args(self, args, ctx:Context, options):
+    def execute_args(self, args, ctx:Context, options, meta_key):
         result=True
         for arg in args:
             if isinstance(arg, Inspector):
-                opt_ret = arg.run(ctx.meta['lemma'], ctx)
+                opt_ret = arg.run(ctx.meta[meta_key], ctx)
                 if not opt_ret:
                     result = False
                 options.append('{} is {}: {}'.format('pos', arg, opt_ret))
             else:
                 raise Exception('Unsupported argument class %s'%type(arg))
         return result
+
+    def execute_args_lemma(self, args, ctx:Context, options):
+        return self.execute_args(args, ctx, options, 'lemma')
+
+    def execute_args_head(self, args, ctx:Context, options):
+        return self.execute_args(args, ctx, options, 'head')
 
     def __getattr__(self, method):
         """Provide a dynamic access to a service method."""

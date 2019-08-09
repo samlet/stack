@@ -189,6 +189,7 @@ class NluCli(object):
 
     def explore(self, word, lang='en', targets=None):
         """
+        输出继承链以及在不同语言的词根表示
         $ python -m sagas.nlu.nlu_cli explore world en en,fr,ja,zh
         $ python -m sagas.nlu.nlu_cli explore dog en en,zh,de,ru
         $ expl kick
