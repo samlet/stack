@@ -49,6 +49,22 @@ def handle_get_chains():
     data_y = json.dumps(r)
     return data_y
 
+@app.route('/get_synsets', methods = ['POST'])
+def handle_get_synsets():
+    from sagas.nlu.omw_extended import get_synsets
+
+    content = request.get_json()
+    word = content['word']
+    lang = content['lang']
+    pos=content['pos']
+    if pos=='*':
+        pos=None
+
+    sets = get_synsets(lang, word, pos)
+    r=[c.name() for c in sets]
+    data_y = json.dumps(r)
+    return data_y
+
 @app.route('/explore', methods = ['POST'])
 def handle_explore():
     from sagas.nlu.wordnet_explore import explore

@@ -89,6 +89,7 @@ class WordNetProcs(object):
         # loc, _ = iso_locales.get_code_by_part1(lang)
         # sets = wn.synsets(word, pos=pos, lang=loc)
         from sagas.nlu.omw_extended import get_synsets
+        from sagas.nlu.wordnet_explore import get_word_lemmas
         sets=get_synsets(lang, word, pos)
         rs=[]
         for s in sets:
@@ -98,7 +99,11 @@ class WordNetProcs(object):
             domains = {'topic': names(s.topic_domains()),
                        'region': names(s.region_domains()),
                        'usage': names(s.usage_domains())}
+            lemmas={}
+            for lang in ['en', 'zh', 'ja']:
+                lemmas[lang]=get_word_lemmas(s, lang)
             rec['domains']=domains
+            rec['lemmas']=lemmas
             rs.append(rec)
         return rs
 

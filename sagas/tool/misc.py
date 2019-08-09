@@ -37,8 +37,27 @@ def print_stem_chunks(r):
             value=' '.join(stem[1])
             print('%s ->'%stem[0], colored(value, 'green'))
 
+display_synsets_opts=['nsubj', 'obl', 'obj']
+def display_synsets(meta, r, lang):
+    from sagas.nlu.nlu_cli import retrieve_word_info
+    from termcolor import colored
+
+    from sagas.nlu.inspector_common import Context
+    ctx=Context(meta, r['domains'])
+
+    word = r['lemma']
+    def retrieve(word, indicator):
+        rs = retrieve_word_info('get_synsets', word, lang, '*')
+        if len(rs) > 0:
+            print('♥ %s(%s): %s' % (colored(word, 'magenta'), indicator, ', '.join(rs)))
+    retrieve(word, '~')
+    for opt in display_synsets_opts:
+        if opt in ctx.lemmas:
+            retrieve(ctx.lemmas[opt], opt)
+
 # print_def=True
 print_def=False
+print_synsets=True
 def get_verb_domains(data, return_df=False):
     import requests
     import sagas
@@ -56,18 +75,22 @@ def get_verb_domains(data, return_df=False):
             if type_name=='verb_domains':
                 print('[verb]', r['lemma'], r['index'],
                       '(%s, %s)'%(r['rel'], r['governor']))
-                verb_patterns({'rel':r['rel'], **common, **data}, r['domains'])
+                meta={'rel':r['rel'], **common, **data}
+                verb_patterns(meta, r['domains'])
             elif type_name=='aux_domains':
                 # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
                 delegator='☇' if not r['delegator'] else '☌'
                 print('[aux]', r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
                 # verb_patterns(r['domains'])
-                aux_patterns({'pos':r['head_pos'], **common, **data}, r['domains'])
+                meta={'pos':r['head_pos'], **common, **data}
+                aux_patterns(meta, r['domains'])
             elif type_name=='subj_domains':
                 print('[subj]', r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
                 # verb_patterns(r['domains'])
-                subj_patterns({'pos': r['head_pos'], **common, **data}, r['domains'])
+                meta={'pos': r['head_pos'], **common, **data}
+                subj_patterns(meta, r['domains'])
             else:
+                meta = {}
                 raise Exception('Cannot process specific type: {}'.format(type_name))
 
             # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
@@ -81,6 +104,10 @@ def get_verb_domains(data, return_df=False):
 
                 if print_def:
                     NluCli().get_word_def(r['lemma'], data['lang'])
+                if print_synsets:
+                    display_synsets(meta, r, data['lang'])
+
+
     if return_df:
         return df_set
 

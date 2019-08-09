@@ -9,7 +9,9 @@ from sagas.nlu.patterns import Patterns, print_result
 agency=['c_pron', 'c_noun', 'c_propn']
 #⊕ [nmod](https://universaldependencies.org/u/dep/nmod.html)
 def verb_patterns(meta, domains):
-    behaviours_obl = lambda rs: [Patterns(domains, meta, 2).verb(behaveof(r, 'v'), obl='c_noun') for r in rs]
+    behaviours_obl = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r, 'v'), obl='c_noun') for r in rs]
+    actions_obl = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r[0], 'v'), obl=kindof(r[1], 'n')) for r in rs]
+    actions_obj = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r[0], 'v'), obj=kindof(r[1], 'n')) for r in rs]
     pats=[Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
           # 复合动词: Drengen har nederdelen på. (har..på是一个动词) ([en] The boy is wearing the skirt.)
           Patterns(domains, meta, 2).verb(compound_prt='c_adv', nsubj=agency, obj=agency),
@@ -51,12 +53,21 @@ def verb_patterns(meta, domains):
 
           # 匹配行为: Ayer Roberto cenó en un restaurante excelente.
           *behaviours_obl(['eat/consume']),
+          # 匹配行为与对象:
+          # $ se 'What do you think about the war?'
+          *actions_obl([('evaluate', 'group_action/event'),
+                    ('examine', 'interest/state')
+                    ]),
+          # $ sd 'Wie untersuchen Sie diese Angelegenheit?'
+          *actions_obj([('evaluate', 'group_action/event'),
+                    ('examine', 'interest/state')
+                    ]),
           ]
     print_result(pats)
 
 def aux_patterns(meta, domains):
     # agency = ['c_pron', 'c_noun', 'c_propn']
-    things = lambda rs: [Patterns(domains, meta, 2).aux('noun', nsubj=kindof(r, 'n')) for r in rs]
+    things = lambda rs: [Patterns(domains, meta, 5).aux('noun', nsubj=kindof(r, 'n')) for r in rs]
     pats=[Patterns(domains, meta).aux('pron', 'noun', nsubj=agency, cop='c_aux'),
           # Eine Teilnahme ist kostenlos. (Attendance is free of charge.)
           Patterns(domains, meta).aux('adj', nsubj=agency, cop='c_aux'),
@@ -81,8 +92,8 @@ def aux_patterns(meta, domains):
 
 def subj_patterns(meta, domains):
     # agency = ['c_pron', 'c_noun', 'c_propn']
-    descs= lambda rs: [Patterns(domains, meta, 2).subj('pron', 'noun', nsubj=kindof(r, 'n')) for r in rs]
-    props = lambda rs: [Patterns(domains, meta, 2).subj('pron', 'noun',
+    descs= lambda rs: [Patterns(domains, meta, 5).subj('pron', 'noun', nsubj=kindof(r, 'n')) for r in rs]
+    props = lambda rs: [Patterns(domains, meta, 5).subj('pron', 'noun',
                                                         nsubj=kindof(r, 'n'),
                                                         amod='c_adj'
                                                         ) for r in rs]
@@ -105,3 +116,4 @@ def subj_patterns(meta, domains):
           *props(['food/matter']),
           ]
     print_result(pats)
+

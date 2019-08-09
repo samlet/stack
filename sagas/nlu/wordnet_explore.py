@@ -6,6 +6,13 @@ hypo = lambda s: s.hyponyms()
 hyper = lambda s: s.hypernyms()
 # omw = OmwExtended()
 
+def get_word_lemmas(synset, lang):
+    if not is_available(lang):
+        les = [w['word'] for w in omw_ext.get_word(lang, synset.offset(), synset.pos())]
+    else:
+        les = synset.lemma_names(langsets[lang])
+    return les
+
 def get_lemmas(synsets, target_langs):
     rs=[]
     for idx, c in enumerate(synsets):
@@ -15,10 +22,11 @@ def get_lemmas(synsets, target_langs):
             level={'name':c_c.name(), 'definition':c_c.definition(), 'records':[]}
             for lang in target_langs:
                 # les=c_c.lemma_names(langsets[lang])
-                if not is_available(lang):
-                    les = [w['word'] for w in omw_ext.get_word(lang, c_c.offset(), c_c.pos())]
-                else:
-                    les = c_c.lemma_names(langsets[lang])
+                # if not is_available(lang):
+                #     les = [w['word'] for w in omw_ext.get_word(lang, c_c.offset(), c_c.pos())]
+                # else:
+                #     les = c_c.lemma_names(langsets[lang])
+                les=get_word_lemmas(c_c, lang)
                 if len(les)>0:
                     level['records'].append({'lang':lang, 'lemmas':les})
             chain['hyper'].append(level)

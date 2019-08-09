@@ -98,7 +98,7 @@ class Patterns(object):
                     result = False
                 options.append('{} is {}: {}'.format(key, value, opt_ret))
             if self.track:
-                return "%s with %s" % (method, ', '.join(options)), result
+                return "%s with %s" % (method, ', '.join(options)), result, self.priority
             else:
                 return result
 
@@ -108,7 +108,8 @@ print_not_matched=False
 def print_result(rs):
     from termcolor import colored
     for r in rs:
-        clr='red' if r[1] else 'cyan'
+        ok_clr='red' if r[2]==5 else 'blue'
+        clr=ok_clr if r[1] else 'cyan'
         if not print_not_matched and not r[1]:
             pass
         else:

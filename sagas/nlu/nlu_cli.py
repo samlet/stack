@@ -9,6 +9,22 @@ def get_chains(word, lang, pos):
         return rs
     return []
 
+def retrieve_word_info(path, word, lang, pos):
+    """
+    >>> rs=retrieve_word_info('get_synsets', word, lang, pos)
+    :param path:
+    :param word:
+    :param lang:
+    :param pos:
+    :return:
+    """
+    response = requests.post('http://localhost:8093/%s'%path,
+                             json={'word': word, 'lang': lang, 'pos': pos})
+    if response.status_code == 200:
+        rs = response.json()
+        return rs
+    return []
+
 def print_explore(rs):
     for c in rs:
         print('%d. %s'%(c['index'], c['name']))
@@ -43,8 +59,11 @@ class NluCli(object):
 
     def get_word_def(self, word, lang='en', pos='*'):
         """
+        在终端上输出单词的定义和继承链.
         $ python -m sagas.nlu.nlu_cli get_word_def menina pt n
         $ python -m sagas.nlu.nlu_cli get_word_def cepillar es
+        $ python -m sagas.nlu.nlu_cli get_word_def Krieg de
+        $ def krieg de
         :param word:
         :param lang:
         :param pos:
@@ -60,6 +79,10 @@ class NluCli(object):
                     print('\t', exa)
                 domains=s['domains']
                 print('\t', domains)
+                # print('\t', s['lemmas'])
+                for key, les in s['lemmas'].items():
+                    if len(les)>0:
+                        print('\t', '[%s] %s'%(key, ', '.join(les)))
         print(colored('✁ --------------------------', 'red'))
         self.get_chains(word, lang, pos)
 
@@ -80,6 +103,18 @@ class NluCli(object):
             pprint(rs)
         else:
             print('fail')
+
+    def print_synsets(self, word, lang, pos):
+        """
+        $ python -m sagas.nlu.nlu_cli print_synsets menina pt n
+        :param word:
+        :param lang:
+        :param pos:
+        :return:
+        """
+        # get_synsets
+        rs=retrieve_word_info('get_synsets', word, lang, pos)
+        print(rs)
 
     def testings(self):
         """

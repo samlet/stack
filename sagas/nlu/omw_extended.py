@@ -7,6 +7,19 @@ langsets={'bg': 'bul', 'ca': 'cat', 'cs': 'ces', 'da': 'dan', 'de': 'deu', 'el':
           'zh': 'cmn', 'ar': 'arb', 'ms': 'zsm'
           }
 
+# https://stackoverflow.com/questions/319426/how-do-i-do-a-case-insensitive-string-comparison
+def NFD(text):
+    import unicodedata
+    return unicodedata.normalize('NFD', text)
+def canonical_caseless(text):
+    # X.casefold() == Y.casefold() in Python 3 implements the "default caseless matching"
+    # NFD() is called twice for very infrequent edge cases involving U+0345 character.
+    return NFD(NFD(text).casefold())
+def equals_ignore(a,b):
+    if a is None or b is None:
+        return False
+    return canonical_caseless(a) == canonical_caseless(b)
+
 class OmwExtended(object):
     def __init__(self):
         self.data_tables={}
@@ -56,7 +69,8 @@ class OmwExtended(object):
         rs = []
         data = self.load_dicts(lang)
         for row in data:
-            if row[2] == word:
+            # if row[2] == word:
+            if equals_ignore(row[2], word):
                 refid=row[0]
                 offset, pos = refid.split('-')
                 syn = wn.synset_from_pos_and_offset(pos, int(offset))
