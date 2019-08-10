@@ -33,11 +33,13 @@ def print_stem_chunks(r):
     from termcolor import colored
     for stem in r['stems']:
         # if stem[0] in stem_filters:
+        # stem[1]是一个列表, 包含了所有的word-lemmas, 在这里只打印出非空集的stem-chunk
         if len(stem[1])>1:
             value=' '.join(stem[1])
+            # stem[0]是成分名称, 比如obj/obl/nsubj/...
             print('%s ->'%stem[0], colored(value, 'green'))
 
-display_synsets_opts=['nsubj', 'obl', 'obj', 'iobj']
+display_synsets_opts=['nsubj', 'obl', 'obj', 'iobj', 'nmod']
 def display_synsets(theme, meta, r, lang):
     from sagas.nlu.nlu_cli import retrieve_word_info
     from termcolor import colored
@@ -142,12 +144,16 @@ class TransContext(object):
 class MiscTool(object):
     def __init__(self):
         import sagas.conf.conf as conf
+        import logging
+        import os
         cf = conf.TransClipConf()
         self.translator=cf.conf['translator']
         self.retries=cf.conf['retries']
         print('.. default translator - %s, retries times - %d'%(self.translator, self.retries))
         self.translators={'baidu':self.trans_baidu,
                           'google':self.trans_google}
+
+        logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 
     def plain(self):
         """

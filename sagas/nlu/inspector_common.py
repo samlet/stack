@@ -10,6 +10,20 @@ class Context(object):
         self._chunks = [Chunk(x[0], x[4]) for x in domains]
         self.lemmas = {x[0]: x[3] for x in domains}
         self.feats = {x[0]: x[5] for x in domains}
+        # self.meta['intermedia']={}
+
+    def put_data(self, key, val):
+        if 'intermedia' not in self.meta:
+            self.meta['intermedia'] = {}
+        self.meta['intermedia'][key]=val
+
+    def get_data(self, key):
+        if 'intermedia' not in self.meta:
+            self.meta['intermedia'] = {}
+
+        if key not in self.meta['intermedia']:
+            return None
+        return self.meta['intermedia'][key]
 
     def get_chunks(self, key):
         return [c for c in self._chunks if c.key==key]

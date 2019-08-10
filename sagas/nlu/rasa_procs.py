@@ -1,0 +1,44 @@
+import requests
+import logging
+import json
+
+logger = logging.getLogger(__name__)
+
+def invoke_nlu(endpoint, project_name, model_name, text):
+    params = {
+        "model": model_name,
+        "project": project_name,
+        "q": text
+    }
+    url = "{}/parse".format(endpoint)
+    try:
+        result = requests.get(url, params=params)
+        if result.status_code == 200:
+            return result.json()
+        else:
+            logger.error(
+                "Failed to parse text '{}' using rasa NLU over http. "
+                "Error: {}".format(text, result.text))
+            return None
+    except Exception as e:
+        logger.error(
+            "Failed to parse text '{}' using rasa NLU over http. "
+            "Error: {}".format(text, e))
+        return None
+
+class RasaProcs(object):
+    def testing_de(self, sents):
+        """
+        $ python -m sagas.nlu.rasa_procs testing_de "Shenzhen ist das Silicon Valley für Hardware-Firmen"
+        :param sents:
+        :return:
+        """
+        endpoint = "http://localhost:5000"
+        result = invoke_nlu(endpoint, "german", "current", sents)
+        if result != None:
+            print(json.dumps(result, indent=4))
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire(RasaProcs)
+

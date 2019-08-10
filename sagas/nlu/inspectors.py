@@ -1,9 +1,12 @@
 import time
 import requests
 import json
+import logging
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.nlu.patterns import Patterns, print_result
+
+logger = logging.getLogger(__name__)
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
@@ -40,17 +43,28 @@ class DateInspector(Inspector):
     def name(self):
         return "ins_date"
 
+    def cache_key(self, key):
+        return "%s.%s"%(self.name(), key)
+
     def run(self, key, ctx:Context):
         result = False
         lang = ctx.meta['lang']
         # cnt = ' '.join(ctx.chunks['obl'])
         # cnt = ' '.join(ctx.chunks[key])
+
+        cache=ctx.get_data(self.cache_key(key))
+        if cache is not None:
+            return cache
+
         for cnt in ctx.chunk_pieces(key):
-            print('query with duckling:', cnt)
+            logger.info('query with duckling: %s', cnt)
             resp = query_duckling(cnt, lang)
             if resp['result'] == 'success':
                 if self.dim in [d['dim'] for d in resp['data']]:
                     result = True
+        # print('... put %s'%self.cache_key(key))
+        ctx.put_data(self.cache_key(key), result)
+        # print(ctx.meta['intermedia'])
         return result
 
 class NegativeWordInspector(Inspector):
@@ -92,7 +106,8 @@ class EntityInspector(Inspector):
             resp = query_entities({'lang': lang, 'sents': cnt})
             if resp['result'] == 'success':
                 dims = [d['entity'] for d in resp['data']]
-                print('entities ->', ', '.join(dims))
+                # print('entities ->', ', '.join(dims))
+                logger.info('entities -> %s', ', '.join(dims))
                 if self.dim in dims:
                     print('\t%s ∈' % cnt, self.dim)
                     result = True
