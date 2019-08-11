@@ -1,11 +1,10 @@
 import time
 import requests
 import json
-import logging
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.nlu.patterns import Patterns, print_result
-
+import logging
 logger = logging.getLogger(__name__)
 
 current_milli_time = lambda: int(round(time.time() * 1000))

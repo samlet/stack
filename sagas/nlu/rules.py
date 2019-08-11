@@ -3,6 +3,7 @@ from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins
 from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
+from sagas.nlu.inspector_rasa import RasaInspector as intentof
 
 from sagas.nlu.patterns import Patterns, print_result
 
@@ -66,6 +67,10 @@ def verb_patterns(meta, domains):
           *actions_obj([('evaluate', 'group_action/event'),
                     ('examine', 'interest/state')
                     ]),
+
+          # 匹配意图(全句或chunk)
+          # $ sd 'Ich stimme dir in diesem Punkt nicht zu.'
+          Patterns(domains, meta, 5).verb(nsubj=agency, obl=intentof('context_indicator', 0.6, False)),
           ]
     print_result(pats)
 
@@ -93,7 +98,13 @@ def aux_patterns(meta, domains):
           # Leopard is a beast.
           *things(['animal/living_thing', 'animal_product/material']),
           # $ se 'He is an optimist.'
-          *categories(['person/organism'])
+          *categories(['person/organism']),
+
+          # 匹配意图(全句或chunk)
+          # $ sd 'Shenzhen ist das Silicon Valley für Hardware-Firmen'
+          Patterns(domains, meta, 5).entire(intentof('tech', 0.6, True)),
+          # $ sd 'Die Nutzung der Seite ist kostenlos.'
+          Patterns(domains, meta, 5).aux('adj', nsubj=intentof('using', 0.6, False), cop='c_aux'),
           ]
     print_result(pats)
 

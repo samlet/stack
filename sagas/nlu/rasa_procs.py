@@ -37,6 +37,10 @@ class RasaProcs(object):
         result = invoke_nlu(endpoint, "german", "current", sents)
         if result != None:
             print(json.dumps(result, indent=4))
+            intent=result["intent"]
+            print('%s -> %f'%(intent['name'], intent['confidence']))
+            entities=result['entities']
+            print([ent['entity'] for ent in entities])
 
 if __name__ == '__main__':
     import fire

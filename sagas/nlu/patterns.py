@@ -42,6 +42,7 @@ class Patterns(object):
                     'subj':self.check_args,
                     'verb': self.execute_args_lemma,
                     'cop': self.execute_args_head,
+                    'entire': self.execute_args_entire,
                     }
 
     def check_args(self, args, ctx, options):
@@ -69,6 +70,9 @@ class Patterns(object):
 
     def execute_args_head(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'head')
+
+    def execute_args_entire(self, args, ctx:Context, options):
+        return self.execute_args(args, ctx, options, 'sents')
 
     def __getattr__(self, method):
         """Provide a dynamic access to a service method."""

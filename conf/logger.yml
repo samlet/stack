@@ -8,11 +8,17 @@ handlers:
     level: DEBUG
     formatter: simple
     stream: ext://sys.stdout
+
 loggers:
   sampleLogger:
     level: DEBUG
     handlers: [console]
     propagate: no
+  inspector:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+
 root:
-  level: INFO
+  level: DEBUG
   handlers: [console]
