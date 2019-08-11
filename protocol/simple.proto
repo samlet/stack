@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message MyObj {
+    int32 number = 1;
+    string name = 2;
+}
+
+message Foo {
+  oneof test_oneof {
+     string name = 1;
+     int32 serial_number = 2;
+  }
+}
+

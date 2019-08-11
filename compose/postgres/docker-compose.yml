@@ -1,0 +1,24 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  db:
+    image: postgres:9.5
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_USER: odoo
+      POSTGRES_DB: odoo
+    volumes:
+      - odoo_12_db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    # restart: always
+    ports:
+      - 18080:8080
+
+volumes:
+  odoo_12_db:

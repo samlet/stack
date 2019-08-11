@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+    # "Server startup complete"
+  rabbit:
+    image: rabbitmq:3.6
+    ports:
+      - "5672:5672"
+    # node           : rabbit@my-rabbit
+    # home dir       : /var/lib/rabbitmq
+    # config file(s) : /etc/rabbitmq/rabbitmq.config
+    # cookie hash    : UoNOcDhfxW9uoZ92wh6BjA==
+    # log            : tty
+    # sasl log       : tty
+    # database dir   : /var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+    hostname: my-rabbit
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret cookie here"
+      # RABBITMQ_DEFAULT_USER: samlet
+      # RABBITMQ_DEFAULT_PASS: samlet
+

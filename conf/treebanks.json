@@ -1,0 +1,191 @@
+[
+  {
+    "name": "ru",
+    "lang": "Russian",
+    "model": "ru_syntagrus",
+    "version": "0.2.0",
+    "treebank": "SynTagRus"
+  },
+  {
+    "name": "zh",
+    "lang": "Chinese (traditional)",
+    "model": "zh_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "ur",
+    "lang": "Urdu",
+    "model": "ur_udtb",
+    "version": "0.2.0",
+    "treebank": "UDTB"
+  },
+  {
+    "name": "hu",
+    "lang": "Hungarian",
+    "model": "hu_szeged",
+    "version": "0.2.0",
+    "treebank": "Szeged"
+  },
+  {
+    "name": "ko",
+    "lang": "Korean",
+    "model": "ko_kaist",
+    "version": "0.2.0",
+    "treebank": "Kaist"
+  },
+  {
+    "name": "it",
+    "lang": "Italian",
+    "model": "it_isdt",
+    "version": "0.2.0",
+    "treebank": "ISDT"
+  },
+  {
+    "name": "ca",
+    "lang": "Catalan",
+    "model": "ca_ancora",
+    "version": "0.2.0",
+    "treebank": "AnCora"
+  },
+  {
+    "name": "nl",
+    "lang": "Dutch",
+    "model": "nl_alpino",
+    "version": "0.2.0",
+    "treebank": "Alpino"
+  },
+  {
+    "name": "pt",
+    "lang": "Portuguese",
+    "model": "pt_bosque",
+    "version": "0.2.0",
+    "treebank": "Bosque"
+  },
+  {
+    "name": "es",
+    "lang": "Spanish",
+    "model": "es_ancora",
+    "version": "0.2.0",
+    "treebank": "AnCora"
+  },
+  {
+    "name": "pl",
+    "lang": "Polish",
+    "model": "pl_lfg",
+    "version": "0.2.0",
+    "treebank": "LFG"
+  },
+  {
+    "name": "fa",
+    "lang": "Persian",
+    "model": "fa_seraji",
+    "version": "0.2.0",
+    "treebank": "Seraji"
+  },
+  {
+    "name": "ar",
+    "lang": "Arabic",
+    "model": "ar_padt",
+    "version": "0.2.0",
+    "treebank": "PADT"
+  },
+  {
+    "name": "de",
+    "lang": "German",
+    "model": "de_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "gl",
+    "lang": "Galician",
+    "model": "gl_ctg",
+    "version": "0.2.0",
+    "treebank": "CTG"
+  },
+  {
+    "name": "vi",
+    "lang": "Vietnamese",
+    "model": "vi_vtb",
+    "version": "0.2.0",
+    "treebank": "VTB"
+  },
+  {
+    "name": "ga",
+    "lang": "Irish",
+    "model": "ga_idt",
+    "version": "0.2.0",
+    "treebank": "IDT"
+  },
+  {
+    "name": "sv",
+    "lang": "Swedish",
+    "model": "sv_talbanken",
+    "version": "0.2.0",
+    "treebank": "Talbanken"
+  },
+  {
+    "name": "tr",
+    "lang": "Turkish",
+    "model": "tr_imst",
+    "version": "0.2.0",
+    "treebank": "IMST"
+  },
+  {
+    "name": "da",
+    "lang": "Danish",
+    "model": "da_ddt",
+    "version": "0.2.0",
+    "treebank": "DDT"
+  },
+  {
+    "name": "hi",
+    "lang": "Hindi",
+    "model": "hi_hdtb",
+    "version": "0.2.0",
+    "treebank": "HDTB"
+  },
+  {
+    "name": "el",
+    "lang": "Greek",
+    "model": "el_gdt",
+    "version": "0.2.0",
+    "treebank": "GDT"
+  },
+  {
+    "name": "fr",
+    "lang": "French",
+    "model": "fr_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "cs",
+    "lang": "Czech",
+    "model": "cs_pdt",
+    "version": "0.2.0",
+    "treebank": "PDT"
+  },
+  {
+    "name": "en",
+    "lang": "English",
+    "model": "en_ewt",
+    "version": "0.2.0",
+    "treebank": "EWT"
+  },
+  {
+    "name": "no_bokmaal",
+    "lang": "Norwegian",
+    "model": "no_bokmaal",
+    "version": "0.2.0",
+    "treebank": "Bokmaal"
+  },
+  {
+    "name": "ja",
+    "lang": "Japanese",
+    "model": "ja_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  }
+]

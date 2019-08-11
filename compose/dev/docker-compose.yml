@@ -1,0 +1,64 @@
+version: "3.2"
+services:
+  ## dgraph -- ❶
+  zero:
+    image: dgraph/dgraph:latest
+    volumes:
+      - type: volume
+        source: dgraph
+        target: /dgraph
+        volume:
+          nocopy: true
+    ports:
+      - 5080:5080
+      - 6080:6080
+    restart: on-failure
+    command: dgraph zero --my=zero:5080
+  server:
+    image: dgraph/dgraph:latest
+    volumes:
+      - type: volume
+        source: dgraph
+        target: /dgraph
+        volume:
+          nocopy: true
+    ports:
+      - 8080:8080
+      - 9080:9080
+    restart: on-failure
+    command: dgraph alpha --my=server:7080 --lru_mb=2048 --zero=zero:5080
+  ratel:
+    image: dgraph/dgraph:latest
+    volumes:
+      - type: volume
+        source: dgraph
+        target: /dgraph
+        volume:
+          nocopy: true
+    ports:
+      - 8000:8000
+    command: dgraph-ratel
+
+  ## rabbit -- ❷
+  rabbit:
+    image: rabbitmq:3.6
+    ports:
+      - "5672:5672"
+    # node           : rabbit@my-rabbit
+    # home dir       : /var/lib/rabbitmq
+    # config file(s) : /etc/rabbitmq/rabbitmq.config
+    # cookie hash    : UoNOcDhfxW9uoZ92wh6BjA==
+    # log            : tty
+    # sasl log       : tty
+    # database dir   : /var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+    hostname: my-rabbit
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret cookie here"
+      # RABBITMQ_DEFAULT_USER: samlet
+      # RABBITMQ_DEFAULT_PASS: samlet
+
+volumes:
+  dgraph:
+
+
+

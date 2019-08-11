@@ -1,0 +1,7 @@
+{
+  "collect_verbs":true,
+  "trans_cache":true,
+  "translator":"google",
+  "retries":3
+}
+
