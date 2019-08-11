@@ -11,6 +11,7 @@ class Context(object):
         self.lemmas = {x[0]: x[3] for x in domains}
         self.feats = {x[0]: x[5] for x in domains}
         # self.meta['intermedia']={}
+        self._stems=meta['stems']
 
     def put_data(self, key, val):
         if 'intermedia' not in self.meta:
@@ -27,6 +28,9 @@ class Context(object):
 
     def get_chunks(self, key):
         return [c for c in self._chunks if c.key==key]
+
+    def get_stems(self, key):
+        return [c for c in self._stems if c[0]==key]
 
     def chunk_contains(self, key, val):
         chunks = self.get_chunks(key)
@@ -46,6 +50,10 @@ class Context(object):
         chunks = self.get_chunks(key)
         return [' '.join(c.children) for c in chunks]
 
+    def stem_pieces(self, key):
+        stems = self.get_stems(key)
+        return [' '.join(c[1]) for c in stems]
+
 class Inspector(object):
     def name(self):
         # type: () -> Text
@@ -54,7 +62,31 @@ class Inspector(object):
         raise NotImplementedError("An inspector must implement a name")
 
     def run(self, key, ctx:Context):
+        """
+        仅用于继承, check方法会负责调用这个方法
+        :param key:
+        :param ctx:
+        :return:
+        """
         raise NotImplementedError("An inspector must implement its run method")
+
+    def cache_key(self, key):
+        return "%s.%s"%(self.name(), key)
+
+    def check(self, key, ctx:Context):
+        """
+        Api method
+        :param key:
+        :param ctx:
+        :return:
+        """
+        cache = ctx.get_data(self.cache_key(key))
+        if cache is not None:
+            return cache
+
+        result=self.run(key, ctx)
+        ctx.put_data(self.cache_key(key), result)
+        return result
 
     def __str__(self):
         return "Inspector('{}')".format(self.name())

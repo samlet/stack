@@ -9,7 +9,7 @@ def check_item(feats, key, el, ctx):
                 if e in feats[key]:
                     return True
         elif isinstance(el, Inspector):
-            return el.run(key, ctx)
+            return el.check(key, ctx)
         else:
             return el in feats[key]
     return False
@@ -56,7 +56,7 @@ class Patterns(object):
         result=True
         for arg in args:
             if isinstance(arg, Inspector):
-                opt_ret = arg.run(ctx.meta[meta_key], ctx)
+                opt_ret = arg.check(ctx.meta[meta_key], ctx)
                 if not opt_ret:
                     result = False
                 options.append('{} is {}: {}'.format('pos', arg, opt_ret))

@@ -43,18 +43,11 @@ class DateInspector(Inspector):
     def name(self):
         return "ins_date"
 
-    def cache_key(self, key):
-        return "%s.%s"%(self.name(), key)
-
     def run(self, key, ctx:Context):
         result = False
         lang = ctx.meta['lang']
         # cnt = ' '.join(ctx.chunks['obl'])
         # cnt = ' '.join(ctx.chunks[key])
-
-        cache=ctx.get_data(self.cache_key(key))
-        if cache is not None:
-            return cache
 
         for cnt in ctx.chunk_pieces(key):
             logger.info('query with duckling: %s', cnt)
@@ -63,7 +56,6 @@ class DateInspector(Inspector):
                 if self.dim in [d['dim'] for d in resp['data']]:
                     result = True
         # print('... put %s'%self.cache_key(key))
-        ctx.put_data(self.cache_key(key), result)
         # print(ctx.meta['intermedia'])
         return result
 
@@ -81,6 +73,15 @@ class NegativeWordInspector(Inspector):
         elif ctx.meta['lang']=='de':
             if ctx.chunk_contains(key, 'nicht') or 'nicht' == ctx.lemmas[key]:
                 result=True
+        return result
+
+class PlainInspector(Inspector):
+    def name(self):
+        return "plain"
+
+    def run(self, key, ctx:Context):
+        result=False
+        print(key, ctx.stem_pieces(key))
         return result
 
 def query_entities(data):
@@ -121,6 +122,7 @@ class Inspectors(InspectorFixture):
               Patterns(domains, meta, 2).verb(nsubj=agency, obj=agency, advmod=NegativeWordInspector()),
               Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=DateInspector('time')),
               Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=EntityInspector('GPE')),
+              Patterns(domains, meta, 2).verb(obl=PlainInspector()),
               ]
         print_result(rs)
 

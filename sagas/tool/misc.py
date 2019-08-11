@@ -80,7 +80,7 @@ def get_verb_domains(data, return_df=False):
         rs = response.json()
         for r in rs:
             type_name=r['type']
-            common={'lemma':r['lemma']}
+            common={'lemma':r['lemma'], 'stems':r['stems']}
             theme=''
             if type_name=='verb_domains':
                 theme='[verb]'
@@ -144,8 +144,10 @@ class TransContext(object):
 class MiscTool(object):
     def __init__(self):
         import sagas.conf.conf as conf
-        import logging
-        import os
+        # import logging
+        # import os
+        from sagas.tool.loggers import init_logger
+
         cf = conf.TransClipConf()
         self.translator=cf.conf['translator']
         self.retries=cf.conf['retries']
@@ -153,7 +155,8 @@ class MiscTool(object):
         self.translators={'baidu':self.trans_baidu,
                           'google':self.trans_google}
 
-        logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+        # logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+        init_logger()
 
     def plain(self):
         """
