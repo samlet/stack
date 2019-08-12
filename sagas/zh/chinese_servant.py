@@ -1,10 +1,9 @@
 from flask import Flask
 from flask import request
 import json
-from sagas.zh.ltp_procs import LtpProcs
+from sagas.zh.ltp_procs import ltp
 
 app = Flask(__name__)
-ltp=LtpProcs()
 
 def in_filters(val, filters):
     for f in filters:

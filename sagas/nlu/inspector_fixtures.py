@@ -1,4 +1,8 @@
 class InspectorFixture(object):
+    def __init__(self):
+        from sagas.tool.loggers import init_logger
+        init_logger()
+
     def print_table(self, rs):
         import sagas
         # df_set=[]
@@ -16,6 +20,11 @@ class InspectorFixture(object):
 
         response = requests.post('http://localhost:8090/verb_domains', json=data)
         rs = response.json()
+        if len(rs)==0:
+            print('.. verb_domains servant returns empty set.')
+            print('.. request data is', data)
+            return None,None
+
         r = rs[0]
         if print_format=='table':
             self.print_table(rs)

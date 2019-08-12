@@ -39,7 +39,10 @@ def print_stem_chunks(r):
             # stem[0]是成分名称, 比如obj/obl/nsubj/...
             print('%s ->'%stem[0], colored(value, 'green'))
 
-display_synsets_opts=['nsubj', 'obl', 'obj', 'iobj', 'nmod']
+display_synsets_opts=['nsubj', 'obl', 'obj', 'iobj', 'nmod',
+                      # $ ses 'La reina decía que la aldea era bonita.'
+                      'ccomp',
+                      ]
 def display_synsets(theme, meta, r, lang):
     from sagas.nlu.nlu_cli import retrieve_word_info
     from termcolor import colored

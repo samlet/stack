@@ -5,7 +5,7 @@ from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.nlu.patterns import Patterns, print_result
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('inspector')
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
@@ -52,7 +52,9 @@ class DateInspector(Inspector):
             logger.info('query with duckling: %s', cnt)
             resp = query_duckling(cnt, lang)
             if resp['result'] == 'success':
-                if self.dim in [d['dim'] for d in resp['data']]:
+                dims=[d['dim'] for d in resp['data']]
+                logger.info('dims: %s', dims)
+                if self.dim in dims:
                     result = True
         # print('... put %s'%self.cache_key(key))
         # print(ctx.meta['intermedia'])
@@ -83,12 +85,15 @@ class PlainInspector(Inspector):
         print(key, ctx.stem_pieces(key))
         return result
 
-def query_entities(data):
-    response = requests.post('http://localhost:8092/entities', json=data)
+def query_entities_by_url(url, data):
+    response = requests.post(url, json=data)
     if response.status_code == 200:
         r=response.json()
         return {'result':'success', 'data':r}
     return {'result':'fail', 'cause':'error response'}
+
+def query_entities(data):
+    return query_entities_by_url('http://localhost:8092/entities', data)
 
 class EntityInspector(Inspector):
     def __init__(self, dim):
@@ -102,32 +107,57 @@ class EntityInspector(Inspector):
         lang = ctx.meta['lang']
         # cnt = ' '.join(ctx.chunks[key])
         # cnt=ctx.get_single_chunk_text(key)
+        requestors={'ru':lambda rc: query_entities_by_url('http://localhost:8095/entities', rc),
+                    }
         for cnt in ctx.chunk_pieces(key):
-            resp = query_entities({'lang': lang, 'sents': cnt})
+            data={'lang': lang, 'sents': cnt}
+            if lang in requestors:
+                resp=requestors[lang](data)
+            else:
+                resp = query_entities(data)
             if resp['result'] == 'success':
                 dims = [d['entity'] for d in resp['data']]
                 # print('entities ->', ', '.join(dims))
-                logger.info('entities -> %s', ', '.join(dims))
+                logger.info('entities -> %s, self.dim -> %s', ', '.join(dims), self.dim)
                 if self.dim in dims:
                     print('\t%s ∈' % cnt, self.dim)
                     result = True
         return result
 
+    def __str__(self):
+        return "{}('{}')".format(self.name(), self.dim)
+
 class Inspectors(InspectorFixture):
     def procs_common(self, data):
         domains, meta=self.request_domains(data)
-        agency = ['c_pron', 'c_noun']
-        rs = [Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
-              Patterns(domains, meta, 2).verb(nsubj=agency, obj=agency, advmod=NegativeWordInspector()),
-              Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=DateInspector('time')),
-              Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=EntityInspector('GPE')),
-              Patterns(domains, meta, 2).verb(obl=PlainInspector()),
-              ]
-        print_result(rs)
+        if domains is None:
+            print('! request_domains returns empty.')
+        else:
+            agency = ['c_pron', 'c_noun']
+            rs = [Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
+                  Patterns(domains, meta, 2).verb(nsubj=agency, obj=agency, advmod=NegativeWordInspector()),
+                  Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=DateInspector('time')),
+                  Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=EntityInspector('GPE')),
+                  Patterns(domains, meta, 5).verb(nsubj=agency, obl=EntityInspector('location')),
+                  Patterns(domains, meta, 2).verb(obl=PlainInspector()),
+                  ]
+            print_result(rs)
 
     def ents(self, sents, lang='en'):
+        """
+        $ python -m sagas.nlu.inspectors ents 'I am from China'
+        $ python -m sagas.nlu.inspectors ents 'Россия, Вологодская обл. г. Череповец, пр.Победы 93 б' ru
+        $ python -m sagas.nlu.inspectors ents 'Я работаю в китае.' ru
+        :param sents:
+        :param lang:
+        :return:
+        """
         # ents = query_entities({"lang": "en", "sents": "I am from China"})
-        ents = query_entities({"lang": lang, "sents": sents})
+        data={"lang": lang, "sents": sents}
+        if lang=='ru':
+            ents=query_entities_by_url('http://localhost:8095/entities', data)
+        else:
+            ents = query_entities(data)
         print(ents)
 
     def test_1(self):
@@ -144,9 +174,14 @@ class Inspectors(InspectorFixture):
         $ python -m sagas.nlu.inspectors test_2
         :return:
         """
-        text = 'I was born in Beijing in the spring of 1982.'
-        data = {'lang': 'en', "sents": text}
-        self.procs_common(data)
+        import sagas.nlu.patterns as pats
+        pats.print_not_matched=True
+        texts = [('en', 'I was born in Beijing in the spring of 1982.'),
+                 ('ru', 'Я работаю в китае.'),
+                 ]
+        for text in texts:
+            data = {'lang': text[0], "sents": text[1]}
+            self.procs_common(data)
 
     def test_3(self):
         text = 'Han har ikke tøjet på.'

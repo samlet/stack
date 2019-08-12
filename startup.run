@@ -122,6 +122,9 @@ else
 	"servant_words")
 		python -m sagas.nlu.words_servant
 		;;
+	"servant_multilang")
+		python -m sagas.nlu.multilang_servant
+		;;
 	"tr")
 		cd ../turkish/zemberek-nlp ; java -jar all/target/zemberek-full.jar StartGrpcSeer --dataRoot /pi/ai/tr/data
 		;;

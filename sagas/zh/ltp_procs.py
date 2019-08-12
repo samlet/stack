@@ -79,6 +79,8 @@ class LtpProcs(object):
         # print(df)
         print(tabulate(df, headers='keys', tablefmt='psql'))
 
+ltp=LtpProcs()
+
 if __name__ == '__main__':
     import fire
     fire.Fire(LtpProcs)

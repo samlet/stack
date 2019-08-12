@@ -51,6 +51,8 @@ def verb_patterns(meta, domains):
 
           # 匹配实体: I was born in Beijing.
           Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=entins('GPE')),
+          # $ sr 'Я работаю в китае.'
+          Patterns(domains, meta, 5).verb(nsubj=agency, obl=entins('location')),
 
           # 匹配继承链: O homem fica amarelo.
           Patterns(domains, meta, 2).verb(nsubj=agency, xcomp=kindof('color', 'n')),

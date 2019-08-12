@@ -44,7 +44,7 @@ class RasaInspector(Inspector):
                                                             ', '.join(ent_names)))
                 # print(f'{self.intent}, {self.confidence}')
                 if self.intent == intent_name and float(intent_confidence) > self.confidence:
-                    print('... matched intent and confidence')
+                    # print('... matched intent and confidence')
                     if self.contains_entity is None:
                         succ = True
                     elif self.contains_entity is not None and ent_names.issubset(self.contains_entity):
@@ -52,7 +52,7 @@ class RasaInspector(Inspector):
             return succ
 
         if self.entire:
-            print('proc -> %s'%key)
+            # print('proc -> %s'%key)
             return proc(key)
         else:
             for cnt in ctx.stem_pieces(key):

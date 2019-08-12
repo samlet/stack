@@ -57,6 +57,24 @@ class NatashaExtractor(object):
                     result.append(icon + text[start:stop])
         return result
 
+    def extract(self, text):
+        """
+        $ python -m sagas.nlu.extractor_natasha extract 'Россия, Вологодская обл. г. Череповец, пр.Победы 93 б'
+        :param text:
+        :return:
+        """
+        result = []
+        for extractor in self.extractors:
+            matches = extractor(text)
+            if len(matches) > 0:
+                ex_name = type(extractor).__name__.replace('Extractor', '').lower()
+                for match in matches:
+                    start, stop = match.span
+                    result.append({'text':text[start:stop],
+                                   'start':start, 'end':stop,
+                                   'entity':ex_name})
+        return result
+
     def extract_df(self, text):
         """
         extract_df('Россия, Вологодская обл. г. Череповец, пр.Победы 93 б')
@@ -84,6 +102,9 @@ class NatashaExtractor(object):
         print("(%s)"%'; '.join(self.extract_segs(text)))
         print(self.extract_df(text))
 
+ru_natasha=NatashaExtractor()
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NatashaExtractor)
+

@@ -19,15 +19,18 @@ def handle_entities():
     $ curl -XPOST -H 'Content-Type: application/json' -d '{"lang":"en", "sents":"I am from China"}'  http://localhost:8092/entities
     :return:
     """
+    from sagas.nlu.net_context import EntitiesRequest
     # print ("request is json?", request.is_json)
-    content = request.get_json()
-    sents=content['sents']
-    lang=content['lang']
-    print (lang, sents)
+    # content = request.get_json()
+    # sents=content['sents']
+    # lang=content['lang']
+    # print (lang, sents)
+
+    ctx=EntitiesRequest(request.get_json())
 
     # data = {'lang': lang}
     rs = []
-    doc = spacy_doc(sents, lang)
+    doc = spacy_doc(ctx.sents, ctx.lang)
     for ent in doc.ents:
         rs.append({'text': ent.text,
                    'start': ent.start_char,
@@ -35,8 +38,9 @@ def handle_entities():
                    'entity': ent.label_})
 
     # data_y=yaml.dump(data, default_flow_style=True,Dumper=KludgeDumper,encoding=None)
-    data_y = json.dumps(rs, ensure_ascii=False)
-    return data_y
+    # data_y = json.dumps(rs, ensure_ascii=False)
+    # return data_y
+    return ctx.wrap_result(rs)
 
 # @app.route('/word_sets', methods = ['POST'])
 # def handle_word_sets():
