@@ -55,8 +55,9 @@ def display_synsets(theme, meta, r, lang):
     def retrieve(word, indicator):
         rs = retrieve_word_info('get_synsets', word, lang, '*')
         if len(rs) > 0:
-            print('♥ %s(%s): %s' % (colored(word, 'magenta'), indicator, ', '.join(rs)))
-            resp.append('♥ %s(%s): %s' % (word, indicator, ', '.join(rs)))
+            comments=', '.join(rs)[:25]
+            print('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
+            resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
     retrieve(word, theme)
     if 'head' in meta:
         # print('.........')
@@ -69,6 +70,7 @@ def display_synsets(theme, meta, r, lang):
 # print_def=True
 print_def=False
 print_synsets=True
+serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 def get_verb_domains(data, return_df=False):
     import requests
     import sagas
@@ -81,13 +83,13 @@ def get_verb_domains(data, return_df=False):
     result=[]
     if response.status_code == 200:
         rs = response.json()
-        for r in rs:
+        for serial, r in enumerate(rs):
             type_name=r['type']
             common={'lemma':r['lemma'], 'stems':r['stems']}
             theme=''
             if type_name=='verb_domains':
                 theme='[verb]'
-                print(theme, r['lemma'], r['index'],
+                print(serial_numbers[serial], theme, r['lemma'], r['index'],
                       '(%s, %s)'%(r['rel'], r['governor']))
                 meta={'rel':r['rel'], **common, **data}
                 verb_patterns(meta, r['domains'])
@@ -95,13 +97,13 @@ def get_verb_domains(data, return_df=False):
                 theme='[aux]'
                 # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
                 delegator='☇' if not r['delegator'] else '☌'
-                print(theme, r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
+                print(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
                 # verb_patterns(r['domains'])
                 meta={'pos':r['head_pos'], 'head':r['head'], **common, **data}
                 aux_patterns(meta, r['domains'])
             elif type_name=='subj_domains':
                 theme='[subj]'
-                print(theme, r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
+                print(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
                 # verb_patterns(r['domains'])
                 meta={'pos': r['head_pos'], 'head':r['head'], **common, **data}
                 subj_patterns(meta, r['domains'])

@@ -279,8 +279,11 @@ class CoreNlpViz(object):
                 node_maps[word.text]=word.text
 
         for word in doc.sentences[0].words:
+            # self.f.node_attr.update(color='blue')
             self.f.node(node_maps[word.text])
             segs.append(node_maps[word.text])
+
+        # self.f.node_attr.update(color='black')
         self.print_dependencies(doc.sentences[0], segs, node_maps)
         return self.f
 
@@ -304,7 +307,7 @@ class LangDialect(object):
             return cv.analyse_doc(doc, tr_map)
 
         self.ana=viz
-        self.ana_en=lambda sents: self.ana(self.tra(sents))
+        self.ana_en= lambda sents: self.ana(self.tra(sents))
         self.ana_s = lambda sents: self.ana(sents, trans_it=False)
 
     def tra(self, sents):

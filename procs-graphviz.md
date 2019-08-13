@@ -9,6 +9,11 @@
 + procs-graphviz.ipynb
 + procs-ofbiz-model-graph.ipynb
 
+⊕ [Node, Edge and Graph Attributes](https://www.graphviz.org/doc/info/attrs.html#k:style)
+    Basic style settings for nodes; 
+    Basic style settings for edges; 
+    ⊕ [Color Names](https://www.graphviz.org/doc/info/colors.html)
+
 ## 解决显示Arabic文本的问题
 ⊕ [GraphVizio – A Graphviz addin for Visio » Maurice's Musings](https://www.calvert.ch/maurice/2010/05/11/graphvizio-a-graphviz-addin-for-visio/)
     * 改变字体: fontname=Calibri

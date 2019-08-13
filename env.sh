@@ -104,6 +104,7 @@ alias scy="python -m sagas.tool.misc trans_clip cy 'en;zh-CN;ja' ja False"
 alias shu="python -m sagas.tool.misc trans_clip hu 'en;zh-CN;ja' ja False"
 
 alias sa="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja"
+alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
 
 alias st="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"
 alias sv="python -m sagas.tool.misc trans_clip sv 'en;no;ja' ja False"
@@ -144,6 +145,7 @@ alias all_langs='python -m sagas.nlu.wordnet_procs all_langs'
 
 # $ word juego es
 alias word='python -m sagas.nlu.wordnet_procs word_sets'
+alias wordnet='python -m sagas.nlu.wordnet_procs'
 # 在终端上输出单词的定义和继承链
 alias def='python -m sagas.nlu.nlu_cli get_word_def'
 

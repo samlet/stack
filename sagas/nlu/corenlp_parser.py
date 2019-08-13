@@ -37,7 +37,11 @@ def add_domain(domains:list, stems:list,  c, sent):
 
 def get_verb_domain(sent, filters):
     rs = []
-    for word in filter(lambda w: w.upos == "VERB", sent.words):
+    verbs=list(filter(lambda w: w.upos == "VERB", sent.words))
+    if len(verbs)>1:
+        # filter the verbs which in clausal complement
+        verbs=[word for word in verbs if word.dependency_relation not in ['ccomp', 'xcomp']]
+    for word in verbs:
         # if money.dep_ in ("attr", "dobj"):
         # print(word.index, word.text)
         domains = []
@@ -115,26 +119,32 @@ class CoreNlpParser(object):
 
         $ python -m sagas.nlu.corenlp_parser verb_domains 'Что ты обычно ешь на ужин?' ru
         $ python -m sagas.nlu.corenlp_parser verb_domains 'Die Zeitschrift erscheint monatlich.' de
+
+        # 测试多个动词(过滤掉从句的动词):
+        $ python -m sagas.nlu.corenlp_parser verb_domains 'Tu as choisi laquelle tu vas manger ?' fr
         :param sents:
         :param lang:
         :return:
         """
         from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+        serial_numbers = '❶❷❸❹❺❻❼❽❾❿'
         nlp = get_nlp(lang)
         doc=nlp(sents)
         # 分析依赖关系, 自下而上, 可用于抽取指定关系的子节点集合, 比如此例中的'nsubj:pass'和'obl'
         # word.governor即为当前word的parent
         sent = doc.sentences[0]
         rs = get_verb_domain(sent, ['obl', 'nsubj:pass'])
-        r=rs[0]
-        # print(json.dumps(r, indent=2, ensure_ascii=False))
-        print(r['verb'], r['index'])
-        # df=sagas.to_df(r[0]['domains'], ['rel', 'index', 'text', 'children'])
-        df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
-        sagas.print_df(df)
-        for stem in r['stems']:
-            if stem[0]=='obj':
-                print('object ->', ' '.join(stem[1]))
+        # r=rs[0]
+        for num, r in enumerate(rs):
+            # print(json.dumps(r, indent=2, ensure_ascii=False))
+            print(serial_numbers[num], '-'*50)
+            print(r['verb'], r['index'])
+            # df=sagas.to_df(r[0]['domains'], ['rel', 'index', 'text', 'children'])
+            df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
+            sagas.print_df(df)
+            for stem in r['stems']:
+                if stem[0]=='obj':
+                    print('object ->', ' '.join(stem[1]))
 
 if __name__ == '__main__':
     import fire
