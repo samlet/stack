@@ -235,7 +235,7 @@ class CoreNlpViz(object):
     ana=lambda sents: CoreNlpViz(shape='ellipse', size='8,5', fontsize=20).analyse(sents, get_nlp('ar'),
                                        get_word_map('ar','en', sents))
     """
-    def __init__(self, shape='circle', size='8,5', fontsize=0):
+    def __init__(self, shape='egg', size='8,5', fontsize=0):
         from graphviz import Digraph
         self.f = Digraph('deps', filename='deps.gv')
         self.f.attr(rankdir='LR', size=size)
@@ -298,7 +298,7 @@ class LangDialect(object):
         def viz(sents, trans_it=True):
             nlp=get_nlp(self.lang)
             doc = nlp(sents)
-            cv=CoreNlpViz(shape='ellipse', size='8,5', fontsize=20)
+            cv=CoreNlpViz(shape='egg', size='8,5', fontsize=20)
             words=[word.text for sent in doc.sentences for word in sent.words]
             if trans_it:
                 tr_map=get_word_map(self.lang, 'en', sents, 0, words)

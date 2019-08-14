@@ -1,19 +1,19 @@
 class LtpViz(object):
     """
-    from sagas.zh.ltp_procs import LtpProcs
+    from sagas.zh.ltp_viz import LtpViz
     ltp=LtpProcs()
     ana=lambda sents: LtpViz(ltp).deps(sents)
     """
-    def __init__(self, ltp=None):
+    def __init__(self):
         from graphviz import Digraph
-        from sagas.zh.ltp_procs import LtpProcs
+        from sagas.zh.ltp_procs import LtpProcs, ltp
 
         if ltp is None:
             ltp = LtpProcs()
         self.ltp = ltp
         self.f = Digraph('deps', filename='deps.gv')
         self.f.attr(rankdir='LR', size='6,4')
-        self.f.attr('node', shape='circle')
+        self.f.attr('node', shape='egg')
 
     def deps(self, sentence):
         words = self.ltp.segmentor.segment(sentence)

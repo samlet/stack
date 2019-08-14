@@ -2,6 +2,7 @@
   "collect_verbs":true,
   "trans_cache":true,
   "translator":"google",
-  "retries":3
+  "retries":3,
+  "enable_chunks_parse":false
 }
 

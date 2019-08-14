@@ -1,4 +1,5 @@
 from time import sleep
+import requests
 
 def print_terms(sents, result):
     from termcolor import colored
@@ -156,7 +157,9 @@ class MiscTool(object):
         cf = conf.TransClipConf()
         self.translator=cf.conf['translator']
         self.retries=cf.conf['retries']
-        print('.. default translator - %s, retries times - %d'%(self.translator, self.retries))
+        self.enable_chunks_parse=cf.conf['enable_chunks_parse']
+        print('.. default translator - %s, retries times - %d, enable chunks parse - %s'
+              %(self.translator, self.retries, self.enable_chunks_parse))
         self.translators={'baidu':self.trans_baidu,
                           'google':self.trans_google}
 
@@ -269,48 +272,9 @@ class MiscTool(object):
         print('.. set translator', self.translator)
         self.trans_clip(source, targets='zh;ja', says='ja', details=False)
 
-    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
-        """
-        $ trans
-        $ trans auto en
-        $ trans ru en
-        $ trans ru 'zh-CN;ja'
-        $ trans-ru
-        $ trans-rus
-
-        $ alias sp="python -m sagas.tool.misc trans_clip pt 'en;it;ja' ja False"
-        $ sp 'O homem fica amarelo.'
-        :return:
-        """
-        import clipboard
-        import requests
+    def parse_chunks(self, text, source, targets, ctx, details=True):
         import sagas.nlu.corenlp_helper as helper
 
-        if sents!='':
-            text=sents
-            interact_mode=False
-        else:
-            text = clipboard.paste()
-            text = text.replace("\n", "")
-            interact_mode=True
-        # target_sents=[]
-        # sents_map={}
-        ctx=TransContext(source, targets, text, says)
-        # print('❣', text)
-        if source!='auto':
-            # text = fix_sents(source, text)
-            ctx.sents_map[source[:2]] = text
-
-        # addi_pronounce=[]
-        # succ=self.trans_google(ctx)
-        succ=self.translators[self.translator](ctx)
-
-        if not succ:
-            return
-        # if len(addi_pronounce)>0:
-        #     target_sents.extend(addi_pronounce)
-
-        ## addons
         def query_serv(data, print_it=True):
             response = requests.post('http://localhost:8090/digest', json=data)
             # print(response.status_code, response.json())
@@ -365,6 +329,55 @@ class MiscTool(object):
             if 'ja' in targets:
                 data = {'lang': 'ja', "sents": ctx.sents_map['ja']}
                 get_verb_domains(data)
+
+        return addons, result
+
+    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
+        """
+        $ trans
+        $ trans auto en
+        $ trans ru en
+        $ trans ru 'zh-CN;ja'
+        $ trans-ru
+        $ trans-rus
+
+        $ alias sp="python -m sagas.tool.misc trans_clip pt 'en;it;ja' ja False"
+        $ sp 'O homem fica amarelo.'
+        :return:
+        """
+        import clipboard
+
+        if sents!='':
+            text=sents
+            interact_mode=False
+        else:
+            text = clipboard.paste()
+            text = text.replace("\n", "")
+            interact_mode=True
+        # target_sents=[]
+        # sents_map={}
+        ctx=TransContext(source, targets, text, says)
+        # print('❣', text)
+        if source!='auto':
+            # text = fix_sents(source, text)
+            ctx.sents_map[source[:2]] = text
+
+        # addi_pronounce=[]
+        # succ=self.trans_google(ctx)
+        succ=self.translators[self.translator](ctx)
+
+        if not succ:
+            return
+        # if len(addi_pronounce)>0:
+        #     target_sents.extend(addi_pronounce)
+
+        ## addons
+        if self.enable_chunks_parse:
+            addons, result = self.parse_chunks(text, source, targets, ctx, details=details)
+        else:
+            addons=[]
+            result = '\n\t'.join([text] + ctx.target_sents)
+            print(result)
 
         if interact_mode:
             if len(addons)>0:
