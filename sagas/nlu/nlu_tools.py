@@ -92,16 +92,30 @@ class NluTools(object):
             say_lang(tr_lang, lang_tr)
             print('♡', tr_lang)
 
-    def all_voices(self):
+    def all_voices(self, lang=None):
         """
         $ python -m sagas.nlu.nlu_tools all_voices
+        $ nlu all-voices ru
         :return:
         """
         import pyttsx3
+        import sagas
         engine = pyttsx3.init()
         voices: collections.Iterable = engine.getProperty('voices')
+        rs=[]
         for voice in voices:
-            print(voice, voice.id)
+            if lang is not None:
+                if voice.languages[0].startswith(lang):
+                    print(voice)
+            else:
+                print(voice, voice.id, voice.languages[0])
+                rs.append((voice.id.replace('com.apple.speech.synthesis.',''),
+                           voice.name,
+                           voice.languages,
+                           voice.gender
+                           ))
+        rs=sorted(rs, key=lambda el: el[2][0])
+        sagas.print_df(sagas.to_df(rs, ['id', 'name', 'lang', 'gender']))
 
     def parse_sentence(self, lang, sents):
         """

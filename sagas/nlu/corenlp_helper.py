@@ -251,7 +251,12 @@ class CoreNlpViz(object):
             # governor-id is index in words list + 1
             head = int(dep_edge[0].index)-1
             node_text=node_maps[dep_edge[2].text]
-            self.f.edge(segs[head], node_text, label=dep_edge[1])
+            if head==-1:
+                # print("%s's head is root %s"%(node_text, segs[head]))
+                head_node='ROOT'
+            else:
+                head_node=segs[head]
+            self.f.edge(head_node, node_text, label=dep_edge[1])
             # self.f.edge(dep_edge[2].text, segs[head], label=dep_edge[1])
 
     def analyse(self, sents, nlp, node_maps=None):

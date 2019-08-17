@@ -26,13 +26,14 @@ def say_lang(sentence, lang, verbose=True):
     :param lang:
     :return:
     """
+    import random
     if verbose:
         print("speak language with "+lang+" ...")
     # langdetect supports 55 languages out of the box ([ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)):
     # af, ar, bg, bn, ca, cs, cy, da, de, el, en, es, et, fa, fi, fr, gu, he, hi, hr, hu, id, it, ja, kn, ko, lt, lv, mk, ml, mr, ne, nl, no, pa, pl, pt, ro, ru, sk, sl, so, sq, sv, sw, ta, te, th, tl, tr, uk, ur, vi, zh-cn, zh-tw
 
     if lang=="en":
-        say_with(sentence, "com.apple.speech.synthesis.voice.daniel")
+        say_with(sentence, "com.apple.speech.synthesis.voice.samantha.premium")
     elif lang=="es":
         # say_with(sentence, "com.apple.speech.synthesis.voice.monica")    
         # use es_MX, Paulina
@@ -44,27 +45,33 @@ def say_lang(sentence, lang, verbose=True):
     ## com.apple.speech.synthesis.voice.anna ['de_DE']
     ## com.apple.speech.synthesis.voice.thomas ['fr_FR']
     elif lang=="fr":
-        say_with(sentence, "com.apple.speech.synthesis.voice.thomas")
+        say_with(sentence, "com.apple.speech.synthesis.voice.audrey.premium")
     elif lang=="de":
         say_with(sentence, "com.apple.speech.synthesis.voice.anna")
     elif lang=="ja":
-        say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
+        voices=['com.apple.speech.synthesis.voice.otoya.premium',
+                'com.apple.speech.synthesis.voice.kyoko.premium']
+        idx=random.randint(0,len(voices)-1)
+        say_with(sentence, voices[idx])
+        # say_with(sentence, "com.apple.speech.synthesis.voice.kyoko.premium")
+        # say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
     elif lang=='it':
         say_with(sentence, 'com.apple.speech.synthesis.voice.luca')
     elif lang=='pt':
         say_with(sentence, 'com.apple.speech.synthesis.voice.joana')
     elif lang=='ru':
-        say_with(sentence, 'com.apple.speech.synthesis.voice.yuri')
+        say_with(sentence, 'com.apple.speech.synthesis.voice.milena.premium')
     elif lang=='ar':
-        say_with(sentence, 'com.apple.speech.synthesis.voice.maged')
+        say_with(sentence, 'com.apple.speech.synthesis.voice.laila.premium')
     elif lang=='ko':
-        say_with(sentence, 'com.apple.speech.synthesis.voice.yuna')
+        say_with(sentence, 'com.apple.speech.synthesis.voice.yuna.premium')
     elif lang=='hi':
         say_with(sentence, 'com.apple.speech.synthesis.voice.lekha')
     elif lang=='tr':
         say_with(sentence, 'com.apple.speech.synthesis.voice.yelda')
     else:
         say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
+        raise Exception(f'Not specific a voice for the language {lang}')
 
     if verbose:
         print('done.')
