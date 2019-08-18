@@ -104,16 +104,22 @@ def fix_sents(lang, text):
 def handle_verb_domains():
     # from sagas.nlu.corenlp_parser import get_verb_domain, get_aux_domain, get_subj_domain
     from sagas.nlu.corenlp_parser import get_chunks
+    from sagas.nlu.uni_cli import parse_with
 
     content = request.get_json()
     sents = content['sents']
     lang = content['lang']
+    if 'engine' in content:
+        engine=content['engine']
+    else:
+        engine='corenlp'
 
     sents=fix_sents(lang, sents)
 
-    nlp = get_nlp(lang)
-    doc = nlp(sents)
-    sent = doc.sentences[0]
+    # nlp = get_nlp(lang)
+    # doc = nlp(sents)
+    # sent = doc.sentences[0]
+    sent=parse_with(sents, lang, engine=engine)
 
     # r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
     # if len(r)==0:

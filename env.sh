@@ -107,6 +107,7 @@ alias sa="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja"
 alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
 
 alias st="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"
+alias sz="python -m sagas.tool.misc trans_clip zh 'en;fr;ja' ja False"
 alias sv="python -m sagas.tool.misc trans_clip sv 'en;no;ja' ja False"
 alias sv-de="python -m sagas.tool.misc trans_clip sv 'en;no;de' de False"
 # alias sv-de="python -m sagas.tool.misc trans_clip sv 'en;ja;de' de False"
@@ -155,3 +156,7 @@ alias hyper='python -m sagas.nlu.wordnet_procs desc_hyper'
 
 # 输出继承链以及在不同语言的词根表示
 alias expl='python -m sagas.nlu.nlu_cli explore'
+
+# dep-parse: $ domains 'Ivan is the best dancer .' en spacy
+alias domains='python -m sagas.tool.misc verb_domains'
+

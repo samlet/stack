@@ -31,6 +31,9 @@ class UniCli(object):
             sagas.print_df(df)
             print_stem_chunks(r)
 
+def parse_with(sents, lang, engine='corenlp'):
+    return UniCli().parsers[engine](lang, sents)
+
 if __name__ == '__main__':
     import fire
     fire.Fire(UniCli)

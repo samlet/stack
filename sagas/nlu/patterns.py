@@ -37,6 +37,7 @@ class Patterns(object):
         self.meta=meta
         self.track = track
         self.priority=priority
+        # self.engine=meta['engine']
 
         self.funcs={'aux':self.check_args,
                     'subj':self.check_args,
@@ -100,7 +101,13 @@ class Patterns(object):
             for key, value in kwargs.items():
                 key=key.replace('_', ':')
                 key=trip_number_suffix(key)
-                if key.startswith(':'):
+                if key.startswith('::'):
+                    # starts with '__', likes '__engine'
+                    opt_name=key[2:]
+                    opt_ret=self.meta[opt_name]==value
+                    if not opt_ret:
+                        print('%s=%s checker fail, skip this pattern.'%(key, value))
+                elif key.startswith(':'):
                     opt_ret=check_item(self.meta, key[1:], value, ctx)
                 else:
                     opt_ret = check_item(rel_feats, key, value, ctx)

@@ -78,6 +78,8 @@ def get_verb_domains(data, return_df=False):
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns
     from sagas.nlu.nlu_cli import NluCli
 
+    if 'engine' not in data:
+        data['engine']='corenlp'
     response = requests.post('http://localhost:8090/verb_domains', json=data)
     # print(response.status_code, response.json())
     df_set=[]
@@ -388,14 +390,17 @@ class MiscTool(object):
             from sagas.nlu.nlu_tools import NluTools
             NluTools().say(ctx.sents_map[says], says)
 
-    def verb_domains(self, sents, lang='en'):
+    def verb_domains(self, sents, lang='en', engine='corenlp'):
         """
         $ python -m sagas.tool.misc verb_domains 'Мы написали три книги за год.' ru
+        $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en
+        $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en spacy
+        $ domains '伊万是最好的舞者' zh ltp
         :param sents:
         :param lang:
         :return:
         """
-        data = {'lang': lang, "sents": sents}
+        data = {'lang': lang, "sents": sents, 'engine':engine}
         get_verb_domains(data)
 
 if __name__ == '__main__':

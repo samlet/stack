@@ -32,7 +32,7 @@ def verb_patterns(meta, domains):
           # Ben okuldayım. ([en] I'm in school.)
           Patterns(domains, meta).verb(nsubj=agency),
           # Φοράω το μάλλινο παλτό μου. ([en] I wear my wool coat.)
-          Patterns(domains, meta).verb(obj=agency),
+          Patterns(domains, meta).verb(__engine='corenlp', obj=agency),
           # 关系parataxis用于一对可能是独立句子的东西，但它们被一起作为一个句子对待。
           # Diese Liga ist die beste Liga, glaube ich. ([en] This league is the best league, I think.)
           Patterns(domains, meta).verb(_rel='parataxis', nsubj=agency),
