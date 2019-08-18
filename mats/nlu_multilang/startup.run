@@ -1,0 +1,40 @@
+#!/bin/bash
+. /pi/bin/inc/wait_funcs.sh
+. /pi/bin/inc/matchers.sh
+. /pi/bin/inc/docker_utils.sh
+
+function start_inventory(){
+	# mysqld: ready for connections.
+	start_docker inventory "$msg_mysql"
+}
+
+# startup 
+if [ $# -lt 1 ]; then	
+	echo "available opts: all, zk, storm, repl, ..."
+else
+	CMD=$1
+	case "$CMD" in
+	"redis")
+		start_docker redis "$msg_redis"
+		;;
+	"nlu")
+		python -m rasa_nlu.server --path projects
+		;;
+	"train_de")
+		python -m rasa_nlu.train \
+		    --config config_de.yml \
+		    --data de/ \
+		    --path projects \
+		    --fixed_model_name current \
+		    --project de
+		;;
+	"query_de")
+		curl -XPOST localhost:5000/parse -d '{"q":"Shenzhen ist das Silicon Valley für Hardware-Firmen", "project":"de", "model":"current"}'
+		;;
+	*)
+		# default proc
+		handle_cmd ${@:1}
+		;;
+	esac
+fi
+
