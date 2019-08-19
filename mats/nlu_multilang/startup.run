@@ -17,6 +17,9 @@ else
 	"redis")
 		start_docker redis "$msg_redis"
 		;;
+	"clean")
+		rm -rf ./projects
+		;;
 	"nlu")
 		python -m rasa_nlu.server --path projects
 		;;

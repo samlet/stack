@@ -233,9 +233,13 @@ class MiscTool(object):
 
             if trans != '':
                 # result=text+'\n\t* '+trans+'\n'
-                line='[%s] '%target[:2]+trans
+                # line='[%s] '%target[:2]+trans
+                line = '%s="%s"' % (target[:2], trans)
                 ctx.target_sents.append(line)
-                ctx.target_sents.extend(tracker.pronounce)
+                # ctx.target_sents.extend(tracker.pronounce)
+                for i,p in enumerate(tracker.pronounce):
+                    ps=p[2:]
+                    ctx.target_sents.append(f'v{i}="{ps}"')
                 ctx.sents_map[target[:2]]=trans
                 # print('☌'+line)
             else:
@@ -256,8 +260,12 @@ class MiscTool(object):
         for t in tqdm(ctx.targets.split(';')):
             result=tr.trans(ctx.source, t, ctx.text)
             # print(result)
+            if len(result)==0:
+                print(f'** Cannot translate text from {ctx.source} to {t}: {ctx.text}')
+                break
+
             trans=result[0]['dst']
-            line = '[%s] ' % t[:2] + trans
+            line = '%s="%s"' % (t[:2], trans)
             ctx.target_sents.append(line)
             ctx.sents_map[t[:2]] = trans
 
@@ -378,13 +386,18 @@ class MiscTool(object):
             addons, result = self.parse_chunks(text, source, targets, ctx, details=details)
         else:
             addons=[]
-            result = '\n\t'.join([text] + ctx.target_sents)
+            # result = '\n\t'.join([text] + ctx.target_sents)
+            lines=[]
+            lines.append(f'\t.sent({source}="{text}"')
+            suffix=") \\"
+            result = ', \n\t      '.join(lines + ctx.target_sents+[suffix])
             print(result)
 
         if interact_mode:
             if len(addons)>0:
                 result=result+'\n\t'+'\n\t'.join(addons)
-            clipboard.copy(result+'\n')
+            # clipboard.copy(result+'\n')
+            clipboard.copy(result)
 
         if interact_mode and says is not None:
             from sagas.nlu.nlu_tools import NluTools

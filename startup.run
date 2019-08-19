@@ -8,6 +8,9 @@ function start_inventory(){
 	start_docker inventory "$msg_mysql"
 }
 
+python="$HOME/miniconda3/envs/bigdata/bin/python"
+py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
+
 # startup 
 if [ $# -lt 1 ]; then	
 	echo "available opts: all, zk, storm, repl, ..."
@@ -111,22 +114,25 @@ else
 		cd $target_dir ; stack exec duckling-example-exe
 		;;
 	"servant_de")
-		python -m sagas.de.german_servant
+		$python -m sagas.de.german_servant
 		;;
 	"servant_zh")
-		python -m sagas.zh.chinese_servant
+		$python -m sagas.zh.chinese_servant
 		;;
 	"servant_nlu")
-		python -m sagas.nlu.nlu_servant
+		$py_rasa -m sagas.nlu.nlu_servant
 		;;
 	"servant_words")
-		python -m sagas.nlu.words_servant
+		$python -m sagas.nlu.words_servant
 		;;
 	"servant_multilang")
-		python -m sagas.nlu.multilang_servant
+		$python -m sagas.nlu.multilang_servant
 		;;
 	"tr")
 		cd ../turkish/zemberek-nlp ; java -jar all/target/zemberek-full.jar StartGrpcSeer --dataRoot /pi/ai/tr/data
+		;;
+	"nlu")
+		$python -m rasa_nlu.server --path mats/nlu_multilang/projects 
 		;;
 	*)
 		# default proc

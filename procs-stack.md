@@ -12,6 +12,8 @@ $ start servant_de
 $ start servant_zh
 $ start servant_words
 $ start servant_multilang
+# servant from dir: ./mats/nlu_multilang
+$ start nlu
 ```
 
 ## odoo routines
