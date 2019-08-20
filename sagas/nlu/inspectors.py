@@ -49,11 +49,11 @@ class DateInspector(Inspector):
         # cnt = ' '.join(ctx.chunks[key])
 
         for cnt in ctx.chunk_pieces(key):
-            logger.info('query with duckling: %s', cnt)
+            logger.debug('query with duckling: %s', cnt)
             resp = query_duckling(cnt, lang)
             if resp['result'] == 'success':
                 dims=[d['dim'] for d in resp['data']]
-                logger.info('dims: %s', dims)
+                logger.debug('dims: %s', dims)
                 if self.dim in dims:
                     result = True
         # print('... put %s'%self.cache_key(key))

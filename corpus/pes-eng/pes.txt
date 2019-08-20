@@ -1,0 +1,2192 @@
+Who?	چه کسی؟
+Go on.	ادامه بده ( ادامه دادن )
+Smile.	لبخند بزن.
+Attack!	حمله!
+Got it!	گرفتم!
+I know.	من می دانم.
+Listen.	گوش کن.
+Really?	واقعا؟
+Really?	جدا؟
+Why me?	چرا من؟
+Be cool.	راحت باش.
+Be cool.	خونسرد باش.
+Be cool.	باحال باش.
+Come in.	بیا داخل. بیا تُو.
+Come on!	بجنب!
+Get out!	برو بیرون!
+Get out!	پیاده شو!
+Go away!	برو بیرون!
+Go away!	گم شو!
+Help me!	به من کمک کن.
+Help me!	کمکم کن.
+Hold it!	بایست!
+See you.	به امید دیدار.
+See you.	میبینمت.
+Shut up!	خفه شو!
+So long.	خداحافظ.
+Take it.	بگیرش
+Tell me.	به من بگو.
+Welcome.	خوش آمدید.
+Get away!	دور شو!
+Grab him.	دستگیرش کن.
+Hurry up.	عجله کن!
+Keep out!	برو بیرون!
+Speak up!	حرفت را بزن!
+Terrific!	فوق العاده
+We agree.	ما به توافق رسیدیم.
+What for?	به چه دلیلی؟
+Aim. Fire!	هدف،آتش!
+Birds fly.	پرنده ها پرواز می کنند.
+Calm down.	آرام باش.
+Don't lie.	دروغ نگو.
+Excuse me.	ببخشید.
+Fantastic!	خیلی با حال! بسیار عالی!
+How's Tom?	تام حالش چطوره؟
+I fainted.	من غش کردم.
+I will go.	خواهم رفت.
+I'm needy.	من نیازمندم.
+I'm sorry.	من متاسفم.
+It's true.	درست است.
+Let it go.	ولش کن.
+Of course.	البته.
+She cried.	او گریست.
+She tried.	او سعی کرد.
+She walks.	او راه می رود.
+Try again.	دوباره سعی کن.
+What's up?	چه خبر؟
+Who cares?	چه کسی اهمیت می دهد؟
+Wonderful!	حیرت آورست!
+Wonderful!	شگفت‌انگیزه! خارق العاده است!
+You tried.	تو تلاشت را کرده ای.
+Be careful.	مراقب باش.
+Be careful.	مواظب باش!
+Be careful.	احتیاط کن !
+Birds sing.	پرندگان آواز می‌خوانند.
+Follow him.	دنبالش برو.
+God exists.	خدا وجود دارد.
+I hear you.	صدایت را می شنوم.
+I love you.	دوسِت دارم. عاشِقِتم.
+I need you.	بهت احتیاج دارم.
+I'm hungry!	من گرسنه ام.
+I'm so fat.	من خیلی چاق هستم.
+It happens.	پیش می‌آید.
+Oh, really?	اوه، واقعاً؟
+Once again.	یک بار دیگر.
+She smiled.	او لبخند زد.
+Step aside.	از یک کنار قدم بردار.
+Study hard.	سخت درس بخوان.
+Talk to me.	با من حرف بزن.
+Time flies.	زمان مثل برق می‌گذرد.
+We'll help.	ما کمک خواهیم کرد.
+Wood burns.	چوب می سوزد.
+Be yourself.	خودت باش.
+Don't shout.	داد نزن!
+Don't worry.	نگران نباش.
+How are you?	حال شما چطوره؟
+I forgot it.	فراموشش کردم.
+I found you.	شما را پیدا کردم.
+I like cats.	من گربه ها را دوست دارم.
+I love cats.	من گربه ها را دوست دارم.
+I love cats.	من عاشق گربه ها هستم.
+I went home.	من به خانه رفتم.
+It's Monday.	امروز دوشنبه است.
+It's futile.	بیهوده است.
+Money talks.	پول کارها را راست و ریس می کند.
+Money talks.	همه چیز پول است.
+Tom came by.	تام سر زد.
+Tom came by.	تام سرزده آمد.
+Tom frowned.	تام اخم کرد.
+We are late.	ما دیر کردیم.
+Who'll cook?	چه کسی آشپزی می‌کند؟
+Work slowly.	به آرامی کار کن.
+Are you busy?	سرت شلوغ است؟
+Come with me.	با من بیا.
+Do you smoke?	آیا سیگار می‌کشی؟
+Drive safely.	با احتیاط بران.
+Drive slowly.	به آرامی رانندگی کن.
+I am a widow.	من بیوه زن هستم.
+I have to go.	باید بروم.
+I understand.	فهمیدم.
+I'm so happy.	من بسیار خوشحالم.
+Is Tom lucid?	آیا تام هشیار است؟
+It's my book.	این کتاب من است.
+It's snowing.	دارد برف می بارد.
+Ladies first.	اول خانم ها بفرمایند.
+Let go of it.	ولش کن!
+Meat, please.	گوشت، لطفا.
+My eyes hurt.	چشمانم آسیب دیدند.
+Please leave.	لطفا برو بیرون.
+Please relax.	لطفا، آرام باش.
+Speak softly.	با نرمی سخن بگو.
+Stop smoking.	سیگار نکش.
+Sweet dreams!	خواب های خوش ببینی!
+Take it easy.	آسان بگیرش.
+We succeeded.	موفق شدیم.
+What is love?	عشق چیست؟
+Years passed.	سالها گذشته است.
+You're funny.	شما بامزه هستید.
+Are you alone?	آیا تنها هستی؟
+Confide in me.	به من اعتماد کن.
+Do I know him?	آیا او را می شناسم؟
+Do it quickly.	آن را سریع انجام بده.
+Everyone dies.	همه می میرند.
+I do love you.	واقعاً دوسِت دارم. واقعاً عاشِقِتم.
+I felt hungry.	گرسنگی را حس کردم.
+I use Firefox.	من از برنامه ی فایرفاکس استفاده می کنم.
+I'm a tourist.	من توریستم.
+I'm so lonely.	خیلی تنهایَم.
+She was brave.	او شجاع بود.
+Speak clearly.	روشن حرف بزن.
+Time is money.	وقت گرانبهاست.
+Tom came back.	تام برگشت.
+Tom was brave.	تام شجاع بود.
+You're joking!	شوخی می‌کنید.
+Close the door.	در را ببند.
+Don't watch TV.	تلوزیون را تماشا نکن.
+Happy New Year!	سال نو مبارک.
+He came by car.	او با ماشین آمد.
+He seems tired.	او خسته به نظر می رسد.
+He worked hard.	خیلی سخت کار می کرد.
+I hate working.	من از کار کردن متنفرم.
+I hate zealots.	من از متعصبین متنفرم.
+I have nothing.	من چیزی ندارم.
+I trusted them.	من به آنها اعتماد کردم.
+I'll treat you.	من از تو مراقبت خواهم کرد..
+I'm an atheist.	من خداناباور هستم.
+It was so dark.	هوا خیلی تاریک بود.
+Leave it alone.	ولش کن!
+Let's watch TV.	بیا تلویزیون ببینیم.
+Louder, please.	بلندتر، لطفا.
+May I help you?	آیا می‌توانم تو را کمک کنم.
+They quarreled.	آنها جر و بحث کردند.
+Tom came alone.	تام تنها آمد.
+We're not safe.	ما در امنیت نیستیم.
+Well, let's go.	خیلی خوب بیا بریم.
+Where is Paris?	پاریس کجاست؟
+Who's confused?	کیست که نفهمید؟
+You're welcome.	خواهش میکنم
+You're welcome.	قابلی نداره.
+Cats catch mice.	گربه ها موش ها را می گیرند.
+Congratulations!	ماشاءا..، ای والله، خیلی عالی!
+He is very sick.	او به شدت بیمار است.
+He lied readily.	او به آسانی دروغ گفت.
+He stared at me.	او از من شروع کرد.
+He walks slowly.	او به آرامی راه می رود.
+Hi. How are you?	سلام، حالت چه طوره؟
+I hate fighting.	من از جدال متنفّرم.
+I hear the drum.	صدای طبل را می شنوم.
+I hope Tom wins.	امیدوارم تام برنده شود.
+I love you, too.	منم دوسِت دارم. مَنَم عاشِقِتم.
+I prefer coffee.	قهوه را ترجیح می‌دهم.
+I run every day.	من هر روز می دوم.
+I'm an engineer.	من مهندس هستم.
+I'm begging you.	از شما التماس می کنم.
+I'm going to go.	می خواهم بروم.
+Is it important?	آیا مهم است؟
+Is this a dream?	آیا این یک رؤیاست؟
+Is this a dream?	آیا این یک خیالست؟
+Keep the change.	بقیه پول مال خودت!
+Let's go by bus.	بگذار با اتوبوس برویم.
+Life's not easy.	زندگی آسان نیست.
+So far, so good.	بسیار دور بسیار خوب است.
+The truth hurts.	حقیقت تلخ است.
+Tom looks happy.	تام خوشحال به نظر می‌رسد.
+Turn off the TV.	تلویزیون را خاموش کن.
+Walls have ears.	دیوار موش دارد.
+We must find it.	باید پیدایش کنیم.
+What time is it?	ساعت چند است.
+What's the time?	ساعت چند است.
+You look sleepy.	تو خواب آلود به نظر می رسی.
+Are these edible?	آیا اینها قابل خوردن هستند؟
+Are you a singer?	شما یک خواننده هستید؟
+Can you prove it?	آیا می‌توانی آن را اثبات کنی؟
+Come sit with us.	بیا با ما بنشین.
+Don't be foolish.	احمق نباش!
+Don't make me go.	منو مجبور به رفتن نکن.
+He fascinated me.	من مجذوب او شده بودم.
+He is a beginner.	او تازه کار است.
+He saved my life.	او زندگی مرا نجات داد.
+He threw his toy.	او اسباب بازیش را پرت کرد.
+Health is wealth.	سلامتی نعمت است.
+I agree with him.	با او موافقم.
+I am still alone.	همچنان تنهایم.
+I can't die here.	نمی توانم اینجا بمیرم.
+I don't know him.	من او را نمی شناسم.
+I don't think so.	من اینطور فکر نمی کنم.
+I like chocolate.	من شکلات دوست دارم.
+I like to travel.	دوست دارم مسافرت کنم
+I missed the bus.	من اتوبوس را از دست دادم.
+I said I'm sorry.	من گفتم که متاسفم.
+I see the target.	هدف را میبینم.
+I still love you.	من هنوز دوسِت دارم. هنوزعاشِقِتم.
+Is the bank open?	آیا بانک باز است؟
+It is time to go.	موقع رفتن است.
+It's a sunny day.	امروز روزی آفتابی است.
+It's conceivable.	این قابل تصوره.
+Listen carefully.	به دقت گوش کن.
+No pain, no gain.	نا برده رنج گنج میسر نمی‌شود.
+Please let me go.	لطفا به من اجازه بده بروم.
+They live nearby.	آنها همین نزدیکی ها زندگی می کنند.
+This book is old.	این کتاب قدیمی است.
+Tom hurt himself.	تام به خودش آسیب می زند.
+Tom is a fanatic.	تام یک افراطی است.
+We must find Tom.	باید تام را پیدا کنیم.
+What a nice idea!	چه ایده خوبی!
+What's the cause?	علت چیست؟
+What's the cause?	سبب چیست؟
+Where are we now?	ما اکنون کجا هستیم؟
+You already paid.	شما قبلاً مزد گرفتید.
+You're impatient.	شما بی‌صبر هستید.
+You're impatient.	شما نابردبار هستید.
+You're organized.	شما مرتب هستید.
+Add a little milk.	کمی شیر اضافه کن.
+Are they in Paris?	آیا آنها در پاریس هستند؟
+Don't tell anyone.	به همه نگو.
+Haste makes waste.	عجله کار شیطان است.
+He began to shout.	او شروع به فریاد کشیدن کرد.
+He speaks Chinese.	او چینی را صحبت می کند.
+He turned traitor.	او خیانتکار شد.
+How was your test?	امتحانت، چطور بود؟
+I agreed with her.	من با او موافقم.
+I bathe every day.	من هر روز حمام می کنم.
+I forgot his name.	نام او را فراموش کردم.
+I have a headache.	من سردرد دارم.
+I hit the jackpot.	من پول زیادی برنده شدم.
+I owe you my life.	من زندگیم را به شما مدیون هستم.
+I sat by his side.	من کنار او نشستم.
+I saw an airplane.	من یک هواپیما دیدم.
+I study at school.	من در مدرسه تحصیل می کنم.
+I'm bad at sports.	من در ورزش کارکشته نیستم.
+Insure it, please.	این را بیمه کن،لطفا.
+It's a tiring job.	کار خسته کننده ای است.
+Life is beautiful.	زندگی زیباست.
+May God bless you.	خدا به تو برکت بدهد.
+May God bless you.	خدا عمرت بده!
+Nobody is perfect.	هیچکس کامل نیست.
+Peaches are sweet.	هلو ها شیرین هستند.
+She drives me mad.	او مرا دیوانه می کند.
+She fascinated me.	من مجذوب او شده بودم.
+She made me hurry.	او مرا شتابزده کرد.
+She married young.	او در سن پایین ازدواج کرد.
+She shut the door.	او در را بست.
+Tell me the truth.	به من حقیقت را بگو.
+That's impossible.	آن ممکن نیست.
+The doorbell rang.	زنگ در به صدا درآمد.
+The food is ready.	غذا حاضر است.
+The water is good.	این آب با کیفیت است.
+This book is mine.	این کتاب مال من است.
+Tom is fastidious.	تام ایرادگیر است.
+Tom scored a goal.	تام گل زد.
+Tom was terrified.	تام وحشت‌زده بود.
+We are Australian.	ما از استرالیا هستیم.
+We dance together.	ما با یکدیگر می رقصیم.
+We must find them.	باید پیدایشان کنیم.
+We were impatient.	ما عجول بودیم.
+What is the truth?	حقیقت چیست؟
+What is your name?	اسم شما چیست؟
+When was she born?	او کی متولد شده است؟
+Where did they go?	آنها به کجا رفتند؟
+Where is the bank?	بانک کجاست؟
+Where've you been?	کجا بوده‌اید؟
+Who made the doll?	چه کسی عروسک را درست کرده است؟
+Why are you lying?	چرا دروغ میگی؟
+You are beautiful.	تو زیبا هستی.
+You are beautiful.	تو قشنگی.
+You're both liars.	شما هر دو دروغگو هستید.
+You're reasonable.	شما قابل قبول هستید.
+Your time is over.	وقت شما تمام شد.
+Always be cautious.	همیشه احتیاط کن.
+Are you vegetarian?	آیا گیاه‌خوار هستید؟
+Bananas are yellow.	موز زرد است.
+Can I see this one?	می تونم این یکی رو ببینم؟
+Can I take a break?	می توانم استراحت کنم؟
+Can I use your pen?	آیا می‌توانم از خودکارت استفاده کنم؟
+Come along with us.	بیا با ما برویم.
+Come along with us.	بیا با ما.
+Don't get me wrong.	درباره من اشتباه برداشت نکن.
+Don't get me wrong.	درمورد من فکر بد نکن.
+He closed the door.	او در را بست.
+How's married life?	زندگی متاهلی چطور است؟
+I didn't forget it.	من آن را فراموش نکردم.
+I don't have a dog.	من سگ ندارم.
+I don't understand.	من نمی فهمم.
+I got my shoes wet.	کفش‌هایم را خیس کردم.
+I have my own room.	من اتاق مختص خود دارم.
+I jog twice a week.	من هفته ای دو بار پیاده روی می کنم.
+I know your father.	من پدرت را می شناسم.
+I need your advice.	من به مشوت شما احتیاج دارم.
+I still want to go.	من هنوز می‌خواهم بروم.
+I want to buy that.	می خواهم آن را بخرم.
+I was born in 1972.	من در سال 1972 به دنیا آمده ام.
+I've already tried.	قبلاً سعی کرده‌ام.
+Ignorance is bliss.	جهل یک برکت است.
+Is Tom left-handed?	آیا تام چپ دست است؟
+Is everybody ready?	آیا همه آماده‌اند؟
+Is something wrong?	مشکلی هست؟
+Isn't it delicious?	خوشمزه نیست؟
+It was really good.	واقعا خوب بود.
+Knowledge is power.	توانا بُوَد هر که دانا بُوَد.
+May I speak to Tom?	می توانم با تام صحبت کنم؟
+May I use this bat?	می‌توانم از این چوگان استفاده کنم؟
+My father is young.	پدر من جوان است.
+Real men drink tea.	مردان واقعی چای می‌نوشند.
+Save your strength.	قدرتت را حفظ کن.
+She has seven sons.	او هفت پسر دارد.
+She has small feet.	او پاهای کوچکی دارد.
+Take out the trash.	.آشغال ها رو بیرون بگذار
+The baby is crying.	بچه گریه می کند.
+The car was stolen.	ماشین سرقت شد.
+The feud continues.	دعوا ادامه دارد.
+The night was cold.	شب سرد بود.
+The stars came out.	ستاره ها بیرون آمدند.
+There is no choice.	انتخابی وجود ندارد.
+These pens are his.	این خودکارها مال او(پسر) هستند.
+Tie your shoelaces.	بند کفش ات را ببند.
+Tom became serious.	تام جدی شد.
+Tom has three dogs.	تام سه سگ دارد.
+Tom is a real nerd.	تام یک خرخوان واقعی است.
+Tom is a silly man.	تام مرد احمقی است.
+Tom is belligerent.	تام ستیزه جو است.
+Tomorrow is Sunday.	فردا یکشنبه است.
+We don't like rain.	ما باران را دوست نداریم.
+We don't like rain.	ما از باران خوشمان نمی آید.
+What vile behavior!	چه رفتار زشتی
+Where is her house?	خانه اش کجاست؟
+Where is your room?	اتاقت کجاست؟
+Where was Tom born?	تام کجا به دنیا آمده است؟
+Which bag is yours?	کدام کیف مال تو است؟
+Who's your teacher?	معلم شما کیست؟
+Whose book is this?	این کتاب مال چه کسی است؟
+Whose book is this?	این کتاب مال کیه؟
+Whose book is this?	این کتاب مال چه کسیه؟
+Whose book is this?	این کتاب کیه؟
+Will he ever do it?	آیا هرگز او آن را انجام خواهد داد؟
+You only live once.	تو فقط یکبار زندگی می کنی.
+You're belligerent.	شما مخاصمه طلب هستید.
+Answer the question.	به این سؤال پاسخ بده.
+Do you want a drink?	آیا نوشیدنی می خواهی؟
+Don't listen to her.	به حرفش گوش نکن.
+Everyone's laughing.	همه می‌خندند.
+Go jump in the lake.	برو بپر تو دریاچه.
+Have you gone crazy?	دیوانه شده ای؟
+He comes from Genoa.	او اهل جنوا است.
+He is a good singer.	او آوازه خوان خوبی است.
+He often comes late.	او اغلب دیر می‌آید.
+He reached his goal.	او به هدفش رسید.
+He was very patient.	او خیلی صبور بود.
+He was working hard.	او به‌شدت کار می‌کرد.
+He's afraid of dogs.	او از سگ ها می ترسد.
+I am afraid of dogs.	من از سگ‌ها می‌ترسم.
+I am too busy to go.	آن قدر سرم شلوغ است که نمی توانم بروم.
+I disagree with you.	من با تو مخالفم.
+I do not fear death.	من از مرگ نمی ترسم.
+I don't like school.	من مدرسه را دوست ندارم.
+I don't sleep a lot.	من زیاد نمی خوابم.
+I forgot to ask him.	فراموش کردم از او بپرسم.
+I love strawberries.	عاشق توت‌فرنگی‌ام.
+I never trusted Tom.	من هیچ گاه به تام اعتمادی نکردم.
+I think he is right.	من فکر می کنم که او درست می گوید.
+I'll make you happy.	من تو را خوشبخت می کنم.
+I'm as old as he is.	من به اندازه ی اون پیر(بزرگ) هستم.
+It's free of charge.	مجانی است.
+Keep going straight.	مستقیم برو.
+Lead is easily bent.	سرب به راحتی خم می شود.
+Mary can dance well.	ماری می تواند خوب برقصد.
+My throat feels dry.	گلویم خشک شده است.
+My wife is a doctor.	همسر من دکتر است.
+Nobody's infallible.	هیچکس معصوم نیست.
+Old habits die hard.	ترک عادت موجب مرض است.
+Put on your pajamas.	پیژامه ات را بپوش.
+Seeing is believing.	شنیدن کی بُوَد مانند دیدن.
+She still loved him.	هنوز او را دوست داشت.
+That's common sense.	این از بدیهیات است.
+They are in the way.	آنها در راهند.
+They're mocking you.	آنها تو را مسخره می کنند.
+They're moving away.	آنها دارند اسباب کشی می کنند.
+This is their house.	این خانه آنهاست.
+Time passes quickly.	زمان سریع می گذرد.
+We season with salt.	ما با چاشنی نمک طعم می دهیم.
+We were born to die.	ما زاده شدیم تا بمیریم.
+What happened today?	امروز چه پیش آمد؟
+What's the bus fare?	کرایه‌ی اتوبوس چقدر است؟
+Where are you going?	کجا می روی؟
+Why is Tom not here?	چرا تام این جا نیست؟
+Yesterday I was ill.	دیروز کسالت داشتم.
+You are a good cook.	شما آشپز خوبی هستید.
+You are such a liar!	چه دروغگویی هستی!
+You're running late.	داری دیر می کنی.
+Are you free tonight?	امشب وقتت آزاد است؟
+Business is business.	حساب حساب کاکا برادر.
+Dead dogs don't bite.	سگهای مرده گاز نمی گیرند.
+Did you buy cat food?	آیا غذای گربه خریدی؟
+Did you speak to Tom?	آیا تو با تام صحبت کردی؟
+Don't eat hard foods.	غذاهای سخت نخورید.
+Draw a straight line.	یک خط راست بکش.
+Everyone looks tired.	همه خسته به نظر می رسند.
+Everyone, say cheese.	همه بگن هلووو
+Go back to your seat.	به صندلی خود برگرد.
+He asked for my help.	او از من کمک خواست.
+He asked me for help.	او از من کمک خواست.
+He has many troubles.	او مشکلات زیادی دارد.
+He's eating an apple.	او سیب می خورد.
+I abandoned my plans.	برنامه‌هایم را وِل کردم.
+I am a stranger here.	من اینجا غریبه ام.
+I awoke from a dream.	من از خواب بیدار شدم.
+I can see the target.	هدف را میتونم ببینم.
+I don't see Tom much.	تام را زیاد نمی بینم.
+I lost consciousness.	من هوشیاری ام را از دست دادم.
+I met Tom after work.	من بعد از کار، تام را دیدم.
+I met Tom after work.	من پس از کار با تام ملاقات داشتم.
+I showed her my room.	اتاق‌ام را به او نشان دادم.
+I showed him my room.	اتاق‌ام را به او نشان دادم.
+I think Tom will win.	فکر می کنم تام برنده خواهد شد.
+I think you're right.	فکر می کنم حق با توست.
+I want my money back.	می خواهم پولم به من برگردانده شود.
+I was bored to death.	تا حد مرگ، خسته بودم.
+I was busy yesterday.	من دیروز سرم خیلی شلوغ بود.
+I'll call you a taxi.	من برایت به تاکسی تلفن خواهم کرد.
+I'm allergic to dogs.	من به سگ ها حساسیت دارم.
+I'm very lonely here.	من اینجا خیلی تنها هستم.
+It was sheer torture.	آن یک شکنجهٔ محض بود.
+It's really annoying.	واقعاً آزاردهنده است.
+It's really annoying.	واقعاً آزار‌دهنده است.
+It's really horrible.	آن واقعاً ترسناک است.
+My father grows rice.	پدرم برنج می کارد.
+Nobody wants to work.	هیچ کس نمیخواهد کار کند.
+Our marriage is over.	ازدواج ما به پایان رسیده است.
+Resistance is futile.	مقاومت بیهوده است.
+She broke into tears.	او به گریه افتاد.
+She lost her handbag.	او کیف‌دستی‌اش را گم کرد.
+She was working hard.	او به‌شدت کار می‌کرد.
+She's beating cancer.	او با سرطان مبارزه می کند.
+That's a blatant lie.	این یک دروغ آشکار است.
+That's my dictionary.	این لغت نامه ی من است.
+There's no wind here.	اینجا بادی نیست.
+This milk tastes odd.	مزه ی این شیر غیر عادی ست.
+This plant is edible.	این گیاه خوراکی است.
+Tom followed me home.	تام مرا تا خانه دنبال کرد.
+Tom is a real cowboy.	تام یک کابوی واقعی است.
+Tom isn't here today.	تام امروز اینجا نیست.
+Tom isn't interested.	تام به این موضوع علاقه مند نیست.
+Tom seems very happy.	تام خیلی خوشحال به نظر می‌رسد.
+Tom won't let you go.	تام نمی گذارد شما بروید.
+We have two children.	ما دو بچه داریم.
+We want a new carpet.	ما یک فرش نو می خواهیم.
+We'll meet on Sunday.	یکشنبه ملاقات خواهیم کرد.
+What's Tom's address?	آدرس تام چیست؟
+When can I swim here?	چه موقع می توانم شنا کنم؟
+Where is the problem?	مشکل کجاست؟
+Who wrote the letter?	چه کسی این نامه را نوشته است؟
+Why would I help Tom?	چرا من باید بخواهم که به تام کمک کنم؟
+You should work hard.	تو باید سخت کار کنی.
+Above all, be patient.	بالاتر از هر چیز این است که صبور باشی.
+Are you fond of music?	آیا شما دیوانهٔ موسیقی هستید؟
+Can't we just go home?	نمیشه بریم خونه?
+Come here and help me.	بیا اینجا و به من کمک کن.
+Did you dye your hair?	آیا تو موهایت را رنگ می کنی؟
+Does Tom dye his hair?	آیا تام موهایش را رنگ می کند؟
+Get down on the floor!	بخوابید روی زمین!
+Go to the living room.	به اتاق نشیمن برو.
+He and I are brothers.	من و او برادریم.
+He came into the room.	او وارد اتاق شد.
+He is washing the car.	او ماشینش را دارد می شوید.
+He must be over sixty.	قطعا عمرش بالای شصت سال است.
+He was prone to anger.	او در معرض خشم بود.
+He's gone into hiding.	او مخفی شده است.
+I am crazy about golf.	من عاشق گلف‌ام.
+I am talking with Tom.	مشغول صحبت با تام هستم.
+I am talking with Tom.	دارم با تام حرف می زنم.
+I bought it last week.	من این را هفته پیش خریدم.
+I came here yesterday.	من دیروز آمدم اینجا.
+I don't even know him.	من حتی او را نمی شناسم.
+I don't see Tom often.	تام را چندان زیاد نمی بینم.
+I think you did great.	فکر می کنم عالی کارتون را انجام دادید.
+I want to go with you.	می خواهم با تو بیایم.
+I want you to go home.	از شما می خواهم به خانه بروید.
+I was happy yesterday.	دیروز خوشحال بودم.
+I went to the station.	من به ایستگاه رفتم.
+I work even on Sunday.	من حتی روزهای یکشنبه هم کار می کنم.
+I'm going to the bank.	من دارم به بانک می روم.
+I'm not afraid of Tom.	من از تام نمی ترسم.
+Is your watch correct?	آیا ساعتت درست است؟
+Isn't that irritating?	آیا آزاردهنده نیست؟
+It takes two to tango.	برای رقص تانگو دو نفر لازم است.
+Like father, like son.	همانا پدر، همانا پسر.
+May I eat this orange?	ممکن است به من این پرتغال را بدهی؟
+Nobody understands me.	هیچکس مرا درک نمی‌کند.
+Perhaps you are right.	احتمالا حق با شماست.
+She asked for my help.	او از من کمک خواست.
+She is afraid of cats.	او نگران گربه ها است.
+She loves Tom, not me.	او(دختر) عاشق تام است، نه من
+Tell me. I'm all ears.	به من بگو، من سرتاپا گوشم.
+That flower is edible.	این گل خوردنی است.
+This tea is very nice.	این چای بسیار خوب است.
+Tom awoke at daybreak.	تام در ابتدای روز بیدار شد.
+Tom awoke at daybreak.	تام هنگام طلوع بیدار شد.
+Tom checked his watch.	تام به ساعتش نگاهی انداخت.
+Tom is a sheep farmer.	تام پرورش دهنده گوسفند است.
+Try some of this cake.	یک کم از این کیک امتحان کن.
+We all agree with you.	ما همگی با تو موافقیم.
+Where's my phone book?	دفتر تلفنم کجاست؟
+Where's the president?	رئیس جمهور کجاست؟
+Why do you suspect me?	چرا به من مظنون هستید؟
+You'll thank me later.	تو بعدا از من تشکر خواهی کرد.
+You've got to see Tom.	باید تام را ببینی.
+A sponge absorbs water.	یک ابر آب را جذب می‌کند.
+All I have is one book.	همه چیزی که دارم یک کتاب است.
+All roads lead to Rome.	تمام راهها به رم ختم می شود.
+Better late than never.	دیر رسیدن بهتر از هرگز نرسیدن است.
+Can I take a break now?	می توانم الان استراحت کنم؟
+Cut it into two pieces.	آن را به دو قسمت ببر.
+Do I need an operation?	آیا نیاز به عمل دارم؟
+Do we have to help Tom?	آیا ما مجبوریم به تام کمک کنیم؟
+Do you have everything?	آیا تو همه چیز داری؟
+Do you mind if I smoke?	ناراحت نمی شوی اگر که سیگار بکشم؟
+Don't even think of it.	اصلاً فکرش را هم نکن.
+Don't take it to heart.	این را به قلبت نزدیک نگاه ندار.
+Don't tell anyone this.	به هیچ کس این را نگو.
+Get a hammer and nails.	یک چکش و میخ بردار.
+Hasn't anyone seen Tom?	کسی تام را ندیده است؟
+He has no specific aim.	اون هیچ هدف مشخصی نداره.
+He left three days ago.	او سه روز پیش از اینجا رفت.
+He often appears on TV.	او اغلب بر صفحه ی تلویزیون ظاهر می شود.
+He played piano by ear.	او از راه شنیدن پیانو می‌نواخت.
+He went in place of me.	او به جای من رفت.
+Her friend is a singer.	دوستش یک خواننده است.
+Hope is not a strategy.	امید یک استراتژی نیست.
+I am a very sad person.	من آدم بسیار غمگینی هستم.
+I decided to try again.	تصمیم گرفتم بوباره سعی کنم.
+I don't like ice cream.	بستنی دوست ندارم.
+I don't like this book.	من این کتاب را دوست ندارم
+I don't speak Japanese.	من ژاپنی صحبت نمی‌کنم.
+I got a traffic ticket.	من یک بلیط تردد گرفته ام.
+I got lost in the maze.	من در هزارتو گم شدم.
+I have a dog and a cat.	من یک سگ و یک گربه دارم.
+I hope it was worth it.	امیدوارم ارزشش را داشت.
+I prefer coffee to tea.	قهوه را به چای ترجیح می دهم.
+I spoke to my daughter.	با دخترم صحبت کردم.
+I want to learn karate.	می خواهم کاراته یاد بگیرم.
+I was young and stupid.	من جوان و احمق بودم.
+I went there yesterday.	من دیروز به آنجا رفتم.
+I'd rather go swimming.	من بیش از اندازه شنا را دوست دارم.
+I'll bear that in mind.	من آن را به خاطر خواهم داشت یا مد نظر قرار خواهم داد.
+I've broken my glasses.	عینکم را شکسته ام.
+Is your mother at home?	آیا مادر شما در خانه است؟
+It might not even work.	ممکن بود حتی کار نکند.
+It won't stop bleeding.	خونریزی بند نمی آید.
+Just follow your heart.	به سادگی از قلبت پیروی کن.
+My father likes tennis.	پدرم تنیس دوست دارد.
+No one came to help me.	هیچ کس به کمکم نیامد.
+She took a deep breath.	او نفس عمیقی کشید.
+Thanks for inviting me.	تشکر برای دعوت کردن من.
+The boy sat on a chair.	پسر روی یک صندلی نشست.
+The flowers smell good.	گل ها بوی خوبی می دهند.
+They have just arrived.	آنها تازه آمده اند.
+This is a pretty dress.	لباس زیباییست.
+This smell disgusts me.	این بو حالم را به هم می‌زند.
+Tom clenched his fists.	تام مشت هایش را گره کرد.
+Tom seems really happy.	تام واقعاً خوشحال به نظر می‌رسد.
+What's your blog about?	ووبلاگ شما در چه موردی است؟
+Who are you talking to?	با کی حرف می زنی؟
+Why not see the doctor?	چرا دکتر ندیدت؟
+Will it be much longer?	آیا طولانی خواهد شد؟
+You had plenty of time.	تو وقت زیادی داشتی.
+You're Tom, aren't you?	شما تام هستید. این طور نیست؟
+You're very perceptive.	شما بسیار گیرا هستید.
+Your bag is on my desk.	کیفت بر روی میز من است.
+Aren't you even curious?	آیا تو حتی کنجکاو نیستی؟
+Can you make it on time?	می توانی آن را به موقع بسازی؟
+Do you need an envelope?	آیا شما یک پاکت نامه می خواهید؟
+Don't eat too much cake.	بیش از اندازه کیک نخور.
+Don't make abrupt moves.	حرکت ناگهانی نکن.
+Everyone makes mistakes.	بشر جائزالخطاست.
+Everything here is mine.	هر چیزی که اینجاست مال من است.
+Have you heard the news?	آیا خبر را شنیده ای؟
+He abandoned his family.	او خانواده اش را ترک کرد.
+He readily agreed to it.	او به آسانی با آن موافقت کرد.
+He readily agreed to it.	او بی درنگ با آن موافقت کرد.
+He was painfully skinny.	او به شدت لاغر بود.
+He will always love her.	او همیشه وی را دوست خواهد داشت.
+His mother was a singer.	مادر او یک خواننده بود.
+His room is always tidy.	اتاق او همیشه مرتب است.
+How do you know my name?	چطور نام مرا میدانی؟
+How's the weather there?	آنجا هوا چه طور است؟
+Hurry up! We'll be late.	عجله کن! دیرمان می شود.
+I didn't know that song.	من آن آواز را نمی شناختم.
+I didn't make a mistake.	من اشتباهی نکرده ام.
+I don't understand this.	من متوجه نشدم.
+I go to school at seven.	من در ساعت هفت به مدرسه می روم.
+I heard it on the radio.	من این را از رادیو شنیدم.
+I loosened my shoelaces.	من بند کفشم را شل کردم.
+I showed my room to him.	اتاق‌ام را به او نشان دادم.
+I'd better not eat that.	ترجیح می دهم که نخورمش.
+I'll catch the next bus.	سوار اتوبوس بعدی می شوم.
+I'll do it by all means.	با کمال میل این کار را خواهم کرد.
+I'll wait right outside.	من همین بیرون منتظر می مونم.
+I'm feeling much better.	حال به مراتب بهتری دارم.
+I'm good at mathematics.	من در ریاضیات مهارت دارم.
+I'm sorry to bother you.	ببخشید که اذیتت کردم.
+I've forgotten his name.	نام او را فراموش کردم.
+It wasn't an aberration.	این غیر عادی نبود.
+It'll be Christmas soon.	به زودی کریسمس می شود.
+It's not rocket science.	کار چندان سختی نیست.
+Looks aren't everything.	ظاهر و قیافه همه چیز نیست.
+Mary has her back to us.	مری به ما پشت کرده است.
+My mother set the table.	مادرم میز را چید.
+My strength is all gone.	تمام توانایی من از دست رفته است.
+Please pass me the salt.	لطفا نمک را به من بده.
+She gave us lots to eat.	او مقدار زیادی خوردنی به ما داد.
+She'll succeed for sure.	او قطعاً موفق خواهد شد.
+Take whichever you want.	هر وقت می خواهی بگیر.
+Tell me when he returns.	به من بگو کی او بازخواهد گشت.
+The car turned abruptly.	ماشین ناگهانی پیچید.
+The house was in flames.	خانه شعله ور شده بود.
+The law should be clear.	قانون باید روشن باشد.
+The negotiations failed.	مذاکرات شکست خورد.
+The weather is very hot.	هوا بسیار گرم است.
+There is no breeze here.	اینجا بادی نیست.
+This fish is not edible.	این ماهی خوراکی نیست.
+This is a very old book.	این یک کتاب بسیار قدیمی است.
+This plant isn't edible.	این گیاه خوردنی نیست.
+Tom came up with a plan.	نقشه ای به ذهن تام رید.
+Tom is taller than Mary.	تام بلندقدتر از ماری است.
+Tom is thirty years old.	تام سی ساله است.
+Tom is young and single.	نام جوان و مجرد است.
+Two plus two makes four.	دو بعلاوه دو می شود چهار.
+Wash your hands, please.	لطفا دستهایت را بشور.
+What are you doing here?	اینجا چه می کنی؟
+What have we overlooked?	ما چه چیزی را نادیده گرفته‌ایم؟
+Where are you taking me?	داری من را کجا می‌بری؟
+Yes, I have a good idea.	بله، من یک ایده ی خوب دارم.
+You can't swim, can you?	نمی توانی شنا کنی، می تونی؟
+You go to school, right?	مدرسه که می‌روی، درست است؟
+You two are really kind.	شما دو نفر واقعاً مهربان هستید.
+You're absolutely right.	حق کاملاً با شماست.
+You're driving too fast.	شما زیاد تند می‌رانید.
+Your efforts are futile.	تلاشهایت بیهوده هستند.
+A tea with lemon, please.	یک چای با لیمو، لطفاً.
+All of you did good work.	کار همه‌تان خوب بود.
+Are my socks dry already?	آیا جوراب هایم خشک شده اند؟
+Are you writing a letter?	داری نامه می نویسی؟
+Can you do it in one day?	میتونی اینو در یک روز انجام بدی
+Did you do your homework?	آیا تکالیفت را انجام داده بودی؟
+Did you put on sunscreen?	ضد آفتاب زدی؟
+Do not eat too much cake.	بیش از اندازه کیک نخور.
+Flour is made from wheat.	آرد از گندم به دست می آید.
+He repeated his question.	او سؤالش را تکرار کرد.
+He was too old to resist.	او برای مقاومت کردن خیلی پیر است.
+He went to Boston by car.	او با ماشین به بوستون رفت.
+He will love her forever.	او برای همیشه عاشق او خواهد بود.
+Hello, how are you doing?	سلام حالت چطوره؟
+Hello, how are you doing?	سلام،حال شما چه طور است؟
+Her house is very modern.	خانه‌ی او خیلی مدرن است.
+His house is very modern.	خانه‌ی او خیلی مدرن است.
+How long do we stop here?	چند مدت ما اینجا توقف می کنیم؟
+How much do you like Tom?	چقدر تام را دوست داری؟
+How much will you pay us?	چقدر شما به ما پرداخت خواهید کرد؟
+I admit that I was wrong.	می پذیرم که خطا کردم.
+I agree to your proposal.	من تقاضایت را می پذیرم.
+I am acquainted with him.	من با او آشنا هستم.
+I can't talk with people.	من نمی توانم با مردم صحبت کنم.
+I can't tie my shoelaces.	من نمی‌توانم بند کفشم را ببندم.
+I don't feel like it now.	الان حس و حالش رو ندارم.
+I don't like you anymore.	من دیگر تو را دوست ندارم.
+I don't want to hurt you.	من نمی خواهم به تو آسیبی بزنم.
+I felt much more relaxed.	من خیلی بیشتر احساس آرامش می کردم.
+I got soaked to the skin.	تا مغز استخوان خیس شدم.
+I met a friend of Mary's.	من یکی از دوستان مری را ملاقات کردم.
+I telephoned her at once.	من بی درنگ به او تلفن کردم.
+I want to find true love.	من می‌خواهم عشق حقیقی را پیدا کنم.
+I was in China last year.	سال پیش در چین بودم.
+I will never do it again.	من هرگز دوباره انجامش نخواهم داد.
+I'll be there in a while.	برای مدت کوتاهی اینجا می مانم.
+I'm learning how to type.	من دارم یاد می گیرم که چگونه تایپ کنم.
+Is there any room for me?	جایی برای من وجود دارد؟
+It's a quarter past nine.	ساعت یک ربع بعد از نه است.
+It's on the eighth floor.	در طبقه‌ی هشتم واقع است.
+John was born in America.	جان در آمریکا متولد شده است.
+Let's pass by the church.	بگذار از کنار کلیسا بگذریم.
+My favorite color is red.	رنگ دوست داشتنی من قرمز است.
+My son is taller than me.	پسرم قدبلند تر از من است.
+She has seen better days.	او روزهای بهتری را شاهد بوده است.
+She's wearing a nice hat.	او کلاه زیبایی پوشیده است.
+South Africa is far away.	آفریقای جنوبی دور است.
+That CD costs 10 dollars.	قیمت آن سی دی 10 دلار است.
+That's an obsolete model.	آن یک مدل منسوخ شده است.
+The damage has been done.	خسارت وارد شده است.
+The food is getting cold.	غذا سرد شد.
+The vase is on the table.	گلدان روی میز است.
+There is a knife missing.	یک چاقو گم شده است.
+There is a test tomorrow.	فردا امتحان داری؟
+They are as strong as us.	آنها به اندازه ما قوی اند.
+They became good friends.	آنها دوستان خوبی شدند.
+This knife is very sharp.	این چاقو خیلی تیز است.
+Tom can swim like a fish.	تام می توان مانند یک ماهی شنا کند.
+Tom didn't shoot anybody.	تام به کسی شلیک نکرد.
+Tom said he had to split.	تام گفت او مجبور است برود.
+What does that word mean?	آن کلمه چه معنایی دارد؟
+What is he running after?	او به دنبال چه چیزی می دود؟
+When did you get married?	کی ازدواج کردید؟
+Who is playing the piano?	چه کسی پیانو می نوازد؟
+Why do you want this job?	چرا این کار را می خواهی؟
+Why does that bother you?	چرا این اذیتت میکنه?
+You are completely right.	حق کاملاً با شماست.
+You have beautiful hands.	تو دستهای زیبایی داری.
+You need to be proactive.	شما احتیاج دارید پیش‌فعال باشید.
+A burnt child dreads fire.	مار گزیده از ریسمان سیاه و سفید می‌ترسد.
+Air is a mixture of gases.	هوا مخلوطی از گازها است.
+Are they actually friends?	آنها واقعا با هم دوستند?
+Be kind to little animals.	مهربان باش با حیوانات کوچک.
+Do not tell me what to do.	به من نگو چه کار کنم.
+Do you eat rice every day?	آیا هر روز برنج می‌خوری؟
+Do you like Japanese food?	آیا شما غذاهای ژاپنی را دوست دارید؟
+Do you want to go with us?	شما می خواهید که با ما بروید؟
+Everybody seeks happiness.	همه به دنبال خوشبختی هستند.
+Everything is on schedule.	همه چیز طبق برنامه است.
+Exceptions prove the rule.	استثناها قاعده را توجیه می کنند.
+Has Tom ever been married?	آیا تام تا کنون ازدواج کرده است؟
+Have you put on sunscreen?	ضد آفتاب زده ای ؟
+He arrived safe and sound.	او به‌سلامت رسید.
+He doesn't understand you.	او تو را درک نمی کند.
+He got good marks in math.	او در ریاضیات نمرات خوبی گرفت.
+He is anything but a fool.	او اصلاً احمق نیست.
+He seems to be wary of us.	به نظر می آید او نسبت به ما محتاط است.
+He was appointed chairman.	او به ریاست منصوب شد.
+How do you heat the house?	چه طور خانه را گرم می کنی؟
+I asked Tom to keep quiet.	من از تام خواستم ساکت بماند.
+I bought a pair of gloves.	من یک جفت دستکش خریدم.
+I bought a red sports car.	من یک ماشین اسپورت قرمز خریدم.
+I can't remember anything.	نميتوانم چیزی را بخاطر بیاورم
+I don't have any brothers.	من هیچ برادری ندارم.
+I don't trust you anymore.	دیگر بهت اعتماد ندارم.
+I fell asleep watching TV.	در حین نگاه کردن تلویزیون خوابم برد.
+I like listening to music.	من دوست دارم موسیقی گوش کنم.
+I rarely watch television.	به نُدرت تلویزیون تماشا می‌کنم.
+I remember the first time.	من اولین بار را به یاد دارم.
+I think that my mom knows.	فکر کنم مادرم میداند.
+I want to buy this jacket.	میخواهم این ژاکت را بخرم.
+I want to live in comfort.	من می خواهم در آسایش زندگی کنم.
+I'll never be happy again.	من هیچگاه دوباره شاد نخواهم شد.
+I'll see you in my dreams.	من تو را در رؤیاهایم خواهم دید.
+I'll stay out of your way.	من دخالتی در راه و روشت نخواهم کرد.
+I'm interested in history.	من به تاریخ علاقه‌مندم.
+I've always hated biology.	من همیشه از زیست شناسی متنفر بودم.
+It's nearly three o'clock.	نزدیک ساعت سه است.
+My car is being fixed now.	ماشین من الآن درست شد.
+My daughter caught a cold.	دخترم سرما خورده بود.
+Not all of them are happy.	همه آنها خوشحال نیستند.
+Please turn off the light.	لطفا چراغ را خاموش کن.
+Remember to lock the door.	یادت باشد در را قفل کنی.
+She had no one to turn to.	او هیچ کسی را ندارد که راهنمایی اش کند.
+She must be angry with me.	او باید از من عصبانی باشد.
+Thank you for inviting me.	از اینکه مرا دعوت کردی، متشکرم.
+That gave me a rough idea.	این به من ایده ای کلّی داد.
+That's what I said to Tom.	این چیزی است که من به تام گفته ام.
+The cat ran after the rat.	گربه به دنبال موش می دوید.
+The chair is made of wood.	صندلی از چوب درست شده است.
+The two roads cross there.	دو جاده از آنجا عبور می کند.
+Their wedding is tomorrow.	عروسی آنها فرداست.
+There is little wine left.	کمی شراب باقی مانده است.
+There wasn't anyone there.	هیچ کس آنجا نبود.
+There's no food right now.	الان اینجا هیچ غذایی نیست.
+They are crazy about jazz.	آنها دیوانه ی موسیقی جازند.
+They understood my plight.	آنها شرایط بحرانی مرا فهمیدند.
+Tom has to look for a job.	تام مجبور است دنبال شغلی جدید بگردد.
+Tom says that he's lonely.	تام گفت که او تنهاست
+Tom shut the kitchen door.	تام در آشپزخانه را محکم به هم زد.
+We don't have enough time.	ما وقت کافی نداریم.
+We survived by sheer luck.	ما با خوش‌شانسی محض نجات یافتیم.
+What is your line of work?	حرفه شما چیست؟
+What is your phone number?	شماره تلفنت چیست؟
+Whatever she says is true.	هر چه او می گوید حقیقت دارد.
+Who's that talking to Tom?	او کیست که با تام صحبت می کند؟
+You're the one I need now.	تو کسی هستی که الان بهش احتیاج دارم.
+"I have to see him." "Why?"	«باید او را ببینم.» «چرا؟»
+"Thanks." "You're welcome."	"تشکر." "خواهش می کنم."
+After a storm comes a calm.	بعد از هر سربالایی یک سرازیری است.
+Big cars burn a lot of gas.	اتوموبیل‌های بزرگ زیاد بنزین مصرف می‌کنند.
+Do you know where he lives?	آیا می‌دانی او کجا زندگی می‌کند؟
+Don't take it so seriously.	زیاد جدی نگیر.
+Greeks often eat fish, too.	یونانی ها گاهی ماهی بسیار می خورند.
+He asked me for some money.	او از من مقداری پول خواست.
+He decided to sell the car.	تصمیم گرفت ماشین را بفروشد.
+He doesn't read many books.	او زیاد کتاب نمی خواند.
+He hasn't left any message.	او پیغامی نگذاشته است.
+He is a jack-of-all-trades.	او همه فن حریف است.
+He is a poet and statesman.	او یک سیاستمدار و شاعر است.
+He is a university student.	او دانشجوی دانشگاه است.
+His joke made us all laugh.	جک او همه ما را خنداند.
+His son trembled with fear.	پسرش از ترس لرزید.
+How can we learn the truth?	چگونه حقیقت را دریابیم؟
+I arrived in Tokyo at noon.	من ظهر به توکیو رسیدم.
+I belong to the music club.	من عضو باشگاه موسیقی هستم.
+I don't have a beach house.	من یک خانه ساحلی ندارم.
+I don't know if I can come.	نمی‌دانم می‌توانم بیایم.
+I don't know what you like.	من نمي دانم شما از چه خوشتان مي آيد
+I don’t like any of this.	من هیچ یک از اینها را دوست ندارم.
+I have two foreign friends.	من دو دوست خارجی دارم.
+I heard the news by chance.	اتفاقی اخبار را شنیدم.
+I learned a new word today.	من امروز یک کلمه جدید یاد گرفتم.
+I thanked Tom for his time.	از تام بابت زمانی که گذاشت، تشکر کردم.
+I was feeling blue all day.	تمام روز احساس افسردگی می‌کردم.
+I work for a travel agency.	من در آژانس مسافرتی کار می کنم.
+I'd like to confide in you.	من دوست دارم به تو اعتماد کنم.
+I'm going to be in my room.	من در اتاقم خواهم بود.
+I'm satisfied with my work.	من از شغلم راضی هستم.
+It is likely to rain again.	به احتمال زیاد دوباره باران می بارد.
+Many hands make light work.	یک دست صدا ندارد.
+Metals conduct electricity.	فلزات الکتریسیته را هدایت می‌کنند.
+My mother's feeling better.	حال مادرم بهتر است.
+My parents had me go there.	والدینم مرا مجبور کردند به انجا بروم.
+Parking is prohibited here.	اینجا پارک کردن ممنوع است.
+Please come home sometimes.	لطفا گاهی خانه ما بیا.
+Please take off your shoes.	لطفاً کفشهایت را در بیاور.
+She and I are the same age.	من و او(زن) هم سن هستیم.
+She wasn't a bit impatient.	او کم بی تاب نبود.
+She's never fallen in love.	او هیچگاه عاشق نشده است.
+The medicine tastes bitter.	دارو ها مزه تلخی دارند.
+The music stopped abruptly.	آهنگ ناگهانی متوقف شد.
+The speed limit was 60 mph.	حد مجاز سرعت 60 مایل بر ساعت بود.
+They criticized each other.	از یکدیگر انتقاد کردند.
+This man is very, very old.	این مرد خیلی خیلی پیر است.
+This word comes from Greek.	این واژه از یونانی می آید.
+Tom got on the wrong train.	تام اشتباهی سوار قطار شد.
+Tom took me under his wing.	تام مرا تحت حمایت خودش قرار داد.
+Tom wasn't there yesterday.	تام دیروز آنجا نبود.
+Tom will be fine, won't he?	تام حالش خوب می‌شه، مگه نه؟
+Violators will be ticketed.	تخطی‌کنندگان جریمه خواهند شد.
+We only have three options.	ما فقط سه گزینه داریم.
+We talked in sign language.	ما با زبان اشاره صحبت کردیم.
+We were at school together.	ما در مدرسه با هم بودیم.
+What are you talking about?	درباره چه حرف می زنید؟
+Why do we have to help Tom?	چرا ما مجبوریم به تام کمک کنیم؟
+Words hurt more than fists.	کلمات بیشتر از مشت ها آسیب می زنند.
+Wouldn't that be dangerous?	آیا خطرناک نخواهد بود؟
+You can't take it with you.	نمی‌توانی آن را با خود ببری.
+Can you please watch my bag?	لطفاً، می توانید مراقب کیف من باشید؟
+Does Tom want to go with us?	آیا تام می خواهد که با ما برود؟
+Don't forget to write to us.	نامه نوشتن به ما را فراموش نکن.
+France is in Western Europe.	فرانسه در اروپای غربی واقع است.
+Give it to whoever wants it.	به هر کسی که خواستش آن را بده.
+Have you ever pruned a tree?	تا به حال یک درخت را هرس کرده‌اید؟
+He began to talk to the dog.	او شروع به صحبت کردن با سگ کرد.
+He did not know where to go.	او نمی دانست کجا برود.
+He didn't reveal his secret.	او رازش را آشکار نساخت.
+He pretended not to hear me.	او وانمود کرد که مرا نمی شنود.
+He would have no part of it.	حاضر نبود در آن کار مشارکت کند.
+Hitler led Germany into war.	هیتلر آلمانی ها را به جنگ کشانید.
+How long have you been busy?	در طول چه مدتی مشغول بودید؟
+I can't come with you today.	امروز نمیتونم با تو بیام.
+I did not want to alarm you.	من نمی خواستم به شما اخطار کنم.
+I don't have a single enemy.	من یک دشمن منفرد ندارم.
+I don't see Tom a whole lot.	با تام اینهمه دیدار ندارم.
+I don't see Tom a whole lot.	تام را چنان زیاد ملاقات نمی کنم
+I fell asleep while reading.	من در هنگام خواندن به خواب رفتم.
+I haven't seen you for ages.	من سالها بود که او را ندیده بودم.
+I just cleaned the bathroom.	همین الآن دست‌شوئی را تمیز کردیم.
+I showered before breakfast.	قبل از صبحانه دوش گرفتم.
+I thought I could trust you.	فکر کردم می‌توانم بهت اعتماد کنم.
+I want to close the account.	می خواهم حسابم را ببندم.
+I was compelled to go there.	من مجبور شدم به آنجا بروم.
+I will not be busy tomorrow.	فردا مشغول نخواهم بود.
+I work every day but Sunday.	من هر روز به جز یکشنبه کار می کنم.
+I'll be back by six o'clock.	من حدود ساعت شش خواهم برگشت.
+I'm deeply in love with you.	من عمیقاً عاشق شما هستم.
+It is a sheer waste of time.	این یک اتلاف وقت محض است.
+It's time you faced reality.	الآن زمانی است که با واقعیت روبرو شدی.
+Let's see if Tom is at home.	اجازه بده ببینیم تام در خانه است؟
+Not all policemen are brave.	همه ی پلیس ها شجاع نیستند.
+Now I know why Tom hates me.	الان میدونم چرا تام از من بدش میاد.
+Parents love their children.	والدین بچه هایشان را دوست دارند.
+Pass me the salt, would you?	نمک را به من بده، ممکنه؟
+Perry visited Uraga in 1853.	پری، اوراگا را در سال 1853 بازدید کرد.
+Proverbs are full of wisdom.	ضرب المثل‌ها پر از حکمت هستند.
+She called me up from Tokyo.	او از توکیو به من زنگ زد.
+She is Tom’s older sister.	او خواهر بزرگتر تام است.
+She likes jazz, and so do I.	او جاز دوست دارد و من هم همینطور.
+Tell the others to hurry up.	به دیگران بگو عجله کنند.
+The danger was not apparent.	خطر آشکار نبود.
+There's nothing for me here.	اینجا هیچ چیزی برای من نیست.
+Tom asks a lot of questions.	تام زیاد سوال میپرسد.
+Tom drives Mary up the wall.	تام ماری را به بالای دیوار می‌راند.
+Tom has dyed his hair black.	تام موهایش را به رنگ سیاه رنگ کرد.
+Tom only thinks about money.	تام فقط به پول فکر می کند.
+We live close to the school.	ما نزدیک مدرسه زندگی می کنیم.
+We started at the same time.	ما همزمان شروع کردیم.
+What are you hiding from me?	چه چیزی را از من پنهان می‌کنی؟
+What exactly are you saying?	دقیقاً چه می‌خواهی بگویی؟
+Where can we find the truth?	حقیقت را در کجا می توانیم بیابیم؟
+Why did your T-shirt shrink?	چرا تی شرتت آب رفت؟
+You have a very good memory.	تو حافظه خیلی خوبی داری.
+A burnt child fears the fire.	مار گزیده از ریسمان سیاه و سفید می‌ترسد.
+A good horse knows its rider.	اسب خوب سوارکار خود را می شناسد.
+A good idea crossed his mind.	ایده ی خوبی به ذهنم رسید.
+Allow me to introduce myself.	اجازه بده خودم را معرفی کنم.
+Anyone who says so is a liar.	هر کسی این را بگوید، یک دروغگوست.
+Can you think of any reasons?	آیا تو می توانی به دلایل آن فکر کنی؟
+Cut the cake with that knife.	کیک را با آن چاقو ببرید.
+Don't make fun of foreigners.	خارجی ها را مسخره نکن.
+Don't make me come back here.	مجبورم نکن به اینجا برگردم.
+Escape was almost impossible.	فرار تقریباً ناممکن بود.
+Everybody speaks well of her.	همه از او خوب می گویند.
+Have you heard the good news?	آیا خبر خوب را شنیده ای؟
+He gave me a piece of advice.	او مرا نصیحت کرد.
+He is able to speak Japanese.	او می تواند ژاپنی صحبت کند.
+He is preparing for the test.	او دارد برای امتحان آماده می شود.
+He received a good education.	او از تحصیلات خوبی برخوردار شد.
+He rubbed his hands together.	او دستهایش را به هم مالید.
+His pencil has a sharp point.	خودکارش سر تیزی دارد.
+His prediction has come true.	پیش‌بینی او درست از کار در آمد.
+Honesty pays in the long run.	در درازمدت، درستکاری سود خود را می‌دهد.
+I am not acquainted with him.	من با او آشنا نیستم.
+I am not concerned with this.	من نگران این نیستم.
+I can't answer your question.	من نمی‌توانم به سوال شما پاسخ دهم.
+I can't promise you anything.	من نمی توانم به تو هیچ قولی بدهم.
+I caught five fish yesterday.	من دیروز پنج تا ماهی گرفتم.
+I don't know what else to do.	من نمی دانم چه کار دیگری باید انجام دهم.
+I followed the deer's tracks.	رد آهو را دنبال کردم.
+I got up at six this morning.	من هرروز صبح ساعت شش از خواب بیدار می شوم.
+I have some stamps in my bag.	تعدادی تمبر در کیفم دارم.
+I seem to have lost my purse.	به نظر می رسد که کیف پولم را گم کردم.
+I stayed awake until morning.	تا صبح بیدار ماند.
+I think she is a good dancer.	من فکر می کنم که او(دختر) یک رقصنده خوب است.
+I thought you'd want to know.	فکر کردم می خواستی بدانی.
+I want to be a better person.	من می خواهم فرد بهتری باشم.
+I want you to meet my cousin.	می‌خواهم که با پسرعمویم ملاقات کنید.
+I wanted to work this summer.	من می خواهم این تابستان کار کنم.
+I wear a suit, but not a tie.	من کت پوشیدم، اما بدون کراوات.
+I wish you'd come last night.	ای کاش دیشب آمده بودی.
+I'll clean the kitchen later.	آشپزخانه را بعداً تمیز خواهم کرد.
+It is terrible weather today.	امروز هوا بسیار بد است.
+Let's take a 10 minute break.	ده دقیقه استراحت می کنیم.
+Mary is studying in her room.	مری در حال مطالعه در اتاق خود است.
+Money does not grow on trees.	پول سبز نمی‌شود.
+Most people like watching TV.	خیلی از مردم تلویزیون دیدن را دوست دارند.
+My father has a lot of books.	پدر من بسیار کتاب دارد.
+Not all children like apples.	همه بچه ها سیب را دوست ندارند.
+Pakistan is a Muslim country.	پاکستان یک کشور اسلامی است.
+She began to talk to the dog.	او شروع به صحبت کردن با سگ کرد.
+She gets prettier day by day.	او روز به روز زیباتر می شود.
+She is proud of her students.	او به پسر مدرسه ای اش افتخار می کند.
+She saw him break the window.	او دید که آن مرد شیشه را شکست.
+She spoke relatively quickly.	او نسبتا سریع حرف می زند.
+She's a lot older than he is.	او (مونث) خیلی از او (مذکر) پیرتر است.
+The flight took us ten hours.	جدال ده ساعت طول کشید.
+This classroom is very large.	این کلاس درس خیلی بزرگ است.
+Tom almost never gets scared.	تام تقریبا هرگز وحشت زده نمی شود.
+Tom almost never gets scared.	تام تقریبا هرگز نمی ترسد
+Tom didn't feel like waiting.	به نظر نمی رسید تام در حال صبر کردن باشد.
+Tom didn't feel like waiting.	تام در حال صبر کردن به نظر نمی رسید.
+Tom has a high-pitched voice.	تام صدای زیری دارد.
+Tom helped Mary dye her hair.	تام به مری کمک کرد تا موهایش را رنگ کند.
+Tom is listening to his iPod.	تام دارد به آیپادش گوش می‌دهد.
+Variety is the spice of life.	تنوّع ادویه‌ی زندگی ست.
+Variety is the spice of life.	تنوّع نمک زندگی ست.
+Was there anybody in the car?	کسی تو ماشین بود؟
+We are a peace-loving nation.	ما ملت صلح دوستی هستیم.
+We saw the monkey at the zoo.	آن میمون را در آن باغ‌وحش دیدیم.
+What did you do this morning?	امروز صبح چکار کردی؟
+What is the capital of Haiti?	پایتخت هائیتی کجاست؟
+What language is he speaking?	به چه زبانی دارد صحبت می‌کند؟
+What's this chair doing here?	این صندلی اینجا چیکار می کنه؟
+What's your favorite dessert?	دسر مورد علاقه ات چیست؟
+What's your sister doing now?	خواهرت الان چه کار می کند؟
+When will you visit me again?	کی دوباره به من سر میزنی?
+Why did you say such a thing?	برای چه چنین چیزی گفتی؟
+Why do I have to talk to Tom?	چرا من مجبورم که با تام صحبت کنم؟
+Why do people dye their hair?	چرا مردم موهایشان را رنگ می کنند.
+You have more energy than me.	شما انرژی بیشتری از من دارید.
+All our attempts were in vain.	تمام تلاش‌هایمان بیهوده بود.
+Aren't you even a bit curious?	حتی تو اندکی نیز کنجکاو نیستی؟
+Both brothers are still alive.	هر دو برادر هنوز زنده اند.
+Do you have someplace to stay?	جایی برای ماندن داری؟
+Do you know whose car that is?	می دانی آن ماشین مال چه کسی است؟
+Every man has his weak points.	هر انسانی نقطه ضعف‌های خود را دارد.
+France was at war with Russia.	فرانسه با روسیه در جنگ بود.
+Gasoline is sold by the liter.	گازوئیل بصورت لیتری فروخته می شود.
+He has a lot of acquaintances.	او آشناهای زیادی دارد.
+He is better than anyone else.	او بهتر از هر کس دیگری است.
+He lives in an enormous house.	او در یک خانه بزرگ زندگی می کند.
+He seems not to have known it.	به نظر می آید او نفهمیده باشد.
+He started talking to the dog.	او شروع به صحبت کردن با سگ کرد.
+He washes the bike every week.	او هر هفته دوچرخه را می‌شوید.
+How often have you been there?	چند بار است که اینجا آمده ای؟
+Hurry up, or you will be late.	عجله کن، وگرنه دیر خواهی کرد.
+I am happy to hear your voice.	از اینکه صدایت را بشنوم خوشحال می شوم.
+I got a letter from my friend.	من یک نامه از دوستم دریافت کردم.
+I hear your childish laughter.	صدای خنده کودکانه ات را می شنوم.
+I just don't know what to say.	من فقط نمی دانم چه بگویم.
+I learned to live without her.	یاد گرفتم که بدون او زندگی کنم.
+I left my credit card at home.	کارت اعتباریم را خانه جا گذاشتم.
+I normally don't drink coffee.	من معمولا کافه نمینوشم.
+I only wish I were part of it.	فقط آرزویم این است که بخشی از آن بودم.
+I put the money into the safe.	من پول را در گاوصندوق گذاشتم.
+I saw a light in the distance.	من از دور یک روشنایی دیدم.
+I saw my mother hide the cake.	دیدم که مادرم کیک را پنهان کرد.
+I think Tom is looking for us.	من فکر کنم تام دارد دنبالمان می گردد.
+I took care of my sick sister.	من از خواهر بیمارم مراقبت کردم.
+I'm not in the mood right now.	الان حس و حالش رو ندارم.
+I'm now staying at my uncle's.	در حال حاضر، در منزل عمویم اقامت دارم.
+I'm so happy to see you again.	خیلی خوشحالم که دوباره می‌بینمت.
+It is never too late to learn.	برای یادگیری هیچوقت دیر نیست.
+Learning English is hard work.	یادگیری زبان انگلیسی کار سختی است.
+Let me tell you a funny story.	بگذار برایت یک داستان جالب تعریف کنم.
+My parents sent me a postcard.	والدینم برایم کارت پستال فرستادند.
+No man alive would believe it.	هیچ انسان زنده ای، آن را باور نخواهد کرد.
+One of the teenagers screamed.	یکی از نوجوان ها فریاد کشید.
+Our summer is short, but warm.	تابستان ما کوتاه و گرم است.
+People said that he is insane.	مردم می گفتند او دیوانه است.
+Please take these dishes away.	لطفا این ظروف را ببرید.
+She has some money of her own.	او مقداری پول از آن خود دارد.
+She likes jazz, and I do, too.	او جاز را دوست دارد، من هم همینطور.
+She was anxious about her job.	او نگران شغل خود بود.
+Smoking is not permitted here.	کشیدن سیگار اینحا مجاز نیست.
+Something bad happened to Tom.	اتفاق بدی برای تام افتاد.
+Take care not to catch a cold.	مواظب باش که سرما نخوری.
+That's a fascinating question.	این یک سوال جالب است
+The candle went out by itself.	شمع خود به خود خاموش شد.
+The doctors examined the baby.	دکتر‌ها نوزاد را معاینه کردند.
+The files are in proper order.	فایلها در نظم خوبی هستند.
+The nurse gave you a sedative.	پرستار به شما یک آرام‌بخش داد.
+The shop is opposite the bank.	مغازه، مقابل بانک است.
+The taxi abruptly turned left.	تاکسی ناهگانی به چپ پیچید.
+The watch keeps accurate time.	آن ساعت زمان دقیق را نشان می دهد.
+The work is actually finished.	کارم واقعا تمام شده است.
+There's no cure for stupidity.	حماقت درمان ندارد.
+These mushrooms aren't edible.	این قارچ‌ها خوراکی نیستند.
+They were alarmed at the news.	آنها از شنیدن این خبر شوکه شدند.
+This rope isn't strong enough.	این طناب به اندازهٔ کافی قوی نیست.
+Tom does nothing but complain.	تام کاری جز شکایت نمی‌کند.
+Tom doesn't need to know that.	نیازی نیست که تام از آن مطلع شود.
+Tom has never seen Mary dance.	تام هیچگاه رقص مری را ندیده است.
+Tom is playing the violin now.	تام اکنون ویولن می نوازد.
+Tom wants to change the world.	تام می خواهد جهان را تغییر دهد.
+What is done cannot be undone.	آنچه از دست رفت، دیگر به‌دست نمی‌آید.
+What is the depth of the lake?	عمق دریاچه چقدر است؟
+What's the definition of jazz?	معنی جاز چیست؟
+What's your home phone number?	شماره تلفن خانه ات چیست؟
+Why is everything going wrong?	چرا همه چیز خراب پیش می رود؟
+You agree with Tom, don't you?	با تام موافقی، نه؟
+You can't get there from here.	شما از اینجا نمی توانید به آنجا برسید.
+You should say what you think.	تو باید هر چه را که به آن فکر می کنی؛ بگویی.
+Anyone may use this dictionary.	هرکسی می تواند از این دیکشنری استفاده کند.
+Both roads lead to the station.	هردو راه به ایستگاه می‌روند.
+Do you have some good medicine?	شما داروی مناسبی دارید؟
+Do you know anything about Tom?	چیزی در مورد تام میدانی؟
+Don't let him know her address.	نگذار او آدرس آن خانم را بفهمد.
+Don't stay in the sun too long.	طولانی زیر آفتاب نایست.
+Every mistake made me stronger.	هر اشتباه مرا قوی تر کرد.
+Everybody agreed with his idea.	همه با نظرش موافقت کردند.
+Experience is the best teacher.	تجربه بهترین آموزگار است.
+He disappeared without a trace.	او بدون هیچ اثری ناپدید شد.
+He is curious about everything.	او درمورد همه چیز کنجکاو است.
+He is prone to getting excited.	او در معرض هیچان‌زده شدن بود.
+He knows most who speaks least.	آنکس بیشتر می‌داند که کمتر حرف می‌زند.
+He remained silent for a while.	او برای یک لحظه ساکت ماند.
+He stayed there for three days.	او سه روز در آنجا ماند.
+He was a pioneer in this field.	او در آن زمینه پیشاهنگ بود.
+His mother is writing a letter.	مادر او نامه می نویسد.
+How long will Tom stay with us?	تام چقدر پیش ما خواهد ماند؟
+I asked him about his new book.	من راجع به کتاب جدیدش سوال کردم.
+I cannot tell how this is done.	نمی‌توانم بگویم که این چطور درست شده است.
+I don't want to take that risk.	من قصد ندارم آن ریسک را بکنم.
+I expect you know all about it.	انتظار دارم همه چیز را راجع به آن بدانی.
+I found what I was looking for.	من آنچه را که به دنبالش می گشتم، یافتم.
+I got over it. You should, too.	من بر آن غلبه کردم. تو هم باید همین کار را بکنی.
+I really wish to see you today.	خیلی مشتاقم امروز ببینمتان.
+I stopped smoking and drinking.	من کشیدن سیگار و مصرف الکل را متوقف کردم.
+I suggest that you go by train.	پیشنهاد می‌کنم با قطار بروی.
+I took that picture a week ago.	من آن عکس را یک هفته پیش گرفتم.
+I tried that a couple of times.	دو بار آن را امتحان کردم.
+I want something cold to drink.	من چیزی سرد برای نوشیدن می خواهم.
+I was delayed by a traffic jam.	ازدحام ترافیک موجب تاخیرم شد.
+I will make a new suit for you.	می خواهم برایت یک دست لباس جدید درست کنم.
+I'll put some salt in the soup.	من کمی نمک در سوپ خواهم ریخت.
+I'll worry about that tomorrow.	من دربارش فردا نگران میشم.
+I'm adamant that you should go.	من مصرم که تو باید بروی.
+I'm confused. What do I do now?	من گیج شده ام.حالا چکار باید بکنم؟
+It doesn't matter at all to me.	این اصلا برای من مهم نيست
+It was a difficult year for us.	سال سختی برای ما بود.
+Let's ponder that for a moment.	بگذار برای یک لحظه به آن غور کنیم.
+My brother is coming on Monday.	برادرم روز دوشنبه می آید.
+My computer was down yesterday.	کامپیوتر من دیروز خراب شد.
+My parents don't understand me.	والدینم مرا درک نمی کنند.
+Please mail this letter for me.	لطفا این نامه را برای من پست کن.
+Please say hello to him for me.	لطفا از طرف من به او سلام برسان.
+She is what is called a genius.	او چیزی است که نابغه خوانده می شود.
+She was arrested by the police.	او توسط پلیس دستگیر شد.
+That fish lives in fresh water.	آن ماهی در آب شیرین زندگی می‌کند.
+The army quelled the rebellion.	ارتش شورش را سرکوب کرد.
+The castle is across the river.	قلعه آن طرف رودخانه است.
+The investigation is under way.	تحقیقات شروع می شود.
+The landlord changed the locks.	صاحبخانه قفلها را عوض کرد.
+The result is all that matters.	فقط نتیجه مهم است.
+The sea was as smooth as glass.	دریا مثل شیشه صاف بود.
+There is no smoke without fire.	هیچ دودی بی آتشی نیست.
+They could ride and shoot well.	آنها به خوبی می توانستنند هم برانند وهم تیر اندازی کنند.
+They heard him come downstairs.	آنها صدایش را شنیدند که از پلکان داشت پایین می رفت.
+This child did nothing but cry.	این بچه کاری جز گریه کردن نداشت.
+This is not an emergency issue.	این مسئله اورژانس نیست.
+Those houses are 500 years old.	آن خانه ها پانصد سال قدمت دارند.
+Three people are still missing.	سه نفر هنوز گمشده هستند.
+Tom doesn't live in Boston now.	تام اکنون در بوستون زندگی نمی کند.
+Tom is very interested in jazz.	تام به موسیقی جاز خیلی علاقمند است.
+Tom wondered what had happened.	تام از خود پرسید که چه اتفاقی افتاده است.
+We are anxious for world peace.	ما به شدت خواهان صلح جهانی هستیم.
+We have a wide choice of books.	ما یک گستره ای از کتاب ها داریم.
+We made pancakes for breakfast.	ما برای صبحانه پنکیک درست کردیم.
+We must deal with this problem.	ما باید این مشکل را حل کنیم.
+We need no more men at present.	فعلاً به افراد بیشتری نیاز نداریم.
+We'll share our food with them.	ما غذایمان را با آنها تقسیم خواهیم کرد.
+When will you finish your work?	کی کارت را تمام خواهی کرد؟
+Wherever you go, I will follow.	هر جا که بروی، من دنبالت می آیم.
+You can use my car if you like.	اگر تمایل داری می توانی از خودرو من استفاده کنی.
+You don't like sashimi, do you?	تو ساشیمی دوست نداری، دوست داری؟
+A promise made is a debt unpaid.	یک قول داده شده یک دِین اداء نشده است.
+A promise made is a debt unpaid.	یک قول داده شده یک قرض پرداخته‌نشده است.
+All three of you are very lucky.	هر سه شما بسیار خوش شانس هستید.
+Can you check the tire pressure?	می‌توانی فشار تایر را چک کنی؟
+Can you recommend another hotel?	می‌توانی یک هتل دیگر پیشنهاد کنی؟
+Did you deliver the note to Tom?	آیا تو پیغام را به تام رساندی؟
+Do you have a problem with this?	آیا تو با این مشکلی داری؟
+Do you know how sausage is made?	میدونی چطور سوسیس درست میشه?
+Get out your notebooks and pens.	دفترچه ها و خودکارهایتان را بیرون بیاورید.
+He amused us with a funny story.	او ما را با یک داستان با مزه سرگرم کرد.
+He refused to say more about it.	او قبول نکرد بیشتر در آن مورد بگوید.
+He was killed in a car accident.	او در تصادف رانندگی کشته شد.
+He will come to see us some day.	او بعضی روزها به دیدن ما می آید.
+He's an excellent brain surgeon.	او یک جراح بسیار خوب مغز است.
+He's not very strict about this.	او در این مورد زیاد سختگیر نیست.
+Hold still for a moment, please.	لطفاً چند دقیقه آرام بمانید.
+Homicide is punishable by death.	قتل با مرگ مجازات پذیر است.
+Homicide is punishable by death.	مجازات قتل مرگ است.
+How's your project coming along?	پروژه‌ی شما چطور پیش می‌رود؟
+I am acquainted with the author.	من با نویسنده آشنا هستم.
+I believe that he's trustworthy.	من معتقدم او قابل اعتماد است.
+I bought this printer yesterday.	من این چاپگر رادیروز خریدم.
+I checked the time on the clock.	من زمان را از روی ساعت چک کردم.
+I couldn't understand his ideas.	من نمی توانستم ایده هایش را بفهمم.
+I don't have a drinking problem.	من مشکل نوشیدنی ندارم.
+I don't like very long holidays.	من تعطیلات خیلی طولانی را دوست ندارم.
+I have a rough idea where it is.	کمابیش می‌دانم کجا است.
+I have had no news from him yet.	من هنوز هیچ خبری از او ندارم.
+I just wanted to check my email.	فقط می‌خواستم ایمیلم را چک کنم.
+I remember that I met the queen.	به خاطر می آورم که ملکه را ملاقات کردم.
+I saw him scolded by his mother.	من او را دیدم که با مادرش پرخاشگر بود.
+I used to go to school with him.	معمولاً با او به مدرسه می‌رفتم.
+I want to make her acquaintance.	من می‌خواهم با او آشنا شوم.
+I want to see your older sister.	می خواهم خواهر بزرگتر شما را ملاقات کنم.
+I was surprised to see you here.	من از دیدن شما در اینجا متعجب شدم.
+I will finish this work somehow.	به هر طریقی، من این کار را تمام خواهم کرد.
+I'll be staying here for a week.	ما اینجا به مدت یک هفته خواهیم بود.
+I'm very impressed by your work.	من خیلی تحت تأثیر کار تو قرار گرفتم.
+If I were you, I wouldn't do it.	اگر جای تو بودم، انجامش نمی‌دادم.
+If it ain't broke, don't fix it.	اگر خراب نشد، تعمیرش نکن.
+My mother died when I was a kid.	وقتی که بچه بودم، مادرم مرد.
+Never give up till the very end.	هرگز تا انتها تسلیم نشو.
+Our hotel is on the next street.	هتل ما در خیابان بعدی است.
+Please call the fire department.	لطفاً به آتش‌نشانی زنگ بزنید.
+She cut in when we were talking.	وقتی ما با هم صحبت می کردیم او پرید میان صحبتمان.
+She was a pioneer in this field.	او در آن زمینه پیشاهنگ بود.
+She's worried about your safety.	او در مورد امنیت شما نگران است.
+That child has no fear of water.	آن کودک از آب ترسی ندارد.
+That runs against my principles.	آن بر خلاف اصول من است.
+The storm raged in all its fury.	طوفان با خشم تمام غوغا کرد.
+The sun gives us light and heat.	خورشید به ما روشنی و گرما می بخشد.
+The train leaves in ten minutes.	قطار تا ده دقیقه‌ی دیگر حرکت می‌کند.
+They didn't come here, did they?	آنها به اینجا نیامدند. آمدند؟
+This sentence contains an error.	این جمله خطا دارد.
+This text is aimed at beginners.	این متن برای مبتدی ها در نظر گرفته شده است.
+Tom doesn't know what to do now.	تام نمی داند الان چه کار کند.
+Tom has a lot of valuable books.	تام کتاب های با ارزش زیادی دارد.
+We are anxious for their safety.	ما برای امنیت آنها نگرانیم.
+We have to buy them from abroad.	باید آنها را از خارج بخریم.
+We must stand up for our rights.	باید از حقوقمان دفاع کنیم.
+We took turns cleaning the room.	ما به نوبت اتاق را تمیز مى کنیم
+What were you doing that moment?	آن لحظه چه می کردی؟
+Would you all like some peanuts?	تنها کمی بادام زمینی می خواهی؟
+Would you like to dance with me?	دوست داری با من برقصی؟
+Wouldn't you like to go with us?	شما دوست نداشتید با ما بیاید؟
+Yesterday my uncle bought a dog.	دیروز عمویم سگی خریداری کرد.
+A leopard can't change his spots.	پلنگ نمی تواند نقش عوض کند.
+Cut the salmon into small pieces.	ماهی سالمون را به قطعات کوچک ببر.
+Did you go to the art exhibition?	به نمایشگاه هنر رفته ای؟
+Do you know any of Tom's friends?	از دوستان تام، کسی را می شناسی؟
+Do you play a musical instrument?	آیا تو سازی موسیقیایی می نوازی؟
+Everybody is hoarding their cash.	هر کسی پولش را ذخیره می‌کند.
+Everyone laughed at me yesterday.	همه دیروز به من خندیدند.
+He detected his men's misconduct.	او به سوء رفتار افرادش پی برد.
+He is living apart from his wife.	او جدا از زنش زندگی می‌کند.
+He narrowly escaped being killed.	او با احتیاط از کشته شدن رهایی یافت.
+He stepped aside for her to pass.	او به کنار رفت تا آن خانم رد شود.
+How did he react to the bad news?	او چگونه به خبرهای ناگوار واکنش نشان داد؟
+I am acquainted with your father.	من با پدر شما آشنا هستم.
+I cannot afford to buy a new car.	من نمی توانم پول خریدن یک ماشین جدید را جور کنم.
+I could see Tokyo Tower far away.	برج توکیو را می‌توانستم در دوردست ببینم.
+I don't believe in group therapy.	من به گروه درمانی اعتقادی ندارم.
+I don't care about what they say.	اهمیتی به حرف‌های آنها نمی‌دهم.
+I don't think I like you anymore.	فکر نمی کنم دیگر تو را دوست داشته باشم.
+I explained the reason in detail.	من علتش را به طور دقیق توضیح دادم.
+I gave up smoking six months ago.	من سیگار کشیدن را شش ماه پیش متوقف کردم.
+I had to help with the housework.	می‌بایست در کارهای خانه کمک کنم.
+I like the red ones on the shelf.	از آن قرمزهای روی قفسه خوشم می‌آید.
+I share this room with my sister.	این اتاق را با خواهرم شریک هستم.
+I stayed there until he had left.	من تا زمانی که او رفت، آنجا ماندم.
+I think that the problem is here.	فکر می‌کنم مشکل اینجاست.
+I think we should all go outside.	فکر کنم بایستی همگی بیرون رویم.
+I watched a great movie recently.	اخیراً یک فیلم عالی دیدم.
+I went to Tokyo to buy this book.	من به توکیو رفتم تا این کتاب را بخرم.
+I wish you nothing but happiness.	چیزی به‌جز خوشبختی برای‌تان نمی‌خواهم.
+I'd rather stay home than go out.	ترجیح می دهم در خانه بمانم تا اینکه بیرون بروم.
+I'm going to have to dye my hair.	می خواهم موهایم را رنگ کنم.
+If it isn't broken, don't fix it.	اگر خراب نیست، تعمیرش نکن.
+It seems we are in the same boat.	به نظر می‌رسد ما در یک قایق هستیم.
+Many people were waiting in line.	خیلی ها در صف منتظر بودند.
+My father stretched after dinner.	پدرم بعد از شام دراز کشید.
+My little brother is watching TV.	برادر کوچک من تلویزیون تماشا می‌کند.
+Nothing is as important as peace.	هیچ چیز به اندازه صلح و امنیت اهمیت ندارد.
+Nothing is as simple as it seems.	هیچ چیزی به آن سادگی که به نظر می‌رسد، نیست.
+Please stay here till I get back.	لطفاً تا وقتی بر می‌گردم، اینجا بمانید.
+She can play the piano very well.	او می تواند به خوبی پیانو بنوازد.
+She cooks chicken the way I like.	او مرغ را آن طور که من دوستت دارم می پزد.
+She hung the picture upside down.	او عکس را چپه آویخته است.
+She will have a child next month.	کودک او ماه آینده به دنیا خواهد آمد.
+She's an excellent brain surgeon.	او یک جراح بسیار خوب مغز است.
+Suddenly, I saw a beautiful bird.	ناگهان پرنده‌ی زیبائی را دیدم.
+That boy's name is Shintaro Wada.	اسم آن پسر، شینتارو وادا است.
+That's the village I was born in.	آن روستایی است که من درش به دنیا اومدم.
+The children were swimming naked.	بچه ها لخت شنا می کنند.
+The city was blanketed with snow.	شهر زیر برف پوشیده شده بود.
+The dog breathed with difficulty.	سگ به سختی نفس کشید.
+The judge condemned him to death.	قاضی او را به اعدام محکوم کرد.
+The tablecloth is in the cabinet.	رومیزی داخل کابینت است.
+The whole family was sick in bed.	کل خانواده در بستر بیماری افتاده بودند.
+There's no furniture in the room.	هیچ اثاثی در اتاق نیست.
+Think before you open your mouth.	قبل از اینکه دهنت را باز کنی فکر کن
+This custom is peculiar to Japan.	این رسم مختص ژاپن است.
+Tom doesn't know much about guns.	تام زیاد راجع به اسلحه ها نمی داند.
+Tom doesn't know much about guns.	تام چندان راجع به اسلحه نمی داند.
+Tom seems to be enjoying himself.	انگار به تام خیلی خوش می‌گذرد.
+Tom's efforts have been rewarded.	تلاش های تام ارج نهاده شده اند.
+What on earth are you doing here?	اینجا داری چی کار می کنی؟
+When was this university founded?	کی این دانشگاه تأسیس شده است؟
+Will you buy for me some saffron?	می شود برایم مقداری زعفران بخری؟
+You can sleep here. I don't mind.	میتونی اینجا بخوابی. برای من فرقی نداره.
+You should've kept that a secret.	باید آن را محرمانه نگه می‌داشتید.
+You're old enough to know better.	تو به اندازه کافی بزرگ هستی، که بیشتر بدانی.
+A good deed never goes unpunished.	خوبی هرگز بدون تاوان نمی‌ماند.
+A thief believes everybody steals.	کافر همه را به کیش خود پندارد.
+All of my clothes are custom made.	همه‌ی لباس‌های من سفارشی دوخته شده‌اند.
+All things come to those who wait.	چیزهای خوب برای آنها اتفاق می‌افتند که صبر کنند.
+And now what would you like to do?	و الان تو تمایل داری چه کاری انجام دهی؟
+Arabic is read from right to left.	عربی از راست به چپ خوانده می شود.
+Are you married or are you single?	شما متأهلید یا مجرد؟
+Ask no questions and hear no lies.	سؤال نکن تا دروغی نشنوی.
+Careless driving causes accidents.	رانندگی بدون دقت موجب تصادف می شود.
+Did you feed the dog this morning?	امروز صبح به سگ غذا دادی؟
+Did you think I wouldn't tell Tom?	آیا تو فکر کردی من به تام نخواهم گفت؟
+Don't judge people by their looks.	آدمها را بر اساس ظاهرشان ارزیابی نکن.
+He built them on an assembly line.	او آنها را در یک خط مونتاژ ساخت.
+He died and his soul went to hell.	او مرد و روحش به جهنم رفت.
+He had a bit of a cold last night.	او دیشب کمی سرما خورده بود.
+He has ambition, so he works hard.	او بلند پروازی دارد، به همین دلیل سخت کار می کند.
+He pretended not to hear his boss.	او وانمود کرد که صدای ریئسش را نمی شنود.
+He pretended that he was a lawyer.	او مدعی بود که او یک وکیل است.
+He raised his hand to stop a taxi.	او دستش را بالا برد تا تاکسی را متوقف کند.
+He refused to say more about that.	او قبول نکرد بیشتر در آن مورد بگوید.
+He tried to attract her attention.	او (مرد) سعی کرد توجه او (زن) را جلب کند.
+He will regret it sooner or later.	او دیر یا زود پشیمان خواهد شد.
+How long did you sleep last night?	دیشب چقدر خوابیدی؟
+I applied for a summer internship.	من برای کارورزی تابستان ثبت‌نام کردم.
+I didn't go to school last Monday.	دوشنبه ی پیش به مدرسه نرفتم.
+I don't know how deep the lake is.	نمی دانم این دریاچه چه قدر عمق دارد.
+I don't see why I need to do this.	متوجه نمی شوم چرا باید این کار را انجام دهم.
+I had a horrible dream last night.	من خواب وحشتناکی دیشب دیدم.
+I prefer working to doing nothing.	من ترجیح می دهم که کار کنم تا اینکه هیچ کاری انجام ندهم.
+I think we could be great friends.	فکر می کنم ما بتوانیم دوستان خوبی بشویم.
+I will leave it to your judgement.	من این را به قضاوت شما واگذار می کنم.
+I would like to see Tom once more.	دوست دارم یک بار دیگر تام را ببینم.
+I would rather die than surrender.	من ترجیح می‌دهم بمیرم تا اینکه تسلیم شوم.
+If you can't beat them, join them.	اگر نمی توانی شکستشان دهی، به آنها بپیوند.
+Many kinds of birds live in Japan.	در ژاپن، پرنده های گوناگون می زیند.
+My phone number has changed again.	شماره تلفن من دوباره تغییر کرده است.
+One word is enough for a wise man.	عاقل را اشاره کافیست.
+Our landlord has lowered the rent.	صاحبخانهٔ ما اجاره را پایین آورد.
+Scott was a contemporary of Byron.	اسکات معاصر بایرون بود.
+The radio was invented by Marconi.	رادیو توسط مارکونی اختراع شد.
+The room was in complete darkness.	اتاق در تاریکی کامل بود.
+The telephone is now out of order.	تلفن الان درست نیست.
+There are many birds in this park.	در این پارک پرنده های بسیاری هستند.
+There's a garden behind our house.	باغی پشت خانه ما وجود دارد.
+They spent the night on the beach.	آنها شب را در ساحل گذراندند.
+This TV show is aimed at children.	مخاطب این برنامه تلویزیونی کودکان هستند.
+Tom didn't answer Mary's question.	تام به سؤال مری جواب نداد.
+Tom didn't have time to eat lunch.	تام برای ناهار خوردن وقت نداشت.
+Tom has no desire to go to Boston.	تام تمایلی برای رفتن به بوستون ندارد.
+Tom hid the book under his pillow.	تام کتاب را زیر بالشش پنهان کرد.
+Why won't Tom let you use his car?	چرا تام اجازه نمی دهد از ماشین اش استفاده کنی؟
+Words can't express our gratitude.	کلمات قادر به بیان قدردانی ما نیستند.
+All the man could do was obey them.	همه کاری که آن مرد می توانست انجام دهد، اطاعت کردن از آنها بود.
+Attack is the best form of defense.	حمله بهترین دفاع است.
+Being with you makes me feel happy.	با تو بودن مرا خوشحال می کند.
+Bricks can't be made without straw.	خشت نمی‌تواند بدون کاس ساخته شود.
+Can you recommend any other hotels?	می‌توانی هتل‌های دیگری پیشنهاد کنی؟
+Could you pass me the salt, please?	می شود به من نمک را بدهی، لطفا؟
+Do you know what's happened to Tom?	آیا می دانی چه اتفاقی برای تام افتاد؟
+Do you know where your father went?	آیا می دانید که پدرتان کجا رفتند؟
+Don't burn your bridges behind you.	پلها را پشت سر خود خراب نکن.
+Everything comes to those who wait.	صبر مفتاح کارها باشد.
+Everything here is covered in dust.	اینجا، همه چیز در خاک پوشیده شده است.
+He is nothing but a minor composer.	او کسی نیست جز یک آهنگساز کوچک.
+He must have taken the wrong train.	می بایست او اشتباهی سوار قطار شده باشد.
+He said that he would be back soon.	او گفته بود که به زودی بر می گردد.
+He taught me how to spell the word.	او به من آموخت که چگونه آن کلمه را تلفظ کنم.
+How do you feel about the Gulf War?	احساس شما در مورد جنگ خلیج (فارس) چیست؟
+I cannot help laughing at the joke.	من نتوانستم جلو خنده ام را به آن جوک بگیرم.
+I gave Tom everything he asked for.	من به تام هر چیزی را که خواسته بود، دادم.
+I learned French instead of German.	من به جای آلمانی، فرانسه آموختم.
+I never had any reason to hurt Tom.	من هیچگاه دلیلی برای صدمه زدن به تام نداشتم.
+I prefer going out to staying home.	ترجیح می دهم به جای ماندن در خانه بیرون بروم.
+I read a book of adventure stories.	من کتابی در مورد داستانهای ماجراجویانه خواندم.
+I studied English when I was there.	وقتی آنجا بودم، زبان انگلیسی را مطالعه کردم.
+I think I'll wear this red sweater.	فکر کنم که سویت شرت قرمز را بپوشم.
+I wish Tom were my younger brother.	ای کاش (تام) برادر کوچکتر من بود.
+I'm not going to explain it to you.	برایت توضیح نمی‌دهم.
+I'm not mentally prepared for that.	از نظر روحی برایش آماده نیستم.
+If you are here, it means you care.	اگر تو اینجا هستی، به این معناست که اهمیت می دهی.
+It's not polite to stare at others.	ذل زدن به افراد دیگر کار مودبانه‌ای نیست.
+My grandmother can't see very well.	مادر بزرگم نمی تواند خیلی خوب ببیند.
+My husband is watering the flowers.	شوهرم دارد به گل‌ها آب می‌دهد.
+My wife has just cleared the table.	همسرم تازه میز را پاک کرده است.
+Never bite the hand that feeds you.	هرگز دستی را گاز نگیر که به تو غذا می دهد.
+She baked her husband an apple pie.	او برای شوهرش پای سیب پخت.
+She gave me a smile of recognition.	او به من لبخندی از سر آشنایی تقدیم کرد.
+Someone is obviously telling a lie.	یکی آشکارا دروغ می گوید.
+The best defense is a good offense.	حمله بهترین دفاع است.
+The more we have, the more we want.	هر چه بیشتر داشته باشیم، بیشتر می خواهیم.
+The school is two kilometers ahead.	مدرسه دو کیلومتر به سمت جلو است.
+The trains are running behind time.	قطارها دیرتر از موعد حرکت می‌کنند.
+There is an error in this sentence.	خطایی در این جمله هست.
+There is nothing new under the sun.	بر زیر خورشید هیچ چیز جدیدی نیست.
+They crossed the border into Spain.	آنها از مرز عبور کرده و داخل اسپانیا شدند.
+This database contains many errors.	این پایگاه داده ها حاوی اشتباهات بسیاری است.
+This is always the way it has been.	کارها همیشه به این قرار بود.
+Those who want to remain may do so.	کسانی که می خواهند بمانند، می توانند این کار را انجام دهند.
+Tom and Mary are very much in love.	تام و مری خیلی عاشق یکدیگر هستند.
+Tom didn't believe it for a second.	تام یک لحظه هم آن را باور نکرد.
+Tom's diet is deficient in protein.	رژیم غذایی تام از نظر پروتئین کمبود دارد.
+We were all present at her wedding.	همه ما در جشن عروسی او حضور داشیم.
+Write your name in capital letters.	نام خود را با حروف بزرگ بنویسید.
+You can invite any person you like.	تو می توانی هر که را بخواهی دعوت کنی.
+A friend in need is a friend indeed.	دوست نیازمند هنوز یک دوست است.
+A friend to all is a friend to none.	دوست همه کس، دوست هیچ کس.
+A picture is worth a thousand words.	یک تصویر به اندازهٔ هزار کلمه می‌ارزد.
+Although I was tired, I did my best.	هرچند خسته بودم، حداکثر ممکن سعی ام را کردم.
+Are you interested in baseball, Tom?	تام؛ تو به بیسبال علاقه داری؟
+Ask him when the next plane will be.	از او بپرس هواپیمای بعدی کی خواهد بود.
+Did you inform your teacher of this?	آیا تو به معلمت در این مورد اطلاع دادی؟
+Do you know how to use a dictionary?	آیا بلدید چگونه از لغت نامه استفاده کنید؟
+Don't throw away a good opportunity.	فرصت خوب را به دور نیانداز.
+Each language has its peculiarities.	هر زبان خصیصه‌های خود را دارد.
+Hard work never did anyone any harm.	سخت‌کوشی به هیچکس ضرر نزد.
+He is not ashamed of his misconduct.	او از بدرفتاری اش شرمنده نیست.
+He was the champion for three years.	او سه سال قهرمان بود.
+Hurry, and you will catch the train.	عجله کن، تا به قطار برسی.
+I always catch a cold in the winter.	من همیشه زمستان ها سرما می خورم.
+I do not like mathematics very much.	من زیاد ریاضیات را دوست ندارم.
+I don't want to write with this pen.	نمی خواهم با این قلم بنویسم.
+I have some work to do this evening.	من کارهایی دارم که باید امروز عصر انجام دهم.
+I let my sister use my new computer.	من به خواهرم اجازه دادم تا از کامپیوتر نو ام استفاده کند.
+I should've listened more carefully.	من باید با دقت بیشتری گوش می دادم.
+I spent the weekend with my friends.	آخر هفته را با دوستانم گذراندم.
+I went to drink a beer with friends.	من برای نوشیدن آبجو با دوستانم بیرون رفتم.
+I will finish the work in five days.	این کار را ظرف پنج روز تمام می‌کنم.
+I'll be back by 6 o'clock every day.	من هر روز حدود ساعت 6 برگشته ام.
+In August 1990, Iraq invaded Kuwait.	در آگوست 1990، عراق به کویت حمله کرد.
+In other words, he is a lazy person.	به عبارت دیگر، او آدم تنبلی است.
+Is this the book you're looking for?	این کتابیه که دنبالش بودی؟
+It is no use crying over spilt milk.	برای شیر ریخته شده شیون نمی‌کنند.
+It was a problem difficult to solve.	این مسئله‌ای بود که به سختی حل می‌شد.
+It's a waste of time to stay longer.	بیشتر از این ماندن وقت تلف کردن است.
+Love and hate are opposite emotions.	عشق و نفرت احساسات متضاد هستند.
+Millions of workers lost their jobs.	میلیون ها کارگر کار خود را از دست دادند.
+My mother carefully opened the door.	مادرم با احتیاط در را باز کرد.
+Pass me the salt and pepper, please.	نمک و فلفل را بگردان، لطفا.
+Refugees in Africa are seeking help.	پناهندگان در آفریقا در جستجوی کمک هستند.
+She announced her engagement to him.	او نامزدی خود را به او اعلام کرد.
+She has lived there for seven years.	او به مدت هفت سال در آنجا زندگی کرده است.
+Some people compare life to a stage.	بعضی افراد زندگی را با یک صحنه‌ی نمایش مقایسه می‌کنند.
+The accident happened two years ago.	حادثه دو سال پیش اتفاق افتاد.
+The bad weather affected his health.	آب و هوای بد بر سلامت او تاثیر گذاشت.
+The elephant was brought to the zoo.	آن فیل به باغ وحش برده شد.
+The old man spoke with me in French.	پیرمرد به فرانسه با من صحبت کرد.
+The picnic was canceled due to rain.	به خاطر باران، پیک نیک کنسل شد.
+The vase that he broke is my aunt's.	گلدانی را که او شکست، متعلق به عمه من است.
+The world is not what it used to be.	جهان آن چیزی نیست که بشود به آن عادت کرد.
+There are a lot of tools in the box.	ابزارهای زیادی در جعبه وجود دارد.
+There are many children in the park.	اینجا در پارک بچه های زیادی هستند.
+There is a mistake in this sentence.	اشتباهی در این جمله هست.
+There's always room for improvement.	همیشه جا برای بهبود هست.
+This morning Tom had vegetable soup.	امروز صبح تام سوپ سبزیجات خورد.
+Tom blamed himself for Mary's death.	تام خود را به خاطر مرگ ماری مقصّر می دانست.
+Tom closed his eyes and made a wish.	تام چشم‌هایش را بست و یک آرزو کرد.
+Tom didn't want to go into the cave.	تام نخواست به زیرزمین برود.
+Tom is wearing a plaid jacket today.	امروز تام یک ژاکت چهارخانه پوشیده است.
+What do you mean, you can't help me?	منظورت چیه که نمی توانی به من کمک کنی؟
+Where did Tom want to go to college?	تام می خواست کجا به کالج برود؟
+Where there's a will, there's a way.	خواستن توانستن است.
+You can't judge a book by its cover.	نمی‌توانی کتابی را با جلدش داوری کنی.
+You can't make bricks without straw.	بدون کاه نمی‌توانید خشت بسازید.
+You should acknowledge your failure.	باید به شکستت اعتراف کنی.
+You will soon cease to think of her.	به زودی دیگر به او فکر نخواهی کرد.
+African folklore is very interesting.	ادبیات بومی آفریقا بسیار جالب است.
+Didn't I tell you to clean your room?	بهت نگفتم اتاقت را تمیز کنی؟
+Do they sell notebooks at that store?	آیا آنها در آن فروشگاه دفتر می فروشند؟
+Do you have plans for tomorrow night?	برنامه ای برای فردا شب داری؟
+Do you think they might be dangerous?	شما فکر می کنید که آنها ممکن است خطرناک باشند؟
+Don't cut in when others are talking.	وقتی دیگران صحبت می‌کنند، حرفشان را قطع نکنید.
+Don't open your umbrella in the hall.	در سالن چترت را باز نکن.
+Even without makeup, she's very cute.	حتی بدون آرایش او بسیار بانمک است.
+Every member of the club was present.	کلیه اعضای کلوب حاضر بودند.
+Father set the alarm for six o'clock.	پدر زنگ ساعت را برای ساعت شش تنظیم کرد.
+For all I know, he was born in Italy.	تمام چیزی که می دانم اینست که او در ایتالیا متولد شده است.
+He had a share in completing the job.	او در به پایان رساندن کار سهمی داشت.
+He had a share in completing the job.	او نقشی در به پایان رساندن کار داشت.
+He has no close friends to talk with.	او دوست نزدیکی برای گفتگو نداشت.
+He was born in a small town in Italy.	او در شهر کوچکی در ایتالیا متولد شده است.
+He will be my deputy while I am away.	تا وقتی نیستم، او جانشین من خواهد بود.
+I decided to come to Japan last year.	سال پیش من تصمیم گرفته بودم که به ژاپن بیایم
+I exempted her from working overtime.	من او را از اضافه کار معاف کردم.
+I had met him many times before then.	من قبل از آن، چندین بار او را ملاقات کرده بودم.
+I have never heard of him since then.	تا قبل ار این هرگز از او چیزی نشنیده بودم.
+I interpreted his silence as consent.	من سکوت او را به رضایت تعبیر می کنم.
+I looked to see if he was teasing me.	نگاه کردم ببینم سر به سرم نمی‌گذارد.
+I must replace that fluorescent lamp.	باید آن لامپ مهتابی را عوض کنم.
+I think I understand what went wrong.	من فکر می کنم فهمیدم که کجای کار اشتباه بود.
+I want to go with you, but I'm broke.	می خواهم با تو بیایم، اما پول ندارم.
+I will be waiting for you in my room.	در اتاقم منتظرت خواهم بود.
+I will stand by you whatever happens.	هر چه پیش آید من در کنار تو می‌ایستم.
+I'll take care of your child tonight.	امشب مراقب بچه ات خواهم بود.
+I'm not accustomed to such treatment.	من به چنین رفتارهایی عادت نکرده ام.
+In case of fire, you should dial 119.	در صورت آتش سوزی، شما باید با شماره 119 تماس بگیرید.
+It's all just a big misunderstanding.	همه اش تنها یک سوء تفاهم بزرگ است.
+Needless to say, he never came again.	نیازی به گفتن نیست که او دیگر هرگز باز نگشت.
+Not knowing what to do, I called her.	بدون اینکه بدانم چه می کنم، به او زنگ زدم.
+She is looking for a large apartment.	او به دنبال یک آپارتمان بزرگ است.
+She never forgets to admire our baby.	او هرگز تعریف کردن از نوزاد ما را فراموش نمی کند.
+She was satisfied that he was honest.	او قانع شد که او صداقت دارد.
+The crocodile is a protected species.	تمساح از گونه های تحت حمایت است.
+The doctor prescribed Tom a sedative.	دکتر برای تام یک آرام‌بخش تجویز کرد.
+The game was put off until next week.	بازی تا هفته آینده متوقف شد.
+The roof is really in need of repair.	پشت بام واقعا به تعمیر احتیاج دارد.
+The soldier aimed his gun at the man.	سرباز با اسلحه به سمت مرد نشانه گیری کرد.
+The store is open all the year round.	این فروشگاه در تمام طول سال باز است.
+The workers took pride in their work.	کارگران به کارشان می بالند.
+These things always happen in threes.	تا سه نشود بازی نشود.
+They insisted on my paying the money.	آنها اصرار کردند که من پول را بپردازم.
+They say that ferns can have flowers.	آنها می گویند سرخس ها می توانند گل داشته باشند.
+This book contains forty photographs.	این کتاب حاوی چهل عکس است.
+This bus will take you to the museum.	این اتوبوس شما را تا موزه می برد .
+This gun is reportedly very powerful.	طبق گزارش،اسلحه خیلی قدرتمند است.
+Tom arrived just in the nick of time.	تام دقیقاً آخرین لحظه رسید.
+Tom doesn't always play by the rules.	تام همیشه مطابق قانون بازی نمی کند.
+Tom doesn't need to worry about Mary.	نباید که تام نگران ماری باشد.
+Tom said that he was too busy to eat.	تام گفت اینقدر سرش شلوغه که نمیتونه غذا بخوره.
+We were very sleepy the next morning.	ما صبح روز بعد خیلی خواب آلود بودیم.
+When does your summer vacation start?	تعطیلاتِ تابستانیت کِی شروع میشه؟
+Who did you vote for in the election?	به چه کسی در این انتخابات رأی دادی؟
+Would you like another piece of cake?	یک تکه‌ی کیک دیگر میل دارید؟
+You cannot make bricks without straw.	بدون کاه نمی‌توانید خشت بسازید.
+You should go and have your hair cut.	شما باید بروید و موهایتان را کوتاه کنید.
+April is the fourth month of the year.	آوریل، چهارمین ماه سال است.
+Athletes usually abstain from smoking.	ورزشکاران معمولاً از استعمال دخانیات اجتناب می‌کنند.
+Can I offer you another piece of cake?	می توانم به شما قطعه دیگری کیک تعارف نمایم؟
+Can you watch my dog while I’m away?	می توانی وقتی من در سفر هستم از سگم مراقبت کنی؟
+Do you have much snow in your country?	آیا در کشور شما برف زیاد می بارد؟
+Dolphins are very intelligent animals.	دلفین ها حیوانات بسیار هوشمندی هستند.
+Don't put all your eggs in one basket.	همه تخم مرغ هایتان را در یک سبد نگذارید.
+Don’t think of cost. Think of value.	به قیمت فکر نکن، به ارزش بیندیش.
+Exams are right after summer vacation.	امتحان درست بعد از تعطیلاتِ تابستان.
+Have you ever seen sausage being made?	تا به حال طریقه ساخت سوسیس رو دیده اید?
+He felt in his pocket for his lighter.	او برای فندک دست به جیبش برد.
+He is as tall as any boy in his class.	او به بلندی هیچ پسری در کلاسش نیست.
+He pushed his nose against the window.	او بینی‌اش را روی پنجره فشار داد.
+He said he would come and he did come.	او گفت که خواهد آمد و واقعاً آمد.
+He seems to have been a great athlete.	او وانمود می کند که ورزشکاری بزرگ بوده است.
+He stayed in New York for three weeks.	او برای سه هفته در نیویورک ماند
+He survived being struck by lightning.	او از اصابت صاعقه، جان سالم به در برد.
+He was compelled to sign the contract.	او مجبور شد قرارداد را امضاء کند.
+I am very interested in those stories.	من به چنین داستانهایی خیلی علاقه دارم.
+I can't agree with you on this matter.	من در این موضوع با تو موافق نیستم.
+I didn't see any children in the park.	هیچ بچه ای در پارک ندیدم.
+I had no choice but to take the plane.	من انتخاب دیگری نداشتم جز اینکه سوار هواپیما شوم.
+I have received no reply from you yet.	من هنوز هیچ جوابی از شما دریافت نکرده ام.
+I hope that all your dreams come true.	امیدوارم همهٔ رؤیاهایت به حقیقت بپیوندند.
+I hope that all your dreams come true.	امیدوارم همهٔ رؤیاهایت محقق شوند.
+I just want to ask you some questions.	فقط می‌خواهم چند سؤال از شما بپرسم.
+I tried to stop Tom from hurting Mary.	سعی کردم تام را از آسیب رساندن به ماری بازدارم.
+I wasn't able to believe him at first.	در ابتدا توان این را نداشتم که باورش کنم.
+I'd prefer to speak to you in private.	من ترجیح می دادم که به طور خصوصی با شما سخن بگویم.
+I'm jealous that you have a good boss.	از اینکه کارفرمای خوبی داری، به تو حسادت می کنم.
+Look at that building. Is it a temple?	به این ساختمان نگاه کن.آیا آن یک معبد است؟
+Man is the only animal that can laugh.	انسان تنها حیوانی است که می تواند بخندد.
+My T-shirt shrank because I washed it.	تی شرتم آب رفت چون شستمش.
+My baby can't talk yet. He just cries.	بچه‌ام هنوز نمی‌تواند حرف بزند؛ فقط گریه می‌کند.
+My clothes get wet so I took off them.	لباس هایم خیس شده بودند برای همین آنها را از تن بیرون کردم.
+Older people are more prone to injury.	افراد مسن‌تر بیشتر در معرض جراحت هستند.
+She gets up the earliest in my family.	او زودتر از همه در خانواده من از خواب بیدار می شود.
+She had a thoughtful look on her face.	او نگاه متفکرانه ای بر چهره اش داشت.
+Some people keep rare animals as pets.	برخی افراد، حیوانات کمیاب را بعنوان حیوان خانگی نگه می دارند.
+The only constant in nature is change.	تنها ثابت در طبیعت تغییر است.
+The police didn't book Tom for murder.	پلیس تام را به قتل متهم نکرد.
+The two mountains are of equal height.	دو کوه از بلندای یکسانی برخوردار هستند.
+There were a lot of murders last year.	پارسال قتل‌های زیادی اتفاق افتاد.
+There's nothing to eat in the kitchen.	هیچ چیزی برای خوردن در آشپزخانه نیست.
+They called the village New Amsterdam.	آنها به آن دهکده نیو آمستردام می گویند.
+Tom hasn't seen much of Mary recently.	تام اخیراً مری را زیاد ندیده است.
+Tom is the one who told me what to do.	تام کسی است که به من گفت چه کار کنم.
+Tom must decide what to do right away.	تام باید فوراً تصمیم بگیرد که چه کاری باید انجام دهد.
+We could not see anyone in the street.	ما نمی توانستیم هیچ کسی را در خیابان ببینیم.
+We live in the vicinity of the school.	ما در حومه ی مدرسه زندگی می کنیم.
+We need a place to stay for the night.	ما به جایی نیاز داریم، که شب آنجا بمانیم.
+Why won't anybody answer my questions?	چرا هیچ کس پاسخ سؤالهایم را نمی دهد؟
+Will you put the glasses on the table?	آیا لیوانها را روی میز خواهید گذاشت؟
+You can stay here as long as you like.	شما می‌توانید هرچقدر می‌خواهید اینجا بمانید.
+A little learning is a dangerous thing.	یادگیری اندک، چیز خطرناکی است.
+A man is known by the company he keeps.	یک مرد از روی افرادی که با آنها معاشرت می‌کند شناخته می‌شود.
+All the students began talking at once.	همه دانش آموزان همزمان شروع به صحبت کردن نمودند.
+Children grow up astonishingly quickly.	بچه‌ها به طرز شگفت‌آوری سریع بزرگ می‌شوند.
+Do I need to explain the reason to him?	آیا لازم است دلیل را به او توضیح دهم؟
+Do you know how my friends describe me?	می دانی دوستانم چگونه مرا توصیف می کنند؟
+Do you think Tom will like the concert?	فکر می کنی تام کنسرت را دوست خواهد داشت؟
+Don't confuse astrology with astronomy.	طالع‌بینی را با ستاره‌شناسی اشتباه نکن.
+Don't try to walk before you can crawl.	قبل از اینکه بتوانی گاگله کنی سعی نکن راه بروی.
+Each speaker was allotted five minutes.	به هر سخنران پنج دقیقه اختصاص داده شد.
+Father sometimes took me to his office.	پدرم گاهی مرا به اداره اش می برد.
+He became ever more famous as a critic.	او در نقّادی از هر زمانی مشهورتر شد.
+He hurried on to make up for lost time.	او عجله کرد تا زمان از دست رفته را جبران کند.
+Her house is at the foot of a mountain.	خانه او در کوهپایه است.
+I can resist everything but temptation.	من در مقابل همه چیز غیر از وسوسه می‌توانم مقاومت کنم.
+I can't prune this tree. It's too tall.	من نمی‌توانم این درخت را هرس کنم. زیاد بلند است.
+I love you from the bottom of my heart.	من شما را از ته قلبم دوست دارم.
+I really want to be with Tom right now.	واقعا دلم می خواهد هم اکنون با تام باشم.
+I said to myself, "That's a good idea."	با خودم گفتم: «این فکر خوبی است.»
+I think Tom is beating around the bush.	فکر کنم تام دارد طفره می رود.
+I'll explain how to take this medicine.	من توضیح خواهم داد که چگونه این دارو را مصرف کنید.
+In Japan there are four seasons a year.	در ژاپن، هر سال چهار فصل دارد.
+John doesn’t know how to play guitar.	جان نمی داند چگونه گیتار بنوازد.
+Late autumn in Scotland is rather cold.	اواخر پاییز در اسکاتلند نسبتاً سرد است.
+Let's go back before it begins to rain.	بیا برگردیم قبل از آنکه باران باریدن بگیرد.
+Most Japanese temples are made of wood.	اکثر معبدهای ژاپنی از چوب ساخته شده‌اند.
+My teacher recommended that dictionary.	معلم‌ام آن واژه‌نامه را توصیه کرد.
+Now it's time for the weather forecast.	اکنون زمان پیش بینی هواست.
+Our planet, Earth, is always in motion.	سیاره‌ی ما، زمین، همواره در حرکت است.
+Scotland can be very warm in September.	اسکاتلند در ماه سپتامبر ممکن است خیلی گرم باشد.
+Several newspapers published the story.	مجلا ت گونا گونی آن داستان را منتشر کردند.
+She asked me to help her with the work.	او از من خواست در کار به او کمک کنم.
+She should listen more to other people.	او باید بیشتر به دیگران گوش دهد.
+The Japanese economy developed rapidly.	اقتصاد ژاپن به سرعت پیشرفت کرد.
+The people who were here have all gone.	افرادی که اینجا بودند، همه رفته‌اند.
+There is a downhill after every uphill.	بعد از هر سربالایی یک سرازیری است.
+There is a very old temple in the town.	در شهر یک معبد خیلی قدیمی وجود دارد.
+This room is used for various purposes.	این اتاق برای چندین منظور استفاده می شود.
+Tom didn't have the guts to shoot Mary.	تام جرئتش را نداشت به ماری شلیک کند.
+Tom doesn't believe that Mary is happy.	تام باور نمی کند که مری خوشبخت است.
+What is the tallest mountain in Europe?	مرتفع ترین کوه اروپا چیست؟
+When it was time to vote, he abstained.	هنگامی که زمان رأی دادن بود، او از از رأی دادن خودداری کرد.
+A computer is an absolute necessity now.	اکنون کامپیوتر یک ضرورت مسلم است.
+By the way, are you free this afternoon?	راستی, امروزبعد از ظهروقت داری (بیکاری)؟
+Does Tom have a key to Mary's apartment?	آیا تام کلید خانه ی ماری را دارد؟
+Don't make a mountain out of a molehill.	از کاهی کوهی ساختن.
+Drastic times call for drastic measures.	دوران ناگوار، روش های ناگوار می طلبند.
+He changes his schedule from day to day.	او برنامه ی روزانه اش را روز به روز عوض می کند.
+He doesn't want me to go, but I mean to.	او نمی‌خواهد که من بروم، ولی من قصد دارم این کار را بکنم.
+He read the article over and over again.	او مقاله را بارها مطالعه کرد.
+He wrote this book at the age of twenty.	او این کتاب را در سن بیست‌سالگی نوشت.
+His answer was to strike me on the head.	پاسخ او مرا مجاب کرد.
+I walk my dog in the park every morning.	من هر روز صبح سگم را برای قدم زدن به پارک میبرم.
+I wish I had more time to talk with her.	کاش وقت بیشتری برای حرف زدن با او داشته باشم.
+I'm afraid I can't make it at that time.	من نگران هستم، که نتوانم در موقع مقرر آن را درست کنم.
+I'm looking forward to seeing you again.	چشم‌انتظار دیدار مجدد شما هستم.
+If you have nothing to say, say nothing.	اگر هیچ چیز برای گفتن ندارید، هیچ چیز نگویید.
+If you see Tom, say hello to him for me.	اگه تام رو دیدی، از طرف من بهش سلام برسان.
+Is the water hot enough to make the tea?	آیا برای تهیه چای، آب به اندازه کافی داغ است؟
+It has developed into a very large city.	این شهر گسترش یافته و به شهر بزرگی تبدیل شده است.
+It may be difficult, but not impossible.	ممکن است سخت باشد، ولی غیر‌ممکن نیست.
+It's about time for the train to arrive.	الآن تقریبا زمانی است که قطار می رسد.
+Mary helped her mother with the cooking.	ماری به مادرش در آشپزی کمک کرد.
+Mastering a foreign language isn't easy.	تسلط بر یه زبان خارجی آسون نیست.
+My bag is too old. I must buy a new one.	کیف من کهنه است. من باید یکی نو بخرم.
+My mom wants me to study in Switzerland.	مادرم می خواهد که من در سوئیس درس بخوانم.
+My mother always wears a kimono at home.	مادرم همیشه در خانه کیمونو می پوشد.
+My mother often bakes apple pies for us.	مادرم اغلب برای ما پای سیب می پزد.
+My shoelace got caught in the escalator.	بند کفشم در پله برقی گیر کرد.
+Obviously, he's not that kind of person.	روشن است که او چنین آدمی نیست.
+Ten years have passed since I came here.	ده سال از زمانی که من به اینجا آمدم، گذشته است.
+The soldier returned home on a furlough.	سرباز با یک مرخصی به خانه بازگشت.
+The sun has just sunk below the horizon.	خورشید همین حالا به زیر افق کشیده شد.
+There are a lot of children in the park.	اینجا در پارک بچه های زیادی هستند.
+They say that a large dam will be built.	آنها می گویند که سد بزرگی ساخته خواهد شد.
+This box is empty. It has nothing in it.	این جعبه خالی است. هیچ چیز درون آن نیست.
+This moment will be recorded in history.	این لحظه ای است که در تاریخ ثبت خواهد شد.
+Tom dropped Mary off in front of John's.	تام ماری را جلوی خانه ی جان پیاده کرد.
+Tom is the one who gave me this bicycle.	تام کسی است که این دوچرخه را به من داد.
+Tom was my best friend when I was a kid.	وقتی که من بچه بودم، تام بهترین دوست من بود.
+We are working in the interest of peace.	ما در جهت صلح تلاش می کنیم.
+We discussed the matter with each other.	ما مساله را با یکدیگر مورد بررسی قرار دادیم.
+We have to find Tom before it gets dark.	باید قبل از اینکه هوا تاریک شود، تام را پیدا کنیم.
+What's your favorite TV show theme song?	آهنگ برنامه تلویزیونی مورد علاقه ات چیست؟
+About how much would a taxi be from here?	کرایه‌ی تاکسی از اینجا تقریباً چقدر می‌شود؟
+Although I was tired, I did my very best.	هرچند خسته بودم، حداکثر ممکن سعی ام را کردم.
+At one time Nigeria was a British colony.	زمانی، نیجریه ، مستعمره بریتانیا بود.
+Do you want to go to the station with me?	می خواهی با من به ایستگاه بروی؟
+Either you or I will get the first prize.	یا من یا تو جایزه اول را برنده خواهیم شد.
+Even if I had wished to stop, I couldn't.	حتی اگر می خواستم توقف کنم، نمی توانستم.
+I bought ingredients for curry on Sunday.	من مواد اولیه برای کاری را روز یکشنبه خریدم.
+I correspond with many friends in Canada.	من با بسیاری از دوستان در کانادا نامه نگاری می کنم.
+I think Tom is going to try to kill Mary.	تفکر کنم تام می خواهد سعی کند ماری را بکشد.
+I'm not going to explain it to you again.	دوباره برایت توضیح نمی‌دهم.
+I'm sick and tired of all this bickering.	من از این همه جر و بحث خسته و بیزارم.
+I've already considered that possibility.	من واقعاً آن احتمال را در نظر گرفته ام.
+It is easier to stay out than to get out.	بیرون ماندن راحت‌تر از بیرون رفتن است.
+It is impossible to resolve the conflict.	حل مخاصمه، غیر ممکن است.
+It seems that he likes collecting stamps.	به نظر می رسد او جمع آوری تمبر را دوست دارد.
+Mother divided the cake into three parts.	مادر کیک را به سه قسمت تقسیم کرد.
+Occasionally, things don't go as planned.	گاهی اوقات، کار‌ها طبقِ برنامه پیش نمی‌رود.
+She had to speak before a large audience.	می‌بایست در مقابل حاضر زیادی سخنرانی کند.
+She regretted not having gone into music.	او پشیمان بود از اینکه به سراغ موسیقی نرفته است.
+Sorry, I didn't know you were still here.	ببخشید،من نمی دانستم تو همچنان اینجا بودی.
+Sunlight is the main source of vitamin D.	نور خورشید منبع اصلی ویتامین دی است.
+That experiment led to a great discovery.	این آزمایش منجر به کشف بزرگی شد.
+That way I kill two birds with one stone.	این طور دو پرنده را با یک سنگ می‌زنم.
+The new store is going to open next week.	فروشگاه جدید هفته‌ی آینده باز می‌شود.
+They were not aware that I was not there.	آنها خبر نداشتند که من آنجا نیستم.
+They're all figments of your imagination.	آنها همگی ساخته‌های خیالت هستند.
+Tom doesn't know how to have a good time.	تام نمی داند چطور اوقات خوشی داشته باشد.
+Tom is dating a Chinese exchange student.	تام با یک دانشجوی تبادلی چینی دوست است.
+Tom is scrupulous in matters of business.	تام در موارد حرفه‌ای مو را از ماست می‌کشد.
+Tom is scrupulous in matters of business.	تام در موارد حرفه‌ای موشکافانه است.
+Tom sat on his bed and opened his laptop.	تام روی تختش نشست و لپ تاپش رو باز کرد.
+Tom went to the park on Sunday afternoon.	تام بعد از ظهر یکشنبه به پارک رفت.
+What is that big building in front of us?	آن ساختمان بلندی که جلو ماست، چیست؟
+You have to get above a "C" in the class.	شما باید در این کلاس بالاتر از سی نمره بگیرید.
+Actually, I did want to ask you one thing.	در واقع، می خواستم از شما یک چیزی را بپرسم.
+At first I did not like him, but now I do.	ابتدا از او خوشم نمی آمد ولی حالا چرا.
+Didn't I tell you to take out the garbage?	بهت نگفتم آشغال‌ها را ببری بیرون؟
+Do you think Tom would want to go with us?	شما فکر می کنید تام با ما خواهد آمد؟
+Don't criticize what you can't understand.	به چیزی که نمی‌فهمید انتقاد نکنید.
+Everyone is insane, in his or her own way.	هر کس به شیوهٔ خودش دیوانه است.
+Have you told anyone where our hideout is?	آیا تو به کسی گفته ای که مخفیگاه ما کجاست؟
+He had time to prepare his men for battle.	او برای آماده کردن مردانش برای جنگ فرصت داشت.
+Her daughter has become a beautiful woman.	دختر او به زن زیبایی تبدیل شده است.
+How did you know I wanted to speak to Tom?	شما چطور فهمیدید که من می خواستم با تام صحبت کنم؟
+However hard he may try, he won't succeed.	هر چقدر هم او تلاش کند، موفق نخواهد شد.
+I can resist everything except temptation.	من در مقابل هر چیزی می‌توانم مقاومت کنم غیر از وسوسه.
+I didn't know where I should wait for her.	نمی دانستم کجا باید منتظر او بمانم.
+I got acquainted with him three years ago.	من سه سال پیش با او آشنا شدم.
+I was rendered speechless by his rudeness.	به خاطر گستاخی او، زبانم بند آمد.
+I would prefer to speak to you in private.	من ترجیح می دادم که به طور خصوصی با شما سخن بگویم.
+I'm not used to making speeches in public.	من عادت به سخنرانی کردن در حضور جمع ندارم.
+I've been reading that book all afternoon.	من تمام بعد از ظهر آن کتاب را داشتم می خواندم.
+I've never seen anything like this before.	من تا به حال چیزی مانند این ندیدم.
+It looks like the wind's getting stronger.	به نظر می آید که باد شدیدتر می شود.
+Many men were badly wounded in the battle.	خیلی از مردان در جنگ شدیدا مجروح شدند.
+My father has been out of work for a year.	پدرم به مدت یک سال بیکار بوده است.
+New York is the busiest city in the world.	نیویورک شلوغ ترین شهر دنیا است.
+She refused to say more about that matter.	او قبول نکرد بیشتر در آن مورد بگوید.
+The bigger they are, the harder they fall.	هر چه بزرگتر باشند، سخت‌تر سقوط می کنند.
+The only language Tom can speak is French.	تنها زبانی که تام می‌تواند به آن صحبت کند فرانسوی است.
+The whole nation mourned the hero's death.	تمام ملل برای مرگ قهرمانانشان سوگواری می کنند.
+There is little hope that he will recover.	امید کمی به بهبود او هست.
+This is the room where the body was found.	این اتاقی است که جسد در آن یافت شد.
+This problem is difficult for me to solve.	برایم دشوار است که این مسئله را حل کنم.
+Tom crawled into bed just before midnight.	تام درست قبل از نیمه شب به درون رختخوابش خزید.
+Tom doesn't know a whole lot about racing.	تام آنقدرها راجع به مسابقه دادن نمی‌داند.
+Tom doesn't know whether it's true or not.	تام نمی‌داند که این راست است یا نه.
+Tom is the one who showed me how to do it.	تام کسی است که به من نشان داد چه طور انجامش بدهم.
+Tom just loves pineapple upside-down cake.	تام کیک آناناسی سر و ته شده را خیلی دوست دارد.
+We are going to travel abroad this summer.	ما می خواهیم این تابستان به خارج سفر کنیم.
+We can hear the church bell every morning.	هر روز صبح می‌توانیم صدای ناقوس کلیسا را بشنویم.
+We have heard of your success in the exam.	ما از موفقیتت در امتحان شنیده ایم.
+A Persian cat was sleeping under the table.	گربه ای ایرانی زیر میز خوابیده بود.
+Can you recommend a hotel near the airport?	می‌توانی یک هتل نزدیک فرودگاه پیشنهاد کنی؟
+Did you find the book you were looking for?	کتابی که دنبالش می گشتی رو پیدا کردی؟
+He directed all his energy to his business.	او همه انرژی خود را معطوف به کارش کرده است.
+He insulted her. That is why she got angry.	به او دشنام داد.به همین خاطر او عصبانی گشت.
+I don't suppose you'd consider helping Tom.	فکر نکنم شما کمک به تام را مدنظر قرار دهید.
+I don't understand why this has to be done.	نمی فهمم چرا این کار باید انجام شود.
+I need a lot of cloth to make a long dress.	من برای درست کردن یک لباس بلند به مقدار زیادی پارچه احتیاج دارم.
+I'd be unhappy, but I wouldn't kill myself.	خوشبخت نخواهم بود، ولی خود را نخواهم کشت.
+If possible, I'd like to receive an answer.	در صورت امکان، مایلم پاسخی دریافت کنم.
+It was almost noon by the time Tom woke up.	وقتی تام از خواب بیدار شد، تقریبا ظهر بود.
+My business acquaintances know this number.	آشناهای حرفه‌ای من این شماره را می‌دانند.
+Never in my life have I heard such a thing.	من تا کنون چنین چیزی در زندگی نشنیده ام.
+Permanent peace is nothing but an illusion.	صلح پایدار چیزی نیست بجز یک توهم.
+She thinks of everything in terms of money.	او همه چیز را پول می‌بیند.
+She told her son to behave himself at home.	او به پسرش گفت که در خانه مؤدبانه و درست رفتار کند.
+The cold weather continued for three weeks.	هوای سرد تا سه هفته ادامه یافت.
+The principal of our school is an American.	مدیر مدرسه‌ی ما یک آمریکایی است.
+There's nothing worth watching on TV today.	امروز در تلویزیون برنامه ای که ارزش دیدن داشته باشد، نیست.
+They are the only people who know the fact.	آنها تنها کسانی هستند که حقیقت را می دانند.
+Tom asked several people the same question.	تام از چندین نفر، سوال مشابهی را پرسید.
+Tom climbed up the stairs to his apartment.	تام از پله ها تا خانه اش بالا رفت.
+You have to strike the iron while it's hot.	تا تنور داغ است نان را بچسبان.
+Your family should come before your career.	کار و شغل تو باید قبل از خانواده ات قرار گیرد.
+A bird in the hand is worth two in the bush.	سیلی نقد به از حلوای نسیه.
+A fox is not caught twice in the same snare.	یک روباه دوبار در یک دام نمی افتد.
+A fox is not caught twice in the same snare.	عاقل از یک سوراخ دوبار گزیده نمی‌شود.
+Everybody knew she could speak English well.	همه می‌دانستند که او می‌تواند انگلیسی را خوب صحبت کند.
+He is always saying bad things about others.	او همیشه از دیگران بدگویی می‌کند.
+He made up his mind to keep his plan secret.	تصمیم گرفت نقشه‌اش را مخفی نگه دارد.
+He struggled to keep up with his classmates.	اون تلاش كرد تا پابه پايِ همكلاسي هاش (ازنظرِدرسي) پيش بره يا همگام باشه.
+He was on the roof with his electric guitar.	او بالا پشت بام بود با گیتار برقی اش.
+He was relieved of his heavy responsibility.	او از مسئولیت سنگین خود رها شد.
+He will have no chance of winning her heart.	او شانسی برای به دست آوردن قلب او ندارد.
+Her success made her the target of jealousy.	موفقیتش او را آماج حسادت کرد.
+How did you come up with such a good excuse?	چگونه چنین بهانهٔ خوبی پیدا کردی؟
+I cannot thank you enough for your kindness.	من نتوانم از لطف شما به قدر کافی تشکر کنم.
+I guarantee this watch to keep perfect time.	من تضمین می کنم که این ساعت زمان دقیق را نشان دهد.
+I had not gone a mile when it began to rain.	یک مایل نرفته بودم که باران شروع شد.
+I need a pair of scissors to cut this paper.	برای بریدن این کاغذ به یک قیچی دو پاره ای احتیاج دارم.
+I think that China will play an active role.	فکر می‌کنم چین نقش فعالی خواهد داشت.
+I thought my eyes were playing tricks on me.	فکر کردم چشم‌هایم مرا فریب می‌دهند.
+In the heat of the moment, Tom slapped Mary.	در آن بلبشور، تام به ماری سیلی زد.
+Individuality is very important in the West.	فردیت در غرب بسیار اهمیت دارد.
+It is impossible for him to become a doctor.	ممکن نیست که او پزشک شود.
+It is impossible to finish this in two days.	امکان ندارد بتوانی این کار را در طی دو روز انجام دهی.
+It may sound like a lie, but it's the truth.	دروغ به نظر میرسد، ولی این حقیقت است.
+It's still too early to talk about this now.	الآن هم هنوز زود است که راجع به آن صحبت کنیم.
+My brother wants to go to the moon some day.	برادر من میخواهد که روزی به ماه برود.
+Nothing could induce him to change his mind.	هیچ چیز نمی تواند تصمیم او را تغییر دهد.
+Our teacher warned him not to be late again.	معلم ما به او هشدار داد که دیگر دیر نکند.
+Scotland is famous for its woollen textiles.	اسکاتلند به خاطر منسوجات پشمی‌اش شهرت دارد.
+Some stars began to appear in the night sky.	برخی ستارگان در آسمان شب شروع به پدیدار شدن می کنند.
+Some stars began to appear in the night sky.	چند ستاره در آسمان شب شروع به پدیدار شدن کردند.
+Some stars began to appear in the night sky.	تعدادی از ستارگان شروع به پیدا شدن در آسمان شب کردند.
+That is the exactly the same idea as I have.	دقیقاً همان ایده ای است که من دارم.
+The more popcorn you eat, the more you want.	پاپ‌کورن هر چه بیشتر بخوری، بیشتر می‌خواهی.
+The old woman is too weak to get out of bed.	آن پیرزن آنقدر ضعیف است که نمی تواند از رختخواب برخیزد.
+They are bound together by common interests.	آنها بر اساس علایق مشترک با هم در ارتباط هستند.
+They are just waiting for the storm to pass.	آنها فقط منتظرند که توفان تمام شود.
+They were not at all like average Americans.	آنها اصلاً مانند آمریکایی‌های معمولی نبودند.
+This factory produces 500 automobiles a day.	این کارخانه در روز 500 اتومبیل تولید می کند.
+Today's paper says that a typhoon is coming.	روزنامه امروز می گوید طوفان می آید.
+Tom bends over backwards to make Mary happy.	تام پل‌می‌زند تا ماری را خوشحال کند.
+Upon hearing the news, she burst out crying.	با شنیدن خبر، او ناگهان به گریه افتاد.
+We have elected him chairman of the meeting.	ما او را به عنوان رئیس جلسه انتخاب کرده‌ایم.
+What is your greatest source of inspiration?	منبع بزرگ الهام گرفتنت چیست؟
+What was the hotel called? I can't remember.	نام آن هتل چه بود؟ یادم نمی آید.
+You can't teach a crab how to walk straight.	شما نمی‌توانید به یک خرچنگ راست راه رفتن را بیاموزید.
+A grasshopper and many ants lived in a field.	یک ملخ و مورچه‌های زیادی در یک مزرعه زندگی می‌کردند.
+Are there any other hotels you can recommend?	هتل‌های دیگری هم هستند که توصیه کنی؟
+As far as I know, he has never been overseas.	تا جایی که می‌دانم، او هیچ وقت به خارج نرفته است.
+At first, I couldn't understand what he said.	در ابتدا نتوانستم بفهمم که او چه گفت.
+Both of them are unpredictable and impatient.	هر دوی آنها غیرقابل پیش بینی و عجول هستند.
+English has become an international language.	انگلیسی به یک زبان بین المللی تبدیل شده است.
+He is concerned about the result of the exam.	او در باره‌ی نتیجه‌ی امتحان نگران است.
+I didn't know when to switch the machine off.	نمی‌دانستم آن دستگاه را کی خاموش کنم.
+I don't want this news to be made public yet.	هنوز نمی‌خواهم که این خبر علنی شود.
+I have too many things on my mind these days.	این روزها افکار زیادی در سر دارم.
+Mother Teresa was born in Yugoslavia in 1910.	مادر ترزا در یوگسلاوی در سال 1910 به دنیا آمد.
+Musicians are usually sensitive to criticism.	موسیقی‌دانان معمولاً نسبت به انتقاد حساس هستند.
+One of the cats is black, the other is brown.	یکی از گربه ها سیاه است و دیگری قهوه ای است.
+Our company supports several cultural events.	شرکت ما از چندین رویداد فرهنگی حمایت می کند.
+She accomplished the task through sheer will.	او تکلیف را از طریق ارادهٔ محض به سرانجام رساند.
+She got over the shock of her father's death.	او بر شوک مرگ پدر خودش غلبه کرد.
+The more you have, the more you have to lose.	هرکه بامش بیش، برفش بیشتر.
+The novelist gathered materials for his work.	رمان نویس مستندات را برای کارش جمع آوری می کند.
+This district is notorious for air pollution.	این محله به خاطر هوای آلوده بدنام است.
+Tom couldn't imagine himself shooting anyone.	تام نمی توانست خود را در حال شلیک به کسی تصوّر کند.
+Tom decided to mosey on over to Mary's place.	تام تصمیم به اساس کشی به اقامتگاه ماری گرفت.
+Tom decided to mosey on over to Mary's place.	تام تصمیم گرفت بگذارد برود اقامتگاه ماری.
+Tom decided to mosey on over to Mary's place.	تام تصمیم گرفت به تدریج نقل مکان کند به اقامتگاه ماری.
+Tom doesn't know much about sailing, does he?	تام که زیاد راجع به دریانوردی نمی داند. می داند؟
+Tom doesn't know much about sailing, does he?	تام که چندان راجع به دریا نوردی نمی داند. می داند؟
+Tom doesn't like working the graveyard shift.	تام دوست ندارد در شیفت شب کار کند.
+Tom is the one who told me who to give it to.	تام کسی است که به من گفت به کی بدهمش.
+Watch out for cars when you cross the street.	مراقب ماشین ها باش وقتی که از خیابان عبور می کنی.
+Which one of those books did you give to Tom?	کدام یک از آن کتاب ها را به تام دادی؟
+Worrying is like paying a debt you don't owe.	نگران شدن مانند پرداختن یک بدهی است که مدیون نیستید.
+You aren't really going to kill Tom, are you?	تو که واقعا نمی خواهی تام را بکشی. می خواهی؟
+You will be able to read this book next year.	تو قادر خواهی بود که این کتاب را در سال آینده بخوانی.
+Your speech was appropriate for the occasion.	سخنرانی تو مناسب این مناسبت بود.
+Any mushroom can be eaten, but some only once.	هر قارچی می‌تواند خورده شود، اما بعضی‌ها فقط یک بار.
+Do you think that my way of teaching is wrong?	آیا فکر میکنی که روش درس دادن من اشتباه است؟
+He has married his daughter to a young lawyer.	او دخترش را به نکاح یک وکیل جوان درآورد.
+He is one of the most famous singers in Japan.	او(پسر) یکی از معروفترین خوانندگان در ژاپن است.
+His story wasn't appropriate for the occasion.	داستانش مناسب این مناسبت نبود.
+I am not the man I was when you knew me first.	من همان مردی نیستم که تو در ابتدا مرا می شناختی.
+I don't believe the child came to Tokyo alone.	من باور نمی کنم که آن بچه به تنهایی به توکیو بیاید.
+I pay 30 euros for every visit to the dentist.	هر بار پیش دندانپزشک می‌روم، 30 یورو می‌پردازم.
+I will tell him the news as soon as I see him.	همینکه او را ببینم، خبر را به او خواهم گفت.
+I'll come by and pick you up tomorrow morning.	فردا صبح من خواهم آمد و تو را می برم.
+If you should meet a bear, pretend to be dead.	اگر باید خرس را ملاقات کنید، وانمود کنید مرده‌اید.
+It is like looking for a needle in a haystack.	این مثل پیدا جستجوی سوزن در کومهٔ علف است.
+Our ultimate goal is to establish world peace.	هدف غایی ما برقراری صلح جهانی است.
+The children built a sand castle on the beach.	بچه ها در ساحل قلعه شنی ساختند.
+The grass is always greener on the other side.	مرغ همسایه غاز است.
+The nurse cared for the patient very tenderly.	پرستار با ملاطفت بسیار از بیمار مراقبت کرد.
+The police treated Tom like a common criminal.	پلیس با تام مانند یک مجرم معمولی رفتار می کرد.
+The population of this country is diminishing.	جمعیت این کشور در حال کم شدن است.
+There was a big fire near my house last night.	آتش سوزی بزرگی نزدیک خانه من دیشب اتفاق افتاد.
+They stared at her swimming suit in amazement.	آنها با حیرت به لباس شنای او خیره شدند.
+They're all clamoring to get their money back.	آنها همه برای برگشت پولشان ضجه می‌زنند.
+This is true of adults as well as of children.	این امر هم در مورد کودکان و هم در مورد بزرگسالان صدق می کند.
+Three-fourths of the earth's surface is water.	سه چهارم سطح زمین آب است.
+Tom was ticketed for passing on a yellow line.	تام به سبب عبور از خط زرد جریمه شد.
+We are all stupid, just on different subjects.	ما همه احمقیم، هر کدام در یک زمینه.
+We express our thoughts by means of languages.	ما افکارمان را به وسیله‌ی زبان بیان می‌کنیم.
+We have detected an abnormality on your x-ray.	ما در عکس اشعه ایکس شما، نوعی ناهنجاری را تشخیص داده ایم.
+"Thank you for helping me." "Don't mention it."	"ممنون برای کمکتان." "قابلی نداشت."
+A gentleman would never do something like that.	یک شخص محترم هیچ وقت همچین کاری نمی کند.
+A grand jury found him not guilty of any crime.	هیئت منصفه‌ی عالی او را از هر جرمی بی‌گناه دانست.
+All the apples that fall are eaten by the pigs.	تمام سیب هایی که می افتند توسط خوک ها خورده شده اند.
+Each person was given enough food and clothing.	به هر نفر، غذا و لباس کافی داده شد.
+Historically, the Persian Gulf belongs to Iran.	از لحاظ تاریخی، خلیج فارس متعلق به ایران است.
+If he doesn't want to learn, we can't make him.	اگر او نمی خواهد یاد بگیرد، ما نمی توانیم او را مجبور کنیم.
+In case of a fire, use this emergency stairway.	به هنگام آتش سوزی از پله های اضطراری استفاده کنید.
+It amazed us to hear that things were so cheap.	از اینکه می شنیدیم کالاها چقدر ارزان هستند، تعجب کردیم.
+It appeared to me that he was very intelligent.	بر من آشکار شد که او بسیار باهوش است.
+Many people were deceived by the advertisement.	خیلی ها از تبلیغات فریب خوردند.
+My father rarely, if ever, goes out on Sundays.	پدر من به ندرت یکشنبه های بیرون می رود.
+People feel most at ease when they are at home.	مردم وقتی در خانه هستند، بیشترین احساس راحتی را می‌کنند.
+See to it that you don't make the same mistake.	به این توجه کن که نباید همان اشتباه قبلی را تکرار کنی.
+She seldom, if ever, goes to bed before eleven.	او به ندرت یا هیچ گاه قبل از یازده به رختخواب می رود.
+She was kind enough to show me around the town.	او اینقدر مهربان بود که شهر را به من نشان دهد.
+That material's going to shrink if it's washed.	آن ماده اگر شسته شود، آب خواهد رفت.
+The chances are that the bill will be rejected.	هرچه شانس بود بیل از دست داد.
+The children would play for hours on the beach.	بچه ها ساعت ها کنار ساحل بازی خواهند کرد.
+The exact temperature is 22.68 degrees Celsius.	دمای دقیق، 22.68 درجه سلسیوس است.
+The man reading a paper over there is my uncle.	آن مردی که آنجا روزنامه می خواند دایی من است.
+The secret of getting ahead is getting started.	راز جلو افتادن، شروع کردن است.
+Tom always dreamed of becoming a bounty hunter.	تام همیشه رویای پلیس خصوصی شدن را داشت.
+Tom decided to take matters into his own hands.	تام تصمیم گرفت موارد را خود بدست گیرد.
+Tom dialed Mary's number and got a busy signal.	تام با شماره ی ماری تماس گرفت و به بوق اشغال برخورد.
+Tom dropped by Mary's home every day for lunch.	تام هر روز برای ناهار سرزده به خانه‌ی ماری می آمد.
+Tom is the only one here who doesn't know Mary.	تام تنها کسی است این جا که مری را نمی‌شناسد.
+We are going to have a party on Saturday night.	شب شنبه یک مهمانی خواهیم داشت.
+We had to show our papers at the security desk.	در میز حراست می‌بایست مدارکمان را نشان دهیم.
+Young people are prone to fall into temptation.	افراد جوان در معرض قرار گرفتن در وسوسه هستند.
+A captain is in charge of his ship and its crew.	یک کاپیتان مسئول کشتی و خدمه آن است.
+For the time being, I intend to stay at a hotel.	در حال حاضر قصد دارم در هتل بمانم.
+I cannot thank you enough for all your kindness.	نمی توانم از تمام محبّت هایت تشکر کنم.
+I couldn't think of anything appropriate to say.	من نتونستم چیز مناسبی رو واسه گفتن به ذهن بیارم.
+I don't intend to get mixed up in your business.	قصد ندارم در کار شما شریک شوم.
+I don't remember the last time I climbed a tree.	آخرین باری که من از درخت بالا رفتم را به یاد نمی آورم.
+I will go there on foot or by bicycle next time.	من پای پیاده یا با دوچرخه بار دیگر به آنجا خواهم رفت.
+I'll stand by you no matter what others may say.	من کنار تو خواهم ماند و اهمیتی ندارد که دیگران چه خواهند گفت.
+I've told you a million times not to exaggerate.	من به شما یک میلیون بار گفتم اغراق نکنید.
+If anybody could convince Tom, it would be Mary.	اگر کسی می توانست تام را متقاعد کند، آن ماری بود.
+It seems like you're in a bad mood this morning.	به نظر می رسد که امروز صبح در حالت بدی هستی.
+It took me more than a week to get over my cold.	بیشتر از یک هفته بود که سرما خوردگی ام طول کشید.
+It was difficult to tell if Tom was in his room.	دشوار می شد گفت که تام در اتاقش است یا نه.
+May I ask why you don't want to talk about this?	می‌توانم بپرسم چرا نمی‌خواهی درباره‌اش حرف بزنی؟
+Never put off to tomorrow what you can do today.	کار امروز را به فردا میفکن.
+The doctor told her that she should take a rest.	دکتر به او گفت او باید استراحت کند.
+The exhibition will stay open for another month.	نمایشگاه برای یک ماه دیگر باز خواهند ماند.
+The supermarket is open Monday through Saturday.	این سوپر مارکت از دوشنبه تا شنبه باز است.
+Tom's house is only three blocks away from here.	خانه ی تام فقط سه بلوک آن طرف تر از اینجاست.
+We have enjoyed peace for more than forty years.	ما بیش از 40 سال است که از صلح برخوردار شده ایم.
+We hope to reach the summit before it gets dark.	امیدواریم قبل از آنکه هوا تاریک شود به قله برسیم.
+You may catch sight of our house from the train.	می توانی خانه ما را از قطار ببینی.
+Difficult problems require imaginative solutions.	مسائل دشوار به راه‌حل‌های تخیلی نیاز دارند.
+Do people ever accuse you of being temperamental?	آیا مردم هرگز شما را به دمدمی مزاج بودن متهم می‌کنند؟
+Do you realize how much this is going to cost us?	آیا می دانید این برای ما چقدر هزینه خواهد داشت؟
+Don't look down on him merely because he is poor.	به او بد نگاه نکن چون که تنها او بی پول است.
+I can't say I share your enthusiasm for the idea.	نمی توانم بگویم که در شور و اشتیاقت برای این ایده سهیم هستم.
+I congratulated him on passing the entrance exam.	من به دلیل قبولی در آزمون ورودی به او تبریک گفتم.
+I have a friend whose father is a famous pianist.	من دوستی دارم که پدرش پیانیست مشهوری است.
+I haven't done anything like this in a long time.	خیلی وقت است چنین کاری نکرده‌ام.
+I'll help my mother wash the dishes after supper.	بعد از شام در شستن ظرف‌ها به مادرم کمک خواهم کرد.
+If you see her from a distance, she is beautiful.	اگر او را با فاصله ببینی، او زیبا است.
+It is impossible for him to finish it in an hour.	برای او غیر ممکن است که آن را تا یک ساعت دیگر تمام کند.
+It took Tom a long time to get over Mary's death.	مدّت زیادی برای تام طول کشید تا تام با مرگ ماری کنار بیاید.
+It took me more than a month to get over my cold.	یک ماه طول کشید تا سرماخوردگی من بهبود یافت.
+My grandmother never changed her style of living.	مادربزرگ من هیچ گاه مدل زندگی اش را عوض نکرد.
+She was in trouble because she lost her passport.	او مشکل داشت زیرا گذرنامه اش را گم کرده بود.
+Strawberries sell for a high price in the winter.	قیمت توت فرنگی در زمستان بسیار بالاست.
+What is the difference between reality and truth?	فرق میان حقیقت و واقعیت چیست؟
+You aren't really going to vote for Tom, are you?	تو که واقعا نمی خواهی به تام رای دهی. می خواهی؟
+A good many people have told me to take a holiday.	خیلی ها به من پیشنهاد رفتن به تعطیلات را داده اند.
+A piano is expensive, but a car is more expensive.	یک پیانو گران است، اما یک ماشین گرانتر است.
+A policeman asked the girls if the car was theirs.	پلیس از دختران پرسید که آیا ماشین مال آنهاست.
+All generalizations are false, including this one.	همه‌ی تعمیم‌دادن‌ها اشتباه‌اند، ازجمله همین یکی.
+Didn't I tell you that you needed to study harder?	بهت نگفتم باید بیشتر درس می‌خواندی؟
+Do you know any restaurants with good Korean food?	آیا رستورانی با غذای خوب کره ای می شناسی؟
+His low salary prevents him from buying the house.	حقوق کم او او را از خانه خریدن باز می دارد.
+I put in an hour of jogging before I go to school.	قبل از اینکه به مدرسه بروم، یک ساعت پیاده روی می کنم.
+I wanted some salt, but there was none in the jar.	من نمک می خواستم، ولی در بطری شیشه ای هیچ نبود.
+I would buy this watch, except it's too expensive.	من این ساعت را می خریدم، اگر که گران نبود.
+I'm going to change into more comfortable clothes.	من برم یک لباس راحت تر بپوشم.
+My gut feeling is that Tom won't show up tomorrow.	به دلم افتاده که فردا تام سروکله‌اش پیدا نمیشه.
+My mother has been in the hospital until recently.	مادرم تا چندی پیش در بیمارستان بوده است.
+Not only his son, but his daughter is also famous.	علاوه بر پسرش، دخترش نیز مشهور است.
+Please fill in your name and address on this form.	لطفا اسم و آدرست را در این فرم پرکن
+Prices have been gradually rising in recent years.	قیمت ها به تدریج در طی سالهای اخیر افزایش یافته اند.
+She worked so hard that eventually she became ill.	او آنقدر زیاد کار میکند که بالاخره بیمار میشود.
+The date and place of the meeting have been fixed.	تاریخ و زمان جلسه ثابت و معین شده است.
+The hotel at which we stayed was very comfortable.	هتلی که ما در آن اقامت داشتیم،بسیار راحت بود.
+The ice is so thin that it won't bear your weight.	یخ نازک است طوری که وزنت تحمل نخواهد کرد.
+The prince learned English from the American lady.	شاهزاده، انگلیسی را، از آن زن آمریکایی یاد گرفت.
+They had to find the strongest candidate possible.	آنها می‌بایست قوی‌ترین نامزد ممکن را پیدا کنند.
+They told us we could go home because of the snow.	آنها به ما گفتند که به خاطر برف می توانیم به خانه هایمان برویم.
+Tom circled the block looking for a place to park.	تام به دنبال جایی برای پارک دور بلوک چرخید.
+We came to the conclusion that we should help him.	ما به این نتیجه رسیدیم که باید به او کمک کنیم.
+When angry, count to four. When very angry, swear.	وقتی عصبانی هستی تا چهار بشمار. وقتی خیلی عصبانی هستی فرار کن.
+Who was the last person to log on to the computer?	آخرین کسی که به کامپیوتر وصل شد، کی بود؟
+Women who seek to be equal with men lack ambition.	زنانی که می خواهند با مردان برابر شوند، بلند همت نیستند.
+You aren't really going to join the army, are you?	تو که واقعا نمی خواهی به سپاه بپیوندی. می خواهی؟
+You'll soon come to enjoy the food and drink here.	به زودی از غذا و نوشیدنی اینجا لذت خواهید برد.
+After all day in the sun, Tom had a sunburned nose.	پس از گذراندن تمام روز در آفتاب، بینی تام آفتاب سوخته شده بود.
+All the girls seem to have fallen in love with Tom.	به نظر می رسد که تام دل تمام دخترها را برده است.
+Children will believe what their parents tell them.	کودکان آن چیزی را که والدینشان به آنها می گویند باور خواهند کرد.
+Get a bicycle. You will not regret it, if you live.	یک دوچرخه بخرید. پشیمان نخواهید شد، اگر زنده بمانید.
+He confided in me things he would tell no one else.	او چیزهایی را با من در میان می‌گذارد که به هیچکس دیگر نمی‌گوید.
+He was never to return to his native country again.	او هیچگاه دوباره به کشور موطن خود بازنگشت.
+He went to Italy for the purpose of studying music.	او به ایتالیا رفت به قصد خواندن موسیقی.
+I don't feel well. Could you give me some medicine?	حالم خوب نیست.می شود مقداری دارو به من بدهی؟
+I make it a rule never to smoke while I'm sleeping.	من با خود عهد کرده‌ام هنگام خوابیدن هرگز سیگار نکشم.
+I think a movie is more entertaining than any book.	من فکر می کنم که یک فیلم بیشتر از یک کتاب سرگرم کننده است.
+If I wait, what's the possibility I can get a seat?	اگر منتظر شوم، چقدر احتمال دارد جا گیرم بیاید؟
+If a fight is inevitable, you have to strike first.	اگر نبرد اجتناب‌ناپذیر باشد، مجبورید اول حمله کنید.
+It's not a good idea to ask a woman how old she is.	ایده خوبی نیست که از یک زن بپرسید شما چند سالتونه؟
+She's intent on going to New York to study fashion.	او قصد دارد برای تحصیل در زمینه مد به نیویورک برود.
+The following day he was found dead in the bedroom.	روز بعد، او را مرده در اتاق خواب پیدا کردند.
+Tom agreed to meet Mary in front of the laundromat.	تام پذیرفت که با ماری جلوی لاندرومات ملاقات کند.
+Tom chewed Mary out for staying out all night long.	تام برای بیرون ماندن در تمام شب، ماری را سرزنش کرد.
+Tom chewed Mary out for staying out all night long.	تام ماری را سرزنش کرد. زیرا تمام شب بیرون مانده بود.
+Tom didn't feel comfortable driving Mary's new car.	تام از راندن ماشین ماری احساس راحتی نمی کرد.
+Tom drew a happy face on the cover of his notebook.	تام چهره ی شادمانی روی جلد دفترش نقاشی کرد.
+We walked along the busy street, singing old songs.	در حالی که در خیابان های شلوغ قدم می زدیم، آوازهای قدیمی را می خواندیم.
+You aren't really going to argue with Tom, are you?	تو که واقعا نمی خواهی با تام مجادله کنی، می خواهی؟
+"What's the purpose of your visit?" "I'm a tourist."	هدف از سفر چیست؟ من جهانگرد هستم.
+A clear conscience is the sure sign of a bad memory.	وجدان راحت نشانهٔ آشکار کم حافظگی است.
+As soon as she heard the news, she burst into tears.	به محض اینکه او اخبار را شنید, شروع به گریه کردن کرد.
+Being a doctor helped me greatly during the journey.	دکتر بودنم در طی سفر به من کمک بزرگی کرد.
+He is reticent and he never speaks unless spoken to.	او تودار است و هرگز صحبت نمی‌کند مگر اینکه با او صحبت شود.
+He keeps telling the same jokes over and over again.	او مدام یک جک را چندین بار می گفت.
+I don't suppose you know anything about Tom, do you?	فکر نکنم شما چیزی راجع به تام بدانید. می دانید؟
+If you can't stand the heat, get out of the kitchen.	اگر نمی‌توانید در مقابل گرما ایستادگی کنید از آشپزخانه خارج شوید.
+Iran is the eighteenth largest country in the world.	ایران، هجدهمین کشور بزرگ دنیا است.
+My mother hasn't slept in 3 days due to her illness.	مادرم به خاطر بیماری اش طی 3 روز گذشته نخوابیده است.
+No matter how rich he may be, he is never contented.	فرقی ندارد که او چقدر ثروتمند باشد، او هرگز قانع نخواهد شد.
+That's an interesting proposal. I'll think about it.	پیشنهاد جالبی است. راجع به آن فکر خواهم کرد.
+The most beautiful flowers have the sharpest thorns.	زیباترین گلها تیزترین خارها را دارند.
+The purpose of a roundabout is to slow down traffic.	هدف از مسیر غیرمستقیم، کاهش ترافیک است.
+The situation is getting worse and worse day by day.	وضعیت روز به روز بدتر و بدتر می‌شود.
+Tokyo is more populous than any other city in Japan.	توکیو از هر شهر دیگری در ژاپن پرجمعیت تر است.
+Tom doesn't like it when this kind of stuff happens.	وقتی چنین اتفاقاتی می افند تام خوشحال نمی شود.
+Tom first came to Japan when he was three years old.	تام اولین بار وقتی سه ساله بود، به ژاپن آمد.
+Tom is the one who told me that Mary didn't like me.	تام کسی است که به من گفت مری دوستم ندارد.
+Two Iranian professors of physics were assassinated.	دو پروفسور فیزیک ایرانی ترور شدند.
+We should make every effort to maintain world peace.	ما باید هر گونه تلاشی را جهت حفظ صلح جهانی انجام دهیم.
+You aren't really going to drive Tom's car, are you?	تو که واقعا نمی خواهی ماشین تام را برانی، می خواهی؟
+Always keep a bucket of water handy, in case of fire.	همیشه یک سطل آب برای آتش احتمالی نگهدار.
+Didn't I tell you that you needed to get there early?	بهت نگفتم باید زود اون جا می‌رسیدی؟
+He didn't trust his brother enough to confide in him.	او به برادرش به اندازه کافی اعتماد نکرد تا او را محرم خود سازد.
+I couldn't think of any reason why Tom would be late.	نمی توانم علّتی بیابم که چرا تام باید دیر کند.
+I couldn't think of any reason why Tom would be late.	دلیلی به فکرم نمی رسد که تام دیر کند.
+I know someone who may be interested in your project.	کسی را می شناسم که ممکنه به پروژه شما علاقمند باشه.
+I think Tom will come, but it's hard to say for sure.	فکر کنم تام می آید. امّا دشوار می توان با اطمینان چنین گفت.
+I think it's impossible for him to solve the problem.	فکر می‌کنم برای او امکان دارد که مسئله را حل کند.
+If you make your own clothes, it will save you money.	اگر لباس‌هایتان را خودتان تهیه کنید، پول زیادی صرفه‌جویی می‌کنید.
+If you're wrong, admit it. If you're right, be quiet.	اگر اشتباه می‌کنی، آن را بپذیر. اگر حق با تو است، خاموش باش.
+Injustice anywhere is a threat to justice everywhere.	بی عداالتی در هر جا که باشد، تهدیدی برای عدالت در همه جاست.
+It is difficult to express one's thoughts in English.	بیان افکار به زبان انگلیسی دشوار است.
+It pays in the long run to buy goods of high quality.	خریدن کالاهایی با کیفیت بالا عاقبت کار ساز است.
+Leaving the children alone was sheer thoughtlessness.	تنها رها کردن کودکان، یک بی‌فکری محض بود.
+Mary is not poor. On the contrary, she is quite rich.	ماری ندار نیست.اتفاقا او کمی پولدار است.
+My life would have been completely empty without you.	بدون شما زندگی من کاملاً خالی می‌بود.
+One is more prone to make mistakes when one is tired.	وقتی خسته هستیم بیشتر در معرض ارتکاب به اشتباه هستیم.
+People usually don't like what they can't understand.	افراد معمولاً آنچه نمی‌فهمند را دوست ندارند.
+Please forgive me for opening your letter by mistake.	ببحشید که من اشتباهاً نامه‌ی شما را باز کردم.
+She lost her way and on top of that it began to rain.	او راهش را گم کرد و علاوه بر این، باران نیز شروع به باریدن کرد.
+The campaign was successful and she won the election.	کارزار تبلیغاتی موفقیت‌آمیز بود و او در انتخابات پیروز شد.
+The train had already left when I got to the station.	وقتی من به ایستگاه رسیدم، قطار قبل از آن رفته بود.
+They explored the desert in quest of buried treasure.	آنها کویر را در جستجوی گنج کاوش کردند.
+Tom couldn't see the lake from where he was standing.	تام نمی توانست از آنجایی که ایستاده بود، دریاچه را ببیند.
+Tom is the one who told me when the meeting would be.	تام کسی است که به من گفت زمان ملاقات کی خواهد بود.
+What criteria do you use in deciding who to vote for?	برای تصمیم‌گیری در مورد اینکه به چه کسی رأی بدهید، از چه معیارهایی استفاده می‌کنید؟
+When I was a child, our house seemed bigger than now.	هنگامی که بچه بودم، خانه مان بزرگ تر از اکنون به نظر می رسید.
+When Tom stopped for a stop sign, his engine stalled.	وقتی تام مقابل تابلوی ایست ایستاد، موتورش واماند.
+After a couple of drinks, the guy was feeling no pain.	بعد از چند نوشیدنی، دیگر آن مرد دردی احساس نمی کرد.
+Please give me some kind of medicine to curb the pain.	لطفا چند نوع دارو به من بدهید تا دردم را تسکین دهد.
+She made arrangements to get him into a good hospital.	او ترتیب کارها را داده تا او را به یک بیمارستان خوب ببرد.
+The dullest pencil is better than the sharpest memory.	نتراشیده‌ترین مداد بهتر از هوشیارترین حافظه است.
+There's a small possibility that Tom will be arrested.	احتمال کوچکی وجود دارد که تام دستگیر شود.
+Tom got so absorbed in his work that he forgot to eat.	تام به قدری جذب کارش شده بود که یادش می‌رفت غذا بخورد.
+Tom is the one who told me that I should study French.	تام کسی است که به من گفت باید فرانسوی یاد بگیرم.
+Children found Christmas presents hidden under the bed.	بچه ها هدایای کریسمس را که زیر تخت پنهان شده بود، پیدا کردند.
+Don't cry because it's over. Smile because it happened.	گریه نکن که چرا پایان یافت، بخند زیرا اتفاق افتاده بود.
+It's easy to make friends, but hard to get rid of them.	دوست شدن آسان است، ولی از شر آنها خلاص شدن سخت است.
+My mother tasted the soup and added a little more salt.	مادرم سوپ را چشید و بعد کمی نمک به آن اضافه کرد.
+Not all horses were born equal. A few were born to win.	اسبها همه برابر زاده نشدند. معدودی از آنها برای بردن زاده شدند.
+They threatened to kill me so I gave them up my wallet.	آنها مرا تهدید به مرگ کردند بنا براین من کیفم را به آنها دادم.
+This cola has lost its fizz and doesn't taste any good.	این کولا گاز خود را از دست داده است و طعم خوبی ندارد.
+Tom didn't seem terribly interested in learning French.	تام چندان علاقه مند به آموزش فرانسه به نظر نمی رسید.
+Tom didn't seem terribly interested in learning French.	به نظر نمی رسید تام چندان علاقه مند به آموزش فرانسه باشد.
+Tom double-checked his door to make sure it was locked.	تام دوباره درب را بررسی کرد تا مطمئن شود قفل است.
+Words cannot express the extent to which you are wrong.	کلمات از بیان اشتباه شما قاصر اند.
+Any teacher that can be replaced by a machine should be.	معلمی که بتواند توسط ماشین جایگزین شود، باید بشود.
+He who thinks he has learned enough has learned nothing.	آنکه می‌پندارد که به اندازهٔ کافی آموخته است، هیچ چیز نیاموخته است.
+If I'd had more time, I'd have written a shorter letter.	اگر بیشتر وقت داشتم، یک نامهٔ کوتاه‌تر نوشته بودم.
+Never tell the truth to people who are not worthy of it.	هیچوقت به افرادی که لیاقتش را ندارند صداقت نورزید.
+The more you explain it, the more I don't understand it.	هرچه بیشتر آن را توضیح می‌دهید، من بیشتر آنرا نمی‌فهمم.
+These clothes are not appropriate for a cold winter day.	این لباس ها واسه یه روز سرد زمستانی مناسب نیست.
+This is by far the best seafood restaurant in this area.	این تا کنون بهترین رستوران غذاهای دریایی در این منطقه است.
+Tom arrived at 2:30 and Mary arrived a short time later.	تام در ساعت 2:30 رسید و ماری مدّک کوتاهی بعد از آن رسید.
+Tom is the one who told me why I needed to go to Boston.	تام کسی است که به من گفت چرا باید به بوستون بروم.
+Which do you like better, rock music or classical music?	از کدامیک بیشتر خوشتان می‌آید، موسیقی راک یا موسیقی کلاسیک؟
+You are old enough to know better than to act like that.	تو آنقدر بزرگ شده ای که بدانی بهتر از آن باید رفتار کنی.
+You aren't really going to go camping with Tom, are you?	تو که واقعا با تام نمی روی اردو. می روی؟
+You must not despise a man because he is poorly dressed.	نباید یک آدم را به خاطر اینکه لباس‌های خوبی ندارد، کوچک بشمارید.
+You should ask your father for his advice and follow it.	تو باید از پدرت راهنمایی بخواهی و به آن عمل کنی.
+You shouldn't respect someone just because they're rich.	فقط چون کسی پولداره نباید بهش احترام بگذارید.
+As always, I could only hope the police wouldn't stop me.	مثل همیشه تنها امیدم این بود که پلیس مرا متوقف نکند.
+As far as I know, this is the only translation available.	این که تنها ترجمه ی موجود است،دور از ذهن من بود.
+As soon as you trust yourself, you will know how to live.	به محض اینکه به خودت اعتماد کنی، خواهی فهمید که چگونه زندگی کنی.
+Every day I waited for her at the bookstore after school.	هر روز بعد از مدرسه در کتابفروشی منتظر او می ماندم.
+I have just been to Sapporo Station to see my mother off.	من به تازگی در ایستگاه ساپورو بودم تا مادرم را بدرقه کنم.
+If he calls, tell him I will get in touch with him later.	اگر او زنگ زد به او بگو که بعدا با او تماس می گیرم.
+If he wanted to get to London today, he should leave now.	اگر بخواهد امروز به لندن برسد، باید همین الان برود.
+In many countries, being gay is a cause for imprisonment.	در خیلی از کشورها، همجنس باز بودن دلیلی است برای زندانی کردن.
+It's too far to walk to the station, so let's take a bus.	پیاده روی تا ایستگاه طولانی است پس بیا سوار اتوبوس شویم.
+My father will cook me a delicious meal tomorrow morning.	فردا صبح، پدرم غذای خوشمزه ای برایم می پزد.
+Quite a few people were present at the meeting yesterday.	تعداد نسبتًاً اندکی از مردم در جلسه دیروز حاضر بودند.
+The more you study, the more you discover your ignorance.	هر چه بیشتر بخوانی، بیشتر به نادانیت پی می بری.
+Do you really need to ask the question to know the answer?	آیا برای فهمیدن جواب حتماً باید سؤال بپرسی؟
+He was so confused that his answer did not make any sense.	او به حدی گیج شده بود که جوابش به هیچ وجه عاقلانه نبود.
+I forgot to turn off the television before going to sleep.	من فراموش کردم که تلویزیون را قبل به خواب رفتن خاموش کنم.
+I had to abstain from smoking while I was in the hospital.	من مجبور بودم هنگامی که در بیمارستان بودم از سیگار کشیدن اجتناب کنم.
+I have a lot of flowers. Some are red and some are yellow.	من گلهای بسیاری دارم.برخی شان سرخند و برخی زرد.
+If it were to rain tomorrow, the match would be postponed.	اگر قرار بود فردا باران ببارد، مسابقه به تعویق می‌افتاد.
+If you can't keep your promise, what excuse will you make?	اگر نتوانی به وعده‌ات عمل کنی، چه عذری خواهی آورد؟
+It was close to 2:30 by the time Tom reached Mary's house.	زمانی که تام به خانه ی ماری رسید، ساعت نزدیک 2:30 بود.
+My grandmother was gradually becoming forgetful and frail.	مادربزرگم به تدریج فراموشکار و نحیف می شد.
+Now that you are in Italy, you must absolutely see Naples.	حالا که شما در ایتالیا هستید، باید از ناپل دیدن کنید.
+The government banned cigarette advertising on television.	دولت تبلغات سیگار در تلویزیون را ممنوع کرد.
+There is no satisfactory answer a parent can give to this.	هیچ جواب قانع کننده ای نبود که یک پدر و مادر بخواهند بدهند.
+They announced the date of their wedding in the newspaper.	آنها تاریخ عروسی را در روزنامه اعلام کردند.
+Tom and Mary have been happily married for thirteen years.	تام و ماری پانزده سال با شادمانی در عقد یکدیگر بوده اند.
+You aren't really going to buy Tom's old tractor, are you?	تو که واقعا نمی خواهی تراکتور کهنه ی تام را بخری، می خواهی؟
+A fool always believes that it is the others who are fools.	نادان همه را به کیش خود پندارد.
+She wanted to die because she couldn't satisfy her parents.	او می خواست بمیرد چونکه او نمی توانست پدر و مادرش را خوشحال کند.
+The grass is always greener on the other side of the fence.	مرغ همسایه غاز است.
+I will show you a new approach to foreign language learning.	من شیوه ای نو برای یادگیری زبان نشانت می دهم.
+If you want something done right, you should do it yourself.	اگر می‌خواهید چیزی درست انجام شود، باید خود آن را انجام دهید.
+In spite of the language difficulty, we soon became friends.	علیرغم دشواری زبان، خیلی زود با هم دوست شدیم.
+The worst loneliness is to not be comfortable with yourself.	بدترین تنهایی راحت نبودن با خود است.
+Tom is the only person that has any chance to persuade Mary.	تام تنها کسی است که احتمال دارد ماری را مجاب کند.
+We can run away from everything, except from our conscience.	ما از همه چیز می‌توانیم فرار کنیم به جز از وجدانمان.
+When I was younger, many people used to say I was beautiful.	وقتی جوون تر بودم، خیلی ها بهم میگفتم که خوشگلم.
+"What's going on in the cave? I'm curious." "I have no idea."	" در این غار چه می گذرد؟ من کنجکاو هستم." "من هیچ حدسی نمی زنم."
+Last night was very hot and muggy, so I didn't sleep so well.	دیشب هوا خیلی گرم و شرجی بود، به همین خاطر نتوانستم خوب بخوابم.
+The only one who enjoys a crowded subway car is a pickpocket.	تنها کسی که از یک مترو پر ازدحام لذت می‌برد یک جیب‌بر است.
+The peace we have today is the result of lengthy peace talks.	صلحی که ما امروز داریم، نتیجه مذاکرات طولانی صلح است.
+This program has both downloading and uploading capabilities.	این برنامه قابلیت دانلود و آپلود، هر دو را دارد.
+Today, things are better for the Latino community in the USA.	امروزه، اوضاع برای گروه لاتینی ها ( اهالی آمریکای جنوبی) در ایالات متحده آمریکا بهتر است.
+Tom has been in and out of mental hospitals most of his life.	تام بیشتر عمرش به تناوب در بیمارستان‌های روانی بستری بوده است.
+When cleaning the classroom, a few students carry the podium.	هنگام نظافت کلاس، چند دانش‌آموز تریبون را حمل می‌کنند.
+Ever since she fell in the kitchen, she hasn't been all there.	از زمانی که او در آشپزخانه افتاد، عقل سالم نداشته است.
+It's too late to shut the barn door after the horse is stolen.	نوشدارو بعد از مرگ سهراب.
+Japan is now very different from what it was twenty years ago.	ژاپن از آنچه که بیست سال پیش بود، بسیار تفاوت دارد.
+Let's go drink a cup of coffee at that coffee shop over there.	بیا بریم یک فنجان قهوه بنوشیم در آن کافی شاپ آنجا.
+We should play a more active role in combating global warming.	باید در مبارزه با گرم شدن کره‌ی زمین نقش فعال‌تری ایفا کنیم.
+You aren't really going to go to Boston in Tom's car, are you?	تو که واقعا نمی خواهی با ماشین تام بروی بوستون. می خواهی؟
+The weather here is getting cold and I really do not like that.	هوای اینجا در حال سرد شدن است و من واقعاً آن را دوست ندارم.
+Tom politely pretended not to notice that Mary had been crying.	تام مودبانه تظاهر کرد که متوجه گریه کردن مری نشده است.
+You're up very early this morning. Do you have something to do?	امروز صیح خیلی زود از خواب بیدار شده ای؟ کاری داری که انجام بدهی؟
+I called the police as soon as I saw his dead body on the floor.	من با پلیس تماس گرفتم، به محض اینکه جسدش را در کف اتاق دیدم.
+If peace cannot be maintained with honor, it is no longer peace.	اگر صلح را نتوان با شرافت حفظ کرد، این دیگر صلح نیست.
+My father has a habit of reading the newspaper before breakfast.	پدرم عادت دارند قبل از صبحانه روزنامه بخوانند.
+Tom checked his rearview mirror before pulling out into traffic.	تام به آیینه بغلش نگاهی کرد قبل از آنکه از پارکینگ وارد ترافیک شود .
+You can go out, as long as you promise to be back by 11 o'clock.	می‌توانی بروی بیرون، به شرط آنکه قول بدهی تا ساعت 11 بر گردی.
+All you need is ignorance and confidence and the success is sure.	برای موفقیت فقط نادانی و اعتماد به نفس نیاز است.
+Can you spare me a few minutes? I'd like to have a word with you.	می‌توانید چند دقیقه به من وقت بدهید؟ می‌خواهم چند کلمه با شما صحبت کنم.
+If I had eaten breakfast this morning, I would not be hungry now.	اگر امروز صبح صبحانه خورده بودم، الان گرسنه نبودم.
+If you really need a job, why don't you consider working for Tom?	اگر واقعا به یک شغل نیاز داری، چرا به کارکردن برای تام فکر نمی کنی؟
+It is because you work too much that you are sleepy all the time.	به این دلیل که تو بسیار کار می کنی، همیشه خواب آلود هستی.
+It was still early in the day when Tom arrived at the campground.	آن روز زودهنگام بود که تام به اردوگاه رسید.
+Kyowa Bank and Saitama Bank merged into Asahi Bank ten years ago.	10 سال قبل، بانک کیوئووا و بانک ساییتاما ادغام شدند و بانک آساهی را پدید آوردند.
+My father is oblivious to the emotional pain his abuse caused me.	پدرم توجهی به رنج عاطفی که بر اثر سوءاستفاده در من ایجاد کرده است، ندارد.
+The dictionary is the only place where success comes before work.	لغتنامه تنها جایی است که پیشرفت قبل از تلاش می‌آید.
+A man who doesn't spend time with his family cannot be a real man.	مردی که وقتی را با خانواده اش نگذراند، مرد واقعی نیست.
+I find it hard to believe that Tom was involved in the kidnapping.	دشوار می توانم باور کنم که تام در آدم ربایی شرکت داشته.
+If you would talk less and listen more, you might learn something.	اگر کم صحبت کنی و بیشتر گوش دهی، چیزی یاد می‌گیری.
+There are wavelengths of light that the human eye cannot perceive.	اینجا طول موجی از نور است که چشم انسان قادر به دیدنش نسیت.
+To succeed in life, you need two things: ignorance and confidence.	برای موفق شدن در زندگی دو چیز لازم است: نادانی و اعتماد به نفس.
+Tom and Mary were married in a small church not too far from here.	تام و ماری در کلیسای کوچکی نه چندان دور از اینجا ازدواج کرده بودند.
+Tom and Mary were married in a small church not too far from here.	تام و ماری در کلیسای کوچکی ازدواج کرده بودند که چندان دور از اینجا نیست.
+It seemed unlikely that Tom wouldn't come to Mary's birthday party.	به نظر غیر محتمل می رسید که تام به جشن تولد ماری نیاید.
+Tom gave up his teaching job to become a full-time studio musician.	تام شغل معلمی را رها کرد تا به طور تمام وقت در استودیو نوازنده شود.
+We've tried every conceivable method, but absolutely nothing works.	ما هر روش ممکن را بکار گرفتیم ،ولی هیچکدام اثر بخش نبود.
+You'll get a ticket if you park the car in front of a fire hydrant.	شما جریمه خواهید شد اگر ماشین را جلوی آتش نشانی پارک کنید.
+I've got better things to do than to keep track of what Tom's doing.	من کارهای بهتر از تعقیب فعالیت های تام دارم.
+If my brother would have been there, he would have known what to do.	اگر برادر من آنجا بود، می دانست چه کار کند.
+Just when the first human beings will reach Mars remains to be seen.	به وقتی واقعا اولین انسان بر مریخ پای بگذارد، زمان باقی است.
+Never put off until tomorrow what you can do the day after tomorrow.	چیزی که پس‌فردا می‌توانی انجام دهی را به فردا نینداز!
+Surround yourself only with people who are going to lift you higher.	اطراف خود را با افرادی پر کن که قصد دارند تو را بالاتر ببرند.
+The human race has one really effective weapon and that is laughter.	نژاد انسانی یک سلاح واقعاً موثر دارد و آن خنده است.
+Thus money in circulation drops, and price escalation quietens down.	به این ترتیب، پول در گردش کم می‌شود و نوسان قیمت فروکش می‌کند.
+Tom didn't want to see Mary in prison for a crime she didn't commit.	تام نمی خواست ماری را به خاطر جرمی که مرتکب نشده بود در زندان ببیند.
+It was on the morning of February the ninth that I arrived in London.	صبح نهم فوریه بود که من به لندن رسیدم.
+For the lack of something better to do, Tom started cleaning his room.	تام به خاطر نداشتن کاری بهتر برای انجام دادن، شروع به تمیز کردن اتاقش کرد.
+For the lack of something better to do, Tom started cleaning his room.	تام شروع به تمیز کردن اناقش کرد. زیرا کار بهتری برای انجام دادن نداشت.
+It was raining when we left, but by the time we arrived, it was sunny.	وقتی که بیرون آمدیم باران می آمد، اما حدود زمانی که رسیدیم آفتابی بود.
+She is popular not because of her beauty, but because of her kindness.	او محبوب است، نه به‌خاطر زیبائی‌اش، بلکه به‌خاطر مهربانی‌اش.
+The old cottage had only one bed, so we all took turns sleeping in it.	آن کلبه‌ی قدیمی فقط یک تخت داشت. بنا بر این، به نوبت روی آن می‌خوابیدیم.
+The police were hoping that Tom could shed some light on the incident.	پلیس امیدوار بود تام بتواند قضیه را قدری روشن کند.
+Those who know nothing of foreign languages know nothing of their own.	کسانی که هیچ چیز از یک زبان خارجی نمی‌دانند، هیچ چیز دربارهٔ زبان خودشان هم نمی‌دانند.
+To get the full value of joy, you must have someone to divide it with.	برای گرفتن ارزش واقعی شادی، باید آن را با کسی تقسیم کنید.
+I spent three years looking for a good director, but couldn't find one.	سه سال دنبال یک کارگردان خوب می‌گشتم، ولی کسی را پیدا نکردم.
+Kindness is the language which the deaf can hear and the blind can see.	مهربانی زبانی است که در آن کر می‌تواند بشنود و کور می‌تواند ببیند.
+Americans who are over sixty-five make up 12.5% of the total population.	آمریکاییانی که بیش از شصت و پنج سال سن دارند، 12.5٪ کل جمعیت را تشکیل می‌دهند.
+I wonder where the ice cream is. Do you think Tom could've eaten it all?	نمی دانم آن بستنی کجاست. فکر می کنی تام ممکن است تمام آن را خورده باشد؟
+Mary took her time choosing a dress even though Tom was waiting for her.	ماری وقت زیادی را برای انتخاب لباس صرف کرد، با وجود اینکه تام منتظر او بود.
+The death of one man is a tragedy, the death of millions is a statistic.	مرگ یک انسان تراژدی است اما مرگ میلیونها انسان، آمار است.
+The freight train was held up about half an hour because of a dense fog.	قطار برای نیم ساعت به علت مه غلیظ توقف کرد.
+Tom didn't think he had the stomach to tell Mary what needed to be done.	تام فکر نمی کرد که دلش را داشته باشد به ماری بگوید چه کاری بایست انجام می شد.
+A good ballboy or ballgirl must be able to concentrate hard and run fast.	یک توپ جمع کن خوب باید بتواند بطور کامل تمرکز کند و به سرعت بدود.
+I realized that I had grown up when I started heeding my parents' advice.	زمانی که به نصیحت والدینم توجه کردم، فهمیدم که بزرگ شده ام.
+If you can't get a lawyer who knows the law, get one who knows the judge.	اگر نمی‌توانید وکیلی بگیرید که قانون را بشناسد، وکیلی بگیرید که قاضی را بشناسد.
+Life is like riding a bicycle. To keep your balance you must keep moving.	زندگی مثل دوچرخه سواری است. برای حفظ تعادل باید در حرکت باشید.
+Life is like riding a bicycle. To keep your balance you must keep moving.	زندگی مانند دوچرخه سواری است. برای اینکه نیفتید باید در حرکت باشید.
+She had hardly begun to read the book before someone knocked at the door.	هنوز شروع به خواندن کتاب نکرده بود که کسی در زد.
+This letter was full of mistakes because it had been written too hastily.	این نامه پر از اشتباه است زیرا بسیار با عجله نوشته شده است.
+A poll shows that an overwhelming majority is in favor of the legislation.	نظرسنجی نشان می‌دهد که اکثریت قاطع طرفدار این قانون هستند.
+At first, he thought English very difficult, but now he thinks it is easy.	در ابتدا، او فکر می کرد انگلیسی خیلی سخت است، اما اکنون او فکر می کند آسان است.
+I remember Tom telling me about the time he and Mary had climbed Mt. Fuji.	یادم می آید تام برایم راجع به زمانی می گفت که او و ماری قله فوجی را فتح کرده بودند.
+What you spend time doing in your childhood affects the rest of your life.	آنچه تو در دوران کودکی وقت خود را صرف آن می کنی، بر بقیه زندگیت تاثیر دارد.
+Last summer, I finally left the firm that I had joined twelve years before.	تابستان گذشته، بالاخره من شرکتی را که بیست سال پیش به آن ملحق شده بودم، ترک کردم.
+From the time he was a small boy, Tom knew that he wanted to be a policeman.	تام از زمانی که پسر کوچکی بود، میدانست که می خواهد یک پلیس شود.
+Statistics suggest that the population of this town will double in five years.	آمار نشان می دهد که جمعیت این شهر در طی پنج سال، دو برابر خواهد شد.
+Tom got out in front of the library and waited while Mary went to park the car.	تام رفت بیرون روبروی کتابخانه منتظر ماند تا ماری برود ماشین را پارک کند.
+As Tom and Mary spent time together, they began to get to know each other better.	تام و ماری طی دورانی که باهم سپری می کردند، شروع به بهتر شناختن هم کردند.
+The police thought the victim was Tom, but they were unable to identify the body.	پلیس گمان می کرد قربانی تام است، اما آنها نتوانستند جسد را شناسایی کنند.
+The rights of every man are diminished when the rights of one man are threatened.	زمانی که حقوق یک انسان مورد تهدید قرار گیرد؛ حقوق همه انسان ها نقصان خواهد یافت.
+"What a nice surprise," Tom said as he opened the door and saw Mary standing there.	«خوب غافلگیرم کردی.» تام این را هنگامی گفت که در را باز کرد و دید ماری آنجا ایستاده است.
+"What a nice surprise," Tom said as he opened the door and saw Mary standing there.	«چه مژده ی خوبی.» تام این را هنگامی گفت که در را باز کرد و دید ماری آنجا ایستاده است.
+Some people bring joy wherever they go, and some people bring joy whenever they go.	بعضی‌ها هرجا می‌روند شادی می‌آورند، و بعضی‌ها هروقت می‌روند شادی می‌آورند.
+Work and play are words used to describe the same thing under differing conditions.	کار و بازی کلماتی هستند که برای توصیف یک چیز در شرایط متفاوت استفاده می‌شوند.
+Tom and Mary were in the middle of a heated argument when John walked into the room.	تام و ماری وسط مجادله ی داغی بودند که جان به درون اتاق قدم گذاشت.
+Democracy is the worst form of government, except all the others that have been tried.	دمکراسی بدترین نوع حاکمیت است، البته به جز انواع دیگر که امتحان شده‌اند.
+Tom claimed that he didn't know his beach house was being used for illegal activities.	تام ادّعا کرد که نمی‌دانسته خانه‌ی ساحلی اش برای فعالیت‌های غیرقانونی استفاده می‌شده است.
+It occurred to me while I was waiting for Tom that maybe I shouldn't have invited Mary.	همانطور که منتظر تام بودم، به ذهنم خطور کرد که شاید بهتر بود ماری را دعوت نمی کردم.
+The police spent hours searching Tom's place, but they couldn't find the murder weapon.	پلیس ساعتها اقامتگاه تام را گشت، امّا آنها نتوانستند چیزی بیابند.
+The police spent hours searching Tom's place, but they couldn't find the murder weapon.	پلیسها ساعتها اقامتگاه تام را گشتند، امّا نتوانستند چیزی بیابند.
+I had to change clothes because what I was wearing wasn't appropriate for the situation.	من باید لباسامو عوض میکردم چون چیزی که پوشیده بودم مناسب اون وضعیت نبود.
+Whenever you find yourself on the side of the majority, it is time to pause and reflect.	هر زمان که خود را در طرف اکثریت یافتید، زمان آن است که مکث کنید و بیاندیشید.
+Sometimes I think I'll never be on my own. Both of my parents always seem to need my help.	بعضی وقت‌ها فکر می‌کنم هیچ وقت به حال خودم نخواهم بود. پدر و مادرم هر دو انگار همیشه به کمک من احتیاج دارند.
+If you really want to do something, you'll find a way. If you don't, you'll find an excuse.	اگر واقعاً بخواهی کاری را انجام دهی، راهی را خواهی یافت. اگر نخواهی کاری را انجام دهی، بهانه ای خواهی یافت.
+If we don't receive Tom's reply within the next three days, I think we should write him again.	اگر در سه روز آینده پاسخ تام به دستمان نرسد، به نظرم باید دوباره برایش نامه بنویسیم.
+If we were supposed to talk more than listen, we would have been given two mouths and one ear.	اگر فرض بر این بود که بیش از گوش دادن حرف بزنیم، دو دهان و یک گوش به ما عطا شده بود.
+Tom didn't seem inclined to elaborate and I didn't really want to know all the details anyway.	تام علاقه مند به نظر نمی رسید و به هر حال من نمی خواستم واقعا جزئیات را بدانم.
+The most interesting information comes from children, for they tell all they know and then stop.	جالب‌ترین اطلاعات از بچه‌ها حاصل می‌شود، زیرا همهٔ آنچه می‌دانند را بازگو می‌کنند و متوقف می‌شوند.
+It is said that Japanese people are kind to people they know, but rather cold to those they don't.	گفته می شود که ژاپنی با افرادی که آنها را می شناسند بسیار مهربانند، اما با افراد ناشناس سردند.
+Thursday Island is situated in the Torres Strait between Australia's northernmost Cape York and New Guinea.	جزیره‌ی ترزدی در تنگه‌ی تورس بین شمالی‌ترین نقطه‌ی استرالیا، کیپ یورک، و گینه‌ی نو قرار دارد.
+The best thing about working in a team is that, when something goes wrong, you can always blame someone else.	بهترین جنبهٔ کار تیمی اینست که اگر چیزی خراب شد، همیشه می‌توانید دیگری را مقصر بدانید.
+If you don't want to put on sunscreen, that's your problem. Just don't come complaining to me when you get a sunburn.	اگر تو نمی خواهی ضد آفتاب بزنی مشکل خودت است. پس دیگر از آفتاب سوختگی پیش من شکایت نکن.
+When I got to the office, I had tons of work waiting for me. I was running around like a chicken with its head cut off.	وقتی که من به اداره رسیدم کلی کار داشتم که انتظار من را می کشید.من همانند مرغی که سرش را بریدند به این طرف آن طرف می دویدم.
+The difference between the right word and almost the right word is the difference between lightning and the lightning bug.	تفاوت بین کلمهٔ صحیح و کلمهٔ تقریباً صحیح مانند تفاوت بین مهتاب و کرم شب‌تاب است.
+If you talk to a man in a language he understands, it will go to his head. If you talk to him in his language, it will go to his heart.	اگر با یک فرد با زبانی که می‌فهمد حرف بزنید، به مغزش فرو می‌رود. اگر با زبان خودش با او حرف بزنید، به قلبش فرو می‌رود.
+Don't lend books; no one gives them back. The only books that are still left in my library are ones that I have borrowed from other people.	کتاب‌ها را امانت ندهید؛ هیچکس آنها را پس نمی‌دهد. تنها کتابهایی که هنوز در کتابخانهٔ من باقی مانده‌اند، آنهایی هستند که از دیگران به امانت گرفته‌ام.

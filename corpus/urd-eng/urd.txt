@@ -1,0 +1,1169 @@
+Help!	مدد۔
+We won.	ہم جیت گئے۔
+Beat it.	بھاگ جائو۔
+Beat it.	دفعہ ہو جائو۔
+We lost.	ہم ہار گئے۔
+Good job!	پہت خوب۔
+Let's go!	!چلو
+Tom's up.	ٹام اٹھ چکا ہے۔
+I am sick.	میں بیمار ہوں۔
+Let me in.	مجھے اندر آنے دو۔
+Let's try!	آئیے ہم کوشش کریں!
+Stay thin.	پتلی رہو۔
+Stay thin.	پتلے رہو۔
+Stay thin.	موٹی نہ ہونا۔
+Stay thin.	موٹے نہ ہونا۔
+Tom's fat.	ٹام موٹا ہے۔
+Tom's mad.	ٹام ناراض ہے۔
+Tom's sad.	ٹام اداس یے۔
+Tom's shy.	ٹام شرمیلا ہے۔
+We talked.	ہم نے بات کی۔
+We'll try.	ہم کوشش کرے گے۔
+We'll win.	ہم جیتے گے۔
+What's up?	کیا ہو رہا ہیں؟
+Are you OK?	کیا تم ٹھیک ہو؟
+I like tea.	مجھے چائے پسند ہے۔
+I love her.	میں اس سے پیار کرتا ہوں۔
+I love you.	مجھے تم سے پیار ہے۔
+I love you.	میں تم سے محبت کرتا ہوں۔
+I need you.	مجھے تمھاری ضرورت ہے۔
+I need you.	مجھے آپ کی ضرورت ہے۔
+I'm sleepy.	مجھے نیند آ رہی ہے۔
+I'm sleepy.	مجھے خماری چڑھ رہی ہے۔
+Tom's dead.	ٹام مر چکا ہے۔
+Tom's deaf.	ٹام بہرہ ہے۔
+Tom's died.	ٹام مر گیا ہے۔
+Tom's fast.	ٹام تیز ہے۔
+Tom's free.	ٹام آذاد ہے۔
+Tom's gone.	ٹام چلا گیا ہے۔
+Tom's here.	ٹام ادھر ہے۔
+Tom's home.	ٹام گھر پہ ہے۔
+Tom's hurt.	ٹام زخمی ہے۔
+Tom's safe.	ٹام محفوظ ہے۔
+Tom's sick.	ٹام بیمار ہے۔
+Tom's weak.	ٹام کمزور ہے۔
+Tom's well.	ٹام ٹھیک ہے۔
+We'll help.	ہم مدد کرے گے۔
+We'll wait.	ہم انتظار کرے گے۔
+How are you?	آپ کیسے ہو ؟
+How are you?	آپ کا کیا حال ہے ؟
+I live here.	میں یہاں رہتا ہوں۔
+I live here.	میں ادھر رہتا ہوں۔
+I love rock.	مجھے روک پسند ہے۔
+I need help.	مجھے مدد کی ضرورت ہے۔
+I trust you.	مجھے تم پر بھروسہ ہے۔
+I'm at home.	میں گھر پہ ہوں۔
+Is it white?	کیا یہ سفید ہے؟
+It may rain.	شاید بارش ہو جائے۔
+It may snow.	شاید برفباری ہو جائے۔
+Let's do it.	چلو یہ کرتے ہیں۔
+Tom's bored.	ٹام بوریت کا شکار ہو رہا ہے۔
+Tom's drunk.	ٹام نشہ میں ہے۔
+Tom's right.	ٹام صحیص ہے۔
+Tom's smart.	ٹام عقل مند ہے۔
+Tom's tired.	ٹام تھکا ہوا ہے۔
+Tom's weird.	ٹام عجیب ہے۔
+Tom's wrong.	ٹام غلط ہے۔
+Tom's young.	ٹام جوان ہے۔
+We'll dance.	ہم ناچے گے۔
+We'll dance.	ہم رقص کرے گے۔
+Work slowly.	آرام سے کام کرو۔
+Grab my hand.	میرا ہاتھ تھامو۔
+Grab my hand.	میرا ہاتھ پکڑو۔
+I can't move.	میں ہل نہیں سکتا۔
+I do my best.	میں اپنی پوری کوشش کرتا ہوں۔
+I don't care.	مجھے کوئی پڑوا نہیں ہے۔
+I don't care.	مجھے کوئی فرق نہیں پڑتا۔
+I don't know.	میں نہیں جانتا ۔
+I keep a dog.	میں کتا رکھتا ہوں۔
+I won't lose!	میں نہیں ہاروں گا۔
+I'm very hot.	میں بہت گرم ہوں۔
+Keep reading.	پڑھتے رہو۔
+Keep reading.	اور پڑھو۔
+Keep reading.	آگے پڑھو۔
+Let's try it.	چلو اسے ازماتے ہیں۔
+Life is hard.	زندگی مشکل ہے۔
+Life is hard.	زنگی پھولوں کا سیج نہیں۔
+Tom saw Mary.	ٹام نے مریم کو دیکھا۔
+Tom's scared.	ٹام ڈرا ہوا ہے۔
+Tom's strong.	ٹام طاقتور ہے۔
+Do it at once.	اسے فورا٘ کرو۔
+Don't be long.	زیارہ دیر نہ لگانا۔
+Don't be long.	جلدی واپس آنا۔
+Don't call me.	مجھے کال مت کرنا۔
+I had an idea.	مجھے ایک آئڈیا آیا تھا۔
+I like coffee.	مجھے کافی پسند ہے۔
+I like sports.	مجھے کھیل پسند ہے۔
+I love movies.	مجھے فلمیں پسند ہے۔
+It won't work.	یہ کام نہیں کرے گا۔
+Tom hates you.	ٹام تم سے نفرت کرتا ہے۔
+Tom hates you.	ٹام آپ سے نفرت کرتا ہے۔
+Tom's strange.	ٹام عجیب ہے۔
+Tom's trapped.	ٹام پھنسا ہوا ہے۔
+You all right?	تم ٹھیک ہو؟
+Eat everything.	سب کھائو۔
+Eat everything.	سب کھا لو۔
+Happy New Year!	نیا سال مبارک۔
+He respects me.	وہ میری عزت کرتا ہے۔
+I am a student.	میں ایک طالب علم ہوں۔
+I dislike eggs.	مجھے انڈے پسند نہیں
+I hate working.	مجھے کام کرنے سے نفرت ہے۔
+I have no idea.	مجھے کوئی اندازہ نہیں ہے ۔
+I like to swim.	مجھے تیراکی پسند ہے۔
+I'm still busy.	میں ابھی بھی مصروف ہوں۔
+What do you do?	تم کیا کرتے ہو ؟
+You can't swim.	تم تیراکی نہیں کر سکتے۔
+You can't swim.	تمہیں تیراکی نہیں آتی۔
+You can't swim.	آپ کو تیرنا نہیں آتا۔
+You can't swim.	تمہیں تیرنا نہیں آتا۔
+You've changed.	تم بدل گئے ہو۔
+Close your book.	کتاب بند کرو۔
+How is it going?	کيسا چل رہا ہے ؟
+I live in Milan.	میں میلان میں رہتا ہوں۔
+It looked cheap.	وہ سستا لگتا تھا۔
+It's lunch time.	یہ ظہرانے کا وقت ہے۔
+It's lunch time.	یہ دوپہر کے کھانے کا وقت ہے۔
+Leave it behind.	چھوڑ دو اسے۔
+Let's thank Tom.	آئو ٹام کا شکریہ ادا کرے۔
+She looked away.	اس نے نظریں جھکا لی۔
+She looks young.	وہ کافی جوان دکھ رہی ہے۔
+This is too big.	یہ بہت بڑا ہے۔
+This is too big.	یہ بہت زیارہ ہے۔
+We should do it.	ہمیں یہ کرنا چاہئیے۔
+We weren't cold.	ہمیں ٹھنڈ نہیں لگ رہی تھی۔
+You look stupid.	تم بیواقوف لگ رہے ہو۔
+A cab is waiting.	ٹیکسی انتظار کر رہی ہے۔
+Does that matter?	کیا کوئی فرق پڑتا ہے؟
+Don't lose heart.	حوصلہ مت کھونا۔
+Don't lose heart.	مایوس نہ ہونا۔
+He's a smart boy.	وہ عقلمند لڑکا ہے۔
+I don't know her.	میں اُس ( لڑکی ) کو نہیں جانتا ۔
+I hate that book.	مجھے نفرت ہے اُس کتاب سے۔
+I have asked him.	میں نے اس سے پوچھ لیا ہے۔
+I want some cake.	مجھے کیک چاہیئے
+I want some milk.	مجھے دودھ چاہئیے۔
+I'm in the house.	میں گھر میں ہوں۔
+I'm in the house.	میں گھر پہ ہوں۔
+I've lost my key.	میری چابی گم ہو گئی ہے۔
+Is everything OK?	کیا سب کچھ ٹھیک ہے؟
+What do you make?	آپ کیا بناتے ہو ؟
+You got hit hard.	تمہیں بڑی زور کی لگی ہے۔
+You got hit hard.	آپ کو بڑی زور کی لگی ہے۔
+You may sit here.	تم یہاں بیٹھ سکتے ہو۔
+You may sit here.	آپ یہاں بیٹھ سکتے ہے۔
+You must tell me.	تمہیں مجھے بتانا ہوگا۔
+You must tell me.	تم مجھے بتائو۔
+You must tell me.	تم مجھے یہ بتائو۔
+You're realistic.	تم حقیقت پسند ہو۔
+You're realistic.	آپ حقیقت پسند ہے۔
+A heavy rain fell.	کافی تیز بارش ہوئی۔
+Are you all right?	کیا تم ٹھیک ہو؟
+Do you want money?	تمہیں پیسے چاہیئے؟
+Do you want money?	آپ کو پیسے چاہیئے؟
+Don't look for me.	مجھے تلاش مت کرنا۔
+He won everything.	اس نے سب کچھ جیت لیا۔
+Hey, look at this.	یہ دیکھو۔
+How are you doing?	تم کیسے کر رہے ہو ؟
+How does Tom feel?	ٹام کی اب طبیعت کیسی ہے؟
+I couldn't refuse.	میں انکار نہ کر سکا۔
+I couldn't refuse.	میں انکار نہ کر سکی۔
+I don't know that.	وہ مجھے نہیں معلوم ۔
+I like your scarf.	مجھے تمہارا سکارف پسند آیا ہے۔
+I like your scarf.	مجھے تمہارا سکارف اچھا لگا ہے۔
+I took a week off.	میں نے ایک ہفتے کی چھٹی لے لی ہے۔
+I tried to escape.	میں نے بھاگنے کی کوشش کی۔
+I'll be back soon.	میں جلد ہی واپس آ جائو گا۔
+I'll be back soon.	میں جلدی داپس آجاؤنگا ۔
+I'm a new student.	میں نیا سٹوڈنٹ ہوں۔
+I'm enjoying this.	مجھے مزہ آرہا ہے۔
+I've been foolish.	میں ہی بیواقوف تھا۔
+I've been foolish.	میری کم عقلی تھی۔
+It's your bedtime.	تمہارے سونے کا وقت ہو گیا ہے۔
+Long time, no see.	تمھیں ملے ہوئے عرصہ ہو گیا ہے۔
+Nothing scares me.	مجھے کسی بھی چیز سے ڈر نہیں لگتا۔
+Prices are rising.	قیمتیں بڑھ رہی ہیں۔
+Send it to me now.	مجھے ابھی فورا بھیجو۔
+She went that way.	وہ اس طرف گئی ہے۔
+Sign here, please.	برائے مہربانی، یہاں دستخط کرے۔
+The book is white.	کتاب سفید ہے۔
+The fire went out.	آگ بجھ گئی۔
+Tom looks unhappy.	ٹام ناخوش لگ رہا ہے۔
+Tom looks unhappy.	ٹام خوش نہیں لگ رہا۔
+Tom ordered pizza.	ٹام نے پیزہ آرڈر کیا۔
+What should I say?	مجھے کیا کہنا چاہیے؟
+When are you free?	تم فارغ کب ہو گے؟
+When are you free?	آپ فارغ کب ہوں گے؟
+Which tooth hurts?	کونسے دانت میں درد ہے؟
+Woods burn easily.	لکڑی آرام سے جل جاتی ہے۔
+You're a good boy.	تم ایک اچھے بچے ہو۔
+A child is missing.	ایک بچہ گُم ہو گیا ہے۔
+A guard is outside.	ایک محافظ باہر ہے۔
+A lot has happened.	کافی کچھ ہو گیا ہے۔
+Am I seeing things?	کیا یہ میرا وہم ہے؟
+Are you in a hurry?	کیا تم جلدی میں ہو؟
+He is not a doctor.	وہ ڈاکٹر نہیں ہے۔
+He lied to my face.	اس نے میرے منہ پہ ہی جھوٹ بولا۔
+I agreed to buy it.	میں نے خریدنے کے لئیے حامی بھری۔
+I am doing my best.	میں اپنی پوری کوشش کر رہا ہوں۔
+I can confirm this.	میں اس کو ثابت کر سکتا ہوں۔
+I'll be right back.	میں ابھی واپس آجاؤنگا ۔
+I'll take Tom home.	میں ٹام کو گھر لے جاتا ہوں۔
+I'll take Tom home.	میں ٹام کو گھر لے کے جا رہا ہوں۔
+I'm afraid of dogs.	مجھے کتوں سے ڈر لگتا ہے۔
+I'm from Singapore.	میں سنگاپور سے ہوں۔
+It's not practical.	یہ کارآمد نہیں ہے۔
+She won everything.	اس نے سب کچھ جیت لیا۔
+Take a sip of this.	یہ پیو۔
+That will be funny.	وہ بہت مزاحیہ ہو گا۔
+The ice is melting.	برف پگھل رہی ہے۔
+The tree fell down.	درخت گر گیا۔
+Turn off the light.	روشنی کو بند کر دیں۔
+Turn off the light.	روشنی کو بند کر دو۔
+We all cried a lot.	ہم سارے کافی زیادہ روئے۔
+We're having lunch.	ہم ظہرانہ کھا رہے ہیں۔
+What are you doing?	تم کیا کر رہے ہو ؟
+What could he mean?	اس کا مطلب کیا ہو سکتا ہے؟
+Get a ticket for me.	میرے لئیے بھی ایک ٹکٹ لینا۔
+He did the opposite.	اس نے الٹا کیا۔
+How did you find me?	تم نے مجھے ڈھونڈا کیسے؟
+How did you find me?	آپ نے مجھے ڈھونڈا کیسے؟
+I agree to his plan.	میں اس کے پلین سے متفک ہوں۔
+I eat a lot of meat.	میں کافی زیادہ گوشت کھاتا ہوں۔
+I have to go to bed.	میں سونے کیلئے بستر پر لیٹ چکا ہوں
+I must have lost it.	میرا دماغ خراب ہو گیا ہے۔
+I'd like to go, too.	میں نے بھی جانا ہے۔
+It's a fact of life.	یہ زندگی کی حقیقت ہے۔
+It's a mess in here.	یہاں گند مچا ہوا ہے۔
+It's a real bargain.	یہ اچھا سودا ہے۔
+It's already eleven.	گیارہ بج گئے ہے۔
+It's never too late.	ابھی بھی دیر نہیں ہوئی۔
+It's very hot today.	آج بہت گرمی ہے۔
+Let me go just once.	مجھے صرف ایک دفعہ جانے دے۔
+Let's try something.	چلو کچھ نہ کچھ کرنے کی کوشش کرتے ہیں۔
+Love your neighbors.	امنے ہمسایوں سے بہترین سلوک کرو۔
+She has many faults.	اس میں کافی خامیاں ہے۔
+Take a few days off.	چند دن کی چھٹی لے لو۔
+The house is vacant.	یہ گھر خالی ہے۔
+They are my friends.	وہ میرے دوست ہیں۔
+They are my friends.	وہ میری سہلیاں ہیں۔
+We have a job to do.	ہمیں یہ کام کرنا ہے۔
+You have three cats.	آپ کے پاس تین بلیاں ہیں۔
+You have three cats.	تمہارے پاس تین بلیاں ہیں۔
+A piano is expensive.	پیانو کافی مہنگا ہے۔
+Do you want a ticket?	تمھیں ٹکٹ چاہیے؟
+Don't make a mistake.	غلطی نہ کرنا۔
+Don't make a mistake.	کوئی غلطی نہ کرنا۔
+Give me a day or two.	مجھے کچھ دن دو۔
+Go ahead and ask Tom.	ٹام سے پوچھ لو۔
+He lived a long life.	اس نے ایک لمبی زندگی گزاری۔
+He lives comfortably.	وہ سکون سے رہ رہا ہے۔
+He lives comfortably.	وہ ایک آرامدہ زندگی گزار رہا ہے۔
+I am weighing myself.	میں اپنا وزن کر رہا ہوں۔
+I am weighing myself.	میں اپنا وزن کر رہی ہوں۔
+I had a heart attack.	مجھے دل کا دورہ پڑا تھا۔
+I have a debt to pay.	مجھے ایک قرض چکانا ہے۔
+I tell you the truth.	میں تمھیں سچ بتا رہا ہوں۔
+I'm allergic to fish.	مجھے مچھلی سے الرجی ہے۔
+I'm the one to blame.	قصور میرا ہے۔
+I'm the one to blame.	الزام مجھے دیا جائے۔
+I've had a lousy day.	بہت بڑا دن گزرا آج۔
+It is in the kitchen.	وہ باورچی خانے میں ہے۔
+It tastes great, too.	اس کا ذائقہ بھی بہت اچھا ہے۔
+It was all a big lie.	وہ ایک جھوٹ تھا۔
+My head is exploding.	میرا سر پھٹ رہا ہے۔
+Please choose wisely.	برائے مہربانی، دھیان سے فیصلہ کی جیئے گا۔
+She is bad at sports.	وہ کھیلوں میں کافی بڑی ہے۔
+She is herself again.	وہ پھر سے پہلے جیسی ہو گئی ہے۔
+She'll probably come.	ممکن ہے کہ وہ آجائے گی۔
+Take a look at these.	یہ دیکھو۔
+Take a look at these.	یہ دیکھیں۔
+Take a look in there.	اس کے اندر دیکھو۔
+Take a look in there.	وہاں دیکھو۔
+The dish smells good.	کھانے کی خوشبو بہت اچھی ہے۔
+The roses smell good.	گلابوں کی خوشبو بہت اچھی ہے۔
+They aren't my books.	یہ میری کتابیں نہیں ہیں۔
+Tom had a great time.	ٹام نے اچھا وقت گزارا۔
+Tom is a wealthy man.	ٹام ایک امیر آدپی ہے۔
+Tom is seeking a job.	ٹام نوکری تلاش کر رہا ہے۔
+Tom knocked him down.	ٹام نے اسے نیچے گرا دیا۔
+Tom won't let you go.	ٹام تمھیں جانے نہیں دے گا۔
+What did he do today?	اس نے آج کیا کیا؟
+What did he do today?	انہیوں نے آج کیا کیا؟
+Who are those people?	یہ لوگ کون ہے؟
+Will I get well soon?	کیا میں جلدی ٹھیک ہو جائو گا؟
+Will I get well soon?	کیا میں جلدی ٹھیک ہو جائو گی؟
+He got 90% in English.	اس کے انگریزی میں ۹۰ فیصد آئے ہے۔
+He got 90% in English.	اس کے انگریزی میں ۱۰۰ میں سے ۹۰ مارکس آئے ہے۔
+He has gone to London.	وہ لندن چلا گیا ہے۔
+He has gone to London.	وہ لندن جا چکا ہے۔
+He went into the bank.	وہ بینک کے اندر گیا۔
+How long did you stay?	کتنی دیر آپ نے قیام کیا تھا؟
+I agree with his idea.	میں اس کے خیال سے اتفاق کرتا ہوں۔
+I agree with his idea.	میں ان کے خیال سے اتفاق کرتا ہوں۔
+I don't remember that.	مجھے یہ نہیں یاد۔
+I walked about 1 mile.	میں کوئی ۱ میل چلا۔
+I'm a college student.	میں کالج میں پڑھتا ہوں۔
+I'm a college student.	میں کالج میں پڑھتی ہوں۔
+I'm a college student.	میں جامعہ میں پڑھتا ہوں۔
+I'm a college student.	میں جامعہ میں پڑھتی ہوں۔
+I'm a college student.	میں سٹوڈنٹ ہوں۔
+It was real hard work.	بہت محنت والا کام تھا یہ۔
+Keep your eyes peeled!	اپنی آنکھیں کھلی رکھنا۔
+Show me another watch.	مجھے ایک اور گھڑی دکھائو۔
+Show me another watch.	مجھے ایک اور گھڑی دکھائے۔
+There'll be a problem.	مسلہ ہو جائے گا۔
+Those are their books.	وہ ان کی کتابیں ہیں۔
+Tom broke his glasses.	ٹام کی عینک ٹوٹ گئ۔
+What did she do today?	اس نے آج کیا کیا؟
+What did she do today?	انہیوں نے آج کیا کیا؟
+What he did was wrong.	اس نے جو کیا وہ غلط تھا۔
+Where do you all live?	تم سارے کہاں رہتے ہوں؟
+Don't feed the animals.	جانوروں کو کھانا نہ ڈالے۔
+Give me a call tonight.	مجھے آج رات کال کرنا۔
+He always studies hard.	وہ بہت محنت کے ساتھ پڑھتا ہے۔
+He cannot have said so.	وہ یہ کہ ہی نیں سکتا۔
+He employed a new maid.	اس نے ایک نئی کام والی رکھ لی۔
+He employed a new maid.	اس نے ایک نئی نوکرانی رکھ لی۔
+He had a strange dream.	اسے ایک عجیب خواب آیا۔
+He had a strange dream.	اس نے ایک عجیب خواب دیکھا۔
+I can't do this to Tom.	میں ٹام کے ساتھ یہ نہیں کر سکتا۔
+I can't do this to Tom.	میں ٹام کے ساتھ یہ نہیں کر سکتی۔
+I have a terrible pain.	مجھے بہت بڑی درد ہو رہی ہے۔
+I know you like coffee.	مجھے پتہ ہے کہ تمہیں کافی پسند ہے۔
+I know you like coffee.	میں جانتا ہوں کہ تمہیں کافی پسند ہے۔
+I know you like coffee.	میں جانتا ہوں کہ آپ کو کافی پسند ہے۔
+I prefer the black one.	میری ترجیح سیاہ والا ہے۔
+I prefer the black one.	میں سیاہ والے کو ترجیح دوں گا۔
+I prefer the black one.	میں سیاہ والے کو ترجیح دوں گی۔
+I seem to have a fever.	مجھے لگ رہا ہے کہ بخار ہے۔
+I was in the mountains.	. میں پہاڑوں پر تھا.
+Is it a recent picture?	یہ ایک حالیہ تصویر ہے؟
+My heart began to race.	میرا دل تیزی سے دھڑکنے لگا۔
+My pants are too short.	میری پتلون بہت چھوٹی ہے۔
+My pen has been stolen.	میرا پین چوری ہو گیا ہے۔
+Tom can fix the heater.	ٹام ہیٹر ٹھیک کر سکتا ہے۔
+Tom can fix the heater.	ٹام ہیٹر کی مرمت کر سکتا ہے۔
+Tom doesn't like chess.	ٹام کو شطرنج پسند نہیں ہے۔
+Tom is only a beginner.	ٹام ابھی اناڑی ہے۔
+Tom is only a beginner.	ٹام نے ابھی ابتدا کی ہے۔
+We have to act quickly.	ہمیں جلدی سے کچھ کرنا ہوگا۔
+Weren't they satisfied?	وہ مطمئن نہیں ہوئے تھے کیا؟
+Who are you going with?	تم کس کے ساتھ جا رہے ہو؟
+Who are you going with?	تم کس کے ساتھ جا رہی ہو؟
+Who are you going with?	آپ کس کے ساتھ جا رہے ہے؟
+Who are you going with?	آپ کس کے ساتھ جا رہی ہے؟
+Who did you meet there?	تم وہاں کس سے ملے تھے؟
+Who left the door open?	دروازہ کون کھلا چھوڑ گیا تھا؟
+You don't look so good.	تم کافی بیمار لگ رہے ہو۔
+You don't look so good.	تم اچھے نہیں لگ رہے۔
+You may or may not win.	تم شاید جیتو شاید نہ جیتو۔
+You need to study more.	تمھیں زیادہ پڑھنا چاہئیے۔
+You shouldn't eat here.	تمہیں یہاں نہیں کھانا چاہئیے۔
+All the boxes are empty.	سارے ڈبے خالی ہیں۔
+Are you falling for Tom?	کیا تمہیں ٹام سے پیار ہو رہا ہے؟
+Bring me the dictionary.	مجھے لغت لا کے دو۔
+Come on, answer quickly.	جلدی جواب دو۔
+He readily agreed to it.	وہ فورا مان گیا۔
+He sometimes loses hope.	وہ کبھی کبھار امید کھو دیتا ہے۔
+He turned down my offer.	اس نے میری پیشکش ٹھکرا دی۔
+He turned down my offer.	انہوں نے میری پیشکش ٹھکرا دی۔
+I do not have much time.	میرے پاس زیادہ وقت نہیں ہے۔
+I named the kitten Tama.	میں نے بلی کے بچے کا نام ٹاما رکھا ہے۔
+I saw him play baseball.	میں نے اسے بیس بال کھیلتے ہوئے دیکھا۔
+I saw tears in his eyes.	مجھے اس کی آنکھوں میں آنسو نظر آئے۔
+I want to go to Seattle.	میں نے سیٹل جانا ہے۔
+I'll return immediately.	میں فوراً لوٹ آؤنگا ۔
+I'm on the eighth floor.	میں آٹھویں منزل پر ہوں۔
+I'm seeing them tonight.	میں انہیں آج مل رہا ہوں۔
+Is that black bag yours?	کیا وہ کالا بیگ تمہارا ہے؟
+Is that black bag yours?	کیا وہ کالا بیگ آپ کا ہے؟
+It wouldn't surprise me.	مجھے حیرانی نہیں ہو گی۔
+She helped me willingly.	اس نے اپنی مرضی سے میری مدد کی۔
+She is a stranger to me.	وہ ( لڑکی ) میرے لئے اجنبی ہے ۔
+She really looks pretty.	وہ واقعی بہت خوبصورت لگ رہی ہے۔
+That's the right answer.	یہ بلکل صحیح جواب ہے۔
+The weather became warm.	موسم تھوڑا گرم ہو گیا۔
+Tom and I are both busy.	ٹام اور میں دونوں ہی مصروف ہیں۔
+Tom kept his mouth shut.	ٹام نے اپنا منہ بند رکھا۔
+Who lives in this house?	اس گھر میں کون رہتا ہے؟
+A river divides the town.	ایک دریا قصبے کو دو حصوں میں تقسیم کرتی ہے۔
+Each player did his best.	ہر کھلاڑی نے اپنی بھرپور کوشش کی۔
+He caught me by the hand.	اس نے میرے ہاتھ کو تھام لیا۔
+He caught me by the hand.	اس نے مجھے میرے ہاتھ سے پکڑ لیا۔
+He doesn't live far away.	وہ زیادہ دور نہیں رہتا۔
+He is lying on the bench.	وہ بینچ پہ لیٹا ہوا ہے۔
+He wanted to be a farmer.	وہ ایک کسان بننا چاھتا تھا۔
+His car is two years old.	اس کی گاڑی دو سال پرانی ہے۔
+His car is two years old.	ان کی گاڑی دو سال پرانی ہے۔
+How many teams are there?	کتنی ٹیمیں ہیں؟
+How well do you know Tom?	تم ٹام کو کتنی اچھی طرح جانتے ہو؟
+I am taking tomorrow off.	میں کل چھٹی کر ریا ہوں۔
+I can't fight any longer.	میں اور زیادہ نہیں لڑ سکتا۔
+I don't know what to say.	مجھے نہیں پتا کیا کہنا ہے ۔
+I don't want to miss you.	میں تمہیں مس نہیں کرنا چاہتا۔
+I have no time for games.	میرے پاس کھیل کود کے لئیے وقت نہیں ہے۔
+I know that you are rich.	مجھے پتا ہے کہ تم امیر ہو۔
+I know that you are rich.	مجھے پتا ہے کہ آپ امیر ہے۔
+I know that you are rich.	میں جانتا ہوں کہ تم امیر ہو۔
+I know that you are rich.	میں جانتا ہوں کہ آپ امیر ہے۔
+I owe ten dollars to her.	میں نے اس کے دس ڈالر دینے ہے۔
+I owe ten dollars to her.	میں نے اس کو دس ڈالر واپس کرنے ہے۔
+I received an invitation.	مجھے دعوت نامہ ملا ہے۔
+I spent 10 dollars on it.	میں نے اس پہ ۱۰ ڈالڑ خرچ کیئے ہے۔
+I taught him how to swim.	میں نے اسے تیرنا سکھایا۔
+I taught him how to swim.	میں نے اسے تیراکی سکھائی۔
+I traveled around Europe.	میں نے پورے یورپ کا سفر کیا۔
+I wonder if he will come.	پتہ نہیں وہ آئے گا کہ نہیں۔
+I wonder if he will come.	پتہ نہیں وہ آئِں گے کہ نہیں۔
+I'll get Tom to help you.	میں ٹام کو تمہاری مدد کے لئیے بھیجتا ہوں۔
+Lincoln won the election.	لنکلن الیکشن جیت گیا۔
+Please refer to page ten.	صفحہ نمبر دس سے رجوع کرے۔
+Please speak more loudly.	برائے مہربانی تھوڑا اونچا بولے۔
+Please speak more loudly.	برائے مہربانی تھوڑا سا اونچا بولے۔
+Please speak more loudly.	اونچا بولو۔
+Please speak more loudly.	آواز اونچی کرو۔
+Please speak more loudly.	زور سے بولو۔
+She pushed the door shut.	اس نے دروازہ کو دھکا دے کر بند کیا۔
+They have three children.	ان کے تین بچے ہے۔
+This is a dead-end alley.	یہ گلی آگے سے بند ہے۔
+This will take some time.	اس میں تھوڑا وقت لگے گا۔
+This will take some time.	اس میں تھوڑا وقت درکار ہے۔
+Tom and Mary are engaged.	ٹام اور مریم کی منگنی ہوگئی ہے۔
+Tom came over last night.	ٹام رات کو گھر آیا تھا۔
+Tom hopes Mary won't die.	ٹام امید کر رہا ہے کہ مریم نہیں مرے گی۔
+Tom hopes Mary won't die.	ٹام کو امید ہے کہ مریم نہیں مرے گی۔
+Tom hopes Mary won't die.	ٹام کو امید ہے کہ مریم فوت نہیں ہو گی۔
+Tom is wasting resources.	ٹام قیمتی وسائل کا ضیاع کر رہا ہے۔
+Tom is wasting resources.	ٹام قیمتی وسائل کو ضائیع کر رہا ہے۔
+Tom swears like a sailor.	ٹام بہت گالیاں دیتا ہے۔
+Tom would never hurt you.	ٹام کبھی تمہیں دکھ نہیں دے گا۔
+What are you going to do?	تم کیا کرو گے؟
+What are you going to do?	آپ کیا کریں گے؟
+What happened to the Jag?	جیگ کو کیا ہوا ہے؟
+When should I come again?	میں دوبارہ کب آئو؟
+Who designed that museum?	وہ عجائب گھر کس نے ڈیزائن کیا ہے؟
+You can come at any time.	تم کسی وقت بھی آ سکتے ہو۔
+You can come at any time.	آپ کسی وقت بھی آ سکتے ہے۔
+Drink less and sleep more.	پیو کم اور سو زیادہ۔
+Everyone in Cuba likes it.	کیوبا کے سب لوگوں کو پسند ہیں۔
+French bread is delicious.	فرانسیسی ڈبر روٹی بہت مزیدار یے۔
+He came straight up to me.	وہ سیدھا میرے پاس آیا۔
+How late is the bank open?	بینک کتنی دیر تک کھلا ہے؟
+I am trying my level best.	میں اپنی پوری کوشش کر رہا ہوں۔
+I play football every day.	میں فٹ بال روزانہ کھیلتا ہوں۔
+I play football every day.	میں فٹ بال روزانہ کھیلتی ہوں۔
+I suppose that's possible.	میرا خیال ہے یہ ممکن ہے۔
+I'll call her immediately.	میں اسے ابھی فون کرتا ہوں۔
+I'll explain the incident.	میں اس واقعے کو تفصیل سے سمجھاتا ہوں۔
+I'll explain the incident.	میں اس واقعے کو تفصیل سے سمجھاتی ہوں۔
+I'll lend you my notebook.	تم میرا دجسٹر لے جانا۔
+Is she staying at a hotel?	کیا وہ ہوٹل میں قیام کر رہی ہے؟
+It is a brand new product.	یہ ایک بالکل نیا پڑوڈکٹ ہے۔
+Open your book to page 59.	اپنی کتاب صفحہ نمبر ۵۹ پہ کھولو۔
+Roll up your right sleeve.	اپنی دائیں آستین کو اوپر چڑھائو۔
+She had no one to turn to.	اس کے پاس کوئی بھی نہیں تھا جس کے پاس وہ جاتی۔
+That'll put you in danger.	یہ آپ کو خطرے میں مبتلا کر سکتا ہے۔
+That'll put you in danger.	یہ تم کو خطرے میں مبتلا کر سکتا ہے۔
+That's just the way it is.	بس یہ اسی طرح ہے۔
+The girl broke into tears.	وہ لڑکی رونے شروع ہو گئی۔
+They are more intelligent.	وہ زیادہ ذہین ہے۔
+They missed a good chance.	انہوں نے ایک اچھا موقعہ گنوا دیا۔
+This is a daily newspaper.	یہ اخبار روزنامہ ہے۔
+Tom handed a note to Mary.	ٹام نے مریم کو ایک نوٹ پکرایا۔
+Tom leads the soccer team.	ٹام فٹبال ٹیم کو لیڈ کرتا ہے۔
+Tom pretended he was sick.	ٹام نے بیمار ہونے کا ڈرامہ کیا۔
+We visited our old school.	ہم اپنے پرانے سکول ہو کے آئے۔
+Where did you buy flowers?	تم نے پھول کہاں سے خریدے؟
+Where did you buy flowers?	آپ نے پھول کہاں سے خریدے؟
+You can't have everything.	تمہیں سب کچھ نہیں مل سکتا۔
+You can't have everything.	تم سب کچھ حاصل نہیں کر سکتے۔
+You have a beautiful name.	بہت خوبصورت نام ہے تمہارا۔
+You seem pretty busy here.	تم یہاں کافی مصروف لگ رہے ہو۔
+You're wrong in this case.	اس معاملے میں تم غلط ہو۔
+You're wrong in this case.	اس معاملے میں آپ غلط ہے۔
+Are you drinking green tea?	کیا تم گرین ٹی پی رہے ہو؟
+Are you drinking green tea?	کیا تم گرین ٹی پی رہی ہو؟
+Are you drinking green tea?	کیا آپ گرین ٹی پی رہے ہے؟
+Are you drinking green tea?	کیا آپ گرین ٹی پی رہی ہے؟
+Can you answer this riddle?	کیا تم اس پہیلی کا جواب دے سکتے ہو؟
+Can you lend me 10,000 yen?	کیا تم مجھے ۱۰۰۰۰ ین ادھار دے سکتے ہو؟
+French is my mother tongue.	فرانسیسی میری مادری زبان ہے۔
+He was absorbed in thought.	وہ سوچ میں ڈوبا ہوا تھا۔
+He was trained as a lawyer.	اس نے وکالت کی تربیت حاصل کی ہے۔
+How did you like the party?	تمھیں جشن کیسا لگا؟
+I want you to look for Tom.	میں چاہتا ہوں کہ تم ٹام کو ڈھونڈو۔
+I'm going to reconsider it.	میں اس پر دوبارہ نظر ثانی کرو گا۔
+I'm not afraid of anything.	مجھے کسی بھی چیز سے ڈر نہیں لگتا۔
+I'm working for McDonald's.	میں میکڈونلڈ میں کام کر رہا ہوں۔
+Is the snake alive or dead?	سانپ زندہ ہے یا مر گیا ہے؟
+It's just a little further.	بس تھوڑی دور ہے۔
+Poverty drove him to steal.	غربت نے اسے چوری کرنے پر مجبور کیا۔
+She had to accept her fate.	اس کو اپنی قسمت قبول کرنا پڑی۔
+She had to accept her fate.	ان کو اپنی قسمت قبول کرنا پڑی۔
+She showed her album to me.	اس نے اپنی ایلبم مجھے دکھائی۔
+Thank you for your present.	تحفہ دینے کا بہت شکریہ۔
+That was no ordinary storm.	وہ کوئی عام طافان نہیں تھا۔
+That's what I want to know.	یہ ہی تو میں جاننا چاہتا ہوں۔
+That's what I want to know.	یہ ہی تو میں جاننا چاہتی ہوں۔
+This fruit has a bad taste.	اس پھل کا ذائقہ خراب ہے۔
+This is never going to end.	یہ کبھی ختم نہ ہوگی ۔
+Tom always wants something.	ٹام کو ہر وقت کچھ نا کچھ چاہئہے ہوتا ہے۔
+Tom has to be home by 2:30.	ٹام کو ڈھائی بجے تک گھر پہنچنا ہے۔
+Tom is going to get better.	ٹام ٹھیک ہو رہا ہے۔
+Tom is going to get better.	ٹام صحت یاب ہو رہا ہے،
+Tom is going to get better.	ٹام صحت یابی کی طرف بڑھ رہا ہے۔
+Tom is spraying his garden.	ٹام اپنے باغ کو پانی دے رہا ہے۔
+We eat so that we can live.	ہم کھاتے ہیں زندہ رہنے کے لئیے۔
+What is your mother tongue?	تمھاری مادی زبان کیا ہے؟
+What is your mother tongue?	آپ کی مادی زبان کیا ہے؟
+What would you like to eat?	تم کیا کھانا پسند کرو گے؟
+What would you like to eat?	آپ کیا کھانا پسند کریں گے؟
+What would you like to eat?	آپ کیا کھائیں گے؟
+What would you like to eat?	تم کیا کھائو گے؟
+Do you understand this book?	تمہیں یہ کتاب سمجھ آئی ہے؟
+Don't twist my words around.	میرے الفاظوں کو توڑ مڑوڑ کے پیش نہ کرو۔
+French is his mother tongue.	فرانسیسی اس کی مادری زبان ہے۔
+French is his mother tongue.	فرانسیسی ان کی مادری زبان ہے۔
+He lost all his possessions.	اس کا سارا سامان گم ہو گیا۔
+He told me his life's story.	اس نے مجھے اپنی زندگی کی کہانی سنائی۔
+He told me his life's story.	انہوں نے مجھے اپنی زندگی کی کہانی سنائی۔
+His mistake was intentional.	اس نے یہ غلطی جان بوجھ کے کی ہے۔
+How many plates do you want?	تمہیں کتنی پلیٹیں چاہیے؟
+How many plates do you want?	آپ کو کتنی پلیٹیں چاہیے؟
+I don't need a loan anymore.	مجھے قرض کی اب ضرورت نہیں ہے۔
+I don't think he is sincere.	مجھے نہیں لگتا کہ وہ مخلص ہے۔
+I lent my friend some money.	میں نے اپنے دوست کو کچھ پیسے ادھار دیے ہے۔
+I looked into the next room.	میں نے اگلے کمرے میں دیکھا۔
+It is still as cold as ever.	ابھی بھی بہت ٹھنڈ ہے۔
+My uncle gave me this watch.	میرے چاچا نے مجھے یہ گھڑی دی تھی۔
+My uncle gave me this watch.	میرے تایا نے مجھے یہ گھڑی دی تھی۔
+My uncle gave me this watch.	میرے ماموں نے مجھے یہ گھڑی دی تھی۔
+My uncle gave me this watch.	میرے پھپھا نے مجھے یہ گھڑی دی تھی۔
+My uncle gave me this watch.	میرے خالو نے مجھے یہ گھڑی دی تھی۔
+Something's happened to Tom.	ٹام کو کچھ ہو گیا ہے۔
+That woman must be his wife.	وہ اس کی بیوی ہو گی۔
+That woman must be his wife.	میرا خیال ہے کہ وہ عورت اس کی پیوی ہے۔
+That's not the right answer.	یہ صحیح جواب نہیں ہے۔
+The animal died from hunger.	وہ جانور بھوک سے مر گیا۔
+The dog is blind in one eye.	یہ کتا ایک آنکھ سے اندھا ہے۔
+The train was on time today.	آج ریل گاڑی پورے ٹائم پہ تھی۔
+The train was on time today.	آج ریل کاڑی وقت پہ پہنج گئی تھی۔
+The train was on time today.	آج ریل گاڑی پابندی کے ساتھ پہنچ گئی تھی۔
+They hurried to the station.	وہ سٹیشن کی طرف دوڑے۔
+This apple tastes very sour.	اس سیب کا ذائقہ بہت کڑوا ہے۔
+This house is very spacious.	یہ گھر کافی بڑا ہے۔
+Your coat is very beautiful.	تمھارا کوٹ بہت خوبصورت ہے۔
+He got up early this morning.	وہ آج صبح جلدی اٹھا تھا۔
+He got up early this morning.	وہ آج صبح جلدی اٹھ گیا تھا۔
+He isn't able to drive a car.	اسے گاڑی چلانا نہیں آتی۔
+He may have missed the train.	لگتا ہے کہ اس کی ٹرین چھٹ گئی ہے۔
+He put the book on the shelf.	اس نے کتاب کو الماری میں رکھ دیا۔
+He put the book on the shelf.	انہوں نے کتاب کو الماری میں رکھ دیا۔
+He should have been a lawyer.	اسے وکیل ہونا چاہئیے تھا۔
+He was standing on the floor.	وہ زمین پہ کھڑا ہوا تھا۔
+He'll get there in ten hours.	وہ وہاں دس گھنٹے میں پہنچ جائے گا۔
+He'll get there in ten hours.	وہ وہاں دس گھنٹے میں پہنچ جائیں گے۔
+I am older than your brother.	میں تمہارے بھائی سے بڑا ہوں۔
+I am older than your brother.	میں تمہارے بھائی سے بڑی ہوں۔
+I am older than your brother.	میں آپ کے بھائی سے بڑا ہوں۔
+I am older than your brother.	میں آپ کے بھائی سے بڑی ہوں۔
+I bought my sister a new hat.	میں نے اپنی بہن کے لئیے ایک نئی ٹوپی خریدی۔
+I bought my sister a new hat.	میں نے اپنی بہن کے لئیے ایک نئی ٹوپی لی ہے۔
+I loved my life and my money.	مجھے اپنی زندگی اور پیسے سے بہت پیار ہے۔
+I rarely listen to the radio.	میں ریڈہو بہت کم سنتا ہوں۔
+I regret to say I can't come.	مجھے افسوس کے ساتھ کہنا پر رہا ہے کہ میں آ نہیں سکوں گا۔
+I think I'll come back later.	میں بعد میں آ جائو گا۔
+I told him that he was wrong.	میں نے اسے بتایا کہ وہ غلط تھا۔
+I told him that he was wrong.	میں نے ان کو بتایا کہ وہ غلط تھے۔
+I told you to stop, didn't I?	میں نے تمہیں رکنے کے لئیے کہا تھا کہ نہیں؟
+I told you to stop, didn't I?	میں کہ رہا ہوں رکو،
+I waited more than two hours.	میں دو گھنٹے سے زیادہ انتظار کرتا رہا۔
+I was tired so I went to bed.	میں تھکا ہوا تھا اسی لئے میں سونے چلا گیا۔
+I went swimming in the river.	میں دریا میں تیراکی کرنے گیا تھا۔
+I would like to travel alone.	میں اکیلے سفر کرنا چاہو گا۔
+I would like to travel alone.	میں اکیلے سفر کرنا چاہو گی۔
+I'll get there at about 2:30.	میں ڈھائی بجے وہاں پہنچ جائوں گا۔
+It ought to be fine tomorrow.	اسے کل تک ٹھیک ہو جانا چاہئیے۔
+May I borrow your dictionary?	کیا میں آپ کی لغت ادھار لے سکتا ہوں؟
+My hard drive is almost full.	میری ہارڈ ڈرائیو تقریبا پوری بھڑھ گئی ہے۔
+My watch is ten minutes slow.	میری گھڑی دس منٹ پیچھے ہے۔
+Prices seem to be going down.	لگتا ہے کہ قیمتیں گر رہی ہیں۔
+Rice grows in warm countries.	چاول گرم ممالک میں اگتا ہے۔
+She comes from a good family.	وہ ایک اچھے خاندان سے تعلق رکھتی ہے۔
+She is someone you can trust.	وہ ایسی لڑکی ہے جس پہ بندہ بھروسہ کر سکتا ہے۔
+She will come if you ask her.	اگر تم اسے پوچھو گے تو وہ آئی گی۔
+Spanish is her mother tongue.	ہسپانوی اس کی مادری زبان ہے۔
+Spanish is her mother tongue.	ہسپانوی ان کی مادری زبان ہے۔
+Spanish is his mother tongue.	ہسپانوی اس کی مادری زبان ہے۔
+Spanish is his mother tongue.	ہسپانوی ان کی مادری زبان ہے۔
+That was our first encounter.	وہ ہماری پہلی ملاقات تھی۔
+What would you like me to do?	تم کیا چاہتے ہو کہ میں کیا کروں؟
+Where's my box of chocolates?	میرے چاکلیٹ کا ڈبہ کدھر ہے؟
+Where's my box of chocolates?	میرے چاکلیٹ کا ڈبہ کہاں ہے؟
+You can go wherever you want.	تم جہاں جانا چاہو جا سکتے ہو۔
+You can go wherever you want.	تم جدھر بھی جانا چاہو جا سکتے ہو۔
+You can go wherever you want.	تم جہاں جانا چاہو جا سکتی ہو۔
+You can go wherever you want.	تم جدھر بھی جانا چاہو جا سکتی ہو۔
+You can't back out on me now.	تم اب پیچھے نہیں ہٹ سکتے۔
+You have to appear in person.	تمھیں خود حاضری دینی پڑے گی۔
+Did that really happen to him?	اس کے ساتھ واقعی ایسا ہوا؟
+Did you clean your room today?	تم نے اپنے کمرے کی صفائی کی ہے آج؟
+French is their mother tongue.	فرانسیسی ان کی مادری زبان ہیں۔
+He goes running every morning.	وہ ہر صبح دوڑتا ہے۔
+He is the man you can rely on.	یہ وہ بندہ ہے جس پہ آپ بھروسہ کر سکتے ہو۔
+He just loves to bully people.	اس کو لوگوں پہ دھونس جمانا پسند ہے۔
+He paid the money on the spot.	اس نے اسی وقت پیسے ادا کئیے۔
+He'll be there, rain or shine.	سردی ہو یا گرمی، وہ پہنج جائے گا۔
+Hold the ball with both hands.	گیند کو دونوں ہاتھوں سے پکڑو۔
+I came to Japan two years ago.	میں جاپان دو سال پہلے آیا تھا۔
+I don't want to see you again.	میں کبھی دوبارہ تمہاری شکل نہیں دیکھنا چاہتا۔
+I don't want to see you again.	میں کبھی دوبارہ تمہاری شکل نہیں دیکھنا چاہتی۔
+I have enough money to buy it.	میرے پاس اتنے پیسے ہے کہ میں یہ خرید سکتا ہوں۔
+I have enough money to buy it.	میرے پاس یہ خریدنے کے لئیے کافی پیسے ہے۔
+I just don't know what to say.	مجھے ابھی نہیں پتا کیا کہنا ہے ۔
+I manage to support my family.	میں اپنے خاندان کو سہارا دیتا ہوں۔
+I manage to support my family.	میں اپنے خاندان کو سہارا دیتی ہوں۔
+I painted the roof light blue.	میں نے چھت پہ ہلکے نیلے رنگ کا پینٹ کیا ہے۔
+I think she's an honest woman.	میرا خیال ہے کہ وہ ایک ایماندار عورت ہے۔
+I think she's an honest woman.	مجھے لگتا ہے کہ وہ ایک ایماندار عورت ہے۔
+I think the wind's picking up.	مجھے لگ رہا ہے کہ آندھی تیز ہو رہی ہے۔
+I usually drink a lot of milk.	میں ریادہ تر ڈھیڑ سارا دودھ پیتا ہوں۔
+I'm going to Europe next week.	میں اگلے ہفتے یورپ جا رہا ہوں۔
+I'm going to Europe next week.	میں اگلے ہفتے یورپ جا رہی ہوں۔
+It's about the size of an egg.	اس کا سائز انڈے جتنا ہے۔
+Japanese is our mother tongue.	جاپانی ہماری مادری زبان ہے۔
+Refugees hid under the bridge.	پناہ گزین پل کے نیچے چھپ گئے۔
+She gave him all of her money.	اس نے اس کو اپنے سارے پیسے دے دیئے۔
+The oranges cost 7 pence each.	ہر مسمی کی قیمت ۷ پینس ہے۔
+The troops had plenty of arms.	فوج کے پاس کافی اسلحہ تھا۔
+They became citizens of Japan.	انہوں نے جاپانی شہریت حاصل کرلی۔
+Tom can be contacted by phone.	ٹام سے تم فون پہ رابطہ کر سکتے ہو۔
+Tom found Mary reading a book.	ٹام نے مریم کو کتاب پڑھتے ہوِئے دیکھا۔
+Tom has a daughter named Mary.	ٹام کی ایک بیٹی ہے مریم۔
+Tom has a daughter named Mary.	ٹام کی ایک بیٹی کا نام ہے مریم۔
+Tom thanked Mary for her help.	ٹام نے مریم سے اس کی مدد کے لئیے اس کا شکریہ ادا کیا۔
+We are eating dinner outdoors.	ہم عشائیہ باہر کر رہے ہیں۔
+We are eating dinner outdoors.	ہم رات کا کھانا باہر کھا رہے ہیں۔
+He was tired so he went to bed.	وہ تھکا ہوا تھا اس لئے وہ سونے چلا گیا ہے۔
+I am sorry. I am not from here.	میں معذرت چاہتا ہوں۔ میں یہاں سے نہیں ہوں۔
+I am sorry. I am not from here.	میں معذرت چاہتا ہوں۔ میں یہاں خود نیا ہوں
+I am sorry. I am not from here.	میں معافی چاہتا ہوں۔ میں یہاں خود نیا ہوں۔
+I am sorry. I am not from here.	میں معذرت چاہتا ہوں۔ میں یہاں اجنبی ہوں۔
+I am sorry. I am not from here.	میں معافی چاہتا ہوں۔ میں یہاں سے نہیں ہوں۔
+I am sorry. I am not from here.	میں معافی چاہتا ہوں۔ میں یہاں اجنبی ہوں۔
+I didn't think you were so old.	میرا نہیں خیال تھا کہ تم اتنے بوڑھے ہو گے۔
+I don't know where you will go.	مجھے نہیں پتا کہ تم کہاں جائو گے۔
+I don't know where you will go.	مجھے نہیں پتا کہ آپ کہاں جائو گے۔
+I don't think Tom will be back.	میرا نہیں خیال ٹام واپس آئے گا۔
+I found a dollar in the street.	مجھے سڑک پہ ایک ڈالر گرا ہوا ملا۔
+I have left my car keys behind.	میں اپنی گاڑی کی چابیاں پیچھے چھوڑ آیا ہوں۔
+I mistook you for your brother.	میں غلطی سے آپ کو اپنا بھائی سمجھا۔
+I wish I'd married another man.	کاش میں نے کسی اور مرد سے شادی کرلی ہوتی۔
+I wonder why she is so worried.	پتہ نہیں وہ کیوں اتنی پریشان ہے۔
+I'll be there by eight somehow.	میں کسی طرح سے آٹھ بجے پہنچ جائو گا۔
+I'll be there by eight somehow.	میں کسی طرح سے آٹھ بجے پہنچ جائو گی۔
+I'm a friend of Tom and Mary's.	میں ٹام اور مریم کا دوست ہوں۔
+I'm so glad that you succeeded.	میں بہت خوش ہوں تمھاری کامیابی پہ۔
+Let me tell you about the case.	میں آپ کو مقدپے کے بارے میں بتاتا ہوں۔
+Let me tell you about the case.	میں آپ کو مقدپے کے بارے میں بتاتی ہوں۔
+Paris is the capital of France.	پیرس فرانس کا دارلخلافہ ہے۔
+Please tell everyone I'm sorry.	برائے مہربانی سب کو بتادو کہ میں شرمندہ ہوں۔
+Please tell everyone I'm sorry.	برائے مہربانی سب کو بتادو کہ میں معزرت خواہ ہوں۔
+Please wait till he comes back.	برائے مہربانی ان کی واپسی تک انتظار فرمائیے۔
+The accounts have been audited.	اکاؤنٹس کو آڈٹ کر دیا گیا ہے۔
+The balloon is filled with air.	غبارے میں پوا بھری ہوئی ہے۔
+They entered into a discussion.	انہوں نے گفتگو کا آغاز کیا۔
+They entered into a discussion.	انہوں نے گفتگو شروع کی۔
+Tom and Mary killed themselves.	ٹام اور مریم نے اپنے آپ کو خود قتل کیا۔
+Tom and Mary want to come over.	ٹام اور مریم آنا چاہتے ہیں۔
+Tom didn't go out last weekend.	ٹام پچھلے ہفتے کہیں نہیں گیا۔
+Tom painted a picture for Mary.	ٹام نے مریم کی تصویر بنائی۔
+Were you in America last month?	کیا تم پچھلے مہینے امریکا میں تھے؟
+Were you in America last month?	کیا آپ پچھلے مہینے امریکا میں تھے؟
+What was the weather yesterday?	کل موسم کیسا تھا؟
+What was the weather yesterday?	کل کا موسم کیسا تھا؟
+Would two o'clock be all right?	دو بجے ٹھیک ہوگا؟
+A refrigerator keeps meat fresh.	فرج گوشت کو تازہ رکھتا ہے۔
+Belgium is not as big as France.	بیلجیم فرانس جتنا برا نہیں۔
+Could you call a doctor, please?	کیا تم ڈاکٹر کو بلا سکتے ہو؟
+Could you call a doctor, please?	کیا آپ ڈاکٹر کو بلا سکتے ہے؟
+Could you call a doctor, please?	کیا تم ڈاکٹر کو بلا سکتی ہو؟
+Could you call a doctor, please?	کیا آپ ڈاکٹر کو بلا سکتی ہے؟
+English is not my mother tongue.	انگریزی میری مادری زبان نہیں ہے۔
+He set up a new home in Jamaica.	اس نے جمیکا میں اپنا نیا گھر بنایا ہے۔
+How many boys are in this class?	اس کلاس میں کتنے لڑکے ہیں؟
+How's it going with your family?	تمھارے گھر والے کیسے ہے؟
+How's it going with your family?	آپ کے گھر والے کیسے ہے؟
+I bought this sweater yesterday.	میں نے یہ سویٹر کل خریدا تھا۔
+I can't stand this cold anymore.	مجھ سے یہ ٹھنڈ اور زیادہ برداشت نہیں ہو رہی۔
+I couldn't keep from snickering.	میں ہنسے بغیر نہیں رہ سکتا تھا۔
+I couldn't keep from snickering.	میں ہنسے بغیر نہیں رہ سکتی تھی۔
+I don't know if I have the time.	میں نہیں جانتا اگر میرے پاس وقت ہوا تو ۔
+I don't really need another car.	مجھے ایک اور گاڑی کی ضرورت نہیں ہے۔
+I will be sixteen next birthday.	میں اپنی اگلی سالگرہ پہ سولہ کی ہو جائو گی۔
+I wish I could be in Boston now.	کاش میں ابھی بوسٹن میں ہوتا۔
+I'm a childhood friend of Tom's.	میں ٹام کا بچپن کا دوست ہوں۔
+I'm a childhood friend of Tom's.	میں ٹام کا لنگوٹیا یار ہوں۔
+May I ask for your phone number?	کیا میں آپ کا فون نمبر پوچھ سکتا ہوں؟
+My bicycle is in need of repair.	میری بائسیکل کو مرمت کی ضرورت ہے۔
+My bicycle needs to be repaired.	میری بائسیکل کو مرمت کی ضرورت ہے۔
+That question is easy to answer.	اس سوال کا جواب بہت آسان ہے۔
+The day of judgment has arrived.	قیامت آ چکی ہے۔
+The doctor is not available now.	ڈاکٹر ابھی موجود نہیں ہے۔
+The last train has already gone.	آخری ٹرین جا چکی ہے۔
+The rumor turned out to be true.	وہ افواہ سچی نکلی۔
+The sun gives us heat and light.	سورج سے ہمیں حرارت اور روشنی ملتی ہے۔
+There wasn't a cloud in the sky.	آسمان میں ایک بھی بادل نہیں تھا۔
+There wasn't a cloud in the sky.	آسمان میں ایک بھی بادل نہیں ہے۔
+This watch needs to be repaired.	اس گھڑی کو مرمت کی ضرورت ہے۔
+All you have to do is to join us.	تمھیں بس اب کرنا یہ ہے کہ ہمارے ساتھ شامل ہو جانا ہے۔
+Did you see grandpa's wheelchair?	تم نے دادا ابو کی ویل چیئر دیکھی ہے؟
+Did you see grandpa's wheelchair?	تم نے نانا کی ویل چیئر دیکھی ہے؟
+Did you see grandpa's wheelchair?	آپ نے دادا ابو کی ویل چیئر دیکھی ہے؟
+Did you see grandpa's wheelchair?	آپ نے نانا ابو کی ویل چیئر دیکھی ہے؟
+Do you have a table on the patio?	تمہیارے برآمدے میں میز ہے؟
+Has anybody ever thought of this?	کیا کبھی کسی نے اس کے بارے میں سوچا ہے؟
+He has been working all day long.	وہ سارا دن کام کوتا رہا ہے۔
+He has been working all day long.	وہ پورا دن مصروف رہا ہے۔
+I clean my room almost every day.	میں اپنا کمرہ روزانہ صاف کرتا ہوں۔
+I don't know where you are going.	مجھے نہیں پتا کہ تم کدھر جا رہے ہو۔
+I don't know where you are going.	مجھے نہیں پتا کہ آپ کدھر جا رہے ہے۔
+I made a bad mistake on the test.	میں نے امتحان میں ایک غلطی کر دی ہے۔
+I visited Canada a long time ago.	مجھے کنیڈا گئے ہوئے کافی عرصہ ہو گیا ہے۔
+I waited for Tom for a long time.	میں نے ٹام کا کافی دیر انتظار کیا۔
+I waited for Tom for a long time.	میں نے ٹام کا کافی دیر تک انتظار کیا۔
+I will choose them for my mother.	میں یہ اپنی والدہ کے لیے چنوں گا۔
+I'd like to go to Hawaii as well.	میں بھی ہوائی جانا چاہتا ہوں۔
+I'd like to go to Hawaii as well.	میں بھی ہوائی جانا چاہتی ہوں۔
+I'll be lonely after you've gone.	میں تمھارے جانے کے بعد اکیلی ہو جائو گی۔
+I'll be lonely after you've gone.	میں تمھارے جانے کے بعد اکیلا ہو جائو گا۔
+Is this your first time in Japan?	کیا تم پہلی دفعہ جاپان آئے ہو؟
+Is this your first time in Japan?	کیا تم پہلی دفعہ جاپان آئی ہو؟
+Is this your first time in Japan?	کیا آپ پہلی دفعہ جاپان آئے ہے؟
+Is this your first time in Japan?	کیا آپ پہلی دفعہ جاپان آئی ہے؟
+None of the children are sitting.	کوئی بھی بچہ نہیں بیٹھا ہوا۔
+She doesn't smile for me anymore.	وہ میرے لیئے اب مسکراتی نہیں ہے۔
+She made thirty thousand dollars.	اس نے تیس ہزار ڈالر کمائے۔
+Since I was tired, I went to bed.	کیونکہ میں تھکا ہوا تھا، میں سونے چلا گیا۔
+The chair is not near the window.	کرسی کھڑکی کے پاس نہیں ہے۔
+The chair is not near the window.	کرسی کھڑکی کے ساتھ نہیں ہے۔
+The meeting took place last week.	اجلاس پچھلے ہفتے منعقد ہوا تھا۔
+The plane flew over the mountain.	جہاذ پہاڑ کے اوپر سے گزرا۔
+The police caught him red handed.	پولیس نے اس کو رنگے ہاتھوں پکڑ لیا۔
+They don't take care of that dog.	وہ اس کتے کا خیال نہیں رکھتے۔
+Tom told Mary that she was right.	ٹام نے مریم کو بتایا کہ وہ صحیح تھی۔
+Will you lend me your dictionary?	کیا تم اپنی لغت ادھار دے سکتے ہو؟
+Will you lend me your dictionary?	کیا آپ اپنی لغت ادھار دے سکتے ہے؟
+You can't believe a word he says.	تم اس کی کسی بات پہ اعتبار نہ کرنا۔
+You don't have enough experience.	تمھارے پاس اتنا تجربہ نہیں ہے۔
+A rose's petals are very delicate.	گلاب کے پتے بہت نازک ہوتے ہے۔
+All I found is a pair of scissors.	مجھے صرف قینچیاں ملی ہے۔
+Did anybody call on you yesterday?	تمھیں کل کسی نے کال کی تھی؟
+Does someone know where my son is?	کیا کسی کو پتہ ہے کہ میرا بیٹا کدھر ہے؟
+Elephants live in Asia and Africa.	ہاتھی ایشیا اور افریقہ میں پائے جاتے ہیں۔
+Few Japanese can use English well.	بہت کم جاپانی صحیح انگریزی بول سکتے ہیں۔
+Have you ever done anything right?	کیا تم نے سب کچھ صحیح سے کیا ہے؟
+Have you ever done anything right?	کیا تم نے سب کچھ ٹھیک سے کیا ہے؟
+He earns three times more than me.	وہ مجھ سے تین گنا زیادہ کماتا ہے۔
+He is still too young for the job.	وہ اس نوکری کے لئیے ابھی بھی کافی چھوٹا ہے۔
+He lives in that house over there.	وہ اس گھر میں رہتا ہے۔
+Her beauty was beyond description.	اس کی خوبصورتی کو بیان کرنا الفاظوں میں ممکن نہیں۔
+I am reading a book about animals.	میں جانوروں کے بارے میں ایک کتاب پڑھ رہا ہوں۔
+I don't like either tea or coffee.	مجھے چائے پسند ہے نہ ہی کافی۔
+I own a restaurant on Park Street.	میں پارک سٹریٹ پہ ایک ریستوران کا مالک ہوں۔
+I think it's better not to try it.	میرا خیال ہے کہ ہم نہ ہی کوشش کرے تو بہتر ہے۔
+I won't bore you with the details.	میں تمہیں دیادہ تفصیل بتا کے بور نہیں کرو گا۔
+I won't bore you with the details.	میں تمہیں دیادہ تفصیل بتا کے بور نہیں کرو گی۔
+I would like to visit South Korea.	میں جنوبی کوریا جانا چاہو گا۔
+I'm actually a university teacher.	اصل میں میں یونیورسٹی ٹیچر ہوں۔
+Is the hotel close to the airport?	کیا ہوٹل ہوائی اڈے کے قریب ہے؟
+Our teacher told us when to start.	ہماری استانی نے ہمیں بتایا کہ کب شروع کرنا ہے۔
+She practices the piano every day.	وہ پیانو کی روذ مشق کرتی ہے۔
+She was injured in a car accident.	وہ گاڑی کے حادثے میں زخمی ہوئی تھی۔
+The man was given a life sentence.	اس آدمی کو سزائے موت دی گئی ہے۔
+The teacher patted me on the back.	استاد نے میری پیٹھ پر مجھے تھپکی دی۔
+Tom knew Mary had threatened John.	ٹام جانتا تھا کہ مریم نے جون کو دھمکی دی ہے۔
+Why is it that you're always late?	تم ہمیشہ دیر سے کیوں آتے ہو؟
+You have only to push this button.	تم نے صرف اس بٹن کو دبانا ہے۔
+Can you tell me what happened here?	کیا تم مجھے بتا سکتے ہو کہ یہاں کیا ہوا؟
+Do you have these shoes in my size?	آپ کے پاس یہ جوتے میرے سائز میں ہے؟
+Do you want to go for a walk later?	تم نے بعد میں چہل قدمی کے لئیے چلنا ہے؟
+Do you want to go for a walk later?	آپ نے بعد میں چہل قدمی کے لئیے چلنا ہے؟
+Each of the three boys got a prize.	تینوں لڑکوں کو انعام ملے گا۔
+He did not appear until about noon.	وہ دوپہر سے پہلے نظر نہیں آیا۔
+He often thinks with his eyes shut.	وہ زیادہ تر آنکھیں بند کر کے سوچتا ہے۔
+He often thinks with his eyes shut.	وہ زیادہ تر آنکھیں بند کر کے سوچتے ہے۔
+I almost never listen to the radio.	میں ریڈیو کبھی کبھی سنتا ہوں۔
+I brought some of my books to read.	میں اپنی کچھ کتابیں پڑھنے کے لئیے لایا ہوں۔
+I brought some of my books to read.	میں اپنی کچھ کتابیں پڑھنے کے لئیے لائی ہوں۔
+I don't want to dredge up the past.	میں ماضی کو زیادہ کریدنا نہیں چاہتا۔
+I loved reading when I was a child.	بچپن میں مجھے کتابیں پڑھنے کا بہت شوق تھا۔
+I met her during my stay in Mexico.	میری اس سے ملاقات میکسیکو میں ہوئی تھی۔
+It's no use crying over spilt milk.	اب بچھتائے کیا ہوت جب چڑیا چگ گئی کھیت۔
+Leave more space between the lines.	لائنوں کے درمیان زیادہ فاصلہ دو۔
+My grandfather likes reading books.	میرے دادا ابو کو کتابیں پڑھنے کا شوق ہے۔
+My grandfather likes reading books.	میرے نانا ابو کو کتابیں پڑھنے کا شوق ہے۔
+Shall I answer this letter for you?	میں آپ کی طرف سے اس خط کا جواب دوں؟
+Shall I answer this letter for you?	میں تماری طرف سے اس خط کا جواب دوں؟
+She got to the hotel late at night.	وہ ہوٹل کافی لیٹ پہنچی۔
+She got to the hotel late at night.	وہ رات کو دیر سے ہوٹل پہنچی۔
+The children are playing with toys.	بچے کھلونوں سے کھیل رہے ہیں۔
+The dictionary on the desk is mine.	میز کے اوپر پڑی پوئی لغت میری ہے۔
+The house fell down one week later.	وہ گھر ایک ہفتہ بعد ہی گر گیا۔
+The house fell down one week later.	وہ گھر ایک ہفتہ بعد ہی زمین بوس ہو گیا۔
+The house fell down one week later.	یہ گھر ایک ہفتہ بعد ہی گر گیا۔
+The house fell down one week later.	یہ گھر ایک ہفتہ بعد ہی زمین بوس ہو گیا۔
+The plane takes off in ten minutes.	جہاز دس منٹ میں اڑ جائے گا۔
+They rescued the boy from drowning.	انہوں نے لڑکے کو ڈوبنے سے بچا لیا۔
+Tom and Mary both know how to swim.	ٹام اور مریم دونوں تیراکی جانتے ہیں۔
+Tom asked Mary why she was smiling.	ٹام نے مریم سے پوچھا کہ وہ کیوں ہنس رہی ہے۔
+What is the origin of the universe?	اس کائنات کی ابتدا کیا ہے؟
+Wolves don't usually attack people.	بھیڑیے عام طور پر لوگوں پہ حملہ نہیں کرتے۔
+You must take care not to break it.	تم بس دھیان رکھنا کہ یہ ٹوٹے نا۔
+You've got to keep this secret, OK?	تمہیں اس کو راز رکھنا ہوگا، ٹھیک ہے؟
+You've got to keep this secret, OK?	تمہیں اس کو صیغہ راز میں رکھنا ہوگا، ٹھیک ہے؟
+Are you by yourself or with someone?	تم اکیلے ہو یا کسی کے ساتھ ہو؟
+Are you by yourself or with someone?	کیا آپ اکیلے ہے یا کسی کے ساتھ ہے؟
+Australian women are very beautiful.	آسٹریلوی لڑکیاں بہت خوبصورت ہیں۔
+Do you know how to use a dictionary?	تمہیں پتہ ہے کی لغت استعمال کیسے کرتے ہے؟
+Do you know how to use a dictionary?	اپ کو لغت استعمال کرنا آتی ہے؟
+Few people live to be 100 years old.	بہت کم لوگ ۱۰۰ سال کی عمر تک زندہ رہتے ہے۔
+Few people live to be 100 years old.	۱۰۰ سال کی عمر نک بہت کم لوگ زندہ رہتے ہے۔
+He earns three times more than I do.	وہ مجھ سے تین گنا زیادہ کماتا ہے۔
+He is used to talking to foreigners.	وہ غیر ملکیوں سے بات کرنے کا عادی ہے۔
+He stayed there during the vacation.	وہ چھٹیوں میں وہیں رہا۔
+He went to bed because he was tired.	وہ سونے چلا گیا ہے کیونکہ وہ تھکا ہوا تھا.
+How did the traffic accident happen?	ٹریفک حادثہ کیسے پیش آیا؟
+I appreciate what you did yesterday.	میں مشکور ہوں آپ کا، جو آپ نے میرے لیئے کل کیا۔
+I enjoyed watching TV for two hours.	میں نے دو گھنٹے ٹی وِی دیکھ کے کاافی مزہ کیا۔
+I found this movie very interesting.	مجھے یہ فلم بہت دلچسپ لگی ہے۔
+I found this movie very interesting.	میں نے اس فلم کو بہت دلچسپ پایا۔
+I have nothing to do this afternoon.	میرے پاس آج دوپہر کچھ کرنے کو نہیں ہے۔
+I used to love her, but not anymore.	میں اس سے پیار کرتا تھا مگر اب نہیں۔
+I'll be sixteen on my next birthday.	میں اپنی اگلی سالگرہ پر سولہ سال کا ہو جائو گا۔
+I'll be sixteen on my next birthday.	میں اپنی اگلی سالگرہ پر سولہ سال کی ہو جائو گی۔
+I'll take some X-rays of your teeth.	میں تمھارے دانتوں کے کچھ ایکس -رے لوں گا۔
+It is not polite to point at others.	کسی کی طرف انگلی سے اشارہ کرنا تمیز کے دائرے میں نہیں آتا۔
+The semester exams are finally over.	سیمسٹر امتہان آخرکار ختم ہو گئے ہیں۔
+There are many old temples in Kyoto.	کیوٹو میں کافی پرانے مندر ہے۔
+Tom always drinks his coffee strong.	ٹام ہمیشہ تیز کافی پیتا ہے۔
+We should abolish the death penalty.	ہمیں سزائے موت ختم کر دینی چاہئیے۔
+What he said turned out to be a lie.	اس نے جو بتاہا تھا وہ جھوٹ نکل آیا۔
+English cannot be mastered overnight.	انگریزی میں ایک رات کے اندر مہارت نہیں حاصل کی جا سکتی۔
+He and only he knows the whole truth.	وہ اور صرف وہ ہی پوری سچائی جانتا ہے۔
+He decided to submit his resignation.	اس نے اپنا استعفی جمع کرانے کا فیصلہ کر لیا۔
+He is likely to pass the examination.	وہ ضرور امتحان میں پاس ہوگا۔
+He was tired, but he kept on working.	وہ تھکا ہوا تھا مگر وہ پھر بھی کام کرتا رہا۔
+I left my tennis racket on the train.	میں ٹرین پر اپنا ٹینس ریکیٹ چھوڑ آیا۔
+I'm not going to the movies tomorrow.	میں کل فلم دیکھنے نہیں جا رہا۔
+I'm surprised that you won the prize.	مجھے حیرت ہے کہ تم نے انعام جیت لیا ۔
+I'm surprised that you won the prize.	مجھے حیرت ہے کہ آپ نے انعام جیت لیا ۔
+I've always wanted to read that book.	میں ہمیشہ سے وہ کتاب پڑھنا چاہتا تھا۔
+I've always wanted to read that book.	میں ہمیشہ سے وہ کتاب پڑھنا چاہتی تھی۔
+Let's go as soon as it stops raining.	جیسے ہی بارش رکتی ہے، ہم چل پڑے گے۔
+Look up the words in your dictionary.	الفاظوں کو لغت میں ڈھونڈو۔
+My brother in Kyoto became a teacher.	کیوٹو میں میرا بھائی استاد بن گیا۔
+My friend remembered which way to go.	میرے دوست کو یاد تھا کہ کس راستے پہ جانا ہے۔
+She advised him to get more exercise.	اس نے اسے ریادہ ورزش کرنے کا مشورہ دیا۔
+She finished her homework in an hour.	اس نے اپنا ہوم ورک ایک گھنٹے میں ختم کر لیا۔
+They say that he was born in Germany.	وہ کہ رہے ہے کہ اس کی پیدائش جرمنی میں ہوئی۔
+They will cut down on their expenses.	وہ اپنے خرچے کم کرے گے۔
+This glue does not adhere to plastic.	یہ گوند پلاسٹک کو نہیں جورتی۔
+Tom asked if he needed to wear a tie.	ٹام نے پوچھا کہ کیا اسے ٹائے پہننے کی ضرورت ہے۔
+Tom speaks French worse than English.	ٹام انگریزی سے بھی زیادہ بڑی فرانسیسی بولتا ہے۔
+You don't need to go in such a hurry.	تمھیں اتنی جلدی جانے کی ضرورت نہیں ہے۔
+Your mother will be back before long.	تمہاری امی بس آتی ہونگی۔
+Your mother will be back before long.	تمہاری ماں بس راستے میں ہو گی۔
+All of us were busy cleaning the room.	ہم سارے کمرے کی صفائی کرنے میں مصروف تھے۔
+All you have to do is sweep the floor.	تمہیں صرف زمین کی صفائی کرنی ہے۔
+Different people have different ideas.	مختلف لوگوں کے مختلف خیالات ہیں۔
+English is studied all over the world.	انگریزی پوری دنیا میں پڑھای جاتی ہے۔
+Everyone was listening very carefully.	سارے بڑے غور سے سن رہے تھے۔
+He does not take care of his children.	وہ اپنے بچوں کا خیال نہیں کرتا۔
+I have a lot of passwords to remember.	مجھے کافی زیادہ پاسورڈس یاد دکھنے پڑتے ہے۔
+I have heard that song sung in French.	میں نے اس گیت کو فرانسیسی زبان میں گایا ہوا سنا ہے۔
+I know his address, but it's a secret.	مجھے اس کے گھر کا پتہ معلوم ہے، مگر یہ ایک راز ہے۔
+I started doing this work 4 years ago.	میں یہ کام چار سال سے کر رہا ہوں۔
+I understand how to solve the problem.	میں سمجھ آگئی ہے کہ اس مسئلہ کو کیسے حل کرنا ہے۔
+I wanted to make some telephone calls.	میں کچھ ٹیلی فون کالیں کرنا چاہتا تھا۔
+I wanted to make some telephone calls.	میں کچھ ٹیلی فون کالیں کرنا چاہتی تھی۔
+I went to sleep as soon as I got home.	میں گھر پہنچتےساتھ ہی سو گیا۔
+I won't go out until it stops raining.	میں تب تک باہر نہیں جائو گا جب تک بارش نہیں رک جاتی۔
+I won't go out until it stops raining.	میں تب تک باہر نہیں جائو گی جب تک بارش نہیں رک جاتی۔
+It's not easy to understand his ideas.	اس کے خیالات کو سمجھنا آسان نہیں ہے۔
+My mother has made me what I am today.	میں آج جو کچھ ہوں، اپنی ماں کی وجہ سے ہوں۔
+She helped the old man cross the road.	اس نے بزرگ کی سڑک پاڑ کرنے میں مدد کی۔
+She helped the old man cross the road.	انہوں نے بزرگ کی سڑک پاڑ کرنے میں مدد کی۔
+She's about the same age as my sister.	وہ تقریباّ میری بہن کی عمر کی ہے۔
+The snow melted away when spring came.	بہار کا موسم آتے ہی برف پگھل گئی۔
+There are some things money can't buy.	دنیا میں کچھ چیزیں ہے جو پیسوں سے نہیں خریدی جا سکتی۔
+There are still a lot of things to do.	ابھی بہت سارے کام رہتے ہیں۔
+They saw the waiter coming in a hurry.	انہوں نے دیکھا کہ بیرا جلدی سے آرہا ہے۔
+We hardly realize how important it is.	ہمیں کبھی کبھی احساس ہوتا ہے کہ یہ کتنا ضروری ہے۔
+We talked on the phone until midnight.	ہم رات بارہ بجے تک باتیں کرتے رہیں۔
+What'll you be doing over the weekend?	اس ہفتے کو تم کیا کر رہے ہو؟
+What'll you be doing over the weekend?	اس ہفتے کو تم کیا کر رہی ہو؟
+What'll you be doing over the weekend?	اس ہفتے کو تمہارا کیا سین ہے؟
+You are mad to try to do it all alone.	تم پاگل تھے جو اکیلے کرنے چلے گئے تھے۔
+You look just like your older brother.	تم بلکل اپنے بڑے بھائی کی طرح لگتے ہو۔
+You look just like your older brother.	آپ بلکل اپنے بڑے بھائی کی طرح لگتے ہیں۔
+A few people clapped after his lecture.	لیکچر کے بات تھورے سے لوگوں نے تالیاں بجائی۔
+Bell used to live in London, didn't he?	بل پہلے لندن میں رہتا تھا، ہے نا؟
+He remembers writing to her every week.	اسے یاد ہے کہ وہ اسے ہر ہفتہ خط لکھتا تھا۔
+He showed me a lot of beautiful photos.	اس نے مجھے ڈھیڑ ساری خوبصورت تصویریں دکھائیں۔
+He showed me a lot of beautiful photos.	انہوں نے مجھے ڈھیڑ ساری خوبصورت تصویریں دکھائیں۔
+He speaks English with a German accent.	وہ انگریزی جرمن لہجہ میں بولتا ہے۔
+He still hasn't responded to my letter.	اس نے ابھی تک میرے خط کا جواب نہیں دیا۔
+I don't know exactly when I'll be back.	بجھے نہیں پتہ کہ میں کب واپس آئو گا۔
+I don't want to live my life like this.	میں اپنی زندگی ایسے نہیں گزارنا چاہتا۔
+I have a message I want you to deliver.	میرے پاس ایک پیغام ہے جو تم نے پہنچانا ہے۔
+I met him when I was staying in London.	میں اس سے لندن ملا تھا جب میں وہاں رہ رہا تھا۔
+I translated the poem the best I could.	میں جتنا کر سکا اتنا میں نے اس نظم کا ترجمہ کر دیا ہے۔
+I would play tennis with him on Sunday.	میں اس کے ساتھ اتوار کو ٹینس کھیلو گا۔
+If you want to, call me this afternoon.	اگر آپ کال کرنا چاہتے ہیں تو مجھے دوپہر کو کر لی جئے گا۔
+If you want to, call me this afternoon.	اگر تم کال کرنا چاہتے ہو تو مجھے دوپہر کو کر لے نا۔
+It was his silence that made her angry.	اس کی خاموشی نے لڑکی کو ناراض کر دیا تھا۔
+It's exactly what I was thinking about.	میں بالکل اسی بارے میں سوچ رہا تھا۔
+It's exactly what I was thinking about.	میں بالکل اسی بارے میں سوچ رہی تھی۔
+Our country is rich in marine products.	ہمارے ملک میں سمندری اشیائیں بہت ہے۔
+Please come. I really want to meet you.	پلیز آجائو۔ میں تم سے ملنے کے لیئے بیتاب ہوں۔
+Rabbits have long ears and short tails.	خرگوش کے کان لمبے اور دم چھوٹی ہوتی ہے۔
+The doctor arrived in time to save her.	ڈاکٹر نے وقت پہ آ کے اس کی جان بچا لی۔
+These are cakes that she baked herself.	یہ وہ کیک ہیں جو اس نے خود بنائے ہے۔
+They are currently attending a meeting.	وہ اس وقت ایک اجلاس میں شرکت کر رہے ہیں۔
+Those books are always in great demand.	ان کتابوں کی ہمیشہ بہت مانگ رہتی ہے۔
+When she entered the room, he stood up.	حب وہ کمرے میں داخل ہوئی تو وہ کھڑا ہو گیا۔
+You'll find the shop around the corner.	تمھیں دکان سڑک کے کونے میں ملے گی۔
+A loud knocking at the door woke him up.	دروازے پہ زور کی دستک نے اسے جگا دیا۔
+At first, I thought he was your brother.	پہلے مجھے لگا کہ وہ تمھارا بھائی ہے۔
+At first, I thought he was your brother.	پہلے مجھے لگا کہ وہ آپ کا بھائی ہے۔
+Did you get any sleep at all last night?	تم رات کو سو سکے تھے۔
+Enter the information into the computer.	کمپیوٹر میں معلومات کا اندراج کرو۔
+I don't feel like eating anything today.	میرا آج کچھ کھانے کا دل نہیں کر رہا۔
+I don't know whether I have time or not.	پتا نہیں میرے پاس وقت ہے کہ نہیں ۔
+I have a feeling that she'll come today.	مجھے لگ رہا ہے کہ وہ آج آئے گی۔
+I washed my hands of the whole business.	میں نے اس کاروبار سے اپنے ہاتھ صاف کر لیئے ہے۔
+It's difficult to understand his theory.	اس کے نظریہ کو سمجھنا مشکل ہے۔
+It's difficult to understand his theory.	ان کے نظریہ کو سمجھنا مشکل ہے۔
+It's not easy to be honest all the time.	ہر وقت ایماندار ہونا آسان نہیں ہے۔
+Mary helped her mother with the cooking.	مریم نے کھانے پکانے میں اپنی ماں کا ہاتھ بٹایا۔
+Mary helped her mother with the cooking.	مریم نے کھانے پکانے میں اپنی والدہ کا ہاتھ بٹایا۔
+Mary helped her mother with the cooking.	مریم نے کھانے پکانے میں اپنی ماں کی مدد کی۔
+Mary helped her mother with the cooking.	مریم نے کھانے پکانے میں اپنی والدہ کی مدد کی۔
+The students range in age from 18 to 25.	طالب علموں کی عمر ۱۸ سے ۲۵ سال ہیں۔
+There is a car in front of the building.	عمارت کے سامنے ایک گاڑی کھڑی ہے۔
+There were only six people at the party.	پارٹی پہ صرف چھہ لوگ تھے۔
+There were only six people at the party.	صرف چھہ لوگ دعوت پہ آئے تھے۔
+Those were the saddest hours of my life.	وہ میری زندگی کے سب سے غمگین لمحے تھے۔
+Though wounded, they continued to fight.	حالانکہ وہ ذخمی تھے مگر وہ پھر بھی لڑتے رہے۔
+Tom blames Mary for all of his problems.	ٹام نے اپنے تمام مسائل کا زمہ دار مریم کو ٹھہرایا ہے۔
+Tom usually pays for everything in cash.	ٹام عام طور پر نقد رقم میں ہر چیز کے لئے ادائیگی کرتا ہے۔
+We loaded a lot of luggage into the car.	ہم نے گاڑی میں کافی سامان ڈال دیا۔
+What're you doing here so late at night?	تم یہاں اتنی رات کو کیا کر رہے ہو؟
+When compared to Paris, London is large.	پیرس کے مقابلے میں لندن بہت بڑا ہے۔
+You had better write the letter at once.	تم فوراّ سے پہلے یہ خط لکھو۔
+Could you put your seat back up a little?	آپ اپنی سیٹ تھوڑی اوپر کر سکتے ہے؟
+Go on ahead. I'll catch up with you soon.	تم نکلو۔ میں تھوڑی دیر میں نکلتا ہوں۔
+How did you learn how to play the violin?	تم نے وایلن بجانا کیسے سیکھا؟
+How long do you think we'll have to wait?	تمہارے خیال میں ہمیں کتنا انتظار کرنا پڑے گا؟
+How long will this cold weather continue?	ٹھنڈا موسم اور کتنا عرصہ رہے گا؟
+How many people are there in your family?	تمھارے خاندان میں کتنے لوگ ہے؟
+How many people are there in your family?	تمھارے خاندان میں کتنے افراد ہے؟
+I can't remember the melody of that song.	مجھے گانے کی دھن یاد نہیں آ رہی۔
+I think it's sad to not have any friends.	میرے خیال میں کوئی دوست نہ ہونا بہت دکھ کی بات ہے ۔
+I wish I had enough money to buy the car.	میری خواہش ہے کہ میرے پاس اتنے پیسے ہو جن سے میں گاڑی خرید سکو۔
+I'm sorry, but I can't answer right away.	معاف کیجیئے گا مگر میں ابھی جواب نہیں دے سکتا۔
+In hot weather, water evaporates quickly.	گرم موسم میں پانی جلد اڑ جاتا ہے۔
+Please refrain from smoking in this room.	برائے مہربانی اس کمرے میں تمباکونوشی سے پرہیز کرے۔
+She's a frequent visitor to this country.	وہ اس ملک میں آتی جاتی رہتی ہے۔
+That's exactly what I expected to happen.	اسی چیز کے ہونے کی مجھے امید تھی۔
+The princess was wearing too much makeup.	شہزادی نے بہت زیادہ میک اپ لگایا ہوا تھا۔
+This stone is twice as heavy as that one.	یہ پتھر اس والے سے دگنا بھاری ہے۔
+Tom hasn't washed his hair for two weeks.	ٹام نے دو ہفتوں سے اپنے بال نہیں دھوئے۔
+What are you doing here so late at night?	تم یہاں اتنی رات کو کیا کر رہے ہو؟
+Every member but me believes what he says.	میرے علاوہ باقی کسی بھی ممبر کو اس کی بات پہ یقین نہیں ہے۔
+Every member but me believes what he says.	میرے علاوہ باقی کسی بھی ممبر کو اس کی بات پہ بھروسہ نہیں ہے۔
+Have you ever screamed in a movie theater?	تم نے کبھی سنیما میں چیخ ماری ہے؟
+Have you ever screamed in a movie theater?	آپ نے کبھی سنیما میں چیخ ماری ہے؟
+He makes three times more money than I do.	وہ مجھ سے تین گنا زیادہ پیسے کماتا ہے۔
+I will lend you as much money as you want.	تمھیں جتنے پیسے چاہئے، میں اتنے تمھیں دے دوں گا۔
+I'm going to study English this afternoon.	میں شام کو انگریزی پڑھو گا۔
+It was a full moon that was seen that day.	اس دن چودھویں کا چاند دیکھا گیا تھا۔
+None of the students were late for school.	کوئی بھی طلبہ سکول کے لئیے لیٹ نہیں تھا۔
+Saying and doing are two different things.	کہنے میں اور کرنے میں بڑا فرق ہے۔
+Saying and doing are two different things.	بولنے میں اور کرنے میں بڑا فرق ہے۔
+Very young children don't know many words.	چھوٹے بچے زیادہ الفاظ نہیں جانتے۔
+He could swim fast enough to pass the test.	اس کی تیراکی کی رفتار اتنی تیز تھی جس میں وہ اپنا ٹیسٹ پاس کر لے۔
+I felt very relieved when I heard the news.	میں نے خبر سن کے سکھ کا سانس لیا۔
+I've always been passionate about football.	میں ہمیشہ سے فٹ بال کے بارے میں جنونی رہا ہوں۔
+I've heard the French version of this song.	میں نے اس گیت کا فرانسیسی ورژن سنا ہوا ہے۔
+She goes to market every day to buy things.	وہ ہر روز چیزیں خریدنے کے لئے بازار جاتی ہے۔
+They say she is the kindest woman on earth.	وہ کہتے ہیں کہ وہ دنیا کی سب سے خوش اخلاق عورت ہے۔
+Tom is probably going to be busy on Monday.	ٹام پیر کو شاید مصروف ہو گا۔
+Adolescence is often a period of insecurity.	نوجوانی کا دور عموماً عدم تہفظ کا دور ہوتا ہے۔
+Applicants are requested to apply in person.	درخواست دہندگان سے گزارش ہے کہ وہ خود آکے اپنی درخواست جمع کرائے۔
+Do you sometimes go abroad on your holidays?	تم کیا کبھی ملک سے باہر جاتے ہو چھٹیاں منانے؟
+I remember having seen him somewhere before.	مجھے یاد ہے کہ میں نے اسے کہیں پہلے دیکھا ہوا ہے۔
+It is against my principles to borrow money.	پیسے ادھار لینا میرے اصولوں کے خلاف ہے۔
+My father used to smoke, but now he doesn't.	میرے ابو پہلے تمباکونوشی کرتے تھے مگر اب نہیں۔
+Now that you are well again, you can travel.	کیونکہ اب تم ٹھیک ہو چکے ہو، تم سفر کر سکتے ہو۔
+Our teacher said that water boils at 100ºC.	ہمارے استاد نے کیا کہ پانی ۱۰۰ ڈگری سینٹی گریڈ پہ ابلتا ہے۔
+She is not as beautiful as her older sister.	وہ اپنی بڑی بہن کی طرح اتنی خوبصورت نہیں ہے۔
+She's about the same age as my older sister.	وہ تقریباّ میری بڑی بہن کی عمر کی ہے۔
+She's been absent from school for five days.	وہ پانچ دن کے لئے اسکول سے غیر حاصر تھی۔
+That's why I told you not to go by yourself.	اسی لئیے میں نے تمھیں کہا تھا کہ تم اکیلے نہ جائو۔
+The Texans began to organize their own army.	ٹیکسنس نے اپنی خود کی فوج منظم کرنا شروع کر دی۔
+There seemed to be no answer to the problem.	اس کے مسلئے کا کوئی سدِ باب نظر نہیں آ رہا تھا۔
+There seemed to be no answer to the problem.	اس کی مشکل کا کوئی حل نظر نہیں آ رہا تھا۔
+They did not support one group or the other.	وہ کسی بھی گروہ کی ہمایت نہیں کرتے۔
+You're the most important person in my life.	تم میری زندگی کے سب سے زیادہ اہم شخص ہو۔
+Both my grandfather and grandmother are dead.	میرے نانا اور نانی دونوں فوت ہو چکے ہیں۔
+Both my grandfather and grandmother are dead.	میرے دادا اور دادی دونوں فوت ہو چکے ہیں۔
+Five years have gone by since my father died.	میرے والد کو گزرے ہوئے پانچ سال ہو گئے ہے۔
+Five years have gone by since my father died.	میرے والد کو فوت ہوئے پانچ سال ہو گئے ہے۔
+Five years have gone by since my father died.	میرے ابو کو گزرے ہوئے پانچ سال ہو گئے ہے۔
+Five years have gone by since my father died.	میرے ابو کو فوت ہوئے پانچ سال ہو گئے ہے۔
+He hangs around with the wrong group of kids.	وہ غلط قسم کے بچوں کے ساتھ اٹھتا بیٹھتا ہے۔
+He is always finding fault with other people.	وہ ہر وقت دوسروں کی خامیاں ڈھونڈنے میں لگا رہتا ہے۔
+He sent fruit and vegetables to his daughter.	اس نے اپنی بیٹی کو پھل اور سبزیاں بھیجی۔
+He sent fruit and vegetables to his daughter.	انہوں نے اپنی بیٹی کو پھل اور سبزیاں بھیجی۔
+His new book is going to come out next month.	اس کی نئی کتاب اگلے مہینے آ رہی ہے۔
+I knew at a glance that he was an honest man.	مجھے اسے دیکھ کر فورا پتہ لگ گیا تھا کہ وہ ایک سچا آدمی ہے۔
+I left Japan for the first time in ten years.	میں دس سال میں پہلی دفعہ جاپان سے باہر نکلا۔
+I'm confident that I'll win the tennis match.	مجھے یقین ہے کہ میں ٹینس میچ جیت جائوں گا۔
+I'm going to work during the spring vacation.	میں بہار کی چھٹیوں میں کام پہ جا رہا ہوں۔
+She goes to the supermarket every three days.	وہ سوپر مارکیٹ ہر تین دن بعد جاتی ہے۔
+The baseball game was called off due to rain.	بیس بال کھیل بارش کی وجہ سے ملتوی کر دیا گیا۔
+The doctor advised my father to stop smoking.	ڈاکٹر نے میرے والد کو مشورہ دیا کہ وہ تمباکونوشی چھوڑ دے۔
+The meeting will start at four o'clock sharp.	میٹنگ پورے چار بجے شروع ہو جائے گی۔
+The meeting will start at four o'clock sharp.	مجلس پورے چار بجے شروع ہو جائے گی۔
+You are the most important person in my life.	تم میری زندگی کے سب سے زیادہ اہم شخص ہو۔
+He convinced me that his brother was innocent.	اس نے مجھے قائل کیا کہ اس کا بھائی بے قصور ہے۔
+His wife has started to work out of necessity.	اس کی بیوی نے مجبوری میں کام کرنا شروع کیا ہے۔
+I have to lose weight, so I'm going on a diet.	مجھے وزن کم کرنا ہے، اسی لئیے میں ڈائیٹنگ شروع کر رہا ہوں۔
+I'm sorry to disturb you while you're talking.	قطع قلامی معاف۔
+In the United States, school buses are yellow.	امریکہ میں اسکول کی بسوں کا رنگ پیلا ہیں
+Science can be used for good or evil purposes.	سائنس اچھے یا برے مقاصد کے لئے استعمال کیا جا سکتا ہے۔
+The girl who's playing the piano is my sister.	جو لڑکی پیانو بجا رہی ہے وہ میری بہن ہے۔
+We invited our new neighbors over for a drink.	ہم نے اپنے نئے ہمسائیوں کو چائے پہ دعوت دی۔
+We watched the baseball game on TV last night.	ہم نے کل رات ٹی وی پر بیس بال گیم دیکھی۔
+When the rain stopped, he went out for a walk.	جب بارش رکی تھی تو وہ چہل قدمی کے لیے باہر چلا گیا تھا۔
+You should stay in bed for three or four days.	تم تین سے چار دن تک بستر پر رہو۔
+You've already decided not to go, haven't you?	تم نے تو فیصلہ نہیں کر لیا نہ جانے کا؟
+You've already decided not to go, haven't you?	آپ نے تو فیصلہ نہیں کر لیا نہ جانے کا؟
+His novels are, for the most part, very boring.	اس کے ناول، زیادہ تر، کافی بورنگ ہوتے ہے۔
+I wish you hadn't told that story to my mother.	کاش تم نے وہ کہانی میری والدہ کو نہ بتائی ہوتی۔
+I wish you hadn't told that story to my mother.	کاش تم نے وہ کہانی میری امی کو نہ بتائی ہوتی۔
+I wish you hadn't told that story to my mother.	کاش تم نے وہ کہانی میری ماں کو نہ بتائی ہوتی۔
+It doesn't matter who says that, it's not true.	اس سے فرق نہیں پڑتا کہ کس نے کہاں ہے، بات ہی غلط ہے۔
+One of her cars is blue and the others are red.	اس کی ایک گاڑی نیلی ہے اور باقی لال ہیں۔
+One of her cars is blue and the others are red.	اس کی ایک گاڑی نیلی ہے اور باقی ساری لال ہیں۔
+Please give me a wake-up call at eight o'clock.	براہ کرم مجھے آٹھ بجے فون کر کے اٹھا دیجیے گا۔
+She is staying at a little hotel by the castle.	قلعہ کے پاس ایک چھوٹا سا ہوٹل ہے، وہ وہاں رہ رہی ہے۔
+She's curious to find out who sent the flowers.	وہ جاننے کے لئیے بیتاب ہے کہ یہ پھول کس نے بھیجے ہے۔
+Ten years have passed since he went to America.	دس سال ہو گئے ہیں اسے امریکہ گئے ہوئے۔
+The recent advances in medicine are remarkable.	طب کے میدان میں حال ہی میں ہونے والے ترقی بہت شاندار ہیں۔
+The river overflowed because of the heavy rain.	تیز بارشوں کی وجہ سے دریا سے پانی ابل کے باہر آ گیا۔
+Three big men attacked him and stole his money.	تین بڑے آدمیوں نے اس پہ حملہ کیا اور اس کے پیسے چڑا لیے۔
+When the bomb exploded, I happened to be there.	میں وہی پہ تھا جب بم دھماکہ ہوا تھا۔
+Would you please tell me what I should do next?	کیا آپ مجھے بتائیں گے کہ میں اب کیا کروں؟
+Would you please tell me what I should do next?	کیا آپ مجھے بتا سکتے ہے کہ میں اب کیا کروں؟
+Would you please tell me what I should do next?	کیا آپ مجھے بتائیں گے کہ میں اب آگے کیا کروں؟
+Would you please tell me what I should do next?	کیا آپ مجھے بتا سکتے ہے کہ میں اب آگے کیا کروں؟
+You should always wash your hands before meals.	کھانے سے پہلے ہمیشہ ہاتھ دھویا کرو۔
+At the moment, there isn't anyone in the office.	اس وقت دفتر میں کوئی نہیں ہے۔
+Being injured in an accident, he could not walk.	حادثہ میں زخمی ہونے کے بعد، وہ چل نہیں سکتا۔
+I plan to study this afternoon after I get home.	میرا پلین ہے کہ شام کو گھر جا کے میں پڑھائی کرو گا۔
+It happened two days after he got back to Tokyo.	اس کے ٹوکیو سے آنے کے دو دن بعد یہ واقعہ پیش آیا۔
+It was not in his nature to speak ill of others.	اس کی فطرت میں دوسروں کی برائی کرنا نہیں ہے۔
+It was not in his nature to speak ill of others.	ان کی فطرت میں دوسروں کی برائی کرنا نہیں ہے۔
+It was so hot that I slept with the window open.	اتنی گرمی تھی کہ میں کھڑکی کھول کے سویا۔
+There's something going on between Tom and Mary.	ٹام اور مریم کے بیج میں کچھ چل رہا ہے۔
+Tom didn't expect such a nice present from Mary.	ٹام نے مریم سے اتنے اچھے تحفے کی امید نہیں کی تھی۔
+What did you say? Could you please say it again?	کیا کہ رہے ہو؟ دوبارہ کہ سکتے ہو؟
+Do you think we should import rice from the U.S.?	ہمیں کیا امریکا سے چاول کی برآمدگی کرنی چاہیے؟
+Don't you know that he passed away two years ago?	تمھیں نہیں پتہ ، اسے فوت ہوئے دو سال ہو گئے ہے۔
+I want a boat that'll take me far away from here.	مجھے ایک کشتی چاہئیے جو مجھے یہاں سے دور لے جائے۔
+Just wait a little please. He hasn't arrived yet.	برائے مہربانی تھوڑا انتظار فرما لے۔ وہ ابھی تک پہنچے نہیں ہے۔
+Just wait a little please. He hasn't arrived yet.	برائے مہربانی تھوڑا انتظار فرما لے۔ وہ ابھی تک آئے نہیں ہے۔
+The accident took place the day before yesterday.	حادثہ پرسو ہوا تھا۔
+The construction of the hospital is about to end.	ہسپتال کی تعمیر بس ختم ہونے والی ہے۔
+The old woman climbed the stairs with difficulty.	بزرگ عورت بڑی مشکل سے سیڑھیاں چڑھی تھی۔
+What would our lives be like without electricity?	ہماری زندگیاں بغیر بجلی کے کیسی ہونگی؟
+You don't get up as early as your sister, do you?	تم اپنی بہن کی طرح صبح جلدی نہیں اٹھتے، ہے نا؟
+You don't get up as early as your sister, do you?	آپ اپنی بہن کی طرح صبح جلدی نہیں اٹھتے، ہے نا؟
+A doctor tried to remove the bullet from his back.	ڈاکٹر نے اس کی پیٹھ سے گولی نکالنے کی کوشش کی۔
+I gave my sister a pearl necklace on her birthday.	میں نی اپنی بہن کو اس کی سالگرہ پر ہیروں کا ہار دیا۔
+Martin Luther King spent his life seeking justice.	مارٹن لوتھر کنگ نے اپنی زنگی انصاف کے حصول میں گزاردی۔
+My father usually watches television after dinner.	میرے والد رات کے کھانے کے بعد عموماً ٹی وی دیکھتے ہے۔
+My father usually watches television after dinner.	میرے والد عشائیہ کے بعد عموماً ٹی وی دیکھتے ہے۔
+You're working too hard. Take it easy for a while.	تم بہت زیادہ کام کر رہے ہو آج کل۔ تھوڑا سا آرام کر لو۔
+Football was played in China in the second century.	دوسری صدی عیسوی میں چین میں فٹبال کھیلی جاتی تھی۔
+He's accustomed to getting up early in the morning.	وہ صبح جلدی اٹھنے کا عادی ہے۔
+Our office is on the northern side of the building.	ہمارا دفتر عمارت کے شمال جانب ہے۔
+The bat was stolen yesterday, along with the balls.	بلے کے ساتھ ساتھ کل گیندیں بھی چوری ہو گئی۔
+This is the camera that Tom took the pictures with.	یہ وہ کیمرہ ہے جس سے ٹام نے تصویریں کھینچی ہیں۔
+I'll postpone my trip to Scotland until it's warmer.	میں سکاٹ لینڈ کا دورہ تب تک ملتوی کر رہا ہو جب تک موسم تھوڑا گرم نہیں ہو جاتا۔
+If that guitar weren't so expensive, I could buy it.	اگر وہ گیٹار اتنا مہنگا نہ ہوتا، میں اسے خرید لیتا۔
+My uncle went to Mexico in 1983, never to come back.	میرے ماموں ۱۹۸۳ میں میکسیکو گئے تھے اور کبھی واپس نہیں آئے۔
+My uncle went to Mexico in 1983, never to come back.	میرے تایا ۱۹۸۳ میں میکسیکو گئے تھے اور کبھی واپس نہیں آئے۔
+My uncle went to Mexico in 1983, never to come back.	میرے چاچا ۱۹۸۳ میں میکسیکو گئے تھے اور کبھی واپس نہیں آئے۔
+No matter how much she eats, she never gains weight.	وہ جتنا مرضی کھا لے، اس کا وزن بڑھتا ہی نہیں ہے۔
+This story is by far more interesting than that one.	یہ کہانی دوسرے سے زیادو مزیدار ہے۔
+I could tell from his accent that he was a Frenchman.	میں اس کے بولنے کے لہجے سے بتا سکتا تھا کہ وہ فرانسیسی ہے۔
+Tom fell in love with Mary the first time he saw her.	ٹام نے جب پہلی دفعہ مریم کو دیکھا تو وہ اس کے عشق میں گرفتار ہو گیا۔
+Tom fell in love with Mary the first time he saw her.	ٹام کی جب پہلی دفعہ مریم پہ نظر پڑی تو وہ اس پہ دل ہار گیا۔
+Tom grew up near a lake, but he isn't a good swimmer.	ٹام ایک جھیل کے قریب بڑا ہوا مگر وہ اچھا تیراک نہیں ہے۔
+When I got home, I noticed that I had lost my wallet.	جب میں گھر پہنچا تو مجھے پتہ لگا کہ میرا بٹوہ گم ہو گیا ہے۔
+When I got home, I noticed that I had lost my wallet.	جب میں گھر پہنچی تو مجھے پتہ لگا کہ میرا بٹوہ گم ہو گیا ہے۔
+I was caught in a shower and was drenched to the skin.	میں بارش میں پھنس گیا اور پورے کا پورا بھیگ گیا۔
+No matter how you do it, the results will be the same.	تم جیسے مرضی کرو، اس کا نتیجہ ایک ہی نکلے گا۔
+Please bring us two cups of tea and one cup of coffee.	ہمیں دو کپ چائے اور ایک کپ کافی لا دینا۔
+Tom never felt comfortable expressing his own opinion.	ٹام اپنی رائے کو اظہار کرنے میں کبھی بھی خوش نہیں تھا۔
+Tom never felt comfortable expressing his own opinion.	ٹام اپنی رائے کو اظہار کرنے میں کتراتا تھا۔
+"He'd like to have a coffee after work." "I would too."	"وہ کام کے بعد کافی پینا پسند کرے گا۔" "میں بھی"
+He's been staying at that hotel for the past five days.	وہ پچھلے پانچ دنوں سے ہوٹل میں قیام پزیر ہے۔
+If you look after your clothes, they last a lot longer.	اگر تم اپنے کپروں کا دھیان رکھو گے تو وہ زیادہ عرصہ چلے گے۔
+My father told me about his experiences during the war.	میرے ابو نے مجھے اپنے جنگی تجربے کے بارے میں بتایا۔
+My father told me about his experiences during the war.	میرے والد نے مجھے اپنے جنگی تجربے کے بارے میں بتایا۔
+The committee is composed of three men and seven women.	کمیٹی میں تین مرد اور سات عورتیں ہیں۔
+You'll save yourself a lot of time if you take the car.	اگر تم گاڑی میں جائو گے تو تم اپنا کافی وقت بچا لو گے۔
+Every time I look at this picture, I think of my father.	جب بھی میں اس تصویر کو دیکھتا ہوں، مجھے اپنے ابو یار آ جاتے ہے۔
+Is it the vacuum cleaner's fault that the room is dusty?	کیا یہ ویکیوم کلینر کا قصور ہے کہ کمرہ گندا ہے؟
+Deaf people often talk to each other using sign language.	بہرے لوگ اکثر ایک دوسرے سے نشانی زبان میں بات کرتے ہیں۔
+Do you have any idea where Tom might have put his camera?	تمھیں کوئی آئڈیا ہے کہ ٹام نے اپنا کیمرہ کدھر دکھا ہوا ہے؟
+It is very hard to tell what country a person comes from.	کافی مشکل ہے بتانا کہ کونسا بندہ کس ملک سے ہے۔
+The last bus had already gone when I got to the bus stop.	میرے بس سٹاپ پہنچنے تک آخری بس نکل چکی تھی۔
+I have to have an interview before taking the examination.	مجھے امتہان سے پہلے ایک انٹرویو دینا پڑے گا۔
+On last week's English test, my score was worse than hers.	پچھلے ہفتے کے انگریزی کے امتحان میں میرے اس سے برے نمبر تھے۔
+The doctor tried every possible means to save his patient.	ڈاکٹر نے ہر ممکن کوشش کی مریض کو بچانے کے لیئے۔
+Compared with last year, this year's crops are much better.	پچھلے سال کے مقابلے میں اس سال کی کپاس بے مثال ہیں۔
+I just told Tom that I wanted to help him clean the garage.	میں نے ٹام کو بتایا کہ مجھے گراج کی صفائی کے لئیے مدد چاہئیے۔
+I need another can of paint to finish painting the ceiling.	مجھے پینٹ کا ایک کنستر اور چاہئیے چھت کو پوری طرح پینٹ کرنے کے لئیے۔
+I thought we'd never get out of the burning building alive.	مجھے لگا ہم کبھی بھی اس جلتی ہوئی عمارت سے زندہ نہیں نکل سکے گے۔
+Many people in Africa were killed as a result of the storm.	طوفان کے نتیجے میں افریقہ کے بہت سے لوگ ہلاک ہو گئے تھے۔
+The grass is always greener on the other side of the fence.	دور کے ڈھول سہانے۔
+His mother said that he had been sick in bed for five weeks.	اس کی والدہ نے بتایا ہے کہ وہ پانچ ہفتوں سے بستر میں بیمار پڑا ہے۔
+His mother said that he had been sick in bed for five weeks.	اس کی امی نے بتایا ہے کہ وہ پانچ ہفتوں سے بستر میں بیمار پڑا ہے
+She fainted, and I had to hold her to keep her from falling.	وہ بیہوش ہو گئی، اور مجھے اس کو گرنے سے بچانے کے لئے پکڑنا پڑا۔
+You should try to form the habit of using your dictionaries.	تمہیں لغات کو استعمال کرنے کی عادت بنانی چائیے۔
+You should try to form the habit of using your dictionaries.	آپ کو لغات کو استعمال کرنے کی عادت بنانی چائیے۔
+In addition to being a doctor, he was a very famous novelist.	ڈاکٹر ہونے کے علاوہ وہ ایک مشہور مصنف بھی تھا۔
+I got up early so that I might be in time for the first train.	میں صبح جلدی اٹھا تاکہ میں پہلی ریل گاڑی پکڑ سکوں۔
+I got up early so that I might be in time for the first train.	میں صبح جلدی اٹھی تاکہ میں پہلی ریل گاڑی پکڑ سکوں۔
+You shouldn't say that kind of thing when children are around.	تمہیں اس قسم کی باتیں بچوں کے سامنے نہیں کرنی چائیے۔
+You shouldn't say that kind of thing when children are around.	آپ کو اس قسم کی باتیں بچوں کے سامنے نہیں کرنی چائیے۔
+On my way home from school yesterday, I was caught in a shower.	کل سکول سے واپس آتے ہوئے میں بارش کی لپیٹ میں آ گیا تھا۔
+On my way home from school yesterday, I was caught in a shower.	کل سکول سے واپس آتے ہوئے میں بارش کی لپیٹ میں آ گئی تھی۔
+Once you've formed a bad habit, you can't get rid of it easily.	ایک بار تم نے کوئی گندی عادت اپنالی، پھر اس سے آرام سے جان نہیں چھٹے گی۔
+Tom has been eating at that restaurant since he was a teenager.	ٹام اس ریستوران میں تب سے جا رہا ہے جب سے وہ نوجوان ہوتا تھا۔
+You will be able to speak fluent English in another few months.	تم کچھ مہینوں میں بہترین انگریزی بول سکو گے۔
+I don't know how I did it. The important thing is that I did it.	مجھے نہیں پتہ میں نے کیسے کیا ہے، مگر اصل چیز یہ ہے کہ میں نے کر لیا ہے۔
+This morning I went to the airport in order to see my cousin off.	آج صبح میں ائیرپورٹ گیا تھا اپنے کزن کو چھوڑنے۔
+Before you criticize someone, you should walk a mile in their shoes.	کسی پہ تنقید کرنے سے پہلے اُس کی زندگی کو پہلے سمحھ لو۔
+Winter seems to be sticking around a lot longer than usual this year.	سردی اس سال کافی لمبی ہو گئی ہے۔
+She cut the cake into six pieces and gave one to each of the children.	اس نے کیک کے چھہ پیس کیئے اور ہر بچے کو ایک ایک پیس دیا۔
+Children who are sixteen years old or younger may not enter the theater.	سولہ سال سے کم عمر کے بچے ٹھیٹر میں داخل نہیں ہو سکتے۔
+She borrowed the book from him many years ago and hasn't yet returned it.	اس نے اس سے یہ کتاب کئی سال پہلے ادھار لی تھی اور ابھی تک نہیں لوٹائی۔
+She asked him to not quit his job because they were poor and needed the money.	اس نے اسے اپنی نوکری چھوڑنے سے منع کیا کیونکہ وہ غریب ہے اور ان کو پیسوں کی ضرورت ہیں۔
+When you meet someone for the first time, be careful about how close you stand to that person.	جب تم پہلی دفعہ کسی سے ملو، اس بات کو مد نظر رکھو کہ تم اس کے کتنا قریب کھڑے ہو۔

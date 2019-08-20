@@ -15,7 +15,7 @@ loggers:
     handlers: [console]
     propagate: no
   inspector:
-    level: DEBUG
+    level: INFO
     handlers: [console]
     propagate: no
   servant:

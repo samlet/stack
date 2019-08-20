@@ -396,6 +396,8 @@ class MiscTool(object):
         if interact_mode:
             if len(addons)>0:
                 result=result+'\n\t'+'\n\t'.join(addons)
+            if self.enable_chunks_parse:
+                result=result+'\n'
             # clipboard.copy(result+'\n')
             clipboard.copy(result)
 

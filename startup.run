@@ -9,6 +9,7 @@ function start_inventory(){
 }
 
 python="$HOME/miniconda3/envs/bigdata/bin/python"
+jupyter="$HOME/miniconda3/envs/bigdata/bin/jupyter"
 py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
 
 # startup 
@@ -96,6 +97,12 @@ else
 		# python -m rasa_core_sdk.endpoint --actions actions.procs
 		python -m sagas.bots.servants.endpoint --actions actions.procs
 		;;
+
+	"note")
+		export PYTHONPATH=..:$PYTHONPATH
+		$jupyter notebook
+		;;
+
 	"broker")
 		python -m sagas.bots.action_broker
 		;;

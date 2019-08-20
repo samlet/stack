@@ -29,7 +29,7 @@ class RasaInspector(Inspector):
 
         def proc(cnt):
             succ=False
-            logger.info('query with rasa-nlu: %s', cnt)
+            logger.debug('query with rasa-nlu: %s', cnt)
             # print(('query with rasa-nlu: %s'%cnt))
             resp = invoke_nlu(self.endpoint, proj, "current", cnt)
             if resp is not None:

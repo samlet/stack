@@ -1,18 +1,27 @@
 import numpy as np
-from bert_serving.client import BertClient
 from termcolor import colored
 from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
 import numpy
-import spacy
+# import spacy
 import json
 
 class ParallelCorpus(object):
     def __init__(self, ipaddr='pc'):
-        self.bc = BertClient(ip=ipaddr)
+        self.ipaddr=ipaddr
+        self._bc=None
+        # self.bc = BertClient(ip=ipaddr)
+
         self.topk = 5
         # self.dataf=dataf
         self.samples_count=2
         self.samples=[]
+
+    @property
+    def bc(self):
+        from bert_serving.client import BertClient
+        if self._bc is None:
+            self._bc = BertClient(ip=self.ipaddr)
+        return self._bc
 
     def load_corpus(self, dataf='/pi/ai/seq2seq/jpn-eng-2019/jpn.txt'):
         pairs = lines(dataf)
