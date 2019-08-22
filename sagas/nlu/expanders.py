@@ -45,7 +45,8 @@ class BertManager(object):
         self.ipaddr=cf.conf['bert_servant']
         print(f".. bert service port is {self.ipaddr}")
         self._bc=None
-        self.topk = 5
+        # self.topk = 5
+        self.topk = 2
         self.r = redis.Redis(host='localhost', port=6379, db=0)
 
     @property
@@ -92,23 +93,29 @@ def pickups(key, prop, langs):
 
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.nlu.inspector_common import Context
+import abc
 
-class Dispatcher(object):
+class DispatcherIntf(abc.ABC):
+    @abc.abstractmethod
+    def execute(self, sents):
+        pass
+
+class BertDispatcher(DispatcherIntf):
     def __init__(self, feat_name):
         self.arranger = json_utils.read_json_file("./data/feats/%s.json" % feat_name)
         self.doc_vecs = np.load("./data/feats/%s.npy" % feat_name)  # load
         self.bm = BertManager()
 
-    def get_similar(self, sents):
+    def execute(self, sents):
         return self.bm.get_similar(self.arranger, self.doc_vecs, sents)
 
-def expand(dispathcer:Dispatcher, data, keys, domains):
+def expand(dispathcer:DispatcherIntf, data, keys, domains):
     fixt=InspectorFixture()
     domains, meta=fixt.request_domains(data)
     ctx=Context(meta, domains)
     for key in keys:
         for chunk in ctx.chunk_pieces(key):
-            dispathcer.get_similar(chunk)
+            dispathcer.execute(chunk)
 
 class Expanders(object):
     def query_property(self, label):
@@ -173,7 +180,7 @@ class Expanders(object):
         $ python -m sagas.nlu.expanders expander
         :return:
         """
-        disp=Dispatcher(feat_name)
+        disp=BertDispatcher(feat_name)
         texts = [('Shenzhen ist das Silicon Valley für Hardware-Firmen', ['nmod']),
                  ('Ich stimme dir in diesem Punkt nicht zu.', ['obl']),
                  ('Die Nutzung der Seite ist kostenlos.', ['nsubj']),
