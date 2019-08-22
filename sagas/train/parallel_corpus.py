@@ -102,7 +102,7 @@ class ParallelCorpus(object):
         print('getting similar sentences ...')
         self.get_similar(questions, doc_vecs, query)
 
-    def save_docs(self, doc_vecs, file='./data/bert/samples_1000.npy'):
+    def save_docs(self, doc_vecs, file='/pi/data/bert/samples_1000.npy'):
         print(len(doc_vecs))
         np.save(file, doc_vecs)  # save
 
@@ -124,9 +124,9 @@ class ParallelCorpus(object):
         import os
         dataf=corpus_resources[lang]
         if multilang:
-            outf="./data/bert/%s.npy"%lang
+            outf="/pi/data/bert/%s.npy"%lang
         else:
-            outf="./data/bert/en-%s.npy"%lang
+            outf="/pi/data/bert/en-%s.npy"%lang
         if os.path.isfile(outf):
             print('precomputed file %s has already exists, exit.'%outf)
             return
@@ -155,7 +155,7 @@ class ParallelCorpus(object):
         """
         print(json.dumps(self.bc.server_status, indent=2, ensure_ascii=False))
 
-    def load_docs(self, file='./data/bert/jpn-eng.npy'):
+    def load_docs(self, file='/pi/data/bert/jpn-eng.npy'):
         doc_vecs = np.load(file)  # load
         return doc_vecs
 
@@ -163,7 +163,7 @@ class ParallelCorpus(object):
               loop_for=1,
               play='en/ja',
               dataf='/pi/ai/seq2seq/jpn-eng-2019/jpn.txt',
-              docs='./data/bert/jpn-eng.npy'):
+              docs='/pi/data/bert/jpn-eng.npy'):
         """
         $ python -m sagas.train.parallel_corpus query
         $ python -m sagas.train.parallel_corpus query .
@@ -213,9 +213,9 @@ class ParallelCorpus(object):
         from sagas.nlu.nlu_tools import corpus_resources
         dataf = corpus_resources[lang]
         if q.startswith('..'):
-            docsf = "./data/bert/%s.npy" % lang
+            docsf = "/pi/data/bert/%s.npy" % lang
         else:
-            docsf = "./data/bert/en-%s.npy" % lang
+            docsf = "/pi/data/bert/en-%s.npy" % lang
 
         if say:
             play="en/"+lang

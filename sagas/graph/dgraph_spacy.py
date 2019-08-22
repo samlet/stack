@@ -120,7 +120,7 @@ class SpacyBuilder(object):
     # def step(self, val=1):
     #     self.f.value += val  # signal to increment the progress bar
 
-    def procs(self, out_file='./data/langs/jpn_eng_spacy.data'):
+    def procs(self, out_file='/pi/data/langs/jpn_eng_spacy.data'):
         """
         $ python -m sagas.graph.dgraph_spacy procs
         :param out_file:
@@ -173,7 +173,7 @@ class SpacyBuilder(object):
         lang = res.RsLang(entries=pair, store=data)
         rs.append(lang)
 
-    def write_samples(self, only_samples=True, out_file='./data/langs/samples_100.data'):
+    def write_samples(self, only_samples=True, out_file='/pi/data/langs/samples_100.data'):
         rs = []
         if only_samples:
             for i in range(2000, 2100):
@@ -185,7 +185,7 @@ class SpacyBuilder(object):
         langs = res.RsLangs(langs=rs)
         protobuf_utils.write_proto_to(langs, out_file)
 
-    def load_samples(self, input_file='./data/langs/samples_100.data'):
+    def load_samples(self, input_file='/pi/data/langs/samples_100.data'):
         load_langs = res.RsLangs()
         protobuf_utils.read_proto(load_langs, input_file)
         print(len(load_langs.langs))

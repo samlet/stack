@@ -40,6 +40,17 @@ class IndexDispatcher(DispatcherIntf):
             self.print_r(results)
 
 class FullTextExpander(object):
+    def __init__(self):
+        from jieba.analyse import ChineseAnalyzer
+        from sagas.ja.whoosh.MeCabTokenizer import MeCabTokenizer
+        # zh: procs-whoosh.ipynb
+        # ja: procs-whoosh-ja.ipynb
+        self.analyzers={'zh':lambda : ChineseAnalyzer(),
+                        'ja': lambda : MeCabTokenizer(),
+                        }
+        self.sources={'address':lambda limit=20: get_addresses(limit),
+                      }
+
     def list_addrs(self, jsonify=True):
         """
         $ python -m sagas.nlu.expander_fulltext list_addrs
@@ -54,18 +65,23 @@ class FullTextExpander(object):
             rs = e('json').listPostalAddress(_limit=2)
             print(pretty_json(json.loads(rs)))
 
-    def create_index(self):
+    def create_index(self, source='address', lang=None):
         """
         $ python -m sagas.nlu.expander_fulltext create_index
         :return:
         """
-        index_dir = 'data/indexes/address'
-        schema = Schema(title=TEXT(stored=True), content=TEXT(stored=True), ref=STORED)
+        index_dir = f'data/indexes/{source}'
+        if lang is not None and lang in self.analyzers:
+            tk=self.analyzers[lang]()
+            schema = Schema(title=TEXT(stored=True), content=TEXT(stored=True, analyzer=tk), ref=STORED)
+        else:
+            schema = Schema(title=TEXT(stored=True), content=TEXT(stored=True), ref=STORED)
+
         ix = create_in(index_dir, schema)
         writer = ix.writer()
 
-        for addr in get_addresses():
-            writer.add_document(title=addr[0], content=addr[2], ref=addr[1])
+        for rec in self.sources[source]():
+            writer.add_document(title=rec[0], content=rec[2], ref=rec[1])
         writer.commit()
         print('ok.')
 
