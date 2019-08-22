@@ -109,7 +109,7 @@ class BertDispatcher(DispatcherIntf):
     def execute(self, sents):
         return self.bm.get_similar(self.arranger, self.doc_vecs, sents)
 
-def expand(dispathcer:DispatcherIntf, data, keys, domains):
+def expand(dispathcer:DispatcherIntf, data, keys, specific_domains):
     fixt=InspectorFixture()
     domains, meta=fixt.request_domains(data)
     ctx=Context(meta, domains)
@@ -187,7 +187,7 @@ class Expanders(object):
                  ]
         for text in texts:
             data = {'lang': 'de', "sents": text[0]}
-            expand(disp, data, keys=text[1], domains=['default'])
+            expand(disp, data, keys=text[1], specific_domains=['default'])
             print('✁', '-' * 30)
 
 if __name__ == '__main__':
