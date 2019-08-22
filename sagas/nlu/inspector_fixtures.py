@@ -17,8 +17,10 @@ class InspectorFixture(object):
     def request_domains(self, data, print_format='table'):
         import requests
         import json
+        from sagas.conf.conf import cf
 
-        response = requests.post('http://localhost:8090/verb_domains', json=data)
+        print(f".. request is {data}")
+        response = requests.post(f'{cf.common_s}/verb_domains', json=data)
         rs = response.json()
         if len(rs)==0:
             print('.. verb_domains servant returns empty set.')

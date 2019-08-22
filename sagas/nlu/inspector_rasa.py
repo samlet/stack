@@ -4,7 +4,8 @@ from sagas.nlu.patterns import Patterns, print_result
 import logging
 logger = logging.getLogger('inspector')
 
-default_projects={'de':'german', 'en':'english', 'fr':'french', 'ru':'russian', 'es':'spanish',
+default_projects={'de':'german', 'en':'english', 'fr':'french',
+                  'ru':'russian', 'es':'spanish',
                   'zh':'chinese', 'ja':'japanese'}
 
 class RasaInspector(Inspector):
@@ -25,7 +26,8 @@ class RasaInspector(Inspector):
         lang = ctx.meta['lang']
         if lang not in default_projects:
             return False
-        proj=default_projects[lang]
+        # proj=default_projects[lang]
+        proj=lang
 
         def proc(cnt):
             succ=False
@@ -39,7 +41,7 @@ class RasaInspector(Inspector):
                 ent_names = {ent['entity'] for ent in entities}
                 intent_name = intent['name']
                 intent_confidence = intent['confidence']
-                logger.info('%s -> %f, with entities %s' % (intent_name,
+                logger.info('%s(%s) -> %f, with entities %s' % (cnt, intent_name,
                                                             intent_confidence,
                                                             ', '.join(ent_names)))
                 # print(f'{self.intent}, {self.confidence}')
@@ -98,6 +100,12 @@ class InspectorRunner(InspectorFixture):
             data = {'lang': 'de', "sents": text}
             self.procs_common(data)
             print('✁', '-'*30)
+
+"""
++ Some fixtures
+    $ ses 'Yo no conduje a la escuela por la lluvia.'
+    $ se 'I did not drive to school because of the rain.'
+"""
 
 if __name__ == '__main__':
     import fire

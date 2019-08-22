@@ -187,7 +187,21 @@ class EntityPersister(object):
         print('done')
 
     # def disp_prefab(self, id):
-
+    def list_data(self, item='entities'):
+        """
+        $ ls data/prefabs/
+        # list samples
+            $ python -m sagas.ofbiz.entity_prefabs list_data entities
+        # list all data
+            $ python -m sagas.ofbiz.entity_prefabs list_data _entities
+        :param item:
+        :return:
+        """
+        from values_pb2 import TaStringEntries, TaStringEntriesBatch, TaStringEntriesMap
+        with open(f'data/prefabs/{item}.data', 'rb') as f:
+            es = TaStringEntriesMap()
+            es.ParseFromString(f.read())
+            print(es)
 
 if __name__ == '__main__':
     # all_components()

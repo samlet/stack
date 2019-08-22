@@ -198,6 +198,7 @@ class ResourceDigester(object):
     def label_json(self, label):
         """
         $ python -m sagas.ofbiz.resources label_json 'CommonStatus'
+        $ python -m sagas.ofbiz.resources label_json 'CostComponentType.description.ACTUAL_LABOR_COST'
         :param label:
         :return:
         """

@@ -2,6 +2,17 @@ import errno
 import os
 import io
 
+def exists(file):
+    """
+    Check file or director whether exists; other related methods:
+        os.path.isfile()
+        os.path.isdir()
+    :param file:
+    :return:
+    """
+    from os import path
+    return path.exists(file)
+
 def create_dir(dir_path):
     # type: (Text) -> None
     """Creates a directory and its super paths.

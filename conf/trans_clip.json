@@ -3,6 +3,8 @@
   "trans_cache":true,
   "translator":"google",
   "retries":3,
-  "enable_chunks_parse":true
+  "enable_chunks_parse":true,
+  "bert_servant":"localhost",
+  "common_s":"http://localhost:14000"
 }
 

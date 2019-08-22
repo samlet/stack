@@ -40,7 +40,9 @@ def print_stem_chunks(r):
             # stem[0]是成分名称, 比如obj/obl/nsubj/...
             print('%s ->'%stem[0], colored(value, 'green'))
 
-display_synsets_opts=['nsubj', 'obl', 'obj', 'iobj', 'nmod',
+# others: 'nsubj'
+display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
+                      'obl:arg',
                       # $ ses 'La reina decía que la aldea era bonita.'
                       'ccomp',
                       ]
@@ -77,10 +79,11 @@ def get_verb_domains(data, return_df=False):
     import sagas
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns
     from sagas.nlu.nlu_cli import NluCli
+    from sagas.conf.conf import cf
 
     if 'engine' not in data:
         data['engine']='corenlp'
-    response = requests.post('http://localhost:8090/verb_domains', json=data)
+    response = requests.post(f'{cf.common_s}/verb_domains', json=data)
     # print(response.status_code, response.json())
     df_set=[]
     result=[]
@@ -284,9 +287,10 @@ class MiscTool(object):
 
     def parse_chunks(self, text, source, targets, ctx, details=True):
         import sagas.nlu.corenlp_helper as helper
+        from sagas.conf.conf import cf
 
         def query_serv(data, print_it=True):
-            response = requests.post('http://localhost:8090/digest', json=data)
+            response = requests.post(f'{cf.common_s}/digest', json=data)
             # print(response.status_code, response.json())
             if response.status_code == 200:
                 ctx.target_sents.append(response.text)

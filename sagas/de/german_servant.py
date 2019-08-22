@@ -133,5 +133,6 @@ def handle_verb_domains():
 if __name__ == "__main__":
     # app.run(debug=True)
     # app.run(host='0.0.0.0', port=8090, debug=True)
-    app.run(host='0.0.0.0', port=8090)
+    # app.run(host='0.0.0.0', port=8090)
+    app.run(host='0.0.0.0', port=14000)
 

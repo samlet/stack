@@ -29,3 +29,4 @@ def json_object(obj):
                sort_keys=True, indent=4)
 
 write_json=lambda f,o: write_json_to_file(f,o)
+pretty_json=lambda o: json.dumps(o, indent=2, ensure_ascii=False)

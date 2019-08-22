@@ -8,9 +8,10 @@ class GermanProcessor(object):
         :return:
         """
         import requests
+        from sagas.conf.conf import cf
         # "Die Eltern mögen den Käse."
         data = {"sents": sents}
-        response = requests.post('http://localhost:8090/digest', json=data)
+        response = requests.post(f'{cf.common_s}/digest', json=data)
         print(response.status_code, response.json())
 
 if __name__ == '__main__':

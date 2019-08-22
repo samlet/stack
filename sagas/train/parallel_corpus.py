@@ -1,5 +1,4 @@
 import numpy as np
-from termcolor import colored
 from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
 import numpy
 # import spacy
@@ -7,7 +6,10 @@ import json
 
 class ParallelCorpus(object):
     def __init__(self, ipaddr='pc'):
-        self.ipaddr=ipaddr
+        from sagas.conf.conf import cf
+        self.ipaddr=cf.conf['bert_servant']
+        print(f".. bert service port is {self.ipaddr}")
+        # self.ipaddr=ipaddr
         self._bc=None
         # self.bc = BertClient(ip=ipaddr)
 
@@ -73,6 +75,7 @@ class ParallelCorpus(object):
 
     def get_similar(self, questions, doc_vecs, query, print_index=-1, play=None):
         from sagas.nlu.tts_utils import say_lang
+        from termcolor import colored
         query_vec = self.bc.encode([query])[0]
         score = np.sum(query_vec * doc_vecs, axis=1) / np.linalg.norm(doc_vecs, axis=1)
         topk_idx = np.argsort(score)[::-1][:self.topk]
@@ -171,6 +174,8 @@ class ParallelCorpus(object):
         :param query:
         :return:
         """
+        from termcolor import colored
+
         print('load precomputed docs ...')
         doc_vecs=self.load_docs(docs)
 
