@@ -13,6 +13,7 @@ def verb_patterns(meta, domains):
     behaviours_obl = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r, 'v'), obl='c_noun') for r in rs]
     actions_obl = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r[0], 'v'), obl=kindof(r[1], 'n')) for r in rs]
     actions_obj = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r[0], 'v'), obj=kindof(r[1], 'n')) for r in rs]
+    actions_vob = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r[0], 'v'), __engine='ltp', vob=kindof(r[1], 'n')) for r in rs]
     pats=[Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
           # 复合动词: Drengen har nederdelen på. (har..på是一个动词) ([en] The boy is wearing the skirt.)
           Patterns(domains, meta, 2).verb(compound_prt='c_adv', nsubj=agency, obj=agency),
@@ -73,6 +74,13 @@ def verb_patterns(meta, domains):
           # 匹配意图(全句或chunk)
           # $ sd 'Ich stimme dir in diesem Punkt nicht zu.'
           Patterns(domains, meta, 5).verb(nsubj=agency, obl=intentof('context_indicator', 0.6, False)),
+
+          # 匹配中文的成分
+          # $ sz '搞外遇。'
+          Patterns(domains, meta, 5).verb(__engine='ltp', vob=kindof('sexual_intercourse/organic_process', 'n')),
+          # Patterns(domains, meta, 5).verb(vob=kindof('sexual_intercourse/organic_process', 'n')),
+          *actions_vob([('copulate', 'sexual_intercourse/organic_process'),
+                        ])
           ]
     print_result(pats)
 

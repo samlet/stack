@@ -332,6 +332,10 @@ class MiscTool(object):
         addons=[]
         if source in available_sources:
             data = {'lang': source, "sents": text}
+            if source=='zh':
+                data['engine']='ltp'
+            else:
+                data['engine']='corenlp'
             addons.extend(get_verb_domains(data))
         elif 'en' in ctx.sents_map:
             # there is no available dep-parser for the source language,
@@ -415,6 +419,8 @@ class MiscTool(object):
         $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en
         $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en spacy
         $ domains '伊万是最好的舞者' zh ltp
+        $ domains '现在是几点' zh ltp
+        $ domains '现在是几点?' zh corenlp
         :param sents:
         :param lang:
         :return:

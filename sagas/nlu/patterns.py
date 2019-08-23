@@ -122,9 +122,12 @@ class Patterns(object):
 
         return service_method
 
-print_not_matched=False
+# print_not_matched=False
 def print_result(rs):
     from termcolor import colored
+    from sagas.conf.conf import cf
+
+    print_not_matched=cf.is_enabled('print_not_matched')
     for r in rs:
         ok_clr='red' if r[2]==5 else 'blue'
         clr=ok_clr if r[1] else 'cyan'
