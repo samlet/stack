@@ -46,12 +46,14 @@ else
 		train de
 		;;
 	"train_zh")
-	    $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-Samples_issue.md zh/cn-Samples.json
-        $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-ConcertBot.md zh/cn-ConcertBot.json
+	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-Samples_issue.md zh/cn-Samples.json
+        # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-ConcertBot.md zh/cn-ConcertBot.json
+        $python -m sagas.bots.tools.corpus_procs gen_datasets cn 'zh/'
         train zh
 	    ;;
 	"train_ja")
-	    $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/ja-Samples.md ja/ja-Samples.json
+	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/ja-Samples.md ja/ja-Samples.json
+	    $python -m sagas.bots.tools.corpus_procs gen_datasets ja 'ja/'
 	    train ja
 	    ;;
 	"train")
@@ -68,7 +70,10 @@ else
 	    curl -XPOST localhost:5000/parse -d '{"q":"卵を食べる", "project":"ja", "model":"current"}'
 	    ;;
 	"query_zh")
-	    curl -XPOST localhost:5000/parse -d '{"q":"找地方吃饭", "project":"zh", "model":"current"}'
+	    # curl -XPOST localhost:5000/parse -d '{"q":"找地方吃饭", "project":"zh", "model":"current"}'
+	    curl -XPOST localhost:5000/parse -d '{"q":"几台电脑", "project":"zh", "model":"current"}'
+	    # curl -XPOST localhost:5000/parse -d '{"q":"几台笔记本电脑", "project":"zh", "model":"current"}'
+	    # curl -XPOST localhost:5000/parse -d '{"q":"几把伞", "project":"zh", "model":"current"}'
 	    ;;
 	*)
 		# default proc

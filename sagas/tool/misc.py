@@ -45,6 +45,9 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'obl:arg',
                       # $ ses 'La reina decía que la aldea era bonita.'
                       'ccomp',
+                      # $ sz '现在是几点？'
+                      # $ sz '昨天是星期几？'
+                      'sbv', 'vob'
                       ]
 def display_synsets(theme, meta, r, lang):
     from sagas.nlu.nlu_cli import retrieve_word_info

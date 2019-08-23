@@ -3,6 +3,7 @@ class Chunk(object):
         self.key=key
         self.children=children
 
+non_spaces=['ja', 'zh']
 class Context(object):
     def __init__(self, meta, domains):
         self.meta=meta
@@ -12,6 +13,7 @@ class Context(object):
         self.feats = {x[0]: x[5] for x in domains}
         # self.meta['intermedia']={}
         self._stems=meta['stems']
+        self.lang = meta['lang']
 
     def put_data(self, key, val):
         if 'intermedia' not in self.meta:
@@ -48,11 +50,19 @@ class Context(object):
 
     def chunk_pieces(self, key):
         chunks = self.get_chunks(key)
-        return [' '.join(c.children) for c in chunks]
+        if self.lang in non_spaces:
+            delim=''
+        else:
+            delim=' '
+        return [delim.join(c.children) for c in chunks]
 
     def stem_pieces(self, key):
         stems = self.get_stems(key)
-        return [' '.join(c[1]) for c in stems]
+        if self.lang in non_spaces:
+            delim=''
+        else:
+            delim=' '
+        return [delim.join(c[1]) for c in stems]
 
 enable_cache=False
 class Inspector(object):

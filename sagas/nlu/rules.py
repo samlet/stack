@@ -78,9 +78,12 @@ def verb_patterns(meta, domains):
           # 匹配中文的成分
           # $ sz '搞外遇。'
           Patterns(domains, meta, 5).verb(__engine='ltp', vob=kindof('sexual_intercourse/organic_process', 'n')),
-          # Patterns(domains, meta, 5).verb(vob=kindof('sexual_intercourse/organic_process', 'n')),
-          *actions_vob([('copulate', 'sexual_intercourse/organic_process'),
-                        ])
+          *actions_vob([('copulate', 'sexual_intercourse/organic_process'),]),
+
+          # $ sz '你有几台笔记本电脑？'
+          Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp',
+                                          vob=intentof('how_many', 0.75)),
+          *actions_vob([('have', 'device/artifact'),]),
           ]
     print_result(pats)
 
