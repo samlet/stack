@@ -3,8 +3,9 @@ class InspectorFixture(object):
         from sagas.tool.loggers import init_logger
         init_logger()
 
-    def print_table(self, rs):
+    def print_table(self, rs, console=True):
         import sagas
+        from IPython.display import display
         # df_set=[]
         for r in rs:
             for k,v in r.items():
@@ -12,7 +13,10 @@ class InspectorFixture(object):
                     print('%s=%s'%(k,v))
             df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
             # df_set.append(df)
-            sagas.print_df(df)
+            if console:
+                sagas.print_df(df)
+            else:
+                display(df)
 
     def request_domains(self, data, print_format='table'):
         import requests
@@ -30,6 +34,8 @@ class InspectorFixture(object):
         r = rs[0]
         if print_format=='table':
             self.print_table(rs)
+        elif print_format=='jupyter':
+            self.print_table(rs, False)
         else:
             print(json.dumps(r, indent=2, ensure_ascii=False))
 
