@@ -1,5 +1,5 @@
 class TransClipConf(object):
-    def __init__(self, conf_file='./conf/trans_clip.json'):
+    def __init__(self, conf_file='/pi/conf/trans_clip.json'):
         import json_utils
         self.conf = json_utils.read_json_file(conf_file)
 

@@ -46,10 +46,12 @@ class RuleSetRunner(InspectorFixture):
 
         # ruleset里定义的patterns不会马上执行
         ruleset_stats = RuleSet('how_many_artifact',
-                                rules=lambda d, m: [  # $ sz '你有几台笔记本电脑？'
+                                rules=lambda d, m: [
+                                    # $ sz '你有几台笔记本电脑？'
                                     Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp',
                                                                     vob=intentof('how_many', 0.75)),
-                                    *actions_vob([('have', 'device/artifact'), ]), ],
+                                    *actions_vob([('have', 'device/artifact'), ]),
+                                ],
                                 executor=lambda arg: print(f'matched: {arg}'))
 
         # execute patterns within the ruleset
@@ -76,3 +78,4 @@ class RuleSetRunner(InspectorFixture):
 if __name__ == '__main__':
     import fire
     fire.Fire(RuleSetRunner)
+

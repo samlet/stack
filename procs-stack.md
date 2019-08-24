@@ -8,6 +8,7 @@
 ```sh
 $ start duckling
 $ start bert-multi
+$ start bus  # rabbit
 
 $ start servant_nlu
 $ start servant_de

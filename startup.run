@@ -100,7 +100,7 @@ else
 		;;
 
 	"note")
-		export PYTHONPATH=..:$PYTHONPATH
+		# export PYTHONPATH=..:$PYTHONPATH
 		$jupyter notebook
 		;;
 

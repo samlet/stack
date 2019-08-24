@@ -130,6 +130,23 @@ def handle_verb_domains():
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y
 
+@app.route('/dep_parse', methods = ['POST'])
+def handle_dep_parse():
+    from sagas.nlu.uni_jsonifier import jsonify_with
+
+    content = request.get_json()
+    sents = content['sents']
+    lang = content['lang']
+    if 'engine' in content:
+        engine=content['engine']
+    else:
+        engine='corenlp'
+
+    sents=fix_sents(lang, sents)
+    r=jsonify_with(sents, lang, engine=engine)
+    data_y = json.dumps(r, ensure_ascii=False)
+    return data_y
+
 if __name__ == "__main__":
     # app.run(debug=True)
     # app.run(host='0.0.0.0', port=8090, debug=True)

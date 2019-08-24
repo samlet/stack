@@ -431,6 +431,24 @@ class MiscTool(object):
         data = {'lang': lang, "sents": sents, 'engine':engine}
         get_verb_domains(data)
 
+    def dep_parse(self, sents, lang='en', engine='corenlp'):
+        """
+        $ python -m sagas.tool.misc dep_parse 'Мы написали три книги за год.' ru
+        $ python -m sagas.tool.misc dep_parse "今何時ですか?" ja
+        $ python -m sagas.tool.misc dep_parse "现在是几点?" zh ltp
+        :param sents:
+        :param lang:
+        :param engine:
+        :return:
+        """
+        from sagas.nlu.uni_jsonifier import rs_summary
+        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_remote import dep_parse
+
+        doc_jsonify = dep_parse(sents, lang, engine)
+        rs = get_chunks(doc_jsonify)
+        rs_summary(rs)
+
 if __name__ == '__main__':
     import fire
     fire.Fire(MiscTool)

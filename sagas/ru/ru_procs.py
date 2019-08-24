@@ -54,7 +54,12 @@ class RuProcs(object):
         self.target_file_rev = '/pi/langs/voc/ru-rev-map.json'
 
     def get_phonetic(self, argument):
-        # >>> print(epi.transliterate(u'Вот оно что'))
+        """
+        >>> print(epi.transliterate(u'Вот оно что'))
+        $ python -m sagas.ru.ru_procs get_phonetic 'Вот оно что'
+        :param argument:
+        :return:
+        """
         result = self.epi.transliterate(argument)
         return result
 
