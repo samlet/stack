@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request
 import json
 from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+import logging
+logger = logging.getLogger('servant')
 
 # nlp=langs['de']()
 app = Flask(__name__)
@@ -119,6 +121,7 @@ def handle_verb_domains():
     # nlp = get_nlp(lang)
     # doc = nlp(sents)
     # sent = doc.sentences[0]
+    logger.debug(f".. parse sents [{sents}] with engine {engine} in lang {lang}")
     sent=parse_with(sents, lang, engine=engine)
 
     # r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
@@ -147,9 +150,19 @@ def handle_dep_parse():
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y
 
+class ParseServant(object):
+    def __init__(self):
+        from sagas.tool.loggers import init_logger
+        init_logger()
+
+    def run(self, port=14000):
+        app.run(host='0.0.0.0', port=port)
+
 if __name__ == "__main__":
+    import fire
     # app.run(debug=True)
     # app.run(host='0.0.0.0', port=8090, debug=True)
     # app.run(host='0.0.0.0', port=8090)
-    app.run(host='0.0.0.0', port=14000)
+    fire.Fire(ParseServant)
+
 

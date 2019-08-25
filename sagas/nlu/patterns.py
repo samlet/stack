@@ -1,5 +1,8 @@
 from sagas.nlu.inspector_common import Inspector, Context
 
+import logging
+logger = logging.getLogger('inspector')
+
 def check_item(feats, key, el, ctx):
     if key in feats:
         if isinstance(el, list) or isinstance(el, tuple):
@@ -106,7 +109,7 @@ class Patterns(object):
                     opt_name=key[2:]
                     opt_ret=self.meta[opt_name]==value
                     if not opt_ret:
-                        print('%s=%s checker fail, skip this pattern.'%(key, value))
+                        logger.debug('%s=%s checker fail, skip this pattern.'%(key, value))
                 elif key.startswith(':'):
                     opt_ret=check_item(self.meta, key[1:], value, ctx)
                 else:

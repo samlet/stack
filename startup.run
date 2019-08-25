@@ -122,7 +122,10 @@ else
 		cd $target_dir ; stack exec duckling-example-exe
 		;;
 	"servant_de")
-		$python -m sagas.de.german_servant
+		$python -m sagas.nlu.parse_servant run
+		;;
+	"servant_spacy")
+		$py_rasa -m sagas.nlu.parse_servant run 14001
 		;;
 	"servant_zh")
 		$python -m sagas.zh.chinese_servant
