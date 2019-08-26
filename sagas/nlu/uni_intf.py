@@ -53,7 +53,8 @@ class WordIntf(abc.ABC):
         return self.ctx['index']
 
     def __repr__(self):
-        features = ['index', 'text', 'lemma', 'upos', 'xpos', 'feats', 'governor', 'dependency_relation']
+        features = ['index', 'text', 'lemma', 'upos', 'xpos',
+                    'feats', 'governor', 'dependency_relation']
         feature_str = ";".join(["{}={}".format(k, getattr(self, k)) for k in features if getattr(self, k) is not None])
 
         return f"<{self.__class__.__name__} {feature_str}>"

@@ -26,6 +26,14 @@ class SpacySentImpl(SentenceIntf):
 
 
 class SpacyParserImpl(object):
+    """
+    from sagas.nlu.uni_impl_spacy import SpacyParserImpl
+    from sagas.nlu.uni_viz import EnhancedViz
+
+    doc=SpacyParserImpl('ru')("Сегодня неплохая погода.")
+    cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
+    cv.analyse_doc(doc, None)
+    """
     def __init__(self, lang):
         self.lang = lang
 

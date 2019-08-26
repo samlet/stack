@@ -286,7 +286,11 @@ class MiscTool(object):
         """
         self.translator='baidu' # set this option
         print('.. set translator', self.translator)
-        self.trans_clip(source, targets='zh;ja', says='ja', details=False)
+        if source=='ja':
+            targets='en;zh'
+        else:
+            targets='zh;ja'
+        self.trans_clip(source, targets=targets, says='ja', details=False)
 
     def parse_chunks(self, text, source, targets, ctx, details=True):
         import sagas.nlu.corenlp_helper as helper

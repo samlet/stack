@@ -84,6 +84,7 @@ alias sd+fr="python -m sagas.tool.misc trans_clip de 'en;ja;fr' fr"
 
 alias bd='python -m sagas.tool.misc trans_clip_opt de'
 alias be='python -m sagas.tool.misc trans_clip_opt en'
+alias bj='python -m sagas.tool.misc trans_clip_opt ja'
 
 # alias scs="python -m sagas.tool.misc trans_clip cs 'en;zh-CN;ja' ja False"
 alias scs-ru="python -m sagas.tool.misc trans_clip cs 'en;ja;ru' ru False"

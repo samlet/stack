@@ -9,6 +9,15 @@ upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
           }
 upos_rev_maps={'SCONJ':['c'], 'NOUN':['ni', 'nl', 'ns', 'nt', 'nz', 'n', 'nd', 'nh']}
 
+def get_pos_mapping(pos, default_val='X'):
+    if pos in upos_maps:
+        return upos_maps[pos]
+    else:
+        for k, v in upos_rev_maps.items():
+            if pos in v:
+                return k
+    return default_val
+
 class WordUnit(object):
     def __init__(self, i, text, dependency_relation, governor, head_text, pos, netag):
         self.i=i
@@ -18,13 +27,8 @@ class WordUnit(object):
         self.governor=governor
         self.head_text=head_text
         self.pos=pos
-        self.upos='X'
-        if pos in upos_maps:
-            self.upos=upos_maps[pos]
-        else:
-            for k,v in upos_rev_maps.items():
-                if pos in v:
-                    self.upos=k
+        self.upos=get_pos_mapping(pos)
+
         self.netag=netag
 
 

@@ -12,12 +12,15 @@ $ start bus  # rabbit
 
 $ start servant_nlu
 $ start servant_de
-$ start servant_zh
+# $ start servant_zh
 $ start servant_words
 $ start servant_multilang
 
 # servant from dir: ./mats/nlu_multilang
 $ start nlu
+
+$ start langprocs
+$ start timenlp
 ```
 
 ## odoo routines

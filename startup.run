@@ -145,6 +145,12 @@ else
 	"nlu")
 		$python -m rasa_nlu.server --path mats/nlu_multilang/projects 
 		;;
+	"timenlp")
+		cd $HOME/jcloud/assets/langs/workspace/data-procs/Time-NLP ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.bridge.ApplicaEntryPoint"
+		;;
+	"langprocs")
+		cd $HOME/jcloud/assets/langs/workspace/langprocs ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.langprocs.App"
+		;;
 	*)
 		# default proc
 		handle_cmd ${@:1}

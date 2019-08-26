@@ -5,7 +5,12 @@ import pandas as pd
 lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
                      'fr':['fr_core_news_sm', 'fr_core_news_md'],
                      'el':['el-core-news-sm', 'el-core-news-md'],
-                     'de':['de-core-news-sm', 'de-core-news-md']
+                     'de':['de-core-news-sm', 'de-core-news-md'],
+                     'pt':['pt-core-news-sm', 'pt-core-news-sm'],
+                     'nl':['nl-core-news-sm', 'nl-core-news-sm'],
+                     'it':['it-core-news-sm', 'it-core-news-sm'],
+                     'es':['es-core-news-sm', 'es-core-news-sm'],
+                     'ru':['/pi/ru2', '/pi/ru2'],
                      }
 
 class SpacyManager(object):
