@@ -15,9 +15,10 @@ class EnhancedViz(object):
         if fontsize != 0:
             self.f.attr(fontsize=str(fontsize))
 
-    def print_dependencies(self, doc, segs, node_maps, file=None):
+    def print_dependencies(self, doc, segs, node_maps, verbose=False):
         for dep_edge in doc.dependencies:
-            print((dep_edge[2].text, dep_edge[0].index, dep_edge[1]), file=file)
+            if verbose:
+                print((dep_edge[2].text, dep_edge[0].index, dep_edge[1]))
             # head = int(dep_edge[0].index)
             # governor-id is index in words list + 1
             rel = dep_edge[1]
@@ -46,10 +47,19 @@ class EnhancedViz(object):
     def default_node(self):
         self.f.attr('node', style='solid', color='black')
 
-    def analyse_doc(self, sentence, node_maps=None):
+    def analyse_doc(self, sentence, node_maps=None, console=True):
+        from sagas.nlu.uni_intf import sub_comps
+
         segs = []
         # omit {word.feats}
-        print(*[f'index: {word.index}\ttext: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for word in sentence.words], sep='\n')
+        if console:
+            print(*[f'index: {word.index}\ttext: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for word in sentence.words], sep='\n')
+        else:
+            from IPython.display import display
+            import sagas
+            df=sagas.to_df([(word.index, word.text, word.lemma, word.upos, word.xpos) for word in sentence.words],
+                           ['index', 'text', 'lemma', 'upos', 'xpos'])
+            display(df)
         if node_maps is None:
             node_maps = {}
             for word in sentence.words:
@@ -64,9 +74,7 @@ class EnhancedViz(object):
         # sentence = doc.sentences[0]
         for word in sentence.words:
             rel = word.dependency_relation
-
-            # for zh
-            if rel in ['adv', 'coo', 'vob', 'att']:
+            if rel in sub_comps:
                 if word.upos == 'VERB':
                     self.f.attr('node', style='filled', color='antiquewhite')
                 elif word.upos in prop_sets:
@@ -88,7 +96,7 @@ class EnhancedViz(object):
             else:
                 head_word = sentence.words[word.governor - 1]
                 head = head_word.text
-            print(f"{word.text} -> {rel}, {word.governor}, {head}")
+            # print(f"{word.text} -> {rel}, {word.governor}, {head}")
             self.f.node(node_maps[word.text])
             segs.append(node_maps[word.text])
 

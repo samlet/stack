@@ -38,5 +38,5 @@ def viz_sample(lang, sents, engine='corenlp'):
         print_stem_chunks(r)
 
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
-    return cv.analyse_doc(doc_jsonify, None)
+    return cv.analyse_doc(doc_jsonify, None, console=False)
 

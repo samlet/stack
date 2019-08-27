@@ -36,11 +36,12 @@ def add_domain(domains:list, stems:list,  c, sent):
     stems.append((c.dependency_relation, get_children_list(sent, c, include_self=True, stem=True)))
 
 def get_verb_domain(sent, filters):
+    from sagas.nlu.uni_intf import sub_comps
     rs = []
     verbs=list(filter(lambda w: w.upos == "VERB", sent.words))
     if len(verbs)>1:
         # filter the verbs which in clausal complement
-        verbs=[word for word in verbs if word.dependency_relation not in ['ccomp', 'xcomp']]
+        verbs=[word for word in verbs if word.dependency_relation not in sub_comps]
     for word in verbs:
         # if money.dep_ in ("attr", "dobj"):
         # print(word.index, word.text)

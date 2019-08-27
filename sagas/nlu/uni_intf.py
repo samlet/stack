@@ -1,5 +1,9 @@
 import abc
 
+sub_comps=['ccomp', 'xcomp', # general
+           'adv', 'coo', 'vob', 'att', # zh
+           ]
+
 class WordIntf(abc.ABC):
     def __init__(self, data):
         self.ctx = self.setup(data)

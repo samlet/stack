@@ -126,7 +126,9 @@ def get_verb_domains(data, return_df=False):
             df_set.append(df)
             if not return_df:
                 # where 1 is the axis number (0 for rows and 1 for columns.)
-                df = df.drop('children', 1)
+                # df = df.drop('children', 1)
+                df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
+                df['features'] = df['features'].apply(lambda x: ', '.join(x)[:15]+"..")
                 sagas.print_df(df)
                 print_stem_chunks(r)
 

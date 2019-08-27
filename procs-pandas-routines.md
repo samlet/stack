@@ -46,6 +46,33 @@ pd.read_csv('zoo.csv', delimiter = ',')
 df=pd.read_csv('/pi/ai/nltk/data/wikt/wn-wikt-rus.tab',sep='\t')
 ```
 
+## modify columns
+⊕ [python - Pandas: how to change all the values of a column? - Stack Overflow](https://stackoverflow.com/questions/12604909/pandas-how-to-change-all-the-values-of-a-column)
+
+```python
+df['Date'].str[-4:].astype(int)
+# Or using extract (assuming there is only one set of digits of length 4 somewhere in each string):
+df['Date'].str.extract('(?P<year>\d{4})').astype(int)
+
+# An alternative slightly more flexible way, might be to use apply (or equivalently map) to do this:
+
+df['Date'] = df['Date'].apply(lambda x: int(str(x)[-4:]))
+             #  converts the last 4 characters of the string to an integer
+
+# The lambda function, is taking the input from the Date and converting it to a year.
+# You could (and perhaps should) write this more verbosely as:
+
+def convert_to_year(date_in_some_format);
+    date_as_string = str(date_in_some_format)
+    year_as_string = date_in_some_format[-4:] # last four characters
+    return int(year_as_string)
+
+df['Date'] = df['Date'].apply(convert_to_year)
+
+## ... my practice
+df['children'] = df['children'].apply(lambda x: ', '.join(x)[:20] + "..")
+```
+
 ## remove columns
 ⊕ [python - Delete column from pandas DataFrame - Stack Overflow](https://stackoverflow.com/questions/13411544/delete-column-from-pandas-dataframe)
 

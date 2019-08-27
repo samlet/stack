@@ -13,6 +13,24 @@ def explain(arg_name):
         return '动作的影响'
     return arg_name
 
+def extract_predicates(words, roles, verbose=False):
+    predicts = []
+    for role in roles:
+        if verbose:
+            print(f"{words[role.index]}({role.index})", '->', "".join(
+                ["%s:(%d,%d) _ " % (arg.name, arg.range.start, arg.range.end) for arg in role.arguments]))
+        args = []
+        for arg in role.arguments:
+            # print('\t', arg.name, arg.range.start, arg.range.end)
+            cnt = join_words(words, arg.range)
+            if verbose:
+                print('\t', explain(arg.name), '☞', cnt)
+            # print('\t', '----')
+            args.append({'name': arg.name, 'value': cnt, 'start': arg.range.start, 'end': arg.range.end})
+        predicts.append({'index': role.index, 'predicate': words[role.index],
+                         'args': args})
+    return predicts
+
 class LtpProcs(object):
     def __init__(self):
         MODELDIR = '/pi/ai/ltp/ltp_data_v3.4.0'
@@ -34,7 +52,7 @@ class LtpProcs(object):
         self.recognizer.release()
         self.labeller.release()
 
-    def analyse(self, sentence):
+    def analyse(self, sentence, verbose=False, show_roles=True):
         """
         $ python -m sagas.zh.ltp_procs analyse '中国进出口银行与中国银行加强合作。'
         $ python -m sagas.zh.ltp_procs analyse '国务院总理李克强调研上海外高桥时提出，支持上海积极探索新机制。'
@@ -44,6 +62,8 @@ class LtpProcs(object):
         """
         from colorama import Fore, Back, Style
         from tabulate import tabulate
+        import sagas
+
         pd.set_option('display.unicode.ambiguous_as_wide', True)
         pd.set_option('display.unicode.east_asian_width', True)
 
@@ -55,29 +75,42 @@ class LtpProcs(object):
 
         # roles
         print('❶ roles for', " ".join(words))
-        roles = self.labeller.label(words, postags, arcs)
-        for role in roles:
-            print(role.index, '->', "".join(
-                ["%s:(%d,%d) _ " % (arg.name, arg.range.start, arg.range.end) for arg in role.arguments]))
-            for arg in role.arguments:
-                # print(''.join(words[arg.range.start:arg.range.end]))
-                print(arg.name, arg.range.start, arg.range.end)
-                # print(arg.name, words[arg.range.start], words[arg.range.end])
-                print(explain(arg.name), join_words(words, arg.range))
-                print('----')
+        # roles = self.labeller.label(words, postags, arcs)
+
+        predicts=extract_predicates(words, roles, verbose=False)
+        print(predicts)
 
         # dep-parse
-        print('❷ dep parse')
-        rs = []
-        for i in range(len(words)):
-            print("%s --> %s|%s|%s|%s" % (words[int(arcs[i].head) - 1], words[i], \
-                                          arcs[i].relation, postags[i], netags[i]))
-            rs.append((words[int(arcs[i].head) - 1], words[i], \
-                       arcs[i].relation, postags[i], netags[i]))
-        df=sagas.to_df(rs, ['弧头', '弧尾', '依存关系', '词性', '命名实体'])
-        df['命名实体'] = Fore.RED + Style.BRIGHT + df['命名实体'].astype(str) + Style.RESET_ALL
-        # print(df)
-        print(tabulate(df, headers='keys', tablefmt='psql'))
+        if not show_roles:
+            print('❷ dep parse')
+            rs = []
+            for i in range(len(words)):
+                if verbose:
+                    print("%s --> %s|%s|%s|%s" % (words[int(arcs[i].head) - 1], words[i], \
+                                                  arcs[i].relation, postags[i], netags[i]))
+                rs.append((words[int(arcs[i].head) - 1], words[i], \
+                           arcs[i].relation, postags[i], netags[i]))
+            df=sagas.to_df(rs, ['弧头', '弧尾', '依存关系', '词性', '命名实体'])
+            df['命名实体'] = Fore.RED + Style.BRIGHT + df['命名实体'].astype(str) + Style.RESET_ALL
+            # print(df)
+            print(tabulate(df, headers='keys', tablefmt='psql'))
+
+        else:
+            print('❷ tokens')
+
+            # arrange roles to a column
+            # https://github.com/HIT-SCIR/pyltp/issues/152
+            srl_as_tag_matrix = [['*'] * len(roles) for _ in sentence]
+            for predicate_id, role in enumerate(roles):
+                srl_as_tag_matrix[role.index][predicate_id] = '(V*)'
+                for arg in role.arguments:
+                    srl_as_tag_matrix[arg.range.start][predicate_id] = '(%s*' % arg.name
+                    srl_as_tag_matrix[arg.range.end][predicate_id] += ')'
+
+            rs = []
+            for id, (word, pos, arc, ne, role) in enumerate(zip(words, postags, arcs, netags, srl_as_tag_matrix)):
+                rs.append(([str(id), word, pos, str(arc.head), arc.relation, ne, ', '.join(role)]))
+            sagas.print_rs(rs, ['id','word','pos','head','rel','ne','role'])
 
 ltp=LtpProcs()
 

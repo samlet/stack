@@ -11,7 +11,8 @@ $ start bert-multi
 $ start bus  # rabbit
 
 $ start servant_nlu
-$ start servant_de
+$ start servant_de     # corenlp/ltp
+$ start servant_spacy  # spacy-2.1, spacy-ru
 # $ start servant_zh
 $ start servant_words
 $ start servant_multilang
