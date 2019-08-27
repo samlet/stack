@@ -18,13 +18,13 @@ class InspectorFixture(object):
             else:
                 display(df)
 
-    def request_domains(self, data, print_format='table'):
+    def request_domains(self, data, print_format='table', engine='corenlp'):
         import requests
         import json
         from sagas.conf.conf import cf
 
         print(f".. request is {data}")
-        response = requests.post(f'{cf.common_s}/verb_domains', json=data)
+        response = requests.post(f'{cf.servant(engine)}/verb_domains', json=data)
         rs = response.json()
         if len(rs)==0:
             print('.. verb_domains servant returns empty set.')

@@ -6,6 +6,18 @@
   "enable_chunks_parse":true,
   "print_not_matched":false,
   "bert_servant":"localhost",
-  "common_s":"http://localhost:14000"
+  "common_s":"http://localhost:14000",
+  "servants":{
+    "corenlp":"http://localhost:14000",
+    "ltp":"http://localhost:14000",
+    "hanlp":"http://localhost:14000",
+    "knp":"http://localhost:14000",
+    "spacy":"http://localhost:14001"
+  },
+  "dialectors":{
+    "*":"corenlp",
+    "el":"corenlp",
+    "zh":"ltp"
+  }
 }
 

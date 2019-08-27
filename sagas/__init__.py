@@ -10,3 +10,6 @@ def print_df(df):
     # pd.set_option('display.unicode.ambiguous_as_wide', True)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def print_rs(rs, cols):
+    print_df(to_df(rs, cols))
+

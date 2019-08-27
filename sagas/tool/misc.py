@@ -85,8 +85,9 @@ def get_verb_domains(data, return_df=False):
     from sagas.conf.conf import cf
 
     if 'engine' not in data:
-        data['engine']='corenlp'
-    response = requests.post(f'{cf.common_s}/verb_domains', json=data)
+        data['engine']=cf.engine(data['lang'])
+    engine=data['engine']
+    response = requests.post(f'{cf.servant(engine)}/verb_domains', json=data)
     # print(response.status_code, response.json())
     df_set=[]
     result=[]
@@ -297,7 +298,7 @@ class MiscTool(object):
         from sagas.conf.conf import cf
 
         def query_serv(data, print_it=True):
-            response = requests.post(f'{cf.common_s}/digest', json=data)
+            response = requests.post(f'{cf.servant_by_lang(data["lang"])}/digest', json=data)
             # print(response.status_code, response.json())
             if response.status_code == 200:
                 ctx.target_sents.append(response.text)
@@ -339,10 +340,11 @@ class MiscTool(object):
         addons=[]
         if source in available_sources:
             data = {'lang': source, "sents": text}
-            if source=='zh':
-                data['engine']='ltp'
-            else:
-                data['engine']='corenlp'
+            # if source=='zh':
+            #     data['engine']='ltp'
+            # else:
+            #     data['engine']='corenlp'
+            data['engine']=cf.engine(source)
             addons.extend(get_verb_domains(data))
         elif 'en' in ctx.sents_map:
             # there is no available dep-parser for the source language,

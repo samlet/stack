@@ -6,7 +6,7 @@ def dep_parse(sents, lang='en', engine='corenlp'):
 
     data = {'lang': lang, "sents": sents, 'engine': engine}
     print(f".. request is {data}")
-    response = requests.post(f'{cf.common_s}/dep_parse', json=data)
+    response = requests.post(f'{cf.servant(engine)}/dep_parse', json=data)
     words = response.json()
     if len(words) == 0:
         print('.. dep_parse servant returns empty set.')

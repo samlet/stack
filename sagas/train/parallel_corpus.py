@@ -4,6 +4,27 @@ import numpy
 # import spacy
 import json
 
+def load_corpus(dataf='/pi/ai/seq2seq/jpn-eng-2019/jpn.txt'):
+    pairs = lines(dataf)
+    array = numpy.array(pairs)
+    items = []
+    for r in array:
+        sents = str(r[0])
+        tr_lang = str(r[1].strip())
+        items.append((sents, tr_lang))
+    return items
+
+def take_samples(items, count=10):
+    random_rows = numpy.random.randint(len(items), size=count)
+    array=numpy.array(items)
+    rows = array[random_rows, :]
+    samples=[]
+    for r in rows:
+        sents = str(r[0])
+        tr_lang = str(r[1].strip())
+        samples.append((sents, tr_lang))
+    return samples
+
 class ParallelCorpus(object):
     def __init__(self, ipaddr='pc'):
         from sagas.conf.conf import cf

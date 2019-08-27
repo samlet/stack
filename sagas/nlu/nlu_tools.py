@@ -117,7 +117,7 @@ class NluTools(object):
         rs=sorted(rs, key=lambda el: el[2][0])
         sagas.print_df(sagas.to_df(rs, ['id', 'name', 'lang', 'gender']))
 
-    def parse_sentence(self, lang, sents):
+    def parse_sentence(self, lang, sents, engine='corenlp'):
         """
         $ python -m sagas.nlu.nlu_tools parse_sentence ja '今調査します'
         :param lang:
@@ -128,7 +128,7 @@ class NluTools(object):
         import clipboard
         from sagas.conf.conf import cf
         data = {'lang': lang, "sents": sents}
-        response = requests.post(f'{cf.common_s}/digest', json=data)
+        response = requests.post(f'{cf.servant(engine)}/digest', json=data)
         # print(response.status_code, response.json())
         if response.status_code == 200:
             print(response.text)

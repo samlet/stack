@@ -128,8 +128,8 @@ class EntityInspector(Inspector):
         return "{}('{}')".format(self.name(), self.dim)
 
 class Inspectors(InspectorFixture):
-    def procs_common(self, data):
-        domains, meta=self.request_domains(data)
+    def procs_common(self, data, print_format='table', engine='corenlp'):
+        domains, meta=self.request_domains(data, print_format, engine)
         if domains is None:
             print('! request_domains returns empty.')
         else:
