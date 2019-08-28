@@ -1,0 +1,5 @@
+servant_nlu: ./startup.run servant_nlu
+servant_spacy: ./startup.run servant_spacy
+langprocs: ./startup.run langprocs
+timenlp: ./startup.run timenlp
+

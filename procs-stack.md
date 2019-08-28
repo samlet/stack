@@ -6,22 +6,24 @@
 
 ## servants
 ```sh
-$ start duckling
 $ start bert-multi
 $ start bus  # rabbit
 
-$ start servant_nlu
-$ start servant_de     # corenlp/ltp
-$ start servant_spacy  # spacy-2.1, spacy-ru
-# $ start servant_zh
-$ start servant_words
-$ start servant_multilang
+$ foreman start -f Procfile_langs  # 代替以下服务启动
+    $ start servant_nlu    # spacy-entities (spacy-2.1+)
+    $ start servant_spacy  # spacy-2.1, spacy-ru
+    $ start langprocs
+    $ start timenlp
 
-# servant from dir: ./mats/nlu_multilang
-$ start nlu
+$ honcho start  # 代替以下服务启动
+    $ start duckling
+    $ start servant_de     # corenlp/ltp
+    # $ start servant_zh
+    $ start servant_words
+    $ start servant_multilang
 
-$ start langprocs
-$ start timenlp
+    # servant from dir: ./mats/nlu_multilang
+    $ start nlu
 ```
 
 ## odoo routines

@@ -119,7 +119,8 @@ else
 		;;
 	"duckling")
 		target_dir="$HOME/jcloud/assets/langs/workspace/data-procs/duckling/duckling"
-		cd $target_dir ; stack exec duckling-example-exe
+		# https://github.com/facebook/duckling/issues/85
+		cd $target_dir ; stack exec duckling-example-exe -- -p 8000
 		;;
 	"servant_de")
 		$python -m sagas.nlu.parse_servant run
