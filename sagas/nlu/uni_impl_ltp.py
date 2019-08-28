@@ -72,6 +72,8 @@ class LtpParserImpl(object):
 
     def __call__(self, sentence):
         from sagas.zh.ltp_procs import LtpProcs, ltp
+        from sagas.zh.ltp_procs import extract_predicates
+
         # doc = spacy_doc(sents, self.lang)
         words = ltp.segmentor.segment(sentence)
         postags = ltp.postagger.postag(words)
@@ -88,7 +90,9 @@ class LtpParserImpl(object):
                             dependency_relation=arcs[i].relation.lower(),
                             governor=arcs[i].head,
                             head_text=a, pos=postags[i], netag=netags[i])
-            rel = unit.dependency_relation
+            # rel = unit.dependency_relation
             doc.append(unit)
-        return LtpSentImpl(doc)
+
+        predicts=extract_predicates(words, roles)
+        return LtpSentImpl(doc, predicts=predicts)
 

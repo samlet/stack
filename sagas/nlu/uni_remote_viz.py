@@ -24,7 +24,7 @@ def viz_sample(lang, sents, engine='corenlp'):
     # uni=UniCli()
     # doc=uni.parsers[engine](lang, sents)
     from sagas.nlu.uni_remote import dep_parse
-    doc_jsonify = dep_parse(sents, lang, engine)
+    doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
     rs = get_chunks(doc_jsonify)
     for serial, r in enumerate(rs):
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
@@ -36,6 +36,7 @@ def viz_sample(lang, sents, engine='corenlp'):
         # sagas.print_df(df)
         display(df)
         print_stem_chunks(r)
+        print(resp)
 
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
     return cv.analyse_doc(doc_jsonify, None, console=False)

@@ -141,16 +141,20 @@ def invoke_parser(request, func):
         engine = content['engine']
     else:
         engine = 'corenlp'
+    if 'pipelines' in content:
+        pipelines=content['pipelines']
+    else:
+        pipelines=[]
 
     sents = fix_sents(lang, sents)
-    r = func(sents, lang, engine)
+    r = func(sents, lang, engine, pipelines)
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y
 
 @app.route('/dep_parse', methods = ['POST'])
 def handle_dep_parse():
-    from sagas.nlu.uni_jsonifier import jsonify_with
-    return invoke_parser(request, lambda s,l,e: jsonify_with(s,l,e))
+    from sagas.nlu.uni_jsonifier import jsonify_pipelines
+    return invoke_parser(request, lambda s,l,e,p: jsonify_pipelines(s,l,e,p))
 
 class ParseServant(object):
     def __init__(self):

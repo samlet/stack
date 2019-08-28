@@ -71,10 +71,16 @@ class RootWordImpl(WordIntf):
         return features
 
 class SentenceIntf(abc.ABC):
-    def __init__(self, sent):
+    def __init__(self, sent, predicts=None):
+        if predicts is None:
+            predicts=[]
+        self.predicts=predicts
         self._words, self._dependencies = self.setup(sent)
         if self._dependencies is None or len(self._dependencies)==0:
             self.build_dependencies()
+
+    def has_predicts(self):
+        return self.predicts is not None and len(self.predicts)>0
 
     @abc.abstractmethod
     def setup(self, sent):

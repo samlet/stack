@@ -453,9 +453,10 @@ class MiscTool(object):
         from sagas.nlu.corenlp_parser import get_chunks
         from sagas.nlu.uni_remote import dep_parse
 
-        doc_jsonify = dep_parse(sents, lang, engine)
+        doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
         rs = get_chunks(doc_jsonify)
         rs_summary(rs)
+        print(resp)
 
 if __name__ == '__main__':
     import fire

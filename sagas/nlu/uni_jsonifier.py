@@ -52,6 +52,11 @@ def jsonify_with(sents, lang, engine='corenlp'):
     doc= UniCli().parsers[engine](lang, sents)
     return sent_jsonify(doc)
 
+def jsonify_pipelines(sents, lang, engine, pipelines):
+    doc = UniCli().parsers[engine](lang, sents)
+    return {'sents':sent_jsonify(doc),
+            'predicts': doc.predicts}
+
 class UniJsonifier(object):
     def viz_sample(self, lang, sents, engine='corenlp'):
         """
