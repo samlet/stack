@@ -48,6 +48,9 @@ class LtpWordImpl(WordIntf):
 
 
 class LtpSentImpl(SentenceIntf):
+    def __init__(self, sent, predicts=None):
+        super().__init__(sent, predicts)
+
     def setup(self, sent):
         words = []
         for word in sent:

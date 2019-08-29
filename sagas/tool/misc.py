@@ -16,7 +16,7 @@ def print_terms(sents, result):
             sents = sents.replace(value, colored(value, 'yellow'))
     print('%s: %s' % (result['lang'], sents))
 
-def color_print(color, text):
+def color_print(color:str, text):
     from termcolor import colored
     print(colored(text, color))
 
@@ -469,6 +469,8 @@ class MiscTool(object):
         """
         $ python -m sagas.tool.misc dep_parse 'Мы написали три книги за год.' ru
         $ python -m sagas.tool.misc dep_parse "今何時ですか?" ja
+        $ python -m sagas.tool.misc dep_parse "今何時ですか?" ja knp
+        $ python -m sagas.tool.misc dep_parse "私の趣味は、多くの小旅行をすることです。" ja knp
         $ python -m sagas.tool.misc dep_parse "自由を手に入れる" ja
         $ python -m sagas.tool.misc dep_parse "现在是几点?" zh ltp
         :param sents:
@@ -502,7 +504,8 @@ class MiscTool(object):
 
         rs = get_chunks(doc_jsonify)
         # rs_summary(rs)
-        rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines})
+        rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
+                                 'pipelines':pipelines})
 
 if __name__ == '__main__':
     import fire

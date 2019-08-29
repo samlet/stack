@@ -55,6 +55,7 @@ POS_MARK = {
 ner_mappings={'固有名詞':'MISC',
               '人名':'PERSON', '地名':'LOC',
               '組織名':'ORG'}
+
 def pos_list(leaf):
     import re
     string=[]
@@ -67,6 +68,7 @@ def pos_list(leaf):
         else:
             string.append(POS_MARK[mrph.hinsi])
     return string
+
 def pos_map_list(leaf):
     string=[]
     for mrph in leaf.mrph_list():
@@ -147,23 +149,26 @@ def merge_tag(tag):
     chunk=", ".join(mrph.midasi for mrph in tag.mrph_list())
     return chunk
 
-def print_predicates(result):
+def print_predicates(result, verbose=True):
     deps={}
-    predicates=[]
+    predict_keys=[]
     predicts=[]
     for tag in result.tag_list():
         if tag.pas is not None:  # find predicate
             predict_cnt=''.join(mrph.midasi for mrph in tag.mrph_list())
-            print(tag.tag_id, '. 述語: %s' % predict_cnt)
-            predicates.append(merge_tag(tag))
+            if verbose:
+                print(tag.tag_id, '. 述語: %s' % predict_cnt)
+            predict_keys.append(merge_tag(tag))
             p_args=[]
             for case, args in tag.pas.arguments.items():  # case: str, args: list of Argument class
                 for arg in args:  # arg: Argument class
-                    print('\t格: %s,  項: %s  (項の基本句ID: %d)' % (case, arg.midasi, arg.tid))
+                    if verbose:
+                        print('\t格: %s,  項: %s  (項の基本句ID: %d)' % (case, arg.midasi, arg.tid))
                     put_items(deps, {tag.tag_id, arg.tid}, case)
                     p_args.append({'name':case, 'value':arg.midasi, 'start':arg.tid, 'end':arg.tid})
             predicts.append({'index':tag.tag_id, 'predicate':predict_cnt, 'args':p_args})
-    print(deps, predicates)
-    print(predicts)
-    return deps, predicates
+    if verbose:
+        print(deps, predict_keys)
+        print(predicts)
+    return deps, predict_keys, predicts
 

@@ -47,6 +47,9 @@ def get_head_lemma(result, id):
             return word.lemma
 
 class HanlpWordImpl(WordIntf):
+    def __init__(self, data):
+        super().__init__(data)
+
     def setup(self, token):
         # print(word.id, word.lemma, word.deprel, word.head_id, \
         #  get_head_lemma(result, word.head_id))
