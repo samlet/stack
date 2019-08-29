@@ -1,18 +1,21 @@
 from sagas.nlu.uni_impl_ltp import LtpParserImpl
 from sagas.nlu.uni_impl_corenlp import CoreNlpParserImpl
 from sagas.nlu.uni_impl_spacy import SpacyParserImpl
+from sagas.nlu.uni_impl_hanlp import HanlpParserImpl
 
 class UniCli(object):
     def __init__(self):
         self.parsers={'corenlp':lambda lang, sents: CoreNlpParserImpl(lang)(sents),
                       'ltp':lambda lang, sents: LtpParserImpl(lang)(sents),
                       'spacy':lambda lang, sents: SpacyParserImpl(lang)(sents),
+                      'hanlp':lambda lang, sents: HanlpParserImpl(lang)(sents),
                       }
 
     def parse(self, engine, lang, sents):
         """
         $ python -m sagas.nlu.uni_cli parse corenlp en 'it is a cat'
         $ python -m sagas.nlu.uni_cli parse ltp zh-CN '我送她一束花'
+        $ python -m sagas.nlu.uni_cli parse hanlp zh-CN '我送她一束花'
         $ python -m sagas.nlu.uni_cli parse spacy en 'it is a cat'
         :return:
         """

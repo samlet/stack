@@ -1,5 +1,8 @@
 import pandas as pd
 
+def crop_column(df, col, width=20):
+    df[col] = df[col].apply(lambda x: ', '.join(x)[:width] + "..")
+
 def to_df(list_of_tuples, columns):
     """
     import sagas.util.pandas_helper as ph

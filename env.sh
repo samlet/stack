@@ -1,4 +1,8 @@
 #!/bin/bash
+# alias s1='/Users/xiaofeiwu/miniconda3/envs/bigdata/bin/python -m honcho start'
+alias s1='honcho start'
+alias s2='foreman start -f Procfile_langs'
+
 alias tool='python -m sagas.ofbiz.tools'
 ## import-data ./data/product/
 alias import-data='python -m sagas.ofbiz.tools import_dir'
@@ -58,6 +62,7 @@ alias build-ru='python -m sagas.ru.ru_procs build_inputs'
 alias plain='python -m sagas.tool.misc plain'
 alias wrap='python -m sagas.tool.misc wrap_sent'
 alias sb='python -m sagas.tool.misc plain'
+alias sbb='python -m sagas.tool.misc plain_sents'
 alias trans='python -m sagas.tool.misc trans_clip'
 alias trans-ru="python -m sagas.tool.misc trans_clip ru 'en;zh-CN;ja' ja"
 # alias trans-ru="python -m sagas.tool.misc trans_clip ru 'en;zh-CN;ja' en"

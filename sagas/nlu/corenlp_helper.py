@@ -294,8 +294,8 @@ class CoreNlpViz(object):
 
 class LangDialect(object):
     """
-    from sagas.nlu.corenlp_helper import LangDialect
-    LangDialect('ko').ana('나는 중국 출신이다.')
+    >>> from sagas.nlu.corenlp_helper import LangDialect
+    >>> LangDialect('ko').ana('나는 중국 출신이다.')
     """
     def __init__(self, lang):
         from sagas.nlu.google_translator import get_word_map
@@ -306,6 +306,7 @@ class LangDialect(object):
             cv=CoreNlpViz(shape='egg', size='8,5', fontsize=20)
             words=[word.text for sent in doc.sentences for word in sent.words]
             if trans_it:
+                self.trans_to(sents, ['en'])
                 tr_map=get_word_map(self.lang, 'en', sents, 0, words)
             else:
                 tr_map=None
@@ -320,6 +321,15 @@ class LangDialect(object):
         r,_ = translate(sents, source='en', target=self.lang)
         print(r)
         return r
+
+    def trans_to(self, sents, targets):
+        from sagas.nlu.google_translator import translate
+        rs=[]
+        for target in targets:
+            r,_ = translate(sents, source=self.lang, target=target)
+            print(r)
+            rs.append(r)
+        return rs
 
 if __name__ == '__main__':
     import fire

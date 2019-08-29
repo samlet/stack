@@ -16,6 +16,10 @@ def print_terms(sents, result):
             sents = sents.replace(value, colored(value, 'yellow'))
     print('%s: %s' % (result['lang'], sents))
 
+def color_print(color, text):
+    from termcolor import colored
+    print(colored(text, color))
+
 def print_terms_zh(sents, result):
     from termcolor import colored
     for verb in result['verbs']:
@@ -77,11 +81,65 @@ def display_synsets(theme, meta, r, lang):
 print_def=False
 print_synsets=True
 serial_numbers='❶❷❸❹❺❻❼❽❾❿'
-def get_verb_domains(data, return_df=False):
-    import requests
+def rs_represent(rs, data, return_df=False):
     import sagas
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns
     from sagas.nlu.nlu_cli import NluCli
+
+    df_set = []
+    result = []
+
+    for serial, r in enumerate(rs):
+        type_name = r['type']
+        common = {'lemma': r['lemma'], 'stems': r['stems']}
+        theme = ''
+        if type_name == 'verb_domains':
+            theme = '[verb]'
+            print(serial_numbers[serial], theme, r['lemma'], r['index'],
+                  '(%s, %s)' % (r['rel'], r['governor']))
+            meta = {'rel': r['rel'], **common, **data}
+            verb_patterns(meta, r['domains'])
+        elif type_name == 'aux_domains':
+            theme = '[aux]'
+            # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
+            delegator = '☇' if not r['delegator'] else '☌'
+            print(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator, "%s(%s)" % (r['head'], r['head_pos']))
+            # verb_patterns(r['domains'])
+            meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
+            aux_patterns(meta, r['domains'])
+        elif type_name == 'subj_domains':
+            theme = '[subj]'
+            print(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇',
+                  "%s(%s)" % (r['head'], ', '.join(r['head_feats'])))
+            # verb_patterns(r['domains'])
+            meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
+            subj_patterns(meta, r['domains'])
+        else:
+            meta = {}
+            raise Exception('Cannot process specific type: {}'.format(type_name))
+
+        # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
+        df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
+        df_set.append(df)
+        if not return_df:
+            # where 1 is the axis number (0 for rows and 1 for columns.)
+            # df = df.drop('children', 1)
+            df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
+            df['features'] = df['features'].apply(lambda x: ', '.join(x)[:15] + "..")
+            sagas.print_df(df)
+            print_stem_chunks(r)
+
+            if print_def:
+                NluCli().get_word_def(r['lemma'], data['lang'])
+            if print_synsets:
+                r = display_synsets(theme, meta, r, data['lang'])
+                result.extend(r)
+
+    return result, df_set
+
+def get_verb_domains(data, return_df=False):
+    import requests
+
     from sagas.conf.conf import cf
 
     if 'engine' not in data:
@@ -89,61 +147,17 @@ def get_verb_domains(data, return_df=False):
     engine=data['engine']
     response = requests.post(f'{cf.servant(engine)}/verb_domains', json=data)
     # print(response.status_code, response.json())
-    df_set=[]
-    result=[]
+
     if response.status_code == 200:
         rs = response.json()
-        for serial, r in enumerate(rs):
-            type_name=r['type']
-            common={'lemma':r['lemma'], 'stems':r['stems']}
-            theme=''
-            if type_name=='verb_domains':
-                theme='[verb]'
-                print(serial_numbers[serial], theme, r['lemma'], r['index'],
-                      '(%s, %s)'%(r['rel'], r['governor']))
-                meta={'rel':r['rel'], **common, **data}
-                verb_patterns(meta, r['domains'])
-            elif type_name=='aux_domains':
-                theme='[aux]'
-                # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
-                delegator='☇' if not r['delegator'] else '☌'
-                print(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator, "%s(%s)"%(r['head'], r['head_pos']))
-                # verb_patterns(r['domains'])
-                meta={'pos':r['head_pos'], 'head':r['head'], **common, **data}
-                aux_patterns(meta, r['domains'])
-            elif type_name=='subj_domains':
-                theme='[subj]'
-                print(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇', "%s(%s)"%(r['head'], ', '.join(r['head_feats'])))
-                # verb_patterns(r['domains'])
-                meta={'pos': r['head_pos'], 'head':r['head'], **common, **data}
-                subj_patterns(meta, r['domains'])
-            else:
-                meta = {}
-                raise Exception('Cannot process specific type: {}'.format(type_name))
+        result, df_set=rs_represent(rs, data, return_df)
 
-            # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
-            df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
-            df_set.append(df)
-            if not return_df:
-                # where 1 is the axis number (0 for rows and 1 for columns.)
-                # df = df.drop('children', 1)
-                df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
-                df['features'] = df['features'].apply(lambda x: ', '.join(x)[:15]+"..")
-                sagas.print_df(df)
-                print_stem_chunks(r)
-
-                if print_def:
-                    NluCli().get_word_def(r['lemma'], data['lang'])
-                if print_synsets:
-                    r=display_synsets(theme, meta, r, data['lang'])
-                    result.extend(r)
-
-
-    if return_df:
-        return df_set
-    else:
-        # print(result)
-        return result
+        if return_df:
+            return df_set
+        else:
+            # print(result)
+            return result
+    return []
 
 class TransContext(object):
     def __init__(self, s,t,q,says):
@@ -186,6 +200,18 @@ class MiscTool(object):
         text = clipboard.paste()
         text = text.replace("\n", "")
         # print(text)
+        clipboard.copy(text)
+        return text
+
+    def plain_sents(self):
+        """
+        $ python -m sagas.tool.misc plain
+        :return:
+        """
+        import clipboard
+        text = clipboard.paste()
+        text = text.replace("\n", "")
+        text = f"\t('{text}', ''),"
         clipboard.copy(text)
         return text
 
@@ -443,6 +469,7 @@ class MiscTool(object):
         """
         $ python -m sagas.tool.misc dep_parse 'Мы написали три книги за год.' ru
         $ python -m sagas.tool.misc dep_parse "今何時ですか?" ja
+        $ python -m sagas.tool.misc dep_parse "自由を手に入れる" ja
         $ python -m sagas.tool.misc dep_parse "现在是几点?" zh ltp
         :param sents:
         :param lang:
@@ -457,6 +484,25 @@ class MiscTool(object):
         rs = get_chunks(doc_jsonify)
         rs_summary(rs)
         print(resp)
+
+    def exec_rules(self, sents, lang='en', engine='corenlp'):
+        """
+        $ python -m sagas.tool.misc exec_rules "今何時ですか?" ja
+        :param sents:
+        :param lang:
+        :param engine:
+        :return:
+        """
+        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_remote import dep_parse
+
+        pipelines=['predicts']
+        doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)
+        color_print('cyan', resp)
+
+        rs = get_chunks(doc_jsonify)
+        # rs_summary(rs)
+        rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines})
 
 if __name__ == '__main__':
     import fire
