@@ -2,11 +2,6 @@ from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 import sagas.ja.knp_helper as kh
 from sagas.ja.knp_helper import *
 
-def tag_pos(tag, only_first=True):
-    if only_first:
-        return kh.pos_map_list(tag)[0]
-    return '_'.join(kh.pos_map_list(tag))
-
 class KnpWordImpl(WordIntf):
     def __init__(self, data, deps):
         self.deps = deps
@@ -58,6 +53,6 @@ class KnpParserImpl(object):
 
     def __call__(self, sents):
         result = kh.knp.parse(sents)
-        dep_sets, predict_keys, predicts = print_predicates(result, verbose=False)
-        return KnpSentImpl(result, predicts, dep_sets=dep_sets)
+        dep_sets, predict_keys, predicts, predict_tuples = extract_predicates(result, verbose=False)
+        return KnpSentImpl(result, predicts=predict_tuples, dep_sets=dep_sets)
 

@@ -1,6 +1,5 @@
 import sagas
 from pyknp import KNP
-
 from sagas.util.pandas_helper import crop_column
 
 knp = KNP()
@@ -149,26 +148,105 @@ def merge_tag(tag):
     chunk=", ".join(mrph.midasi for mrph in tag.mrph_list())
     return chunk
 
-def print_predicates(result, verbose=True):
-    deps={}
-    predict_keys=[]
-    predicts=[]
-    for tag in result.tag_list():
+# def print_predicates(result, verbose=True):
+#     deps={}
+#     predict_keys=[]
+#     predicts=[]
+#     for tag in result.tag_list():
+#         if tag.pas is not None:  # find predicate
+#             predict_cnt=''.join(mrph.midasi for mrph in tag.mrph_list())
+#             if verbose:
+#                 print(tag.tag_id, '. 述語: %s' % predict_cnt)
+#             predict_keys.append(merge_tag(tag))
+#             p_args=[]
+#             for case, args in tag.pas.arguments.items():  # case: str, args: list of Argument class
+#                 for arg in args:  # arg: Argument class
+#                     if verbose:
+#                         print('\t格: %s,  項: %s  (項の基本句ID: %d)' % (case, arg.midasi, arg.tid))
+#                     put_items(deps, {tag.tag_id, arg.tid}, case)
+#                     p_args.append({'name':case, 'value':arg.midasi, 'start':arg.tid, 'end':arg.tid})
+#             predicts.append({'index':tag.tag_id, 'predicate':predict_cnt, 'args':p_args})
+#     if verbose:
+#         print(deps, predict_keys)
+#         print(predicts)
+#     return deps, predict_keys, predicts
+
+def trim_chunk(chunk):
+    return [c for c in chunk if c != '']
+
+def tag_pos(tag, only_first=True):
+    if only_first:
+        return pos_map_list(tag)[0]
+    return '_'.join(pos_map_list(tag))
+
+def get_feats(tag):
+    return ['c_{}'.format(tag_pos(tag)).lower(),
+            'x_{}'.format(pos_list(tag)[0]).lower()]
+
+
+def get_governor(tag):
+    if tag.parent_id == -1:
+        governor = 0
+    else:
+        governor = tag.parent_id + 1
+    return governor
+
+
+def collect_bnst(result):
+    rs = []
+    for bnst in result.bnst_list():
+        rs.append(([tag.tag_id for tag in bnst.tag_list()],
+                   [mrph.repname.split('/')[0] for mrph in bnst.mrph_list()]
+                   ))
+    return rs
+
+
+def extract_predicates(result, verbose=True):
+    deps = {}
+    predict_keys = []
+    predicts = []
+    predict_tuples = []
+    bnst_set = collect_bnst(result)
+    words = result.tag_list()
+    for tag in words:
         if tag.pas is not None:  # find predicate
-            predict_cnt=''.join(mrph.midasi for mrph in tag.mrph_list())
+            predict_cnt = ''.join(mrph.midasi for mrph in tag.mrph_list())
+            # word_main=tag.mrph_list()[0]
             if verbose:
                 print(tag.tag_id, '. 述語: %s' % predict_cnt)
+            # print(tag.features)
+            # print(tag.normalized_repname)
+            repname = tag.normalized_repname.split('/')
+            predict_lemma = repname[0]
+            predict_phonetic = repname[1]
+
             predict_keys.append(merge_tag(tag))
-            p_args=[]
+            p_args = []
+            domains = []
             for case, args in tag.pas.arguments.items():  # case: str, args: list of Argument class
                 for arg in args:  # arg: Argument class
+                    arg_tag = words[arg.tid]
                     if verbose:
                         print('\t格: %s,  項: %s  (項の基本句ID: %d)' % (case, arg.midasi, arg.tid))
                     put_items(deps, {tag.tag_id, arg.tid}, case)
-                    p_args.append({'name':case, 'value':arg.midasi, 'start':arg.tid, 'end':arg.tid})
-            predicts.append({'index':tag.tag_id, 'predicate':predict_cnt, 'args':p_args})
+                    cnt = ''.join(mrph.midasi for mrph in arg_tag.mrph_list())
+                    chunk = [b[1] for b in bnst_set if arg_tag.tag_id in b[0]][0]
+                    p_args.append({'name': case, 'value': arg.midasi, 'text': cnt,
+                                   'chunk': chunk,
+                                   'upos': tag_pos(arg_tag),
+                                   'start': arg.tid, 'end': arg.tid})
+                    # ['rel', 'index', 'text', 'lemma', 'children', 'features']
+                    feats = get_feats(arg_tag)
+                    domains.append((case, arg.tid, cnt, arg.midasi, trim_chunk(chunk), feats))
+            predicts.append({'index': tag.tag_id, 'predicate': predict_lemma,
+                             'cnt': predict_cnt, 'phonetic': predict_phonetic,
+                             'args': p_args})
+            predict_tuples.append({'type': 'predicate', 'lemma': predict_lemma, 'index': tag.tag_id,
+                                   'rel': tag.dpndtype, 'governor': get_governor(tag),
+                                   'domains': domains, 'stems': []})
     if verbose:
         print(deps, predict_keys)
-        print(predicts)
-    return deps, predict_keys, predicts
+        # print(predicts)
+    return deps, predict_keys, predicts, predict_tuples
+
 

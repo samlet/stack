@@ -27,17 +27,24 @@ class UniCli(object):
         from sagas.tool.misc import print_stem_chunks
         from sagas.tool.misc import color_print
 
+        def print_r(r):
+            df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
+            print('%s(%s)' % (r['type'], r['lemma']))
+            sagas.print_df(df)
+            print_stem_chunks(r)
+
         print(f'using engine {engine} ...')
         # parser = CoreNlpParserImpl('en')
         # doc = parser('it is a cat')
         doc=self.parsers[engine](lang, sents)
         color_print('blue', doc.predicts)
-        rs = get_chunks(doc)
-        for r in rs:
-            df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
-            print('%s(%s)' % (r['type'], r['lemma']))
-            sagas.print_df(df)
-            print_stem_chunks(r)
+        if doc.has_predicts():
+            for r in doc.predicts:
+                print_r(r)
+        else:
+            rs = get_chunks(doc)
+            for r in rs:
+                print_r(r)
 
 def parse_with(sents, lang, engine='corenlp'):
     return UniCli().parsers[engine](lang, sents)

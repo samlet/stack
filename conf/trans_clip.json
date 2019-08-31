@@ -18,7 +18,8 @@
     "*":"corenlp",
     "el":"corenlp",
     "ru":"corenlp",
-    "zh":"ltp"
+    "zh":"ltp",
+    "ja":"knp"
   }
 }
 
