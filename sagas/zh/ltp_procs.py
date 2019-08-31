@@ -13,23 +13,66 @@ def explain(arg_name):
         return '动作的影响'
     return arg_name
 
-def extract_predicates(words, roles, verbose=False):
+# def extract_predicates(words, roles, verbose=False):
+#     predicts = []
+#     for role in roles:
+#         if verbose:
+#             print(f"{words[role.index]}({role.index})", '->', "".join(
+#                 ["%s:(%d,%d) _ " % (arg.name, arg.range.start, arg.range.end) for arg in role.arguments]))
+#         args = []
+#         for arg in role.arguments:
+#             # print('\t', arg.name, arg.range.start, arg.range.end)
+#             cnt = join_words(words, arg.range)
+#             if verbose:
+#                 print('\t', explain(arg.name), '☞', cnt)
+#             # print('\t', '----')
+#             args.append({'name': arg.name, 'value': cnt, 'start': arg.range.start, 'end': arg.range.end})
+#         predicts.append({'index': role.index, 'predicate': words[role.index],
+#                          'args': args})
+#     return predicts
+
+def word_chunk(words, arg_range):
+    return [str(words[idx]) for idx in range(arg_range.start, arg_range.end+1)]
+
+def get_feats(postags, i):
+    from sagas.nlu.uni_impl_ltp import get_pos_mapping
+    # return [postags[i], get_pos_mapping(postags[i])]
+    pos_tr=get_pos_mapping(postags[i])
+    return ['c_{}'.format(pos_tr).lower(),
+            'x_{}'.format(postags[i]).lower()]
+
+def extract_predicates(words, roles, postags, arcs, verbose=False):
     predicts = []
+    predict_tuples=[]
     for role in roles:
         if verbose:
             print(f"{words[role.index]}({role.index})", '->', "".join(
                 ["%s:(%d,%d) _ " % (arg.name, arg.range.start, arg.range.end) for arg in role.arguments]))
         args = []
+        domains=[]
         for arg in role.arguments:
             # print('\t', arg.name, arg.range.start, arg.range.end)
-            cnt = join_words(words, arg.range)
-            if verbose:
-                print('\t', explain(arg.name), '☞', cnt)
+            chunk = word_chunk(words, arg.range)
+            main_word=words[arg.range.end]
+            # if verbose:
+            #     print('\t', arg.name, '☞', cnt)
             # print('\t', '----')
-            args.append({'name': arg.name, 'value': cnt, 'start': arg.range.start, 'end': arg.range.end})
-        predicts.append({'index': role.index, 'predicate': words[role.index],
+            args.append({'name': arg.name, 'chunk': chunk, 'value': str(main_word),
+                         'start': arg.range.start, 'end': arg.range.end})
+            # ['rel', 'index', 'text', 'lemma', 'children', 'features']
+            feats=get_feats(postags, arg.range.end)
+            domains.append((arg.name, arg.range.end, str(main_word), str(main_word),
+                           chunk, feats))
+        lemma=words[role.index]
+        predicts.append({'index': role.index, 'predicate': lemma,
                          'args': args})
-    return predicts
+        i=role.index
+        dependency_relation=str(arcs[i].relation).lower()
+        governor=arcs[i].head
+        predict_tuples.append({'type':'predicate', 'lemma':lemma, 'index': i,
+                              'rel': dependency_relation, 'governor': governor,
+                              'domains': domains, 'stems':[]})
+    return predicts, predict_tuples
 
 class LtpProcs(object):
     def __init__(self):
@@ -52,6 +95,14 @@ class LtpProcs(object):
         self.recognizer.release()
         self.labeller.release()
 
+    def parse(self, sentence):
+        words = self.segmentor.segment(sentence)
+        postags = self.postagger.postag(words)
+        arcs = self.parser.parse(words, postags)
+        roles = self.labeller.label(words, postags, arcs)
+        netags = self.recognizer.recognize(words, postags)
+        return words, postags, arcs, roles, netags
+
     def analyse(self, sentence, verbose=False, show_roles=True):
         """
         $ python -m sagas.zh.ltp_procs analyse '中国进出口银行与中国银行加强合作。'
@@ -67,11 +118,12 @@ class LtpProcs(object):
         pd.set_option('display.unicode.ambiguous_as_wide', True)
         pd.set_option('display.unicode.east_asian_width', True)
 
-        words = self.segmentor.segment(sentence)
-        postags = self.postagger.postag(words)
-        arcs = self.parser.parse(words, postags)
-        roles = self.labeller.label(words, postags, arcs)
-        netags = self.recognizer.recognize(words, postags)
+        # words = self.segmentor.segment(sentence)
+        # postags = self.postagger.postag(words)
+        # arcs = self.parser.parse(words, postags)
+        # roles = self.labeller.label(words, postags, arcs)
+        # netags = self.recognizer.recognize(words, postags)
+        words, postags, arcs, roles, netags=self.parse(sentence)
 
         # roles
         print('❶ roles for', " ".join(words))

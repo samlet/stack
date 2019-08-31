@@ -1,5 +1,11 @@
 import sagas
 
+# https://ltp.readthedocs.io/zh_CN/latest/appendix.html#id6
+# https://www.ltp-cloud.com/intro#srl_how
+'''
+核心的语义角色为 A0-5 六种，A0 通常表示动作的施事，A1通常表示动作的影响等，A2-5 根据谓语动词不同会有不同的语义含义。
+其余的15个语义角色为附加语义角色，如LOC 表示地点，TMP 表示时间等。
+'''
 descs='''标记	说明
 ADV	adverbial, default tag ( 附加的，默认标记 )
 BNE	beneﬁciary ( 受益人 )

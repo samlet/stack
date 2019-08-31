@@ -114,6 +114,10 @@ def rs_represent(rs, data, return_df=False):
             # verb_patterns(r['domains'])
             meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             subj_patterns(meta, r['domains'])
+        elif type_name=='predicate':
+            theme = '[predicates]'
+            print(serial_numbers[serial], theme, r['lemma'])
+            meta = {'rel': r['rel'], **common, **data}
         else:
             meta = {}
             raise Exception('Cannot process specific type: {}'.format(type_name))
@@ -490,6 +494,10 @@ class MiscTool(object):
     def exec_rules(self, sents, lang='en', engine='corenlp'):
         """
         $ python -m sagas.tool.misc exec_rules "今何時ですか?" ja
+        $ python -m sagas.tool.misc exec_rules "今何時ですか?" ja knp
+        $ python -m sagas.tool.misc exec_rules "望遠鏡で泳いでいる少女を見た。" ja knp
+        $ python -m sagas.tool.misc exec_rules 'Мы написали три книги за год.' ru
+        $ python -m sagas.tool.misc exec_rules "现在是几点?" zh ltp
         :param sents:
         :param lang:
         :param engine:
@@ -501,11 +509,14 @@ class MiscTool(object):
         pipelines=['predicts']
         doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)
         color_print('cyan', resp)
-
-        rs = get_chunks(doc_jsonify)
-        # rs_summary(rs)
-        rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
+        if len(resp['predicts'])>0:
+            rs_represent(resp['predicts'], data = {'lang': lang, "sents": sents, 'engine': engine,
                                  'pipelines':pipelines})
+        else:
+            rs = get_chunks(doc_jsonify)
+            # rs_summary(rs)
+            rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
+                                     'pipelines':pipelines})
 
 if __name__ == '__main__':
     import fire

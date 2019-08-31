@@ -11,6 +11,8 @@ def viz_check(parser, lang, sents):
     >>> # from sagas.nlu.uni_viz_checker import *
     >>> parser=HanlpParserImpl
     >>> viz_check(parser, 'zh', '我必须关掉房间里的灯。')
+    >>> from sagas.nlu.uni_impl_knp import KnpParserImpl
+    >>> viz_check(KnpParserImpl, 'ja', '私の趣味は、多くの小旅行をすることです。')
     :param parser:
     :param lang:
     :param sents:

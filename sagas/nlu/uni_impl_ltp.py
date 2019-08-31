@@ -96,6 +96,7 @@ class LtpParserImpl(object):
             # rel = unit.dependency_relation
             doc.append(unit)
 
-        predicts=extract_predicates(words, roles)
-        return LtpSentImpl(doc, predicts=predicts)
+        predicts, predict_tuples=extract_predicates(words, roles, postags, arcs)
+        # return LtpSentImpl(doc, predicts=predicts)
+        return LtpSentImpl(doc, predicts=predict_tuples)
 

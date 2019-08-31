@@ -3,7 +3,7 @@
   "trans_cache":true,
   "translator":"google",
   "retries":3,
-  "enable_chunks_parse":false,
+  "enable_chunks_parse":true,
   "print_not_matched":false,
   "bert_servant":"localhost",
   "common_s":"http://localhost:14000",

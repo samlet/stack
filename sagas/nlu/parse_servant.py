@@ -129,7 +129,11 @@ def handle_verb_domains():
     #     r=get_aux_domain(sent, ['obl', 'nsubj:pass'])
     # if len(r)==0:
     #     r = get_subj_domain(sent)
-    r= get_chunks(sent)
+
+    if len(sent.predicts)>0:
+        r= sent.predicts
+    else:
+        r= get_chunks(sent)
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y
 

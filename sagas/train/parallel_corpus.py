@@ -5,6 +5,14 @@ import numpy
 import json
 
 def load_corpus(dataf='/pi/ai/seq2seq/jpn-eng-2019/jpn.txt'):
+    """
+    >>> from sagas.train.parallel_corpus import load_corpus, take_samples
+    >>> items=load_corpus()
+    >>> rows=take_samples(items)
+    >>> rows
+    :param dataf:
+    :return:
+    """
     pairs = lines(dataf)
     array = numpy.array(pairs)
     items = []

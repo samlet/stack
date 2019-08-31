@@ -19,11 +19,14 @@ class KnpWordImpl(WordIntf):
             governor = tag.parent_id + 1
         idx = tag.tag_id + 1  # start from 1
         text = "".join(mrph.midasi for mrph in tag.mrph_list())
-        lemma = tag.mrph_list()[0].midasi
+        # lemma = tag.mrph_list()[0].midasi
+        repname = tag.normalized_repname.split('/')
+        predict_lemma = repname[0]
+        predict_phonetic = repname[1]
         rel = get_by_keyset(self.deps, {tag.tag_id, tag.parent_id})
         if rel is None:
             rel = tag.dpndtype
-        features = {'index': idx, 'text': text, 'lemma': lemma,
+        features = {'index': idx, 'text': text, 'lemma': predict_lemma, 'phonetic':predict_phonetic,
                     'upos': tag_pos(tag), 'xpos': pos_list(tag),
                     'feats': [tag.fstring], 'governor': governor,
                     'dependency_relation': rel,

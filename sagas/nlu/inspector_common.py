@@ -9,10 +9,13 @@ class Context(object):
         self.meta=meta
         # self.chunks = {x[0]: x[4] for x in domains}
         self._chunks = [Chunk(x[0], x[4]) for x in domains]
+        self._stems = meta['stems']
+        if len(self._stems)==0:
+            self._stems=[(x[0], x[4]) for x in domains]
+
         self.lemmas = {x[0]: x[3] for x in domains}
         self.feats = {x[0]: x[5] for x in domains}
         # self.meta['intermedia']={}
-        self._stems=meta['stems']
         self.lang = meta['lang']
 
     def put_data(self, key, val):
