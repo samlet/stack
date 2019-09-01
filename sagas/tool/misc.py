@@ -500,6 +500,8 @@ class MiscTool(object):
         $ python -m sagas.tool.misc exec_rules "望遠鏡で泳いでいる少女を見た。" ja knp
         $ python -m sagas.tool.misc exec_rules 'Мы написали три книги за год.' ru
         $ python -m sagas.tool.misc exec_rules "现在是几点?" zh ltp
+        $ rules '我在臺灣開計程車。' zh
+        $ rules '我在台湾开出租车。' zh ltp
         :param sents:
         :param lang:
         :param engine:

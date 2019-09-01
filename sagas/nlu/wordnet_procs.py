@@ -143,7 +143,7 @@ class WordNetProcs(object):
         sets = get_synsets(lang, word, pos)
 
         ret=False
-        if len(sets)>=0:
+        if len(sets)>0:
             if only_first:
                 c=[sets[0].name()]
             else:
