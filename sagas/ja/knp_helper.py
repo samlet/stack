@@ -216,9 +216,10 @@ def extract_predicates(result, verbose=True):
                 print(tag.tag_id, '. 述語: %s' % predict_cnt)
             # print(tag.features)
             # print(tag.normalized_repname)
+
             repname = tag.normalized_repname.split('/')
             predict_lemma = repname[0]
-            predict_phonetic = repname[1]
+            predict_phonetic = repname[1] if len(repname) > 1 else predict_lemma
 
             predict_keys.append(merge_tag(tag))
             p_args = []
@@ -242,6 +243,7 @@ def extract_predicates(result, verbose=True):
                              'cnt': predict_cnt, 'phonetic': predict_phonetic,
                              'args': p_args})
             predict_tuples.append({'type': 'predicate', 'lemma': predict_lemma, 'index': tag.tag_id,
+                                   'phonetic': predict_phonetic, 'word':predict_cnt,
                                    'rel': tag.dpndtype, 'governor': get_governor(tag),
                                    'domains': domains, 'stems': []})
     if verbose:

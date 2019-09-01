@@ -152,6 +152,11 @@ else
 	"langprocs")
 		cd $HOME/jcloud/assets/langs/workspace/langprocs ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.langprocs.App"
 		;;
+	"backup")
+		mark.sh
+		udisk-backup.sh
+		cat /Volumes/samlet/works/483020869ed1648c002b3c04a589a5b8e47fd960/stack/.mark
+		;;
 	*)
 		# default proc
 		handle_cmd ${@:1}

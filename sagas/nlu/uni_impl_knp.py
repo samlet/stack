@@ -17,7 +17,8 @@ class KnpWordImpl(WordIntf):
         # lemma = tag.mrph_list()[0].midasi
         repname = tag.normalized_repname.split('/')
         predict_lemma = repname[0]
-        predict_phonetic = repname[1]
+        predict_phonetic = repname[1] if len(repname) > 1 else predict_lemma
+
         rel = get_by_keyset(self.deps, {tag.tag_id, tag.parent_id})
         if rel is None:
             rel = tag.dpndtype

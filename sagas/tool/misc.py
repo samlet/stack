@@ -103,7 +103,8 @@ def rs_represent(rs, data, return_df=False):
             theme = '[aux]'
             # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
             delegator = '☇' if not r['delegator'] else '☌'
-            print(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator, "%s(%s)" % (r['head'], r['head_pos']))
+            print(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator,
+                  "%s(%s)" % (r['head'], r['head_pos']))
             # verb_patterns(r['domains'])
             meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             aux_patterns(meta, r['domains'])
@@ -116,7 +117,8 @@ def rs_represent(rs, data, return_df=False):
             subj_patterns(meta, r['domains'])
         elif type_name=='predicate':
             theme = '[predicates]'
-            print(serial_numbers[serial], theme, r['lemma'])
+            print(serial_numbers[serial], theme,
+                  f"{r['lemma']} ({r['phonetic']}, {r['word']})")
             meta = {'rel': r['rel'], **common, **data}
         else:
             meta = {}
@@ -508,15 +510,16 @@ class MiscTool(object):
 
         pipelines=['predicts']
         doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)
-        color_print('cyan', resp)
-        if len(resp['predicts'])>0:
-            rs_represent(resp['predicts'], data = {'lang': lang, "sents": sents, 'engine': engine,
-                                 'pipelines':pipelines})
-        else:
-            rs = get_chunks(doc_jsonify)
-            # rs_summary(rs)
-            rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
+        if doc_jsonify is not None:
+            color_print('cyan', resp)
+            if len(resp['predicts'])>0:
+                rs_represent(resp['predicts'], data = {'lang': lang, "sents": sents, 'engine': engine,
                                      'pipelines':pipelines})
+            else:
+                rs = get_chunks(doc_jsonify)
+                # rs_summary(rs)
+                rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
+                                         'pipelines':pipelines})
 
 if __name__ == '__main__':
     import fire

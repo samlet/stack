@@ -42,6 +42,7 @@ def get_feats(postags, i):
             'x_{}'.format(postags[i]).lower()]
 
 def extract_predicates(words, roles, postags, arcs, verbose=False):
+    from pypinyin import lazy_pinyin
     predicts = []
     predict_tuples=[]
     for role in roles:
@@ -70,6 +71,7 @@ def extract_predicates(words, roles, postags, arcs, verbose=False):
         dependency_relation=str(arcs[i].relation).lower()
         governor=arcs[i].head
         predict_tuples.append({'type':'predicate', 'lemma':lemma, 'index': i,
+                               'phonetic':' '.join(lazy_pinyin(lemma)), 'word':lemma,
                               'rel': dependency_relation, 'governor': governor,
                               'domains': domains, 'stems':[]})
     return predicts, predict_tuples

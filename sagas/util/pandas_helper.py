@@ -1,4 +1,7 @@
 import pandas as pd
+import json
+
+to_json=lambda df: json.loads(df.to_json(orient='records'))
 
 def crop_column(df, col, width=20):
     df[col] = df[col].apply(lambda x: ', '.join(x)[:width] + "..")
