@@ -16,6 +16,8 @@ def to_df(list_of_tuples, columns):
     """
     return pd.DataFrame(list_of_tuples, columns=columns)
 
+dict_df=lambda d: to_df([row.values() for row in d], d[0].keys())
+
 class PandasData(object):
     def __init__(self, columns):
         self.columns=columns

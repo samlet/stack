@@ -101,6 +101,11 @@ def fix_sents(lang, text):
             return '%s %s'%(text[0:-1], text[-1])
     return text
 
+def is_disabled(opts, opt):
+    if opt in opts:
+        return opts[opt]
+    return False
+
 # verb_domains
 @app.route('/verb_domains', methods = ['POST'])
 def handle_verb_domains():
@@ -130,7 +135,8 @@ def handle_verb_domains():
     # if len(r)==0:
     #     r = get_subj_domain(sent)
 
-    if len(sent.predicts)>0:
+    disable_predicts=is_disabled(content, 'disable_predicts')
+    if len(sent.predicts)>0 and not disable_predicts:
         r= sent.predicts
     else:
         r= get_chunks(sent)

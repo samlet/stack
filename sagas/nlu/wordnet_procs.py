@@ -36,7 +36,7 @@ def predicate_chain(word, kind, lang='en', pos='n'):
     from sagas.nlu.omw_extended import get_synsets
     sets = get_synsets(lang, word, pos)
     ret = False
-    if len(sets) >= 0:
+    if len(sets) > 0:
         # c=[s.name() for s in sets]
         return check_chains(sets, kind)
     return ret, None

@@ -95,6 +95,7 @@ class VerbInspector(WordInspector):
 
 class InspectorRunner(InspectorFixture):
     def __init__(self):
+        super().__init__()
         import sagas.nlu.patterns as pat
         pat.print_not_matched=True
 

@@ -66,14 +66,15 @@ class RuleSetRunner(InspectorFixture):
         else:
             print(df)
 
-    def test_zh(self):
+    def test_zh(self, disable_predicts=True):
         """
         $ python -m sagas.nlu.ruleset test_zh
+        $ python -m sagas.nlu.ruleset test_zh False
         :return:
         """
         text = '你有几台笔记本电脑？'
-        data = {'lang': 'zh', "sents": text, 'engine': 'ltp'}
-        self.procs_common(data)
+        data = {'lang': 'zh', "sents": text, 'engine': 'ltp', 'disable_predicts':disable_predicts}
+        self.procs_common(data, presenter='console')
 
 if __name__ == '__main__':
     import fire

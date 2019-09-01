@@ -5,7 +5,7 @@
   "retries":3,
   "enable_chunks_parse":true,
   "print_not_matched":false,
-  "bert_servant":"localhost",
+  "bert_servant":"pc",
   "common_s":"http://localhost:14000",
   "servants":{
     "corenlp":"http://localhost:14000",

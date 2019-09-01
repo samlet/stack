@@ -72,6 +72,7 @@ class InspectorRunner(InspectorFixture):
         import sagas.nlu.patterns as pat
         from sagas.tool.loggers import init_logger
 
+        super().__init__()
         pat.print_not_matched=True
         init_logger()
 

@@ -1,4 +1,3 @@
-from sagas.ofbiz.resources import ResourceDigester
 import json
 import numpy as np
 import struct
@@ -119,6 +118,7 @@ def expand(dispathcer:DispatcherIntf, data, keys, specific_domains):
 
 class Expanders(object):
     def query_property(self, label):
+        from sagas.ofbiz.resources import ResourceDigester
         rd = ResourceDigester(True)
         props = rd.get_all_properties()
         # label = 'CostComponentType.description.ACTUAL_LABOR_COST'
@@ -133,6 +133,7 @@ class Expanders(object):
         :return:
         """
         from os import path
+        from sagas.ofbiz.resources import ResourceDigester
 
         outf = "./data/feats/%s.npy" % feat_name
         if path.exists(outf):

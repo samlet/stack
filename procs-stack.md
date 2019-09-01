@@ -6,16 +6,19 @@
 
 ## servants
 ```sh
-$ start bert-multi
 $ start bus  # rabbit
 
-$ foreman start -f Procfile_langs  # 代替以下服务启动
+$ foreman start -f Procfile_nlp  # on linux server
+    $ start bert-multi
+    # start stanford-corenlp-server
+
+$ foreman start -f Procfile_langs  # (s2) 代替以下服务启动
     $ start servant_nlu    # spacy-entities (spacy-2.1+)
     $ start servant_spacy  # spacy-2.1, spacy-ru
     $ start langprocs
     $ start timenlp
 
-$ honcho start  # 代替以下服务启动
+$ honcho start  # (s1) 代替以下服务启动
     $ start duckling
     $ start servant_de     # corenlp/ltp
     # $ start servant_zh
