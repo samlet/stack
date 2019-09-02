@@ -70,7 +70,7 @@ def say_lang(sentence, lang, verbose=True):
     elif lang=='tr':
         say_with(sentence, 'com.apple.speech.synthesis.voice.yelda')
     else:
-        say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
+        # say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
         raise Exception(f'Not specific a voice for the language {lang}')
 
     if verbose:

@@ -100,6 +100,10 @@ alias scs+bg="python -m sagas.tool.misc trans_clip cs 'en;bg;ru' ru False"
 alias spl="python -m sagas.tool.misc trans_clip pl 'en;cs;ru' ru False"
 
 alias se="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ja' ja False"
+alias se-ar="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ar' ar False"
+alias se-hi="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;hi' hi False"
+alias se-ko="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ko' ko False"
+
 alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' ja False"
 
 # Irish

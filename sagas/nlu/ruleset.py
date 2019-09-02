@@ -74,7 +74,7 @@ class RuleSetRunner(InspectorFixture):
         """
         text = '你有几台笔记本电脑？'
         data = {'lang': 'zh', "sents": text, 'engine': 'ltp', 'disable_predicts':disable_predicts}
-        self.procs_common(data, presenter='console')
+        self.procs_common(data, presenter='table')
 
 if __name__ == '__main__':
     import fire
