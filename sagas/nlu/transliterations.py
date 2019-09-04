@@ -8,16 +8,37 @@ class Transliterations(object):
     def __init__(self):
         import kroman
         import cyrtranslit
+        import icu
 
+        self.tr_icu = icu.Transliterator.createInstance('Any-Latin; Latin-ASCII').transliterate
+        self.tr_title= tr = icu.Transliterator.createInstance('Any-Latin; Title').transliterate
+        self.tr_el=icu.Transliterator.createInstance('Greek-Latin')
         self.lang_maps={'iw':'he'}
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
-                          ('he', 'ar', 'fa', 'hi'): lambda s,lang:translit(s,lang),
+                          ('he', 'fa'): lambda s,lang:translit(s,lang),
+                          ('hi', 'ar'): lambda s,_:self.tr_icu(s),
+                          ('el'): lambda s,_:self.tr_el(s),
+                          ('zh'): lambda s,_:self.tr_title(s),
+                          ('ja'): lambda s,_:self.trans_ja(s),
                           }
 
-    def translit(self, sents, lang):
+    def trans_ja(self, sents):
+        from sagas.ja.ja_text_procs import text_procs
+        return text_procs.translit(sents)
+
+    def available_langs(self):
+        return ['iw', 'he', 'ko', 'sr', 'me', 'mk',
+                'ru', 'ar', 'fa', 'hi',
+                'el', 'zh', 'ja'
+                ]
+
+    def translit(self, sents:str, lang:str):
         """
         $ python -m sagas.nlu.transliterations translit '내 친구들은 멍청하다.' ko
+        $ python -m sagas.nlu.transliterations translit '試合はいつですか？' ja
+        $ python -m sagas.nlu.transliterations translit "医薬品安全管理責任者" ja
+        $ python -m sagas.nlu.transliterations translit "医薬品安全管理責任者" zh
         $ python -m sagas.nlu.transliterations translit 'صباح الخير' ar
         $ python -m sagas.nlu.transliterations translit 'शुभ प्रभात' hi
         :param sents:
@@ -30,6 +51,8 @@ class Transliterations(object):
             if lang in k:
                 return v(sents, lang)
         return ''
+
+translits=Transliterations()
 
 if __name__ == '__main__':
     import fire

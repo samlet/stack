@@ -139,6 +139,14 @@ alias sel="python -m sagas.tool.misc trans_clip el 'en;zh-CN;ja' ja False"
 alias sca="python -m sagas.tool.misc trans_clip ca 'en;es;ja' ja False"
 alias sko="python -m sagas.tool.misc trans_clip ko 'en;zh-CN;ja' ja False"
 
+# 
+alias ta='python -m sagas.tool.misc trans_en_ar'
+alias tk='python -m sagas.tool.misc trans_en_ko'
+alias tf='python -m sagas.tool.misc trans_en_fa'
+alias th='python -m sagas.tool.misc trans_en_hi'
+alias the='python -m sagas.tool.misc trans_en_he'
+alias tfi='python -m sagas.tool.misc trans_en_fi'
+
 alias trans-rus="python -m sagas.tool.misc trans_clip ru 'en;es;fr;de;zh-CN;ja'"
 alias trans-de="python -m sagas.tool.misc trans_clip de 'en;zh-CN;ja' ja"
 alias trans-des="python -m sagas.tool.misc trans_clip de 'en;es;fr;ru;zh-CN;ja'"

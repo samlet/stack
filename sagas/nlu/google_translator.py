@@ -167,6 +167,7 @@ def process_result(meta, r, trans_verbose, options, tracker:TransTracker):
             # tracker.translations=sagas.to_df(trans[0][2], ['word', 'translations', 'c', 'freq'])
             tracker.translations =translations_df(trans)
 
+# lang_maps={'he':'iw'}
 def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=None, tracker=None):
   import sagas.conf.conf as conf
   from sagas.nlu.trans_cacher import TransCacher
@@ -326,6 +327,7 @@ class GoogleTranslator(object):
     def trans_en(self, text, target='zh-CN'):
         """
         $ python -m sagas.nlu.google_translator trans_en 'I have two refrigerators' es
+        $ python -m sagas.nlu.google_translator trans_en 'I have two refrigerators' he
         :param text:
         :param target:
         :return:

@@ -299,6 +299,8 @@ class LangDialect(object):
     """
     def __init__(self, lang):
         from sagas.nlu.google_translator import get_word_map
+        from sagas.nlu.transliterations import Transliterations
+        self.translits=Transliterations()
         self.lang=lang
         def viz(sents, trans_it=True):
             nlp=get_nlp(self.lang)
@@ -306,7 +308,10 @@ class LangDialect(object):
             cv=CoreNlpViz(shape='egg', size='8,5', fontsize=20)
             words=[word.text for sent in doc.sentences for word in sent.words]
             if trans_it:
-                self.trans_to(sents, ['en'])
+                rs_trans=self.trans_to(sents, ['en'])
+                print(*rs_trans, sep='\n')
+                if self.lang in self.translits.available_langs():
+                    print('♡', self.translits.translit(sents, self.lang))
                 tr_map=get_word_map(self.lang, 'en', sents, 0, words)
             else:
                 tr_map=None
@@ -327,7 +332,7 @@ class LangDialect(object):
         rs=[]
         for target in targets:
             r,_ = translate(sents, source=self.lang, target=target)
-            print(r)
+            # print(r)
             rs.append(r)
         return rs
 

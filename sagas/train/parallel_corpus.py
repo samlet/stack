@@ -33,6 +33,30 @@ def take_samples(items, count=10):
         samples.append((sents, tr_lang))
     return samples
 
+prefix='/pi/ai/seq2seq'
+corpus_locs={
+    'fa':f"{prefix}/en_Persian/pes-eng/pes.txt",
+    'ja':f"{prefix}/jpn-eng-2019/jpn.txt",
+    'ar':f"{prefix}/ara-eng/ara.txt",
+    'bg':f"{prefix}/en_Bulgarian/bul-eng/bul.txt",
+    'el':f"{prefix}/en_Greek/ell-eng/ell.txt",
+    'es':f"{prefix}/spa-eng-2019/spa.txt",
+    'fr':f"{prefix}/fra-eng-2019/fra.txt",
+    'ru':f"{prefix}/rus-eng/rus.txt",
+}
+def search_corpus(loc, lang, words):
+    from sagas.nlu.transliterations import translits
+    items=load_corpus(loc)
+    # rows=take_samples(items)
+    def search_in(items, phrase):
+        for item in items:
+            if words in item[0]:
+                print(item)
+                # print(f"{l[1]} -> {l[0]}")
+                print(translits.translit(item[1], lang))
+        print('.. done.')
+    search_in(items, words)
+
 class ParallelCorpus(object):
     def __init__(self, ipaddr='pc'):
         from sagas.conf.conf import cf
@@ -264,6 +288,15 @@ class ParallelCorpus(object):
         """
         sents=' '.join(items)
         self.pr(lang, loop_for=1, q=sents, say=False)
+
+    def search(self, phrase, lang):
+        """
+        $ python -m sagas.train.parallel_corpus search dog fa
+        :param phrase:
+        :param lang:
+        :return:
+        """
+        search_corpus(corpus_locs[lang], lang, phrase)
 
 if __name__ == '__main__':
     import fire

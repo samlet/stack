@@ -1,6 +1,8 @@
 from time import sleep
 import requests
 
+merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
+
 def print_terms(sents, result):
     from termcolor import colored
     for verb in result['verbs']:
@@ -392,6 +394,64 @@ class MiscTool(object):
                 get_verb_domains(data)
 
         return addons, result
+
+    def trans_en_to(self, text, lang, translit_targets=None, said=True):
+        import clipboard
+        from sagas.nlu.transliterations import translits
+
+        source = 'en'
+        targets = f'fr;zh-CN;{lang}'
+        says = lang
+        # details=False
+
+        ctx = TransContext(source, targets, text, says)
+        ctx.sents_map[source[:2]] = text
+        succ = self.translators[self.translator](ctx)
+        if not succ:
+            return
+
+        # addons, result = self.parse_chunks(text, source, targets, ctx, details=details)
+        addons = []
+        # result = '\n\t'.join([text] + ctx.target_sents)
+        lines = []
+        lines.append(f'\t.sent({source}="{text}"')
+        suffix = ") \\"
+        # other appendants like: ctx.target_sents.append(f'v{i}="{ps}"')
+
+        # add translits
+        if translit_targets is not None:
+            for i, translit in enumerate(translit_targets):
+                ps=translits.translit(ctx.sents_map[translit], translit)
+                ctx.target_sents.append(f't{i}="{ps}"')
+
+        result = ', \n\t      '.join(lines + ctx.target_sents + [suffix])
+        print(result)
+
+        clipboard.copy(result)
+
+        if said:
+            from sagas.nlu.nlu_tools import NluTools
+            NluTools().say(ctx.sents_map[says], says)
+
+    def trans_en_ar(self, *args):
+        """
+        $ python -m sagas.tool.misc trans_en_ar please repeat.
+        :param args:
+        :return:
+        """
+        text = ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
+        self.trans_en_to(text, 'ar')
+
+    def trans_en_ko(self, *args):
+        self.trans_en_to(merge_args(args), 'ko', ['ko'])
+    def trans_en_fa(self, *args):
+        self.trans_en_to(merge_args(args), 'fa', ['fa'], said=False)
+    def trans_en_hi(self, *args):
+        self.trans_en_to(merge_args(args), 'hi', ['hi'], said=True)
+    def trans_en_he(self, *args):
+        self.trans_en_to(merge_args(args), 'he', ['he'], said=True)
+    def trans_en_fi(self, *args):
+        self.trans_en_to(merge_args(args), 'fi', ['fi'], said=True)
 
     def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
         """

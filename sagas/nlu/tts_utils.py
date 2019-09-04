@@ -67,6 +67,10 @@ def say_lang(sentence, lang, verbose=True):
         say_with(sentence, 'com.apple.speech.synthesis.voice.yuna.premium')
     elif lang=='hi':
         say_with(sentence, 'com.apple.speech.synthesis.voice.lekha')
+    elif lang=='he':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.carmit.premium')
+    elif lang=='fi':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.satu.premium')
     elif lang=='tr':
         say_with(sentence, 'com.apple.speech.synthesis.voice.yelda')
     else:
