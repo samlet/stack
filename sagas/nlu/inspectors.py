@@ -52,10 +52,12 @@ class DateInspector(Inspector):
             logger.debug('query with duckling: %s', cnt)
             resp = query_duckling(cnt, lang)
             if resp['result'] == 'success':
+                logger.debug(json.dumps(resp, indent=2, ensure_ascii=False))
                 dims=[d['dim'] for d in resp['data']]
                 logger.debug('dims: %s', dims)
                 if self.dim in dims:
                     result = True
+                    ctx.add_result(self.name(), key, resp['data'])
         # print('... put %s'%self.cache_key(key))
         # print(ctx.meta['intermedia'])
         return result

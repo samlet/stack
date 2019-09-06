@@ -18,6 +18,14 @@ class Context(object):
         # self.meta['intermedia']={}
         self.lang = meta['lang']
 
+        self._results=[]
+
+    @property
+    def results(self):
+        return self._results
+    def add_result(self, inspector, part_name, val):
+        self._results.append((inspector, part_name, val))
+
     def put_data(self, key, val):
         if 'intermedia' not in self.meta:
             self.meta['intermedia'] = {}
@@ -74,6 +82,10 @@ class Inspector(object):
         """Unique identifier of this simple inspector."""
 
         raise NotImplementedError("An inspector must implement a name")
+
+    @property
+    def result(self):
+        return None
 
     def run(self, key, ctx:Context):
         """

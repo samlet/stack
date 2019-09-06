@@ -27,6 +27,42 @@ Mats(cat=default) \
           fa="خاله",
           t0="khalh",
           ) \
+    .sent(en="the sun is yellow",
+          fr="le soleil est jaune",
+          zh="太阳是黄色的",
+          fa="خورشید زرد است",
+          t0="jorshid zrd ast",
+          ) \
+    .sent(en="snow is white",
+          fr="La neige est blanche",
+          zh="雪是白色的",
+          fa="برف سفید است",
+          t0="brf sfid ast",
+          ) \
+    .sent(en="the sun shines in summer",
+          fr="le soleil brille en été",
+          zh="阳光普照在夏天",
+          fa="خورشید تابستان می درخشد",
+          t0="jorshid tabstan mi drkhshd",
+          ) \
+    .sent(en="the winter is cold",
+          fr="l'hiver est froid",
+          zh="冬天很冷",
+          fa="زمستان سرد است",
+          t0="zmstan srd ast",
+          ) \
+    .sent(en="what is the weather like today",
+          fr="quel temps fait-il aujourd'hui",
+          zh="今天天气如何",
+          fa="امروز هوا چطور است",
+          t0="amroz hoa chtor ast",
+          ) \
+    .sent(en="what time is it",
+          fr="quelle heure est-il",
+          zh="现在是几奌",
+          fa="ساعت چند است",
+          t0="saat chnd ast",
+          ) \
 
 
 

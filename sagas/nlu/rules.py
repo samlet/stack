@@ -48,7 +48,7 @@ def verb_patterns(meta, domains):
           # 匹配日期维: I was born in the spring of 1982.
           Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=dateins('time')),
           # $ sd 'Die Aufnahmen begannen im November.'
-          Patterns(domains, meta, 2).verb(nsubj=agency, obl=dateins('time')),
+          Patterns(domains, meta, 5).verb(nsubj=agency, obl=dateins('time')),
 
           # 匹配实体: I was born in Beijing.
           Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=entins('GPE')),

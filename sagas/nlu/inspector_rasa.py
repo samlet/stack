@@ -16,9 +16,14 @@ class RasaInspector(Inspector):
         self.entire=entire
 
         self.endpoint = "http://localhost:5000"
+        self._result=None
 
     def name(self):
         return "ins_rasa"
+
+    @property
+    def result(self):
+        return self._result
 
     def run(self, key, ctx:Context):
         from sagas.nlu.rasa_procs import invoke_nlu
@@ -40,13 +45,17 @@ class RasaInspector(Inspector):
 
                 ent_names = {ent['entity'] for ent in entities}
                 intent_name = intent['name']
-                intent_confidence = intent['confidence']
+                intent_confidence = float(intent['confidence'])
+                self._result=intent_confidence
                 logger.info('%s(%s) -> %f, with entities %s' % (cnt, intent_name,
                                                             intent_confidence,
                                                             ', '.join(ent_names)))
                 # print(f'{self.intent}, {self.confidence}')
-                if self.intent == intent_name and float(intent_confidence) > self.confidence:
+                if self.intent == intent_name and intent_confidence > self.confidence:
                     # print('... matched intent and confidence')
+                    ctx.add_result(self.name(), key,
+                                   {'intent':intent_name,
+                                    'confidence':intent_confidence})
                     if self.contains_entity is None:
                         succ = True
                     elif self.contains_entity is not None and ent_names.issubset(self.contains_entity):

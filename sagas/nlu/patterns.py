@@ -119,9 +119,12 @@ class Patterns(object):
                     result = False
                 options.append('{} is {}: {}'.format(key, value, opt_ret))
             if self.track:
-                return "%s with %s" % (method, ', '.join(options)), result, self.priority
+                return "%s with %s" % (method, ', '.join(options)), \
+                       result, \
+                       self.priority, \
+                       ctx
             else:
-                return result
+                return result, ctx
 
         return service_method
 

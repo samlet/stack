@@ -20,7 +20,11 @@ def print_terms(sents, result):
 
 def color_print(color:str, text):
     from termcolor import colored
-    print(colored(text, color))
+    if isinstance(text, list):
+        for t in text:
+            print(colored(t, color))
+    else:
+        print(colored(text, color))
 
 def print_terms_zh(sents, result):
     from termcolor import colored
@@ -439,8 +443,7 @@ class MiscTool(object):
         :param args:
         :return:
         """
-        text = ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
-        self.trans_en_to(text, 'ar')
+        self.trans_en_to(merge_args(args), 'ar', ['ar'])
 
     def trans_en_ko(self, *args):
         self.trans_en_to(merge_args(args), 'ko', ['ko'])
