@@ -58,11 +58,12 @@ def extract_predicates(words, roles, postags, arcs, verbose=False):
             # if verbose:
             #     print('\t', arg.name, '☞', cnt)
             # print('\t', '----')
-            args.append({'name': arg.name, 'chunk': chunk, 'value': str(main_word),
+            rel=arg.name.lower()
+            args.append({'name': rel, 'chunk': chunk, 'value': str(main_word),
                          'start': arg.range.start, 'end': arg.range.end})
             # ['rel', 'index', 'text', 'lemma', 'children', 'features']
             feats=get_feats(postags, arg.range.end)
-            domains.append((arg.name, arg.range.end, str(main_word), str(main_word),
+            domains.append((rel, arg.range.end, str(main_word), str(main_word),
                            chunk, feats))
         lemma=words[role.index]
         predicts.append({'index': role.index, 'predicate': lemma,

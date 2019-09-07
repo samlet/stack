@@ -57,7 +57,10 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'ccomp',
                       # $ sz '现在是几点？'
                       # $ sz '昨天是星期几？'
-                      'sbv', 'vob'
+                      'sbv', 'vob',
+                      # predicts
+                      'a0', 'a1',
+                      'ガ',
                       ]
 def display_synsets(theme, meta, r, lang):
     from sagas.nlu.nlu_cli import retrieve_word_info
@@ -89,7 +92,7 @@ print_synsets=True
 serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 def rs_represent(rs, data, return_df=False):
     import sagas
-    from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns
+    from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns, predict_patterns
     from sagas.nlu.nlu_cli import NluCli
 
     df_set = []
@@ -126,6 +129,7 @@ def rs_represent(rs, data, return_df=False):
             print(serial_numbers[serial], theme,
                   f"{r['lemma']} ({r['phonetic']}, {r['word']})")
             meta = {'rel': r['rel'], **common, **data}
+            predict_patterns(meta, r['domains'])
         else:
             meta = {}
             raise Exception('Cannot process specific type: {}'.format(type_name))

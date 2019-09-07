@@ -26,6 +26,8 @@ def verb_pattern_checker(domains):
         print('pattern: verb+nsubj(pron)+obj(noun)')
 
 def trip_number_suffix(k):
+    if len(k)==1:
+        return k
     if k[-2]=='_' and k[-1].isdigit():
         return k[:-2]
     return k

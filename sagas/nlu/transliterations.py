@@ -11,7 +11,7 @@ class Transliterations(object):
         import icu
 
         self.tr_icu = icu.Transliterator.createInstance('Any-Latin; Latin-ASCII').transliterate
-        self.tr_title= tr = icu.Transliterator.createInstance('Any-Latin; Title').transliterate
+        self.tr_title = icu.Transliterator.createInstance('Any-Latin; Title').transliterate
         self.tr_el=icu.Transliterator.createInstance('Greek-Latin')
         self.lang_maps={'iw':'he'}
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
@@ -26,6 +26,15 @@ class Transliterations(object):
     def trans_ja(self, sents):
         from sagas.ja.ja_text_procs import text_procs
         return text_procs.translit(sents)
+
+    def trans_icu(self, sents):
+        """
+        $ python -m sagas.nlu.transliterations trans_icu '試合はいつですか？'
+        $ python -m sagas.nlu.transliterations trans_icu ガ
+        :param sents:
+        :return:
+        """
+        return self.tr_icu(sents)
 
     def available_langs(self):
         return ['iw', 'he', 'ko', 'sr', 'me', 'mk',

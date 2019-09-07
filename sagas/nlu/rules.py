@@ -148,3 +148,13 @@ def subj_patterns(meta, domains):
           ]
     print_result(pats)
 
+def predict_patterns(meta, domains):
+    print('... predict patterns')
+    pats=[Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp', vob=intentof('how_many', 0.75)),
+          # $ sz '有多少文件'
+          Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp', a1=kindof('file/communication', 'n')),
+          # $ sj "ファイルはいくつありますか？"
+          Patterns(domains, meta, 5).verb(behaveof('exist', 'v'), __engine='knp',
+                                          修飾='c_num', ガ=kindof('file/communication', 'n')),
+          ]
+    print_result(pats)
