@@ -459,6 +459,8 @@ class MiscTool(object):
         self.trans_en_to(merge_args(args), 'he', ['he'], said=True)
     def trans_en_fi(self, *args):
         self.trans_en_to(merge_args(args), 'fi', ['fi'], said=True)
+    def trans_en_pt(self, *args):
+        self.trans_en_to(merge_args(args), 'pt', ['pt'], said=True)
 
     def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
         """
@@ -569,6 +571,7 @@ class MiscTool(object):
         $ python -m sagas.tool.misc exec_rules "现在是几点?" zh ltp
         $ rules '我在臺灣開計程車。' zh
         $ rules '我在台湾开出租车。' zh ltp
+        $ rules "吸烟对你的健康有害。" zh ltp
         :param sents:
         :param lang:
         :param engine:

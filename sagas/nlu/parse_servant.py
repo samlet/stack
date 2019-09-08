@@ -136,9 +136,11 @@ def handle_verb_domains():
     #     r = get_subj_domain(sent)
 
     disable_predicts=is_disabled(content, 'disable_predicts')
-    if len(sent.predicts)>0 and not disable_predicts:
+    predicts_count=len(sent.predicts)
+    if predicts_count>0 and not disable_predicts:
         r= sent.predicts
     else:
+        logger.debug(f"predicts count is {predicts_count}, option disable_predicts is {disable_predicts}")
         r= get_chunks(sent)
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y

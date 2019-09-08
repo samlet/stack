@@ -34,9 +34,13 @@ def verb_patterns(meta, domains):
           Patterns(domains, meta).verb(nsubj=agency),
           # Φοράω το μάλλινο παλτό μου. ([en] I wear my wool coat.)
           Patterns(domains, meta).verb(__engine='corenlp', obj=agency),
+
           # 关系parataxis用于一对可能是独立句子的东西，但它们被一起作为一个句子对待。
-          # Diese Liga ist die beste Liga, glaube ich. ([en] This league is the best league, I think.)
+          # $ sd 'Diese Liga ist die beste Liga, glaube ich.' ([en] This league is the best league, I think.)
           Patterns(domains, meta).verb(_rel='parataxis', nsubj=agency),
+          # 子句的依赖关系匹配:
+          # $ ses 'Yo hago ejercicio porque cuido mi cuerpo.'
+          Patterns(domains, meta, 5).verb(_rel='advcl', obj=agency),
 
           # Passive-Voice: Sie werden nicht berücksichtigt.
           Patterns(domains, meta, 1).verb(nsubj_pass=agency, aux_pass='c_aux'),
@@ -58,6 +62,12 @@ def verb_patterns(meta, domains):
           # 匹配继承链: O homem fica amarelo.
           Patterns(domains, meta, 2).verb(nsubj=agency, xcomp=kindof('color', 'n')),
           Patterns(domains, meta, 2).verb(nsubj=kindof('activity', 'n')),
+
+          # health theme _________
+          # $ ses '¿Te duelen las piernas?'
+          Patterns(domains, meta, 5).verb(behaveof('suffer', 'v'), nsubj=kindof('body_part', 'n')),
+          # $ sz "吸烟对你的健康有害。"
+          Patterns(domains, meta, 5).verb(behaveof('consume', 'v'), cmp='c_adp'),
 
           # 匹配行为: Ayer Roberto cenó en un restaurante excelente.
           *behaviours_obl(['eat/consume']),
@@ -106,6 +116,10 @@ def aux_patterns(meta, domains):
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('person', 'n')),
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('fruit', 'n')),
 
+          # $ se "How many files are there?"
+          Patterns(domains, meta, 5).aux('adv', nsubj=kindof('file/communication', 'n'),
+                                         cop=kindof('be', 'v')),  ## 因为behaveof取得是key, 而kindof取得是词干
+
           # La manzana es una fruta saludable. ([zh] 苹果是一种健康的水果。)
           *things(['fruit', 'food']),
           # Leopard is a beast.
@@ -153,8 +167,13 @@ def predict_patterns(meta, domains):
     pats=[Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp', vob=intentof('how_many', 0.75)),
           # $ sz '有多少文件'
           Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp', a1=kindof('file/communication', 'n')),
+          # $ sz '包含几个文件'
+          Patterns(domains, meta, 5).verb(behaveof('include', 'v'), __engine='ltp', a1=kindof('file/communication', 'n')),
           # $ sj "ファイルはいくつありますか？"
           Patterns(domains, meta, 5).verb(behaveof('exist', 'v'), __engine='knp',
                                           修飾='c_num', ガ=kindof('file/communication', 'n')),
+          # $ sj "いくつかのファイルが含まれています"
+          Patterns(domains, meta, 5).verb(behaveof('include', 'v'), __engine='knp',
+                                          ガ=kindof('file/communication', 'n')),
           ]
     print_result(pats)
