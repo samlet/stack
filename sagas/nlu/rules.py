@@ -74,12 +74,16 @@ def verb_patterns(meta, domains):
           # 匹配行为与对象:
           # $ se 'What do you think about the war?'
           *actions_obl([('evaluate', 'group_action/event'),
-                    ('examine', 'interest/state')
-                    ]),
+                        ('examine', 'interest/state')
+                        ]),
           # $ sd 'Wie untersuchen Sie diese Angelegenheit?'
           *actions_obj([('evaluate', 'group_action/event'),
-                    ('examine', 'interest/state')
-                    ]),
+                        ('examine', 'interest/state'),
+                        # $ sid 'saya punya anjing'  (en="i have a dog")
+                        ('own', 'animal/organism'),
+                        # $ sid 'Kalian punya jeruk.'  (en="You have oranges.")
+                        ('own', 'fruit/food'),
+                        ]),
 
           # 匹配意图(全句或chunk)
           # $ sd 'Ich stimme dir in diesem Punkt nicht zu.'

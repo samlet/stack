@@ -14,6 +14,13 @@
     "treebank": "GSD"
   },
   {
+    "name": "fi",
+    "lang": "Finnish",
+    "model": "fi_ftb",
+    "version": "0.2.0",
+    "treebank": "FTB"
+  },
+  {
     "name": "ur",
     "lang": "Urdu",
     "model": "ur_udtb",
@@ -133,11 +140,25 @@
     "treebank": "IMST"
   },
   {
+    "name": "he",
+    "lang": "Hebrew",
+    "model": "he_htb",
+    "version": "0.2.0",
+    "treebank": "HTB"
+  },
+  {
     "name": "da",
     "lang": "Danish",
     "model": "da_ddt",
     "version": "0.2.0",
     "treebank": "DDT"
+  },
+  {
+    "name": "id",
+    "lang": "Indonesian",
+    "model": "id_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
   },
   {
     "name": "hi",
@@ -166,6 +187,13 @@
     "model": "cs_pdt",
     "version": "0.2.0",
     "treebank": "PDT"
+  },
+  {
+    "name": "af",
+    "lang": "Afrikaans",
+    "model": "af_afribooms",
+    "version": "0.2.0",
+    "treebank": "AfriBooms"
   },
   {
     "name": "en",

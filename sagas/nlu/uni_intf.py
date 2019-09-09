@@ -1,4 +1,5 @@
 import abc
+import io
 
 sub_comps=['ccomp', 'xcomp', # general
            'adv', 'coo', 'vob', 'att', # zh
@@ -106,4 +107,20 @@ class SentenceIntf(abc.ABC):
                 governor = self.words[word.governor - 1]
             self.dependencies.append((governor, word.dependency_relation, word))
 
+    def print_words(self, file=None):
+        for word in self.words:
+            print(word, file=file)
 
+    def words_string(self):
+        wrds_string = io.StringIO()
+        self.print_words(file=wrds_string)
+        return wrds_string.getvalue().strip()
+
+    def print_dependencies(self, file=None):
+        for dep_edge in self.dependencies:
+            print((dep_edge[2].text, dep_edge[0].index, dep_edge[1]), file=file)
+
+    def dependencies_string(self):
+        dep_string = io.StringIO()
+        self.print_dependencies(file=dep_string)
+        return dep_string.getvalue().strip()

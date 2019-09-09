@@ -35,7 +35,7 @@ class RuleSet(object):
         self.rules=rules
         self.executor=executor
 
-    def __call__(self, domains, meta):
+    def __call__(self, domains, meta, ctx=None):
         rule_rs = self.rules(domains, meta)
         # .. parts {'sbv': '你', 'vob': '电脑', 'wp': '？'}
         print('.. parts', {k: v for k, v in rule_rs[0][3].lemmas.items()})
@@ -49,7 +49,10 @@ class RuleSet(object):
             color_print('blue', results)
 
             # .. matched: how_many_artifact
-            self.executor(self.name)
+            if ctx is not None:
+                self.executor(ctx)
+            else:
+                self.executor(self.name)
         return rule_rs
 
 class RuleSets(object):

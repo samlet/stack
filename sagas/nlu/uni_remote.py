@@ -1,9 +1,10 @@
-def dep_parse(sents, lang='en', engine='corenlp', pipelines=None):
-    import requests
-    import json
-    from sagas.conf.conf import cf
-    from sagas.nlu.uni_jsonifier import JsonifySentImpl
+from sagas.nlu.uni_intf import SentenceIntf
+from sagas.nlu.uni_jsonifier import JsonifySentImpl
+import requests
+import json
+from sagas.conf.conf import cf
 
+def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceIntf, dict):
     if pipelines is None:
         pipelines = []
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}

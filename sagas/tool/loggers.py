@@ -1,7 +1,7 @@
 import logging.config
 import yaml
 
-def init_logger(file='./conf/logger.yml'):
+def init_logger(file='/pi/conf/logger.yml'):
     with open(file, 'r') as f:
         config = yaml.safe_load(f.read())
         logging.config.dictConfig(config)

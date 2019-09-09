@@ -1,6 +1,6 @@
 #!/bin/bash
 # alias s1='/Users/xiaofeiwu/miniconda3/envs/bigdata/bin/python -m honcho start'
-alias s1='honcho start'
+alias s1='/Users/xiaofeiwu/miniconda3/envs/bigdata/bin/honcho start'
 alias s2='foreman start -f Procfile_langs'
 
 alias tool='python -m sagas.ofbiz.tools'
@@ -105,6 +105,9 @@ alias se-hi="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;hi' hi False"
 alias se-ko="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ko' ko False"
 
 alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' ja False"
+# Indonesian
+alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
+alias sid+="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' id False"
 
 # Irish
 alias sga="python -m sagas.tool.misc trans_clip ga 'en;zh-CN;ja' ja False"

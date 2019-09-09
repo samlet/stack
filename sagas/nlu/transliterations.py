@@ -16,7 +16,7 @@ class Transliterations(object):
         self.lang_maps={'iw':'he'}
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
-                          ('he', 'fa'): lambda s,lang:translit(s,lang),
+                          ('he', 'fa', 'ur'): lambda s,lang:translit(s,lang),
                           ('hi', 'ar'): lambda s,_:self.tr_icu(s),
                           ('el'): lambda s,_:self.tr_el(s),
                           ('zh'): lambda s,_:self.tr_title(s),
@@ -36,6 +36,17 @@ class Transliterations(object):
         """
         return self.tr_icu(sents)
 
+    def trans_polyglot(self, sents, lang):
+        """
+        $ python -m sagas.nlu.transliterations trans_polyglot 'وہ امیر ہے۔' ur
+        $ python -m sagas.nlu.transliterations trans_polyglot 'वह धनी है।' hi
+
+        :param sents:
+        :param lang:
+        :return:
+        """
+        return translit(sents, lang)
+
     def available_langs(self):
         return ['iw', 'he', 'ko', 'sr', 'me', 'mk',
                 'ru', 'ar', 'fa', 'hi',
@@ -50,6 +61,8 @@ class Transliterations(object):
         $ python -m sagas.nlu.transliterations translit "医薬品安全管理責任者" zh
         $ python -m sagas.nlu.transliterations translit 'صباح الخير' ar
         $ python -m sagas.nlu.transliterations translit 'शुभ प्रभात' hi
+        $ python -m sagas.nlu.transliterations translit 'وہ امیر ہے۔' ur
+
         :param sents:
         :param lang:
         :return:

@@ -33,3 +33,11 @@ ana=lambda sents: CoreNlpViz(shape='ellipse', size='8,5', fontsize=20).analyse(s
 ana('أنا طالب جامعي صيني')
 ```
 
+## uni_viz
+```python
+from sagas.nlu.uni_remote_viz import viz_sample
+sents='what time is it ?'
+viz_sample('en', sents)
+```
+
+

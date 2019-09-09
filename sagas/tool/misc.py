@@ -340,6 +340,7 @@ class MiscTool(object):
     def parse_chunks(self, text, source, targets, ctx, details=True):
         import sagas.nlu.corenlp_helper as helper
         from sagas.conf.conf import cf
+        from sagas.nlu.treebanks import treebanks
 
         def query_serv(data, print_it=True):
             response = requests.post(f'{cf.servant_by_lang(data["lang"])}/digest', json=data)
@@ -361,7 +362,7 @@ class MiscTool(object):
 
         # available_sources=['en', 'de', 'fr', 'ru', 'es', 'it', 'pt', 'cs', 'sk', 'pl', 'tr',
         #                    'sv', 'no', 'hi']
-        available_sources=helper.langs.keys()
+        available_sources=set(list(helper.langs.keys())+treebanks.support_langs)
         if details:
             if source in available_sources:
                 data = {'lang': source, "sents": text}
@@ -572,6 +573,9 @@ class MiscTool(object):
         $ rules '我在臺灣開計程車。' zh
         $ rules '我在台湾开出租车。' zh ltp
         $ rules "吸烟对你的健康有害。" zh ltp
+        $ rules 'Tini berumur sepuluh tahun.' id
+        $ rules 'Berapa umur kamu?' id  (因为找不到预定义的chunks模式, 所以会输出所有单词和依赖关系)
+
         :param sents:
         :param lang:
         :param engine:
@@ -589,9 +593,14 @@ class MiscTool(object):
                                      'pipelines':pipelines})
             else:
                 rs = get_chunks(doc_jsonify)
-                # rs_summary(rs)
-                rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
-                                         'pipelines':pipelines})
+                if len(rs)>0:
+                    # rs_summary(rs)
+                    rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
+                                             'pipelines':pipelines})
+                else:
+                    color_print('red', '.. no found predefined chunk-patterns.')
+                    print(doc_jsonify.words_string())
+                    print(doc_jsonify.dependencies_string())
 
 if __name__ == '__main__':
     import fire

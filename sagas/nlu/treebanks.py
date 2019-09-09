@@ -82,6 +82,14 @@ Vietnamese	VTB	vi	vi_vtb	download	0.2.0	Creative Commons License
 class TreeBanks(object):
     def __init__(self):
         self.conf=json_utils.read_json_file('./conf/treebanks.json')
+        self.support_langs=[x['name'] for x in self.conf]
+
+    def all_langs(self):
+        """
+        $ python -m sagas.nlu.treebanks all_langs
+        :return:
+        """
+        print(self.support_langs)
 
     def query(self, lang_code):
         """
@@ -103,9 +111,9 @@ class TreeBanks(object):
                 break
         return cur_lang, target_row
 
-    def generate(self):
+    def treebanks_df(self):
         """
-        $ python -m sagas.nlu.treebanks generate
+        $ python -m sagas.nlu.treebanks treebanks_df to-string
         :return:
         """
         import sagas
@@ -121,6 +129,14 @@ class TreeBanks(object):
 
         cols = treebanks_defs[0].split('\t')
         df = sagas.to_df(lang_tab, cols)
+        return df
+
+    def generate(self):
+        """
+        $ python -m sagas.nlu.treebanks generate
+        :return:
+        """
+        df=self.treebanks_df()
         rs = json.loads(df.to_json(orient='records'))
 
         # find all models
