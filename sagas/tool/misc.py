@@ -93,6 +93,7 @@ serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 def rs_represent(rs, data, return_df=False):
     import sagas
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns, predict_patterns
+    from sagas.nlu.rules_lang_spec import check_langspec
     from sagas.nlu.nlu_cli import NluCli
 
     df_set = []
@@ -130,6 +131,14 @@ def rs_represent(rs, data, return_df=False):
                   f"{r['lemma']} ({r['phonetic']}, {r['word']})")
             meta = {'rel': r['rel'], **common, **data}
             predict_patterns(meta, r['domains'])
+        elif type_name == 'root_domains':
+            theme = '[root]'
+            print(serial_numbers[serial], theme,
+                  f"{r['word']}/{r['lemma']}, pos: {r['upos']}/{r['xpos']}, idx: {r['index']}",
+                  '(%s, %s)' % (r['rel'], r['governor']))
+            meta = {'rel': r['rel'], **common, **data}
+            # verb_patterns(meta, r['domains'])
+            check_langspec(data['lang'], meta, r['domains'])
         else:
             meta = {}
             raise Exception('Cannot process specific type: {}'.format(type_name))

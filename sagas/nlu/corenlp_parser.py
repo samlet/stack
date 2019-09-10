@@ -103,12 +103,32 @@ def get_subj_domain(sent):
                    'index': word.index, 'domains': domains, 'stems':stems})
     return rs
 
-def get_chunks(sent):
+def get_root_domain(sent_p):
+    root = next(w for w in sent_p.words if w.dependency_relation == 'root')
+    print(root.index, root.text, root.upos)
+    root_idx = int(root.index)
+    domains = []
+    stems = []
+    rs = []
+    for word in (w for w in sent_p.words if w.governor == root_idx):
+        print(f"{word.dependency_relation}: {word.text}")
+        add_domain(domains, stems, word, sent_p)
+
+    word = root
+    rs.append({'type': 'root_domains', 'word': word.text, 'lemma': word.lemma,
+               'upos': word.upos.lower(), 'xpos': word.xpos.lower(),
+               'rel': word.dependency_relation, 'governor': word.governor,
+               'index': word.index, 'domains': domains, 'stems': stems})
+    return rs
+
+def get_chunks(sent, return_root_chunks_if_absent=True):
     r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
     if len(r) == 0:
         r = get_aux_domain(sent, ['obl', 'nsubj:pass'])
     if len(r) == 0:
         r = get_subj_domain(sent)
+    if len(r)==0 and return_root_chunks_if_absent:
+        r=get_root_domain(sent)
     return r
 
 class CoreNlpParser(object):
