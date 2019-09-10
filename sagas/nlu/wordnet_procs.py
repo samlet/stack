@@ -167,6 +167,8 @@ class WordNetProcs(object):
         :return:
         """
         from termcolor import colored
+        from sagas.nlu.wordnet_explore import get_word_lemmas
+
         # from sagas.nlu.locales import iso_locales
         # loc, _=iso_locales.get_code_by_part1(lang)
         # print('.. query {} in language {}'.format(word, loc))
@@ -183,6 +185,11 @@ class WordNetProcs(object):
                          'region': names(s.region_domains()),
                          'usage': names(s.usage_domains())}
                 print('\t', domains)
+                for l in ['en', 'fr', 'zh', 'ja']:
+                    lemmas = get_word_lemmas(s, l)
+                    if len(lemmas)>0:
+                        lemmas_t=', '.join(lemmas)
+                        print('\t', l, lemmas_t[:25]+'..' if len(lemmas_t)>25 else lemmas_t)
 
     def lemmas(self, word, lang, to_lang):
         """

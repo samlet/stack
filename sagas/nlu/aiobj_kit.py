@@ -25,6 +25,7 @@ class DomainGetOptions(object):
 
 def get_domains(sents, lang, engine='corenlp', options=None):
     """
+    >>> from sagas.nlu.aiobj_kit import get_domains
     >>> get_domains('你有几台笔记本电脑？', 'zh', 'ltp')
     :param sents:
     :param lang:
@@ -45,6 +46,7 @@ def get_domains(sents, lang, engine='corenlp', options=None):
             rs=resp['predicts']
             # print(rs)
         else:
+            # print(doc_jsonify.words_string())
             rs = get_chunks(doc_jsonify)
         if len(rs)>0:
             if options.list_chunks:

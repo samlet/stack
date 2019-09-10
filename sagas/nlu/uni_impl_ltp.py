@@ -36,12 +36,14 @@ class LtpWordImpl(WordIntf):
     def setup(self, token):
         if token.dependency_relation == 'HED':
             governor = 0
+            rel='root'
         else:
             governor = token.governor
+            rel=token.dependency_relation.lower()
         idx = token.i + 1  # start from 1
         features = {'index': idx, 'text': token.text, 'lemma': token.lemma,
                     'upos': token.upos, 'xpos': token.pos,
-                    'feats': [], 'governor': governor, 'dependency_relation': token.dependency_relation.lower(),
+                    'feats': [], 'governor': governor, 'dependency_relation': rel,
                     'entity': [token.netag]
                     }
         return features

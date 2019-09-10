@@ -104,7 +104,7 @@ def get_subj_domain(sent):
     return rs
 
 def get_root_domain(sent_p):
-    root = next(w for w in sent_p.words if w.dependency_relation == 'root')
+    root = next(w for w in sent_p.words if w.dependency_relation in ('root', 'hed'))
     print(root.index, root.text, root.upos)
     root_idx = int(root.index)
     domains = []
