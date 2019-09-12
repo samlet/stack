@@ -32,8 +32,9 @@ class RuleSet(object):
         self.name=name
         self.rules=rules
         self.executor=executor
+        self.parameters=kwargs
 
-    def __call__(self, domains, meta, ctx=None):
+    def __call__(self, domains, meta, ctx=None, param_sents=None):
         rule_rs = self.rules(domains, meta)
         # .. parts {'sbv': '你', 'vob': '电脑', 'wp': '？'}
         print('.. parts', {k: v for k, v in rule_rs[0][3].lemmas.items()})
@@ -45,6 +46,14 @@ class RuleSet(object):
             print([f"{r[0]}/{r[1]}" for r in results])
             # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
             color_print('blue', results)
+
+            # 如果kwargs不为空, 则利用kwargs的规则集来检测param_sents,
+            # 将得到的inspectors结果集放入对应的参数名中,
+            # 与rules的结果集results一起作为参数值来调用executor.
+            if len(self.parameters)>0:
+                color_print('red', 'parameters -> %s'%', '.join(self.parameters.keys()))
+                if param_sents is not None:
+                    color_print('yellow', '; '.join(param_sents))
 
             # .. matched: how_many_artifact
             if ctx is not None:

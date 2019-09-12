@@ -8,7 +8,7 @@ class Keeper:
 class BaseMeta(type):
     @staticmethod
     def setup(cls):
-        def _(self, text, lang='en'):
+        def _(self, lang, text, *sents):
             print(type(self).__name__,
                   isinstance(self, Keeper),
                   text, lang)
@@ -23,12 +23,18 @@ class BaseMeta(type):
                 print('rules', [r.name for r in self.rulesets])
                 for i, ruleset in enumerate(self.rulesets):
                     print(colored(f"✁ {i}. {'-' * 25}", 'cyan'))
-                    rule_rs = ruleset(domains, meta, self)
+                    rule_rs = ruleset(domains, meta, self, sents)
                     display_result_df(rule_rs)
 
             if isinstance(self, Keeper):
                 return self.callback(text)
             return None
 
-        cls._ = _
+        cls._ = lambda self, lang: lambda text, *sents: _(self, lang, text, *sents)
+        cls._en = lambda self, text, *sents: _(self, 'en', text, *sents)
+        cls._zh = lambda self, text, *sents: _(self, 'zh', text, *sents)
+        cls._ja = lambda self, text, *sents: _(self, 'ja', text, *sents)
+        cls._ko = lambda self, text, *sents: _(self, 'ko', text, *sents)
+
+
 
