@@ -11,15 +11,30 @@ def repr_duckling_body(data, iot=None):
         else:
             print(f'unknown item type {item_type}', file=iot)
 
-content_reprs={'duckling':repr_duckling_body}
+def repr_snips_body(data, iot=None):
+    try:
+        for item in data:
+            print(f"{item['value']} - {item['entity_kind']}", file=iot)
+            entity = item['entity']
+            print(entity['grain'], entity['value'], file=iot)
+    except:
+        print('cannot represent data:')
+        print(data)
+
+content_reprs={'duckling':repr_duckling_body,
+               'snips':repr_snips_body,
+               }
+
 def content_represent(cnt_type, body):
     sio = io.StringIO()
     if cnt_type in content_reprs:
-        content_reprs['duckling'](body, iot=sio)
+        content_reprs[cnt_type](body, iot=sio)
         return sio.getvalue()
     return body
 
 class ContentRepresenter(object):
+    def __init__(self):
+        self.parsers={}
     def extract_duckling_dt(self, text):
         """
         $ python -m sagas.nlu.content_representers extract_duckling_dt '上个星期编辑'
@@ -39,6 +54,26 @@ class ContentRepresenter(object):
         data=resp['data']
 
         content_reprs['duckling'](data)
+
+    def extract_snips(self, text, lang):
+        """
+        $ python -m sagas.nlu.content_representers extract_snips "in three days" en
+        :param text:
+        :param lang:
+        :return:
+        """
+        from snips_nlu_parsers import BuiltinEntityParser
+
+        if lang in self.parsers:
+            parser = self.parsers[lang]
+        else:
+            parser = BuiltinEntityParser.build(language=lang)
+            self.parsers[lang] = parser
+        parsing = parser.parse(text)
+        # parsing = parser.parse("in three days")
+        dims = [d['entity_kind'] for d in parsing]
+        print(dims)
+        content_reprs['snips'](parsing)
 
 if __name__ == '__main__':
     import fire

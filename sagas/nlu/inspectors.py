@@ -36,32 +36,66 @@ def query_duckling(text, lang):
     return {'result':'fail', 'cause':'error response'}
 
 class DateInspector(Inspector):
-    def __init__(self, dim, provider='duckling'):
-        self.dim = dim
+    """
+    Testcases:
+        $ ses 'Nosotros comíamos con la familia para Navidad.'
+    """
+    def __init__(self, dims, provider='duckling'):
+        if isinstance(dims, str):
+            self.dims = {dims}
+        else:
+            self.dims=dims
+        self.fits=lambda ds: any([c in ds for c in self.dims])
         self.provider=provider
+        self.providers={'duckling':self.duckling_provider,
+                        'snips': self.snips_provider,
+                        }
+        self.parsers={}
 
     def name(self):
         return "ins_date"
 
-    def run(self, key, ctx:Context):
+    def duckling_provider(self, cnt, lang, ctx, key):
         result = False
+        logger.debug('query with duckling: %s', cnt)
+        resp = query_duckling(cnt, lang)
+        if resp['result'] == 'success':
+            logger.debug(json.dumps(resp, indent=2, ensure_ascii=False))
+            dims = [d['dim'] for d in resp['data']]
+            logger.debug('dims: %s', dims)
+            # if self.dim in dims:
+            if self.fits(dims):
+                result = True
+                ctx.add_result(self.name(), self.provider, key, resp['data'])
+        return result
+
+    def snips_provider(self, cnt, lang, ctx, key):
+        from snips_nlu_parsers import BuiltinEntityParser
+        result = False
+        if lang in self.parsers:
+            parser = self.parsers[lang]
+        else:
+            parser = BuiltinEntityParser.build(language=lang)
+            self.parsers[lang] = parser
+        parsing = parser.parse(cnt)
+        dims = [d['entity_kind'] for d in parsing]
+        print(cnt, '->', 'dims', dims, 'to fits in', self.dims)
+        if self.fits(dims):
+            result = True
+            ctx.add_result(self.name(), self.provider, key, parsing)
+        return result
+
+    def run(self, key, ctx:Context):
+        checkers = []
         lang = ctx.meta['lang']
         # cnt = ' '.join(ctx.chunks['obl'])
         # cnt = ' '.join(ctx.chunks[key])
 
         for cnt in ctx.chunk_pieces(key):
-            logger.debug('query with duckling: %s', cnt)
-            resp = query_duckling(cnt, lang)
-            if resp['result'] == 'success':
-                logger.debug(json.dumps(resp, indent=2, ensure_ascii=False))
-                dims=[d['dim'] for d in resp['data']]
-                logger.debug('dims: %s', dims)
-                if self.dim in dims:
-                    result = True
-                    ctx.add_result(self.name(), self.provider, key, resp['data'])
+            checkers.append(self.providers[self.provider](cnt, lang, ctx, key))
         # print('... put %s'%self.cache_key(key))
         # print(ctx.meta['intermedia'])
-        return result
+        return any(checkers)
 
 class NegativeWordInspector(Inspector):
     def name(self):

@@ -120,6 +120,14 @@ def aux_patterns(meta, domains):
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('person', 'n')),
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('fruit', 'n')),
 
+          # 匹配自然现象
+          # $ se "what will be the weather in three days ?"
+          Patterns(domains, meta, 5).cop(behaveof('weather/phenomenon', 'n'), nsubj=agency, cop='c_aux'),
+          Patterns(domains, meta, 5).cop(behaveof('weather/phenomenon', 'n'),
+                                         nsubj=agency, cop='c_aux',
+                                         nmod=dateins({'snips/date', 'snips/datetime'},
+                                                      provider='snips')),
+
           # $ se "How many files are there?"
           Patterns(domains, meta, 5).aux('adv', nsubj=kindof('file/communication', 'n'),
                                          cop=kindof('be', 'v')),  ## 因为behaveof取得是key, 而kindof取得是词干
