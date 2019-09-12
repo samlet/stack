@@ -5,7 +5,6 @@ from sagas.nlu.uni_remote_viz import list_chunks, display_doc_deps, list_rs
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.tool.misc import color_print
 
-
 def display_result_df(rs, presenter='jupyter'):
     df = result_df(rs)
     if presenter == 'jupyter':

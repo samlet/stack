@@ -1,11 +1,9 @@
 from sagas.nlu.aiobj_kit import get_domains, display_result_df
-from sagas.nlu.ruleset import RuleSet, RuleSets, actions_vob, agency
 from termcolor import colored
 
 class Keeper:
     def callback(self, t):
         pass
-
 
 class BaseMeta(type):
     @staticmethod

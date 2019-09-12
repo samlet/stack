@@ -1,4 +1,13 @@
-from sagas.nlu.rules_header import *
+# from sagas.nlu.rules_header import *  # --> only for test purpose
+from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
+from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
+from sagas.nlu.inspector_rasa import RasaInspector as intentof
+from sagas.nlu.patterns import Patterns
+
+from sagas.tool.misc import color_print
+
+from sagas.nlu.aiobj_base import BaseMeta, Keeper
+from sagas.nlu.ruleset import RuleSet, actions_vob, behaviours_obl
 
 class StoremanMeta(BaseMeta):
     def __init__(cls, clsname, superclasses, attributedict):
@@ -10,7 +19,16 @@ class StoremanMeta(BaseMeta):
                                                            vob=intentof('how_many', 0.75)),
                                     *actions_vob(d, m, [('have', 'device/artifact'), ]),
                                 ],
-                                executor=lambda obj: color_print('red', f'.. object: {obj}')),
+                                executor=lambda obj: color_print('red', f'.. object: {obj}'),
+                                files=lambda d,m:[
+                                    # $ sz '有多少文件'
+                                    Patterns(d,m, 5).verb(behaveof('have', 'v'), __engine='ltp',
+                                                                    a1=kindof('file/communication', 'n')),
+                                ],
+                                checkers=lambda d,m:[
+                                    *actions_vob([('have', 'device/artifact'), ]),
+                                ],
+                                ),
                         ]
         BaseMeta.setup(cls)
 

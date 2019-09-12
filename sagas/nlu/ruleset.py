@@ -5,8 +5,6 @@ from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspectors import DateInspector as dateins
-import requests
-import json
 from sagas.tool.misc import color_print
 from sagas.tool.package_helper import ClassFinder
 
@@ -25,12 +23,12 @@ def result_df(rs):
             recs.append(('✔' if r[1] else '✖', r[0]))
     return sagas.to_df(recs, ['match', 'options'])
 
-agency = ['c_pron', 'c_noun']
+agency=['c_pron', 'c_noun', 'c_propn']
 behaviours_obl = lambda domains, meta, rs: [Patterns(domains, meta, 5).verb(behaveof(r, 'v'), obl='c_noun') for r in rs]
 actions_vob = lambda domains, meta, rs: [Patterns(domains, meta, 5).verb(behaveof(r[0], 'v'), __engine='ltp', vob=kindof(r[1], 'n')) for r in rs]
 
 class RuleSet(object):
-    def __init__(self, name, rules, executor):
+    def __init__(self, name, rules, executor, **kwargs):
         self.name=name
         self.rules=rules
         self.executor=executor
