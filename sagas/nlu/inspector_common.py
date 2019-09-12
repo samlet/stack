@@ -23,8 +23,8 @@ class Context(object):
     @property
     def results(self):
         return self._results
-    def add_result(self, inspector, part_name, val):
-        self._results.append((inspector, part_name, val))
+    def add_result(self, inspector, provider, part_name, val):
+        self._results.append((inspector, provider, part_name, val))
 
     def put_data(self, key, val):
         if 'intermedia' not in self.meta:

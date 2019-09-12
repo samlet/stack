@@ -11,7 +11,7 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
                  'es':'es_Nothing', 'fr':'fr_Nothing',
                  'de':'de_Nothing', 'ja':'ja_Nothing',
-                 'zh':'zh_CN'
+                 'zh':'zh_CN', 'ar':'ar_Nothing',
                 }
 
 def query_duckling(text, lang):
@@ -36,8 +36,9 @@ def query_duckling(text, lang):
     return {'result':'fail', 'cause':'error response'}
 
 class DateInspector(Inspector):
-    def __init__(self, dim):
+    def __init__(self, dim, provider='duckling'):
         self.dim = dim
+        self.provider=provider
 
     def name(self):
         return "ins_date"
@@ -57,7 +58,7 @@ class DateInspector(Inspector):
                 logger.debug('dims: %s', dims)
                 if self.dim in dims:
                     result = True
-                    ctx.add_result(self.name(), key, resp['data'])
+                    ctx.add_result(self.name(), self.provider, key, resp['data'])
         # print('... put %s'%self.cache_key(key))
         # print(ctx.meta['intermedia'])
         return result

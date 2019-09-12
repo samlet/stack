@@ -132,7 +132,7 @@ class LtpProcs(object):
         print('❶ roles for', " ".join(words))
         # roles = self.labeller.label(words, postags, arcs)
 
-        predicts=extract_predicates(words, roles, verbose=False)
+        predicts=extract_predicates(words, roles, postags, arcs, verbose=False)
         print(predicts)
 
         # dep-parse

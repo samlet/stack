@@ -105,7 +105,9 @@ def rs_represent(rs, data, return_df=False):
         theme = ''
         if type_name == 'verb_domains':
             theme = '[verb]'
-            print(serial_numbers[serial], theme, r['lemma'], r['index'],
+            print(serial_numbers[serial], theme,
+                  # r['lemma'], r['index'],
+                  f"{r['word']}/{r['lemma']}, pos: {r['upos']}/{r['xpos']}, idx: {r['index']}",
                   '(%s, %s)' % (r['rel'], r['governor']))
             meta = {'rel': r['rel'], **common, **data}
             verb_patterns(meta, r['domains'])

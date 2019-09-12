@@ -22,7 +22,10 @@ def list_rs(rs):
         # print(resp)
 
 def list_chunks(doc_jsonify, resp):
-    rs = get_chunks(doc_jsonify)
+    if len(resp['predicts']) > 0:
+        rs=resp['predicts']
+    else:
+        rs = get_chunks(doc_jsonify)
     list_rs(rs)
 
 def display_doc_deps(doc_jsonify, resp):

@@ -148,6 +148,20 @@ class ArabicProcessor(object):
             time.sleep(0.05)
         print('.')
 
+    def ana_ar(self, text):
+        """
+        $ python -m sagas.ar.arabic_processor ana_ar 'بسم الله الرحمن الرحيم'
+        $ python -m sagas.ar.arabic_processor ana_ar 'يستعيد الكاتب في هذه الرواية كيف تحولت من مدينة للانوار الي مدينة للاشباح'
+        $ python -m sagas.ar.arabic_processor ana_ar "ادخل النص"
+        :param text:
+        :return:
+        """
+        from sagas.ar.arabycia import Arabycia
+        ara = Arabycia(text)
+        raw_data, data = ara.print_result()
+        print(raw_data)
+        print(data)
+
 if __name__ == '__main__':
     import fire
     fire.Fire(ArabicProcessor)

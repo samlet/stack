@@ -52,7 +52,8 @@ def get_verb_domain(sent, filters):
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, stems, c, sent)
-        rs.append({'type':'verb_domains', 'verb': word.text, 'lemma':word.lemma, 'index': word.index,
+        rs.append({'type':'verb_domains', 'word': word.text, 'lemma':word.lemma, 'index': word.index,
+                   'upos': word.upos.lower(), 'xpos': word.xpos.lower(),
                    'rel': word.dependency_relation, 'governor': word.governor,
                    'domains': domains, 'stems':stems})
     return rs
@@ -78,7 +79,7 @@ def get_aux_domain(sent, filters):
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, stems, c, sent)
-        rs.append({'type':'aux_domains', 'aux': word.text, 'lemma':word.lemma,
+        rs.append({'type':'aux_domains', 'word': word.text, 'lemma':word.lemma,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
                    'head_pos': dc.upos.lower(), 'delegator':delegator,
                    'index': word.index, 'domains': domains, 'stems':stems})
@@ -97,7 +98,7 @@ def get_subj_domain(sent):
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, stems, c, sent)
-        rs.append({'type':'subj_domains', 'subj': word.text, 'lemma':word.lemma,
+        rs.append({'type':'subj_domains', 'word': word.text, 'lemma':word.lemma,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
                    'head_pos': dc.upos.lower(), 'head_feats':[dc.lemma, dc.upos, dc.xpos],
                    'index': word.index, 'domains': domains, 'stems':stems})

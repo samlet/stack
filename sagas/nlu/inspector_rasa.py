@@ -53,7 +53,7 @@ class RasaInspector(Inspector):
                 # print(f'{self.intent}, {self.confidence}')
                 if self.intent == intent_name and intent_confidence > self.confidence:
                     # print('... matched intent and confidence')
-                    ctx.add_result(self.name(), key,
+                    ctx.add_result(self.name(), 'default', key,
                                    {'intent':intent_name,
                                     'confidence':intent_confidence})
                     if self.contains_entity is None:

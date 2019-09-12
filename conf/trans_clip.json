@@ -5,6 +5,7 @@
   "retries":3,
   "enable_chunks_parse":true,
   "print_not_matched":false,
+  "print_inspector_result":true,
   "bert_servant":"pc",
   "common_s":"http://localhost:14000",
   "servants":{
