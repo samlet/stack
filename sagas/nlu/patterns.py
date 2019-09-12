@@ -156,5 +156,5 @@ def print_result(rs):
 
         # 以前3个元素作为键去重显示
         from sagas.nlu.content_representers import content_represent
-        color_print('blue', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
+        color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
 
