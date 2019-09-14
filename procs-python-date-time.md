@@ -1,6 +1,17 @@
 # procs-python-date-time.md
 ⊕ [Converting Strings To Datetime](https://chrisalbon.com/python/basics/strings_to_datetime/)
 
+## dateparser
+```sh
+$ pip install convertdate
+$ pip install dateparser
+```
+```python
+>>> from dateparser.calendars.jalali import JalaliCalendar
+>>> JalaliCalendar(u'جمعه سی ام اسفند ۱۳۸۷').get_date()
+{'date_obj': datetime.datetime(2009, 3, 20, 0, 0), 'period': 'day'}
+```
+
 ## start
 ```python
 from dateutil.parser import parse

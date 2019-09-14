@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 
 def get_chains(word, lang, pos):
     response = requests.post('http://localhost:8093/get_chains',
@@ -94,6 +93,7 @@ class NluCli(object):
         :param pos:
         :return:
         """
+        from pprint import pprint
         response = requests.post('http://localhost:8093/word_sets',
                                  json={'word': word, 'lang': lang, 'pos': pos})
         # print(response.status_code, response.json())
@@ -174,6 +174,7 @@ class NluCli(object):
         :return:
         """
         from termcolor import colored
+        from pprint import pprint
 
         resp=get_chains(word, lang, pos)
         if len(resp)>0:
@@ -210,6 +211,26 @@ class NluCli(object):
             print_explore(resp)
         else:
             print('fail.')
+
+    def ascii_viz(self, sents, lang='en'):
+        """
+        $ python -m sagas.nlu.nlu_cli ascii_viz 'what time is it ?' en
+        $ ascviz '我是一个学生' zh
+
+        :param sents:
+        :param lang:
+        :return:
+        """
+        from sagas.nlu.uni_remote_viz import viz_sample
+        import io_utils
+        import subprocess
+        # sents = 'what time is it ?'
+        dot = viz_sample(lang, sents)
+        io_utils.write_to_file('./out/sents.dot', dot.source)
+        # $ graph-easy ./out/sents.dot --from=dot --as_ascii
+        out_format='--as_boxart'  # '--as_ascii'
+        r = subprocess.call(['graph-easy', './out/sents.dot', '--from=dot', out_format])
+        print('done -', r)
 
 if __name__ == '__main__':
     import fire

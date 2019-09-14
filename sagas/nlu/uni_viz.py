@@ -26,7 +26,7 @@ class EnhancedViz(object):
             if rel.endswith('comp'):
                 self.f.attr('edge', style='dashed')
             else:
-                self.f.attr('edge', style='filled')
+                self.f.attr('edge', style='solid')
 
             head = int(dep_edge[0].index) - 1
             node_text = node_maps[dep_edge[2].text]

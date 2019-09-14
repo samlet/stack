@@ -148,13 +148,14 @@ def print_result(rs):
 
     if cf.is_enabled('print_inspector_result'):
         results = [el for r in rs for el in r[3].results]
-        # .. results
-        # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
-        print('.. results')
-        print([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
-        # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
+        if len(results) > 0:
+            # .. results
+            # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
+            print('.. results')
+            print([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
+            # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
-        # 以前3个元素作为键去重显示
-        from sagas.nlu.content_representers import content_represent
-        color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
+            # 以前3个元素作为键去重显示
+            from sagas.nlu.content_representers import content_represent
+            color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
 

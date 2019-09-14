@@ -42,10 +42,11 @@ class RuleSet(object):
             results = [el for r in rule_rs for el in r[3].results]
             # .. results
             # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
-            print('.. results')
-            print([f"{r[0]}/{r[1]}" for r in results])
-            # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
-            color_print('blue', results)
+            if len(results)>0:
+                print('.. results')
+                print([f"{r[0]}/{r[1]}" for r in results])
+                # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
+                color_print('blue', results)
 
             # 如果kwargs不为空, 则利用kwargs的规则集来检测param_sents,
             # 将得到的inspectors结果集放入对应的参数名中,

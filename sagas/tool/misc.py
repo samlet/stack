@@ -210,6 +210,7 @@ class MiscTool(object):
         self.translator=cf.conf['translator']
         self.retries=cf.conf['retries']
         self.enable_chunks_parse=cf.conf['enable_chunks_parse']
+        self.enable_ascii_viz = cf.conf['enable_ascii_viz']
         print('.. default translator - %s, retries times - %d, enable chunks parse - %s'
               %(self.translator, self.retries, self.enable_chunks_parse))
         self.translators={'baidu':self.trans_baidu,
@@ -496,6 +497,12 @@ class MiscTool(object):
             text = clipboard.paste()
             text = text.replace("\n", "")
             interact_mode=True
+
+        # add at 2019.9.15
+        if self.enable_ascii_viz:
+            from sagas.nlu.nlu_cli import NluCli
+            NluCli().ascii_viz(text, source)
+
         # target_sents=[]
         # sents_map={}
         ctx=TransContext(source, targets, text, says)

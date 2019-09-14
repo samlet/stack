@@ -182,3 +182,4 @@ alias expl='python -m sagas.nlu.nlu_cli explore'
 # dep-parse: $ domains 'Ivan is the best dancer .' en spacy
 alias domains='python -m sagas.tool.misc verb_domains'
 alias rules='python -m sagas.tool.misc exec_rules'
+alias ascviz='python -m sagas.nlu.nlu_cli ascii_viz'
