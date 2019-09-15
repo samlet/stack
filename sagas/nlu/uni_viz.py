@@ -6,7 +6,7 @@ class EnhancedViz(object):
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
     cv.analyse_doc(doc, None)
     """
-    def __init__(self, shape='egg', size='8,5', fontsize=0):
+    def __init__(self, shape='egg', size='8,5', fontsize=0, enable_node_pos=False):
         from graphviz import Digraph
         self.f = Digraph('deps', filename='deps.gv')
         self.f.attr(rankdir='LR', size=size)
@@ -14,6 +14,7 @@ class EnhancedViz(object):
         self.f.attr('node', shape=shape, fontname='Calibri')
         if fontsize != 0:
             self.f.attr(fontsize=str(fontsize))
+        self.enable_node_pos=enable_node_pos
 
     def print_dependencies(self, doc, segs, node_maps, verbose=False):
         for dep_edge in doc.dependencies:
@@ -63,7 +64,8 @@ class EnhancedViz(object):
         if node_maps is None:
             node_maps = {}
             for word in sentence.words:
-                node_maps[word.text] = word.text
+                pos_attrs=f"({word.upos.lower()}, {word.xpos.lower()})"
+                node_maps[word.text] = word.text if not self.enable_node_pos else f"{word.text}\\n{pos_attrs}"
 
                 # self.f.attr(color='black')
         prop_sets = {'VERB': lambda f: f.attr('node', style='filled', color='lightgrey'),

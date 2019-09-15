@@ -2,7 +2,9 @@ from flask import Flask
 from flask import request
 import json
 from sagas.nlu.wordnet_procs import WordNetProcs, predicate_chain, get_chains
+from cachetools import cached, TTLCache
 
+cache = TTLCache(maxsize=100, ttl=300)
 app = Flask(__name__)
 
 @app.route("/")
@@ -23,6 +25,12 @@ def handle_predicate():
     data_y = json.dumps({'result':r})
     return data_y
 
+@cached(cache)
+def predicate_chain_as_json(word,kind,lang,pos):
+    r, c = predicate_chain(word, kind, lang=lang, pos=pos)
+    data_y = json.dumps({'result': r, 'data': c})
+    return data_y
+
 @app.route('/predicate_chain', methods = ['POST'])
 def handle_predicate_chain():
     content = request.get_json()
@@ -31,10 +39,11 @@ def handle_predicate_chain():
     pos=content['pos']
     if pos=='*':
         pos=None
+    kind=content['kind']
 
-    r,c=predicate_chain(word, content['kind'], lang=lang, pos=pos)
-    data_y = json.dumps({'result':r, 'data':c})
-    return data_y
+    # r,c=predicate_chain(word, kind, lang=lang, pos=pos)
+    # data_y = json.dumps({'result':r, 'data':c})
+    return predicate_chain_as_json(word, kind, lang=lang, pos=pos)
 
 @app.route('/get_chains', methods = ['POST'])
 def handle_get_chains():
@@ -49,10 +58,16 @@ def handle_get_chains():
     data_y = json.dumps(r)
     return data_y
 
+@cached(cache)
+def get_synsets_as_json(lang, word, pos):
+    from sagas.nlu.omw_extended import get_synsets
+    sets = get_synsets(lang, word, pos)
+    r = [c.name() for c in sets]
+    data_y = json.dumps(r)
+    return data_y
+
 @app.route('/get_synsets', methods = ['POST'])
 def handle_get_synsets():
-    from sagas.nlu.omw_extended import get_synsets
-
     content = request.get_json()
     word = content['word']
     lang = content['lang']
@@ -60,10 +75,10 @@ def handle_get_synsets():
     if pos=='*':
         pos=None
 
-    sets = get_synsets(lang, word, pos)
-    r=[c.name() for c in sets]
-    data_y = json.dumps(r)
-    return data_y
+    # sets = get_synsets(lang, word, pos)
+    # r=[c.name() for c in sets]
+    # data_y = json.dumps(r)
+    return get_synsets_as_json(lang, word, pos)
 
 @app.route('/explore', methods = ['POST'])
 def handle_explore():

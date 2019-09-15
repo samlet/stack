@@ -486,6 +486,8 @@ class MiscTool(object):
 
         $ alias sp="python -m sagas.tool.misc trans_clip pt 'en;it;ja' ja False"
         $ sp 'O homem fica amarelo.'
+        $ sa 'أنا متأسف.'
+
         :return:
         """
         import clipboard
