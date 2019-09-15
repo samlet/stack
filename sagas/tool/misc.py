@@ -1,5 +1,6 @@
 from time import sleep
 import requests
+from sagas.conf.conf import cf
 
 merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
 
@@ -165,9 +166,8 @@ def rs_represent(rs, data, return_df=False):
     return result, df_set
 
 def get_verb_domains(data, return_df=False):
-    import requests
-
-    from sagas.conf.conf import cf
+    # import requests
+    # from sagas.conf.conf import cf
 
     if 'engine' not in data:
         data['engine']=cf.engine(data['lang'])
@@ -187,7 +187,7 @@ def get_verb_domains(data, return_df=False):
     return []
 
 class TransContext(object):
-    def __init__(self, s,t,q,says):
+    def __init__(self, s,t,q,says,deps):
         self.target_sents = []
         self.sents_map = {}
 
@@ -195,9 +195,16 @@ class TransContext(object):
         self.targets=t
         self.text=q
         self.says=says
+        self.deps=deps
 
     def pars(self):
         return self.source, self.targets, self.text, self.says
+
+    @property
+    def target_list(self):
+        rs= self.targets.split(';')
+        rs.extend([l for l in self.deps.split(';') if l not in rs])
+        return rs
 
 class MiscTool(object):
     def __init__(self):
@@ -275,7 +282,8 @@ class MiscTool(object):
         import random
         source, targets, text, says=ctx.pars()
 
-        for target in tqdm(targets.split(';')):
+        # for target in tqdm(targets.split(';')):
+        for target in tqdm(ctx.target_list):
             options=set()
             # default options
             options.add('disable_correct')
@@ -320,7 +328,8 @@ class MiscTool(object):
         import time
 
         tr=BaiduTranslator()
-        for t in tqdm(ctx.targets.split(';')):
+        # for t in tqdm(ctx.targets.split(';')):
+        for t in tqdm(ctx.target_list):
             result=tr.trans(ctx.source, t, ctx.text)
             # print(result)
             if len(result)==0:
@@ -351,7 +360,6 @@ class MiscTool(object):
 
     def parse_chunks(self, text, source, targets, ctx, details=True):
         import sagas.nlu.corenlp_helper as helper
-        from sagas.conf.conf import cf
         from sagas.nlu.treebanks import treebanks
 
         def query_serv(data, print_it=True):
@@ -425,7 +433,7 @@ class MiscTool(object):
         says = lang
         # details=False
 
-        ctx = TransContext(source, targets, text, says)
+        ctx = TransContext(source, targets, text, says, '')
         ctx.sents_map[source[:2]] = text
         succ = self.translators[self.translator](ctx)
         if not succ:
@@ -475,7 +483,8 @@ class MiscTool(object):
     def trans_en_pt(self, *args):
         self.trans_en_to(merge_args(args), 'pt', ['pt'], said=True)
 
-    def trans_clip(self, source='auto', targets='zh-CN;ja', says=None, details=True, sents=''):
+    def trans_clip(self, source='auto', targets='zh-CN;ja',
+                   says=None, details=True, sents='', deps=''):
         """
         $ trans
         $ trans auto en
@@ -487,10 +496,13 @@ class MiscTool(object):
         $ alias sp="python -m sagas.tool.misc trans_clip pt 'en;it;ja' ja False"
         $ sp 'O homem fica amarelo.'
         $ sa 'أنا متأسف.'
+        $ sf "La similitude entre ces deux phrases" 'ja;zh;id'
+        $ sz '这两句话的相似程度' en
 
         :return:
         """
         import clipboard
+        from sagas.nlu.nlu_cli import NluCli
 
         if sents!='':
             text=sents
@@ -502,12 +514,11 @@ class MiscTool(object):
 
         # add at 2019.9.15
         if self.enable_ascii_viz:
-            from sagas.nlu.nlu_cli import NluCli
-            NluCli().ascii_viz(text, source)
+            NluCli().ascii_viz(text, source, engine=cf.engine(source))
 
         # target_sents=[]
         # sents_map={}
-        ctx=TransContext(source, targets, text, says)
+        ctx=TransContext(source, targets, text, says, deps)
         # print('❣', text)
         if source!='auto':
             # text = fix_sents(source, text)
@@ -545,6 +556,14 @@ class MiscTool(object):
         if interact_mode and says is not None:
             from sagas.nlu.nlu_tools import NluTools
             NluTools().say(ctx.sents_map[says], says)
+
+        # other langs dep-parse
+        if self.enable_ascii_viz and deps!='':
+            for t in deps.split(';'):
+                if t in ctx.sents_map:
+                    NluCli().ascii_viz(ctx.sents_map[t], t, engine=cf.engine(t))
+                else:
+                    color_print('red', f".. the lang {t} for dep-parse is not available in translated list.")
 
     def verb_domains(self, sents, lang='en', engine='corenlp'):
         """

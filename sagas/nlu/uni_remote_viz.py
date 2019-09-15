@@ -1,11 +1,19 @@
 from sagas.nlu.uni_viz import EnhancedViz
 from sagas.nlu.corenlp_parser import get_chunks
-from sagas.tool.misc import print_stem_chunks
+from sagas.tool.misc import print_stem_chunks, display_synsets
 import sagas
 
 serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 
-def list_rs(rs):
+def list_synsets(r, lang):
+    # create a meta structure
+    common = {'lemma': r['lemma'], 'stems': r['stems']}
+    meta = {'rel': r['rel'], 'lang': lang, **common}
+    if 'head' in r:
+        meta['head'] = r['head']
+    display_synsets(r['type'], meta, r, lang)
+
+def list_rs(rs, lang):
     from IPython.display import display
     from termcolor import colored
     print(colored(f"✁ chunks. {'-' * 25}", 'cyan'))
@@ -19,14 +27,16 @@ def list_rs(rs):
         # sagas.print_df(df)
         display(df)
         print_stem_chunks(r)
+        list_synsets(r, lang)
+
         # print(resp)
 
-def list_chunks(doc_jsonify, resp):
+def list_chunks(doc_jsonify, resp, lang):
     if len(resp['predicts']) > 0:
         rs=resp['predicts']
     else:
         rs = get_chunks(doc_jsonify)
-    list_rs(rs)
+    list_rs(rs, lang)
 
 def display_doc_deps(doc_jsonify, resp):
     from termcolor import colored
@@ -54,7 +64,7 @@ def viz_sample(lang, sents, engine='corenlp'):
     # doc=uni.parsers[engine](lang, sents)
     from sagas.nlu.uni_remote import dep_parse
     doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
-    list_chunks(doc_jsonify, resp)
+    list_chunks(doc_jsonify, resp, lang)
     return display_doc_deps(doc_jsonify, resp)
 
 

@@ -18,6 +18,7 @@
   },
   "dialectors":{
     "*":"corenlp",
+    "auto":"corenlp",
     "el":"corenlp",
     "ru":"corenlp",
     "zh":"ltp",
