@@ -28,18 +28,21 @@ def check_chains(synsets: list, kind):
             return True, {'index': 0, 'keys': chain_keys, 'maps': chain}
     return False, None
 
-def predicate_chain(word, kind, lang='en', pos='n'):
+def predicate_chain(word_candicates, kind, lang='en', pos='n'):
     # from sagas.nlu.locales import iso_locales
     # print('.. checking %s is %s'%(word,kind))
     # loc, _ = iso_locales.get_code_by_part1(lang)
     # sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
     from sagas.nlu.omw_extended import get_synsets
-    sets = get_synsets(lang, word, pos)
-    ret = False
-    if len(sets) > 0:
-        # c=[s.name() for s in sets]
-        return check_chains(sets, kind)
-    return ret, None
+    for word in word_candicates.split('/'):
+        sets = get_synsets(lang, word, pos)
+        # ret = False
+        if len(sets) > 0:
+            # c=[s.name() for s in sets]
+            ok,r= check_chains(sets, kind)
+            if ok:
+                return ok,r
+    return False, None
 
 def get_chains(word, lang='en', pos=None):
     # from sagas.nlu.locales import iso_locales
@@ -117,6 +120,18 @@ class WordNetProcs(object):
                 keys.extend(c_c.lemma_names('cmn'))
         return (keys)
 
+    def predicate_chain(self, word, kind, lang='en', pos='n'):
+        """
+        $ python -m sagas.nlu.wordnet_procs predicate_chain koran print_media id n
+        $ python -m sagas.nlu.wordnet_procs predicate_chain koran/jjj print_media id n
+        :param word:
+        :param kind:
+        :param lang:
+        :param pos:
+        :return:
+        """
+        return predicate_chain(word, kind, lang, pos)
+
     def predicate(self, word, kind, lang='en', pos='n', only_first=True):
         """
         $ python -m sagas.nlu.wordnet_procs predicate wolf animal en n
@@ -128,6 +143,7 @@ class WordNetProcs(object):
         $ python -m sagas.nlu.wordnet_procs predicate blue color en n
             True
         $ python -m sagas.nlu.wordnet_procs predicate amarelo color pt n
+        $ python -m sagas.nlu.wordnet_procs predicate koran print_media id n False
 
         :param word:
         :param kind:

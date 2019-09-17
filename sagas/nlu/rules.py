@@ -63,6 +63,10 @@ def verb_patterns(meta, domains):
           Patterns(domains, meta, 2).verb(nsubj=agency, xcomp=kindof('color', 'n')),
           Patterns(domains, meta, 2).verb(nsubj=kindof('activity', 'n')),
 
+          # $ se 'They read these newspapers.'
+          # $ sid 'Mereka membaca koran-koran ini.'
+          Patterns(domains, meta, 5).verb(nsubj=agency, obj=kindof('print_media/artifact', 'n')),
+
           # health theme _________
           # $ ses '¿Te duelen las piernas?'
           Patterns(domains, meta, 5).verb(behaveof('suffer', 'v'), nsubj=kindof('body_part', 'n')),
@@ -83,6 +87,9 @@ def verb_patterns(meta, domains):
                         ('own', 'animal/organism'),
                         # $ sid 'Kalian punya jeruk.'  (en="You have oranges.")
                         ('own', 'fruit/food'),
+                        # $ sid 'Mereka membaca koran-koran ini.'  (They read these newspapers.)
+                        # $ se 'They read these newspapers.'
+                        ('interpret/understand', 'print_media'),
                         ]),
 
           # 匹配意图(全句或chunk)

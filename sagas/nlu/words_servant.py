@@ -11,19 +11,23 @@ app = Flask(__name__)
 def home():
     return "servant: words"
 
+@cached(cache)
+def predicate_word(word, lang, pos, kind, only_first):
+    procs = WordNetProcs()
+    r = procs.predicate(word, kind, lang=lang,
+                        pos=None if pos=='*' else pos,
+                        only_first=only_first)
+    data_y = json.dumps({'result': r})
+    return data_y
+
 @app.route('/predicate', methods = ['POST'])
 def handle_predicate():
     content = request.get_json()
-    word = content['word']
-    lang = content['lang']
-    pos=content['pos']
-    if pos=='*':
-        pos=None
-
-    procs=WordNetProcs()
-    r=procs.predicate(word, content['kind'], lang=lang, pos=pos, only_first=content['only_first'])
-    data_y = json.dumps({'result':r})
-    return data_y
+    return predicate_word(content['word'], content['lang'],
+                          content['pos'],
+                          content['kind'],
+                          content['only_first']
+                          )
 
 @cached(cache)
 def predicate_chain_as_json(word,kind,lang,pos):
@@ -59,12 +63,16 @@ def handle_get_chains():
     return data_y
 
 @cached(cache)
-def get_synsets_as_json(lang, word, pos):
+def get_synsets_as_json(lang, raw_word, pos):
     from sagas.nlu.omw_extended import get_synsets
-    sets = get_synsets(lang, word, pos)
-    r = [c.name() for c in sets]
-    data_y = json.dumps(r)
-    return data_y
+    word_parts=raw_word.split('/')  # 允许用'membaca/menbaca'形式
+    for word in word_parts:
+        sets = get_synsets(lang, word, pos)
+        if len(sets)>0:
+            r = [c.name() for c in sets]
+            data_y = json.dumps(r)
+            return data_y
+    return '[]'
 
 @app.route('/get_synsets', methods = ['POST'])
 def handle_get_synsets():

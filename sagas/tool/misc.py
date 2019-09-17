@@ -71,14 +71,15 @@ def display_synsets(theme, meta, r, lang):
     ctx=Context(meta, r['domains'])
 
     resp=[]
-    word = r['lemma']
+    # word = r['lemma']
     def retrieve(word, indicator):
         rs = retrieve_word_info('get_synsets', word, lang, '*')
         if len(rs) > 0:
             comments=', '.join(rs)[:25]
             print('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
             resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
-    retrieve(word, theme)
+
+    retrieve(f"{r['word']}/{r['lemma']}", theme)
     if 'head' in meta:
         # print('.........')
         retrieve(meta['head'], 'head')
@@ -102,7 +103,8 @@ def rs_represent(rs, data, return_df=False):
 
     for serial, r in enumerate(rs):
         type_name = r['type']
-        common = {'lemma': r['lemma'], 'stems': r['stems']}
+        common = {'lemma': r['lemma'], 'word': r['word'],
+                  'stems': r['stems']}
         theme = ''
         if type_name == 'verb_domains':
             theme = '[verb]'
@@ -203,7 +205,7 @@ class TransContext(object):
     @property
     def target_list(self):
         rs= self.targets.split(';')
-        rs.extend([l for l in self.deps.split(';') if l not in rs])
+        rs.extend([l for l in self.deps.split(';') if l not in rs and l!=''])
         return rs
 
 class MiscTool(object):
@@ -283,6 +285,7 @@ class MiscTool(object):
         source, targets, text, says=ctx.pars()
 
         # for target in tqdm(targets.split(';')):
+        print('.. translate to', ctx.target_list)
         for target in tqdm(ctx.target_list):
             options=set()
             # default options
@@ -498,6 +501,7 @@ class MiscTool(object):
         $ sa 'أنا متأسف.'
         $ sf "La similitude entre ces deux phrases" 'ja;zh;id'
         $ sz '这两句话的相似程度' en
+        $ sz '这两句话的相似程度' 'en;fr;ar;ja;fa'
 
         :return:
         """

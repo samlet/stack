@@ -46,7 +46,7 @@ class Patterns(object):
 
         self.funcs={'aux':self.check_args,
                     'subj':self.check_args,
-                    'verb': self.execute_args_lemma,
+                    'verb': self.execute_args_word,
                     'cop': self.execute_args_head,
                     'entire': self.execute_args_entire,
                     }
@@ -63,7 +63,11 @@ class Patterns(object):
         result=True
         for arg in args:
             if isinstance(arg, Inspector):
-                opt_ret = arg.check(ctx.meta[meta_key], ctx)
+                if isinstance(meta_key, list):
+                    key_val='/'.join([ctx.meta[k] for k in meta_key])
+                else:
+                    key_val=ctx.meta[meta_key]
+                opt_ret = arg.check(key_val, ctx)
                 if not opt_ret:
                     result = False
                 options.append('{} is {}: {}'.format('pos', arg, opt_ret))
@@ -73,6 +77,9 @@ class Patterns(object):
 
     def execute_args_lemma(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'lemma')
+
+    def execute_args_word(self, args, ctx:Context, options):
+        return self.execute_args(args, ctx, options, ['word', 'lemma'])
 
     def execute_args_head(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'head')

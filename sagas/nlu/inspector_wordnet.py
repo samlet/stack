@@ -7,7 +7,7 @@ feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 # feat_pos_mappings={'c_adj':['n','a','s'], 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 
 class WordInspector(Inspector):
-    def __init__(self, kind, pos_indicator='~', only_first=True):
+    def __init__(self, kind, pos_indicator='~', only_first=False):
         """
         Init a predicate inspector
         :param kind:
@@ -78,6 +78,7 @@ class VerbInspector(WordInspector):
 
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': self.kind}
+        # print('..', word)
         response = requests.post('http://localhost:8093/predicate_chain',
                                  json=data)
 

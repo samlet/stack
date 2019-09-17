@@ -1,5 +1,7 @@
 # procs-python-date-time.md
 ⊕ [Converting Strings To Datetime](https://chrisalbon.com/python/basics/strings_to_datetime/)
+⊕ [Python DateTime, TimeDelta, Strftime(Format) with Examples](https://www.guru99.com/date-time-and-datetime-classes-in-python.html)
+⊕ [datetime — Basic date and time types — Python 3.7.4 documentation](https://docs.python.org/3/library/datetime.html)
 
 ## dateparser
 ```sh
