@@ -224,13 +224,19 @@ class NluCli(object):
         from sagas.nlu.uni_remote_viz import viz_sample
         import io_utils
         import subprocess
+        from subprocess import STDOUT
         # sents = 'what time is it ?'
         dot = viz_sample(lang, sents, engine=engine)
         io_utils.write_to_file('./out/sents.dot', dot.source)
         # $ graph-easy ./out/sents.dot --from=dot --as_ascii
         out_format='--as_boxart'  # '--as_ascii'
-        r = subprocess.call(['graph-easy', './out/sents.dot', '--from=dot', out_format])
-        print('done -', r)
+        cmd_args=['graph-easy', './out/sents.dot', '--from=dot', out_format]
+        # r = subprocess.call(cmd_args)
+        # print('done -', r)
+        r=subprocess.check_output(cmd_args, stderr=STDOUT)
+        result_text=r.decode('utf-8')
+        # print(result_text)
+        return result_text
 
 if __name__ == '__main__':
     import fire

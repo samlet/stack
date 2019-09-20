@@ -508,6 +508,8 @@ class MiscTool(object):
         import clipboard
         from sagas.nlu.nlu_cli import NluCli
 
+        ascii_incompatibles=['zh', 'ja', 'ko', 'ar', 'fa']
+
         if sents!='':
             text=sents
             interact_mode=False
@@ -517,9 +519,12 @@ class MiscTool(object):
             interact_mode=True
 
         # add at 2019.9.15
+        ascii_gs=[]
         if self.enable_ascii_viz:
-            NluCli().ascii_viz(text, source, engine=cf.engine(source))
-
+            rt=NluCli().ascii_viz(text, source, engine=cf.engine(source))
+            if source not in ascii_incompatibles:
+                ascii_gs.extend(rt.split('\n'))
+            print(rt)
         # target_sents=[]
         # sents_map={}
         ctx=TransContext(source, targets, text, says, deps)
@@ -549,9 +554,22 @@ class MiscTool(object):
             result = ', \n\t      '.join(lines + ctx.target_sents+[suffix])
             print(result)
 
+        # other langs dep-parse
+        if self.enable_ascii_viz and deps!='':
+            for t in deps.split(';'):
+                if t in ctx.sents_map:
+                    rt=NluCli().ascii_viz(ctx.sents_map[t], t, engine=cf.engine(t))
+                    # ascii_gs.extend(rt.split('\n'))
+                    print(rt)
+                else:
+                    color_print('red', f".. the lang {t} for dep-parse is not available in translated list.")
+
         if interact_mode:
+            if len(ascii_gs)>0:
+                result=result+'\n\t'+'\n\t'.join(ascii_gs)
             if len(addons)>0:
-                result=result+'\n\t'+'\n\t'.join(addons)
+                # result=result+'\n\t'+'\n\t'.join(addons)
+                result = result + '\n\t'.join(addons)
             if self.enable_chunks_parse:
                 result=result+'\n'
             # clipboard.copy(result+'\n')
@@ -560,14 +578,6 @@ class MiscTool(object):
         if interact_mode and says is not None:
             from sagas.nlu.nlu_tools import NluTools
             NluTools().say(ctx.sents_map[says], says)
-
-        # other langs dep-parse
-        if self.enable_ascii_viz and deps!='':
-            for t in deps.split(';'):
-                if t in ctx.sents_map:
-                    NluCli().ascii_viz(ctx.sents_map[t], t, engine=cf.engine(t))
-                else:
-                    color_print('red', f".. the lang {t} for dep-parse is not available in translated list.")
 
     def verb_domains(self, sents, lang='en', engine='corenlp'):
         """
