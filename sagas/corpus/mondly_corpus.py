@@ -49,11 +49,14 @@ class MondlyCorpus(object):
 
     def extract_assocs(self):
         nums = self.driver.find_elements_by_class_name("words")
-        print(f"total sections {len(nums)}")
+        # print(f"total sections {len(nums)}")
         texts = []
         for el in nums:
             # print(el.text)
-            texts.extend(el.text.split('\n'))
+            lines=el.text.split('\n')
+            if (len(lines) % 2) != 0:
+                lines = lines[1:]
+            texts.extend(lines)
         print(f"total sents {len(texts)}")
         texts_count = len(texts)
         if (texts_count % 2) != 0:
@@ -63,10 +66,10 @@ class MondlyCorpus(object):
         # for k,v in text_assocs.items():
         #     print(f"{k} -> {v}")
         json_s = json.dumps(text_assocs, indent=2, ensure_ascii=False)
-        print(json_s)
+        # print(json_s)
         self.put_assocs(text_assocs)
         print(f"total assocs {len(self.all_assocs)}")
-        print(json.dumps(self.all_assocs, indent=2, ensure_ascii=False))
+        # print(json.dumps(self.all_assocs, indent=2, ensure_ascii=False))
         json_utils.write_json_to_file("./data/corpus/mondly_assocs.json",
                                       self.all_assocs)
 
@@ -85,7 +88,7 @@ class MondlyCorpus(object):
     def extract_verbs(self):
         import json_utils
         verbs = self.driver.find_elements_by_class_name("translation-verb")
-        print('total section', len(verbs))
+        # print('total section', len(verbs))
         for v in verbs:
             # print(v.text)
             for t in v.text.split('\n'):
@@ -93,8 +96,9 @@ class MondlyCorpus(object):
         # print(verb_assocs)
         # print(jsonpickle.encode(verb_assocs))
         json_data = {k: list(v) for k, v in self.verb_assocs.items()}
-        print(json.dumps(json_data,
-                         indent=2, ensure_ascii=False))
+        print(f"total verbs {len(self.verb_assocs)}")
+        # print(json.dumps(json_data,
+        #                 indent=2, ensure_ascii=False))
         json_utils.write_json_to_file("./data/corpus/mondly_verbs.json", json_data)
 
 if __name__ == '__main__':

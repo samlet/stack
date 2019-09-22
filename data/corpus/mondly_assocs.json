@@ -1,0 +1,89 @@
+{
+  "the sister": [
+    "al'ukht",
+    "الأخت‬"
+  ],
+  "the mother": [
+    "al'um",
+    "الأم‬"
+  ],
+  "the father": [
+    "al'ab",
+    "‫الأب‬"
+  ],
+  "the brother": [
+    "al'akh",
+    "‫الأخ"
+  ],
+  "Hello.": [
+    "Marhaban.",
+    "مرحبا."
+  ],
+  "This is my mother.": [
+    "Hathihee ummee.",
+    "هذه أمي."
+  ],
+  "This is my father.": [
+    "Hatha abee.",
+    "هذا أبي."
+  ],
+  "This is my sister.": [
+    "Hathihee ukhtee.",
+    "هذه أختي."
+  ],
+  "This is my brother.": [
+    "Hatha akhee.",
+    "هذا أخي."
+  ],
+  "day": [
+    "yawm"
+  ],
+  "night": [
+    "layla"
+  ],
+  "afternoon": [
+    "baed alzzuhr",
+    "بعد الظهر"
+  ],
+  "morning": [
+    "sabah",
+    "صباح"
+  ],
+  "Masa' alkahyr.": [
+    "Good morning."
+  ],
+  "Layla saeida.": [
+    "Good afternoon."
+  ],
+  "Mae alsalama.": [
+    "Good night."
+  ],
+  "Good morning.": [
+    "صباح الخير.",
+    "Sabah alkhayer."
+  ],
+  "Good afternoon.": [
+    "مساء الخير.",
+    "Masa' alkahyr."
+  ],
+  "Good night.": [
+    "ليلة سعيدة.",
+    "Layla saeida."
+  ],
+  "Goodbye.": [
+    "مع السلامه.",
+    "Mae alsalama."
+  ],
+  "How are you?": [
+    "كيف حالك؟",
+    "Kayf halak?"
+  ],
+  "Very well.": [
+    "جيد جدا.",
+    "Jayed jidan."
+  ],
+  "Thank you.": [
+    "شكرا لك.",
+    "Shukran lak."
+  ]
+}
