@@ -220,6 +220,7 @@ class MiscTool(object):
         self.retries=cf.conf['retries']
         self.enable_chunks_parse=cf.conf['enable_chunks_parse']
         self.enable_ascii_viz = cf.conf['enable_ascii_viz']
+        self.append_ascii_viz=cf.conf['append_ascii_viz']
         print('.. default translator - %s, retries times - %d, enable chunks parse - %s'
               %(self.translator, self.retries, self.enable_chunks_parse))
         self.translators={'baidu':self.trans_baidu,
@@ -565,8 +566,10 @@ class MiscTool(object):
                     color_print('red', f".. the lang {t} for dep-parse is not available in translated list.")
 
         if interact_mode:
-            if len(ascii_gs)>0:
-                result=result+'\n\t'+'\n\t'.join(ascii_gs)
+            result = result + '\n\t'
+            if self.append_ascii_viz and len(ascii_gs)>0:
+                result=result+'\n\t'.join(ascii_gs)
+
             if len(addons)>0:
                 # result=result+'\n\t'+'\n\t'.join(addons)
                 result = result + '\n\t'.join(addons)

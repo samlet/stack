@@ -5,6 +5,7 @@
   "retries":3,
   "enable_chunks_parse":true,
   "enable_ascii_viz":true,
+  "append_ascii_viz":false,
   "print_not_matched":false,
   "print_inspector_result":true,
   "bert_servant":"pc",
@@ -22,7 +23,8 @@
     "el":"corenlp",
     "ru":"corenlp",
     "zh":"ltp",
-    "ja":"knp"
+    "ja":"knp",
+    "pt":"spacy"
   }
 }
 
