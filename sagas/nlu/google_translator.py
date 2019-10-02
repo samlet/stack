@@ -246,7 +246,7 @@ def marks(t, ips_idx):
         return ','+t.pronounce[ips_idx][1:]
     return ''
 
-def get_word_map(source, target, text, ips_idx=0, words=None):
+def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=False):
     """
     Example 1:
     from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
@@ -264,6 +264,7 @@ def get_word_map(source, target, text, ips_idx=0, words=None):
     """
     # from sagas.nlu.google_translator import translate
     import time
+    from sagas.nlu.transliterations import translits
 
     rs = {}
     verbose = False
@@ -274,7 +275,11 @@ def get_word_map(source, target, text, ips_idx=0, words=None):
         res, t = translate(sent, source=source, target=target,
                            trans_verbose=verbose, options=options)
         # print(res, sent, t[ips_idx])
-        rs[sent] = '%s\n(%s%s)' % (sent, res, marks(t, ips_idx))
+        if local_translit and translits.is_available_lang(source):
+            trans=', '+translits.translit(sent, source)
+        else:
+            trans=marks(t, ips_idx)
+        rs[sent] = '%s\n(%s%s)' % (sent, res, trans)
         time.sleep(0.05)
     return rs
 

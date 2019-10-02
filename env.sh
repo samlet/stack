@@ -117,6 +117,7 @@ alias scy="python -m sagas.tool.misc trans_clip cy 'en;zh-CN;ja' ja False"
 alias shu="python -m sagas.tool.misc trans_clip hu 'en;zh-CN;ja' ja False"
 
 alias sa="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja False"
+alias sfa="python -m sagas.tool.misc trans_clip fa 'en;zh-CN;ja' ja False"
 alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
 
 alias st="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"
@@ -131,6 +132,8 @@ alias suk="python -m sagas.tool.misc trans_clip uk 'en;zh-CN;ja' ja False"
 # alias sda="python -m sagas.tool.misc trans_clip da 'en;ja;de' de False"
 alias sda="python -m sagas.tool.misc trans_clip da 'en;no;de' de False"
 alias sda+sv="python -m sagas.tool.misc trans_clip da 'en;sv;de' de False"
+alias snl+cj="python -m sagas.tool.misc trans_clip nl 'en;zh;ja' ja False"
+
 # Norwegian
 alias sno="python -m sagas.tool.misc trans_clip no 'en;ja;de' de False"
 alias ssv="python -m sagas.tool.misc trans_clip sv 'en;ja;de' de False"
@@ -183,3 +186,6 @@ alias expl='python -m sagas.nlu.nlu_cli explore'
 alias domains='python -m sagas.tool.misc verb_domains'
 alias rules='python -m sagas.tool.misc exec_rules'
 alias ascviz='python -m sagas.nlu.nlu_cli ascii_viz'
+
+# translit
+alias tra='python -m sagas.nlu.transliterations trans_polyglot_from_clip '

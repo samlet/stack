@@ -40,6 +40,7 @@ class Transliterations(object):
         """
         $ python -m sagas.nlu.transliterations trans_polyglot 'وہ امیر ہے۔' ur
         $ python -m sagas.nlu.transliterations trans_polyglot 'वह धनी है।' hi
+        $ python -m sagas.nlu.transliterations trans_polyglot 'الان تنیس بازی میکنم' fa
 
         :param sents:
         :param lang:
@@ -47,11 +48,26 @@ class Transliterations(object):
         """
         return translit(sents, lang)
 
+    def trans_polyglot_from_clip(self, lang):
+        """
+        Merge sentence from clipboard and do translit
+        $ python -m sagas.nlu.transliterations trans_polyglot_from_clip fa
+        $ tra fa
+        :param lang:
+        :return:
+        """
+        from sagas.nlu.common import get_from_clip
+        text=get_from_clip()
+        return self.translit(text, lang)
+
     def available_langs(self):
         return ['iw', 'he', 'ko', 'sr', 'me', 'mk',
                 'ru', 'ar', 'fa', 'hi',
                 'el', 'zh', 'ja'
                 ]
+
+    def is_available_lang(self, lang):
+        return lang in self.available_langs()
 
     def translit(self, sents:str, lang:str):
         """

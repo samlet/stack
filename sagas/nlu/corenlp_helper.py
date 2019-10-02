@@ -297,10 +297,10 @@ class LangDialect(object):
     >>> from sagas.nlu.corenlp_helper import LangDialect
     >>> LangDialect('ko').ana('나는 중국 출신이다.')
     """
-    def __init__(self, lang):
+    def __init__(self, lang, local_translit=False):
         from sagas.nlu.google_translator import get_word_map
-        from sagas.nlu.transliterations import Transliterations
-        self.translits=Transliterations()
+        from sagas.nlu.transliterations import translits
+        # self.translits=Transliterations()
         self.lang=lang
         def viz(sents, trans_it=True):
             nlp=get_nlp(self.lang)
@@ -310,9 +310,9 @@ class LangDialect(object):
             if trans_it:
                 rs_trans=self.trans_to(sents, ['en'])
                 print(*rs_trans, sep='\n')
-                if self.lang in self.translits.available_langs():
-                    print('♡', self.translits.translit(sents, self.lang))
-                tr_map=get_word_map(self.lang, 'en', sents, 0, words)
+                if self.lang in translits.available_langs():
+                    print('♡', translits.translit(sents, self.lang))
+                tr_map=get_word_map(self.lang, 'en', sents, 0, words, local_translit=local_translit)
             else:
                 tr_map=None
             return cv.analyse_doc(doc, tr_map)
