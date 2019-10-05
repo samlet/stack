@@ -133,11 +133,12 @@ alias suk="python -m sagas.tool.misc trans_clip uk 'en;zh-CN;ja' ja False"
 alias sda="python -m sagas.tool.misc trans_clip da 'en;no;de' de False"
 alias sda+sv="python -m sagas.tool.misc trans_clip da 'en;sv;de' de False"
 alias snl+cj="python -m sagas.tool.misc trans_clip nl 'en;zh;ja' ja False"
+alias snl="python -m sagas.tool.misc trans_clip nl 'en;zh;ja' ja False"
 
 # Norwegian
 alias sno="python -m sagas.tool.misc trans_clip no 'en;ja;de' de False"
 alias ssv="python -m sagas.tool.misc trans_clip sv 'en;ja;de' de False"
-alias snl="python -m sagas.tool.misc trans_clip nl 'en;ja;de' de False"
+alias snl+de="python -m sagas.tool.misc trans_clip nl 'en;ja;de' de False"
 
 alias shi="python -m sagas.tool.misc trans_clip hi 'zh-CN;ur;en' hi False"
 

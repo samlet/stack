@@ -119,6 +119,13 @@
     "treebank": "VTB"
   },
   {
+    "name": "hy",
+    "lang": "Armenian",
+    "model": "hy_armtdp",
+    "version": "0.2.0",
+    "treebank": "ArmTDP"
+  },
+  {
     "name": "ga",
     "lang": "Irish",
     "model": "ga_idt",

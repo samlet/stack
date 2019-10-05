@@ -1,0 +1,91 @@
+I read.
+저는 읽어요.
+jeoneun ilg-eoyo.
+►
+I read a letter (character).
+저는 글자를 읽어요.
+jeoneun geuljaleul ilg-eoyo.
+►
+I read a word.
+저는 단어를 읽어요.
+jeoneun dan-eoleul ilg-eoyo.
+►
+
+
+
+
+I read a sentence.
+저는 문장을 읽어요.
+jeoneun munjang-eul ilg-eoyo.
+►
+I read a letter.
+저는 편지를 읽어요.
+jeoneun pyeonjileul ilg-eoyo.
+►
+I read a book.
+저는 책을 읽어요.
+jeoneun chaeg-eul ilg-eoyo.
+►
+
+
+
+
+I read.
+저는 읽어요.
+jeoneun ilg-eoyo.
+►
+You read.
+당신은 읽어요.
+dangsin-eun ilg-eoyo.
+►
+He reads.
+그는 읽어요.
+geuneun ilg-eoyo.
+►
+
+
+
+
+I write.
+저는 써요.
+jeoneun sseoyo.
+►
+I write a letter (character).
+저는 글자를 써요.
+jeoneun geuljaleul sseoyo.
+►
+I write a word.
+저는 단어를 써요.
+jeoneun dan-eoleul sseoyo.
+►
+
+
+
+
+I write a sentence.
+저는 문장을 써요.
+jeoneun munjang-eul sseoyo.
+►
+I write a letter.
+저는 글자를 써요.
+jeoneun geuljaleul sseoyo.
+►
+I write a book.
+저는 책을 써요.
+jeoneun chaeg-eul sseoyo.
+►
+
+
+
+
+I write.
+저는 써요.
+jeoneun sseoyo.
+►
+You write.
+당신은 써요.
+dangsin-eun sseoyo.
+►
+He writes.
+그는 써요.
+geuneun sseoyo.

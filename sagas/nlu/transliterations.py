@@ -62,7 +62,7 @@ class Transliterations(object):
 
     def available_langs(self):
         return ['iw', 'he', 'ko', 'sr', 'me', 'mk',
-                'ru', 'ar', 'fa', 'hi',
+                'ru', 'ar', 'fa', 'hi', 'ur',
                 'el', 'zh', 'ja'
                 ]
 

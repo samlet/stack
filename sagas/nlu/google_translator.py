@@ -243,7 +243,7 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
 
 def marks(t, ips_idx):
     if len(t.pronounce)>0:
-        return ','+t.pronounce[ips_idx][1:]
+        return ', '+t.pronounce[ips_idx][1:]
     return ''
 
 def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=False):
@@ -271,6 +271,8 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
     options = {'get_pronounce', 'disable_correct'}
     if words is None:
         words=text.split(' ')
+
+    trans_table=[]
     for sent in words:
         res, t = translate(sent, source=source, target=target,
                            trans_verbose=verbose, options=options)
@@ -280,8 +282,10 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
         else:
             trans=marks(t, ips_idx)
         rs[sent] = '%s\n(%s%s)' % (sent, res, trans)
+        res_r=f"({res})" if res!='' else ''
+        trans_table.append(f"{trans[2:]}{res_r}")
         time.sleep(0.05)
-    return rs
+    return rs, trans_table
 
 def trans_multi(sent, source, targets):
     """
