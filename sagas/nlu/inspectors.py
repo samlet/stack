@@ -71,6 +71,10 @@ class DateInspector(Inspector):
 
     def snips_provider(self, cnt, lang, ctx, key):
         from snips_nlu_parsers import BuiltinEntityParser
+
+        if lang not in ('de', 'en', 'es', 'fr', 'it', 'pt', 'ja', 'ko'):
+            return False
+
         result = False
         if lang in self.parsers:
             parser = self.parsers[lang]

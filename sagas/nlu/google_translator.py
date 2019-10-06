@@ -250,11 +250,11 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
     """
     Example 1:
     from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
-    ana=lambda sents: CoreNlpViz().analyse(sents, get_nlp('hi'), get_word_map('hi','en', sents))
+    ana=lambda sents: CoreNlpViz().analyse(sents, get_nlp('hi'), get_word_map('hi','en', sents)[0])
     ana('मेरे पास दो रेफ्रिजरेटर हैं')
 
     Example 2:
-    get_word_map('hi','en', 'मेरे पास दो रेफ्रिजरेटर')
+    get_word_map('hi','en', 'मेरे पास दो रेफ्रिजरेटर')[0]
 
     :param source:
     :param target:
@@ -282,7 +282,7 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
         else:
             trans=marks(t, ips_idx)
         rs[sent] = '%s\n(%s%s)' % (sent, res, trans)
-        res_r=f"({res})" if res!='' else ''
+        res_r=f"({res})" if res!='' and res not in ('(', ')', '[', ']', '/') else ''
         trans_table.append(f"{trans[2:]}{res_r}")
         time.sleep(0.05)
     return rs, trans_table
