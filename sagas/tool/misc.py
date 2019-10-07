@@ -152,6 +152,8 @@ def rs_represent(rs, data, return_df=False):
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
         df_set.append(df)
         if not return_df:
+            proc_word(type_name, r['word'], data['lang'])
+            proc_children_column(df['rel'], df['children'], data['lang'])
             # where 1 is the axis number (0 for rows and 1 for columns.)
             # df = df.drop('children', 1)
             df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
@@ -166,6 +168,21 @@ def rs_represent(rs, data, return_df=False):
                 result.extend(r)
 
     return result, df_set
+
+def proc_word(type_name, word, lang):
+    from sagas.nlu.google_translator import translate
+    res, _ = translate(word, source=lang, target='en',
+                       trans_verbose=False)
+    color_print('red', f"[{type_name}] {word}: {res}")
+
+def proc_children_column(partcol, textcol, lang, indent='\t'):
+    from sagas.nlu.google_translator import translate
+    for id, (name, r) in enumerate(zip(partcol, textcol)):
+        if len(r)>1:
+            sent=' '.join(r)
+            res, _ = translate(sent, source=lang, target='en',
+                               trans_verbose=False)
+            color_print('cyan', f"{indent}[{name}] {sent}: {res}")
 
 def get_verb_domains(data, return_df=False):
     # import requests

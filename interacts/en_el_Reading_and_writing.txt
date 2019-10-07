@@ -1,0 +1,91 @@
+I read.
+Εγώ διαβάζω.
+Egṓ diabázō.
+►
+I read a letter (character).
+Εγώ διαβάζω ένα γράμμα [της αλφαβήτου].
+Egṓ diabázō éna grámma [tēs alphabḗtou].
+►
+I read a word.
+Εγώ διαβάζω μία λέξη.
+Egṓ diabázō mía léxē.
+►
+
+
+
+
+I read a sentence.
+Εγώ διαβάζω μία πρόταση.
+Egṓ diabázō mía prótasē.
+►
+I read a letter.
+Εγώ διαβάζω ένα γράμμα.
+Egṓ diabázō éna grámma.
+►
+I read a book.
+Εγώ διαβάζω ένα βιβλίο.
+Egṓ diabázō éna biblío.
+►
+
+
+
+
+I read.
+Εγώ διαβάζω.
+Egṓ diabázō.
+►
+You read.
+Εσύ διαβάζεις.
+Esý diabázeis.
+►
+He reads.
+Αυτός διαβάζει.
+Autós diabázei.
+►
+
+
+
+
+I write.
+Εγώ γράφω.
+Egṓ gráphō.
+►
+I write a letter (character).
+Εγώ γράφω ένα γράμμα [της αλφαβήτου].
+Egṓ gráphō éna grámma [tēs alphabḗtou].
+►
+I write a word.
+Εγώ γράφω μία λέξη.
+Egṓ gráphō mía léxē.
+►
+
+
+
+
+I write a sentence.
+Εγώ γράφω μία πρόταση.
+Egṓ gráphō mía prótasē.
+►
+I write a letter.
+Εγώ γράφω ένα γράμμα.
+Egṓ gráphō éna grámma.
+►
+I write a book.
+Εγώ γράφω ένα βιβλίο.
+Egṓ gráphō éna biblío.
+►
+
+
+
+
+I write.
+Εγώ γράφω.
+Egṓ gráphō.
+►
+You write.
+Εσύ γράφεις.
+Esý grápheis.
+►
+He writes.
+Αυτός γράφει.
+Autós gráphei.

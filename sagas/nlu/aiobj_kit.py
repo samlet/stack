@@ -51,7 +51,7 @@ def get_domains(sents, lang, engine='corenlp', options=None):
             rs = get_chunks(doc_jsonify)
         if len(rs)>0:
             if options.list_chunks:
-                list_rs(rs)
+                list_rs(rs, lang)
             if options.deps_graph:
                 display(display_doc_deps(doc_jsonify, resp))
             # rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,

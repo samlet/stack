@@ -11,6 +11,7 @@ import glob
 st.sidebar.title("Interactive visualizer")
 all_labels = {"Dutch":'nl', "Persian":'fa', "Japanese":'ja',
               "Korea":'ko', "Afrikaans":'af', "Russian":'ru',
+              "Italian":'it', "Turkish":'tr',
               "Arabic":'ar'}
 default_labels = ["Dutch", "Persian", "Afrikaans"]
 langs = st.sidebar.multiselect(
