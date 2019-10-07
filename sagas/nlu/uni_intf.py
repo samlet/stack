@@ -20,7 +20,7 @@ class WordIntf(abc.ABC):
     @property
     def lemma(self):
         """ Access lemma of this word. """
-        return self.ctx['lemma']
+        return self.ctx['lemma'] if 'lemma' in self.ctx else ''
 
     @property
     def governor(self):

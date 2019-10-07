@@ -48,7 +48,7 @@ class Transliterations(object):
         """
         return translit(sents, lang)
 
-    def trans_polyglot_from_clip(self, lang):
+    def trans_polyglot_from_clip(self, lang, force_ployglot=False):
         """
         Merge sentence from clipboard and do translit
         $ python -m sagas.nlu.transliterations trans_polyglot_from_clip fa
@@ -58,7 +58,10 @@ class Transliterations(object):
         """
         from sagas.nlu.common import get_from_clip
         text=get_from_clip()
-        return self.translit(text, lang)
+        if force_ployglot:
+            return self.trans_polyglot(text, lang)
+        else:
+            return self.translit(text, lang)
 
     def available_langs(self):
         return ['iw', 'he', 'ko', 'sr', 'me', 'mk',

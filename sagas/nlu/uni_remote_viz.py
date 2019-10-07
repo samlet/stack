@@ -38,13 +38,13 @@ def list_chunks(doc_jsonify, resp, lang):
         rs = get_chunks(doc_jsonify)
     list_rs(rs, lang)
 
-def display_doc_deps(doc_jsonify, resp):
+def display_doc_deps(doc_jsonify, resp, translit_lang=None):
     from termcolor import colored
     print(colored(f"✁ dependency-graph. {'-' * 25}", 'cyan'))
-    cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
+    cv = EnhancedViz(shape='egg', size='8,5', fontsize=20, translit_lang=translit_lang)
     return cv.analyse_doc(doc_jsonify, None, console=False)
 
-def viz_sample(lang, sents, engine='corenlp'):
+def viz_sample(lang, sents, engine='corenlp', translit_lang=None):
     """
     >>> from sagas.nlu.uni_remote_viz import viz_sample
     >>> sents='what time is it ?'
@@ -64,8 +64,10 @@ def viz_sample(lang, sents, engine='corenlp'):
     # doc=uni.parsers[engine](lang, sents)
     from sagas.nlu.uni_remote import dep_parse
     doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
+    if doc_jsonify is None:
+        raise Exception(f'Cannot parse sentence for lang {lang}')
     list_chunks(doc_jsonify, resp, lang)
-    return display_doc_deps(doc_jsonify, resp)
+    return display_doc_deps(doc_jsonify, resp, translit_lang=translit_lang)
 
 
 

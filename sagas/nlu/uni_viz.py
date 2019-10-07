@@ -6,7 +6,7 @@ class EnhancedViz(object):
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
     cv.analyse_doc(doc, None)
     """
-    def __init__(self, shape='egg', size='8,5', fontsize=0, enable_node_pos=False):
+    def __init__(self, shape='egg', size='8,5', fontsize=0, enable_node_pos=False, translit_lang=None):
         from graphviz import Digraph
         self.f = Digraph('deps', filename='deps.gv')
         self.f.attr(rankdir='LR', size=size)
@@ -15,6 +15,7 @@ class EnhancedViz(object):
         if fontsize != 0:
             self.f.attr(fontsize=str(fontsize))
         self.enable_node_pos=enable_node_pos
+        self.translit_lang=translit_lang
 
     def print_dependencies(self, doc, segs, node_maps, verbose=False):
         for dep_edge in doc.dependencies:
@@ -61,11 +62,20 @@ class EnhancedViz(object):
             df=sagas.to_df([(word.index, word.text, word.lemma, word.upos, word.xpos) for word in sentence.words],
                            ['index', 'text', 'lemma', 'upos', 'xpos'])
             display(df)
+
+        def translit_chunk(chunk, lang):
+            from sagas.nlu.transliterations import translits
+            # if lang in ('ko', 'ja', 'fa', 'hi', 'ar'):
+            if translits.is_available_lang(lang):
+                return translits.translit(chunk, lang)
+            return chunk
+
         if node_maps is None:
             node_maps = {}
             for word in sentence.words:
                 pos_attrs=f"({word.upos.lower()}, {word.xpos.lower()})"
-                node_maps[word.text] = word.text if not self.enable_node_pos else f"{word.text}\\n{pos_attrs}"
+                node_text=word.text if self.translit_lang is None else translit_chunk(word.text, self.translit_lang)
+                node_maps[word.text] = node_text if not self.enable_node_pos else f"{node_text}\\n{pos_attrs}"
 
                 # self.f.attr(color='black')
         prop_sets = {'VERB': lambda f: f.attr('node', style='filled', color='lightgrey'),

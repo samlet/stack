@@ -226,7 +226,8 @@ class NluCli(object):
         import subprocess
         from subprocess import STDOUT
         # sents = 'what time is it ?'
-        dot = viz_sample(lang, sents, engine=engine)
+        dot = viz_sample(lang, sents, engine=engine,
+                         translit_lang=lang if lang in ('ja', 'ko','zh', 'fa', 'ar', 'he') else None)
         io_utils.write_to_file('./out/sents.dot', dot.source)
         # $ graph-easy ./out/sents.dot --from=dot --as_ascii
         out_format='--as_boxart'  # '--as_ascii'

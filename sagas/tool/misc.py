@@ -152,7 +152,9 @@ def rs_represent(rs, data, return_df=False):
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
         df_set.append(df)
         if not return_df:
-            result.extend(proc_word(type_name, r['word'], data['lang']))
+            result.extend(proc_word(type_name, r['word'],
+                                    r['head'] if 'head' in r else '',
+                                    data['lang']))
             result.extend(proc_children_column(df['rel'], df['children'], data['lang']))
             # where 1 is the axis number (0 for rows and 1 for columns.)
             # df = df.drop('children', 1)
@@ -170,11 +172,23 @@ def rs_represent(rs, data, return_df=False):
     return result, df_set
 
 target_lang=lambda s: 'zh' if s=='en' else 'en'
-def proc_word(type_name, word, lang):
+def translit_chunk(chunk, lang):
+    from sagas.nlu.transliterations import translits
+    # if lang in ('ko', 'ja', 'fa', 'hi', 'ar'):
+    if translits.is_available_lang(lang):
+        return '/'+translits.translit(chunk, lang)
+    return ''
+
+def proc_word(type_name, word, head, lang):
     from sagas.nlu.google_translator import translate
     res, _ = translate(word, source=lang, target=target_lang(lang),
                        trans_verbose=False)
-    result=f"[{type_name}]({word}) {res}"
+    target=''
+    if head!='':
+        res_t, _ = translate(head, source=lang, target=target_lang(lang),
+                           trans_verbose=False)
+        target=f" ⊙︿⊙ {res_t}"
+    result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
     color_print('magenta', result)
     return [result]
 
@@ -184,10 +198,10 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
     for id, (name, r) in enumerate(zip(partcol, textcol)):
         if name not in ('punct'):
         # if len(r)>1:
-            sent=' '.join(r)
+            sent=' '.join(r) if lang not in ('ja','zh') else ''.join(r)
             res, _ = translate(sent, source=lang, target=target_lang(lang),
                                trans_verbose=False)
-            chunk=f"{indent}[{name}]({sent}) {res}"
+            chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
             result.append(chunk)
             color_print('cyan', chunk)
     return result
@@ -543,6 +557,10 @@ class MiscTool(object):
             text = clipboard.paste()
             text = text.replace("\n", "")
             interact_mode=True
+
+        # remove spaces if lang is ja/zh
+        if source in ('ja','zh'):
+            text=text.replace(' ','')
 
         # add at 2019.9.15
         ascii_gs=[]
