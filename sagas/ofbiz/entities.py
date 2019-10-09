@@ -263,7 +263,7 @@ def create_data_frame(ent_name, show_internal=True):
                 'internal': ['*' if fld.getIsAutoCreatedInternal() else ' ' for fld in ent.model.getFieldsIterator()]
                }
     df = pd.DataFrame(model_desc)
-    df['field type']=df['type'].astype('category')
+    # df['field type']=df['type'].astype('category')
     # df.sort_values(by='field type')
     if not show_internal:
         df=df[df['internal']!='*']
@@ -284,7 +284,7 @@ def create_relation_data_frame(ent_name):
                 'mapping':[repr_keymaps(rel.getKeyMaps()) for rel in rels]
                }
     df = pd.DataFrame(model_desc)
-    df['relation type']=df['type'].astype('category')
+    # df['relation type']=df['type'].astype('category')
     # df.sort_values(by='field type')
     return df
 

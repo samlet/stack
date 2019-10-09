@@ -3,9 +3,7 @@ import logging
 from py4j.java_gateway import JavaGateway, JavaObject, GatewayParameters
 from py4j.java_gateway import java_import, get_field
 from sagas.hybrid.srv_client import SrvClient
-import asyncio
 
-loop = asyncio.get_event_loop()
 logger = logging.getLogger(__name__)
 
 class OfbizConnector(object):
@@ -38,6 +36,8 @@ class OfbizConnector(object):
         return self.gateway.entry_point.getComponent(name)
 
     async def srv_connector(self):
+        import asyncio
+        loop = asyncio.get_event_loop()
         if self.srv_rpc is None:
             self.srv_rpc = await SrvClient(loop).connect()
         return self.srv_rpc

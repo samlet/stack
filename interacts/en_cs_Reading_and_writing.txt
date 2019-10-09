@@ -1,0 +1,73 @@
+I read.
+Čtu.
+►
+I read a letter (character).
+Čtu písmeno.
+►
+I read a word.
+Čtu slovo.
+►
+
+
+
+
+I read a sentence.
+Čtu větu.
+►
+I read a letter.
+Čtu dopis.
+►
+I read a book.
+Čtu knihu.
+►
+
+
+
+
+I read.
+Čtu.
+►
+You read.
+Čteš.
+►
+He reads.
+Čte.
+►
+
+
+
+
+I write.
+Píšu.
+►
+I write a letter (character).
+Píšu písmeno.
+►
+I write a word.
+Píšu slovo.
+►
+
+
+
+
+I write a sentence.
+Píšu větu.
+►
+I write a letter.
+Píšu dopis.
+►
+I write a book.
+Píšu knihu.
+►
+
+
+
+
+I write.
+Píšu.
+►
+You write.
+Píšeš.
+►
+He writes.
+Píše.

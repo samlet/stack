@@ -17,6 +17,12 @@ class EnhancedViz(object):
         self.enable_node_pos=enable_node_pos
         self.translit_lang=translit_lang
 
+    def fix_console_label(self, label):
+        if self.translit_lang is not None and self.translit_lang in ('ja'):
+            from sagas.nlu.transliterations import translits
+            return translits.trans_icu(label)
+        return label
+
     def print_dependencies(self, doc, segs, node_maps, verbose=False):
         for dep_edge in doc.dependencies:
             if verbose:
@@ -39,7 +45,8 @@ class EnhancedViz(object):
             else:
                 head_node=segs[head]
 
-            self.f.edge(head_node, node_text, label=rel, fontsize='11', fontname='Calibri')
+            self.f.edge(head_node, node_text, label=self.fix_console_label(rel),
+                        fontsize='11', fontname='Calibri')
             # self.f.edge(dep_edge[2].text, segs[head], label=dep_edge[1])
 
     def analyse(self, sents, nlp, node_maps=None):

@@ -10,6 +10,8 @@ lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
                      'nl':['nl-core-news-sm', 'nl-core-news-sm'],
                      'it':['it-core-news-sm', 'it-core-news-sm'],
                      'es':['es-core-news-sm', 'es-core-news-sm'],
+                     'no':['nb_core_news_sm', 'nb_core_news_sm'], # Norwegian Bokmaal
+                     'lt':['lt_core_news_sm', 'lt_core_news_sm'], # Lithuanian(立陶宛语)
                      'ru':['/pi/ru2', '/pi/ru2'],
                      }
 

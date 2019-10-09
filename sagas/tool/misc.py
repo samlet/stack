@@ -41,7 +41,7 @@ def print_terms_zh(sents, result):
     print('%s: %s' % (result['lang'], sents))
 
 # stem_filters=['obj', 'nsubj']
-def print_stem_chunks(r):
+def print_stem_chunks(r, file=None):
     from termcolor import colored
     for stem in r['stems']:
         # if stem[0] in stem_filters:
@@ -49,7 +49,7 @@ def print_stem_chunks(r):
         if len(stem[1])>1:
             value=' '.join(stem[1])
             # stem[0]是成分名称, 比如obj/obl/nsubj/...
-            print('%s ->'%stem[0], colored(value, 'green'))
+            print('%s ->'%stem[0], colored(value, 'green'), file=file)
 
 # others: 'nsubj'
 display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
@@ -186,7 +186,7 @@ def proc_word(type_name, word, head, lang):
     target=''
     if head!='':
         res_t, _ = translate(head, source=lang, target=target_lang(lang),
-                           trans_verbose=False)
+                           trans_verbose=False, options={'disable_correct'})
         target=f" ⊙︿⊙ {res_t}"
     result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
     color_print('magenta', result)
@@ -200,7 +200,7 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
         # if len(r)>1:
             sent=' '.join(r) if lang not in ('ja','zh') else ''.join(r)
             res, _ = translate(sent, source=lang, target=target_lang(lang),
-                               trans_verbose=False)
+                               trans_verbose=False, options={'disable_correct'})
             chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
             result.append(chunk)
             color_print('cyan', chunk)

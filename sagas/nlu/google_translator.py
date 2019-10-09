@@ -328,7 +328,7 @@ class GoogleTranslator(object):
         """
         # trans_verbose=verbose
         res,_ = translate(text, source=source, target=target,
-                        trans_verbose=verbose)
+                        trans_verbose=verbose, options={'disable_correct'})
         print(res)
         # print(translate('Садись, где хочешь.'))
         # print(translate('I am a student.'))
