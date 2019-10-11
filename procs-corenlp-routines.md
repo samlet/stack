@@ -38,6 +38,11 @@ ana('أنا طالب جامعي صيني')
 from sagas.nlu.uni_remote_viz import viz_sample
 sents='what time is it ?'
 viz_sample('en', sents)
+
+# with translit
+viz_sample('fa', 'الان تنیس بازی میکنم', translit_lang='fa')
+# with translit and contrast
+viz_sample('fa', '‫چه شماره ای را گرفتید؟‬', translit_lang='fa', enable_contrast=True)
 ```
 
 
