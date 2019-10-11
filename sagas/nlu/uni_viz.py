@@ -70,8 +70,10 @@ class EnhancedViz(object):
                            ['index', 'text', 'lemma', 'upos', 'xpos'])
             display(df)
 
-        def translit_chunk(chunk, lang):
+        def translit_chunk(chunk:str, lang):
             from sagas.nlu.transliterations import translits
+            if chunk.strip() in (',','.',';','?','!'):
+                return chunk
             # if lang in ('ko', 'ja', 'fa', 'hi', 'ar'):
             if translits.is_available_lang(lang):
                 return translits.translit(chunk, lang)
