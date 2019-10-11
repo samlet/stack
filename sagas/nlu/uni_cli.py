@@ -3,6 +3,7 @@ from sagas.nlu.uni_impl_ltp import LtpParserImpl
 from sagas.nlu.uni_impl_corenlp import CoreNlpParserImpl
 from sagas.nlu.uni_impl_spacy import SpacyParserImpl
 from sagas.nlu.uni_impl_hanlp import HanlpParserImpl
+from sagas.nlu.uni_impl_stanford import SfParserImpl
 
 class UniCli(object):
     def __init__(self):
@@ -11,6 +12,7 @@ class UniCli(object):
                       'spacy':lambda lang, sents: SpacyParserImpl(lang)(sents),
                       'hanlp':lambda lang, sents: HanlpParserImpl(lang)(sents),
                       'knp':lambda lang, sents: KnpParserImpl(lang)(sents),
+                      'stanford':lambda lang, sents: SfParserImpl(lang)(sents),
                       }
 
     def parse(self, engine, lang, sents):

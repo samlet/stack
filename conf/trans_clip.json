@@ -12,6 +12,7 @@
   "common_s":"http://localhost:14000",
   "servants":{
     "corenlp":"http://localhost:14000",
+    "stanford":"http://localhost:14001",
     "ltp":"http://localhost:14000",
     "hanlp":"http://localhost:14000",
     "knp":"http://localhost:14000",
@@ -24,7 +25,8 @@
     "ru":"corenlp",
     "zh":"ltp",
     "ja":"knp",
-    "pt":"spacy"
+    "pt":"spacy",
+    "ar":"stanford"
   }
 }
 

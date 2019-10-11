@@ -1,4 +1,8 @@
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
+import grpc
+import nlpserv_pb2
+import nlpserv_pb2_grpc
+
 upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
            'u':'AUX', 'c':'CCONJ', 'h':'DET',
            'e':'INTJ', 'n':'NOUN', 'm':'NUM',
@@ -16,13 +20,6 @@ def get_pos_mapping(pos, default_val='X'):
             if pos in v:
                 return k
     return default_val
-
-from concurrent import futures
-import time
-
-import grpc
-import nlpserv_pb2
-import nlpserv_pb2_grpc
 
 def nlp_procs(p, func):
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be

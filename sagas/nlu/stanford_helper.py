@@ -15,6 +15,9 @@ class StanfordHelper(object):
                                               output_format=output_format)
         return ann
 
+    def parse(self, text, lang):
+        return self.invoke_server(text, language=lang_mappings[lang])
+
     def parse_df(self, sents, lang='ar'):
         import sagas
         result_dfs = {}
@@ -22,6 +25,8 @@ class StanfordHelper(object):
         tokens = ann['sentences'][0]['tokens']
         result_dfs['tokens']=sagas.dict_df(tokens)
         result_dfs['deps']=sagas.dict_df(ann['sentences'][0]['enhancedPlusPlusDependencies'])
+        openie = ann['sentences'][0]['openie']
+        result_dfs['openie']=sagas.dict_df(openie)
         return ann, result_dfs
 
     def parse_print(self, sents, format='default'):
@@ -105,6 +110,16 @@ class BasicViz(object):
             self.f.edge(head_node, node, label=rel, fontsize='11', fontname='Calibri')
         return self.f
 
+
+sf_confs={'en':('localhost', 9001),
+          'ar':('localhost', 9005),
+          }
+sf_services={}
+def get_sf_service(lang):
+    if lang not in sf_services:
+        conf=sf_confs[lang]
+        sf_services[lang]=StanfordHelper(host=conf[0], port=conf[1])
+    return sf_services[lang]
 
 if __name__ == '__main__':
     import fire
