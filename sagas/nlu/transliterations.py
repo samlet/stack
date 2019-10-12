@@ -12,13 +12,14 @@ class Transliterations(object):
 
         self.tr_icu = icu.Transliterator.createInstance('Any-Latin; Latin-ASCII').transliterate
         self.tr_title = icu.Transliterator.createInstance('Any-Latin; Title').transliterate
-        self.tr_el=icu.Transliterator.createInstance('Greek-Latin')
+        # self.tr_el=icu.Transliterator.createInstance('Greek-Latin')
         self.lang_maps={'iw':'he'}
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
                           ('he', 'fa', 'ur'): lambda s,lang:translit(s,lang),
                           ('hi', 'ar'): lambda s,_:self.tr_icu(s),
-                          ('el'): lambda s,_:self.tr_el(s),
+                          # ('el'): lambda s,_:self.tr_el(s),
+                          ('el'): lambda s, _: self.tr_icu(s),
                           ('zh'): lambda s,_:self.tr_title(s),
                           ('ja'): lambda s,_:self.trans_ja(s),
                           }

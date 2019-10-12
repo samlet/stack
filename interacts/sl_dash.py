@@ -41,7 +41,7 @@ text_raw=io_utils.read_file(option).split('►')
 rows=[]
 for t in text_raw:
     # st.write(t)
-    rows.append([l for l in t.split('\n') if l.strip() != ''])
+    rows.append([l for l in t.split('\n') if l.strip() != '' and not l.startswith('#') and not l.startswith('⊕') ])
 
 if len(rows[0])==2:
     st.write(sagas.to_df(rows, ['translate', 'raw']))

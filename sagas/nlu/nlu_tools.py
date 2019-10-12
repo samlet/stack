@@ -134,6 +134,72 @@ class NluTools(object):
             print(response.text)
             clipboard.copy(response.text)
 
+    def contrast(self, text, source, target='en'):
+        """
+        $ nlu contrast '저는 허락을 못 받아서 안 왔어요.' ko
+        :param text:
+        :param source:
+        :param target:
+        :return:
+        """
+        from sagas.nlu.google_translator import get_word_map
+        from sagas.nlu.google_translator import translate
+        from sagas.tool.misc import color_print
+        r, tracker = translate(text, source=source, target=target, options={'get_pronounce'})
+        print(r)
+        for i, p in enumerate(tracker.pronounce):
+            ps = p[2:]
+            print(f'v{i}="{ps}"')
+        rs, trans_table=get_word_map(source, target, text,
+                                     local_translit=True if source in ('fa') else False)
+        for i, (k, r) in enumerate(rs.items()):
+            print(f"{i} - ", r.replace('\n', ' '))
+
+        color_print('cyan', ' '.join(trans_table))
+
+    def clip_contrast(self, source):
+        """
+        $ nlu clip_contrast fa
+        :param source:
+        :return:
+        """
+        from sagas.nlu.common import get_from_clip
+        text=get_from_clip()
+        if text.strip()=='':
+            print('no text avaliable in clipboard.')
+            return
+        print(text)
+        self.contrast(text, source)
+
+    def clip_parse(self, source):
+        """
+        >> clip text: ‫یک آبجو مى خواهم.‬
+        $ nlu clip_parse fa
+        :param source:
+        :return:
+        """
+        from sagas.nlu.uni_remote import dep_parse
+        from sagas.nlu.common import get_from_clip
+        from sagas.conf.conf import cf
+        from sagas.nlu.uni_remote_viz import list_chunks
+
+        sents = get_from_clip()
+        if sents.strip()=='':
+            print('no text avaliable in clipboard.')
+            return
+        print(sents)
+
+        # Parse the sentence and display it's chunks, domains and contrast translations.
+        engine=cf.engine(source)
+        doc_jsonify, resp = dep_parse(sents, source, engine, ['predicts'])
+        if doc_jsonify is None:
+            raise Exception(f'Cannot parse sentence for lang {source}')
+
+        list_chunks(doc_jsonify, resp, source, enable_contrast=True)
+        self.contrast(sents, source)
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NluTools)
+
+

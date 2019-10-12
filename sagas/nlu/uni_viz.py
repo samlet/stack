@@ -1,4 +1,6 @@
 from sagas.nlu.corenlp_helper import get_nlp
+from sagas.nlu.env import sa_env
+
 
 class EnhancedViz(object):
     """
@@ -72,10 +74,14 @@ class EnhancedViz(object):
 
         def translit_chunk(chunk:str, lang):
             from sagas.nlu.transliterations import translits
+            # if upos=='PUNCT':
+            #     return chunk
             if chunk.strip() in (',','.',';','?','!'):
                 return chunk
             # if lang in ('ko', 'ja', 'fa', 'hi', 'ar'):
             if translits.is_available_lang(lang):
+                if sa_env.runtime!='default':
+                    return word.text+'\n'+translits.translit(chunk, lang)
                 return translits.translit(chunk, lang)
             return chunk
 
@@ -83,7 +89,8 @@ class EnhancedViz(object):
             node_maps = {}
             for word in sentence.words:
                 pos_attrs=f"({word.upos.lower()}, {word.xpos.lower()})"
-                node_text=word.text if self.translit_lang is None else translit_chunk(word.text, self.translit_lang)
+                node_text=word.text if self.translit_lang is None or word.upos=='PUNCT' \
+                    else translit_chunk(word.text, self.translit_lang)
                 node_maps[word.text] = node_text if not self.enable_node_pos else f"{node_text}\\n{pos_attrs}"
 
                 # self.f.attr(color='black')

@@ -78,6 +78,8 @@ def say_lang(sentence, lang, verbose=True):
     elif lang == 'id':
         say_with(sentence, 'com.apple.speech.synthesis.voice.damayanti.premium')
         # voice.damayanti.premium
+    elif lang == 'el':
+        say_with(sentence, 'com.apple.speech.synthesis.voice.melina.premium')
     else:
         # say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
         raise Exception(f'Not specific a voice for the language {lang}')
