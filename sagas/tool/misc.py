@@ -1,6 +1,7 @@
 from time import sleep
 import requests
 from sagas.conf.conf import cf
+import sagas.tracker_fn as tc
 
 merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
 
@@ -17,15 +18,15 @@ def print_terms(sents, result):
             sents = sents.replace(value, colored(value, 'magenta'))
         if 'obl' in item:
             sents = sents.replace(value, colored(value, 'yellow'))
-    print('%s: %s' % (result['lang'], sents))
+    tc.info('%s: %s' % (result['lang'], sents))
 
 def color_print(color:str, text):
-    from termcolor import colored
+    # from termcolor import colored
     if isinstance(text, list):
         for t in text:
-            print(colored(t, color))
+            tc.emp(color, t)
     else:
-        print(colored(text, color))
+        tc.emp(color, text)
 
 def print_terms_zh(sents, result):
     from termcolor import colored
@@ -38,10 +39,10 @@ def print_terms_zh(sents, result):
             sents = sents.replace(value, colored(value, 'blue'))
         # if 'cop' in item:
         #     sents = sents.replace(value, colored(value, 'magenta'))
-    print('%s: %s' % (result['lang'], sents))
+    tc.info('%s: %s' % (result['lang'], sents))
 
 # stem_filters=['obj', 'nsubj']
-def print_stem_chunks(r, file=None):
+def print_stem_chunks(r):
     from termcolor import colored
     for stem in r['stems']:
         # if stem[0] in stem_filters:
@@ -49,7 +50,8 @@ def print_stem_chunks(r, file=None):
         if len(stem[1])>1:
             value=' '.join(stem[1])
             # stem[0]是成分名称, 比如obj/obl/nsubj/...
-            print('%s ->'%stem[0], colored(value, 'green'), file=file)
+            # tc.info('%s ->'%stem[0], colored(value, 'green'), file=file)
+            tc.label('%s ->'%stem[0], value)
 
 # others: 'nsubj'
 display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
@@ -65,7 +67,7 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       ]
 def display_synsets(theme, meta, r, lang):
     from sagas.nlu.nlu_cli import retrieve_word_info
-    from termcolor import colored
+    # from termcolor import colored
 
     from sagas.nlu.inspector_common import Context
     ctx=Context(meta, r['domains'])
@@ -76,7 +78,8 @@ def display_synsets(theme, meta, r, lang):
         rs = retrieve_word_info('get_synsets', word, lang, '*')
         if len(rs) > 0:
             comments=', '.join(rs)[:25]
-            print('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
+            # tc.info('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
+            tc.emp('magenta', '♥ %s(%s): %s...' % (word, indicator, comments))
             resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
 
     retrieve(f"{r['word']}/{r['lemma']}", theme)
@@ -108,7 +111,7 @@ def rs_represent(rs, data, return_df=False):
         theme = ''
         if type_name == 'verb_domains':
             theme = '[verb]'
-            print(serial_numbers[serial], theme,
+            tc.info(serial_numbers[serial], theme,
                   # r['lemma'], r['index'],
                   f"{r['word']}/{r['lemma']}, pos: {r['upos']}/{r['xpos']}, idx: {r['index']}",
                   '(%s, %s)' % (r['rel'], r['governor']))
@@ -118,27 +121,27 @@ def rs_represent(rs, data, return_df=False):
             theme = '[aux]'
             # 'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text
             delegator = '☇' if not r['delegator'] else '☌'
-            print(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator,
+            tc.info(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator,
                   "%s(%s)" % (r['head'], r['head_pos']))
             # verb_patterns(r['domains'])
             meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             aux_patterns(meta, r['domains'])
         elif type_name == 'subj_domains':
             theme = '[subj]'
-            print(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇',
+            tc.info(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇',
                   "%s(%s)" % (r['head'], ', '.join(r['head_feats'])))
             # verb_patterns(r['domains'])
             meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             subj_patterns(meta, r['domains'])
         elif type_name=='predicate':
             theme = '[predicates]'
-            print(serial_numbers[serial], theme,
+            tc.info(serial_numbers[serial], theme,
                   f"{r['lemma']} ({r['phonetic']}, {r['word']})")
             meta = {'rel': r['rel'], **common, **data}
             predict_patterns(meta, r['domains'])
         elif type_name == 'root_domains':
             theme = '[root]'
-            print(serial_numbers[serial], theme,
+            tc.info(serial_numbers[serial], theme,
                   f"{r['word']}/{r['lemma']}, pos: {r['upos']}/{r['xpos']}, idx: {r['index']}",
                   '(%s, %s)' % (r['rel'], r['governor']))
             meta = {'rel': r['rel'], **common, **data}
@@ -189,7 +192,7 @@ def proc_word(type_name, word, head, lang):
                            trans_verbose=False, options={'disable_correct'})
         target=f" ⊙︿⊙ {res_t}"
     result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
-    color_print('magenta', result)
+    tc.emp('magenta', result)
     return [result]
 
 def proc_children_column(partcol, textcol, lang, indent='\t'):
@@ -203,7 +206,7 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
                                trans_verbose=False, options={'disable_correct'})
             chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
             result.append(chunk)
-            color_print('cyan', chunk)
+            tc.emp('cyan', chunk)
     return result
 
 def get_verb_domains(data, return_df=False):

@@ -1,6 +1,6 @@
 from sagas.nlu.corenlp_helper import get_nlp
 from sagas.nlu.env import sa_env
-
+import sagas.tracker_fn as tc
 
 class EnhancedViz(object):
     """
@@ -28,7 +28,7 @@ class EnhancedViz(object):
     def print_dependencies(self, doc, segs, node_maps, verbose=False):
         for dep_edge in doc.dependencies:
             if verbose:
-                print((dep_edge[2].text, dep_edge[0].index, dep_edge[1]))
+                tc.info((dep_edge[2].text, dep_edge[0].index, dep_edge[1]))
             # head = int(dep_edge[0].index)
             # governor-id is index in words list + 1
             rel = dep_edge[1]
@@ -64,13 +64,13 @@ class EnhancedViz(object):
         segs = []
         # omit {word.feats}
         if console:
-            print(*[f'index: {word.index}\ttext: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for word in sentence.words], sep='\n')
+            tc.info(*[f'index: {word.index}\ttext: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for word in sentence.words], sep='\n')
         else:
-            from IPython.display import display
+            # from IPython.display import display
             import sagas
             df=sagas.to_df([(word.index, word.text, word.lemma, word.upos, word.xpos) for word in sentence.words],
                            ['index', 'text', 'lemma', 'upos', 'xpos'])
-            display(df)
+            tc.dfs(df)
 
         def translit_chunk(chunk:str, lang):
             from sagas.nlu.transliterations import translits
@@ -161,8 +161,8 @@ def universal_viz(intp, sents):
     # print(rs)
     for r in rs:
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
-        print('%s(%s)' % (r['type'], r['lemma']))
-        sagas.print_df(df)
+        tc.info('%s(%s)' % (r['type'], r['lemma']))
+        tc.dfs(df)
         # display(df)
         print_stem_chunks(r)
 

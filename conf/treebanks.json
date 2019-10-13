@@ -119,6 +119,20 @@
     "treebank": "VTB"
   },
   {
+    "name": "lv",
+    "lang": "Latvian",
+    "model": "lv_lvtb",
+    "version": "0.2.0",
+    "treebank": "LVTB"
+  },
+  {
+    "name": "bg",
+    "lang": "Bulgarian",
+    "model": "bg_btb",
+    "version": "0.2.0",
+    "treebank": "BTB"
+  },
+  {
     "name": "hy",
     "lang": "Armenian",
     "model": "hy_armtdp",
@@ -201,6 +215,13 @@
     "model": "af_afribooms",
     "version": "0.2.0",
     "treebank": "AfriBooms"
+  },
+  {
+    "name": "et",
+    "lang": "Estonian",
+    "model": "et_edt",
+    "version": "0.2.0",
+    "treebank": "EDT"
   },
   {
     "name": "en",

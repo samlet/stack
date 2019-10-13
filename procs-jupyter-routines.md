@@ -20,4 +20,13 @@ sa_env.runtime='jupyter'
 viz_sample('fa', 'الان تنیس بازی میکنم', translit_lang='fa', enable_contrast=False)
 ```
 
++ tracker
+
+```python
+from sagas.tracker_jupyter import enable_jupyter_tracker
+from sagas.nlu.nlu_tools import NluTools
+enable_jupyter_tracker()
+tools=NluTools()
+tools.clip_parse('fi', 'Tuolla ylhäällä asuu vanha nainen.')
+```
 

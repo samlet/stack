@@ -1,10 +1,9 @@
 import collections
-
-from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
 import numpy
-import spacy
+import sagas.tracker_fn as tc
 
 def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
+    from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
     # print('loading spacy english model ...')
     # nlp_spacy = spacy.load('en_core_web_sm')
     print('loading corpus ...')
@@ -146,14 +145,14 @@ class NluTools(object):
         from sagas.nlu.google_translator import translate
         from sagas.tool.misc import color_print
         r, tracker = translate(text, source=source, target=target, options={'get_pronounce'})
-        print(r)
+        tc.info(r)
         for i, p in enumerate(tracker.pronounce):
             ps = p[2:]
-            print(f'v{i}="{ps}"')
+            tc.info(f'v{i}="{ps}"')
         rs, trans_table=get_word_map(source, target, text,
                                      local_translit=True if source in ('fa') else False)
         for i, (k, r) in enumerate(rs.items()):
-            print(f"{i} - ", r.replace('\n', ' '))
+            tc.info(f"{i} - ", r.replace('\n', ' '))
 
         color_print('cyan', ' '.join(trans_table))
 
@@ -171,10 +170,11 @@ class NluTools(object):
         print(text)
         self.contrast(text, source)
 
-    def clip_parse(self, source):
+    def clip_parse(self, source, sents=''):
         """
         >> clip text: ‫یک آبجو مى خواهم.‬
         $ nlu clip_parse fa
+        $ nlu clip_parse fi 'Tuolla ylhäällä asuu vanha nainen.'
         :param source:
         :return:
         """
@@ -183,11 +183,12 @@ class NluTools(object):
         from sagas.conf.conf import cf
         from sagas.nlu.uni_remote_viz import list_chunks
 
-        sents = get_from_clip()
-        if sents.strip()=='':
-            print('no text avaliable in clipboard.')
-            return
-        print(sents)
+        if sents=='':
+            sents = get_from_clip()
+            if sents.strip()=='':
+                tc.info('no text avaliable in clipboard.')
+                return
+        tc.info(sents)
 
         # Parse the sentence and display it's chunks, domains and contrast translations.
         engine=cf.engine(source)

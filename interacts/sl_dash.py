@@ -2,6 +2,7 @@ import streamlit as st
 import io_utils
 import sagas
 import glob
+from interacts.sl_utils import all_labels
 
 # corpus=[('zh_fa_006.txt'),
 #         ('en_fa_006.txt'),
@@ -9,10 +10,7 @@ import glob
 #         ]
 
 st.sidebar.title("Interactive visualizer")
-all_labels = {"Dutch":'nl', "Persian":'fa', "Japanese":'ja',
-              "Korea":'ko', "Afrikaans":'af', "Russian":'ru',
-              "Italian":'it', "Turkish":'tr',
-              "Arabic":'ar'}
+
 default_labels = ["Dutch", "Persian", "Afrikaans"]
 langs = st.sidebar.multiselect(
     "Available langs", list(all_labels.keys()), default_labels

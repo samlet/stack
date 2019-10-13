@@ -35,6 +35,7 @@ alias cn='python -m sagas.bots.hanlp_procs tree'
 
 alias parse='python -m sagas.nlu.corenlp_helper parse'
 alias nlu='python -m sagas.nlu.nlu_tools '
+alias nluc='python -m sagas.nlu.nlu_tools clip_parse'
 
 alias odoo_info='python -m sagas.crmsfa.odoo_info '
 

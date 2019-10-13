@@ -32,6 +32,20 @@ def print_explore(rs):
             for rec in level['records']:
                 print('\t\t[%s] %s'%(rec['lang'], ', '.join(rec['lemmas'])))
 
+def scribes(dot):
+    import io_utils
+    import subprocess
+    from subprocess import STDOUT
+    io_utils.write_to_file('./out/sents.dot', dot.source)
+    # $ graph-easy ./out/sents.dot --from=dot --as_ascii
+    out_format = '--as_boxart'  # '--as_ascii'
+    cmd_args = ['graph-easy', './out/sents.dot', '--from=dot', out_format]
+    # r = subprocess.call(cmd_args)
+    # print('done -', r)
+    r = subprocess.check_output(cmd_args, stderr=STDOUT)
+    result_text = r.decode('utf-8')
+    # print(result_text)
+    return result_text
 
 class NluCli(object):
     def get_word_sets(self, word, lang='en', pos='*'):
@@ -222,22 +236,10 @@ class NluCli(object):
         :return:
         """
         from sagas.nlu.uni_remote_viz import viz_sample
-        import io_utils
-        import subprocess
-        from subprocess import STDOUT
         # sents = 'what time is it ?'
         dot = viz_sample(lang, sents, engine=engine,
                          translit_lang=lang if lang in ('ja', 'ko','zh', 'fa', 'ar', 'he') else None)
-        io_utils.write_to_file('./out/sents.dot', dot.source)
-        # $ graph-easy ./out/sents.dot --from=dot --as_ascii
-        out_format='--as_boxart'  # '--as_ascii'
-        cmd_args=['graph-easy', './out/sents.dot', '--from=dot', out_format]
-        # r = subprocess.call(cmd_args)
-        # print('done -', r)
-        r=subprocess.check_output(cmd_args, stderr=STDOUT)
-        result_text=r.decode('utf-8')
-        # print(result_text)
-        return result_text
+        return scribes(dot)
 
 if __name__ == '__main__':
     import fire

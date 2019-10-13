@@ -3,22 +3,23 @@ from sagas.nlu.uni_jsonifier import JsonifySentImpl
 import requests
 import json
 from sagas.conf.conf import cf
+import sagas.tracker_fn as tc
 
 def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceIntf, dict):
     if pipelines is None:
         pipelines = []
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}
-    print(f".. request is {data}")
+    tc.info(f".. request is {data}")
     response = requests.post(f'{cf.servant(engine)}/dep_parse', json=data)
     if response.status_code != 200:
-        print('.. dep_parse servant invoke fail.')
+        tc.info('.. dep_parse servant invoke fail.')
         return None, None
 
     result = response.json()
     words=result['sents']
     if len(words) == 0:
-        print('.. dep_parse servant returns empty set.')
-        print('.. request data is', data)
+        tc.info('.. dep_parse servant returns empty set.')
+        tc.info('.. request data is', data)
         return None, None
 
     doc_jsonify = JsonifySentImpl(words)
