@@ -1,5 +1,5 @@
 from sagas.nlu.inspector_common import Inspector, Context
-
+import sagas.tracker_fn as tc
 import logging
 logger = logging.getLogger('inspector')
 
@@ -139,7 +139,7 @@ class Patterns(object):
 
 # print_not_matched=False
 def print_result(rs):
-    from termcolor import colored
+    # from termcolor import colored
     from sagas.conf.conf import cf
     from sagas.tool.misc import color_print
 
@@ -150,16 +150,17 @@ def print_result(rs):
         if not print_not_matched and not r[1]:
             pass
         else:
-            print('%s [%s]'%(colored('✔', clr) if r[1] else '✖',
-                             colored(r[0], clr)))
+            # tc.info('%s [%s]'%(colored('✔', clr) if r[1] else '✖',
+            #                 colored(r[0], clr)))
+            tc.emp(clr, '✔' if r[1] else '✖', r[0])
 
     if cf.is_enabled('print_inspector_result'):
         results = [el for r in rs for el in r[3].results]
         if len(results) > 0:
             # .. results
             # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
-            print('.. results')
-            print([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
+            tc.info('.. results')
+            tc.info([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
             # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
             # 以前3个元素作为键去重显示

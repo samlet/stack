@@ -163,7 +163,7 @@ def rs_represent(rs, data, return_df=False):
             # df = df.drop('children', 1)
             df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
             df['features'] = df['features'].apply(lambda x: ', '.join(x)[:15] + "..")
-            sagas.print_df(df)
+            tc.dfs(df)
             print_stem_chunks(r)
 
             if print_def:
@@ -633,6 +633,7 @@ class MiscTool(object):
         $ python -m sagas.tool.misc verb_domains 'Мы написали три книги за год.' ru
         $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en
         $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en spacy
+        $ domains 'Die Aufnahmen begannen im November.' de
         $ domains '伊万是最好的舞者' zh ltp
         $ domains '现在是几点' zh ltp
         $ domains '现在是几点?' zh corenlp

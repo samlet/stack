@@ -7,11 +7,13 @@ class DefaultImpl(TrackerIntf):
 
     def emphasis(self, color, *args):
         from termcolor import colored
-        print(colored(' '.join(args), color))
+        print(colored(' '.join([str(arg) for arg in args]), color))
 
     def dfs(self, *args):
+        import sagas
         for arg in args:
-            print(arg)
+            # print(arg)
+            sagas.print_df(arg)
 
     def gv(self, dot):
         from sagas.nlu.nlu_cli import scribes
