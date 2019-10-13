@@ -1,5 +1,5 @@
 import streamlit as st
-
+import re
 import io_utils
 import sagas
 from interacts.tracker_streamlit import enable_streamlit_tracker
@@ -38,6 +38,13 @@ lang=cur_lang
 
 def show_file(file):
     text_raw=io_utils.read_file(file).split('►')
+    if st.checkbox('References'):
+        links=[l.strip().split('\n')[0] for l in text_raw if l.strip().startswith('⊕')]
+        # st.text(f"{len(links)}")
+        for link in links:
+            print(link)
+            st.markdown(link)
+            # st.text(link)
 
     rows=[]
     for t in text_raw:
@@ -54,9 +61,14 @@ def show_file(file):
 # rows=show_file('en_fi_Adjectives.txt')
 rows=show_file(cur_file)
 for row in rows:
+    # text=re.sub(r" ?\([^)]+\)", "", row[1])
     text=row[1]
     if st.button(f"{text} ✁ {row[0]}"):
+        text = re.sub(r" ?\([^)]+\)", "", text)
         engine = cf.engine(lang)
-        g = viz_sample(lang, text, engine='corenlp', enable_contrast=True)
+        g = viz_sample(lang, text, engine='corenlp', translit_lang=lang, enable_contrast=True)
         st.graphviz_chart(g)
+        if len(row)>2:
+            st.text(f"♤ {row[2]}")
         tools.contrast(text, lang)
+

@@ -1,3 +1,4 @@
+from sagas.nlu.env import sa_env
 from sagas.runtime import runtime, DefaultImpl
 from sagas.tracker_intf import TrackerIntf
 from IPython.display import display
@@ -17,5 +18,6 @@ def enable_jupyter_tracker():
     >>> enable_jupyter_tracker()
     :return:
     """
+    sa_env.runtime = 'streamlit'
     runtime.tracker=jupyter_inst
 

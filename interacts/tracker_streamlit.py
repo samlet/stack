@@ -1,6 +1,8 @@
 from sagas.runtime import runtime
 from sagas.tracker_intf import TrackerIntf
 import streamlit as st
+from sagas.nlu.env import sa_env
+import html
 
 class StreamlitImpl(TrackerIntf):
     def info(self, *args, sep=' ', end='\n', file=None):
@@ -17,6 +19,7 @@ class StreamlitImpl(TrackerIntf):
             indent='<li>'
         else:
             indent=''
+        text=html.escape(text).replace('[', '「').replace(']', '」')
         st.write(f"{indent}<{color}>{text}</{color}>", unsafe_allow_html=True)
 
     def dfs(self, *args):
@@ -37,6 +40,7 @@ def enable_streamlit_tracker():
     >>> enable_streamlit_tracker()
     :return:
     """
+    sa_env.runtime='streamlit'
     runtime.tracker=streamlit_inst
 
 
