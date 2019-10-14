@@ -144,13 +144,15 @@ class NluTools(object):
         from sagas.nlu.google_translator import get_word_map
         from sagas.nlu.google_translator import translate
         from sagas.tool.misc import color_print
+
+        local_trans_langs=('fa', 'ur', 'he')
         r, tracker = translate(text, source=source, target=target, options={'get_pronounce'})
         tc.info(r)
         for i, p in enumerate(tracker.pronounce):
             ps = p[2:]
             tc.info(f'v{i}="{ps}"')
         rs, trans_table=get_word_map(source, target, text,
-                                     local_translit=True if source in ('fa') else False)
+                                     local_translit=True if source in local_trans_langs else False)
         for i, (k, r) in enumerate(rs.items()):
             tc.info(f"{i} - ", r.replace('\n', ' '))
 

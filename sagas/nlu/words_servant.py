@@ -3,6 +3,8 @@ from flask import request
 import json
 from sagas.nlu.wordnet_procs import WordNetProcs, predicate_chain, get_chains
 from cachetools import cached, TTLCache
+import logging
+logger = logging.getLogger('servant')
 
 cache = TTLCache(maxsize=100, ttl=300)
 app = Flask(__name__)
@@ -65,13 +67,18 @@ def handle_get_chains():
 @cached(cache)
 def get_synsets_as_json(lang, raw_word, pos):
     from sagas.nlu.omw_extended import get_synsets
-    word_parts=raw_word.split('/')  # 允许用'membaca/menbaca'形式
-    for word in word_parts:
-        sets = get_synsets(lang, word, pos)
-        if len(sets)>0:
-            r = [c.name() for c in sets]
-            data_y = json.dumps(r)
-            return data_y
+    try:
+        word_parts=raw_word.split('/')  # 允许用'membaca/menbaca'形式
+        for word in word_parts:
+            sets = get_synsets(lang, word, pos)
+            if len(sets)>0:
+                r = [c.name() for c in sets]
+                data_y = json.dumps(r)
+                return data_y
+    except Exception as e:
+        logger.error(
+            "Failed to get synsets for '{}'. "
+            "Error: {}".format(raw_word, e))
     return '[]'
 
 @app.route('/get_synsets', methods = ['POST'])

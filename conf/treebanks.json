@@ -28,6 +28,13 @@
     "treebank": "UDTB"
   },
   {
+    "name": "hr",
+    "lang": "Croatian",
+    "model": "hr_set",
+    "version": "0.2.0",
+    "treebank": "SET"
+  },
+  {
     "name": "hu",
     "lang": "Hungarian",
     "model": "hu_szeged",
@@ -196,11 +203,25 @@
     "treebank": "GDT"
   },
   {
+    "name": "sr",
+    "lang": "Serbian",
+    "model": "sr_set",
+    "version": "0.2.0",
+    "treebank": "SET"
+  },
+  {
     "name": "fr",
     "lang": "French",
     "model": "fr_gsd",
     "version": "0.2.0",
     "treebank": "GSD"
+  },
+  {
+    "name": "uk",
+    "lang": "Ukrainian",
+    "model": "uk_iu",
+    "version": "0.2.0",
+    "treebank": "IU"
   },
   {
     "name": "cs",

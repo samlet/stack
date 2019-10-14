@@ -7,7 +7,7 @@ from sagas.nlu.nlu_tools import NluTools
 from sagas.nlu.uni_remote_viz import viz_sample
 from sagas.conf.conf import cf
 import glob
-from interacts.sl_utils import all_labels
+from interacts.sl_utils import all_labels, fix_sents
 
 enable_streamlit_tracker()
 
@@ -30,6 +30,24 @@ cur_file = st.sidebar.selectbox(
      df['file'])
 st.sidebar.text(f"Current: {cur_lang}, {cur_file}")
 
+# options
+engine_specs={}
+def set_engine(l,e):
+    engine_specs[l]=e
+    return True
+
+operators={'corenlp(ja)': lambda: set_engine('ja', 'corenlp'),
+           'corenlp(ar)': lambda: set_engine('ar', 'corenlp'),
+           'spacy(en)': lambda: set_engine('en', 'spacy'),
+           }
+default_opts={'corenlp(ar)'}
+opts = st.sidebar.multiselect(
+    "Available options", list(operators.keys()), default_opts
+)
+for opt in opts:
+    operators[opt]()
+
+# process
 tools=NluTools()
 # tools.clip_parse('fi', 'Tuolla ylhäällä asuu vanha nainen.')
 
@@ -58,15 +76,20 @@ def show_file(file):
             st.write(sagas.to_df(rows, ['translate', 'raw', 'translit']))
     return rows
 
+def get_engine(lang):
+    if lang in engine_specs:
+        return engine_specs[lang]
+    return cf.engine(lang)
+
 # rows=show_file('en_fi_Adjectives.txt')
 rows=show_file(cur_file)
 for row in rows:
     # text=re.sub(r" ?\([^)]+\)", "", row[1])
     text=row[1]
     if st.button(f"{text} ✁ {row[0]}"):
-        text = re.sub(r" ?\([^)]+\)", "", text)
-        engine = cf.engine(lang)
-        g = viz_sample(lang, text, engine='corenlp', translit_lang=lang, enable_contrast=True)
+        text = fix_sents(text, lang)
+        engine = get_engine(lang)
+        g = viz_sample(lang, text, engine=engine, translit_lang=lang, enable_contrast=True)
         st.graphviz_chart(g)
         if len(row)>2:
             st.text(f"♤ {row[2]}")
