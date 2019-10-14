@@ -7,13 +7,17 @@ from sagas.nlu.uni_impl_stanford import SfParserImpl
 
 class UniCli(object):
     def __init__(self):
-        self.parsers={'corenlp':lambda lang, sents: CoreNlpParserImpl(lang)(sents),
+        self._parsers={'corenlp':lambda lang, sents: CoreNlpParserImpl(lang)(sents),
                       'ltp':lambda lang, sents: LtpParserImpl(lang)(sents),
                       'spacy':lambda lang, sents: SpacyParserImpl(lang)(sents),
                       'hanlp':lambda lang, sents: HanlpParserImpl(lang)(sents),
                       'knp':lambda lang, sents: KnpParserImpl(lang)(sents),
                       'stanford':lambda lang, sents: SfParserImpl(lang)(sents),
                       }
+
+    def parser(self, engine):
+        engine = engine.split('_')[0]
+        return self._parsers[engine]
 
     def parse(self, engine, lang, sents):
         """
@@ -22,6 +26,8 @@ class UniCli(object):
         $ python -m sagas.nlu.uni_cli parse hanlp zh-CN '我送她一束花'
         $ python -m sagas.nlu.uni_cli parse spacy en 'it is a cat'
         $ python -m sagas.nlu.uni_cli parse knp ja '私の趣味は、多くの小旅行をすることです。'
+        $ python -m sagas.nlu.uni_cli parse spacy_2.2 lt 'Ji dirba prie kompiuterio.'
+
         :return:
         """
         from sagas.nlu.corenlp_parser import get_chunks
@@ -35,10 +41,11 @@ class UniCli(object):
             sagas.print_df(df)
             print_stem_chunks(r)
 
+        engine=engine.split('_')[0]
         print(f'using engine {engine} ...')
         # parser = CoreNlpParserImpl('en')
         # doc = parser('it is a cat')
-        doc=self.parsers[engine](lang, sents)
+        doc=self._parsers[engine](lang, sents)
         color_print('blue', doc.predicts)
         if doc.has_predicts():
             for r in doc.predicts:
@@ -49,7 +56,7 @@ class UniCli(object):
                 print_r(r)
 
 def parse_with(sents, lang, engine='corenlp'):
-    return UniCli().parsers[engine](lang, sents)
+    return UniCli().parser(engine)(lang, sents)
 
 if __name__ == '__main__':
     import fire

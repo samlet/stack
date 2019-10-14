@@ -91,11 +91,25 @@
     "treebank": "LFG"
   },
   {
+    "name": "sk",
+    "lang": "Slovak",
+    "model": "sk_snk",
+    "version": "0.2.0",
+    "treebank": "SNK"
+  },
+  {
     "name": "fa",
     "lang": "Persian",
     "model": "fa_seraji",
     "version": "0.2.0",
     "treebank": "Seraji"
+  },
+  {
+    "name": "ro",
+    "lang": "Romanian",
+    "model": "ro_rrt",
+    "version": "0.2.0",
+    "treebank": "RRT"
   },
   {
     "name": "ar",
@@ -180,6 +194,13 @@
     "model": "da_ddt",
     "version": "0.2.0",
     "treebank": "DDT"
+  },
+  {
+    "name": "sl",
+    "lang": "Slovenian",
+    "model": "sl_ssj",
+    "version": "0.2.0",
+    "treebank": "SSJ"
   },
   {
     "name": "id",

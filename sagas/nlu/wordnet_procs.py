@@ -201,7 +201,7 @@ class WordNetProcs(object):
                          'region': names(s.region_domains()),
                          'usage': names(s.usage_domains())}
                 print('\t', domains)
-                for l in ['en', 'fr', 'zh', 'ja']:
+                for l in ['en', 'fr', 'pt', 'zh', 'ja']:
                     lemmas = get_word_lemmas(s, l)
                     if len(lemmas)>0:
                         lemmas_t=', '.join(lemmas)

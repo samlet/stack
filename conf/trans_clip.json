@@ -16,7 +16,8 @@
     "ltp":"http://localhost:14000",
     "hanlp":"http://localhost:14000",
     "knp":"http://localhost:14000",
-    "spacy":"http://localhost:14001"
+    "spacy":"http://localhost:14001",
+    "spacy_2.2":"http://localhost:14002"
   },
   "dialectors":{
     "*":"corenlp",
@@ -26,7 +27,8 @@
     "zh":"ltp",
     "ja":"knp",
     "pt":"corenlp",
-    "ar":"stanford"
+    "ar":"stanford",
+    "lt":"spacy_2.2"
   }
 }
 

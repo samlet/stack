@@ -1,11 +1,15 @@
 import re
 import streamlit as st
+from sagas.conf.conf import cf
 
-all_labels = {"Dutch":'nl', "Persian":'fa', "Japanese":'ja',
-              "Korea":'ko', "Afrikaans":'af', "Russian":'ru',
-              "Italian":'it', "Turkish":'tr', 'Finnish':'fi',
-              'Estonian':'et',
-              "Arabic":'ar'}
+# all_labels = {"Dutch":'nl', "Persian":'fa', "Japanese":'ja',
+#               "Korea":'ko', "Afrikaans":'af', "Russian":'ru',
+#               "Italian":'it', "Turkish":'tr', 'Finnish':'fi',
+#               'Estonian':'et',
+#               "Arabic":'ar'}
+# def all_labels():
+from sagas.nlu.treebanks import treebanks
+all_labels=treebanks.lang_map()
 
 def fix_sents(text, lang):
     text = re.sub(r" ?\([^)]+\)", "", text)
@@ -19,3 +23,9 @@ def write_styles():
              "blue{color:blue} purple{color:purple} "
              "cyan{color:blue} magenta{color:magenta} "
              "</style>", unsafe_allow_html=True)
+
+def fix_data(data):
+    if 'engine' not in data:
+        data['engine'] = cf.engine(data['lang'])
+    data['sents']=fix_sents(data['sents'], data['lang'])
+    return data

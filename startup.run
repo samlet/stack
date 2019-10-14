@@ -11,6 +11,7 @@ function start_inventory(){
 python="$HOME/miniconda3/envs/bigdata/bin/python"
 jupyter="$HOME/miniconda3/envs/bigdata/bin/jupyter"
 py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
+py_cv="$HOME/miniconda3/envs/cv/bin/python"
 bert_s="$HOME/miniconda3/envs/bigdata/bin/bert-serving-start"
 
 # startup 
@@ -127,6 +128,9 @@ else
 		;;
 	"servant_spacy")
 		$py_rasa -m sagas.nlu.parse_servant run 14001
+		;;
+	"servant_spacy_22")
+		$py_cv -m sagas.nlu.parse_servant run 14002
 		;;
 	"servant_zh")
 		$python -m sagas.zh.chinese_servant

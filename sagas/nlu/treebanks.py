@@ -84,11 +84,19 @@ class TreeBanks(object):
         self.conf=json_utils.read_json_file('/pi/conf/treebanks.json')
         self.support_langs=[x['name'] for x in self.conf]
 
+    def lang_map(self):
+        """
+        $ python -m sagas.nlu.treebanks lang_map
+        :return:
+        """
+        return {x['lang']:x['name'] for x in self.conf}
+
     def all_langs(self):
         """
         $ python -m sagas.nlu.treebanks all_langs
         :return:
         """
+        print('total', len(self.support_langs))
         print(self.support_langs)
 
     def query(self, lang_code):
