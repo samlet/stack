@@ -4,17 +4,20 @@ import streamlit as st
 from sagas.nlu.env import sa_env
 import html
 
+def flat_args(args):
+    return [str(arg) for arg in args]
+
 class StreamlitImpl(TrackerIntf):
     def info(self, *args, sep=' ', end='\n', file=None):
-        st.text(sep.join(args))
+        st.text(sep.join(flat_args(args)))
 
     def important(self, *args):
-        st.markdown(f"**{' '.join(args)}**")
+        st.markdown(f"**{' '.join(flat_args(args))}**")
 
     def emphasis(self, color, *args):
         # print(colored(' '.join(args), color))
         # st.markdown(f"**{' '.join(args)}**")
-        text=' '.join(args)
+        text=' '.join(flat_args(args))
         if text.startswith('\t'):
             indent='<li>'
         else:

@@ -7,15 +7,10 @@ from sagas.nlu.nlu_tools import NluTools
 from sagas.nlu.uni_remote_viz import viz_sample
 from sagas.conf.conf import cf
 import glob
-from interacts.sl_utils import all_labels, fix_sents
+from interacts.sl_utils import all_labels, fix_sents, write_styles
 
 enable_streamlit_tracker()
-
-st.write("<style>red{color:red} orange{color:orange} "
-         "yellow{color:yellow} green{color:green} "
-         "blue{color:blue} purple{color:purple} "
-         "cyan{color:blue} magenta{color:magenta} "
-         "</style>", unsafe_allow_html=True)
+write_styles()
 
 language = st.sidebar.selectbox(
     'Which language do you choose?',
@@ -46,6 +41,8 @@ opts = st.sidebar.multiselect(
 )
 for opt in opts:
     operators[opt]()
+
+display_translit=st.sidebar.checkbox('Display translit')
 
 # process
 tools=NluTools()
@@ -86,7 +83,11 @@ rows=show_file(cur_file)
 for row in rows:
     # text=re.sub(r" ?\([^)]+\)", "", row[1])
     text=row[1]
-    if st.button(f"{text} ✁ {row[0]}"):
+    if display_translit and len(row)>2:
+        label=row[2]
+    else:
+        label=text
+    if st.button(f"{label} ✁ {row[0]}"):
         text = fix_sents(text, lang)
         engine = get_engine(lang)
         g = viz_sample(lang, text, engine=engine, translit_lang=lang, enable_contrast=True)
