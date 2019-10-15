@@ -129,6 +129,9 @@ else
 	"servant_spacy")
 		$py_rasa -m sagas.nlu.parse_servant run 14001
 		;;
+	"servant_spacy_22_dev")
+		FLASK_ENV=development $py_cv -m sagas.nlu.parse_servant dev 14002
+		;;
 	"servant_spacy_22")
 		$py_cv -m sagas.nlu.parse_servant run 14002
 		;;

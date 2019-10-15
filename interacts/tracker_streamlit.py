@@ -23,7 +23,7 @@ class StreamlitImpl(TrackerIntf):
         else:
             indent=''
         text=html.escape(text).replace('[', '「').replace(']', '」')
-        st.write(f"{indent}<{color}>{text}</{color}>", unsafe_allow_html=True)
+        st.write(f"{indent}<small><{color}>{text}</{color}></small>", unsafe_allow_html=True)
 
     def dfs(self, *args):
         for arg in args:

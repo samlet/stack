@@ -173,8 +173,12 @@ class ParseServant(object):
         from sagas.tool.loggers import init_logger
         init_logger()
 
-    def run(self, port=14000):
+    def dev(self, port=14000):
         app.run(host='0.0.0.0', port=port)
+
+    def run(self, port=14000):
+        from waitress import serve
+        serve(app, host='0.0.0.0', port=port)
 
 if __name__ == "__main__":
     import fire

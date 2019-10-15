@@ -47,6 +47,14 @@ def scribes(dot):
     # print(result_text)
     return result_text
 
+def get_word_sets(word, lang='en', pos='*'):
+    response = requests.post('http://localhost:8093/word_sets',
+                             json={'word':word, 'lang':lang, 'pos':pos})
+    # print(response.status_code, response.json())
+    if response.status_code == 200:
+        return {'result':'success','data': response.json()}
+    return {'result':'fail'}
+
 class NluCli(object):
     def get_word_sets(self, word, lang='en', pos='*'):
         """
@@ -63,12 +71,7 @@ class NluCli(object):
         :param lang:
         :return:
         """
-        response = requests.post('http://localhost:8093/word_sets',
-                                 json={'word':word, 'lang':lang, 'pos':pos})
-        # print(response.status_code, response.json())
-        if response.status_code == 200:
-            return {'result':'success','data': response.json()}
-        return {'result':'fail'}
+        return get_word_sets(word, lang, pos)
 
     def get_word_def(self, word, lang='en', pos='*'):
         """
@@ -83,7 +86,7 @@ class NluCli(object):
         :return:
         """
         from termcolor import colored
-        resp=self.get_word_sets(word, lang, pos)
+        resp=get_word_sets(word, lang, pos)
         if resp['result']=='success':
             sets=resp['data']
             for s in sets:
