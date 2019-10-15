@@ -1,5 +1,6 @@
 import streamlit as st
 
+from interacts.common import display_lang_selector
 from interacts.sl_utils import all_labels
 from sagas.nlu.nlu_cli import get_chains, get_word_sets
 
@@ -28,13 +29,6 @@ def display_chains(word, lang='en', pos='*'):
         else:
             st.write('none.')
 
-def display_lang_selector():
-    language = st.sidebar.selectbox(
-        'Which language do you choose?',
-         list(all_labels.keys()))
-
-    cur_lang=all_labels[language]
-    return cur_lang
 
 def main():
     st.subheader("Word Mappings")

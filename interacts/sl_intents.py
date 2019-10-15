@@ -1,12 +1,15 @@
 import streamlit as st
 
+from interacts.common import display_lang_selector
 from interacts.sl_utils import all_labels
 
-language = st.sidebar.selectbox(
-    'Which language do you choose?',
-     list(all_labels.keys()))
+def sidebar():
+    cur_lang=display_lang_selector()
 
-cur_lang=all_labels[language]
+def main():
+    sidebar()
+    st.subheader("Intents")
 
-st.subheader("Intents")
+if __name__ == '__main__':
+    main()
 
