@@ -126,11 +126,15 @@ def gen_service_stub(lines, name):
     requires = []
     params_set=set()
 
+    # add schema as return value
+    schema={'requires':[], 'returns':[], 'parameters':[]}
+
     invoke_ent = "null, "
     define_ent = ""
     if def_ent != "":
         define_ent = "{} {}, ".format(def_ent, 'ent')
         invoke_ent = 'ent, '
+        schema['parameters'].append({'name': 'ent', 'type':def_ent})
     for param in params:
         mode = get_field(param, "mode")
         fldname = proc_special_fields(get_field(param, "name"))
@@ -142,6 +146,7 @@ def gen_service_stub(lines, name):
                 if required:
                     requires.append(fldname)
                     require_mark = "@required "
+                    schema['requires'].append({'name':fldname, 'type':get_mapping_type(fldtype)})
                 # wrap entity fields into a entity parameter
                 if fldname in ent_fields:
                     pass
@@ -150,12 +155,15 @@ def gen_service_stub(lines, name):
                 else:
                     params_set.add(fldname)
                     invoke_pars.append("'{fld}': {fld}".format(fld=fldname))
+                    fldtype_cast=get_mapping_type(fldtype)
                     define_pars.append("{mark}{type} {fld}"
                                        .format(fld=fldname,
                                                mark=require_mark,
-                                               type=get_mapping_type(fldtype)))
+                                               type=fldtype_cast))
+                    schema['parameters'].append({'name': fldname, 'mark':require_mark, 'type':fldtype_cast})
             if 'OUT' in mode:
                 return_pars.append("{fld}[{type}]".format(fld=fldname, type=fldtype))
+                schema['returns'].append({'name':fldname, 'type':get_mapping_type(fldtype)})
 
     lines.append("   * Requires %s" % ', '.join(requires))
     lines.append("   * Returns %s" % ', '.join(return_pars))
@@ -168,6 +176,7 @@ def gen_service_stub(lines, name):
                  .format(name=name, ent=invoke_ent,
                          invoke_pars=', '.join(invoke_pars)))
     # lines.append('\n')
+    return schema
 
 def get_service_package(srv):
     serv_model = oc.service_model(srv)
