@@ -6,13 +6,13 @@ import sagas.tracker_fn as tc
 
 serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 
-def list_synsets(r, lang):
+def list_synsets(r, lang, collect=False):
     # create a meta structure
     common = {'lemma': r['lemma'], 'stems': r['stems']}
     meta = {'rel': r['rel'], 'lang': lang, **common}
     if 'head' in r:
         meta['head'] = r['head']
-    display_synsets(r['type'], meta, r, lang)
+    return display_synsets(r['type'], meta, r, lang, collect=collect)
 
 def list_rs(rs, lang):
     # from IPython.display import display

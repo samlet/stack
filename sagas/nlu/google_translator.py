@@ -81,6 +81,11 @@ def buildUrl(text,tk, source='auto', target='zh-CN'):
   return baseUrl
 
 def join_sentence(r):
+    if len(r)==0:
+        return ''
+    if r[0] is None:
+        return ''
+    
     rs=[]
     for sent in r[0]:
         if sent[0] is not None:

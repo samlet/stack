@@ -9,13 +9,9 @@ from sagas.conf.conf import cf
 #               "Arabic":'ar'}
 # def all_labels():
 from sagas.nlu.treebanks import treebanks
-all_labels=treebanks.lang_map()
+from sagas.nlu.utils import fix_sents
 
-def fix_sents(text, lang):
-    text = re.sub(r" ?\([^)]+\)", "", text)
-    if lang in ('ja', 'zh'):
-        text = text.replace(' ', '')
-    return text
+all_labels=treebanks.lang_map()
 
 def write_styles():
     st.write("<style>red{color:red} orange{color:orange} "

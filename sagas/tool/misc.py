@@ -2,6 +2,7 @@ from time import sleep
 import requests
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
+from sagas.nlu.utils import fix_sents, join_text
 
 merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
 
@@ -65,7 +66,7 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'a0', 'a1',
                       'ガ',
                       ]
-def display_synsets(theme, meta, r, lang):
+def display_synsets(theme, meta, r, lang, collect=False):
     from sagas.nlu.nlu_cli import retrieve_word_info
     # from termcolor import colored
 
@@ -77,10 +78,13 @@ def display_synsets(theme, meta, r, lang):
     def retrieve(word, indicator):
         rs = retrieve_word_info('get_synsets', word, lang, '*')
         if len(rs) > 0:
-            comments=', '.join(rs)[:25]
-            # tc.info('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
-            tc.emp('magenta', '♥ %s(%s): %s...' % (word, indicator, comments))
-            resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
+            if collect:
+                resp.append({'word':word, 'indicator':indicator, 'comments':rs})
+            else:
+                comments=', '.join(rs)[:25]
+                # tc.info('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
+                tc.emp('magenta', '♥ %s(%s): %s...' % (word, indicator, comments))
+                resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
 
     retrieve(f"{r['word']}/{r['lemma']}", theme)
     if 'head' in meta:
@@ -201,7 +205,8 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
     for id, (name, r) in enumerate(zip(partcol, textcol)):
         if name not in ('punct'):
         # if len(r)>1:
-            sent=' '.join(r) if lang not in ('ja','zh') else ''.join(r)
+            # sent=' '.join(r) if lang not in ('ja','zh') else ''.join(r)
+            sent=join_text(r, lang)
             res, _ = translate(sent, source=lang, target=target_lang(lang),
                                trans_verbose=False, options={'disable_correct'})
             chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
@@ -562,8 +567,9 @@ class MiscTool(object):
             interact_mode=True
 
         # remove spaces if lang is ja/zh
-        if source in ('ja','zh'):
-            text=text.replace(' ','')
+        # if source in ('ja','zh'):
+        #     text=text.replace(' ','')
+        text=fix_sents(text, source)
 
         # add at 2019.9.15
         ascii_gs=[]

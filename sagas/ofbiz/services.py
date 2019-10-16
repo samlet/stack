@@ -170,7 +170,7 @@ def create_service_data_frame(name, show_internal=False):
                 'description':[str(get_field(param, "description")) for param in params]
                }
     df = pd.DataFrame(model_desc)
-    df['parameter mode']=df['mode'].astype('category')
+    # df['parameter mode']=df['mode'].astype('category')
     if not show_internal:
         df=df[df['internal']!='*']
     # return df.sort_values(by='parameter mode')

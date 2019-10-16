@@ -1,6 +1,8 @@
 import collections
 import numpy
 import sagas.tracker_fn as tc
+from sagas.nlu.utils import fix_sents
+
 
 def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
     from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
@@ -133,7 +135,7 @@ class NluTools(object):
             print(response.text)
             clipboard.copy(response.text)
 
-    def contrast(self, text, source, target='en'):
+    def contrast(self, text, source, target='en', word_map=None):
         """
         $ nlu contrast '저는 허락을 못 받아서 안 왔어요.' ko
         :param text:
@@ -152,6 +154,7 @@ class NluTools(object):
             ps = p[2:]
             tc.info(f'v{i}="{ps}"')
         rs, trans_table=get_word_map(source, target, text,
+                                     words=word_map,
                                      local_translit=True if source in local_trans_langs else False)
         for i, (k, r) in enumerate(rs.items()):
             tc.info(f"{i} - ", r.replace('\n', ' '))
@@ -190,6 +193,7 @@ class NluTools(object):
             if sents.strip()=='':
                 tc.info('no text avaliable in clipboard.')
                 return
+        sents=fix_sents(sents, source)
         tc.info(sents)
 
         # Parse the sentence and display it's chunks, domains and contrast translations.
@@ -199,7 +203,8 @@ class NluTools(object):
             raise Exception(f'Cannot parse sentence for lang {source}')
 
         list_chunks(doc_jsonify, resp, source, enable_contrast=True)
-        self.contrast(sents, source)
+        words = [word.text for word in doc_jsonify.words]
+        self.contrast(sents, source, word_map=words)
 
 if __name__ == '__main__':
     import fire

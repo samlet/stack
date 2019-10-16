@@ -29,6 +29,12 @@ $ honcho start  # (s1) 代替以下服务启动
     $ start nlu
 ```
 
+## ofbiz
+```sh
+$ start bus  # rabbit
+$ start ofbiz
+```
+
 ## odoo routines
 ```sh
 ./run-odoo.sh

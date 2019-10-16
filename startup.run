@@ -95,6 +95,10 @@ else
 	"as")
 		$python -m sagas.ofbiz.rpc_artifacts
 		;;
+	"ofbiz")
+		target_dir=$JCLOUD_HOME/vagrant/fedora/fedora-28/ofbiz/ofbiz-framework		
+		cd $target_dir ; ./gradlew ofbiz -x test
+		;;
 	"actions")
 		# python -m rasa_core_sdk.endpoint --actions actions.procs
 		$python -m sagas.bots.servants.endpoint --actions actions.procs
