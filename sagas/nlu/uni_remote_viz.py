@@ -1,6 +1,6 @@
 from sagas.nlu.uni_viz import EnhancedViz
 from sagas.nlu.corenlp_parser import get_chunks
-from sagas.tool.misc import print_stem_chunks, display_synsets, proc_word, proc_children_column
+from sagas.tool.misc import print_stem_chunks, display_synsets, proc_word, proc_children_column, trunc_cols
 import sagas
 import sagas.tracker_fn as tc
 
@@ -26,7 +26,7 @@ def list_rs(rs, lang):
             cla = '_'
         tc.info(serial_numbers[serial], '%s(%s)' % (r['type'], r['lemma']), cla)
         # sagas.print_df(df)
-        tc.dfs(df)
+        tc.dfs(trunc_cols(df))
         print_stem_chunks(r)
         list_synsets(r, lang)
 

@@ -99,6 +99,25 @@ class TreeBanks(object):
         print('total', len(self.support_langs))
         print(self.support_langs)
 
+    def all_corpus(self):
+        """
+        $ python -m sagas.nlu.treebanks all_corpus
+        :return:
+        """
+        import glob
+        prefix='./interacts'
+        langs = {x['name']: x['lang'] for x in self.conf}
+        absents=[]
+        for l in self.support_langs:
+            cur_lang=l[:2]
+            corpus = [f for f in glob.glob(f'{prefix}/*_{cur_lang}_*.txt')]
+            print(f"{cur_lang}({langs[l]}) - {len(corpus)}")
+            if len(corpus)==0:
+                absents.append(l)
+
+        print(f'.. absents {len(absents)}', {l:langs[l] for l in absents})
+        print('total', len(self.support_langs)-len(absents))
+
     def query(self, lang_code):
         """
         $ python -m sagas.nlu.treebanks query 'ar'

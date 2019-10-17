@@ -95,6 +95,13 @@ def display_synsets(theme, meta, r, lang, collect=False):
             retrieve(ctx.lemmas[opt], opt)
     return resp
 
+def trunc_cols(df, cols=None, maxlen=15):
+    if cols is None:
+        cols=['children', 'features']
+    for col in cols:
+        df[col] = df[col].apply(lambda x: ', '.join(x)[:maxlen] + "..")
+    return df
+
 # print_def=True
 print_def=False
 print_synsets=True
@@ -165,8 +172,9 @@ def rs_represent(rs, data, return_df=False):
             result.extend(proc_children_column(df['rel'], df['children'], data['lang']))
             # where 1 is the axis number (0 for rows and 1 for columns.)
             # df = df.drop('children', 1)
-            df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
-            df['features'] = df['features'].apply(lambda x: ', '.join(x)[:15] + "..")
+            # df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
+            # df['features'] = df['features'].apply(lambda x: ', '.join(x)[:15] + "..")
+            trunc_cols(df)
             tc.dfs(df)
             print_stem_chunks(r)
 
