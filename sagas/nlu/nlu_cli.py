@@ -10,7 +10,10 @@ def get_chains(word, lang, pos):
 
 def retrieve_word_info(path, word, lang, pos):
     """
+    >>> from sagas.nlu.nlu_cli import retrieve_word_info
     >>> rs=retrieve_word_info('get_synsets', word, lang, pos)
+    >>> retrieve_word_info('get_synsets', "いいです。/良い", 'ja', '*')
+
     :param path:
     :param word:
     :param lang:

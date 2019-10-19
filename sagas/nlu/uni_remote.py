@@ -10,6 +10,7 @@ def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceInt
         pipelines = []
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}
     tc.info(f".. request is {data}")
+    # tc.info(data['sents'])
     response = requests.post(f'{cf.servant(engine)}/dep_parse', json=data)
     if response.status_code != 200:
         tc.info('.. dep_parse servant invoke fail.')
