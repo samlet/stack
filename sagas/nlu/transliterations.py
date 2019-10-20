@@ -21,7 +21,8 @@ class Transliterations(object):
                           # ('el'): lambda s,_:self.tr_el(s),
                           ('el'): lambda s, _: self.tr_icu(s),
                           ('zh'): lambda s,_:self.tr_title(s),
-                          ('ja'): lambda s,_:self.trans_ja(s),
+                          # ('ja'): lambda s,_:self.trans_ja(s),
+                          ('ja'): lambda s, _: self.tr_icu(s),
                           }
 
     def trans_ja(self, sents):

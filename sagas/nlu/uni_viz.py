@@ -91,6 +91,8 @@ class EnhancedViz(object):
                 pos_attrs=f"({word.upos.lower()}, {word.xpos.lower()})"
                 node_text=word.text if self.translit_lang is None or word.upos=='PUNCT' \
                     else translit_chunk(word.text, self.translit_lang)
+                # verbose
+                print('# ', f"{word.text} -> {node_text}")
                 node_maps[word.text] = node_text if not self.enable_node_pos else f"{node_text}\\n{pos_attrs}"
 
                 # self.f.attr(color='black')
