@@ -35,6 +35,6 @@ def _(a, b):
 @add.register(float)
 @add.register(Decimal)
 def _(a, b):
-    print("First argument is of type ", type(a))
-    print(a + b)
+    st.write("First argument is of type ", type(a))
+    st.write(a + b)
 

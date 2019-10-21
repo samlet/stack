@@ -13,18 +13,23 @@ from interacts.sl_utils import all_labels, fix_sents, write_styles
 enable_streamlit_tracker()
 write_styles()
 
+corpus_prefix='/pi/stack/interacts'
+
 def choose_lang_and_corpus():
+
     language = st.sidebar.selectbox(
         'Which language do you choose?',
          list(all_labels.keys()))
 
     cur_lang=all_labels[language]
-    corpus=[f for f in glob.glob(f'*_{cur_lang}_*.txt')]
+    corpus=[f for f in glob.glob(f'{corpus_prefix}/*_{cur_lang}_*.txt')]
     df=sagas.to_df(corpus, ['file'])
 
     cur_file = st.sidebar.selectbox(
         'Which corpus do you choose?',
-         df['file'])
+         df['file'],
+        format_func=lambda k: k.replace(corpus_prefix+'/', '').replace('.txt', '') ,
+    )
     st.sidebar.text(f"Current: {cur_lang}, {cur_file}")
     return cur_lang, cur_file
 
