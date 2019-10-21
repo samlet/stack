@@ -36,6 +36,9 @@ class StreamlitImpl(TrackerIntf):
         color='green'
         st.write(f"<{color}>{k}:</{color}> {' '.join(args)}", unsafe_allow_html=True)
 
+    def write(self, *args):
+        st.write(*args)
+
 streamlit_inst=StreamlitImpl()
 def enable_streamlit_tracker():
     """

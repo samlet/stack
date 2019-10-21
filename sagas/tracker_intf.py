@@ -16,3 +16,7 @@ class TrackerIntf(abc.ABC):
     @abc.abstractmethod
     def label_text(self, k, v):
         pass
+
+    @abc.abstractmethod
+    def write(self, *args):
+        pass

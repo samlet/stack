@@ -23,6 +23,9 @@ class DefaultImpl(TrackerIntf):
         from termcolor import colored
         print(colored(k, 'green'), ' '.join(args))
 
+    def write(self, *args):
+        print(*args)
+
 class Runtime(object):
     def __init__(self):
         self.tracker = DefaultImpl()

@@ -11,6 +11,9 @@ class JupyterImpl(DefaultImpl):
     def gv(self, dot):
         display(dot)
 
+    def write(self, *args):
+        display(*args)
+
 jupyter_inst=JupyterImpl()
 def enable_jupyter_tracker():
     """
