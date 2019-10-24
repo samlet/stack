@@ -10,6 +10,7 @@ import shlex
 from augmentor.add_fun import add
 from augmentor.test_fun import fun
 from augmentor.parse_fun import parse
+from augmentor.entity_fun import ent, browse
 
 enable_streamlit_tracker()
 write_styles()

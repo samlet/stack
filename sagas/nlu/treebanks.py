@@ -99,6 +99,29 @@ class TreeBanks(object):
         print('total', len(self.support_langs))
         print(self.support_langs)
 
+    def crawl_corpus(self):
+        """
+        $ python -m sagas.nlu.treebanks crawl_corpus
+        :return:
+        """
+        import glob
+        from sagas.tool.misc import color_print
+        prefix = '/pi/stack/crawlers/langcrs/'
+        file_names = []
+        for f in glob.glob(f'{prefix}all_*.json'):
+            fname = f.replace(prefix + 'all_', '').replace('.json', '')
+            file_names.append(fname)
+
+        absents = []
+        for l in self.support_langs:
+            cur_lang=l[:2]
+            if cur_lang not in file_names:
+                absents.append(l)
+
+        color_print('cyan', f".. absents {len(absents)}: {', '.join(absents)}")
+        langs = {x['name']: x['lang'] for x in self.conf}
+        print(f'.. absents {len(absents)}', {l: langs[l] for l in absents})
+
     def all_corpus(self):
         """
         $ python -m sagas.nlu.treebanks all_corpus
