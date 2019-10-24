@@ -4,6 +4,7 @@ import scrapy
 class ContentSpider(scrapy.Spider):
     """
     $ scrapy crawl content -o content.json
+    $ scrapy crawl content -o sample_fa.json -a tag=fa -a limit=1
     $ scrapy crawl content -o content_ko.json -a tag=ko
     $ scrapy crawl content -o content_ru.json -a tag=ru
     $ scrapy crawl content -o content_fr.json -a tag=fr -a limit=10
@@ -25,6 +26,7 @@ class ContentSpider(scrapy.Spider):
         else:
             lang = 'RU'
 
+        self.lang=lang.lower()
         urls=[]
         start=1
         offset=2
@@ -52,17 +54,29 @@ class ContentSpider(scrapy.Spider):
             # if row.css('td audio source::attr(src)').get() is not None:
             if row.css('td div.Stil35::text').get() is not None:
                 index=index+1
-                translit=row.css(f'td div.Stil45 div#hn_{index} span::text').get()
-                if translit is not None:
-                    translit_text=translit.strip()
+
+                if self.lang in ('fa', 'ar'):
+                    yield {
+                        'chapter': title_text,
+                        'index': index,
+                        'text': row.css('td div.Stil35::text').get().strip(),
+                        'translate': row.css('td div.Stil45::text').get().strip(),
+                        'translit': row.css('td div.Stil45 span::text').get().strip(),
+                        'audio': row.css('td audio source::attr(src)').get(),
+                    }
                 else:
-                    translit_text=''
-                yield {
-                    'chapter': title_text,
-                    'index': index,
-                    'text': row.css('td div.Stil35::text').get().strip(),
-                    'translate': row.css(f'td div.Stil45 div#hn_{index} a::text').get().strip(),
-                    'translit': translit_text,
-                    'audio': row.css('td audio source::attr(src)').get(),
-                }
+                    translit=row.css(f'td div.Stil45 div#hn_{index} span::text').get()
+                    if translit is not None:
+                        translit_text=translit.strip()
+                    else:
+                        translit_text=''
+
+                    yield {
+                        'chapter': title_text,
+                        'index': index,
+                        'text': row.css('td div.Stil35::text').get().strip(),
+                        'translate': row.css(f'td div.Stil45 div#hn_{index} a::text').get().strip(),
+                        'translit': translit_text,
+                        'audio': row.css('td audio source::attr(src)').get(),
+                    }
 
