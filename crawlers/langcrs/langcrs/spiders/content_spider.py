@@ -2,12 +2,36 @@ import scrapy
 
 
 class ContentSpider(scrapy.Spider):
+    """
+    $ scrapy crawl content -o content.json
+    $ scrapy crawl content -o content_ko.json -a tag=ko
+    $ scrapy crawl content -o content_ru.json -a tag=ru
+    $ scrapy crawl content -o content_fr.json -a tag=fr -a limit=10
+    $ start cr ja       # crawl the top 10 pages to content_{lang}.json
+    $ start cr100 he    # crawl all pages for special language to all_{lang}.json
+    """
     name = "content"
 
     def start_requests(self):
-        lang='RU'
+        if self.limit is not None:
+            print(f'.. {self.limit}')
+            limit=int(self.limit)
+        else:
+            limit = 2
+
+        tag = getattr(self, 'tag', None)
+        if tag is not None:
+            lang = tag.upper()
+        else:
+            lang = 'RU'
+
         urls=[]
-        for p in range(37,39):
+        start=1
+        offset=2
+
+        # for p in range(start,start+10):
+        for p in range(start+offset, start + offset+limit):
+        # for p in range(37, 39):
             page=str(p).zfill(3)
             urls.append(f"https://www.goethe-verlag.com/book2/EM/EM{lang}/EM{lang}{page}.HTM")
 
@@ -28,12 +52,17 @@ class ContentSpider(scrapy.Spider):
             # if row.css('td audio source::attr(src)').get() is not None:
             if row.css('td div.Stil35::text').get() is not None:
                 index=index+1
+                translit=row.css(f'td div.Stil45 div#hn_{index} span::text').get()
+                if translit is not None:
+                    translit_text=translit.strip()
+                else:
+                    translit_text=''
                 yield {
                     'chapter': title_text,
                     'index': index,
                     'text': row.css('td div.Stil35::text').get().strip(),
                     'translate': row.css(f'td div.Stil45 div#hn_{index} a::text').get().strip(),
-                    'translit': row.css(f'td div.Stil45 div#hn_{index} span::text').get().strip(),
+                    'translit': translit_text,
                     'audio': row.css('td audio source::attr(src)').get(),
                 }
 
