@@ -42,3 +42,4 @@ def _(arg, verbose=False):
     result = finder.find_list(ent_name, limit, offset)
     result = record_list_df(ent_name, result)
     st.dataframe(result)
+

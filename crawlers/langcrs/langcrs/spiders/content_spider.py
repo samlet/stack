@@ -55,7 +55,7 @@ class ContentSpider(scrapy.Spider):
             if row.css('td div.Stil35::text').get() is not None:
                 index=index+1
 
-                if self.lang in ('fa', 'ar', 'ur'):
+                if self.lang in ('fa', 'ar', 'ur', 'hy'):
                     yield {
                         'chapter': title_text,
                         'index': index,
