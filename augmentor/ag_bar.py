@@ -14,6 +14,7 @@ from augmentor.entity_fun import ent, browse
 from augmentor.chart_fun import chart
 from augmentor.maps_fun import maps
 from augmentor.viz_fun import viz
+from augmentor.corpus_fun import corpus, corpus_audio
 
 enable_streamlit_tracker()
 write_styles()
@@ -49,7 +50,7 @@ def exec_func(cmd:str, exec_as_function):
 
 def main():
     cur_lang, use_textarea, exec_as_function=sidebar()
-    st.subheader("Augmentor Bar")
+    st.header("Augmentor Bar")
     if use_textarea:
         cmd = st.text_area("Command to execute", get_parse_skel(cur_lang))
     else:
