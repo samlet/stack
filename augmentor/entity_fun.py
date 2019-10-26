@@ -43,3 +43,4 @@ def _(arg, verbose=False):
     result = record_list_df(ent_name, result)
     st.dataframe(result)
 
+exports={ent, browse}

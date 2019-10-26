@@ -40,6 +40,7 @@ class InspectorFixture(object):
             print(json.dumps(r, indent=2, ensure_ascii=False))
 
         domains = r['domains']
-        common = {'lemma': r['lemma'], 'stems': r['stems']}
+        common = {'lemma': r['lemma'], 'word': r['word'],
+                  'stems': r['stems']}
         meta = {'rel': r['rel'], **common, **data}
         return domains, meta

@@ -64,7 +64,8 @@ def get_domains(sents, lang, engine='corenlp', options=None):
                 # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
                 # display(df)
                 domains = r['domains']
-                common = {'lemma': r['lemma'], 'stems': r['stems']}
+                common = {'lemma': r['lemma'], 'word': r['word'],
+                          'stems': r['stems']}
                 meta = {'rel': r['rel'], **common, **data}
                 result_set.append((domains, meta))
         else:

@@ -38,3 +38,4 @@ def _(a, b):
     st.write("First argument is of type ", type(a))
     st.write(a + b)
 
+exports={add}

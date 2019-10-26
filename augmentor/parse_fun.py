@@ -37,5 +37,6 @@ def _(texts, lang, verbose=False):
         st.markdown(f'.. **parse** `{text}`')
         NluTools().clip_parse(lang, sents=text)
 
+exports={parse}
 
 

@@ -11,6 +11,9 @@ from augmentor.add_fun import add
 from augmentor.test_fun import fun
 from augmentor.parse_fun import parse
 from augmentor.entity_fun import ent, browse
+from augmentor.chart_fun import chart
+from augmentor.maps_fun import maps
+from augmentor.viz_fun import viz
 
 enable_streamlit_tracker()
 write_styles()
@@ -21,7 +24,23 @@ def sidebar():
     exec_as_function=st.sidebar.checkbox('Execute as function', value=True)
     return cur_lang, use_textarea, exec_as_function
 
-def exec_func(cmd, exec_as_function):
+def list_fn_files():
+    import glob
+    import ntpath
+    for f in glob.glob(f'./*_fun.py'):
+        fname=ntpath.basename(f).replace('.py', '')
+        st.markdown(f"`{fname}`")
+
+internal_fn={'fn_list':list_fn_files}
+
+def exec_func(cmd:str, exec_as_function):
+
+    if cmd.startswith('!'):
+        inf=cmd[1:]
+        if inf in internal_fn:
+            internal_fn[inf]()
+        return
+
     if exec_as_function:
         exec(cmd)
     else:

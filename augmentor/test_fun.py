@@ -39,3 +39,4 @@ def fun_num(arg, verbose=False):
         st.write("Half of your number:", end=" ")
     st.write(arg / 2)
 
+exports={fun}

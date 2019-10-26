@@ -29,6 +29,7 @@ else
 		$jupyter notebook
 		;;
 	"sl")
+		$python -m sagas.tool.creators normal ${@:2}
 		$streamlit run ${@:2}
 		;;
 	*)
