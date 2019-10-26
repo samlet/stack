@@ -4,6 +4,7 @@ import pandas as pd
 
 # corpus('Around the house', 'ar')
 # corpus_audio('Around the house', 'ja')
+# corpus_audio('', 'ja')
 
 @singledispatch
 def corpus(arg, lang, verbose=False):
@@ -39,10 +40,20 @@ def _(arg, lang, verbose=False):
 def corpus_audio(arg, lang, verbose=False):
     raise NotImplementedError('Unsupported type')
 
+
+def list_chapter_titles(lang):
+    dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+    return [name for name, group in dfjson.groupby('chapter')]
+
 @corpus_audio.register(str)
 def _(arg, lang, verbose=False):
     st.write(".. argument is of type ", type(arg))
-    list_audio_urls(lang, [arg])
+    chapters=[arg]
+    if arg=='':
+        chapters=list_chapter_titles(lang)
+        chapter=st.selectbox('Chapters', chapters)
+        chapters=[chapter]
+    list_audio_urls(lang, chapters)
 
 exports={corpus, corpus_audio}
 

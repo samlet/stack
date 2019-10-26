@@ -6,6 +6,9 @@ from interacts.sl_utils import all_labels, write_styles
 from interacts.tracker_streamlit import enable_streamlit_tracker
 import shlex
 
+from datetime import datetime
+from dateutil.parser import parse as dt
+
 # functions
 from augmentor.add_fun import add
 from augmentor.test_fun import fun
@@ -15,6 +18,7 @@ from augmentor.chart_fun import chart
 from augmentor.maps_fun import maps
 from augmentor.viz_fun import viz
 from augmentor.corpus_fun import corpus, corpus_audio
+from augmentor.product_fun import product
 
 enable_streamlit_tracker()
 write_styles()

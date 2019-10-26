@@ -118,6 +118,22 @@ class NluTools(object):
         rs=sorted(rs, key=lambda el: el[2][0])
         sagas.print_df(sagas.to_df(rs, ['id', 'name', 'lang', 'gender']))
 
+    def chapters(self, lang='ja'):
+        """
+        $ nlu chapters ru
+
+        :param lang:
+        :return:
+        """
+        import pandas as pd
+        from pprint import pprint
+        def list_chapter_titles(lang):
+            dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+            return [name for name, group in dfjson.groupby('chapter')]
+
+        rs=list_chapter_titles(lang)
+        pprint(rs)
+
     def parse_sentence(self, lang, sents, engine='corenlp'):
         """
         $ python -m sagas.nlu.nlu_tools parse_sentence ja '今調査します'
