@@ -101,7 +101,7 @@ def verb_patterns(meta, domains):
           Patterns(domains, meta, 5).verb(__engine='ltp', vob=kindof('sexual_intercourse/organic_process', 'n')),
           *actions_vob([('copulate', 'sexual_intercourse/organic_process'),]),
 
-          # $ sz '你有几台笔记本电脑？'
+          # $ sz '你有几台笔记本电脑？'  (如果使用ltp但禁用predicates, 如果鹿乃predicates, 则vob成份就改为a1)
           Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp',
                                           vob=intentof('how_many', 0.75)),
           *actions_vob([('have', 'device/artifact'),]),
@@ -188,6 +188,10 @@ def predict_patterns(meta, domains):
           Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp', a1=kindof('file/communication', 'n')),
           # $ sz '包含几个文件'
           Patterns(domains, meta, 5).verb(behaveof('include', 'v'), __engine='ltp', a1=kindof('file/communication', 'n')),
+          # $ sz '你有几台笔记本电脑？'
+          Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp',
+                                          a1=intentof('how_many', 0.75)),
+
           # $ sj "ファイルはいくつありますか？"
           Patterns(domains, meta, 5).verb(behaveof('exist', 'v'), __engine='knp',
                                           修飾='c_num', ガ=kindof('file/communication', 'n')),

@@ -1,4 +1,5 @@
 from sagas.nlu.aiobj_kit import get_domains, display_result_df
+from sagas.conf.conf import cf
 from termcolor import colored
 
 class Keeper:
@@ -14,7 +15,8 @@ class BaseMeta(type):
                   text, lang)
             # data = {'lang': lang, "sents": text, 'engine': 'corenlp', 'disable_predicts': False}
             # domains, meta = self.request_domains(data)
-            engine = 'ltp' if lang == 'zh' else 'corenlp'
+            # engine = 'ltp' if lang == 'zh' else 'corenlp'
+            engine = cf.engine(lang)
             domain_set = get_domains(text, lang, engine)
             for domains, meta in domain_set:
                 # print(f"{meta['lemma']} ({meta['phonetic']}, {meta['word']})")
