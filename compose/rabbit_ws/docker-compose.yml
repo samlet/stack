@@ -18,4 +18,8 @@ services:
       RABBITMQ_ERLANG_COOKIE: "secret cookie here"
       # RABBITMQ_DEFAULT_USER: samlet
       # RABBITMQ_DEFAULT_PASS: samlet
-
+  
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"

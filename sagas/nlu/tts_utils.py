@@ -14,9 +14,11 @@ def say_with(sentence, voicekind):
     engine.setProperty("voice", voicekind)
     engine.say(sentence)
     engine.runAndWait()
+    return engine
 
 def say_ja(sentence):
-    say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
+    # say_with(sentence, "com.apple.speech.synthesis.voice.kyoko")
+    return say_with(sentence, 'com.apple.speech.synthesis.voice.kyoko.premium')
 
 def say_lang(sentence, lang, verbose=True):
     """

@@ -1,0 +1,24 @@
+純粋さが故の強さがある感じすごく好き
+	en="Purity and there is a strength of late felt really like"
+	v0="Junsui-sa ga yue no tsuyo-sa ga aru kanji sugoku suki"
+	zh="纯度且有实力的后期感觉真的很喜欢"
+	fr="Pureté et il y a une force de sentir vraiment en retard"
+	[predicate](ある/aru) is there
+		[ガ](強いさ/qiangisa) Strong
+		[ガ２](凄い/qii) great
+		[ガ２](好きだ/haokida) I like
+	♥ ある/有る([predicates]): certain.s.01, one.s.05, e...
+	[predicate](すごく/sugoku) Very
+		[ガ](感じ/ganji) Feeling
+	♥ すごく/凄い([predicates]): amazingly.r.01...
+	♥ 感じ(ガ): feeling.n.01, feel.n.04, ...
+	[predicate](好き/haoki) Like
+		[ガ](純粋さ/chun cuisa) Purity
+	♥ 好き/好きだ([predicates]): easy.s.10, fond.s.03, lik...
+
+
+
+
+
+
+

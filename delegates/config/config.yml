@@ -1,0 +1,18 @@
+mqtt:
+  broker: localhost
+  port: 1883
+  QOS: 1
+
+camera:
+  vide_source: 0
+  fps: 2  
+  mqtt_topic: homie/mac_webcam/capture
+
+processing:
+  subscribe_topic: homie/mac_webcam/capture
+  publish_topic: homie/mac_webcam/capture/rotated
+
+save-captures:
+  mqtt_topic: homie/mac_webcam/capture
+  captures_directory: captures/
+  datetime_str_format: "%Y-%m-%d_%H:%M:%S.%f"

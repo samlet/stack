@@ -27,8 +27,11 @@ def list_audio_urls(lang, chapters):
             st.subheader(name)
             # st.table(group)
             for index, row in group.iterrows():
-                st.markdown(f"`{row['text']}`")
-                st.markdown(f"**{row['translit']}** {row['translate']}")
+                if row['translit']!='':
+                    st.markdown(f"`{row['text']}`")
+                    st.markdown(f"**{row['translit']}** {row['translate']}")
+                else:
+                    st.markdown(f"`{row['text']}` {row['translate']}")
                 st.audio(row['audio'])
 
 @corpus.register(str)

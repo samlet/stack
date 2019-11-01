@@ -50,6 +50,7 @@ alias ko='python -m sagas.ko.korea_processor analyse'
 alias ka='python -m sagas.ar.arabic_processor ka'
 
 alias say-ru='python -m sagas.nlu.nlu_tools say_with ru'
+alias say-zh='python -m sagas.nlu.nlu_tools say_with zh'
 alias say-ja='python -m sagas.nlu.nlu_tools say_with ja'
 alias say-fr='python -m sagas.nlu.nlu_tools say_with fr'
 alias say-en='python -m sagas.nlu.nlu_tools say_with en'
