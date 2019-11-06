@@ -2,6 +2,8 @@ from functools import singledispatch
 from decimal import Decimal
 import streamlit as st
 
+from augmentor.context import ctx
+
 """
 add(1, 2)
 add('Python', 'Programming')
@@ -19,23 +21,25 @@ def add(a, b):
 def _(a, b):
     st.write("First argument is of type ", type(a))
     st.write(a + b)
-
+    ctx['result_s'] = str(a + b)
 
 @add.register(str)
 def _(a, b):
     st.write("First argument is of type ", type(a))
     st.write(a + b)
-
+    ctx['result_s']=str(a+b)
 
 @add.register(list)
 def _(a, b):
     st.write("First argument is of type ", type(a))
     st.write(a + b)
+    ctx['result_s'] = str(a + b)
 
 @add.register(float)
 @add.register(Decimal)
 def _(a, b):
     st.write("First argument is of type ", type(a))
     st.write(a + b)
+    ctx['result_s'] = str(a + b)
 
 exports={add}

@@ -1,0 +1,20 @@
+Base support for Luxembourgish and model fixes
+	fr="support de base pour et fixe de Luxembourgeoise modèle"
+	zh="对于卢森堡和模型修正基础支撑"
+	ja="ルクセンブルクとモデルの修正のための基本サポート"
+	v0="Rukusenburuku to moderu no shūsei no tame no kihon sapōto"
+	[root_domains](support) 支持
+		[compound](Base) 基础
+		[nmod](for Luxembourgish and model fixes) 对于卢森堡和模型修正
+	♥ support/support([root]): support.n.01, support.n.0...
+	♥ fix(nmod): fix.n.01, fix.n.02, repai...
+A library for efficient similarity search and clustering of dense vectors.
+	fr="Une bibliothèque pour la recherche de similarité efficace et le regroupement des vecteurs denses."
+	zh="一种用于高效相似性搜索和密集矢量的聚类库。"
+	ja="効率的な類似検索と密ベクトルのクラスタリングのためのライブラリ。"
+	v0="Kōritsu-tekina ruiji kensaku to mitsu bekutoru no kurasutaringu no tame no raiburari."
+	[root_domains](library) 图书馆
+		[det](A) 一种
+		[nmod](for efficient similarity search and clustering of dense vectors) 用于高效相似性搜索和密集向量聚类
+	♥ library/library([root]): library.n.01, library.n.0...
+	♥ search(nmod): search.n.01, search.n.02,...

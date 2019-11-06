@@ -15,6 +15,32 @@
 	[predicate](好き/haoki) Like
 		[ガ](純粋さ/chun cuisa) Purity
 	♥ 好き/好きだ([predicates]): easy.s.10, fond.s.03, lik...
+11月のいいねとリプ下さい
+	en="November asking price and the descriptor please"
+	v0="11 Tsuki no ī ne to ripu kudasai"
+	zh="十一月要价和描述符，请"
+	fr="prix demandé novembre et le descripteur s'il vous plaît"
+	[predicate](リプ下さい/ripu xiasai) Descriptor please
+今日は小東とのコラボ放送来てくれてありがとう！
+	en="Thank you for coming collaboration broadcast of the small east today!"
+	v0="Kyō wa ko azuma to no korabo hōsō kitekurete arigatō!"
+	zh="谢谢你今天来的小东的合作直播！"
+	fr="Merci d'être venu diffusion de la collaboration de la petite est aujourd'hui!"
+	[predicate](来てくれて/laitekurete) Me to come
+		[ガ](コラボレーション放送/koraboreshon fang song) Collaboration broadcasting
+	♥ 来てくれて/来る([predicates]): receive.v.08, come.v.03, ...
+	♥ 放送(ガ): broadcast.n.01, broadcast...
+	[predicate](ありがとう！/arigatou!) Thank you!
+		[時間](今日/jin ri) today
+	♥ ありがとう！/ありがとう([predicates]): thank_you.n.01...
+20時〜はカグラナナ初の重大発表です！
+	en="20 am - is Kaguranana's first significant announcement!"
+	v0="20-Ji 〜 wa kaguranana-hatsu no jūdai happyōdesu!"
+	zh="20日上午 - 是Kaguranana的第一显著公告！"
+	fr="20 h - est la première annonce importante de Kaguranana!"
+	[predicate](発表です！/fa biaodesu!) It is announced!
+		[ガ](20時/20shi) 20:00
+	♥ 発表です！/発表([predicates]): show.n.01, publication.n....
 
 
 
