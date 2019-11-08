@@ -20,6 +20,7 @@ def list_chapters(lang, chapters):
             st.table(group)
 
 def list_audio_urls(lang, chapters):
+    from augmentor.viz_fun import parse_deps
     dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
     for name, group in dfjson.groupby('chapter'):
         if name in chapters:
@@ -33,6 +34,10 @@ def list_audio_urls(lang, chapters):
                 else:
                     st.markdown(f"`{row['text']}` {row['translate']}")
                 st.audio(row['audio'])
+
+                # add at 2019.11.7
+                if st.button(f"Analyse - {row['text']}"):
+                    parse_deps(row['translate'], lang, translit=row['translit'])
 
 @corpus.register(str)
 def _(arg, lang, verbose=False):

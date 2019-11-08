@@ -14,7 +14,7 @@ from dateutil.parser import parse as dt
 from augmentor.add_fun import add
 from augmentor.test_fun import fun
 from augmentor.display_fun import disp
-from augmentor.parse_fun import parse
+from augmentor.parse_fun import parse, domains
 from augmentor.entity_fun import ent, browse
 from augmentor.chart_fun import chart
 from augmentor.maps_fun import maps
@@ -28,7 +28,17 @@ write_styles()
 
 def flows():
     st.sidebar.header("Flows")
-    fns=['add(5,5)', 'fun(5)', "disp('result:')"]
+    fns=['add(5,5)', 'fun(5)', "disp('result:')",
+         "maps('new york')",
+         "browse('Person')",
+         "viz('我要确认我预定的航班 。', 'zh')",
+         "corpus_audio('', 'ja')",
+         "parse('저는 양파를 안 좋아해요.', 'ko')",
+         "domains('')",
+         "domains('Die Aufnahmen begannen im November.', 'de')",
+         """product("GZ-2002", 'price')""",
+         '''product(dt('2013-07-04 00:00:00'), "Test_product_A")''',
+         ]
     default_labels = ['add(5,5)', "disp('result:')"]
     labels = st.sidebar.multiselect(
         "Shortcuts", fns, default_labels
