@@ -1,7 +1,9 @@
 #!/bin/bash
 # alias s1='/Users/xiaofeiwu/miniconda3/envs/bigdata/bin/python -m honcho start'
-alias s1='/Users/xiaofeiwu/miniconda3/envs/bigdata/bin/honcho start'
-alias s2='foreman start -f Procfile_langs'
+honcho='/Users/xiaofeiwu/miniconda3/envs/bigdata/bin/honcho'
+alias s1="$honcho start"
+# alias s2='foreman start -f Procfile_langs'
+alias s2="$honcho start -f Procfile_langs"
 
 alias tool='python -m sagas.ofbiz.tools'
 ## import-data ./data/product/
