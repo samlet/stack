@@ -1,0 +1,7 @@
+servant_de: $python -m sagas.nlu.parse_servant run
+words: $python -m sagas.nlu.words_servant
+multilang: $python -m sagas.nlu.multilang_servant
+servant_nlu: $python -m sagas.nlu.nlu_servant
+servant_spacy: $python -m sagas.nlu.parse_servant run 14001
+servant_spacy_22: $python -m sagas.nlu.parse_servant run 14002
+

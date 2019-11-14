@@ -1,0 +1,2 @@
+rasa_nlu: $pyrasa -m rasa_nlu.server --path mats/nlu_multilang/projects
+
