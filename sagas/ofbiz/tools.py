@@ -83,6 +83,7 @@ class OfTools(object):
 
     def entity_data(self, entity_name, limit=10):
         """
+        $ python -m sagas.ofbiz.tools entity-data DataResourceType 1000
         $ tool entity-data DataResourceType 1000
         $ tool entity-data WorkEffortType 1000
         :param entity_name:

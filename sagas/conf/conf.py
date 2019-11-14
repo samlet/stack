@@ -53,6 +53,7 @@ class TransClipConf(object):
         print(f"el_Greek:   {self.servant_by_lang('el')}")
         print(f"en_US:      {self.servant_by_lang('en')}")
         print(f"engine for zh: {self.engine('zh')}")
+        print(f"ofbiz: {self.conf['ofbiz_servant']}")
 
 """
 from sagas.conf.conf import cf

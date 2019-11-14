@@ -49,3 +49,16 @@ $ start ja_nlu_t
 $ open http://localhost:8888/notebooks/procs-nlu-ja-pipelines.ipynb
 ```
 
+## translator cacher(mongo)
+⊕ [mongoexport — MongoDB Manual](https://docs.mongodb.com/manual/reference/program/mongoexport/)
+⊕ [mongoimport — MongoDB Manual](https://docs.mongodb.com/manual/reference/program/mongoimport/#simple-import)
+
+```sh
+# backup
+mongoexport --collection=trans --db=langs --out=./out/trans.json
+# import
+mongoimport --db=langs --collection=trans --file=./out/trans.json
+```
+
+
+
