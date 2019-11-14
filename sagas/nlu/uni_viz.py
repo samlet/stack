@@ -60,6 +60,7 @@ class EnhancedViz(object):
 
     def analyse_doc(self, sentence, node_maps=None, console=True):
         from sagas.nlu.uni_intf import sub_comps
+        import unicodedata
 
         segs = []
         # omit {word.feats}
@@ -91,6 +92,7 @@ class EnhancedViz(object):
                 pos_attrs=f"({word.upos.lower()}, {word.xpos.lower()})"
                 node_text=word.text if self.translit_lang is None or word.upos=='PUNCT' \
                     else translit_chunk(word.text, self.translit_lang)
+                node_text=unicodedata.normalize('NFKC', node_text) if word.upos=='PUNCT' else node_text
                 # verbose
                 if word.text!=node_text:
                     print('# ', f"{word.text} -> {node_text}")

@@ -4,14 +4,16 @@ from sagas.nlu.uni_remote import dep_parse
 from sagas.nlu.uni_remote_viz import list_chunks, display_doc_deps, list_rs
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.tool.misc import color_print
+import sagas.tracker_fn as tc
 
-def display_result_df(rs, presenter='jupyter'):
+def display_result_df(rs):
     df = result_df(rs)
-    if presenter == 'jupyter':
-        from IPython.display import display
-        display(df)
-    else:
-        print(df)
+    # if presenter == 'jupyter':
+    #     from IPython.display import display
+    #     display(df)
+    # else:
+    #     print(df)
+    tc.dfs(df)
 
 fixture=InspectorFixture()
 
@@ -34,7 +36,7 @@ def get_domains(sents, lang, engine='corenlp', options=None):
     :param options:
     :return:
     """
-    from IPython.display import display
+    # from IPython.display import display
 
     if options is None:
         options=DomainGetOptions()
@@ -53,7 +55,9 @@ def get_domains(sents, lang, engine='corenlp', options=None):
             if options.list_chunks:
                 list_rs(rs, lang)
             if options.deps_graph:
-                display(display_doc_deps(doc_jsonify, resp))
+                # display(display_doc_deps(doc_jsonify, resp))
+                tc.gv(display_doc_deps(doc_jsonify, resp,
+                                       translit_lang=lang if lang in ('ja', 'ko', 'zh', 'fa', 'ar', 'he') else None))
             # rs_represent(rs, data = {'lang': lang, "sents": sents, 'engine': engine,
             #                         'pipelines':pipelines})
             data = {'lang': lang, "sents": sents, 'engine': engine,
@@ -69,9 +73,9 @@ def get_domains(sents, lang, engine='corenlp', options=None):
                 meta = {'rel': r['rel'], **common, **data}
                 result_set.append((domains, meta))
         else:
-            color_print('red', '.. no found predefined chunk-patterns.')
-            print(doc_jsonify.words_string())
-            print(doc_jsonify.dependencies_string())
+            tc.emp('red', '.. no found predefined chunk-patterns.')
+            tc.info(doc_jsonify.words_string())
+            tc.info(doc_jsonify.dependencies_string())
     return result_set
 
 

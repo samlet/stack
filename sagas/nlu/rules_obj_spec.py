@@ -4,7 +4,8 @@ from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.patterns import Patterns
 
-from sagas.tool.misc import color_print
+# from sagas.tool.misc import color_print
+import sagas.tracker_fn as tc
 
 from sagas.nlu.aiobj_base import BaseMeta, Keeper
 from sagas.nlu.ruleset import RuleSet, actions_vob, behaviours_obl
@@ -21,7 +22,7 @@ class StoremanMeta(BaseMeta):
                                                 vob=intentof('how_many', 0.75)),
                          *actions_vob(d, m, [('have', 'device/artifact'), ]),
                      ],
-                     executor=lambda obj: color_print('red', f'.. object: {obj}'),
+                     executor=lambda obj: tc.info('red', f'.. object: {obj}'),
                      files=lambda d, m: [
                          # $ sz '有多少文件'
                          Patterns(d, m, 5).verb(behaveof('have', 'v'), __engine='ltp',
@@ -40,7 +41,7 @@ class Storeman(Keeper, metaclass=StoremanMeta):
         self.name = name
 
     def callback(self, t):
-        print(f'** {self.name} callback', t)
+        tc.info(f'** {self.name} callback', t)
         return self
 
     def __repr__(self):

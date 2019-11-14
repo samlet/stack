@@ -108,7 +108,7 @@ class OdooInfo(object):
     """docstring for OdooInfo"""
     def __init__(self):
         super(OdooInfo, self).__init__()
-        login()
+        login(db="demo", username="admin", password="admin")
 
     def show_models(self, lang='zh_CN'):
         """

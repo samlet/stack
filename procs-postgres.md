@@ -27,3 +27,32 @@ $ brew services start postgresql
 $ psql -l
 ```
 
+## linux
+⊕ [How To Install and Use PostgreSQL on Ubuntu 18.04 | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
+
+```sh
+sudo apt install postgresql postgresql-contrib
+# Accessing a Postgres Prompt Without Switching Accounts
+sudo -u postgres psql
+\l
+\q
+```
+```sh
+sudo -i -u postgres
+psql
+\q
+
+# If you are logged in as the postgres account, you can create a new user by typing:
+createuser --interactive
+# If, instead, you prefer to use sudo for each command without switching from your normal account, type:
+sudo -u postgres createuser --interactive
+
+# Output
+Enter name of role to add: sammy
+Shall the new role be a superuser? (y/n) y
+
+# Creating a New Database
+sudo -u postgres createdb sammy
+```
+
+

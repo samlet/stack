@@ -158,10 +158,14 @@ else
 		$python -m rasa_nlu.server --path mats/nlu_multilang/projects 
 		;;
 	"timenlp")
-		cd $HOME/jcloud/assets/langs/workspace/data-procs/Time-NLP ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.bridge.ApplicaEntryPoint"
+		# proj_root="$HOME/jcloud/assets/langs/workspace/data-procs/Time-NLP"
+		proj_root="$HOME/jcloud/vagrant/sagas/projs/timenlp"
+		cd $proj_root ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.bridge.ApplicaEntryPoint"
 		;;
 	"langprocs")
-		cd $HOME/jcloud/assets/langs/workspace/langprocs ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.langprocs.App"
+		# proj_root="$HOME/jcloud/assets/langs/workspace/langprocs"
+		proj_root="$HOME/jcloud/vagrant/sagas/projs/langprocs"
+		cd $proj_root ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.langprocs.App"
 		;;
 	"backup")
 		mark.sh

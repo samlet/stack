@@ -1,6 +1,7 @@
 from sagas.nlu.aiobj_kit import get_domains, display_result_df
 from sagas.conf.conf import cf
 from termcolor import colored
+import sagas.tracker_fn as tc
 
 class Keeper:
     def callback(self, t):
@@ -10,7 +11,7 @@ class BaseMeta(type):
     @staticmethod
     def setup(cls):
         def _(self, lang, text, *sents):
-            print(type(self).__name__,
+            tc.info(type(self).__name__,
                   isinstance(self, Keeper),
                   text, lang)
             # data = {'lang': lang, "sents": text, 'engine': 'corenlp', 'disable_predicts': False}
@@ -22,9 +23,10 @@ class BaseMeta(type):
                 # print(f"{meta['lemma']} ({meta['phonetic']}, {meta['word']})")
                 # print(f"{meta['lemma']}")
                 # execute rulesets
-                print('rules', [r.name for r in self.rulesets])
+                tc.info('rules', [r.name for r in self.rulesets])
                 for i, ruleset in enumerate(self.rulesets):
-                    print(colored(f"✁ {i}. {'-' * 25}", 'cyan'))
+                    # print(colored(f"✁ {i}. {'-' * 25}", 'cyan'))
+                    tc.emp('cyan', f"✁ {i}. {'-' * 25}")
                     rule_rs = ruleset(domains, meta, self, sents)
                     display_result_df(rule_rs)
 
