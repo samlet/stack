@@ -157,10 +157,13 @@ def rs_represent(rs, data, return_df=False):
                   '(%s, %s)' % (r['rel'], r['governor']))
             meta = {'rel': r['rel'], **common, **data}
             # verb_patterns(meta, r['domains'])
-            check_langspec(data['lang'], meta, r['domains'], type_name)
+            # check_langspec(data['lang'], meta, r['domains'], type_name)
         else:
             meta = {}
             raise Exception('Cannot process specific type: {}'.format(type_name))
+
+        # process language special rules
+        check_langspec(data['lang'], meta, r['domains'], type_name)
 
         # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])

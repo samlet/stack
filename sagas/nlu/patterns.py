@@ -33,15 +33,17 @@ def trip_number_suffix(k):
     return k
 
 class Patterns(object):
-    _name = None
+    # _name = None
     _fields = {}  # {field: field object}
 
-    def __init__(self, domains=None, meta=None, priority=0,  track=True):
+    def __init__(self, domains=None, meta=None, priority=0, track=True, name=''):
         super(Patterns, self).__init__()
         self.domains = domains
         self.meta=meta
         self.track = track
         self.priority=priority
+        self.name=name
+
         # self.engine=meta['engine']
 
         self.funcs={'aux':self.check_args,
@@ -97,7 +99,7 @@ class Patterns(object):
             result = True
             options = []
 
-            ctx = Context(self.meta, self.domains)
+            ctx = Context(self.meta, self.domains, name=self.name)
             # the args has been checked as pos
             if self.meta is not None and len(args)>0:
                 # opt_ret=check_item(self.meta, 'pos', args, ctx)
@@ -152,7 +154,8 @@ def print_result(rs):
         else:
             # tc.info('%s [%s]'%(colored('✔', clr) if r[1] else '✖',
             #                 colored(r[0], clr)))
-            tc.emp(clr, '✔' if r[1] else '✖', r[0])
+            pat_name='' if r[3].name=='' else f"({r[3].name}) "
+            tc.emp(clr, '✔' if r[1] else '✖', f"{pat_name}{r[0]}")
 
     if cf.is_enabled('print_inspector_result'):
         results = [el for r in rs for el in r[3].results]
