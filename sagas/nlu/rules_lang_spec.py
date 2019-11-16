@@ -4,43 +4,12 @@ from sagas.nlu.inspectors import EntityInspector as entins
 from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
+from sagas.nlu.lang_spec_intf import LangSpecBase, agency
 
 from sagas.nlu.patterns import Patterns, print_result
 import sagas.tracker_fn as tc
+from sagas.nlu.rules_lang_spec_de import Rules_de
 
-agency=['c_pron', 'c_noun', 'c_propn']
-
-class LangSpecBase(object):
-    def __init__(self, meta, domains):
-        self.meta=meta
-        self.domains=domains
-        self.matched={}
-
-    def verb_rules(self):
-        pass
-    def aux_rules(self):
-        pass
-    def subject_rules(self):
-        pass
-    def predicate_rules(self):
-        pass
-    def root_rules(self):
-        pass
-
-    def execute(self):
-        '''
-        The execute method default implementation
-        :return:
-        '''
-        if len(self.matched)>0:
-            matched_info={k:len(v.results) for k,v in self.matched.items()}
-            tc.emp('blue', f"♯ matched id rules: {matched_info}")
-
-    def collect(self, pats):
-        print_result(pats)
-        for r in pats:
-            if r[1] and r[3].name != '':
-                self.matched[r[3].name] = r[3]  # r[3] is Context
 
 class Rules_id(LangSpecBase):
     def root_rules(self):
@@ -55,7 +24,9 @@ class Rules_id(LangSpecBase):
               ])
 
 # ________________________________________________________________________
-lang_specs={'id':[Rules_id]}
+lang_specs={'id': [Rules_id],
+            'de': [Rules_de],
+            }
 
 def exec_rules_by_type(ci:LangSpecBase, type_name):
     mappings={'verb_domains':ci.verb_rules,

@@ -1,7 +1,8 @@
 from sagas.runtime import runtime
 
 info=lambda *args, sep=' ', end='\n', file=None: runtime.tracker.info(*args)
-emp=lambda c, *args: runtime.tracker.emphasis(c, *args)
+# Available text colors: red, green, yellow, blue, magenta, cyan, white.
+emp=lambda clr, *args: runtime.tracker.emphasis(clr, *args)
 label=lambda l, *args: runtime.tracker.label_text(l, *args)
 
 dfs=lambda *args: runtime.tracker.dfs(*args)
