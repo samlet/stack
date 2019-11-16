@@ -3,7 +3,7 @@ from sagas.nlu.corenlp_parser import get_chunks
 from sagas.nlu.uni_remote import dep_parse
 from sagas.nlu.uni_remote_viz import list_chunks, display_doc_deps, list_rs
 from sagas.nlu.inspector_fixtures import InspectorFixture
-from sagas.tool.misc import color_print
+# from sagas.tool.misc import color_print
 import sagas.tracker_fn as tc
 
 def display_result_df(rs):
@@ -44,7 +44,7 @@ def get_domains(sents, lang, engine='corenlp', options=None):
     doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)
     result_set=[]
     if doc_jsonify is not None:
-        color_print('cyan', resp)
+        tc.emp('cyan', resp)
         if resp is not None and 'predicts' in resp and len(resp['predicts'])>0:
             rs=resp['predicts']
             # print(rs)

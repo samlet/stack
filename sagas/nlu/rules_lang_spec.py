@@ -6,6 +6,8 @@ from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 
 from sagas.nlu.patterns import Patterns, print_result
+import sagas.tracker_fn as tc
+
 agency=['c_pron', 'c_noun', 'c_propn']
 
 def id_patterns(meta, domains):
@@ -22,25 +24,28 @@ def id_patterns(meta, domains):
 # ________________________________________________________________________
 lang_specs={'id':id_patterns}
 
-def check_langspec(lang, meta, domains):
+def check_langspec(lang, meta, domains, type_name):
     # lang = data['lang']
     if lang in lang_specs:
-        from termcolor import colored
-        print(colored(f"✁ lang.spec for {lang}. {'-' * 25}", 'cyan'))
+        # from termcolor import colored
+        tc.emp('cyan', f"✁ lang.spec for {lang}. {'-' * 25}")
         lang_specs[lang](meta, domains)
     else:
-        print(f'no special patterns for lang {lang}')
+        tc.emp('red', f'no special patterns for lang {lang}')
 
 
 def rs_repr(rs, data):
     for serial, r in enumerate(rs):
-        common = {'lemma': r['lemma'], 'stems': r['stems']}
+        common = {'lemma': r['lemma'], 'word': r['word'],
+                  'stems': r['stems']}
         meta = {'rel': r['rel'], **common, **data}
         lang=data['lang']
-        if lang in lang_specs:
-            lang_specs[lang](meta, r['domains'])
-        else:
-            print(f'no special patterns for lang {lang}')
+
+        # if lang in lang_specs:
+        #     lang_specs[lang](meta, r['domains'])
+        # else:
+        #     tc.emp('red', f'no special patterns for lang {lang}')
+        check_langspec(lang, meta, r['domains'], type_name = r['type'])
 
 class LangspecRules(object):
     def langspec(self, sents, lang='en', engine='corenlp'):

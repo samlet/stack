@@ -5,7 +5,8 @@ from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspectors import DateInspector as dateins
-from sagas.tool.misc import color_print
+# from sagas.tool.misc import color_print
+import sagas.tracker_fn as tc
 from sagas.tool.package_helper import ClassFinder
 
 
@@ -37,24 +38,24 @@ class RuleSet(object):
     def __call__(self, domains, meta, ctx=None, param_sents=None):
         rule_rs = self.rules(domains, meta)
         # .. parts {'sbv': '你', 'vob': '电脑', 'wp': '？'}
-        print('.. parts', {k: v for k, v in rule_rs[0][3].lemmas.items()})
+        tc.info('.. parts', {k: v for k, v in rule_rs[0][3].lemmas.items()})
         if all([val[1] for val in rule_rs]):
             results = [el for r in rule_rs for el in r[3].results]
             # .. results
             # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
             if len(results)>0:
-                print('.. results')
-                print([f"{r[0]}/{r[1]}" for r in results])
+                tc.info('.. results')
+                tc.info([f"{r[0]}/{r[1]}" for r in results])
                 # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
-                color_print('blue', results)
+                tc.emp('blue', results)
 
             # 如果kwargs不为空, 则利用kwargs的规则集来检测param_sents,
             # 将得到的inspectors结果集放入对应的参数名中,
             # 与rules的结果集results一起作为参数值来调用executor.
             if len(self.parameters)>0:
-                color_print('red', 'parameters -> %s'%', '.join(self.parameters.keys()))
+                tc.emp('red', 'parameters -> %s'%', '.join(self.parameters.keys()))
                 if param_sents is not None:
-                    color_print('yellow', '; '.join(param_sents))
+                    tc.emp('yellow', '; '.join(param_sents))
 
             # .. matched: how_many_artifact
             if ctx is not None:
@@ -73,7 +74,7 @@ ruleset_stats = RuleSet('how_many_artifact',
                             Patterns(d, m, 5).verb(behaveof('have', 'v'), __engine='ltp', vob=intentof('how_many', 0.75)),
                             *actions_vob(d, m, [('have', 'device/artifact'), ]),
                         ],
-                        executor=lambda arg: color_print('red', f'.. matched: {arg}'))
+                        executor=lambda arg: tc.emp('red', f'.. matched: {arg}'))
 
 ruleset_dates = RuleSet('how_old',
                         rules=lambda domains, meta: [
@@ -82,7 +83,7 @@ ruleset_dates = RuleSet('how_old',
                             # $ sd 'Die Aufnahmen begannen im November.'
                             Patterns(domains, meta, 5).verb(nsubj=agency, obl=dateins('time')),
                         ],
-                        executor=lambda arg: color_print('red', f'.. matched: {arg}'))
+                        executor=lambda arg: tc.emp('red', f'.. matched: {arg}'))
 
 class BasicRuleSets(RuleSets):
     rulesets=[ruleset_stats, ruleset_dates]

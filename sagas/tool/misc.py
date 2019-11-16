@@ -157,7 +157,7 @@ def rs_represent(rs, data, return_df=False):
                   '(%s, %s)' % (r['rel'], r['governor']))
             meta = {'rel': r['rel'], **common, **data}
             # verb_patterns(meta, r['domains'])
-            check_langspec(data['lang'], meta, r['domains'])
+            check_langspec(data['lang'], meta, r['domains'], type_name)
         else:
             meta = {}
             raise Exception('Cannot process specific type: {}'.format(type_name))

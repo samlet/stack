@@ -96,7 +96,8 @@ else
 		$python -m sagas.ofbiz.rpc_artifacts
 		;;
 	"ofbiz")
-		target_dir=$JCLOUD_HOME/vagrant/fedora/fedora-28/ofbiz/ofbiz-framework		
+		# target_dir=$JCLOUD_HOME/vagrant/fedora/fedora-28/ofbiz/ofbiz-framework		
+		target_dir="$HOME/jcloud/vagrant/sagas/projs/ofbiz-framework"
 		cd $target_dir ; ./gradlew ofbiz -x test
 		;;
 	"actions")
