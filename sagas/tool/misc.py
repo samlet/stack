@@ -2,6 +2,7 @@ from time import sleep
 import requests
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
+from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.utils import fix_sents, join_text
 
 merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
@@ -120,13 +121,14 @@ def rs_represent(rs, data, return_df=False):
         common = {'lemma': r['lemma'], 'word': r['word'],
                   'stems': r['stems']}
         theme = ''
+        meta = build_meta(r, common, data)
         if type_name == 'verb_domains':
             theme = '[verb]'
             tc.info(serial_numbers[serial], theme,
                   # r['lemma'], r['index'],
                   f"{r['word']}/{r['lemma']}, pos: {r['upos']}/{r['xpos']}, idx: {r['index']}",
                   '(%s, %s)' % (r['rel'], r['governor']))
-            meta = {'rel': r['rel'], **common, **data}
+            # meta = {'rel': r['rel'], **common, **data}
             verb_patterns(meta, r['domains'])
         elif type_name == 'aux_domains':
             theme = '[aux]'
@@ -135,31 +137,31 @@ def rs_represent(rs, data, return_df=False):
             tc.info(serial_numbers[serial], theme, r['lemma'], r['rel'], delegator,
                   "%s(%s)" % (r['head'], r['head_pos']))
             # verb_patterns(r['domains'])
-            meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
+            # meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             aux_patterns(meta, r['domains'])
         elif type_name == 'subj_domains':
             theme = '[subj]'
             tc.info(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇',
                   "%s(%s)" % (r['head'], ', '.join(r['head_feats'])))
             # verb_patterns(r['domains'])
-            meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
+            # meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             subj_patterns(meta, r['domains'])
         elif type_name=='predicate':
             theme = '[predicates]'
             tc.info(serial_numbers[serial], theme,
                   f"{r['lemma']} ({r['phonetic']}, {r['word']})")
-            meta = {'rel': r['rel'], **common, **data}
+            # meta = {'rel': r['rel'], **common, **data}
             predict_patterns(meta, r['domains'])
         elif type_name == 'root_domains':
             theme = '[root]'
             tc.info(serial_numbers[serial], theme,
                   f"{r['word']}/{r['lemma']}, pos: {r['upos']}/{r['xpos']}, idx: {r['index']}",
                   '(%s, %s)' % (r['rel'], r['governor']))
-            meta = {'rel': r['rel'], **common, **data}
+            # meta = {'rel': r['rel'], **common, **data}
             # verb_patterns(meta, r['domains'])
             # check_langspec(data['lang'], meta, r['domains'], type_name)
         else:
-            meta = {}
+            # meta = {}
             raise Exception('Cannot process specific type: {}'.format(type_name))
 
         # process language special rules

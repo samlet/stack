@@ -79,6 +79,7 @@ class SentenceIntf(abc.ABC):
         self._words, self._dependencies = self.setup(sent)
         if self._dependencies is None or len(self._dependencies)==0:
             self.build_dependencies()
+        # print('.......')
 
     def has_predicts(self):
         return self.predicts is not None and len(self.predicts)>0

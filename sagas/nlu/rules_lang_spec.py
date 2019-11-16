@@ -1,3 +1,4 @@
+import logging
 from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins
@@ -9,7 +10,9 @@ from sagas.nlu.lang_spec_intf import LangSpecBase, agency
 from sagas.nlu.patterns import Patterns, print_result
 import sagas.tracker_fn as tc
 from sagas.nlu.rules_lang_spec_de import Rules_de
+from sagas.nlu.rules_meta import build_meta
 
+logger = logging.getLogger(__name__)
 
 class Rules_id(LangSpecBase):
     def root_rules(self):
@@ -55,7 +58,8 @@ def rs_repr(rs, data):
     for serial, r in enumerate(rs):
         common = {'lemma': r['lemma'], 'word': r['word'],
                   'stems': r['stems']}
-        meta = {'rel': r['rel'], **common, **data}
+        # meta = {'rel': r['rel'], **common, **data}
+        meta=build_meta(r, common, data)
         lang=data['lang']
 
         # if lang in lang_specs:
@@ -65,9 +69,15 @@ def rs_repr(rs, data):
         check_langspec(lang, meta, r['domains'], type_name = r['type'])
 
 class LangspecRules(object):
+    def __init__(self):
+        from sagas.tool.loggers import init_logger
+        init_logger()
+
     def langspec(self, sents, lang='en', engine='corenlp'):
         """
         $ python -m sagas.nlu.rules_lang_spec langspec 'Berapa umur kamu?' id
+        $ python -m sagas.nlu.rules_lang_spec langspec 'Die Nutzung der Seite ist kostenlos.' de
+
         :param sents:
         :param lang:
         :param engine:
@@ -78,6 +88,7 @@ class LangspecRules(object):
 
         pipelines = ['predicts']
         doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)
+        # print('.......')
         rs = get_chunks(doc_jsonify)
         rs_repr(rs, data={'lang': lang, "sents": sents, 'engine': engine, 'pipelines': pipelines})
 

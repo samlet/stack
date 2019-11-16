@@ -23,6 +23,7 @@ def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceInt
         tc.info('.. request data is', data)
         return None, None
 
+    # print('.......')
     doc_jsonify = JsonifySentImpl(words)
     if len(pipelines)>0:
         result_set={p:result[p] for p in pipelines}

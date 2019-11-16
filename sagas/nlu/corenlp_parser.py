@@ -1,4 +1,7 @@
 import sagas
+import logging
+
+logger = logging.getLogger(__name__)
 
 def equals(a, b):
     return str(a) == str(b)
@@ -106,13 +109,14 @@ def get_subj_domain(sent):
 
 def get_root_domain(sent_p):
     root = next(w for w in sent_p.words if w.dependency_relation in ('root', 'hed'))
-    print(root.index, root.text, root.upos)
+    logging.debug(f"root: {root.index}, {root.text}({root.upos})")
     root_idx = int(root.index)
     domains = []
     stems = []
     rs = []
     for word in (w for w in sent_p.words if w.governor == root_idx):
-        print(f"{word.dependency_relation}: {word.text}")
+        # print(f"{__name__}: {word.dependency_relation}: {word.text}")
+        logging.debug(f"{word.dependency_relation}: {word.text}")
         add_domain(domains, stems, word, sent_p)
 
     word = root
@@ -123,9 +127,9 @@ def get_root_domain(sent_p):
     return rs
 
 def get_chunks(sent, return_root_chunks_if_absent=True):
-    r = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+    r = get_verb_domain(sent, [])
     if len(r) == 0:
-        r = get_aux_domain(sent, ['obl', 'nsubj:pass'])
+        r = get_aux_domain(sent, [])
     if len(r) == 0:
         r = get_subj_domain(sent)
     if len(r)==0 and return_root_chunks_if_absent:
@@ -155,7 +159,7 @@ class CoreNlpParser(object):
         # 分析依赖关系, 自下而上, 可用于抽取指定关系的子节点集合, 比如此例中的'nsubj:pass'和'obl'
         # word.governor即为当前word的parent
         sent = doc.sentences[0]
-        rs = get_verb_domain(sent, ['obl', 'nsubj:pass'])
+        rs = get_verb_domain(sent, [])
         # r=rs[0]
         for num, r in enumerate(rs):
             # print(json.dumps(r, indent=2, ensure_ascii=False))

@@ -1,4 +1,3 @@
-from sagas.nlu.inspector_rasa import RasaInspector
 from sagas.nlu.inspectors import DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns
 from sagas.nlu.lang_spec_intf import LangSpecBase, agency

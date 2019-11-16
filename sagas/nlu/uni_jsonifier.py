@@ -29,7 +29,7 @@ class JsonifyWordImpl(WordIntf):
 class JsonifySentImpl(SentenceIntf):
     def setup(self, json_words):
         words = []
-        print(f'words count {len(json_words)}')
+        # print(f'words count {len(json_words)}')
         for word in json_words:
             words.append(JsonifyWordImpl(word))
         return words, []
@@ -44,7 +44,7 @@ def sent_jsonify(doc):
     words = []
     for word in doc.words:
         word_j = word_jsonify(word)
-        print(word_j)
+        # print(word_j)
         words.append(word_j)
     return words
 
