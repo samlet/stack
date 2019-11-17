@@ -12,7 +12,8 @@ python="$HOME/miniconda3/envs/bigdata/bin/python"
 jupyter="$HOME/miniconda3/envs/bigdata/bin/jupyter"
 py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
 py_cv="$HOME/miniconda3/envs/cv/bin/python"
-bert_s="$HOME/miniconda3/envs/bigdata/bin/bert-serving-start"
+# bert_s="$HOME/miniconda3/envs/bigdata/bin/bert-serving-start"
+bert_s="$HOME/miniconda3/envs/cv/bin/bert-serving-start"
 
 # startup 
 if [ $# -lt 1 ]; then	
@@ -115,10 +116,12 @@ else
 		;;
 
 	"bert-multi")
+		# BERT-Base, Multilingual Cased (New, recommended): 104 languages, 12-layer, 768-hidden, 12-heads, 110M parameters
 		$bert_s -model_dir /pi/ai/bert/multi_cased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization
 		;;
 	"bert-en")
 		$bert_s -model_dir /pi/ai/bert/uncased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50
+		# $bert_s -model_dir /pi/ai/bert/uncased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=NONE
 		;;
 	"bert-zh")
 		$bert_s -model_dir /pi/ai/bert/chinese_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization
