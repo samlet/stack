@@ -76,8 +76,8 @@ def display_synsets(theme, meta, r, lang, collect=False):
 
     resp=[]
     # word = r['lemma']
-    def retrieve(word, indicator):
-        rs = retrieve_word_info('get_synsets', word, lang, '*')
+    def retrieve(word, indicator, pos='*'):
+        rs = retrieve_word_info('get_synsets', word, lang, pos=pos)
         if len(rs) > 0:
             if collect:
                 resp.append({'word':word, 'indicator':indicator, 'comments':rs})
@@ -87,7 +87,7 @@ def display_synsets(theme, meta, r, lang, collect=False):
                 tc.emp('magenta', '♥ %s(%s): %s...' % (word, indicator, comments))
                 resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
 
-    retrieve(f"{r['word']}/{r['lemma']}", theme)
+    retrieve(f"{r['word']}/{r['lemma']}", theme, 'v' if theme=='[verb]' else '*')
     if 'head' in meta:
         # print('.........')
         retrieve(meta['head'], 'head')

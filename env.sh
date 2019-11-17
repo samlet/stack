@@ -198,3 +198,7 @@ alias ascviz='python -m sagas.nlu.nlu_cli ascii_viz'
 
 # translit
 alias tra='python -m sagas.nlu.transliterations trans_polyglot_from_clip '
+# search corpus: search 'I read a letter.' ja,id
+alias search='python -m sagas.corpus.searcher run '
+
+

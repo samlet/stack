@@ -78,8 +78,8 @@ class CorpusSearcher(object):
 
     def run(self, text, langs=None, top_result=5):
         """
-        $(cv) python -m sagas.corpus.searcher run 'I read a letter.'
-        $(cv) python -m sagas.corpus.searcher run 'I read a letter.' ja,id
+        $ python -m sagas.corpus.searcher run 'I read a letter.'
+        $ python -m sagas.corpus.searcher run 'I read a letter.' ja,id
         :param text:
         :return:
         """

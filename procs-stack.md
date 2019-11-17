@@ -6,7 +6,7 @@
 
 ## servants
 ```sh
-$ start bus  # rabbit
+# $ start bus  # rabbit, 可以直接用brew-service代替
 
 $ foreman start -f Procfile_nlp  # on linux server
     $ start bert-multi
@@ -31,7 +31,7 @@ $ honcho start  # (s1) 代替以下服务启动
 
 ## ofbiz
 ```sh
-$ start bus  # rabbit
+# $ start bus  # rabbit, 可以直接用brew-service代替
 $ start ofbiz
 ```
 

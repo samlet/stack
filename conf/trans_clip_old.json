@@ -8,8 +8,8 @@
   "append_ascii_viz":false,
   "print_not_matched":false,
   "print_inspector_result":true,
-  "bert_servant":"localhost",
-  "ofbiz_servant":"localhost",
+  "bert_servant":"pc",
+  "ofbiz_servant":"192.168.33.30",
   "common_s":"http://localhost:14000",
   "servants":{
     "corenlp":"http://localhost:14000",
