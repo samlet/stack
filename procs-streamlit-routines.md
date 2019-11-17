@@ -1,4 +1,6 @@
 # procs-streamlit-routines.md
+⊕ [API reference — Streamlit 0.50.2 documentation](https://streamlit.io/docs/api.html#display-text)
+
 ## start
 ```python
 text = st.text_area("Text to analyze", DEFAULT_TEXT)

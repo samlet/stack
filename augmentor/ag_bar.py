@@ -21,6 +21,7 @@ from augmentor.maps_fun import maps
 from augmentor.viz_fun import viz
 from augmentor.corpus_fun import corpus, corpus_audio
 from augmentor.product_fun import product
+from augmentor.rules_fun import rule
 # -----------
 
 enable_streamlit_tracker()

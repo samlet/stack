@@ -143,7 +143,7 @@ class Patterns(object):
 def print_result(rs):
     # from termcolor import colored
     from sagas.conf.conf import cf
-    from sagas.tool.misc import color_print
+    # from sagas.tool.misc import color_print
 
     print_not_matched=cf.is_enabled('print_not_matched')
     for r in rs:
@@ -169,4 +169,6 @@ def print_result(rs):
             # 以前3个元素作为键去重显示
             from sagas.nlu.content_representers import content_represent
             # color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
-            tc.emp('cyan', {(r[0], r[1], r[2]): content_represent(r[1], r[3]) for r in results})
+            # tc.emp('cyan', {(r[0], r[1], r[2]): content_represent(r[1], r[3]) for r in results})
+            tc.write({f"{r[0]}/{r[1]}/...": content_represent(r[1], r[3]) for r in results})
+

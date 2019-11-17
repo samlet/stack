@@ -16,6 +16,9 @@ class TransClipConf(object):
         """
         return opt in self.conf and self.conf[opt]
 
+    def enable_opt(self, opt):
+        self.conf[opt]=True
+
     @property
     def common_s(self):
         """
