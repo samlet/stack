@@ -94,6 +94,9 @@ class CorpusSearcher(object):
                 tc.emp('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
 
+    def end(self):
+        self.bc.close()
+
 if __name__ == '__main__':
     import fire
     fire.Fire(CorpusSearcher)

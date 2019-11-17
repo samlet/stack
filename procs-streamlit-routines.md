@@ -62,6 +62,10 @@ st.write(w8)
 st.subheader("Date Input")
 w9 = st.date_input("A date to celebrate", date(2019, 7, 6))
 st.write(w9)
+
+# number input
+number = st.number_input('Insert a number')
+st.write('The current number is ', number)
 ```
 
 ## lists
