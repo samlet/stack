@@ -180,3 +180,49 @@ dtype: int64
 df[df['Column2'].notnull()]
 ```
 
+## merge
+```python
+new_df = pd.merge(A_df, B_df,  how='left', left_on=['A_c1','c2'], right_on = ['B_c1','c2'])
+# http://pandas.pydata.org/pandas-docs/version/0.19.1/generated/pandas.DataFrame.merge.html
+```
+left_on : label or list, or array-like Field names to join on in left DataFrame. Can be a vector or list of vectors of the length of the DataFrame to use a particular vector as the join key instead of columns
+
+right_on : label or list, or array-like Field names to join on in right DataFrame or vector/list of vectors per left_on docs
+
+⊕ [Python: pandas merge multiple dataframes - Stack Overflow](https://stackoverflow.com/questions/44327999/python-pandas-merge-multiple-dataframes)
+
+```python
+# Just simply merge with DATE as the index and merge using OUTER method (to get all the data).
+
+import pandas as pd
+from functools import reduce
+
+df1 = pd.read_table('file1.csv', sep=',')
+df2 = pd.read_table('file2.csv', sep=',')
+df3 = pd.read_table('file3.csv', sep=',')
+
+# So, basically load all the files you have as data frame. Then merge the files using merge or reduce function.
+
+# compile the list of dataframes you want to merge
+data_frames = [df1, df2, df3]
+
+# you can add as many data-frames in the above code. This is the good part about this method. No complex queries involved.
+
+# To keep the values that belong to the same date you need to merge it on the DATE
+
+df_merged = reduce(lambda  left,right: pd.merge(left,right,on=['DATE'],
+                                            how='outer'), data_frames)
+
+# if you want to fill the values that don't exist in the lines of merged dataframe simply fill with required strings as
+
+df_merged = reduce(lambda  left,right: pd.merge(left,right,on=['DATE'],
+                                            how='outer'), data_frames).fillna('void')
+
+# So, the values from the same date are on the same lines.
+# You can fill the non existing data from different frames for different columns using fillna().
+# Then write the merged data to the csv file if desired.
+
+pd.DataFrame.to_csv(df_merged, 'merged.txt', sep=',', na_rep='.', index=False)
+# This should give you result.
+```
+

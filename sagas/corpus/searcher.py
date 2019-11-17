@@ -1,6 +1,19 @@
 from bert_serving.client import BertClient
 import pandas as pd
 import numpy as np
+import json
+import sagas.tracker_fn as tc
+
+def search_in(text, lang):
+    with open(f'/pi/stack/crawlers/langcrs/all_{lang}.json') as json_file:
+        sents=json.load(json_file)
+        return [sent for sent in sents if sent['text']==text]
+
+def search_in_list(text, langs):
+    rs={}
+    for lang in langs:
+        rs[lang]=search_in(text, lang)
+    return rs
 
 class CorpusSearcher(object):
     def __init__(self, model_file='spacy-2.2/data/embedded_corpus.pkl'):
@@ -63,16 +76,22 @@ class CorpusSearcher(object):
             # relevant_chapters = quotes.iloc[idx.flatten()]['chapter'].values
         return rs
 
-    def run(self, text, top_result=5):
+    def run(self, text, langs=None, top_result=5):
         """
         $(cv) python -m sagas.corpus.searcher run 'I read a letter.'
+        $(cv) python -m sagas.corpus.searcher run 'I read a letter.' ja,id
         :param text:
         :return:
         """
         relevant_quotes, relevant_chapters = self.search(text, ['text', 'chapter'], top_result)
         for q in range(top_result):
-            print('>' + relevant_quotes[q])
-            print(relevant_chapters[q])
+            tc.emp('magenta', '>' + relevant_quotes[q])
+            tc.emp('green', relevant_chapters[q])
+
+            if langs is not None:
+                # search_in_list('I write a letter.', ['ja', 'fa', 'id'])
+                results=search_in_list(relevant_quotes[q], langs)
+                tc.emp('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
 
 if __name__ == '__main__':
