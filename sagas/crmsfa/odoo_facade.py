@@ -1,9 +1,10 @@
 import odoorpc
 import logging
+from sagas.conf.conf import cf
 
 logger = logging.getLogger(__name__)
 
-odoo = odoorpc.ODOO('localhost', port=8069)
+odoo = odoorpc.ODOO(cf.conf['odoo_servant'], port=8069)
 logger.info(odoo.db.list())
 
 # def login(db="sagas_odoo", username="samlet@sagas.ai", password="samlet"):

@@ -146,19 +146,25 @@ class OdooInfo(object):
                                     [('model', '=', model)])
         print(bool(model_exists))
 
-    def all_products(self, lang='fr_FR'):
+    def all_products(self, lang='fr_FR', show_df=False):
         """
         $ python -m sagas.crmsfa.odoo_info all_products
-        $ python -m sagas.crmsfa.odoo_info all_products zh_CN
+        $ python -m sagas.crmsfa.odoo_info all_products zh_CN True
         $ python -m sagas.crmsfa.odoo_info all_products ru_RU
+        $ open http://localhost:8069/web#action=283&model=product.template&view_type=kanban&menu_id=168
+
         :param lang:
         :return:
         """
+        import sagas
         Product = odoo.env['product.product']
         odoo.env.context['lang'] = lang
         product_ids = Product.search([])
-        for p in Product.name_get(product_ids):
-            print(p)
+        if not show_df:
+            for p in Product.name_get(product_ids):
+                print(p)
+        else:
+            sagas.print_rs(Product.name_get(product_ids), ['id', 'product'])
 
     def all_langs(self):
         """
@@ -167,6 +173,22 @@ class OdooInfo(object):
         """
         cols = ['name', 'code']
         rs = records('res.lang', cols)
+        print(ph.to_df(rs, cols))
+
+    def list(self, model, cols):
+        """
+        # step 1
+            $ python -m sagas.crmsfa.odoo_info desc-model stock.picking
+        # step 2
+            $ python -m sagas.crmsfa.odoo_info list stock.picking partner_id,scheduled_date,origin,state
+        # step 3
+            $ open http://localhost:8069/web?#action=256&active_id=1&model=stock.picking&view_type=list&menu_id=168
+
+        :param model:
+        :param cols:
+        :return:
+        """
+        rs = records(model, cols)
         print(ph.to_df(rs, cols))
 
     def fields(self, model, lang="zh_CN", get_view=False):

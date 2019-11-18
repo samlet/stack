@@ -10,6 +10,7 @@
   "print_inspector_result":true,
   "bert_servant":"localhost",
   "ofbiz_servant":"localhost",
+  "odoo_servant":"localhost",
   "common_s":"http://localhost:14000",
   "servants":{
     "corenlp":"http://localhost:14000",

@@ -60,6 +60,10 @@ else
 	"odoo_info")
 		python -m sagas.crmsfa.odoo_info show-models
 		;;
+	"odoo")
+		target_dir="${JCLOUD_HOME}/vagrant/sagas/projs/odoo-12.0.post20190620"
+		cd $target_dir && $py_rasa ./odoo-bin -d demo
+		;;
 	"show")
 		python -m sagas.crmsfa.odoo_info desc-model ${@:2}
 		;;

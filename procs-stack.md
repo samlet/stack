@@ -8,9 +8,9 @@
 ```sh
 # $ start bus  # rabbit, 可以直接用brew-service代替
 
-$ foreman start -f Procfile_nlp  # on linux server
-    $ start bert-multi
-    # start stanford-corenlp-server
+# $ foreman start -f Procfile_nlp  # on linux server
+    # $ start bert-multi
+    # $ start stanford-corenlp-server
 
 $ foreman start -f Procfile_langs  # (s2) 代替以下服务启动
     $ start servant_nlu    # spacy-entities (spacy-2.1+)
@@ -27,6 +27,9 @@ $ honcho start  # (s1) 代替以下服务启动
 
     # servant from dir: ./mats/nlu_multilang
     $ start nlu
+
+# 如果使用faiss, 需要启动bert
+$ start bert-en
 ```
 
 ## ofbiz
@@ -36,6 +39,15 @@ $ start ofbiz
 ```
 
 ## odoo routines
+```sh
+# odoo local server
+$ start odoo
+# 默认用户&密码是: admin&admin
+$ open http://localhost:8069
+```
+
++ docker-compose
+
 ```sh
 ./run-odoo.sh
 start odoo_c

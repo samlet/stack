@@ -22,6 +22,7 @@ from augmentor.viz_fun import viz
 from augmentor.corpus_fun import corpus, corpus_audio
 from augmentor.product_fun import product
 from augmentor.rules_fun import rule
+from augmentor.odoo_fun import odoo_list
 # -----------
 
 enable_streamlit_tracker()
@@ -39,6 +40,8 @@ def flows():
          "domains('Die Aufnahmen begannen im November.', 'de')",
          """product("GZ-2002", 'price')""",
          '''product(dt('2013-07-04 00:00:00'), "Test_product_A")''',
+         "odoo_list('products')",
+         "odoo_list('stock_picking')",
          ]
     default_labels = ['add(5,5)', "disp('result:')"]
     labels = st.sidebar.multiselect(
