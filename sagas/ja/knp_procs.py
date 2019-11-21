@@ -5,6 +5,9 @@ import pyknp
 import six
 import sys
 
+from sagas.ja.knp_helper import tokens
+
+
 def draw_tree(bl, outf):
     assert isinstance(bl, pyknp.BList)
 
@@ -116,6 +119,15 @@ class KnpProcs(object):
         result = self.knp.parse(sent)
         outf = sys.stdout
         draw_tree(result, outf)
+
+    def tokens(self, sents):
+        """
+        $ python -m sagas.ja.knp_procs tokens "望遠鏡で泳いでいる少女を見た。"
+        $ python -m sagas.ja.knp_procs tokens "彼女は卵を食べる。"
+        :param sents:
+        :return:
+        """
+        print(','.join(tokens(sents)))
 
 if __name__ == '__main__':
     import fire

@@ -31,7 +31,8 @@ class KnpViz(object):
     def process_tags(self, sents):
         result = knp.parse(sents)
         print(sents)
-        deps, predicates, _ = print_predicates(result)
+        # deps, predicates, _ = print_predicates(result)
+        deps, predicates, _, _ = extract_predicates(result)
         self.prop_sets['VERB'](self.f)
         for pr in predicates:
             self.f.node(pr)
@@ -73,7 +74,8 @@ class KnpViz(object):
     def process(self, sents):
         result = knp.parse(sents)
         print(sents)
-        print_predicates(result)
+        # print_predicates(result)
+        extract_predicates(result)
 
         rs = []
         words = result.bnst_list()

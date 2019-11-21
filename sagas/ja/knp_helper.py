@@ -252,3 +252,6 @@ def extract_predicates(result, verbose=True):
     return deps, predict_keys, predicts, predict_tuples
 
 
+def tokens(sents):
+    result = knp.parse(sents)
+    return [mrph.midasi for bunsetsu in result for mrph in bunsetsu.mrph_list()]

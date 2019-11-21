@@ -11,14 +11,14 @@ def home():
 @app.route('/digest', methods = ['POST'])
 def handle_digest():
     """
-    $ curl -XPOST -H 'Content-Type: application/json' -d '{"lang":"zh", "sents":"我是一个好老师"}'  http://localhost:8092/digest
+    $ curl -XPOST -H 'Content-Type: application/json' -d '{"lang":"zh", "sents":"我是一个好老师"}'  http://localhost:15001/digest
     :return:
     """
-    # print ("request is json?", request.is_json)
+    print ("request is json?", request.is_json)
     content = request.get_json()
     sents=content['sents']
     lang=content['lang']
-    print (lang, sents)
+    print(lang, sents)
 
     data = {'lang': lang}
 
@@ -26,7 +26,23 @@ def handle_digest():
     data_y = json.dumps(data, ensure_ascii=False)
     return data_y
 
-if __name__ == "__main__":
-    # app.run(host='0.0.0.0', port=8091, debug=True)
-    app.run(host='0.0.0.0', port=8092)
+class SimpleServant(object):
+    def __init__(self, port=15001):
+        from sagas.tool.loggers import init_logger
+        init_logger()
+        self.port=port
 
+    def dev(self):
+        """
+        $ python -m sagas.tests.servant_tpl dev
+        :return:
+        """
+        app.run(host='0.0.0.0', port=self.port, debug=True)
+
+    def run(self):
+        from waitress import serve
+        serve(app, host='0.0.0.0', port=self.port)
+
+if __name__ == "__main__":
+    import fire
+    fire.Fire(SimpleServant)

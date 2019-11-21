@@ -76,6 +76,9 @@ def serve(address):
 
 
 if __name__ == '__main__':
+    """
+    $ python -m sagas.backend.cabocha_backend
+    """
     address='0.0.0.0:50051'
     print("serve on", address)
     serve(address)

@@ -201,6 +201,7 @@ alias ascviz='python -m sagas.nlu.nlu_cli ascii_viz'
 alias tra='python -m sagas.nlu.transliterations trans_polyglot_from_clip '
 # search corpus: search 'I read a letter.' ja,id
 alias search='python -m sagas.corpus.searcher run '
+alias tr-ar='python -m sagas.nlu.translit_ar translit True'
 
 # odoo
 alias open_products='open http://localhost:8069/web#action=283&model=product.template&view_type=kanban&menu_id=168'

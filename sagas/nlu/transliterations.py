@@ -17,13 +17,19 @@ class Transliterations(object):
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
                           ('he', 'fa', 'ur'): lambda s,lang:translit(s,lang),
-                          ('hi', 'ar'): lambda s,_:self.tr_icu(s),
+                          # ('hi', 'ar'): lambda s,_:self.tr_icu(s),
+                          ('hi'): lambda s, _: self.tr_icu(s),
+                          ('ar'): lambda s,_: self.trans_ar(s),
                           # ('el'): lambda s,_:self.tr_el(s),
                           ('el'): lambda s, _: self.tr_icu(s),
                           ('zh'): lambda s,_:self.tr_title(s),
                           # ('ja'): lambda s,_:self.trans_ja(s),
                           ('ja'): lambda s, _: self.tr_icu(s),
                           }
+
+    def trans_ar(self, sents):
+        from sagas.nlu.translit_ar import ar_translit
+        return ar_translit.transliterate(sents, vocalize=True)
 
     def trans_ja(self, sents):
         from sagas.ja.ja_text_procs import text_procs

@@ -13,6 +13,9 @@ from rasa_nlu.training_data import TrainingData
 
 
 class CabochaTokenizer(Tokenizer, Component):
+    """
+    Parse sentence with cabocha analyzer grpc-service
+    """
     # name = "tokenizer_hanlp"
     name="sagas.provider.cabocha_tokenizer.CabochaTokenizer"
 
