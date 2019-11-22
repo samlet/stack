@@ -1,5 +1,8 @@
 import requests
 
+from sagas.util.rest_common import query_data_by_url
+
+
 def get_chains(word, lang, pos):
     response = requests.post('http://localhost:8093/get_chains',
                              json={'word': word, 'lang': lang, 'pos': pos})
@@ -247,6 +250,21 @@ class NluCli(object):
                          translit_lang=lang if lang in ('ja', 'ko','zh', 'fa', 'ar', 'he') else None)
         return scribes(dot)
 
+    def tokens(self, sents, lang='en'):
+        """
+        $ python -m sagas.nlu.nlu_cli tokens 'what time is it ?' en
+        $ python -m sagas.nlu.nlu_cli tokens "在终端上输出单词的定义和继承链" zh
+        $ python -m sagas.nlu.nlu_cli tokens "望遠鏡で泳いでいる少女を見た。" ja
+
+        :param sents:
+        :param lang:
+        :return:
+        """
+        from pprint import pprint
+        r=query_data_by_url('multilang', 'tokens', {'lang': lang, 'sents': sents})
+        pprint(r)
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NluCli)
+

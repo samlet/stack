@@ -12,6 +12,7 @@
   "ofbiz_servant":"localhost",
   "odoo_servant":"localhost",
   "common_s":"http://localhost:14000",
+  "multilang":"http://localhost:8095",
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanford":"http://localhost:14001",

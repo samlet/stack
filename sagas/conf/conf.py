@@ -43,6 +43,11 @@ class TransClipConf(object):
     def servant_by_lang(self, lang):
         return self.servant(self.get_opt('dialectors', lang))
 
+    def ensure(self, item):
+        if item in self.conf:
+            return self.conf[item]
+        raise ValueError("Cannot find item value: " + item)
+
     def validate(self):
         """
         $ python -m sagas.conf.conf validate

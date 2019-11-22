@@ -106,6 +106,10 @@ class LtpProcs(object):
         netags = self.recognizer.recognize(words, postags)
         return words, postags, arcs, roles, netags
 
+    def tokens(self, sents):
+        words = self.segmentor.segment(sents)
+        return [str(w) for w in words]
+
     def analyse(self, sentence, verbose=False, show_roles=True):
         """
         $ python -m sagas.zh.ltp_procs analyse '中国进出口银行与中国银行加强合作。'
