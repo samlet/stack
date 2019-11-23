@@ -15,6 +15,9 @@ lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
                      'ru':['/pi/ru2', '/pi/ru2'],
                      }
 
+def is_available(lang):
+    return lang in lang_spacy_mappings
+
 class SpacyManager(object):
     def __init__(self):
         self.models={}

@@ -4,6 +4,8 @@ import json
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspector_fixtures import InspectorFixture
 from sagas.nlu.patterns import Patterns, print_result
+from sagas.conf.conf import cf
+
 import logging
 logger = logging.getLogger('inspector')
 
@@ -28,7 +30,7 @@ def query_duckling(text, lang):
     else:
         return {'result':'fail', 'cause':"unsupport lang"}
     data={'locale':locale, 'text':text, 'reftime':current_milli_time()}
-    response = requests.post('http://0.0.0.0:8000/parse', data=data)
+    response = requests.post(cf.ensure('duckling'), data=data)
     if response.status_code == 200:
         r=response.json()
         # print(json.dumps(r, indent=2, ensure_ascii=False))
@@ -134,7 +136,7 @@ def query_entities_by_url(url, data):
     return {'result':'fail', 'cause':'error response'}
 
 def query_entities(data):
-    return query_entities_by_url('http://localhost:8092/entities', data)
+    return query_entities_by_url(cf.ensure('ner'), data)
 
 class EntityInspector(Inspector):
     def __init__(self, dim):
@@ -148,7 +150,7 @@ class EntityInspector(Inspector):
         lang = ctx.meta['lang']
         # cnt = ' '.join(ctx.chunks[key])
         # cnt=ctx.get_single_chunk_text(key)
-        requestors={'ru':lambda rc: query_entities_by_url('http://localhost:8095/entities', rc),
+        requestors={'ru':lambda rc: query_entities_by_url(cf.ensure('ner_ru'), rc),
                     }
         for cnt in ctx.chunk_pieces(key):
             data={'lang': lang, 'sents': cnt}

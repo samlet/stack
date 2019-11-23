@@ -44,6 +44,13 @@ class TransClipConf(object):
         return self.servant(self.get_opt('dialectors', lang))
 
     def ensure(self, item):
+        """
+        $ python -m sagas.conf.conf ensure multilang
+        => http://localhost:8095
+
+        :param item:
+        :return:
+        """
         if item in self.conf:
             return self.conf[item]
         raise ValueError("Cannot find item value: " + item)

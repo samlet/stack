@@ -1,13 +1,29 @@
 from flask import Flask
 from flask import request
 import json
+import logging
+from cachetools import cached
 
+from sagas.tool.loggers import init_logger
+
+logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 def spacy_doc(sents, lang):
     from sagas.nlu.spacy_helper import spacy_mgr
     spacy_nlp = spacy_mgr.get_model(lang)
     return spacy_nlp(sents)
+
+@cached(cache={})
+def analyse_doc(ctx):
+    rs = []
+    doc = spacy_doc(ctx.sents, ctx.lang)
+    for ent in doc.ents:
+        rs.append({'text': ent.text,
+                   'start': ent.start_char,
+                   'end': ent.end_char,
+                   'entity': ent.label_})
+    return rs
 
 @app.route("/")
 def home():
@@ -20,6 +36,7 @@ def handle_entities():
     :return:
     """
     from sagas.nlu.net_context import EntitiesRequest
+    from sagas.nlu.spacy_helper import is_available
     # print ("request is json?", request.is_json)
     # content = request.get_json()
     # sents=content['sents']
@@ -29,13 +46,11 @@ def handle_entities():
     ctx=EntitiesRequest(request.get_json())
 
     # data = {'lang': lang}
-    rs = []
-    doc = spacy_doc(ctx.sents, ctx.lang)
-    for ent in doc.ents:
-        rs.append({'text': ent.text,
-                   'start': ent.start_char,
-                   'end': ent.end_char,
-                   'entity': ent.label_})
+    if is_available(ctx.lang):
+        rs= analyse_doc(ctx)
+    else:
+        rs = []
+        logging.info(f"lang {ctx.lang} is unavaiable in entity extractor.")
 
     # data_y=yaml.dump(data, default_flow_style=True,Dumper=KludgeDumper,encoding=None)
     # data_y = json.dumps(rs, ensure_ascii=False)
@@ -57,5 +72,6 @@ def handle_entities():
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=8091, debug=True)
+    init_logger()
     app.run(host='0.0.0.0', port=8092)
 
