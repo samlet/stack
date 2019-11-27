@@ -58,9 +58,9 @@ def search_corpus(loc, lang, words):
     search_in(items, words)
 
 class ParallelCorpus(object):
-    def __init__(self, ipaddr='pc'):
+    def __init__(self, ipaddr=None):
         from sagas.conf.conf import cf
-        self.ipaddr=cf.conf['bert_servant']
+        self.ipaddr=ipaddr if ipaddr is not None else cf.conf['bert_servant']
         print(f".. bert service port is {self.ipaddr}")
         # self.ipaddr=ipaddr
         self._bc=None

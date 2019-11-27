@@ -196,6 +196,8 @@ class NluTools(object):
         >> clip text: ‫یک آبجو مى خواهم.‬
         $ nlu clip_parse fa
         $ nlu clip_parse fi 'Tuolla ylhäällä asuu vanha nainen.'
+        $ nluc nl 'De vrouw heeft verschillende appels.'
+
         :param source:
         :return:
         """

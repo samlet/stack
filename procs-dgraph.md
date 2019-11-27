@@ -15,6 +15,15 @@
   .. 我们仅为每个请求使用了20个并发连接和200个N-Quads，因为如果我们增加连接数或每个连接的N-Quads，Neo4j就不能正常工作。事实上，这是使Neo4j数据损坏并挂起系统3.2的可靠方法。对于Dgraph，我们通常每个请求发送1000个N-Quads并且具有500个并发连接。
   .. 凭借110万N-Quads的黄金数据集，Dgraph的 表现优于Neo4j 46.7k至280 N-Quads/秒。事实上，Neo4j加载程序从未完成（我们在相当长的等待之后将其杀死）。 对于加载图形数据，Dgraph比Neo4j快160倍。
 
+## start on macos
+⊕ [Deploy — Dgraph Doc v1.1.0](https://docs.dgraph.io/deploy/)
+
+```sh
+#(macos) workspace/dgraph/v1.1.0
+$ ./dgraph zero --my=192.168.0.101:5080
+$ ./dgraph alpha --lru_mb=2048 --my=192.168.0.101:7081 --zero=localhost:5080 -o=1
+$ ./dgraph-ratel -addr localhost:8081 # (修改了连接属性, 由localhost:8080改为localhost:8081, 因为启动alpha组件用了偏移'-o=1')
+```
 
 ## docker
 ⊕ [dgraph/dgraph - Docker Hub](https://hub.docker.com/r/dgraph/dgraph)

@@ -175,7 +175,7 @@ def process_result(meta, r, trans_verbose, options, tracker:TransTracker):
 # lang_maps={'he':'iw'}
 def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=None, tracker=None):
   import sagas.conf.conf as conf
-  from sagas.nlu.trans_cacher import TransCacher
+  from sagas.nlu.trans_cacher import cacher
 
   if options is None:
       options = {}
@@ -186,7 +186,7 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
   if tracker is None:
       if conf.cf.is_enabled('trans_cache'):
           tracker=TransTracker()
-          cacher = TransCacher()
+          # cacher = TransCacher()
           tracker.add_observer(cacher)
 
           r = cacher.retrieve(meta)

@@ -38,9 +38,12 @@ class TransCacher(object):
             rs.append(r['text'])
         return rs
 
+cacher = TransCacher()
+
 class CacherProcs(object):
     def __init__(self):
-        self.cacher=TransCacher()
+        # self.cacher=TransCacher()
+        pass
 
     def all_sents(self, s, t):
         """
@@ -54,7 +57,7 @@ class CacherProcs(object):
         :param t:
         :return:
         """
-        rs=self.cacher.all_sents(s, t)
+        rs=cacher.all_sents(s, t)
         print('\n'.join(rs))
 
     def all_sources(self, s):
@@ -65,7 +68,7 @@ class CacherProcs(object):
         """
         import sagas
         rs = []
-        for r in self.cacher.coll.find({'source': s}):
+        for r in cacher.coll.find({'source': s}):
             rs.append((r['text'], r['target']))
         sagas.print_df(sagas.to_df(rs, ['text', 'target']))
 

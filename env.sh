@@ -59,6 +59,8 @@ alias say-en='python -m sagas.nlu.nlu_tools say_with en'
 alias say-ko='python -m sagas.nlu.nlu_tools say_with ko'
 alias say-ar='python -m sagas.nlu.nlu_tools say_with ar'
 alias say-hi='python -m sagas.nlu.nlu_tools say_with hi'
+alias say-id='python -m sagas.nlu.nlu_tools say_with id'
+
 alias about='python -m sagas.ru.ru_procs about'
 # alias build-ru='python -m sagas.ru.ru_procs build_words_map'
 alias build-ru='python -m sagas.ru.ru_procs build_inputs'
@@ -202,6 +204,7 @@ alias tra='python -m sagas.nlu.transliterations trans_polyglot_from_clip '
 # search corpus: search 'I read a letter.' ja,id
 alias search='python -m sagas.corpus.searcher run '
 alias tr-ar='python -m sagas.nlu.translit_ar translit True'
+alias search_id='python -m sagas.corpus.index_trainer search_id'
 
 # odoo
 alias open_products='open http://localhost:8069/web#action=283&model=product.template&view_type=kanban&menu_id=168'
