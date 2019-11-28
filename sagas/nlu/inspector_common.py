@@ -48,9 +48,15 @@ class Context(object):
 
     def chunk_contains(self, key, val):
         chunks = self.get_chunks(key)
-        for c in chunks:
-            if val in c.children:
-                return True
+        if isinstance(val, list):
+            vals=val
+        else:
+            vals=[val]
+
+        for v in vals:
+            for c in chunks:
+                if v in c.children:
+                    return True
         return False
 
     def get_single_chunk_text(self, key):

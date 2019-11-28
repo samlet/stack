@@ -8,6 +8,7 @@
   "append_ascii_viz":false,
   "print_not_matched":false,
   "print_inspector_result":true,
+  "default_word_sets_langs":["en", "zh", "ja", "id"],
   "bert_servant":"localhost",
   "ofbiz_servant":"localhost",
   "odoo_servant":"localhost",

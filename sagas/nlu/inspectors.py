@@ -103,21 +103,32 @@ class DateInspector(Inspector):
         # print(ctx.meta['intermedia'])
         return any(checkers)
 
+
 class NegativeWordInspector(Inspector):
     def name(self):
         return "ins_negative_word"
 
-    def run(self, key, ctx:Context):
-        result=False
-        # domains=dispatcher.domains
+    # only for thoughts
+    def run_simp(self, key, ctx:Context):
         if ctx.meta['lang']=='da':
             # if 'ikke' in ctx.chunks[key] or 'ikke'==ctx.lemmas[key]:
-            if ctx.chunk_contains(key, 'ikke') or 'ikke' == ctx.lemmas[key]:
-                result=True
+            if ctx.chunk_contains(key, ['ikke']) or ctx.lemmas[key] in ['ikke']:
+                return True
         elif ctx.meta['lang']=='de':
-            if ctx.chunk_contains(key, 'nicht') or 'nicht' == ctx.lemmas[key]:
-                result=True
-        return result
+            if ctx.chunk_contains(key, ['nicht']) or ctx.lemmas[key] in ['nicht']:
+                return True
+        return False
+
+    def run(self, key, ctx:Context):
+        from sagas.nlu.inspectors_dataset import nagative_maps
+
+        lang=ctx.meta['lang']
+        if lang in nagative_maps:
+            data_map=nagative_maps[lang]
+            if ctx.chunk_contains(key, data_map) or ctx.lemmas[key] in data_map:
+                return True
+        return False
+
 
 class PlainInspector(Inspector):
     def name(self):

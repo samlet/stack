@@ -78,7 +78,9 @@ def verb_patterns(meta, domains):
           # 匹配行为与对象:
           # $ se 'What do you think about the war?'
           *actions_obl([('evaluate', 'group_action/event'),
-                        ('examine', 'interest/state')
+                        ('examine', 'interest/state'),
+                        # (id) Ular besar keluar dari dalam lubang. 大蛇从洞里出来。
+                        ('leave', 'space/location'),
                         ]),
           # $ sd 'Wie untersuchen Sie diese Angelegenheit?'
           *actions_obj([('evaluate', 'group_action/event'),
@@ -90,6 +92,10 @@ def verb_patterns(meta, domains):
                         # $ sid 'Mereka membaca koran-koran ini.'  (They read these newspapers.)
                         # $ se 'They read these newspapers.'
                         ('interpret/understand', 'print_media'),
+                        # (id) Saya main bola keranjang tiap-tiap pagi. 我每天早上打篮球。
+                        ('play', 'game_equipment'),
+                        # (id) Polis telah menangkap dua orang pencuri. 警察已经抓住了两个小偷。
+                        ('catch', 'criminal/person'),
                         ]),
 
           # 匹配意图(全句或chunk)

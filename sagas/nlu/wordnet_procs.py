@@ -64,7 +64,9 @@ def get_chains(word, lang='en', pos=None):
 class WordNetProcs(object):
     def __init__(self):
         from sagas.nlu.omw_extended import omw_ext
+        from sagas.conf.conf import cf
         self.omw = omw_ext
+        self.default_langs=cf.ensure('default_word_sets_langs')
 
     def all_langs(self, part1_format=False):
         """
@@ -103,7 +105,8 @@ class WordNetProcs(object):
                        'region': names(s.region_domains()),
                        'usage': names(s.usage_domains())}
             lemmas={}
-            for lang in ['en', 'zh', 'ja']:
+            # for lang in ['en', 'zh', 'ja']:
+            for lang in self.default_langs:
                 lemmas[lang]=get_word_lemmas(s, lang)
             rec['domains']=domains
             rec['lemmas']=lemmas

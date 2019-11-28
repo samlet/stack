@@ -15,6 +15,26 @@ from sagas.nlu.rules_meta import build_meta
 logger = logging.getLogger(__name__)
 
 class Rules_id(LangSpecBase):
+    def verb_rules(self):
+        domains, meta = (self.domains, self.meta)
+        self.collect(pats=[
+            # $ sid 'Pekerjaan ini dimulai oleh mereka.' (This job is started by them.)
+            Patterns(domains, meta, 2, name='behave_di_obl').verb(nsubj_pass=agency, obl=agency),
+            # $ sid 'Makanan ini disebut nasi goreng.' (en="This food is called nasi goreng.")
+            Patterns(domains, meta, 2, name='behave_di_obj').verb(nsubj_pass=agency, obj=agency),
+            Patterns(domains, meta, 2, name='food').verb(obj = kindof('food/physical_entity', 'n')),
+            # $ sid 'Raja dan ratu dianggap jahat.' (en="The king and queen are considered evil.")
+            Patterns(domains, meta, 2, name='behave_di_amod').verb(nsubj_pass=agency, amod='c_adj'),
+            # $ sid 'Surat-surat mereka dibuat di sini.'
+            Patterns(domains, meta, 2, name='behave_di_case').verb(nsubj_pass=agency, case=agency),
+            # $ sid 'Saya diduga membantu polisi.' (I am suspected of helping the police.)
+            Patterns(domains, meta, 2, name='behave_di_xcomp').verb(nsubj_pass=agency, xcomp='c_verb'),
+            # Kadang-kadang kami mandi di sungai. 有时我们在河里洗澡。
+            Patterns(domains, meta, 5, name='behave_cleanse').verb(behaveof('cleanse/better', 'v')),
+            # Lemari besar itu tidak terangkat. 那个大柜子抬不动。
+            Patterns(domains, meta, 5, name='move_unable').verb(behaveof('move', 'v'), advmod=negative()),
+            ])
+
     def root_rules(self):
         domains, meta=(self.domains, self.meta)
         self.collect(pats=[Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
