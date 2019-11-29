@@ -2,6 +2,7 @@ rasa-app-data/
 .idea/
 __pycache__
 model_temp/
+model/
 .ipynb_checkpoints/
 test_models/
 out/
@@ -9,4 +10,14 @@ out/
 *.swp
 *.dat
 *.log
+db/
+test-output/
+test.db/
+*.pickle
+*.pyc
+.cache/
+*.pkl
+*.tfrecord
+*.gv
+*.gv.pdf
 

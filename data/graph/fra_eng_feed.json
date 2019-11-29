@@ -1,0 +1,109 @@
+[
+  {
+    "sents@en": "We have to study the matter.",
+    "sents@fr": "Nous devons étudier la question.",
+    "lemmas": "-PRON- have to study the matter .",
+    "verbs": "have",
+    "verbs|count": 1,
+    "nsubj": "We",
+    "nsubj|text": "We",
+    "nsubj|head": "have",
+    "dobj": "matter",
+    "dobj|text": "the matter",
+    "dobj|head": "study"
+  },
+  {
+    "sents@en": "Is anybody home?",
+    "sents@fr": "Y a-t-il quelqu'un ?",
+    "lemmas": "be anybody home ?",
+    "verbs": "be",
+    "verbs|count": 1,
+    "nsubj": "anybody",
+    "nsubj|text": "anybody",
+    "nsubj|head": "Is"
+  },
+  {
+    "sents@en": "Take away this box.",
+    "sents@fr": "Éloignez cette boîte.",
+    "lemmas": "take away this box ."
+  },
+  {
+    "sents@en": "Please be careful.",
+    "sents@fr": "Soyez prudentes, je vous prie.",
+    "lemmas": "please be careful ."
+  },
+  {
+    "sents@en": "I wanted to know the truth.",
+    "sents@fr": "Je voulais connaître la vérité.",
+    "lemmas": "-PRON- want to know the truth .",
+    "verbs": "want",
+    "verbs|count": 1,
+    "nsubj": "I",
+    "nsubj|text": "I",
+    "nsubj|head": "wanted",
+    "dobj": "truth",
+    "dobj|text": "the truth",
+    "dobj|head": "know"
+  },
+  {
+    "sents@en": "I wish you'd stop asking me that.",
+    "sents@fr": "J'aimerais que vous arrêtiez de me demander cela.",
+    "lemmas": "-PRON- wish -PRON- would stop ask -PRON- that .",
+    "verbs": "wish stop",
+    "verbs|count": 2,
+    "nsubj": "you",
+    "nsubj|text": "you",
+    "nsubj|head": "stop",
+    "dative": "me",
+    "dative|text": "me",
+    "dative|head": "asking"
+  },
+  {
+    "sents@en": "Tom split up with Mary.",
+    "sents@fr": "Tom a laissé Marie.",
+    "lemmas": "Tom split up with Mary .",
+    "verbs": "split",
+    "verbs|count": 1,
+    "PERSON": "Mary",
+    "PERSON|loc": "18 22",
+    "nsubj": "Tom",
+    "nsubj|text": "Tom",
+    "nsubj|head": "split",
+    "pobj": "Mary",
+    "pobj|text": "Mary",
+    "pobj|head": "with"
+  },
+  {
+    "sents@en": "I'm not afraid to try.",
+    "sents@fr": "Je n'ai pas peur d'essayer.",
+    "lemmas": "-PRON- be not afraid to try .",
+    "verbs": "be",
+    "verbs|count": 1,
+    "nsubj": "I",
+    "nsubj|text": "I",
+    "nsubj|head": "'m"
+  },
+  {
+    "sents@en": "I finally gave up.",
+    "sents@fr": "J'ai fini par abandonner.",
+    "lemmas": "-PRON- finally give up .",
+    "verbs": "give",
+    "verbs|count": 1,
+    "nsubj": "I",
+    "nsubj|text": "I",
+    "nsubj|head": "gave"
+  },
+  {
+    "sents@en": "I'm playing the guitar now.",
+    "sents@fr": "Je joue de la guitare en ce moment.",
+    "lemmas": "-PRON- be play the guitar now .",
+    "verbs": "play",
+    "verbs|count": 1,
+    "nsubj": "I",
+    "nsubj|text": "I",
+    "nsubj|head": "playing",
+    "dobj": "guitar",
+    "dobj|text": "the guitar",
+    "dobj|head": "playing"
+  }
+]

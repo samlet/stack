@@ -1,0 +1,31 @@
+{
+  "name": "Alice",
+  "mobile|since": "2006-01-02T15:04:05Z",
+  "mobile": "040123456",
+  "car|since": "2006-02-02T13:02:09Z",
+  "car": "MA0123",
+
+  "friend": [
+    {
+      "name": "Bob",
+      "car|since": "2006-02-02T13:01:09Z",
+      "car": "MA0134",
+      "friend|close": true,
+      "friend|relative": false,
+      "title@en": "english",
+      "title@ru": "Russian"
+    },
+    {
+      "name": "Charlie",
+      "friend|close": false,
+      "friend|relative": true,
+      "title@ru": "Russian"
+    },
+    {
+      "name": "Dave",
+      "friend|close": true,
+      "friend|relative": true
+    }
+  ]
+}
+

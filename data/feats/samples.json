@@ -1,0 +1,3812 @@
+[
+  {
+    "key": "ProductFeatureType.description.NET_WEIGHT",
+    "lang": "fr",
+    "value": "Poids net"
+  },
+  {
+    "key": "ProductFeatureType.description.NET_WEIGHT",
+    "lang": "de",
+    "value": "Nettogewicht"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_DETAIL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 2 Détaillée"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_DETAIL",
+    "lang": "de",
+    "value": "Zusatzbild 2 Detail"
+  },
+  {
+    "key": "FieldDescription.ProductStore.prorateShipping",
+    "lang": "fr",
+    "value": "Quand une partie du coût de l'expédition est payée à partir d'un compte autre que «Compte de Facturation»."
+  },
+  {
+    "key": "FieldDescription.ProductStore.prorateShipping",
+    "lang": "de",
+    "value": "Wenn Teile der Lieferkosten von einem anderen Konto als dem Rechnungskonto getragen werden."
+  },
+  {
+    "key": "FieldDescription.ProductStore.itemCancelStatus",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsqu'un Article commandé est annulé."
+  },
+  {
+    "key": "FieldDescription.ProductStore.itemCancelStatus",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die Ihre Kunden sehen sollen, wenn eine Bestellposition storniert wurde."
+  },
+  {
+    "key": "ProductContentType.description.PAGE_TITLE",
+    "lang": "fr",
+    "value": "Page de titre"
+  },
+  {
+    "key": "FieldDescription.ProductStore.itemDeclinedStatus",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsque qu'un des articles est refusé pour une raison quelconque."
+  },
+  {
+    "key": "FieldDescription.ProductStore.itemDeclinedStatus",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die Ihre Kunden sehen sollen, wenn eine Bestellposition abgelehnt wurde."
+  },
+  {
+    "key": "QuantityBreakType.description.QUANTITY",
+    "lang": "fr",
+    "value": "Rupture par quantité des prix de composant"
+  },
+  {
+    "key": "QuantityBreakType.description.QUANTITY",
+    "lang": "de",
+    "value": "Preiskomponente Menge Sprung"
+  },
+  {
+    "key": "FieldDescription.ProductStore.inventoryFacilityId",
+    "lang": "fr",
+    "value": "Les stocks sont prélevés à partir d'ici."
+  },
+  {
+    "key": "FieldDescription.ProductStore.inventoryFacilityId",
+    "lang": "de",
+    "value": "Hier werden die Lagerbestände verwaltet."
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_MAT_COST",
+    "lang": "fr",
+    "value": "Coût réel du matériel"
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_MAT_COST",
+    "lang": "de",
+    "value": "Effektive Materialkosten"
+  },
+  {
+    "key": "ProductCategoryContentType.description.LINK1_ALT_TEXT",
+    "lang": "de",
+    "value": "Link 1 Alternativtext"
+  },
+  {
+    "key": "ProductCategoryContentType.description.LINK1_ALT_TEXT",
+    "lang": "fr",
+    "value": "Lien 1 - Texte alternatif"
+  },
+  {
+    "key": "FieldDescription.ProductStore.title",
+    "lang": "de",
+    "value": "Dieser Eintrag wird im Kopfbereich des eCommerce Store angezeigt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.title",
+    "lang": "fr",
+    "value": "Cette valeur s'affiche dans la section d'en-tête du magasin de commerce électronique(ecommerce)."
+  },
+  {
+    "key": "ProductMaintType.description.REFUEL",
+    "lang": "fr",
+    "value": "Refaire le plein"
+  },
+  {
+    "key": "ProductMaintType.description.REFUEL",
+    "lang": "de",
+    "value": "Auftanken"
+  },
+  {
+    "key": "CostComponentType.description.ESTIMATED_MATERIALS_",
+    "lang": "fr",
+    "value": "Estimation des matériaux"
+  },
+  {
+    "key": "CostComponentType.description.ESTIMATED_MATERIALS_",
+    "lang": "de",
+    "value": "Geschätzte Materialkosten"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_UPGRADE",
+    "lang": "fr",
+    "value": "Version supérieure ou plus récente"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_UPGRADE",
+    "lang": "de",
+    "value": "Upgrade oder Up-Sell"
+  },
+  {
+    "key": "ProductPriceType.description.LIST_PRICE",
+    "lang": "fr",
+    "value": "Prix public"
+  },
+  {
+    "key": "ProductPriceType.description.LIST_PRICE",
+    "lang": "de",
+    "value": "Listenpreis"
+  },
+  {
+    "key": "ProductCategoryType.description.QUICKADD_CATEGORY",
+    "lang": "fr",
+    "value": "Ajout rapide"
+  },
+  {
+    "key": "ProductCategoryType.description.QUICKADD_CATEGORY",
+    "lang": "de",
+    "value": "Rasches Hinzufügen"
+  },
+  {
+    "key": "CostComponentType.description.ROUTE_COST",
+    "lang": "fr",
+    "value": "Coût d'itinéraire (utilisation d'immobilisation)"
+  },
+  {
+    "key": "CostComponentType.description.ROUTE_COST",
+    "lang": "de",
+    "value": "Wegkosten (Anlageverwendung)"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_MAT_COST",
+    "lang": "fr",
+    "value": "Estimation standard du coût du matériel"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_MAT_COST",
+    "lang": "de",
+    "value": "Geschätzte Standard-Materialkosten"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.templatePathPrefix",
+    "lang": "fr",
+    "value": "Si spécifié, le préfixe sera ajouté au début du chemin modèle. Le préfixe doit commencer par un slash, mais ne doit pas se terminer par un slash."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.templatePathPrefix",
+    "lang": "de",
+    "value": "Wird dem Templatepfad vorangestellt, wenn angegeben. Sollte mit einem Schrägstrich beginnen und ohne einen enden."
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_FROM_ADDRESS",
+    "lang": "de",
+    "value": "Lieferung Herkunft"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_FROM_ADDRESS",
+    "lang": "fr",
+    "value": "Adresse d'origine de l'expédition"
+  },
+  {
+    "key": "ProductContentType.description.SHORT_SALES_PITCH",
+    "lang": "de",
+    "value": "Elevator Pitch"
+  },
+  {
+    "key": "ProductContentType.description.SHORT_SALES_PITCH",
+    "lang": "fr",
+    "value": "Discours de vente"
+  },
+  {
+    "key": "ProductCategoryLinkType.description.PCLT_ABS_URL",
+    "lang": "fr",
+    "value": "URL absolue"
+  },
+  {
+    "key": "ProductCategoryLinkType.description.PCLT_ABS_URL",
+    "lang": "de",
+    "value": "Absolute URL"
+  },
+  {
+    "key": "ProductType.description.WIP",
+    "lang": "fr",
+    "value": "Travaux"
+  },
+  {
+    "key": "ProductType.description.WIP",
+    "lang": "de",
+    "value": "In Arbeit"
+  },
+  {
+    "key": "ProductPricePurpose.description.PURCHASE",
+    "lang": "de",
+    "value": "Einkauf/Initial"
+  },
+  {
+    "key": "ProductPricePurpose.description.PURCHASE",
+    "lang": "fr",
+    "value": "Achat/Initial"
+  },
+  {
+    "key": "ProductContentType.description.DIGITAL_DOWNLOAD",
+    "lang": "fr",
+    "value": "Téléchargement numérique"
+  },
+  {
+    "key": "ProductContentType.description.DIGITAL_DOWNLOAD",
+    "lang": "de",
+    "value": "Herunterladen"
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultCurrencyUomId",
+    "lang": "de",
+    "value": "Welche Landeswährung verwendet wird, wenn keine angegeben ist. Verwenden Sie die Webtools für nicht-US Währungskennzeichen."
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultCurrencyUomId",
+    "lang": "fr",
+    "value": "Utilise cette monnaie quand aucune n'est spécifiée."
+  },
+  {
+    "key": "CostComponentType.description.LABOR_COST",
+    "lang": "fr",
+    "value": "Coût du travail"
+  },
+  {
+    "key": "CostComponentType.description.LABOR_COST",
+    "lang": "de",
+    "value": "Arbeitskosten"
+  },
+  {
+    "key": "ProductContentType.description.ALTERNATIVE_URL",
+    "lang": "fr",
+    "value": "URL de remplacement"
+  },
+  {
+    "key": "ProductType.description.ASSET_USAGE_OUT_IN",
+    "lang": "fr",
+    "value": "Actif location"
+  },
+  {
+    "key": "ProductFeatureApplType.description.OPTIONAL_FEATURE",
+    "lang": "fr",
+    "value": "Optionnel"
+  },
+  {
+    "key": "ProductFeatureApplType.description.OPTIONAL_FEATURE",
+    "lang": "de",
+    "value": "Optional"
+  },
+  {
+    "key": "VarianceReason.description.VAR_SAMPLE",
+    "lang": "fr",
+    "value": "Échantillon"
+  },
+  {
+    "key": "VarianceReason.description.VAR_SAMPLE",
+    "lang": "de",
+    "value": "Muster"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_ADMIN_ALLW",
+    "lang": "fr",
+    "value": "Administration autorisation (un)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_ADMIN_ALLW",
+    "lang": "de",
+    "value": "Administrator erlauben (Eine)"
+  },
+  {
+    "key": "ProductFeatureType.description.OTHER_FEATURE",
+    "lang": "fr",
+    "value": "Autre caractéristique"
+  },
+  {
+    "key": "ProductFeatureType.description.OTHER_FEATURE",
+    "lang": "de",
+    "value": "Anderes Merkmal"
+  },
+  {
+    "key": "FieldDescription.ProductStore.explodeOrderItems",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, wird jeder Warenkorb mit einer Bestellmenge grösser 1 in separate Bestellungen mit jeweils einer Bestellmenge von 1 aufgeteilt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.explodeOrderItems",
+    "lang": "fr",
+    "value": "Si Oui, dans le panier, tout article avec des quantités multiples sera divisé en lignes de commande de quantité de 1 chacune."
+  },
+  {
+    "key": "ProductFeature.description.TEXT_WHITE",
+    "lang": "de",
+    "value": "Weiss"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_WHITE",
+    "lang": "fr",
+    "value": "Blanc"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_L_LARGE",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire(grande)"
+  },
+  {
+    "key": "ProductCategoryType.description.USAGE_CATEGORY",
+    "lang": "fr",
+    "value": "Usage"
+  },
+  {
+    "key": "ProductCategoryType.description.USAGE_CATEGORY",
+    "lang": "de",
+    "value": "Verwendungszweck"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoApproveReviews",
+    "lang": "de",
+    "value": "Wenn Benutzer Produktbewertungen abgeben können wird hiermit gesteuert, ob sie freigeben werden müssen oder sie automatisch angezeigt werden."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoApproveReviews",
+    "lang": "fr",
+    "value": "Si le site Internet permet aux utilisateurs de saisir des avis sur produits, ceci défini si ces avis nécessitent une approbation ou pas avant publication."
+  },
+  {
+    "key": "ProductContentType.description.FULFILLMENT_EXTASYNC",
+    "lang": "de",
+    "value": "Ausführung Extern (Asynchron)"
+  },
+  {
+    "key": "ProductContentType.description.FULFILLMENT_EXTASYNC",
+    "lang": "fr",
+    "value": "Réalisation externe (Async)"
+  },
+  {
+    "key": "GoodIdentificationType.description.SKU",
+    "lang": "fr",
+    "value": "SKU"
+  },
+  {
+    "key": "GoodIdentificationType.description.SKU",
+    "lang": "de",
+    "value": "Artikelnummer (SKU - Stock Keeping Unit)"
+  },
+  {
+    "key": "ProductContentType.description.META_DESCRIPTION",
+    "lang": "fr",
+    "value": "Description méta"
+  },
+  {
+    "key": "ProductContentType.description.META_KEYWORD",
+    "lang": "fr",
+    "value": "Mots-clés méta"
+  },
+  {
+    "key": "ProductCategoryContentType.description.CATEGORY_NAME",
+    "lang": "fr",
+    "value": "Nom de catégorie"
+  },
+  {
+    "key": "ProductCategoryContentType.description.CATEGORY_NAME",
+    "lang": "de",
+    "value": "Kategorie Name"
+  },
+  {
+    "key": "FacilityType.description.PLANT",
+    "lang": "fr",
+    "value": "Usine"
+  },
+  {
+    "key": "FacilityType.description.PLANT",
+    "lang": "de",
+    "value": "Fabrik"
+  },
+  {
+    "key": "ProductType.description.AGGREGATED",
+    "lang": "de",
+    "value": "Konfigurierbares Produkt"
+  },
+  {
+    "key": "ProductType.description.AGGREGATED",
+    "lang": "fr",
+    "value": "Produit configurable"
+  },
+  {
+    "key": "FieldDescription.ProductStore.addToCartReplaceUpsell",
+    "lang": "fr",
+    "value": "Si Oui, Lors de l'ajout de l'élément au panier, seront supprimés du panier tous les produits en relation de mise à niveau (ProductAssoc PRODUCT_UPGRADE)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.addToCartReplaceUpsell",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, entferne alle Produkte aus dem Warenkorb, welche ein Nachfolgeprodukt besitzen (PRODUCT_UPGRADE)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.authDeclinedMessage",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die Ihre Kunden sehen sollen, wenn die Authorisierung der Zahlung abgelehnt wurde."
+  },
+  {
+    "key": "FieldDescription.ProductStore.authDeclinedMessage",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsque que l'autorisation est refusée."
+  },
+  {
+    "key": "RejectionReason.description.SRJ_OVER_SHIPPED",
+    "lang": "de",
+    "value": "Zuviel geliefert"
+  },
+  {
+    "key": "RejectionReason.description.SRJ_OVER_SHIPPED",
+    "lang": "fr",
+    "value": "Expédié en excédent"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_OTHER_COST",
+    "lang": "fr",
+    "value": "Autre estimation standard"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_OTHER_COST",
+    "lang": "de",
+    "value": "Geschätzte Standard andere Kosten"
+  },
+  {
+    "key": "ProductFeatureType.description.PRODUCT_QUALITY",
+    "lang": "fr",
+    "value": "Qualité"
+  },
+  {
+    "key": "ProductFeatureType.description.PRODUCT_QUALITY",
+    "lang": "de",
+    "value": "Produktqualität"
+  },
+  {
+    "key": "ProductCategoryType.description.MATERIALS_CATEGORY",
+    "lang": "de",
+    "value": "Materialien"
+  },
+  {
+    "key": "ProductCategoryType.description.MATERIALS_CATEGORY",
+    "lang": "fr",
+    "value": "Matériel"
+  },
+  {
+    "key": "ProductFeatureType.description.ORIGIN",
+    "lang": "fr",
+    "value": "Origine"
+  },
+  {
+    "key": "ProductFeatureType.description.ORIGIN",
+    "lang": "de",
+    "value": "Herkunft"
+  },
+  {
+    "key": "FacilityGroupType.description.PRICING_GROUP",
+    "lang": "fr",
+    "value": "Groupe de prix"
+  },
+  {
+    "key": "FacilityGroupType.description.PRICING_GROUP",
+    "lang": "de",
+    "value": "Preisgruppe"
+  },
+  {
+    "key": "ProductCategoryType.description.SEARCH_CATEGORY",
+    "lang": "fr",
+    "value": "Recherche"
+  },
+  {
+    "key": "ProductCategoryType.description.SEARCH_CATEGORY",
+    "lang": "de",
+    "value": "Suche"
+  },
+  {
+    "key": "QuantityBreakType.description.ORDER_VALUE",
+    "lang": "de",
+    "value": "Preiskomponente Auftragswert Sprung"
+  },
+  {
+    "key": "QuantityBreakType.description.ORDER_VALUE",
+    "lang": "fr",
+    "value": "Rupture par valeur à la commande des prix de composant"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_MEDIUM",
+    "lang": "de",
+    "value": "Zusatzbild 3 mittel"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_MEDIUM",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 3 Moyenne"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_LARGE",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 3 Grande"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_LARGE",
+    "lang": "de",
+    "value": "Zusatzbild 3 groß"
+  },
+  {
+    "key": "QuantityBreakType.description.SHIP_WEIGHT",
+    "lang": "fr",
+    "value": "Rupture par poids à l'expédition"
+  },
+  {
+    "key": "QuantityBreakType.description.SHIP_WEIGHT",
+    "lang": "de",
+    "value": "Liefergewicht Sprung"
+  },
+  {
+    "key": "ProductPricePurpose.description.RECURRING_CHARGE",
+    "lang": "fr",
+    "value": "Charge/coût récurrent"
+  },
+  {
+    "key": "ProductPricePurpose.description.RECURRING_CHARGE",
+    "lang": "de",
+    "value": "Wiederkehrende Kosten"
+  },
+  {
+    "key": "ProductPricePurpose.description.USAGE_CHARGE",
+    "lang": "de",
+    "value": "Benützungsgebühr"
+  },
+  {
+    "key": "ProductPricePurpose.description.USAGE_CHARGE",
+    "lang": "fr",
+    "value": "Charge/coût d'usage"
+  },
+  {
+    "key": "ProductCategoryType.description.MIXMATCH_CATEGORY",
+    "lang": "de",
+    "value": "Austauschbar"
+  },
+  {
+    "key": "ProductCategoryType.description.MIXMATCH_CATEGORY",
+    "lang": "fr",
+    "value": "Interchangeable"
+  },
+  {
+    "key": "QuantityBreakType.description.SHIP_QUANTITY",
+    "lang": "de",
+    "value": "Liefermenge Sprung"
+  },
+  {
+    "key": "QuantityBreakType.description.SHIP_QUANTITY",
+    "lang": "fr",
+    "value": "Rupture par quantité d'expédition"
+  },
+  {
+    "key": "ProductType.description.RAW_MATERIAL",
+    "lang": "fr",
+    "value": "Matières Premières"
+  },
+  {
+    "key": "ProductType.description.RAW_MATERIAL",
+    "lang": "de",
+    "value": "Rohmaterial"
+  },
+  {
+    "key": "FacilityType.description.ROOM",
+    "lang": "fr",
+    "value": "Salle"
+  },
+  {
+    "key": "FacilityType.description.ROOM",
+    "lang": "de",
+    "value": "Raum"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_PFLAT",
+    "lang": "fr",
+    "value": "Usage du prix promotionnel + valeur"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_PFLAT",
+    "lang": "de",
+    "value": "Aktionspreis übersteuern"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_REVISION",
+    "lang": "fr",
+    "value": "Révision"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_REVISION",
+    "lang": "de",
+    "value": "Revision"
+  },
+  {
+    "key": "ProductType.description.DIGITAL_GOOD",
+    "lang": "fr",
+    "value": "Produit immatériel"
+  },
+  {
+    "key": "ProductType.description.DIGITAL_GOOD",
+    "lang": "de",
+    "value": "Digitales Produkt"
+  },
+  {
+    "key": "ProductFeatureType.description.HAZMAT",
+    "lang": "fr",
+    "value": "Caractère dangereux"
+  },
+  {
+    "key": "ProductFeatureType.description.HAZMAT",
+    "lang": "de",
+    "value": "Gefahrengut"
+  },
+  {
+    "key": "ShipmentType.description.TRANSFER_INBOUND",
+    "lang": "fr",
+    "value": "Transfert"
+  },
+  {
+    "key": "ShipmentType.description.TRANSFER_INBOUND",
+    "lang": "de",
+    "value": "Transfer"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_LARGE",
+    "lang": "de",
+    "value": "Zusatzbild 1 groß"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_LARGE",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 1 Grande"
+  },
+  {
+    "key": "VarianceReason.description.VAR_MISSHIP_ORDERED",
+    "lang": "de",
+    "value": "Falschgeliefertes Produkt bestellt (+)"
+  },
+  {
+    "key": "VarianceReason.description.VAR_MISSHIP_ORDERED",
+    "lang": "fr",
+    "value": "Expédié par erreur - Article commandé (+)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_MOST_POPULAR",
+    "lang": "de",
+    "value": "Am populärsten (Eine)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_MOST_POPULAR",
+    "lang": "fr",
+    "value": "Le plus populaire (un)"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_CONF",
+    "lang": "de",
+    "value": "Konfigurierbares Produkt"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_CONF",
+    "lang": "fr",
+    "value": "Instance de produit configurable"
+  },
+  {
+    "key": "ProductContentType.description.MEDIUM_IMAGE_ALT",
+    "lang": "fr",
+    "value": "Texte alternatif de l'image - Moyen"
+  },
+  {
+    "key": "ProductContentType.description.MEDIUM_IMAGE_ALT",
+    "lang": "de",
+    "value": "Bild Alt Text - Mittel"
+  },
+  {
+    "key": "FieldDescription.ProductStore.requireInventory",
+    "lang": "fr",
+    "value": "Si Oui, la commande ne sera pas traitée lorsque l'inventaire n'a pas la quantité à portée de main."
+  },
+  {
+    "key": "FieldDescription.ProductStore.requireInventory",
+    "lang": "de",
+    "value": "Wenn eingeschaltet und nicht genug Bestand vorhanden ist, werden Bestellungen nicht ausgeführt."
+  },
+  {
+    "key": "FacilityType.description.BUILDING",
+    "lang": "fr",
+    "value": "Immeuble"
+  },
+  {
+    "key": "FacilityType.description.BUILDING",
+    "lang": "de",
+    "value": "Gebäude"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_ROUTE_COST",
+    "lang": "de",
+    "value": "Geschätzte Wegkosten (Anlageverwendung)"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_ROUTE_COST",
+    "lang": "fr",
+    "value": "Estimation standard de coût d'itinéraire (utilisation d'immobilisation)"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_VARIANT",
+    "lang": "fr",
+    "value": "Article décliné"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_VARIANT",
+    "lang": "de",
+    "value": "Produktvariante"
+  },
+  {
+    "key": "FieldDescription.ProductStore.headerDeclinedStatus",
+    "lang": "de",
+    "value": "Dies ist die Statusnachricht die Ihre Kunden sehen sollen, wenn ihre Bestellung abgelehnt wurde. Basierend auf den standardmässig definierten Statuscodes in OFBiz."
+  },
+  {
+    "key": "FieldDescription.ProductStore.headerDeclinedStatus",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsque la commande est refusée. Basé sur les codes statut standards définis dans Apache OFBiz"
+  },
+  {
+    "key": "ProductContentType.description.MEDIUM_IMAGE_URL",
+    "lang": "fr",
+    "value": "Image moyenne"
+  },
+  {
+    "key": "ProductContentType.description.MEDIUM_IMAGE_URL",
+    "lang": "de",
+    "value": "Bild - Mittel"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POWHS",
+    "lang": "de",
+    "value": "Prozent vom Grosshandelspreis"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POWHS",
+    "lang": "fr",
+    "value": "Pourcentage du prix de gros"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryExp",
+    "lang": "fr",
+    "value": "Pour les commandes automatiques, essayez les autres dates d'expiration différentes de la carte de crédit (si la date est mauvaise ou echec général quand le type est inconnu)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryExp",
+    "lang": "de",
+    "value": "Bei automatischen Bestellungen werden alternative Kreditkarten Ablaufdaten verwendet (wenn Datum falsch ist oder ein genereller unbekannter Fehler auftritt)."
+  },
+  {
+    "key": "ProductPriceType.description.PROMO_PRICE",
+    "lang": "fr",
+    "value": "Prix promotionnel"
+  },
+  {
+    "key": "ProductPriceType.description.PROMO_PRICE",
+    "lang": "de",
+    "value": "Aktionspreis"
+  },
+  {
+    "key": "FieldDescription.ProductStore.splitPayPrefPerShpGrp",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, wird vor dem Speichern der Bestellung der OrderPaymentPreference Datensatz auf jeweils einen pro OrderItemShipGroup gesplittet."
+  },
+  {
+    "key": "FieldDescription.ProductStore.splitPayPrefPerShpGrp",
+    "lang": "fr",
+    "value": "Si Oui, Avant que l'ordre soit enregistré, la fiche de préférence de paiement(OrderPaymentPreference) sera divisé en un enregistrement distinct pour chaque groupe de livraison (OrderItemShipGroup)."
+  },
+  {
+    "key": "ProductContentType.description.LARGE_IMAGE_ALT",
+    "lang": "fr",
+    "value": "Texte alternatif de l'image - Long"
+  },
+  {
+    "key": "ProductContentType.description.LARGE_IMAGE_ALT",
+    "lang": "de",
+    "value": "Bild Alt Text - Long"
+  },
+  {
+    "key": "GoodIdentificationType.description.MANUFACTURER_ID_NO",
+    "lang": "fr",
+    "value": "N° du fabricant"
+  },
+  {
+    "key": "GoodIdentificationType.description.MANUFACTURER_ID_NO",
+    "lang": "de",
+    "value": "Hersteller (Modell) Nummer"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_L_SMALL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire(petite)"
+  },
+  {
+    "key": "FieldDescription.ProductStore.retryFailedAuths",
+    "lang": "de",
+    "value": "Wie oft keine eine nicht erfolgreiche Authorisierung einer Bestellung erneut versucht werden?"
+  },
+  {
+    "key": "FieldDescription.ProductStore.retryFailedAuths",
+    "lang": "fr",
+    "value": "Nombre d'essais maximal à autoriser sur une commande."
+  },
+  {
+    "key": "FieldDescription.ProductStore.vatTaxAuthGeoId",
+    "lang": "de",
+    "value": "Wie ist die geographische ID der Umsatzsteuerbehörde?"
+  },
+  {
+    "key": "FieldDescription.ProductStore.vatTaxAuthGeoId",
+    "lang": "fr",
+    "value": "Quelle est l'identifiant géographique pour l'autorité fiscale de TVA ?"
+  },
+  {
+    "key": "ProductPriceType.description.MINIMUM_ORDER_PRICE",
+    "lang": "de",
+    "value": "Minimum Bestellpreis"
+  },
+  {
+    "key": "ProductPriceType.description.MINIMUM_ORDER_PRICE",
+    "lang": "fr",
+    "value": "Prix minimum de commande"
+  },
+  {
+    "key": "ProductCategoryContentType.description.DESCRIPTION",
+    "lang": "de",
+    "value": "Beschreibung"
+  },
+  {
+    "key": "ProductCategoryContentType.description.DESCRIPTION",
+    "lang": "fr",
+    "value": "Description"
+  },
+  {
+    "key": "ProductContentType.description.LARGE_IMAGE_URL",
+    "lang": "fr",
+    "value": "Image grande"
+  },
+  {
+    "key": "ProductContentType.description.LARGE_IMAGE_URL",
+    "lang": "de",
+    "value": "Bild - Gross"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showOutOfStockProducts",
+    "lang": "de",
+    "value": "Wenn ausgeschaltet, werden nicht vorrätige Produkte nicht angezeigt"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showOutOfStockProducts",
+    "lang": "fr",
+    "value": "Si Non, alors les produits en rupture de stock ne seront pas affichés sur le site."
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_LABOR_COST",
+    "lang": "fr",
+    "value": "Estimation standard de coût du travail"
+  },
+  {
+    "key": "CostComponentType.description.EST_STD_LABOR_COST",
+    "lang": "de",
+    "value": "Geschätzte Standard-Arbeitskosten"
+  },
+  {
+    "key": "ProductContentType.description.ONLINE_ACCESS",
+    "lang": "fr",
+    "value": "Accès en ligne"
+  },
+  {
+    "key": "ProductContentType.description.ONLINE_ACCESS",
+    "lang": "de",
+    "value": "Online Zugriff"
+  },
+  {
+    "key": "ProductAssocType.description.ALSO_BOUGHT",
+    "lang": "fr",
+    "value": "Egalement acheté"
+  },
+  {
+    "key": "ProductAssocType.description.ALSO_BOUGHT",
+    "lang": "de",
+    "value": "hat ebenfalls eingekauft"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_FROM_TELECOM",
+    "lang": "de",
+    "value": "Lieferung Herkunft Telefonnummer"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_FROM_TELECOM",
+    "lang": "fr",
+    "value": "N° de téléphone de l'origine de l'expédition"
+  },
+  {
+    "key": "ShipmentType.description.SALES_RETURN",
+    "lang": "fr",
+    "value": "Retour de vente"
+  },
+  {
+    "key": "ShipmentType.description.SALES_RETURN",
+    "lang": "de",
+    "value": "Eingehend - Verkauf Retoure"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_PURCH_ALLW",
+    "lang": "fr",
+    "value": "Permission d'achat (une)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_PURCH_ALLW",
+    "lang": "de",
+    "value": "Einkauf erlauben (Eine)"
+  },
+  {
+    "key": "ShipmentType.description.OUTGOING_SHIPMENT",
+    "lang": "fr",
+    "value": "Sortant"
+  },
+  {
+    "key": "ShipmentType.description.OUTGOING_SHIPMENT",
+    "lang": "de",
+    "value": "Ausgehende Sendung"
+  },
+  {
+    "key": "ProductAssocType.description.UNIQUE_ITEM",
+    "lang": "de",
+    "value": "Unikat"
+  },
+  {
+    "key": "ProductAssocType.description.UNIQUE_ITEM",
+    "lang": "fr",
+    "value": "Référence unique"
+  },
+  {
+    "key": "RejectionReason.description.SRJ_DAMAGED",
+    "lang": "de",
+    "value": "Beschädigt"
+  },
+  {
+    "key": "RejectionReason.description.SRJ_DAMAGED",
+    "lang": "fr",
+    "value": "Endommagé"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_REPAIR_SRV",
+    "lang": "de",
+    "value": "Reparaturdienstleistung"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_REPAIR_SRV",
+    "lang": "fr",
+    "value": "Service de réparation"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_QUICK_ADD",
+    "lang": "fr",
+    "value": "Ajout rapide (plusieurs)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_QUICK_ADD",
+    "lang": "de",
+    "value": "Rasches Hinzufügen (Mehrere)"
+  },
+  {
+    "key": "FieldDescription.ProductStore.itemApprovedStatus",
+    "lang": "fr",
+    "value": "À quel statut doit on positionner la ligne de commande lorsque un article est approuvé, refusé ou annulé. Basé sur les codes statut standards définis dans Apache OFBiz"
+  },
+  {
+    "key": "FieldDescription.ProductStore.itemApprovedStatus",
+    "lang": "de",
+    "value": "Auf welchen Status sollen Bestellpositionen gesetzt werden, wenn Bestellungen freigegeben, abgelehnt oder storniert werden. Basierend auf den standardmässig definierten Statuscodes in OFBiz."
+  },
+  {
+    "key": "VarianceReason.description.VAR_MISSHIP_SHIPPED",
+    "lang": "de",
+    "value": "Falschgeliefertes Produkt bestellt (-)"
+  },
+  {
+    "key": "VarianceReason.description.VAR_MISSHIP_SHIPPED",
+    "lang": "fr",
+    "value": "Expédié par erreur - Article expédié (-)"
+  },
+  {
+    "key": "VarianceReason.description.VAR_DAMAGED",
+    "lang": "fr",
+    "value": "Endommagé"
+  },
+  {
+    "key": "VarianceReason.description.VAR_DAMAGED",
+    "lang": "de",
+    "value": "Beschädigt"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoInvoiceDigitalItems",
+    "lang": "fr",
+    "value": "Si Oui, les articles numériques seront immédiatement facturés lorsque la commande est passée."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoInvoiceDigitalItems",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, werden digitale Produkte direkt in Rechnung gestellt, wenn die Bestellung platziert wird."
+  },
+  {
+    "key": "QuantityBreakType.description.SHIP_PRICE",
+    "lang": "de",
+    "value": "Lieferpreis Sprung"
+  },
+  {
+    "key": "QuantityBreakType.description.SHIP_PRICE",
+    "lang": "fr",
+    "value": "Rupture par prix d'expédition"
+  },
+  {
+    "key": "ShipmentType.description.OTHER_SHIPMENT",
+    "lang": "fr",
+    "value": "Expédition(autre)"
+  },
+  {
+    "key": "ShipmentType.description.OTHER_SHIPMENT",
+    "lang": "de",
+    "value": "Andere Sendung"
+  },
+  {
+    "key": "FieldDescription.ProductStore.requirementMethodEnumId",
+    "lang": "de",
+    "value": "Bezieht sich auf Schwellwerte im Lagerbestand."
+  },
+  {
+    "key": "FieldDescription.ProductStore.requirementMethodEnumId",
+    "lang": "fr",
+    "value": "Déclencheur de niveau de stock de l'entrepôt."
+  },
+  {
+    "key": "ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND",
+    "lang": "fr",
+    "value": "Dépendants"
+  },
+  {
+    "key": "ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND",
+    "lang": "de",
+    "value": "Abhängiges Merkmal"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_WFLAT",
+    "lang": "fr",
+    "value": "Usage du prix de gros + valeur"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_WFLAT",
+    "lang": "de",
+    "value": "Grosshandelspreis übersteuern"
+  },
+  {
+    "key": "ProductStoreGroup.description._NA_",
+    "lang": "fr",
+    "value": "Non applicable"
+  },
+  {
+    "key": "ProductStoreGroup.description._NA_",
+    "lang": "de",
+    "value": "Nicht anwendbar"
+  },
+  {
+    "key": "ProductContentType.description.WARNINGS",
+    "lang": "fr",
+    "value": "Avertissements"
+  },
+  {
+    "key": "ProductContentType.description.WARNINGS",
+    "lang": "de",
+    "value": "Warnungen"
+  },
+  {
+    "key": "ProductContentType.description.PRODUCT_NAME",
+    "lang": "fr",
+    "value": "Nom de l'article"
+  },
+  {
+    "key": "ProductContentType.description.PRODUCT_NAME",
+    "lang": "de",
+    "value": "Produktname"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_SMALL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 3 Petite"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_SMALL",
+    "lang": "de",
+    "value": "Zusatzbild 3 klein"
+  },
+  {
+    "key": "FieldDescription.ProductStore.storeCreditValidDays",
+    "lang": "fr",
+    "value": "Période (jours) de validité de crédit de magasin. Laisser vide implique aucune date d'expiration."
+  },
+  {
+    "key": "FieldDescription.ProductStore.storeCreditValidDays",
+    "lang": "de",
+    "value": "Wie lange ist der Store Kredit gültig. Nullwerte entsprechen unbegrenzter Gültigkeit."
+  },
+  {
+    "key": "VarianceReason.description.VAR_LOST",
+    "lang": "de",
+    "value": "Verloren"
+  },
+  {
+    "key": "VarianceReason.description.VAR_LOST",
+    "lang": "fr",
+    "value": "Perdu"
+  },
+  {
+    "key": "FieldDescription.ProductStore.visualThemeId",
+    "lang": "fr",
+    "value": "Thème visuel pour la boutique en ligne."
+  },
+  {
+    "key": "FieldDescription.ProductStore.visualThemeId",
+    "lang": "de",
+    "value": "Steuert das Aussehen Ihres Online-Shops."
+  },
+  {
+    "key": "ShipmentType.description.INCOMING_SHIPMENT",
+    "lang": "fr",
+    "value": "A recevoir"
+  },
+  {
+    "key": "ShipmentType.description.INCOMING_SHIPMENT",
+    "lang": "de",
+    "value": "Eingehende Sendung"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showCheckoutGiftOptions",
+    "lang": "fr",
+    "value": "Si Non, les options appliquées aux dons («C'est un cadeau» and «Message cadeau») ne seront pas affichées lors de votre commande."
+  },
+  {
+    "key": "FieldDescription.ProductStore.showCheckoutGiftOptions",
+    "lang": "de",
+    "value": "Wenn ausgeschaltet werden die Geschenkoptionen ('ist ein Geschenk' und 'Geschenknachricht') im Bestellprozes nicht angezeigt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.storeCreditAccountEnumId",
+    "lang": "fr",
+    "value": "Défini le type de Compte de crédit du magasin, utilisé pour le remboursement de retour (Compte de facturation ou compte financier)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.storeCreditAccountEnumId",
+    "lang": "de",
+    "value": "Spezifiziert den Typ (Rechnungs- oder Finanzkonto) des Laden Kreditkontos für Rückzahlungen."
+  },
+  {
+    "key": "ProductFeatureType.description.DIMENSION",
+    "lang": "fr",
+    "value": "Dimension"
+  },
+  {
+    "key": "ProductFeatureType.description.DIMENSION",
+    "lang": "de",
+    "value": "Abmessungen"
+  },
+  {
+    "key": "ProductPriceType.description.MINIMUM_PRICE",
+    "lang": "de",
+    "value": "Minimum Preis"
+  },
+  {
+    "key": "ProductPriceType.description.MINIMUM_PRICE",
+    "lang": "fr",
+    "value": "Prix minimum"
+  },
+  {
+    "key": "ShipmentType.description.TRANSFER_OUTBOUND",
+    "lang": "fr",
+    "value": "Transfert"
+  },
+  {
+    "key": "ShipmentType.description.TRANSFER_OUTBOUND",
+    "lang": "de",
+    "value": "Transfer"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_DETAIL",
+    "lang": "de",
+    "value": "Zusatzbild 3 Detail"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_3_DETAIL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 3 Détaillée"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_OTHER_SEARCH",
+    "lang": "fr",
+    "value": "Autres recherches (plusieurs)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_OTHER_SEARCH",
+    "lang": "de",
+    "value": "Andere Suche (Mehrere)"
+  },
+  {
+    "key": "ProductType.description.SUBASSEMBLY",
+    "lang": "fr",
+    "value": "Semi-fini"
+  },
+  {
+    "key": "ProductType.description.SUBASSEMBLY",
+    "lang": "de",
+    "value": "Zwischenprodukt"
+  },
+  {
+    "key": "FieldDescription.ProductStore.storeName",
+    "lang": "de",
+    "value": "Dies ist der Name des Ladens, den dieser Katalog repräsentiert."
+  },
+  {
+    "key": "FieldDescription.ProductStore.storeName",
+    "lang": "fr",
+    "value": "Nom du boutique de produits."
+  },
+  {
+    "key": "FieldDescription.ProductStore.checkGcBalance",
+    "lang": "fr",
+    "value": "Contrôle du crédit de carte cadeau"
+  },
+  {
+    "key": "FieldDescription.ProductStore.checkGcBalance",
+    "lang": "de",
+    "value": "Gutschein Guthaben prüfen"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_ACCESSORY",
+    "lang": "de",
+    "value": "Zubehör"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_ACCESSORY",
+    "lang": "fr",
+    "value": "Accessoire"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_FLAT",
+    "lang": "fr",
+    "value": "Remplacement du prix"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_FLAT",
+    "lang": "de",
+    "value": "Pauschalbetrag übersteuern"
+  },
+  {
+    "key": "InventoryItemType.description.NON_SERIAL_INV_ITEM",
+    "lang": "fr",
+    "value": "Non en série"
+  },
+  {
+    "key": "InventoryItemType.description.NON_SERIAL_INV_ITEM",
+    "lang": "de",
+    "value": "ohne Seriennummern"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoSaveCart",
+    "lang": "fr",
+    "value": "Sauvegarde automatiquement le contenu du panier."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoSaveCart",
+    "lang": "de",
+    "value": "Sollen die Warenkorbinhalte automatisch gespeichert werden?"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_MANUFACTURED",
+    "lang": "fr",
+    "value": "Produit fini"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_MANUFACTURED",
+    "lang": "de",
+    "value": "Produkt hergestellt als"
+  },
+  {
+    "key": "VarianceReason.description.VAR_INTEGR",
+    "lang": "fr",
+    "value": "Intégré"
+  },
+  {
+    "key": "VarianceReason.description.VAR_INTEGR",
+    "lang": "de",
+    "value": "Integration"
+  },
+  {
+    "key": "ProductContentType.description.WARRANTY",
+    "lang": "fr",
+    "value": "Garantie"
+  },
+  {
+    "key": "ProductContentType.description.WARRANTY",
+    "lang": "de",
+    "value": "Gewährleistung"
+  },
+  {
+    "key": "ProductMaintType.description.REPLACE_BATTERY",
+    "lang": "fr",
+    "value": "Remplacer Batteries"
+  },
+  {
+    "key": "ProductMaintType.description.REPLACE_BATTERY",
+    "lang": "de",
+    "value": "Batterie ersetzen"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_SMALL",
+    "lang": "de",
+    "value": "Zusatzbild 1 klein"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_SMALL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 1 Petite"
+  },
+  {
+    "key": "ProductType.description.GOOD",
+    "lang": "fr",
+    "value": "Bien"
+  },
+  {
+    "key": "ProductType.description.GOOD",
+    "lang": "de",
+    "value": "Ware"
+  },
+  {
+    "key": "FieldDescription.ProductStore.viewCartOnAdd",
+    "lang": "de",
+    "value": "Steuert, ob der Benutzer direkt zum Warenkorb weitergeleitet wird, wenn er ein Produkt hineingelegt hat."
+  },
+  {
+    "key": "FieldDescription.ProductStore.viewCartOnAdd",
+    "lang": "fr",
+    "value": "L'utilisateur est dirigé vers le caddie après avoir ajouté un produit."
+  },
+  {
+    "key": "FieldDescription.ProductStore.usePrimaryEmailUsername",
+    "lang": "fr",
+    "value": "Si Oui, utiliser l'adresse e-mail principale comme nom d'utilisateur lors de la création d'un nouveau compte client."
+  },
+  {
+    "key": "FieldDescription.ProductStore.usePrimaryEmailUsername",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, wird kein Eingabefeld für den Benutzernamen angezeigt, sondern die primäre Emailadresse für den Benutzernamen verwendet."
+  },
+  {
+    "key": "FieldDescription.ProductStore.oneInventoryFacility",
+    "lang": "de",
+    "value": "Ist dies ein 'Einzelbestands' Lager. Bei neuem oder weniger komplexem Geschäft ist dies deutlich einfacher zu handhaben."
+  },
+  {
+    "key": "FieldDescription.ProductStore.oneInventoryFacility",
+    "lang": "fr",
+    "value": "La boutique utilise une installation d'inventaire unique."
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_MEDIUM",
+    "lang": "de",
+    "value": "Zusatzbild 1 mittel"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_MEDIUM",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 1 Moyenne"
+  },
+  {
+    "key": "ProdConfItemContentType.description.INSTRUCTIONS",
+    "lang": "fr",
+    "value": "Instructions"
+  },
+  {
+    "key": "ProdConfItemContentType.description.INSTRUCTIONS",
+    "lang": "de",
+    "value": "Instruktionen"
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_OTHER_COST",
+    "lang": "de",
+    "value": "Effektive andere Kosten"
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_OTHER_COST",
+    "lang": "fr",
+    "value": "Autre coût réel"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_COMPLEMENT",
+    "lang": "de",
+    "value": "Zusatz oder Ergänzende (Cross-Sell)"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_COMPLEMENT",
+    "lang": "fr",
+    "value": "Éléments complémentaires ou croisés"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.purchaseAllowPermReqd",
+    "lang": "fr",
+    "value": "Si Oui, les administrateurs ne peuvent ajouter des produits aux catégories «Permission d'achat» que s'ils ont la permission CATALOG_VIEW_ALLOW"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.purchaseAllowPermReqd",
+    "lang": "de",
+    "value": "Wenn Y, können Administratoren nur Produkte zu 'Kauf erlauben' Kategorien hinzufügen, wenn sie die CATALOG_VIEW_ALLOW Berechtigung besitzen"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POAC",
+    "lang": "fr",
+    "value": "Pourcentage du coût moyen"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POAC",
+    "lang": "de",
+    "value": "Prozent von Durchschnittskosten"
+  },
+  {
+    "key": "FieldDescription.ProductStore.prorateTaxes",
+    "lang": "de",
+    "value": "Anteilsmässige Steuern"
+  },
+  {
+    "key": "FieldDescription.ProductStore.prorateTaxes",
+    "lang": "fr",
+    "value": "Taxes au prorata"
+  },
+  {
+    "key": "ProductContentType.description.DESCRIPTION",
+    "lang": "fr",
+    "value": "Description"
+  },
+  {
+    "key": "ProductContentType.description.DESCRIPTION",
+    "lang": "de",
+    "value": "Beschreibung"
+  },
+  {
+    "key": "FieldDescription.ProductStore.enableAutoSuggestionList",
+    "lang": "de",
+    "value": "Die automatische Vorschlagsliste ist eine spezielle Einkaufsliste, die der addSuggestionsToShoppingList Service für das Cross-Selling der bestellten Artikel automatisch pflegt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.enableAutoSuggestionList",
+    "lang": "fr",
+    "value": "La liste auto-suggérée est une 'liste de courses' qui est utilisée pour maintenir la vente croisée des articles commandés. Cette liste est traitée par la service addSuggestionsToShoppingList()."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoApproveOrder",
+    "lang": "de",
+    "value": "Wenn ausgeschaltet, werden Bestellungen nach erfolgreicher Zahlungsauthorisierung nicht automatisch freigegeben."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoApproveOrder",
+    "lang": "fr",
+    "value": "Si non, les commandes ne seront pas automatiquement approuvées lors de l'autorisation du paiement."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.headerLogo",
+    "lang": "fr",
+    "value": "Ce sera visible par vos clients."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.headerLogo",
+    "lang": "de",
+    "value": "Dies wird Ihren Kunden angezeigt. Visualisieren Sie Ihr Image und Ihre Botschaft mit diesem Logo."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.styleSheet",
+    "lang": "de",
+    "value": "Der Pfad zu Ihrem eigenen Stylesheet, welches das Aussehen Ihres Katalogs steuert, wird hier eingegeben."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.styleSheet",
+    "lang": "fr",
+    "value": "Chemin vers votre feuille de style, qui contrôle l'apparence de votre catalogue."
+  },
+  {
+    "key": "FieldDescription.ProductStore.isImmediatelyFulfilled",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, werden Bestellungen sofort durch systemgenerierte Prozesse ausgeführt. Wenn ausgeschaltet, werden sie für eine manuelle Prüfung zurückgehalten."
+  },
+  {
+    "key": "FieldDescription.ProductStore.isImmediatelyFulfilled",
+    "lang": "fr",
+    "value": "Si Oui, toutes les commandes seront automatiquement remplies par le système. Si Non, les commandes seront retenues à des fins de traitement manuel."
+  },
+  {
+    "key": "VarianceReason.description.VAR_STOLEN",
+    "lang": "fr",
+    "value": "Volé"
+  },
+  {
+    "key": "VarianceReason.description.VAR_STOLEN",
+    "lang": "de",
+    "value": "Gestohlen"
+  },
+  {
+    "key": "ProductMaintType.description.VEHICLE_MAINT",
+    "lang": "de",
+    "value": "Fahrzeugwartung"
+  },
+  {
+    "key": "ProductMaintType.description.VEHICLE_MAINT",
+    "lang": "fr",
+    "value": "Révision du véhicule"
+  },
+  {
+    "key": "FieldDescription.ProductStore.selectPaymentTypePerItem",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, können Kunden Teile der Bestellung mit unterschiedlichen Zahlungsmethoden bezahlen."
+  },
+  {
+    "key": "FieldDescription.ProductStore.selectPaymentTypePerItem",
+    "lang": "fr",
+    "value": "Si Oui, permet plusieurs types de paiement différents dans le même ordre de vente."
+  },
+  {
+    "key": "ProductContentType.description.DETAIL_IMAGE_ALT",
+    "lang": "fr",
+    "value": "Texte alternatif de l'image - Détail"
+  },
+  {
+    "key": "ProductContentType.description.DETAIL_IMAGE_ALT",
+    "lang": "de",
+    "value": "Bild Alt Text - Details"
+  },
+  {
+    "key": "FacilityGroupType.description.MGMT_STRUCTURE",
+    "lang": "fr",
+    "value": "Structure de gestion"
+  },
+  {
+    "key": "FacilityGroupType.description.MGMT_STRUCTURE",
+    "lang": "de",
+    "value": "Verwaltungsstruktur"
+  },
+  {
+    "key": "ShipmentType.description.PURCHASE_SHIPMENT",
+    "lang": "fr",
+    "value": "Expédition d'achat"
+  },
+  {
+    "key": "ShipmentType.description.PURCHASE_SHIPMENT",
+    "lang": "de",
+    "value": "Eingehend - Einkauf Lieferung"
+  },
+  {
+    "key": "ProductPricePurpose.description.COMPONENT_PRICE",
+    "lang": "fr",
+    "value": "Prix du composant"
+  },
+  {
+    "key": "ProductPricePurpose.description.COMPONENT_PRICE",
+    "lang": "de",
+    "value": "Komponentenpreis"
+  },
+  {
+    "key": "ProductAssocType.description.MARKETING_PKG_AUTO",
+    "lang": "fr",
+    "value": "Offre marketing construite automatiquement en fabrication"
+  },
+  {
+    "key": "ProductAssocType.description.MARKETING_PKG_AUTO",
+    "lang": "de",
+    "value": "Marketingpaket automatisch in Einzelpositionen aufteilen"
+  },
+  {
+    "key": "ProductContentType.description.FULFILLMENT_EXTSYNC",
+    "lang": "fr",
+    "value": "Réalisation externe (Sync)"
+  },
+  {
+    "key": "ProductContentType.description.FULFILLMENT_EXTSYNC",
+    "lang": "de",
+    "value": "Ausführung Extern (Synchron)"
+  },
+  {
+    "key": "ProdConfItemContentType.description.LONG_DESCRIPTION",
+    "lang": "fr",
+    "value": "Description - Longue"
+  },
+  {
+    "key": "ProdConfItemContentType.description.LONG_DESCRIPTION",
+    "lang": "de",
+    "value": "Beschreibung - Lang"
+  },
+  {
+    "key": "ProductGlAccountType.description.INVENTORY",
+    "lang": "fr",
+    "value": "Stock"
+  },
+  {
+    "key": "ProductGlAccountType.description.INVENTORY",
+    "lang": "de",
+    "value": "Bestand"
+  },
+  {
+    "key": "ProdConfItemContentType.description.DESCRIPTION",
+    "lang": "de",
+    "value": "Beschreibung"
+  },
+  {
+    "key": "ProdConfItemContentType.description.DESCRIPTION",
+    "lang": "fr",
+    "value": "Description"
+  },
+  {
+    "key": "FieldDescription.ProductStore.enableDigProdUpload",
+    "lang": "de",
+    "value": "Sofern nicht eingeschaltet, ist der Verkauf digitaler Produkte über diesen Store nicht erlaubt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.enableDigProdUpload",
+    "lang": "fr",
+    "value": "Sauf si défini à oui, la vente de produits numériques depuis votre magasin ne sera pas autorisée."
+  },
+  {
+    "key": "ProductContentType.description.DETAIL_IMAGE_URL",
+    "lang": "fr",
+    "value": "Image détaillée"
+  },
+  {
+    "key": "ProductContentType.description.DETAIL_IMAGE_URL",
+    "lang": "de",
+    "value": "Bild - Details"
+  },
+  {
+    "key": "ProductAssocType.description.ENGINEER_COMPONENT",
+    "lang": "fr",
+    "value": "Nomenclatures d'étude"
+  },
+  {
+    "key": "ProductAssocType.description.ENGINEER_COMPONENT",
+    "lang": "de",
+    "value": "Stückliste Engineering"
+  },
+  {
+    "key": "ProductContentType.description.PRICE_DETAIL_TEXT",
+    "lang": "de",
+    "value": "Preisdetail Text"
+  },
+  {
+    "key": "ProductContentType.description.PRICE_DETAIL_TEXT",
+    "lang": "fr",
+    "value": "Texte du détail de prix"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_TO_ADDRESS",
+    "lang": "fr",
+    "value": "Adresse d'expédition"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_TO_ADDRESS",
+    "lang": "de",
+    "value": "Lieferung Zieladresse"
+  },
+  {
+    "key": "ProductMeterType.description.TACHOGRAPH",
+    "lang": "fr",
+    "value": "Utiliser le tacographe"
+  },
+  {
+    "key": "ProductMeterType.description.TACHOGRAPH",
+    "lang": "de",
+    "value": "Fahrtenschreiber benutzen"
+  },
+  {
+    "key": "ProductFeatureType.description.LICENSE",
+    "lang": "de",
+    "value": "Lizenz"
+  },
+  {
+    "key": "ProductFeatureType.description.LICENSE",
+    "lang": "fr",
+    "value": "License"
+  },
+  {
+    "key": "ProductFeatureApplType.description.DISTINGUISHING_FEAT",
+    "lang": "fr",
+    "value": "Distinct"
+  },
+  {
+    "key": "ProductFeatureApplType.description.DISTINGUISHING_FEAT",
+    "lang": "de",
+    "value": "Unterscheidendes Merkmal"
+  },
+  {
+    "key": "ProductGlAccountType.description.COGS",
+    "lang": "fr",
+    "value": "Coût des biens vendus"
+  },
+  {
+    "key": "ProductGlAccountType.description.COGS",
+    "lang": "de",
+    "value": "Kosten der verkauften Waren (COGS)"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_OBSOLESCENCE",
+    "lang": "fr",
+    "value": "Nouvelle version de remplacement"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_OBSOLESCENCE",
+    "lang": "de",
+    "value": "Neue Version, Ersatz"
+  },
+  {
+    "key": "ProductType.description.MARKETING_PKG",
+    "lang": "fr",
+    "value": "Offre marketing"
+  },
+  {
+    "key": "ProductType.description.MARKETING_PKG",
+    "lang": "de",
+    "value": "Marketingpaket"
+  },
+  {
+    "key": "FieldDescription.ProductStore.productStoreId",
+    "lang": "fr",
+    "value": "L'identifiant du magasin."
+  },
+  {
+    "key": "FieldDescription.ProductStore.productStoreId",
+    "lang": "de",
+    "value": "Die Id für den Laden."
+  },
+  {
+    "key": "FacilityType.description.CALL_CENTER",
+    "lang": "fr",
+    "value": "Centre d'appel"
+  },
+  {
+    "key": "FacilityType.description.CALL_CENTER",
+    "lang": "de",
+    "value": "Callcenter"
+  },
+  {
+    "key": "ProductFeatureApplType.description.STANDARD_FEATURE",
+    "lang": "fr",
+    "value": "Standard"
+  },
+  {
+    "key": "ProductFeatureApplType.description.STANDARD_FEATURE",
+    "lang": "de",
+    "value": "Standard"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_BLUE",
+    "lang": "fr",
+    "value": "Bleu"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_BLUE",
+    "lang": "de",
+    "value": "Blau"
+  },
+  {
+    "key": "ProductMeterType.description.DISTANCE",
+    "lang": "fr",
+    "value": "Compteur de distance"
+  },
+  {
+    "key": "ProductMeterType.description.DISTANCE",
+    "lang": "de",
+    "value": "Distanzzähler"
+  },
+  {
+    "key": "FieldDescription.ProductStore.setOwnerUponIssuance",
+    "lang": "de",
+    "value": "Wenn eingeschaltet oder leer, wird der Besitzer bei der Warenausgabe gesetzt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.setOwnerUponIssuance",
+    "lang": "fr",
+    "value": "Si oui ou vide, défini le propriétaire de l'élément d'inventaire dès l'émission."
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_ROUTE_COST",
+    "lang": "de",
+    "value": "Effektive Wegkosten (Anlageverwendung)"
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_ROUTE_COST",
+    "lang": "fr",
+    "value": "Coût réel d'itinéraire (utilisation d'immobilisation)"
+  },
+  {
+    "key": "FieldDescription.ProductStore.digitalItemApprovedStatus",
+    "lang": "de",
+    "value": "Auf welchen Status sollen Bestellpositionen gesetzt werden, wenn digitale Bestellungen freigegeben, abgelehnt oder storniert werden. Basierend auf den standardmässig definierten Statuscodes in OFBiz."
+  },
+  {
+    "key": "FieldDescription.ProductStore.digitalItemApprovedStatus",
+    "lang": "fr",
+    "value": "À quel statut doit on positionner la ligne de commande lorsque un article numérique est approuvé, refusé ou annulé. Basé sur les codes statut standards définis dans Apache OFBiz"
+  },
+  {
+    "key": "RejectionReason.description.SRJ_NOT_ORDERED",
+    "lang": "fr",
+    "value": "Non commandé"
+  },
+  {
+    "key": "RejectionReason.description.SRJ_NOT_ORDERED",
+    "lang": "de",
+    "value": "Nicht in Auftrag gegeben"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_GRAY",
+    "lang": "de",
+    "value": "Grau"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_GRAY",
+    "lang": "fr",
+    "value": "Gris"
+  },
+  {
+    "key": "FieldDescription.ProductStore.isDemoStore",
+    "lang": "fr",
+    "value": "Si oui, toutes les commandes de produits sont pour démonstration. Aucun frais de carte de crédit seront prélevés, rien ne sera expédié."
+  },
+  {
+    "key": "FieldDescription.ProductStore.isDemoStore",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, werden Bestellungen nicht vearbeitet, Kreditkartenzahlungen nicht ausgeführt etc."
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_COMPONENT",
+    "lang": "fr",
+    "value": "Composant d'un regroupement de produits"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_COMPONENT",
+    "lang": "de",
+    "value": "Effektive Produktkomponente"
+  },
+  {
+    "key": "ProductFeatureType.description.MODEL_YEAR",
+    "lang": "fr",
+    "value": "Année modèle"
+  },
+  {
+    "key": "ProductFeatureType.description.MODEL_YEAR",
+    "lang": "de",
+    "value": "Modelljahr"
+  },
+  {
+    "key": "ProductFeatureType.description.BRAND",
+    "lang": "fr",
+    "value": "Marque"
+  },
+  {
+    "key": "ProductFeatureType.description.BRAND",
+    "lang": "de",
+    "value": "Marke"
+  },
+  {
+    "key": "CostComponentType.description.ESTIMATED_OTHER_COST",
+    "lang": "de",
+    "value": "Geschätzte andere Kosten"
+  },
+  {
+    "key": "CostComponentType.description.ESTIMATED_OTHER_COST",
+    "lang": "fr",
+    "value": "Autre estimation"
+  },
+  {
+    "key": "FieldDescription.ProductStore.shipIfCaptureFails",
+    "lang": "de",
+    "value": "Wenn ausgeschaltet, wird captureOrderPayments einen Servicefehler erzeugen, wenn der Kreditkarteneinzug fehlschlägt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.shipIfCaptureFails",
+    "lang": "fr",
+    "value": "Si non, Si la capture de la carte de crédit échoue, le service captureOrderPayments générera une erreur."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.catalogName",
+    "lang": "de",
+    "value": "Wird Ihren Kunden angezeigt, also denken Sie an das Image wenn Sie den Katalognamen auswählen."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.catalogName",
+    "lang": "fr",
+    "value": "Ce sera visible par vos clients."
+  },
+  {
+    "key": "ProductCategoryLinkType.description.PCLT_CAT_ID",
+    "lang": "de",
+    "value": "Kategorie ID"
+  },
+  {
+    "key": "ProductCategoryLinkType.description.PCLT_CAT_ID",
+    "lang": "fr",
+    "value": "Ref. de catégorie"
+  },
+  {
+    "key": "FacilityType.description.OFFICE",
+    "lang": "fr",
+    "value": "Bureau"
+  },
+  {
+    "key": "FacilityType.description.OFFICE",
+    "lang": "de",
+    "value": "Büro"
+  },
+  {
+    "key": "ProductCategoryType.description.CATALOG_CATEGORY",
+    "lang": "fr",
+    "value": "Catalogue"
+  },
+  {
+    "key": "ProductCategoryType.description.CATALOG_CATEGORY",
+    "lang": "de",
+    "value": "Katalog"
+  },
+  {
+    "key": "ProductMeterType.description.TACHOMETER",
+    "lang": "fr",
+    "value": "Compte-tours"
+  },
+  {
+    "key": "ProductMeterType.description.TACHOMETER",
+    "lang": "de",
+    "value": "Tachometer"
+  },
+  {
+    "key": "ProductContentType.description.SPECIFICATION",
+    "lang": "fr",
+    "value": "Spécification"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_MEDIUM",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 4 Moyenne"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_MEDIUM",
+    "lang": "de",
+    "value": "Zusatzbild 4 mittel"
+  },
+  {
+    "key": "ProductFeatureType.description.GIFT_WRAP",
+    "lang": "de",
+    "value": "Geschenkverpackung"
+  },
+  {
+    "key": "ProductFeatureType.description.GIFT_WRAP",
+    "lang": "fr",
+    "value": "Emballage de cadeau"
+  },
+  {
+    "key": "ShipmentType.description.DROP_SHIPMENT",
+    "lang": "de",
+    "value": "Direktlieferung"
+  },
+  {
+    "key": "ShipmentType.description.DROP_SHIPMENT",
+    "lang": "fr",
+    "value": "Expédition par un tiers"
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_LABOR_COST",
+    "lang": "fr",
+    "value": "Coût réel du travail"
+  },
+  {
+    "key": "CostComponentType.description.ACTUAL_LABOR_COST",
+    "lang": "de",
+    "value": "Effektive Arbeitskosten"
+  },
+  {
+    "key": "ProductMaintType.description.CHASSIS_LUBE",
+    "lang": "fr",
+    "value": "Lubrification des châssis automobile"
+  },
+  {
+    "key": "ProductMaintType.description.CHASSIS_LUBE",
+    "lang": "de",
+    "value": "Fahrwerk Schmierung"
+  },
+  {
+    "key": "ProductFeatureApplType.description.SELECTABLE_FEATURE",
+    "lang": "fr",
+    "value": "Sélectionnable"
+  },
+  {
+    "key": "ProductFeatureApplType.description.SELECTABLE_FEATURE",
+    "lang": "de",
+    "value": "Auswählbar"
+  },
+  {
+    "key": "ProductFeatureType.description.COLOR",
+    "lang": "fr",
+    "value": "Couleur"
+  },
+  {
+    "key": "ProductFeatureType.description.COLOR",
+    "lang": "de",
+    "value": "Farbe"
+  },
+  {
+    "key": "ProductContentType.description.FULFILLMENT_EMAIL",
+    "lang": "fr",
+    "value": "Courriel de réalisation"
+  },
+  {
+    "key": "ProductContentType.description.FULFILLMENT_EMAIL",
+    "lang": "de",
+    "value": "E-Mail zur Ausführung"
+  },
+  {
+    "key": "FieldDescription.ProductStore.headerApprovedStatus",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die Ihre Kunden sehen sollen, wenn Ihre Bestellung freigegeben wurde."
+  },
+  {
+    "key": "FieldDescription.ProductStore.headerApprovedStatus",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsque la commande est approuvée"
+  },
+  {
+    "key": "ProductContentType.description.ORIGINAL_IMAGE_URL",
+    "lang": "fr",
+    "value": "Image - Originale"
+  },
+  {
+    "key": "ProductContentType.description.ORIGINAL_IMAGE_URL",
+    "lang": "de",
+    "value": "Bild - Original"
+  },
+  {
+    "key": "ProductCategoryType.description.INDUSTRY_CATEGORY",
+    "lang": "fr",
+    "value": "Industrie"
+  },
+  {
+    "key": "ProductCategoryType.description.INDUSTRY_CATEGORY",
+    "lang": "de",
+    "value": "Industrie"
+  },
+  {
+    "key": "ProductContentType.description.SMALL_IMAGE_ALT",
+    "lang": "de",
+    "value": "Bild Alt Text - Klein"
+  },
+  {
+    "key": "ProductContentType.description.SMALL_IMAGE_ALT",
+    "lang": "fr",
+    "value": "Texte de l'image en alternance - Petit"
+  },
+  {
+    "key": "ProductFeatureType.description.SYMPTOM",
+    "lang": "fr",
+    "value": "Symptôme"
+  },
+  {
+    "key": "ProductFeatureType.description.SYMPTOM",
+    "lang": "de",
+    "value": "Symptom"
+  },
+  {
+    "key": "ProductType.description.MARKETING_PKG_AUTO",
+    "lang": "fr",
+    "value": "Conditionnement marketing"
+  },
+  {
+    "key": "ProductType.description.MARKETING_PKG_AUTO",
+    "lang": "de",
+    "value": "Marketingpaket"
+  },
+  {
+    "key": "CostComponentType.description.MAT_COST",
+    "lang": "fr",
+    "value": "Coût de matériel"
+  },
+  {
+    "key": "CostComponentType.description.MAT_COST",
+    "lang": "de",
+    "value": "Materialkosten"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_VIEW_ALLW",
+    "lang": "fr",
+    "value": "Visualisation (un)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_VIEW_ALLW",
+    "lang": "de",
+    "value": "Anzeige erlauben (Eine)"
+  },
+  {
+    "key": "ProductType.description.FINDIG_GOOD",
+    "lang": "de",
+    "value": "Fertigprodukt/Digitales Produkt"
+  },
+  {
+    "key": "ProductType.description.FINDIG_GOOD",
+    "lang": "fr",
+    "value": "Produit fini immatériel"
+  },
+  {
+    "key": "ProductPriceType.description.SPECIAL_PROMO_PRICE",
+    "lang": "fr",
+    "value": "Prix spécial promo"
+  },
+  {
+    "key": "ProductPriceType.description.SPECIAL_PROMO_PRICE",
+    "lang": "de",
+    "value": "Sonderaktionspreis"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_EBAY_ROOT",
+    "lang": "fr",
+    "value": "Ebay Root (Un)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_EBAY_ROOT",
+    "lang": "de",
+    "value": "Ebay Root (Eine)"
+  },
+  {
+    "key": "FieldDescription.ProductStore.authFraudMessage",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die gesendet wird, wenn ein Betrugsversuch vermutet wird."
+  },
+  {
+    "key": "FieldDescription.ProductStore.authFraudMessage",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsque qu'une fraude est suspectée."
+  },
+  {
+    "key": "ProductContentType.description.SMALL_IMAGE_URL",
+    "lang": "fr",
+    "value": "Image petite"
+  },
+  {
+    "key": "ProductContentType.description.SMALL_IMAGE_URL",
+    "lang": "de",
+    "value": "Bild - Klein"
+  },
+  {
+    "key": "FieldDescription.ProductStore.balanceResOnOrderCreation",
+    "lang": "fr",
+    "value": "Si Oui, la priorité de réservation d'un nouvel ordre de vente avec articles en attente sera déterminée selon le champ shipBeforeDate."
+  },
+  {
+    "key": "FieldDescription.ProductStore.balanceResOnOrderCreation",
+    "lang": "de",
+    "value": "Wenn eingeschaltet und ein Kaufauftrag mit Artikeln im Lieferrückstand angelegt wird, werden Reservierungen auf das Lager/Produkt nach der angegebenen Priorität des shipBeforeDate Feldes neu zugewiesen."
+  },
+  {
+    "key": "FieldDescription.ProductStore.daysToCancelNonPay",
+    "lang": "fr",
+    "value": "Déclenche l'annulation des commandes pour non-paiement après la période spécifiée(jours)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.daysToCancelNonPay",
+    "lang": "de",
+    "value": "Steuert die Stornierung von Bestellungen bei Nichtzahlung nach Ablauf der hier angegebenen Tage."
+  },
+  {
+    "key": "ProductCategoryContentType.description.GIFT_CARD_CATEGORY",
+    "lang": "fr",
+    "value": "Carte-cadeau"
+  },
+  {
+    "key": "ProductCategoryContentType.description.GIFT_CARD_CATEGORY",
+    "lang": "de",
+    "value": "Gutschein"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_DETAIL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 1 Détaillée"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_1_DETAIL",
+    "lang": "de",
+    "value": "Zusatzbild 1 Detail"
+  },
+  {
+    "key": "FieldDescription.ProductStore.reserveOrderEnumId",
+    "lang": "fr",
+    "value": "Choisir comment l'inventaire devrait être réservé."
+  },
+  {
+    "key": "FieldDescription.ProductStore.reserveOrderEnumId",
+    "lang": "de",
+    "value": "Wählen Sie, wie der Bestand reserviert werden soll."
+  },
+  {
+    "key": "ProductFeatureType.description.WARRANTY",
+    "lang": "de",
+    "value": "Gewährleistung"
+  },
+  {
+    "key": "ProductFeatureType.description.WARRANTY",
+    "lang": "fr",
+    "value": "Garantie"
+  },
+  {
+    "key": "ProductFeatureType.description.GENRE",
+    "lang": "fr",
+    "value": "Genre"
+  },
+  {
+    "key": "ProductFeatureType.description.GENRE",
+    "lang": "de",
+    "value": "Gattung"
+  },
+  {
+    "key": "ProductFeatureType.description.EQUIP_CLASS",
+    "lang": "fr",
+    "value": "Classe d'équipement"
+  },
+  {
+    "key": "ProductFeatureType.description.EQUIP_CLASS",
+    "lang": "de",
+    "value": "Ausrüstungsklasse"
+  },
+  {
+    "key": "ProductPriceType.description.WHOLESALE_PRICE",
+    "lang": "fr",
+    "value": "Prix de gros"
+  },
+  {
+    "key": "ProductPriceType.description.WHOLESALE_PRICE",
+    "lang": "de",
+    "value": "Grosshandelspreis"
+  },
+  {
+    "key": "FieldDescription.ProductStore.authErrorMessage",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lors d'une erreur d'autorisation"
+  },
+  {
+    "key": "FieldDescription.ProductStore.authErrorMessage",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die gesendet wird, wenn ein Ausführungsfehler auftritt."
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_INCOMPATABLE",
+    "lang": "de",
+    "value": "Inkompatibel"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_INCOMPATABLE",
+    "lang": "fr",
+    "value": "Incompatible"
+  },
+  {
+    "key": "ProductCategoryContentType.description.LINK2_ALT_TEXT",
+    "lang": "de",
+    "value": "Link 2 Alternativtext"
+  },
+  {
+    "key": "ProductCategoryContentType.description.LINK2_ALT_TEXT",
+    "lang": "fr",
+    "value": "Lien 2 - Texte alternatif"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_AUTORO",
+    "lang": "de",
+    "value": "Automatische Neubestellung (benötigt Wiederholungsinfo ID)"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_AUTORO",
+    "lang": "fr",
+    "value": "Réapprovisionnement automatique(nécessite recurrenceInfoId)"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.viewAllowPermReqd",
+    "lang": "de",
+    "value": "Wenn Y, können Administratoren nur Produkte zu 'Ansicht erlauben' Kategorien hinzufügen, wenn sie die CATALOG_VIEW_ALLOW Berechtigung besitzen"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.viewAllowPermReqd",
+    "lang": "fr",
+    "value": "Si Oui, les administrateurs ne peuvent ajouter des produits aux catégories «Visualisation» que s'ils ont la permission CATALOG_VIEW_ALLOW"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.useQuickAdd",
+    "lang": "de",
+    "value": "Setzen Sie dies auf Y wenn Ihre Benutzer die Möglichkeit zur Schnelleingabe der Produkte haben sollen."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.useQuickAdd",
+    "lang": "fr",
+    "value": "Si Oui, donner aux utilisateurs la possibilité d'ajouter rapidement des produits."
+  },
+  {
+    "key": "ProdConfItemContentType.description.IMAGE_URL",
+    "lang": "fr",
+    "value": "Image"
+  },
+  {
+    "key": "ProdConfItemContentType.description.IMAGE_URL",
+    "lang": "de",
+    "value": "Bild"
+  },
+  {
+    "key": "FacilityType.description.RETAIL_STORE",
+    "lang": "de",
+    "value": "Einzelhandelsgeschäft"
+  },
+  {
+    "key": "FacilityType.description.RETAIL_STORE",
+    "lang": "fr",
+    "value": "Magasin de vente"
+  },
+  {
+    "key": "ProductFeatureType.description.ACCESSORY",
+    "lang": "fr",
+    "value": "Accessoire"
+  },
+  {
+    "key": "ProductFeatureType.description.ACCESSORY",
+    "lang": "de",
+    "value": "Zubehör"
+  },
+  {
+    "key": "ProductFeatureType.description.SOFTWARE_FEATURE",
+    "lang": "fr",
+    "value": "Caractéristique du logiciel"
+  },
+  {
+    "key": "ProductFeatureType.description.SOFTWARE_FEATURE",
+    "lang": "de",
+    "value": "Software-Merkmal"
+  },
+  {
+    "key": "ProductType.description.MARKETING_PKG_PICK",
+    "lang": "fr",
+    "value": "Conditionnement marketing: assemblage durant le prélèvement"
+  },
+  {
+    "key": "ProductType.description.MARKETING_PKG_PICK",
+    "lang": "de",
+    "value": "Marketingpaket: Zusammensetzung wählen"
+  },
+  {
+    "key": "ProductAssocType.description.MANUF_COMPONENT",
+    "lang": "fr",
+    "value": "Nomenclatures de fabrication"
+  },
+  {
+    "key": "ProductAssocType.description.MANUF_COMPONENT",
+    "lang": "de",
+    "value": "Stückliste Produktion"
+  },
+  {
+    "key": "ProductPriceType.description.RECURRING_CHARGE",
+    "lang": "de",
+    "value": "Wiederkehrende Kosten"
+  },
+  {
+    "key": "ProductPriceType.description.RECURRING_CHARGE",
+    "lang": "fr",
+    "value": "Charge périodique"
+  },
+  {
+    "key": "FieldDescription.ProductStore.prodSearchExcludeVariants",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, werden Variantenprodukte in den Suchergebnissen nicht berücksichtigt (fügt isVariant!=Y zu den Abfragen hinzu)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.prodSearchExcludeVariants",
+    "lang": "fr",
+    "value": "Si oui, les variantes de produits sont exclues de la recherche de produits pour le magasin."
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_PROMOTIONS",
+    "lang": "fr",
+    "value": "Promotions (un)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_PROMOTIONS",
+    "lang": "de",
+    "value": "Aktionen (Eine)"
+  },
+  {
+    "key": "ProductMaintType.description.CHECK_BATTERY",
+    "lang": "de",
+    "value": "Batterie prüfen"
+  },
+  {
+    "key": "ProductMaintType.description.CHECK_BATTERY",
+    "lang": "fr",
+    "value": "Vérification des batteries"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showPricesWithVatTax",
+    "lang": "de",
+    "value": "Sollen die angezeigten Preise die Umsatzsteuer enthalten (Y) oder nicht enthalten (N)?"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showPricesWithVatTax",
+    "lang": "fr",
+    "value": "Le prix affiché doit-il inclure (ou non) le montant de la TVA?"
+  },
+  {
+    "key": "ProductMeterType.description.COPY_COUNT",
+    "lang": "fr",
+    "value": "Compteur de copie"
+  },
+  {
+    "key": "ProductMeterType.description.COPY_COUNT",
+    "lang": "de",
+    "value": "Kopienzähler"
+  },
+  {
+    "key": "ProductFeatureType.description.HARDWARE_FEATURE",
+    "lang": "de",
+    "value": "Hardware-Merkmal"
+  },
+  {
+    "key": "ProductFeatureType.description.HARDWARE_FEATURE",
+    "lang": "fr",
+    "value": "Matériaux utilisés"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_FOL",
+    "lang": "fr",
+    "value": "Ajout au prix public"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_FOL",
+    "lang": "de",
+    "value": "Pauschalbetrag ändern"
+  },
+  {
+    "key": "GoodIdentificationType.description.ISBN",
+    "lang": "fr",
+    "value": "ISBN"
+  },
+  {
+    "key": "GoodIdentificationType.description.ISBN",
+    "lang": "de",
+    "value": "ISBN"
+  },
+  {
+    "key": "ProductCategoryContentType.description.CATEGORY_IMAGE_ALT",
+    "lang": "fr",
+    "value": "Image catégorie - Texte alternatif"
+  },
+  {
+    "key": "ProductCategoryContentType.description.CATEGORY_IMAGE_ALT",
+    "lang": "de",
+    "value": "Kategorie Bild Alternativtext"
+  },
+  {
+    "key": "ProductFeatureType.description.BILLING_FEATURE",
+    "lang": "fr",
+    "value": "Caractéristiques"
+  },
+  {
+    "key": "ProductFeatureType.description.BILLING_FEATURE",
+    "lang": "de",
+    "value": "Verrechnungsmerkmal"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POD",
+    "lang": "fr",
+    "value": "Pourcentage du prix par défaut"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POD",
+    "lang": "de",
+    "value": "Prozent vom Standardpreis"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POL",
+    "lang": "fr",
+    "value": "Pourcentage du prix public"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POL",
+    "lang": "de",
+    "value": "Prozent vom Listenpreis"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POM",
+    "lang": "de",
+    "value": "Prozent von Gewinnmarge"
+  },
+  {
+    "key": "ProductPriceActionType.description.PRICE_POM",
+    "lang": "fr",
+    "value": "Pourcentage de la marge"
+  },
+  {
+    "key": "ProductMeterType.description.USE_COUNT",
+    "lang": "de",
+    "value": "Verwendungszähler"
+  },
+  {
+    "key": "ProductMeterType.description.USE_COUNT",
+    "lang": "fr",
+    "value": "Utiliser le compteur"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_LARGE",
+    "lang": "de",
+    "value": "Zusatzbild 4 groß"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_LARGE",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 4 Grande"
+  },
+  {
+    "key": "ProductContentType.description.DIRECTIONS",
+    "lang": "de",
+    "value": "Anweisungen"
+  },
+  {
+    "key": "ProductContentType.description.DIRECTIONS",
+    "lang": "fr",
+    "value": "Directions"
+  },
+  {
+    "key": "ProductCategoryLinkType.description.PCLT_SEARCH_PARAM",
+    "lang": "de",
+    "value": "Suchparameter"
+  },
+  {
+    "key": "ProductCategoryLinkType.description.PCLT_SEARCH_PARAM",
+    "lang": "fr",
+    "value": "Paramètres de recherche"
+  },
+  {
+    "key": "ProductMaintType.description.WASH",
+    "lang": "de",
+    "value": "Reinigen"
+  },
+  {
+    "key": "ProductMaintType.description.WASH",
+    "lang": "fr",
+    "value": "Laver"
+  },
+  {
+    "key": "ProductContentType.description.TERMS_AND_CONDS",
+    "lang": "fr",
+    "value": "Modalités et conditions"
+  },
+  {
+    "key": "ProductContentType.description.TERMS_AND_CONDS",
+    "lang": "de",
+    "value": "Allgemeine Geschäftsbedingungen "
+  },
+  {
+    "key": "ProductCategoryType.description.CROSS_SELL_CATEGORY",
+    "lang": "fr",
+    "value": "Croisé"
+  },
+  {
+    "key": "ProductCategoryType.description.CROSS_SELL_CATEGORY",
+    "lang": "de",
+    "value": "Cross Sell"
+  },
+  {
+    "key": "ProductPriceType.description.MAXIMUM_PRICE",
+    "lang": "fr",
+    "value": "Prix maximum"
+  },
+  {
+    "key": "ProductPriceType.description.MAXIMUM_PRICE",
+    "lang": "de",
+    "value": "Maximum Preis"
+  },
+  {
+    "key": "ProductCategoryContentType.description.CATEGORY_IMAGE_URL",
+    "lang": "fr",
+    "value": "URL de catégorie d'image"
+  },
+  {
+    "key": "ProductCategoryContentType.description.CATEGORY_IMAGE_URL",
+    "lang": "de",
+    "value": "Kategorie Bild URL"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_SEARCH",
+    "lang": "fr",
+    "value": "Recherche par défaut (un)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_SEARCH",
+    "lang": "de",
+    "value": "Standard Suche (Eine)"
+  },
+  {
+    "key": "ProductFeatureType.description.CARE",
+    "lang": "de",
+    "value": "Pflege"
+  },
+  {
+    "key": "ProductFeatureType.description.CARE",
+    "lang": "fr",
+    "value": "Soin"
+  },
+  {
+    "key": "ProductType.description.AGGREGATED_CONF",
+    "lang": "fr",
+    "value": "Produit d'agrégat"
+  },
+  {
+    "key": "ProductType.description.AGGREGATED_CONF",
+    "lang": "de",
+    "value": "Konfigurierbare Ware konfigurieren"
+  },
+  {
+    "key": "ProductStoreGroup.productStoreGroupName._NA_",
+    "lang": "fr",
+    "value": "Non applicable"
+  },
+  {
+    "key": "ProductStoreGroup.productStoreGroupName._NA_",
+    "lang": "de",
+    "value": "Nicht anwendbar"
+  },
+  {
+    "key": "FieldDescription.ProductStore.headerCancelStatus",
+    "lang": "de",
+    "value": "Dies ist die Nachricht die Ihre Kunden sehen sollen, wenn eine Bestellung storniert wurde."
+  },
+  {
+    "key": "FieldDescription.ProductStore.headerCancelStatus",
+    "lang": "fr",
+    "value": "Message d'état à afficher au client lorsque la commande est annulée."
+  },
+  {
+    "key": "ProductMaintType.description.HVAC_REPLACE_FILTER",
+    "lang": "fr",
+    "value": "Filtre à air - remplacement"
+  },
+  {
+    "key": "ProductMaintType.description.HVAC_REPLACE_FILTER",
+    "lang": "de",
+    "value": "Ersetze Luftfilter"
+  },
+  {
+    "key": "ProductMaintType.description.HVAC_MAINT",
+    "lang": "fr",
+    "value": "Maintenance de HVAC"
+  },
+  {
+    "key": "ProductMaintType.description.HVAC_MAINT",
+    "lang": "de",
+    "value": "HVAC Wartung"
+  },
+  {
+    "key": "GoodIdentificationType.description.UPCA",
+    "lang": "fr",
+    "value": "Code barre UPCA"
+  },
+  {
+    "key": "GoodIdentificationType.description.UPCA",
+    "lang": "de",
+    "value": "Barcode UPCA"
+  },
+  {
+    "key": "GoodIdentificationType.description.UPCE",
+    "lang": "fr",
+    "value": "Code barre UPCE"
+  },
+  {
+    "key": "GoodIdentificationType.description.UPCE",
+    "lang": "de",
+    "value": "Barcode UPCE"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoApproveInvoice",
+    "lang": "fr",
+    "value": "Si Oui ou vide, les factures de vente créées à partir de la commande seront marquées prêtes."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoApproveInvoice",
+    "lang": "de",
+    "value": "Wenn eingeschaltet oder leer, werden Verkaufsrechnungen aus Bestellungen automatisch als fertig markiert."
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_SUBSTITUTE",
+    "lang": "fr",
+    "value": "Équivalent ou remplaçant"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_SUBSTITUTE",
+    "lang": "de",
+    "value": "Gleich oder Ersatz"
+  },
+  {
+    "key": "ProductPriceType.description.AVERAGE_COST",
+    "lang": "fr",
+    "value": "Coût moyen"
+  },
+  {
+    "key": "ProductPriceType.description.AVERAGE_COST",
+    "lang": "de",
+    "value": "Durchschnittskosten"
+  },
+  {
+    "key": "CostComponentType.description.ESTIMATED_LABOR_COST",
+    "lang": "fr",
+    "value": "Estimation de coût du travail"
+  },
+  {
+    "key": "CostComponentType.description.ESTIMATED_LABOR_COST",
+    "lang": "de",
+    "value": "Geschätzte Arbeitskosten"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_BLACK",
+    "lang": "de",
+    "value": "Schwarz"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_BLACK",
+    "lang": "fr",
+    "value": "Noir"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_LARGE",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 2 Grande"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_LARGE",
+    "lang": "de",
+    "value": "Zusatzbild 2 groß"
+  },
+  {
+    "key": "ProductCategoryType.description.TAX_CATEGORY",
+    "lang": "fr",
+    "value": "Taxe"
+  },
+  {
+    "key": "ProductCategoryType.description.TAX_CATEGORY",
+    "lang": "de",
+    "value": "Steuern"
+  },
+  {
+    "key": "GoodIdentificationType.description.OTHER_ID",
+    "lang": "de",
+    "value": "Andere"
+  },
+  {
+    "key": "GoodIdentificationType.description.OTHER_ID",
+    "lang": "fr",
+    "value": "Autre"
+  },
+  {
+    "key": "ProductMeterType.description.SPEEDOMETER",
+    "lang": "fr",
+    "value": "Indicateur de vitesse"
+  },
+  {
+    "key": "ProductMeterType.description.SPEEDOMETER",
+    "lang": "de",
+    "value": "Geschwindigkeitsmesser"
+  },
+  {
+    "key": "FieldDescription.ProductStore.companyName",
+    "lang": "de",
+    "value": "Dies ist der Name des Unternehmens, den dieser Katalog repräsentiert."
+  },
+  {
+    "key": "FieldDescription.ProductStore.companyName",
+    "lang": "fr",
+    "value": "Nom de l'Entreprise."
+  },
+  {
+    "key": "ProductMeterType.description.EVENT_DATA_RECORDER",
+    "lang": "de",
+    "value": "Ereignissdatenschreiber"
+  },
+  {
+    "key": "ProductMeterType.description.EVENT_DATA_RECORDER",
+    "lang": "fr",
+    "value": "Utiliser l'enregistreur d'évènements"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_TO_TELECOM",
+    "lang": "fr",
+    "value": "N° de téléphone de l'expédition"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_TO_TELECOM",
+    "lang": "de",
+    "value": "Lieferung Ziel Telefonnummer"
+  },
+  {
+    "key": "FieldDescription.ProductStore.checkInventory",
+    "lang": "fr",
+    "value": "Si Oui, le système vérifie les niveaux de stocks lors du traitement d'une commande."
+  },
+  {
+    "key": "FieldDescription.ProductStore.checkInventory",
+    "lang": "de",
+    "value": "Legt fest, ob das System beim Ausführen einer Bestellung den Lagerbestand prüfen soll."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryLaterMax",
+    "lang": "de",
+    "value": "Wie oft soll bei automatischen Bestellungen und Kreditkarten Unterdeckung erneut versucht werden."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryLaterMax",
+    "lang": "fr",
+    "value": "Pour les commandes automatiques. Nombre d'essais maximal pour débiter la carte de crédit."
+  },
+  {
+    "key": "FacilityType.description.WAREHOUSE",
+    "lang": "de",
+    "value": "Warenlager"
+  },
+  {
+    "key": "FacilityType.description.WAREHOUSE",
+    "lang": "fr",
+    "value": "Entrepôt"
+  },
+  {
+    "key": "GoodIdentificationType.description.GOOGLE_ID",
+    "lang": "fr",
+    "value": "Identifiant Google"
+  },
+  {
+    "key": "GoodIdentificationType.description.GOOGLE_ID",
+    "lang": "de",
+    "value": "Google ID"
+  },
+  {
+    "key": "ProductFeature.description.HAZMAT",
+    "lang": "de",
+    "value": "Gefahrgut"
+  },
+  {
+    "key": "ProductFeature.description.HAZMAT",
+    "lang": "fr",
+    "value": "Produits dangereux"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryLaterNsf",
+    "lang": "fr",
+    "value": "Pour les commandes automatiques, si la carte de crédit ne contient pas suffisamment de fonds, essaye plus tard."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryLaterNsf",
+    "lang": "de",
+    "value": "Bei automatischen Bestellungen wird die Zahlung bei Kreditkarten Unterdeckung später erneut versucht."
+  },
+  {
+    "key": "ProductFeatureType.description.SIZE",
+    "lang": "fr",
+    "value": "Taille"
+  },
+  {
+    "key": "ProductFeatureType.description.SIZE",
+    "lang": "de",
+    "value": "Größe"
+  },
+  {
+    "key": "ProductPriceType.description.COMPETITIVE_PRICE",
+    "lang": "fr",
+    "value": "Prix compétitif"
+  },
+  {
+    "key": "ProductPriceType.description.COMPETITIVE_PRICE",
+    "lang": "de",
+    "value": "Konkurrenzfähiger Preis"
+  },
+  {
+    "key": "ProductContentType.description.EBAY_DESCRIPTION",
+    "lang": "fr",
+    "value": "Page de ventes aux enchères eBay."
+  },
+  {
+    "key": "ProductPriceType.description.COMPONENT_PRICE",
+    "lang": "de",
+    "value": "Komponentenpreis"
+  },
+  {
+    "key": "ProductPriceType.description.COMPONENT_PRICE",
+    "lang": "fr",
+    "value": "Prix du composant"
+  },
+  {
+    "key": "ProductAssocType.description.ALTERNATIVE_PACKAGE",
+    "lang": "de",
+    "value": "Alternative Verpackung"
+  },
+  {
+    "key": "ProductAssocType.description.ALTERNATIVE_PACKAGE",
+    "lang": "fr",
+    "value": "Conditionnement alternatif"
+  },
+  {
+    "key": "ProductPriceType.description.USAGE_CHARGE",
+    "lang": "de",
+    "value": "Benutzungsgebühr"
+  },
+  {
+    "key": "ProductPriceType.description.USAGE_CHARGE",
+    "lang": "fr",
+    "value": "Charge d'utilisation"
+  },
+  {
+    "key": "GoodIdentificationType.description.MODEL_YEAR",
+    "lang": "fr",
+    "value": "Année modèle"
+  },
+  {
+    "key": "GoodIdentificationType.description.MODEL_YEAR",
+    "lang": "de",
+    "value": "Modelljahr"
+  },
+  {
+    "key": "ProductContentType.description.LONG_DESCRIPTION",
+    "lang": "fr",
+    "value": "Description longue"
+  },
+  {
+    "key": "ProductContentType.description.LONG_DESCRIPTION",
+    "lang": "de",
+    "value": "Beschreibung - Lang"
+  },
+  {
+    "key": "ProductFeatureType.description.AMOUNT",
+    "lang": "fr",
+    "value": "Quantité"
+  },
+  {
+    "key": "ProductFeatureType.description.AMOUNT",
+    "lang": "de",
+    "value": "Betrag"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_DETAIL",
+    "lang": "de",
+    "value": "Zusatzbild 4 Detail"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_DETAIL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 4 Détaillée"
+  },
+  {
+    "key": "ProductAssocType.description.MARKETING_PACKAGE",
+    "lang": "de",
+    "value": "Marketingpaket"
+  },
+  {
+    "key": "ProductAssocType.description.MARKETING_PACKAGE",
+    "lang": "fr",
+    "value": "Produit commercialisé avec"
+  },
+  {
+    "key": "ProductFeatureType.description.TYPE",
+    "lang": "fr",
+    "value": "Type"
+  },
+  {
+    "key": "ProductFeatureType.description.TYPE",
+    "lang": "de",
+    "value": "Typ"
+  },
+  {
+    "key": "ProductMeterType.description.MOTOR_TIME",
+    "lang": "de",
+    "value": "Motorstunden Zähler"
+  },
+  {
+    "key": "ProductMeterType.description.MOTOR_TIME",
+    "lang": "fr",
+    "value": "Compteur de temps moteur"
+  },
+  {
+    "key": "ProductMaintType.description.OIL_CHANGE",
+    "lang": "fr",
+    "value": "Changer l'huile"
+  },
+  {
+    "key": "ProductMaintType.description.OIL_CHANGE",
+    "lang": "de",
+    "value": "Ölwechsel"
+  },
+  {
+    "key": "FieldDescription.ProductStore.subtitle",
+    "lang": "fr",
+    "value": "Cette valeur s'affiche dans la section d'en-tête du magasin de commerce électronique(ecommerce)."
+  },
+  {
+    "key": "FieldDescription.ProductStore.subtitle",
+    "lang": "de",
+    "value": "Dieser Eintrag wird im Kopfbereich des eCommerce Store angezeigt."
+  },
+  {
+    "key": "SubscriptionType.description.PRODUCT_INFO_SUBSCR",
+    "lang": "fr",
+    "value": "Information sur le produit"
+  },
+  {
+    "key": "SubscriptionType.description.PRODUCT_INFO_SUBSCR",
+    "lang": "de",
+    "value": "Produktinformationen"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_YELLOW",
+    "lang": "fr",
+    "value": "Jaune"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_YELLOW",
+    "lang": "de",
+    "value": "Gelb"
+  },
+  {
+    "key": "InventoryItemType.description.SERIALIZED_INV_ITEM",
+    "lang": "fr",
+    "value": "En série"
+  },
+  {
+    "key": "InventoryItemType.description.SERIALIZED_INV_ITEM",
+    "lang": "de",
+    "value": "mit Seriennummern"
+  },
+  {
+    "key": "ProductContentType.description.DEFAULT_IMAGE",
+    "lang": "fr",
+    "value": "Image par défaut"
+  },
+  {
+    "key": "FieldDescription.ProductStore.primaryStoreGroupId",
+    "lang": "fr",
+    "value": "Le groupe d'appartenance du magasin. Les magasins peuvent être regroupés, avec un prix pour chaque groupe. Il peut être laissé vide si il n'y a aucun groupes de magasins mis en place."
+  },
+  {
+    "key": "FieldDescription.ProductStore.primaryStoreGroupId",
+    "lang": "de",
+    "value": "Zu welcher Gruppe gehört dieser Laden. Läden können gruppiert werden mit einem Preis je Ladengruppe. Kann leer bleiben, wenn keine Ladengruppen eingerichtet sind."
+  },
+  {
+    "key": "ProductMaintType.description.ROTATE_TIRES",
+    "lang": "de",
+    "value": "Reifen wechseln"
+  },
+  {
+    "key": "ProductMaintType.description.ROTATE_TIRES",
+    "lang": "fr",
+    "value": "Permuter les pneus"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_L_MEDIUM",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire(moyenne)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_BROWSE_ROOT",
+    "lang": "fr",
+    "value": "Navigation (un)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_BROWSE_ROOT",
+    "lang": "de",
+    "value": "Einstiegspunkt (Eine)"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_MEDIUM",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 2 Moyenne"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_MEDIUM",
+    "lang": "de",
+    "value": "Zusatzbild 2 mittel"
+  },
+  {
+    "key": "FieldDescription.ProductStore.allowPassword",
+    "lang": "de",
+    "value": "Wenn ausgeschaltet, wird der Kunde beim Anlegen seines Benutzerkontos nicht nach einem Passwort gefragt. Er muss dann auf die Freischaltung seines Kontos und Zusendung seines Passworts warten."
+  },
+  {
+    "key": "FieldDescription.ProductStore.allowPassword",
+    "lang": "fr",
+    "value": "Si Non, Quand un client crée un compte, aucun mot de passe ne sera demandé, celui-ci sera fourni par email."
+  },
+  {
+    "key": "ShipmentType.description.TRANSFER",
+    "lang": "fr",
+    "value": "Transfert"
+  },
+  {
+    "key": "ShipmentType.description.TRANSFER",
+    "lang": "de",
+    "value": "Transfer"
+  },
+  {
+    "key": "VarianceReason.description.VAR_FOUND",
+    "lang": "fr",
+    "value": "Trouvé"
+  },
+  {
+    "key": "VarianceReason.description.VAR_FOUND",
+    "lang": "de",
+    "value": "Gefunden"
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryOtherCards",
+    "lang": "fr",
+    "value": "Pour les commandes automatiques, essayez d'autres cartes de crédit pour le client."
+  },
+  {
+    "key": "FieldDescription.ProductStore.autoOrderCcTryOtherCards",
+    "lang": "de",
+    "value": "Bei automatischen Bestellungen werden alternative Kreditkarten für den Kunden verwendet."
+  },
+  {
+    "key": "ProductMaintType.description.TUNE_UP",
+    "lang": "de",
+    "value": "Einstellen"
+  },
+  {
+    "key": "ProductMaintType.description.TUNE_UP",
+    "lang": "fr",
+    "value": "Mise au point"
+  },
+  {
+    "key": "ProductMaintType.description.SERP_BELT",
+    "lang": "fr",
+    "value": "Remplacement de courroie serpentine"
+  },
+  {
+    "key": "ProductMaintType.description.SERP_BELT",
+    "lang": "de",
+    "value": "Keilriemen ersetzen"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_WHATS_NEW",
+    "lang": "fr",
+    "value": "Nouveauté (une)"
+  },
+  {
+    "key": "ProdCatalogCategoryType.description.PCCT_WHATS_NEW",
+    "lang": "de",
+    "value": "Neuigkeiten (Eine)"
+  },
+  {
+    "key": "ProductMeterType.description.PEDOMETER",
+    "lang": "de",
+    "value": "Schrittzähler benutzen"
+  },
+  {
+    "key": "ProductMeterType.description.PEDOMETER",
+    "lang": "fr",
+    "value": "Utiliser le podomètre"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_GREEN",
+    "lang": "fr",
+    "value": "Vert"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_GREEN",
+    "lang": "de",
+    "value": "Grün"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_SMALL",
+    "lang": "de",
+    "value": "Zusatzbild 4 klein"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_4_SMALL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 4 Petite"
+  },
+  {
+    "key": "ProductContentType.description.INGREDIENTS",
+    "lang": "fr",
+    "value": "Éléments"
+  },
+  {
+    "key": "ProductContentType.description.INGREDIENTS",
+    "lang": "de",
+    "value": "Inhaltsstoffe"
+  },
+  {
+    "key": "ProductCategoryType.description.INTERNAL_CATEGORY",
+    "lang": "fr",
+    "value": "Interne"
+  },
+  {
+    "key": "ProductCategoryType.description.INTERNAL_CATEGORY",
+    "lang": "de",
+    "value": "Intern"
+  },
+  {
+    "key": "ShipmentType.description.PURCHASE_RETURN",
+    "lang": "de",
+    "value": "Ausgehend - Einkauf Retoure"
+  },
+  {
+    "key": "ShipmentType.description.PURCHASE_RETURN",
+    "lang": "fr",
+    "value": "Retour d'achat"
+  },
+  {
+    "key": "ProductFeatureApplType.description.REQUIRED_FEATURE",
+    "lang": "fr",
+    "value": "Requis"
+  },
+  {
+    "key": "ProductFeatureApplType.description.REQUIRED_FEATURE",
+    "lang": "de",
+    "value": "Benötigt"
+  },
+  {
+    "key": "ProductType.description.FINISHED_GOOD",
+    "lang": "fr",
+    "value": "Produit fini"
+  },
+  {
+    "key": "ProductType.description.FINISHED_GOOD",
+    "lang": "de",
+    "value": "Fertigprodukt"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_1",
+    "lang": "de",
+    "value": "Zusatzbild 1"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_1",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 1"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_2",
+    "lang": "de",
+    "value": "Zusatzbild 2"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_2",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 2"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_3",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 3"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_3",
+    "lang": "de",
+    "value": "Zusatzbild 3"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_4",
+    "lang": "de",
+    "value": "Zusatzbild 4"
+  },
+  {
+    "key": "ProductContentType.description.ADDITIONAL_IMAGE_4",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 4"
+  },
+  {
+    "key": "ProductContentType.description.UNIQUE_INGREDIENTS",
+    "lang": "de",
+    "value": "Einzigartige Inhaltsstoffe"
+  },
+  {
+    "key": "ProductContentType.description.UNIQUE_INGREDIENTS",
+    "lang": "fr",
+    "value": "Élément unique"
+  },
+  {
+    "key": "FieldDescription.ProductStore.requireCustomerRole",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, muss der Kunde mit dem Laden über die Kundenrolle verbunden sein, um sich einzuloggen (z.B. B2B)"
+  },
+  {
+    "key": "FieldDescription.ProductStore.requireCustomerRole",
+    "lang": "fr",
+    "value": "Si Oui, le client doit être associé à la boutique dans le 'rôle du client' afin d'être capable de se connecter (ex: B2B)"
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultLocaleString",
+    "lang": "de",
+    "value": "Standardlokalisierung für Sprache, Nummern- und Währungsformat."
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultLocaleString",
+    "lang": "fr",
+    "value": "Utilise cette régionalisation (langue, formats des nombre et monétaire)."
+  },
+  {
+    "key": "ProductGlAccountType.description.SALES",
+    "lang": "fr",
+    "value": "Ventes"
+  },
+  {
+    "key": "ProductGlAccountType.description.SALES",
+    "lang": "de",
+    "value": "Verkauf"
+  },
+  {
+    "key": "ShipmentType.description.MANUFACTURING_SHIP",
+    "lang": "fr",
+    "value": "Expédition de fabrication"
+  },
+  {
+    "key": "ShipmentType.description.MANUFACTURING_SHIP",
+    "lang": "de",
+    "value": "Fertigung Lieferung"
+  },
+  {
+    "key": "ProductMeterType.description.TRIP_METER",
+    "lang": "de",
+    "value": "Tageskilometerzähler"
+  },
+  {
+    "key": "ProductMeterType.description.TRIP_METER",
+    "lang": "fr",
+    "value": "Utiliser le compteur de distance par trajet"
+  },
+  {
+    "key": "ProductFeatureType.description.ARTIST",
+    "lang": "fr",
+    "value": "Artiste"
+  },
+  {
+    "key": "ProductFeatureType.description.ARTIST",
+    "lang": "de",
+    "value": "Künstler"
+  },
+  {
+    "key": "ProductMeterType.description.ODOMETER",
+    "lang": "de",
+    "value": "Hodometer"
+  },
+  {
+    "key": "ProductMeterType.description.ODOMETER",
+    "lang": "fr",
+    "value": "Odomètre"
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultPassword",
+    "lang": "fr",
+    "value": "Si vous permettez à d'autres d'accéder à votre compte, sélectionnez le mot de passe à utiliser"
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultPassword",
+    "lang": "de",
+    "value": "Wenn Zugriff per Passwort erlaubt ist, welches ist das Standardpasswort welches jeder verwenden kann, der es kennt?"
+  },
+  {
+    "key": "ProductCategoryContentType.description.LONG_DESCRIPTION",
+    "lang": "fr",
+    "value": "Description - Longue"
+  },
+  {
+    "key": "ProductCategoryContentType.description.LONG_DESCRIPTION",
+    "lang": "de",
+    "value": "Beschreibung - lang"
+  },
+  {
+    "key": "ProductContentType.description.DELIVERY_INFO",
+    "lang": "de",
+    "value": "Lieferinformation"
+  },
+  {
+    "key": "ProductContentType.description.DELIVERY_INFO",
+    "lang": "fr",
+    "value": "Conditions de livraison"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_SMALL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire 2 Petite"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_2_SMALL",
+    "lang": "de",
+    "value": "Zusatzbild 2 klein"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showTaxIsExempt",
+    "lang": "de",
+    "value": "Soll angezeigt werden, ob ein bestimmter Artikel von der Umsatzsteuerpflicht befreit ist?"
+  },
+  {
+    "key": "FieldDescription.ProductStore.showTaxIsExempt",
+    "lang": "fr",
+    "value": "Montrer si l'article est exonéré d'impôt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultTimeZoneString",
+    "lang": "fr",
+    "value": "Utilise ce fuseau horaire. Si aucun n'est spécifié le fuseau horaire de la machine sera utilisé."
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_REFURB",
+    "lang": "fr",
+    "value": "Echange standard"
+  },
+  {
+    "key": "ProductAssocType.description.PRODUCT_REFURB",
+    "lang": "de",
+    "value": "Verbesserter Ersatz"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_RED",
+    "lang": "fr",
+    "value": "Rouge"
+  },
+  {
+    "key": "ProductFeature.description.TEXT_RED",
+    "lang": "de",
+    "value": "Rot"
+  },
+  {
+    "key": "ProductCategoryContentType.description.FOOTER",
+    "lang": "fr",
+    "value": "Note de bas de page"
+  },
+  {
+    "key": "ProductCategoryContentType.description.FOOTER",
+    "lang": "de",
+    "value": "Fusszeile"
+  },
+  {
+    "key": "ProductType.description.ASSET_USAGE",
+    "lang": "fr",
+    "value": "Usage d'immobilisation"
+  },
+  {
+    "key": "ProductType.description.ASSET_USAGE",
+    "lang": "de",
+    "value": "Anlageverwendung"
+  },
+  {
+    "key": "SubscriptionType.description.PRODUCT_SUBSCR",
+    "lang": "de",
+    "value": "Produkt"
+  },
+  {
+    "key": "SubscriptionType.description.PRODUCT_SUBSCR",
+    "lang": "fr",
+    "value": "Article"
+  },
+  {
+    "key": "ProductFeatureType.description.TOPIC",
+    "lang": "de",
+    "value": "Thema"
+  },
+  {
+    "key": "ProductFeatureType.description.TOPIC",
+    "lang": "fr",
+    "value": "Matière"
+  },
+  {
+    "key": "FieldDescription.ProductStore.reserveInventory",
+    "lang": "de",
+    "value": "Sorgt für eine Bestandsreservierung für bestellte Artikel. Dieser Bestand ist noch vorhanden, jedoch nicht für andere Bestellungen verfügbar."
+  },
+  {
+    "key": "FieldDescription.ProductStore.reserveInventory",
+    "lang": "fr",
+    "value": "Les commandes placent une réservation dans l'inventaire."
+  },
+  {
+    "key": "ProductType.description.SERVICE",
+    "lang": "fr",
+    "value": "Service"
+  },
+  {
+    "key": "ProductType.description.SERVICE",
+    "lang": "de",
+    "value": "Dienstleistung"
+  },
+  {
+    "key": "ProductFeatureType.description.STYLE",
+    "lang": "fr",
+    "value": "Modèle"
+  },
+  {
+    "key": "ProductFeatureType.description.STYLE",
+    "lang": "de",
+    "value": "Stil"
+  },
+  {
+    "key": "ProductPriceType.description.DEFAULT_PRICE",
+    "lang": "fr",
+    "value": "Prix par défaut"
+  },
+  {
+    "key": "ProductPriceType.description.DEFAULT_PRICE",
+    "lang": "de",
+    "value": "Standardpreis"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.contentPathPrefix",
+    "lang": "de",
+    "value": "Wenn angegeben, wird dies den Bilder- und anderen Inhaltspfaden vorangestellt. Sollte mit einem Schrägstrich beginnen jedoch nicht abschliessen."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.contentPathPrefix",
+    "lang": "fr",
+    "value": "Si spécifié, le préfixe sera ajouté au début des chemins d'images et autres contenus. Le préfixe doit commencer par un slash, mais ne doit pas se terminer par un slash."
+  },
+  {
+    "key": "FieldDescription.ProductStore.addToCartRemoveIncompat",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, entferne alle Produkte aus dem Warenkorb, welche untereinander inkompatibel sind (PRODUCT_INCOMPATABLE)."
+  },
+  {
+    "key": "ProductContentType.description.ADDTOCART_IMAGE",
+    "lang": "de",
+    "value": "Zum Warenkorb hinzufügen Bild"
+  },
+  {
+    "key": "ProductContentType.description.ADDTOCART_IMAGE",
+    "lang": "fr",
+    "value": "Image pour \"Ajouter au panier\""
+  },
+  {
+    "key": "FieldDescription.ProductStore.orderNumberPrefix",
+    "lang": "fr",
+    "value": "Préfixe de code pour le magasin. Toutes les commandes seront préfixées avec ce code. Par exemple si l'on souhaite différencier rapidement en comptabilité les commandes de magasins différents"
+  },
+  {
+    "key": "FieldDescription.ProductStore.orderNumberPrefix",
+    "lang": "de",
+    "value": "Allen Bestellnummern wird dieser Prefix vorangestellt, um bspw. Bestellungen verschiedener Läden in der Buchhaltung einfach auseinanderzuhalten."
+  },
+  {
+    "key": "FieldDescription.ProductStore.reqReturnInventoryReceive",
+    "lang": "fr",
+    "value": "Si Oui, le retour d'article passera automatiquement au statut Reçu lors de son acceptation, au lieu d'attendre la réception effective de celui-ci."
+  },
+  {
+    "key": "FieldDescription.ProductStore.reqReturnInventoryReceive",
+    "lang": "de",
+    "value": "Wenn eingeschaltet, wird eine akzeptierte Retoure automatisch auf den Empfangsstatus gesetzt anstatt auf die tatsächliche Vereinnahmung zu warten."
+  },
+  {
+    "key": "ProductContentType.description.ADDTOCART_LABEL",
+    "lang": "fr",
+    "value": "Label pour \"Ajouter au panier\""
+  },
+  {
+    "key": "ProductContentType.description.ADDTOCART_LABEL",
+    "lang": "de",
+    "value": "Zum Warenkorb hinzufügen Label"
+  },
+  {
+    "key": "CostComponentType.description.OTHER_COST",
+    "lang": "fr",
+    "value": "Autre coût"
+  },
+  {
+    "key": "CostComponentType.description.OTHER_COST",
+    "lang": "de",
+    "value": "Andere Kosten"
+  },
+  {
+    "key": "FieldDescription.ProductStore.payToPartyId",
+    "lang": "de",
+    "value": "Bitte beachten Sie, dass dies mit der organizationPartyId übereinstimmt, zu denen die Hauptbuch Transaktionen übermittelt werden."
+  },
+  {
+    "key": "FieldDescription.ProductStore.payToPartyId",
+    "lang": "fr",
+    "value": "Prendre note: Cette entrée correspond à organizationPartyId dans laquelle la transaction de GL sera postée."
+  },
+  {
+    "key": "FieldDescription.ProductStore.digProdUploadCategoryId",
+    "lang": "fr",
+    "value": "Déterminer la catégorie de produits numériques autorisée à être transférée."
+  },
+  {
+    "key": "FieldDescription.ProductStore.digProdUploadCategoryId",
+    "lang": "de",
+    "value": "Welche Kategorie digitaler Produkte kann hochgeladen werden?"
+  },
+  {
+    "key": "ProductMeterType.description.TAXIMETER",
+    "lang": "de",
+    "value": "Taxameter benutzen"
+  },
+  {
+    "key": "ProductMeterType.description.TAXIMETER",
+    "lang": "fr",
+    "value": "Utiliser le taximètre"
+  },
+  {
+    "key": "ProductCategoryType.description.GIFT_CARD_CATEGORY",
+    "lang": "de",
+    "value": "Gutscheine"
+  },
+  {
+    "key": "ProductCategoryType.description.GIFT_CARD_CATEGORY",
+    "lang": "fr",
+    "value": "Carte-cadeau"
+  },
+  {
+    "key": "FacilityType.description.FLOOR",
+    "lang": "de",
+    "value": "Stockwerk"
+  },
+  {
+    "key": "FacilityType.description.FLOOR",
+    "lang": "fr",
+    "value": "Étage"
+  },
+  {
+    "key": "ProductMaintType.description.HVAC_CHECK_REFR",
+    "lang": "fr",
+    "value": "Vérification/rechargement du liquide réfrigérant"
+  },
+  {
+    "key": "ProductMaintType.description.HVAC_CHECK_REFR",
+    "lang": "de",
+    "value": "Kühlflüssigkeit prüfen/nachfüllen"
+  },
+  {
+    "key": "FieldDescription.ProductStore.reqShipAddrForDigItems",
+    "lang": "fr",
+    "value": "Exige l'adresse d'expédition pour les articles numériques. Cela est valable uniquement quand le panier ne contient que des articles numériques."
+  },
+  {
+    "key": "FieldDescription.ProductStore.reqShipAddrForDigItems",
+    "lang": "de",
+    "value": "Wird eine Lieferanschrift für digitale Produkte benötigt? Dies kommt nur zur Anwendung, wenn ausschliesslich digitale Produkte im Warenkorb sind."
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.prodCatalogId",
+    "lang": "fr",
+    "value": "Cela ne peut pas être modifié. Une nouvelle entrée doit être créé"
+  },
+  {
+    "key": "FieldDescription.ProdCatalog.prodCatalogId",
+    "lang": "de",
+    "value": "Kann nicht geändert werden ohne den Produktkatalog neu zu erstellen."
+  },
+  {
+    "key": "SubscriptionType.description.OTHER_SUBSCR",
+    "lang": "de",
+    "value": "Andere"
+  },
+  {
+    "key": "SubscriptionType.description.OTHER_SUBSCR",
+    "lang": "fr",
+    "value": "Autre"
+  },
+  {
+    "key": "SubscriptionType.description.NEWSGROUP_SUBSCR",
+    "lang": "de",
+    "value": "Newsgruppe"
+  },
+  {
+    "key": "SubscriptionType.description.NEWSGROUP_SUBSCR",
+    "lang": "fr",
+    "value": "Groupe de nouvelles"
+  },
+  {
+    "key": "ProductFeatureIactnType.description.FEATURE_IACTN_INCOMP",
+    "lang": "fr",
+    "value": "Incompatibles"
+  },
+  {
+    "key": "ProductFeatureIactnType.description.FEATURE_IACTN_INCOMP",
+    "lang": "de",
+    "value": "Inkompatibles Merkmal"
+  },
+  {
+    "key": "FieldDescription.ProductStore.manualAuthIsCapture",
+    "lang": "de",
+    "value": "Manuelle Authorisierung beim Zahlungseinzug."
+  },
+  {
+    "key": "FieldDescription.ProductStore.manualAuthIsCapture",
+    "lang": "fr",
+    "value": "Si oui, autorisation Manuelle est enregistrée."
+  },
+  {
+    "key": "ProductFeatureType.description.FABRIC",
+    "lang": "fr",
+    "value": "Fabrication"
+  },
+  {
+    "key": "ProductFeatureType.description.FABRIC",
+    "lang": "de",
+    "value": "Stoff/Gewebe"
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultSalesChannelEnumId",
+    "lang": "de",
+    "value": "Sofern der Verkaufskanal in der Transaktion nicht spezifiziert ist, wird angenommen, dass der Verkauf über den hier ausgewählten Kanal kommt."
+  },
+  {
+    "key": "FieldDescription.ProductStore.defaultSalesChannelEnumId",
+    "lang": "fr",
+    "value": "Utilise celui-ci, quand un canal de vente n'est pas spécifié lors de la transaction."
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_TO_EMAIL",
+    "lang": "de",
+    "value": "Lieferung Ziel E-Mail Adresse"
+  },
+  {
+    "key": "ShipmentContactMechType.description.SHIP_TO_EMAIL",
+    "lang": "fr",
+    "value": "Courriel de l'expédition"
+  },
+  {
+    "key": "ProductContentType.description.SPECIALINSTRUCTIONS",
+    "lang": "de",
+    "value": "Besondere Instruktionen"
+  },
+  {
+    "key": "ProductContentType.description.SPECIALINSTRUCTIONS",
+    "lang": "fr",
+    "value": "Instructions spéciales"
+  },
+  {
+    "key": "ProductContentType.description.XTRA_IMG_L_DETAIL",
+    "lang": "fr",
+    "value": "Image - Vue supplémentaire(Détaillée)"
+  },
+  {
+    "key": "ProductFeatureType.description.YEAR_MADE",
+    "lang": "fr",
+    "value": "Année de construction"
+  },
+  {
+    "key": "ProductFeatureType.description.YEAR_MADE",
+    "lang": "de",
+    "value": "Herstellungsjahr"
+  },
+  {
+    "key": "FieldDescription.ProductStore.vatTaxAuthPartyId",
+    "lang": "de",
+    "value": "Wie ist die Akteur ID der Umsatzsteuerbehörde?"
+  },
+  {
+    "key": "FieldDescription.ProductStore.vatTaxAuthPartyId",
+    "lang": "fr",
+    "value": "Identifiant de l'autorité fiscale de TVA."
+  },
+  {
+    "key": "ShipmentType.description.SALES_SHIPMENT",
+    "lang": "fr",
+    "value": "Expédition de vente"
+  },
+  {
+    "key": "ShipmentType.description.SALES_SHIPMENT",
+    "lang": "de",
+    "value": "Ausgehend - Verkauf Lieferung"
+  }
+]
