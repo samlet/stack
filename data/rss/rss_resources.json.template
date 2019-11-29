@@ -1,0 +1,12 @@
+[
+    {
+        "url": "https://rsshub.app/bilibili/user/video/286700005",
+        "file": "./data/rss/user_video_286700005",
+        "lang": "ja"
+    },
+    {
+        "url": "https://rsshub.app/bilibili/bangumi/media/9192",
+        "file": "./data/rss/bangumi_media_9192",
+        "lang": "zh"
+    }
+]

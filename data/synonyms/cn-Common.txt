@@ -1,0 +1,10 @@
+% cn-Common.txt
+edit 编辑 修改 改
+view 查看 看看
+list 列出 浏览
+add 增加 添加 新增
+create 创建 新建
+delete 删除
+
+@删除 remove delete
+@创建 create add

@@ -1,0 +1,6 @@
+% ja-Common.txt
+laugh 笑い 一笑 おかしいこと
+    %% 笑い[Warai]
+smile 笑い
+smiling-face 笑顔
+
