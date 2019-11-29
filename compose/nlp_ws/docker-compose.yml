@@ -1,0 +1,8 @@
+version: '3.0'
+
+services:
+  duckling:
+    image: rasa/duckling:latest
+    ports:
+    - "8000:8000"
+

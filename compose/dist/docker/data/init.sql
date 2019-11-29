@@ -1,0 +1,14 @@
+create database ofbiz;
+create database ofbizolap;
+create database ofbiztenant;
+use mysql;
+select database();
+create user ofbiz@'%';
+create user ofbizolap@'%';
+create user ofbiztenant@'%';
+-- update user set password=PASSWORD("ofbiz") where User='ofbiz';
+-- update user set password=PASSWORD("ofbizolap") where User='ofbizolap';
+-- update user set password=PASSWORD("ofbiztenant") where User='ofbiztenant';
+grant all privileges on *.* to 'ofbiz'@'%' identified by 'ofbiz';
+grant all privileges on *.* to 'ofbizolap'@'%' identified by 'ofbizolap';
+grant all privileges on *.* to 'ofbiztenant'@'%' identified by 'ofbiztenant';

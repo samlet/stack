@@ -33,6 +33,9 @@ class Rules_id(LangSpecBase):
             Patterns(domains, meta, 5, name='behave_cleanse').verb(behaveof('cleanse/better', 'v')),
             # Lemari besar itu tidak terangkat. 那个大柜子抬不动。
             Patterns(domains, meta, 5, name='move_unable').verb(behaveof('move', 'v'), advmod=negative()),
+            # Dia datang ke Shanghai untuk menjumpai adiknya. 他为了见弟弟来到了上海。
+            Patterns(domains, meta, 5, name='behave_purpose').verb(
+                behaveof('arrive', 'v'), nsubj=agency, xcomp='c_verb', obl=agency, ),
             ])
 
     def root_rules(self):

@@ -1,0 +1,71 @@
+#!/bin/bash
+. /pi/bin/inc/wait_funcs.sh
+. /pi/bin/inc/matchers.sh
+. /pi/bin/inc/docker_utils.sh
+
+function start_inventory(){
+	# mysqld: ready for connections.
+	start_docker inventory "$msg_mysql"
+}
+
+# startup 
+if [ $# -lt 1 ]; then	
+	echo "available opts: all, zk, storm, repl, ..."
+else
+	CMD=$1
+	case "$CMD" in
+	"redis")
+		start_docker redis "$msg_redis"
+		;;
+	"inventory")
+		start_inventory
+		;;
+
+	"greet")
+		curl --request POST \
+		  --url http://localhost:5005/webhooks/rest/webhook \
+		  --header 'content-type: application/json' \
+		  --data '{
+		    "message": "/greet"
+		  }'
+		;;
+	"greet_s")
+		curl --request POST \
+		  --url http://localhost:5005/webhooks/rest/webhook \
+		  --header 'content-type: application/json' \
+		  --data '{
+		    "message": "你好"
+		  }'
+		;;
+	"search_venues")
+		curl --request POST \
+		  --url http://localhost:5005/webhooks/rest/webhook \
+		  --header 'content-type: application/json' \
+		  --data '{
+		    "message": "/search_venues"
+		  }'
+		;;
+	"search_venues_s")
+		curl --request POST \
+		  --url http://localhost:5005/webhooks/rest/webhook \
+		  --header 'content-type: application/json' \
+		  --data '{
+		    "message": "场地在哪儿"
+		  }'
+		;;
+	"about_date")
+		curl --request POST \
+		  --url http://localhost:5005/webhooks/rest/webhook \
+		  --header 'content-type: application/json' \
+		  --data '{
+		    "sender": "samlet",
+		    "message": "7月10日晚上7点左右，六安市公安局裕安分局平桥派出所接到辖区居民戴某报警"
+		  }'
+		;;
+	*)
+		# default proc
+		handle_cmd ${@:1}
+		;;
+	esac
+fi
+

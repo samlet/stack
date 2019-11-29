@@ -5,4 +5,8 @@ model_temp/
 .ipynb_checkpoints/
 test_models/
 out/
+.vscode/
+*.swp
+*.dat
+*.log
 
