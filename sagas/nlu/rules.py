@@ -96,6 +96,8 @@ def verb_patterns(meta, domains):
                         ('play', 'game_equipment'),
                         # (id) Polis telah menangkap dua orang pencuri. 警察已经抓住了两个小偷。
                         ('catch', 'criminal/person'),
+                        # $ se 'Who initiates this attack?'
+                        ('cause', 'event'),
                         ]),
 
           # 匹配意图(全句或chunk)

@@ -86,6 +86,8 @@ def display_synsets(theme, meta, r, lang, collect=False):
                 # tc.info('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
                 tc.emp('magenta', '♥ %s(%s): %s...' % (word, indicator, comments))
                 resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
+            return True
+        return False
 
     retrieve(f"{r['word']}/{r['lemma']}", theme, 'v' if theme=='[verb]' else '*')
     if 'head' in meta:

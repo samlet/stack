@@ -67,15 +67,7 @@ class PredicateWordInspector(WordInspector):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
 class VerbInspector(WordInspector):
-    def run(self, key, ctx:Context):
-        result=False
-        lang=ctx.meta['lang']
-        word=key  # the key == word
-        if self.pos_indicator=='~':
-            pos='v'
-        else:
-            pos=self.pos_indicator
-
+    def process(self, word, lang, pos):
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': self.kind}
         # print('..', word)
@@ -83,9 +75,27 @@ class VerbInspector(WordInspector):
                                  json=data)
 
         if response.status_code == 200:
-            r=response.json()
-            result=r['result']
-        return result
+            r = response.json()
+            return r['result']
+        return False
+
+    def substitute(self, word, lang, pos):
+        from sagas.nlu.synonyms import synonyms
+        r=synonyms.match(word, lang)
+        # print(f'... retrieve substitute with {word}({lang})')
+        if r is None:
+            return self.process(word, lang, pos)
+        # print(f'... substitute with {r}(en)')
+        return self.process(r, 'en', pos)
+
+    def run(self, key, ctx:Context):
+        lang=ctx.meta['lang']
+        word=key  # the key == word
+        if self.pos_indicator=='~':
+            pos='v'
+        else:
+            pos=self.pos_indicator
+        return self.substitute(word, lang, pos)
 
     def name(self):
         return "behave_of"

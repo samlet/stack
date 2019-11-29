@@ -27,6 +27,19 @@ $ brew services start postgresql
 $ psql -l
 ```
 
+⊕ [postgresql - FATAL ERROR lock file "postmaster.pid" already exists - Stack Overflow](https://stackoverflow.com/questions/36436120/fatal-error-lock-file-postmaster-pid-already-exists)
+
+```sh
+# 先用直接启动方式来查看错误提示
+pg_ctl -D /usr/local/var/postgres start
+# You could stop your server doing :
+pg_ctl -D /usr/local/var/postgres stop
+# So that you won't have the lock on postmaster anymore and you could use your command to start it again.
+
+$ brew services start postgresql
+$ psql -l
+```
+
 ## linux
 ⊕ [How To Install and Use PostgreSQL on Ubuntu 18.04 | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
 
