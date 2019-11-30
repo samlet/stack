@@ -130,6 +130,31 @@ class NegativeWordInspector(Inspector):
         return False
 
 
+class MatchInspector(Inspector):
+    def __init__(self, target, match_method='equals'):
+        self.target=target
+        self.match_method=match_method
+
+    def name(self):
+        return "match"
+
+    def run(self, key, ctx:Context):
+        import fnmatch, re
+
+        lemma=ctx.lemmas[key]
+        if self.match_method=='equals':
+            return lemma==self.target
+        elif self.match_method=='glob':
+            regex = fnmatch.translate(self.target)
+            reobj = re.compile(regex)
+            return reobj.match(lemma) is not None
+        elif self.match_method=='regex':
+            reobj = re.compile(self.target)
+            return reobj.match(lemma) is not None
+        else:
+            raise ValueError(f"Cannot support match method {self.match_method}")
+
+
 class PlainInspector(Inspector):
     def name(self):
         return "plain"

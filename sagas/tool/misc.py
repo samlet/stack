@@ -66,6 +66,7 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       # predicts
                       'a0', 'a1',
                       'ガ',
+                      'head_acl',  # governor elements
                       ]
 def display_synsets(theme, meta, r, lang, collect=False):
     from sagas.nlu.nlu_cli import retrieve_word_info

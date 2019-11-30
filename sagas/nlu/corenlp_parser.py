@@ -38,6 +38,12 @@ def add_domain(domains:list, stems:list,  c, sent):
                     get_children_list(sent, c), get_word_features(c)))
     stems.append((c.dependency_relation, get_children_list(sent, c, include_self=True, stem=True)))
 
+def add_head(domains:list, word, sent):
+    c=sent.words[word.governor - 1]
+    domains.append((f"head_{word.dependency_relation}",
+                    c.index, c.text, c.lemma,
+                    [c.text], get_word_features(c)))
+
 def get_verb_domain(sent, filters):
     from sagas.nlu.uni_intf import sub_comps
     rs = []
@@ -55,6 +61,11 @@ def get_verb_domain(sent, filters):
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, stems, c, sent)
+
+        # add governor as head domain
+        # add_domain(domains, stems, sent.words[word.governor - 1], sent)
+        add_head(domains, word, sent)
+
         rs.append({'type':'verb_domains', 'word': word.text, 'lemma':word.lemma, 'index': word.index,
                    'upos': word.upos.lower(), 'xpos': word.xpos.lower(),
                    'rel': word.dependency_relation, 'governor': word.governor,

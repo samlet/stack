@@ -113,7 +113,8 @@ class Patterns(object):
             rel_feats=ctx.feats
 
             for key, value in kwargs.items():
-                key=key.replace('_', ':')
+                if not key.startswith('head_'):
+                    key=key.replace('_', ':')
                 key=trip_number_suffix(key)
                 if key.startswith('::'):
                     # starts with '__', likes '__engine'

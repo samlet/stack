@@ -1,8 +1,6 @@
 import collections
 import numpy
 import sagas.tracker_fn as tc
-from sagas.nlu.utils import fix_sents
-
 
 def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
     from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
@@ -205,6 +203,7 @@ class NluTools(object):
         from sagas.nlu.common import get_from_clip
         from sagas.conf.conf import cf
         from sagas.nlu.uni_remote_viz import list_chunks
+        from sagas.nlu.utils import fix_sents
 
         if sents=='':
             sents = get_from_clip()

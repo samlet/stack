@@ -97,6 +97,7 @@ def verb_patterns(meta, domains):
                         # (id) Polis telah menangkap dua orang pencuri. 警察已经抓住了两个小偷。
                         ('catch', 'criminal/person'),
                         # $ se 'Who initiates this attack?'
+                        # $ sid 'Siapa yang memulai serangan ini?'
                         ('cause', 'event'),
                         ]),
 
