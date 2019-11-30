@@ -50,6 +50,7 @@ class Rules_id(LangSpecBase):
             # notice: 'Bola Dimas putih.'无法匹配这条规则, 因为'Bola Dimas'是flat关系,
             # 针对id中的flat关系, 需要单独处理, 将flat关系的token合并为chunk, 然后再处理这个chunk与外界之间的关系.
             Patterns(domains, meta, 5).verb(behaveof('physical_entity', 'n'), amod=kindof('color', 'n')),
+            # $ sid 'Apa tujuan mereka?' (ja="彼らの目的は何ですか？")
             Patterns(domains, meta, 5).verb(matchins('apa'), acl=agency),
             ])
 
