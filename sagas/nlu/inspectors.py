@@ -141,7 +141,11 @@ class MatchInspector(Inspector):
     def run(self, key, ctx:Context):
         import fnmatch, re
 
-        lemma=ctx.lemmas[key]
+        if '/' in key:
+            lemma=key.split('/')[-1]  # the key is formatted like 'word/lemma'
+        else:
+            lemma=ctx.lemmas[key]
+
         if self.match_method=='equals':
             return lemma==self.target
         elif self.match_method=='glob':

@@ -36,17 +36,21 @@ class Rules_id(LangSpecBase):
             # $ sid 'Siapa yang menulis laporan ini?'
             Patterns(domains, meta, 5, name='ask_event').verb(
                 behaveof('write', 'v'), head_acl=matchins('siapa'), nsubj=agency, obj=agency, ),
+            # $ sid 'Tujuan saya adalah mengubah kamu.' (My goal is to change you.)
+            Patterns(domains, meta, 5, name='behave_cleanse').verb(behaveof('change', 'v'), nsubj=kindof('motivation', 'n')),
             ])
 
     def root_rules(self):
         domains, meta=(self.domains, self.meta)
-        self.collect(pats=[Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
-              # $ sid 'Berapa umur kamu?' (en="How old are you?")
-              Patterns(domains, meta, 5, name='years_old').verb(behaveof('age', 'n'), amod='c_det'),
-              # $ sid 'Bola putih.' (球是白的)
-              # notice: 'Bola Dimas putih.'无法匹配这条规则, 因为'Bola Dimas'是flat关系,
-              # 针对id中的flat关系, 需要单独处理, 将flat关系的token合并为chunk, 然后再处理这个chunk与外界之间的关系.
-              Patterns(domains, meta, 5).verb(behaveof('physical_entity', 'n'), amod=kindof('color', 'n')),
-              ])
+        self.collect(pats=[
+            Patterns(domains, meta, 1).verb(nsubj=agency, obj=agency),
+            # $ sid 'Berapa umur kamu?' (en="How old are you?")
+            Patterns(domains, meta, 5, name='years_old').verb(behaveof('age', 'n'), amod='c_det'),
+            # $ sid 'Bola putih.' (球是白的)
+            # notice: 'Bola Dimas putih.'无法匹配这条规则, 因为'Bola Dimas'是flat关系,
+            # 针对id中的flat关系, 需要单独处理, 将flat关系的token合并为chunk, 然后再处理这个chunk与外界之间的关系.
+            Patterns(domains, meta, 5).verb(behaveof('physical_entity', 'n'), amod=kindof('color', 'n')),
+            Patterns(domains, meta, 5).verb(matchins('apa'), acl=agency),
+            ])
 
 
