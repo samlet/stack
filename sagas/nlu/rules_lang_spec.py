@@ -1,3 +1,4 @@
+from typing import Any, Callable, Dict, List, Text, Optional, Type
 import logging
 from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
@@ -17,10 +18,6 @@ from sagas.nlu.rules_lang_spec_id import Rules_id
 # ________________________________________________________________________
 logger = logging.getLogger(__name__)
 
-lang_specs={'id': [Rules_id],
-            'de': [Rules_de],
-            }
-
 def exec_rules_by_type(ci:LangSpecBase, type_name):
     mappings={'verb_domains':ci.verb_rules,
               'aux_domains':ci.aux_rules,
@@ -37,19 +34,60 @@ def parse_sents(meta):
     doc_jsonify, _ = dep_parse(meta['sents'], meta['lang'], meta['engine'])
     return doc_jsonify
 
-def check_langspec(lang, meta, domains, type_name):
-    # lang = data['lang']
-    if lang in lang_specs:
-        doc=parse_sents(meta)
-        # from termcolor import colored
-        tc.emp('cyan', f"✁ lang.spec for {lang}.{type_name} {'-' * 25}")
-        for c in lang_specs[lang]:
-            ci=c(meta, domains, doc=doc)
-            exec_rules_by_type(ci, type_name)
-            ci.execute()
-    else:
-        tc.emp('red', f'no special patterns for lang {lang}')
+def class_from_module_path(
+    module_path: Text, lookup_path: Optional[Text] = None
+) -> Any:
+    """Given the module name and path of a class, tries to retrieve the class.
 
+    The loaded class can be used to instantiate new objects. """
+    import importlib
+
+    # load the module, will raise ImportError if module cannot be loaded
+    module_name, _, class_name = module_path.rpartition(".")
+    m = importlib.import_module(module_name)
+    # get the class, will raise AttributeError if class cannot be found
+    return getattr(m, class_name)
+
+def load_mods(mod_files):
+    import json
+
+    lang_mods={}
+    for mod_file in mod_files:
+        print(f'.. load mod {mod_file}')
+        with open(mod_file) as f:
+            cfg=json.load(f)
+            for k,v in cfg.items():
+                if k in lang_mods:
+                    lang_mods[k].extend(v)
+                else:
+                    lang_mods[k]=v
+
+    lang_mod_classes={}
+    for k,v in lang_mods.items():
+        lang_mod_classes[k]=[class_from_module_path(c) for c in v]
+    return lang_mod_classes
+
+class LangSpecs(object):
+    def __init__(self):
+        import glob
+        # self.lang_specs = {'id': [Rules_id], 'de': [Rules_de], }
+        # scan conf/mod_*.json
+        self.lang_specs=load_mods(glob.glob('/pi/stack/conf/mod_*.json'))
+
+    def check_langspec(self, lang, meta, domains, type_name):
+        # lang = data['lang']
+        if lang in self.lang_specs:
+            doc=parse_sents(meta)
+            # from termcolor import colored
+            tc.emp('cyan', f"✁ lang.spec for {lang}.{type_name} {'-' * 25}")
+            for c in self.lang_specs[lang]:
+                ci=c(meta, domains, doc=doc)
+                exec_rules_by_type(ci, type_name)
+                ci.execute()
+        else:
+            tc.emp('red', f'no special patterns for lang {lang}')
+
+langspecs=LangSpecs()
 
 def rs_repr(rs, data):
     for serial, r in enumerate(rs):
@@ -63,7 +101,7 @@ def rs_repr(rs, data):
         #     lang_specs[lang](meta, r['domains'])
         # else:
         #     tc.emp('red', f'no special patterns for lang {lang}')
-        check_langspec(lang, meta, r['domains'], type_name = r['type'])
+        langspecs.check_langspec(lang, meta, r['domains'], type_name = r['type'])
 
 class LangspecRules(object):
     def __init__(self):

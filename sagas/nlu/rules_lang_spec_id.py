@@ -14,7 +14,8 @@ from sagas.nlu.rules_fn import anal, predicate_fn
 
 class Rules_id(LangSpecBase):
     def verb_rules(self):
-        pat = lambda p, name='': Patterns(self.domains, self.meta, p, name=name, doc=self.doc)
+        pat, actions_obj=(self.pat, self.actions_obj)
+
         self.collect(pats=[
             # $ sid 'Pekerjaan ini dimulai oleh mereka.' (This job is started by them.)
             pat(2, name='behave_di_obl').verb(nsubj_pass=agency, obl=agency),
@@ -40,17 +41,22 @@ class Rules_id(LangSpecBase):
                 behaveof('write', 'v'), head_acl=matchins('siapa'), nsubj=agency, obj=agency, ),
             # $ sid 'Tujuan saya adalah mengubah kamu.' (My goal is to change you.)
             pat(5, name='behave_cleanse').verb(behaveof('change', 'v'), nsubj=kindof('motivation', 'n')),
+
+            *actions_obj([
+                # $ sid 'Saya melihat kucing terbang.'  (I see a cat flying.)
+                ('perceive', 'living_thing/object'),
+                ]),
             ])
 
     def subject_rules(self):
-        pat = lambda p, name='': Patterns(self.domains, self.meta, p, name=name, doc=self.doc)
+        pat, actions_obj = (self.pat, self.actions_obj)
         self.collect(pats=[
             # $ sid 'Siapa yang di kiri Anda?' (zh="谁在你的左边？")
             pat('loc_inquiry', 5).subj('pron', 'noun', nsubj=agency, case=kindof('in', 'r'), head_nmod=matchins('siapa')),
             ])
 
     def root_rules(self):
-        pat = lambda p, name='': Patterns(self.domains, self.meta, p, name=name, doc=self.doc)
+        pat, actions_obj = (self.pat, self.actions_obj)
         self.collect(pats=[
             pat(1).verb(nsubj=agency, obj=agency),
             # $ sid 'Berapa umur kamu?' (en="How old are you?")

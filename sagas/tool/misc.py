@@ -113,7 +113,7 @@ serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 def rs_represent(rs, data, return_df=False):
     import sagas
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns, predict_patterns
-    from sagas.nlu.rules_lang_spec import check_langspec
+    from sagas.nlu.rules_lang_spec import langspecs
     from sagas.nlu.nlu_cli import NluCli
 
     df_set = []
@@ -168,7 +168,7 @@ def rs_represent(rs, data, return_df=False):
             raise Exception('Cannot process specific type: {}'.format(type_name))
 
         # process language special rules
-        check_langspec(data['lang'], meta, r['domains'], type_name)
+        langspecs.check_langspec(data['lang'], meta, r['domains'], type_name)
 
         # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
