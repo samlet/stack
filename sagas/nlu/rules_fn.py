@@ -26,11 +26,20 @@ def check_part_match(domain_list, **kwargs):
     return all(rs)
 
 def check_fn(domain_list, meta, **kwargs):
-    rs=[]
-    for k,v in kwargs.items():
+    # print('.. domains size', len(domain_list))
+    if len(domain_list) == 0:
+        return False
+
+    rs = []
+    for k, v in kwargs.items():
+        item_r = False
         for domain in domain_list:
-            rs.append(k in domain and v(domain[k], meta))
-    return all(rs)
+            # 如果包含了该成分, 则这这个成分的测试值必须为真
+            if k in domain and v(domain[k], meta):
+                item_r = True
+        # 如果domain_list里的所有元素都未包含该成分, 则会保留为false值
+        rs.append(item_r)
+    return all(rs) if len(rs)>0 else False
 
 def predicate_fn(chain, pos):
     from sagas.nlu.inspector_wordnet import predicate

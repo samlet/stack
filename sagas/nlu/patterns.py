@@ -76,7 +76,10 @@ class Patterns(object):
                     result = False
                 options.append('{} is {}: {}'.format('pos', arg, opt_ret))
             elif callable(arg):
-                result=arg(self.doc, self.meta)
+                opt_ret=arg(self.doc, self.meta)
+                if not opt_ret:
+                    result = False
+                options.append(f"{arg.__name__} is {opt_ret}")
             else:
                 raise Exception('Unsupported argument class %s'%type(arg))
         return result
