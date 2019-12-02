@@ -38,6 +38,22 @@ class WordInspector(Inspector):
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
+def predicate(kind, word, lang, pos, only_first=False ):
+    if '/' in kind:
+        data = {'word': word, 'lang': lang, 'pos': pos,
+                'kind': kind}
+        response = requests.post('http://localhost:8093/predicate_chain',
+                                 json=data)
+    else:
+        data = {'word': word, 'lang': lang, 'pos': pos,
+                'kind': kind, 'only_first': only_first}
+        response = requests.post('http://localhost:8093/predicate',
+                                 json=data)
+    if response.status_code == 200:
+        r = response.json()
+        return r['result']
+    return False
+
 class PredicateWordInspector(WordInspector):
     def run(self, key, ctx:Context):
         result=False
@@ -48,20 +64,7 @@ class PredicateWordInspector(WordInspector):
         else:
             pos=self.pos_indicator
 
-        if '/' in self.kind:
-            data = {'word': word, 'lang': lang, 'pos': pos,
-                    'kind': self.kind}
-            response = requests.post('http://localhost:8093/predicate_chain',
-                                     json=data)
-        else:
-            data={'word': word, 'lang': lang, 'pos': pos,
-                'kind': self.kind, 'only_first': self.only_first}
-            response = requests.post('http://localhost:8093/predicate',
-                                     json=data)
-        if response.status_code == 200:
-            r=response.json()
-            result=r['result']
-        return result
+        return predicate(self.kind, word, lang, pos, self.only_first)
 
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)

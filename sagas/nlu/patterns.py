@@ -36,13 +36,14 @@ class Patterns(object):
     # _name = None
     _fields = {}  # {field: field object}
 
-    def __init__(self, domains=None, meta=None, priority=0, track=True, name=''):
+    def __init__(self, domains=None, meta=None, priority=0, track=True, name='', doc=None):
         super(Patterns, self).__init__()
         self.domains = domains
         self.meta=meta
         self.track = track
         self.priority=priority
         self.name=name
+        self.doc=doc
 
         # self.engine=meta['engine']
 
@@ -51,6 +52,7 @@ class Patterns(object):
                     'verb': self.execute_args_word,
                     'cop': self.execute_args_head,
                     'entire': self.execute_args_entire,
+                    'root': self.execute_args_word,
                     }
 
     def check_args(self, args, ctx, options):
@@ -73,6 +75,8 @@ class Patterns(object):
                 if not opt_ret:
                     result = False
                 options.append('{} is {}: {}'.format('pos', arg, opt_ret))
+            elif callable(arg):
+                result=arg(self.doc, self.meta)
             else:
                 raise Exception('Unsupported argument class %s'%type(arg))
         return result

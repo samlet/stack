@@ -2,7 +2,9 @@ from flask import Flask
 from flask import request
 import json
 from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+from cachetools import cached, TTLCache
 import logging
+
 logger = logging.getLogger('servant')
 
 # nlp=langs['de']()
@@ -145,8 +147,18 @@ def handle_verb_domains():
     data_y = json.dumps(r, ensure_ascii=False)
     return data_y
 
-def invoke_parser(request, func):
-    content = request.get_json()
+def invoke_parser(sents, lang, engine, pipelines, func):
+    # content = request.get_json()
+    sents = fix_sents(lang, sents)
+    r = func(sents, lang, engine, pipelines)
+    data_y = json.dumps(r, ensure_ascii=False)
+    return data_y
+
+@cached(cache={})
+def parse_sents(raw):
+    from sagas.nlu.uni_jsonifier import jsonify_pipelines
+    content=json.loads(raw)
+    print('.. only print once', content)
     sents = content['sents']
     lang = content['lang']
     if 'engine' in content:
@@ -154,19 +166,21 @@ def invoke_parser(request, func):
     else:
         engine = 'corenlp'
     if 'pipelines' in content:
-        pipelines=content['pipelines']
+        pipelines = content['pipelines']
     else:
-        pipelines=[]
-
-    sents = fix_sents(lang, sents)
-    r = func(sents, lang, engine, pipelines)
-    data_y = json.dumps(r, ensure_ascii=False)
-    return data_y
+        pipelines = []
+    return invoke_parser(sents, lang, engine, pipelines,
+                         lambda s, l, e, p: jsonify_pipelines(s, l, e, p))
 
 @app.route('/dep_parse', methods = ['POST'])
 def handle_dep_parse():
-    from sagas.nlu.uni_jsonifier import jsonify_pipelines
-    return invoke_parser(request, lambda s,l,e,p: jsonify_pipelines(s,l,e,p))
+    # from sagas.nlu.uni_jsonifier import jsonify_pipelines
+    # return invoke_parser(request, lambda s,l,e,p: jsonify_pipelines(s,l,e,p))
+
+    # content=request.get_json()
+    content=request.get_data(as_text=True)
+    print('..', content)
+    return parse_sents(content)
 
 class ParseServant(object):
     def __init__(self):

@@ -93,6 +93,8 @@ def get_aux_domain(sent, filters):
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, stems, c, sent)
+
+        add_head(domains, dc, sent)
         rs.append({'type':'aux_domains', 'word': word.text, 'lemma':word.lemma,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
                    'head_pos': dc.upos.lower(), 'delegator':delegator,
@@ -112,6 +114,8 @@ def get_subj_domain(sent):
             # domains.append((c.dependency_relation, c.index, c.text, c.lemma,
             #                 get_children_list(sent, c), get_word_features(c)))
             add_domain(domains, stems, c, sent)
+
+        add_head(domains, dc, sent)
         rs.append({'type':'subj_domains', 'word': word.text, 'lemma':word.lemma,
                    'rel': word.dependency_relation, 'governor': word.governor, 'head': dc.text,
                    'head_pos': dc.upos.lower(), 'head_feats':[dc.lemma, dc.upos, dc.xpos],

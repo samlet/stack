@@ -2,7 +2,6 @@ import requests
 
 from sagas.util.rest_common import query_data_by_url
 
-
 def get_chains(word, lang, pos):
     response = requests.post('http://localhost:8093/get_chains',
                              json={'word': word, 'lang': lang, 'pos': pos})
@@ -263,6 +262,20 @@ class NluCli(object):
         from pprint import pprint
         r=query_data_by_url('multilang', 'tokens', {'lang': lang, 'sents': sents})
         pprint(r)
+
+    def predicate(self, kind, word, lang, pos):
+        """
+        $ python -m sagas.nlu.nlu_cli predicate 'weather/phenomenon' weather en n
+
+        :param kind:
+        :param word:
+        :param lang:
+        :param pos:
+        :return:
+        """
+        from sagas.nlu.inspector_wordnet import predicate
+
+        print(f"{word} is category {kind}: {predicate(kind, word, lang, pos)}")
 
 if __name__ == '__main__':
     import fire

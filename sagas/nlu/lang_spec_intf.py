@@ -3,9 +3,10 @@ import sagas.tracker_fn as tc
 agency=['c_pron', 'c_noun', 'c_propn']
 
 class LangSpecBase(object):
-    def __init__(self, meta, domains):
+    def __init__(self, meta, domains, doc=None):
         self.meta=meta
         self.domains=domains
+        self.doc=doc
         self.matched={}
 
     # def general_rules(self):

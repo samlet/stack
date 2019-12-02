@@ -14,7 +14,7 @@ def handle_digest():
     $ curl -XPOST -H 'Content-Type: application/json' -d '{"lang":"zh", "sents":"我是一个好老师"}'  http://localhost:15001/digest
     :return:
     """
-    print ("request is json?", request.is_json)
+    print("request is json?", request.is_json)
     content = request.get_json()
     sents=content['sents']
     lang=content['lang']

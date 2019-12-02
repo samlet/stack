@@ -31,13 +31,20 @@ def exec_rules_by_type(ci:LangSpecBase, type_name):
     mappings[type_name]()
     # ci.root_rules()
 
+def parse_sents(meta):
+    from sagas.nlu.uni_remote import dep_parse
+    # 'lang': lang, "sents": sents, 'engine': engine
+    doc_jsonify, _ = dep_parse(meta['sents'], meta['lang'], meta['engine'])
+    return doc_jsonify
+
 def check_langspec(lang, meta, domains, type_name):
     # lang = data['lang']
     if lang in lang_specs:
+        doc=parse_sents(meta)
         # from termcolor import colored
         tc.emp('cyan', f"✁ lang.spec for {lang}.{type_name} {'-' * 25}")
         for c in lang_specs[lang]:
-            ci=c(meta, domains)
+            ci=c(meta, domains, doc=doc)
             exec_rules_by_type(ci, type_name)
             ci.execute()
     else:

@@ -148,6 +148,8 @@ class MatchInspector(Inspector):
 
         if self.match_method=='equals':
             return lemma==self.target
+        elif self.match_method=='in':
+            return lemma in self.target
         elif self.match_method=='glob':
             regex = fnmatch.translate(self.target)
             reobj = re.compile(regex)
@@ -158,6 +160,8 @@ class MatchInspector(Inspector):
         else:
             raise ValueError(f"Cannot support match method {self.match_method}")
 
+    def __str__(self):
+        return f"ins_{self.name()}({self.match_method}: {self.target})"
 
 class PlainInspector(Inspector):
     def name(self):
