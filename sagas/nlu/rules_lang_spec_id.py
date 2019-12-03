@@ -65,6 +65,9 @@ class Rules_id(LangSpecBase):
             # notice: 'Bola Dimas putih.'无法匹配这条规则, 因为'Bola Dimas'是flat关系,
             # 针对id中的flat关系, 需要单独处理, 将flat关系的token合并为chunk, 然后再处理这个chunk与外界之间的关系.
             pat(5).verb(behaveof('physical_entity', 'n'), amod=kindof('color', 'n')),
+            # $ sid 'Jaraknya dekat.' (en="The distance is close.")
+            pat(5).verb(behaveof('measure', 'n'), amod='c_adj'),
+
             # $ sid 'Apa tujuan mereka?' (ja="彼らの目的は何ですか？")
             pat(5).verb(matchins('apa'), acl=agency),
             # $ sid 'Bau apa itu?' (en="What's that smell?", zh="那是什么味道？")
@@ -76,9 +79,29 @@ class Rules_id(LangSpecBase):
             # $ sid 'Dada mereka tidak sakit.'
             # $ sid 'Lidah saya kering.','Perut saya sakit.'
             pat(5).verb(behaveof('body_part', 'n'), amod='c_adj'),
+            # $ sid 'Karpet ini sangat kotor.'
+            pat(5, name='describe_object').verb(behaveof('object', 'n'), amod='c_adj'),
             # $ sid 'Bola Dimas putih.'
             pat(5, 'describe_color').root(behaveof('object', 'n'),
                                           anal(amod=predicate_fn('color', 'n'))),
+            # $ sid 'Karpet di kantor saya abu-abu.' (en="The carpet in my office is gray.")
+            #                                     ┌−−−−−−−−┐
+            #                                     ╎  saya  ╎
+            #                                     └−−−−−−−−┘
+            #                                       ▲
+            #                                       │ det
+            #                                       │
+            # ┌−−−−−−┐  root   ┌────────┐  nmod   ┌────────┐  amod   ┌−−−−−−−−−┐
+            # ╎ ROOT ╎ ──────▶ │ Karpet │ ──────▶ │ kantor │ ──────▶ ╎ abu-abu ╎
+            # └−−−−−−┘         └────────┘         └────────┘         └−−−−−−−−−┘
+            #                    │                  │
+            #                    │ punct            │ case
+            #                    ▼                  ▼
+            #                  ┌−−−−−−−−┐         ┌────────┐
+            #                  ╎   .    ╎         │   di   │
+            #                  └−−−−−−−−┘         └────────┘
+            pat(5, 'describe_object_chunk').root(behaveof('object', 'n'),
+                                          anal(amod=predicate_fn('entity', 'n'))),
         ])
 
 

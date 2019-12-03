@@ -34,11 +34,8 @@ def parse_sents(meta):
     doc_jsonify, _ = dep_parse(meta['sents'], meta['lang'], meta['engine'])
     return doc_jsonify
 
-def class_from_module_path(
-    module_path: Text, lookup_path: Optional[Text] = None
-) -> Any:
+def class_from_module_path(module_path: Text) -> Any:
     """Given the module name and path of a class, tries to retrieve the class.
-
     The loaded class can be used to instantiate new objects. """
     import importlib
 
@@ -147,7 +144,7 @@ class LangspecRules(object):
             common = {'lemma': r['lemma'], 'word': r['word'],
                       'stems': r['stems']}
             meta = {'rel': r['rel'], **common, **data}
-            c=Rules_id(meta, r['domains'])
+            c=Rules_id(meta, r['domains'], doc=doc_jsonify)
             c.root_rules()
             c.execute()
 

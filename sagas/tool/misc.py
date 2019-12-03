@@ -219,7 +219,7 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
     from sagas.nlu.google_translator import translate
     result=[]
     for id, (name, r) in enumerate(zip(partcol, textcol)):
-        if name not in ('punct'):
+        if name not in ('punct', 'head_root'):
         # if len(r)>1:
             # sent=' '.join(r) if lang not in ('ja','zh') else ''.join(r)
             sent=join_text(r, lang)
