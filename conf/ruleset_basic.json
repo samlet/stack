@@ -1,6 +1,8 @@
 [
   {
+    "intent": "behave_purpose",
     "rules": ["behave_purpose"],
     "action": "log_commevent"
   }
 ]
+

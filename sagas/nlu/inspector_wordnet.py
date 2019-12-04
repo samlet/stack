@@ -39,7 +39,7 @@ class WordInspector(Inspector):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
 def predicate(kind, word, lang, pos, only_first=False ):
-    if '/' in kind:
+    if '/' in kind or '/' in word:
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': kind}
         response = requests.post('http://localhost:8093/predicate_chain',
@@ -56,9 +56,11 @@ def predicate(kind, word, lang, pos, only_first=False ):
 
 class PredicateWordInspector(WordInspector):
     def run(self, key, ctx:Context):
-        result=False
+        # result=False
         lang=ctx.meta['lang']
-        word=ctx.lemmas[key]
+        # word=ctx.lemmas[key]
+        word = f"{ctx.words[key]}/{ctx.lemmas[key]}"
+        # print(f".. predicate {word}")
         if self.pos_indicator=='~':
             pos=self.get_pos_by_feat(ctx.feats[key])
         else:

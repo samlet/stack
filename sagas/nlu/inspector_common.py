@@ -15,6 +15,7 @@ class Context(object):
             self._stems=[(x[0], x[4]) for x in domains]
 
         self.lemmas = {x[0]: x[3] for x in domains}
+        self.words = {x[0]: x[2] for x in domains}
         self.feats = {x[0]: x[5] for x in domains}
         # self.meta['intermedia']={}
         self.lang = meta['lang']
