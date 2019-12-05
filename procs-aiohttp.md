@@ -1,4 +1,13 @@
 # procs-aiohttp.md
+## install
+⊕ [Welcome to AIOHTTP — aiohttp 3.6.2 documentation](https://aiohttp.readthedocs.io/en/stable/)
+
+```sh
+# The following will get you aiohttp along with chardet, aiodns and brotlipy in one bundle. No need to type separate commands anymore!
+pip install aiohttp[speedups]
+```
+
+## usage
 ⊕ [how-to retrieve the data (body) in aiohttp server from requests.get · Issue #1155 · aio-libs/aiohttp](https://github.com/aio-libs/aiohttp/issues/1155)
 
 + `data` is `<MultiDictProxy()>` for which i didn't find much info
