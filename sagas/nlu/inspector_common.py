@@ -67,13 +67,13 @@ class Context(object):
             return cnt
         return ''
 
-    def chunk_pieces(self, key):
+    def chunk_pieces(self, key, lowercase=False):
         chunks = self.get_chunks(key)
         if self.lang in non_spaces:
             delim=''
         else:
             delim=' '
-        return [delim.join(c.children) for c in chunks]
+        return [delim.join(c.children).lower() if lowercase else delim.join(c.children) for c in chunks]
 
     def stem_pieces(self, key):
         stems = self.get_stems(key)

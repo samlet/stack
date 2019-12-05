@@ -90,7 +90,7 @@ class VerbInspector(WordInspector):
         # print(f'... retrieve substitute with {word}({lang})')
         if r is None:
             return self.process(word, lang, pos)
-        # print(f'... substitute with {r}(en)')
+        # print(f'... substitute with {r}(en), {pos}')
         return self.process(r, 'en', pos)
 
     def run(self, key, ctx:Context):

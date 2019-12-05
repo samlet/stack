@@ -72,11 +72,17 @@ def verb_patterns(meta, domains):
           Patterns(domains, meta, 5).verb(behaveof('suffer', 'v'), nsubj=kindof('body_part', 'n')),
           # $ sz "吸烟对你的健康有害。"
           Patterns(domains, meta, 5).verb(behaveof('consume', 'v'), cmp='c_adp'),
+          # $ se 'Do it correctly.'
+          Patterns(domains, meta, 5, name='command_do').verb(behaveof('make', 'v'), advmod='c_adv'),
 
           # $ se 'That spider flies.'
           # $ sid 'Burung dan kupu-kupu terbang.'
           # $ sid 'Laba-laba tersebut terbang.'  (这个句子使用的是单词原型'Laba-laba', 而不是词干lemma)
-          Patterns(domains, meta, 5, name='describe_animal_behave').verb(behaveof('travel', 'v'), nsubj=kindof('animal', 'n')),
+          Patterns(domains, meta, 5, name='describe_animal_behave')
+              .verb(behaveof('travel', 'v'), nsubj=kindof('animal', 'n')),
+          # $ sid 'Burung itu suka makan serangga.' (zh="鸟喜欢吃虫子。")
+          Patterns(domains, meta, 5, name='describe_animal_hobby')
+              .verb(behaveof('like', 'v'), nsubj=kindof('animal', 'n')),
 
           # 匹配行为: Ayer Roberto cenó en un restaurante excelente.
           *behaviours_obl(['eat/consume']),

@@ -41,6 +41,10 @@ class Rules_id(LangSpecBase):
                 behaveof('write', 'v'), head_acl=matchins('siapa'), nsubj=agency, obj=agency, ),
             # $ sid 'Tujuan saya adalah mengubah kamu.' (My goal is to change you.)
             pat(5, name='behave_cleanse').verb(behaveof('change', 'v'), nsubj=kindof('motivation', 'n')),
+            # $ sid 'Lakukan dengan benar.' (Do it correctly.)
+            pat(5, name='command_amod').verb(behaveof('make', 'v'), amod='c_adj'),
+            # $ sid 'Di mana kamu simpan makanan saya?'
+            pat(5, name='keep_object_where').verb(behaveof('have', 'v'), obl=matchins(['di mana', 'dimana'], 'chunk'), obj=agency),
 
             *actions_obj([
                 # $ sid 'Saya melihat kucing terbang.'  (I see a cat flying.)

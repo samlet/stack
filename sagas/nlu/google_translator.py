@@ -219,7 +219,7 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
       result=json.loads(r.text)
       # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
       # if result[7]!=None:
-      if result[7] != None and 'disable_correct' not in options:
+      if result[7] is not None and 'disable_correct' not in options:
           try:
               correctText=result[7][0].replace('<b><i>',' ').replace('</i></b>','')
               print(correctText)
@@ -231,7 +231,7 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
 
               process_result(meta, newResult, trans_verbose, options, tracker)
           except Exception as e:
-              print(e)
+              print('translate error: ', e, f", in process text {text}")
               # res=result[0][0][0]
               res = join_sentence(result)
       else:

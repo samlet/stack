@@ -173,11 +173,15 @@ def rs_represent(rs, data, return_df=False):
         # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
         df_set.append(df)
+
         if not return_df:
+
             result.extend(proc_word(type_name, r['word'],
                                     r['head'] if 'head' in r else '',
                                     data['lang']))
             result.extend(proc_children_column(df['rel'], df['children'], data['lang']))
+
+            # print('.......')
             # where 1 is the axis number (0 for rows and 1 for columns.)
             # df = df.drop('children', 1)
             # df['children'] = df['children'].apply(lambda x: ', '.join(x)[:15] + "..")
@@ -218,6 +222,7 @@ def proc_word(type_name, word, head, lang):
 def proc_children_column(partcol, textcol, lang, indent='\t'):
     from sagas.nlu.google_translator import translate
     result=[]
+    # print(partcol, textcol)
     for id, (name, r) in enumerate(zip(partcol, textcol)):
         if name not in ('punct', 'head_root'):
         # if len(r)>1:

@@ -150,6 +150,14 @@ class MatchInspector(Inspector):
             return lemma==self.target
         elif self.match_method=='in':
             return lemma in self.target
+        elif self.match_method=='chunk':
+            if isinstance(self.target, list):
+                for t in self.target:
+                    if t in ctx.chunk_pieces(key, lowercase=True):
+                        return True
+                return False
+            else:
+                return self.target in ctx.chunk_pieces(key, lowercase=True)
         elif self.match_method=='glob':
             regex = fnmatch.translate(self.target)
             reobj = re.compile(regex)

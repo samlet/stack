@@ -13,8 +13,6 @@ from sagas.nlu.patterns import Patterns, print_result
 import sagas.tracker_fn as tc
 from sagas.nlu.rules_meta import build_meta
 
-from sagas.nlu.rules_lang_spec_de import Rules_de
-from sagas.nlu.rules_lang_spec_id import Rules_id
 # ________________________________________________________________________
 logger = logging.getLogger(__name__)
 
@@ -133,6 +131,8 @@ class LangspecRules(object):
         """
         from sagas.nlu.uni_remote import dep_parse
         from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.rules_lang_spec_de import Rules_de
+        from sagas.nlu.rules_lang_spec_id import Rules_id
 
         pipelines = ['predicts']
         lang='id'
