@@ -3,6 +3,13 @@ class Chunk(object):
         self.key=key
         self.children=children
 
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        cnt = ' '.join(self.children)
+        return f"{self.key}: {cnt}"
+
 non_spaces=['ja', 'zh']
 class Context(object):
     def __init__(self, meta, domains, name=''):
@@ -14,12 +21,23 @@ class Context(object):
         if len(self._stems)==0:
             self._stems=[(x[0], x[4]) for x in domains]
 
-        self.lemmas = {x[0]: x[3] for x in domains}
-        self.words = {x[0]: x[2] for x in domains}
+        self.lang = meta['lang']
+        if self.lang in non_spaces:
+            self.delim = ''
+        else:
+            self.delim = ' '
+
+        # self.lemmas = {x[0]: x[3] for x in domains}
+        # self.words = {x[0]: x[2] for x in domains}
+        # Support repeated keys
+        keys = {x[0] for x in domains}
+        grp = lambda p, idx: [x[idx] for x in domains if x[0] == p]
+        self.tokens = {x: grp(x, 2) for x in keys}
+        self.words = {x: self.delim.join(grp(x, 2)) for x in keys}
+        self.lemmas = {x: self.delim.join(grp(x, 3)) for x in keys}
+
         self.feats = {x[0]: x[5] for x in domains}
         # self.meta['intermedia']={}
-        self.lang = meta['lang']
-
         self._results=[]
 
     @property
@@ -69,11 +87,7 @@ class Context(object):
 
     def chunk_pieces(self, key, lowercase=False):
         chunks = self.get_chunks(key)
-        if self.lang in non_spaces:
-            delim=''
-        else:
-            delim=' '
-        return [delim.join(c.children).lower() if lowercase else delim.join(c.children) for c in chunks]
+        return [self.delim.join(c.children).lower() if lowercase else self.delim.join(c.children) for c in chunks]
 
     def stem_pieces(self, key):
         stems = self.get_stems(key)

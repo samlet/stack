@@ -121,10 +121,7 @@ def rs_represent(rs, data, return_df=False):
 
     for serial, r in enumerate(rs):
         type_name = r['type']
-        common = {'lemma': r['lemma'], 'word': r['word'],
-                  'stems': r['stems']}
-        theme = ''
-        meta = build_meta(r, common, data)
+        meta = build_meta(r, data)
         if type_name == 'verb_domains':
             theme = '[verb]'
             tc.info(serial_numbers[serial], theme,

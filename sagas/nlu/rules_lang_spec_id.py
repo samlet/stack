@@ -45,6 +45,21 @@ class Rules_id(LangSpecBase):
             pat(5, name='command_amod').verb(behaveof('make', 'v'), amod='c_adj'),
             # $ sid 'Di mana kamu simpan makanan saya?'
             pat(5, name='keep_object_where').verb(behaveof('have', 'v'), obl=matchins(['di mana', 'dimana'], 'chunk'), obj=agency),
+            # $ sid 'Aku tak bisa tidur.' (zh="我无法入睡。")
+            # purpose: 测试重名的成分, 此例中的advmod
+            # ┌−−−−−−┐  root     ┌−−−−−−−−−┐  punct   ┌−−−−−┐
+            # ╎ ROOT ╎ ────────▶ ╎         ╎ ───────▶ ╎  .  ╎
+            # └−−−−−−┘           ╎  tidur  ╎          └−−−−−┘
+            # ┌−−−−−−┐  advmod   ╎         ╎  nsubj   ┌−−−−−┐
+            # ╎ tak  ╎ ◀──────── ╎         ╎ ───────▶ ╎ Aku ╎
+            # └−−−−−−┘           └−−−−−−−−−┘          └−−−−−┘
+            #                      │
+            #                      │ advmod
+            #                      ▼
+            #                    ┌−−−−−−−−−┐
+            #                    ╎  bisa   ╎
+            #                    └−−−−−−−−−┘
+            pat(5, name='behave_unable').verb(behaveof('rest', 'v'), advmod=negative()),
 
             *actions_obj([
                 # $ sid 'Saya melihat kucing terbang.'  (I see a cat flying.)
@@ -85,6 +100,7 @@ class Rules_id(LangSpecBase):
             pat(5).verb(behaveof('body_part', 'n'), amod='c_adj'),
             # $ sid 'Karpet ini sangat kotor.'
             pat(5, name='describe_object').verb(behaveof('object', 'n'), amod='c_adj'),
+
             # $ sid 'Bola Dimas putih.'
             pat(5, 'describe_color').root(behaveof('object', 'n'),
                                           anal(amod=predicate_fn('color', 'n'))),
