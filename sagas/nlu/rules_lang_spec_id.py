@@ -60,6 +60,8 @@ class Rules_id(LangSpecBase):
             #                    ╎  bisa   ╎
             #                    └−−−−−−−−−┘
             pat(5, name='behave_unable').verb(behaveof('rest', 'v'), advmod=negative()),
+            # $ sid 'Kami tak boleh berbicara.' (we are not allowed to speak.)
+            pat(5, name='communicate_unable').verb(behaveof('communicate', 'v'), advmod=negative()),
 
             *actions_obj([
                 # $ sid 'Saya melihat kucing terbang.'  (I see a cat flying.)

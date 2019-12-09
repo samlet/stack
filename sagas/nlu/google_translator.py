@@ -231,9 +231,10 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
 
               process_result(meta, newResult, trans_verbose, options, tracker)
           except Exception as e:
-              print('translate error: ', e, f", in process text {text}")
+              # print('translate error: ', e, f", in process text {text}")
               # res=result[0][0][0]
               res = join_sentence(result)
+              process_result(meta, result, trans_verbose, options, tracker)
       else:
           process_result(meta, result, trans_verbose, options, tracker)
           # res=result[0][0][0]

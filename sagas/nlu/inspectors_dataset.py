@@ -1,7 +1,7 @@
 nagative_maps={
     'da': ['ikke'],
     'de': ['nicht'],
-    'id': ['tidak', 'tak bisa'],
+    'id': ['tidak', 'tak bisa', 'tak boleh'],
 }
 
 

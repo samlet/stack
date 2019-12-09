@@ -82,8 +82,7 @@ def set_json(client, val):
     txn = client.txn()
     return txn.mutate(pydgraph.Mutation(commit_now=True), set_obj=val)
 
-data_file_prefix='data/rss/'
-def create_resource_digest(url_raw, lang='zh'):
+def create_resource_digest(url_raw, data_file_prefix, lang='zh'):
     # https://rsshub.app/bilibili/bangumi/media/9192, ja
     parts=url_raw.split(',')
     url=parts[0]
@@ -94,7 +93,7 @@ def create_resource_digest(url_raw, lang='zh'):
     digest['lang']=lang
     return digest
 
-def get_resources(url_conf='./data/rss/urls.txt'):
+def get_resources(data_file_prefix, url_conf):
     import io_utils
     urls = []
     for url in io_utils.lines(url_conf):
@@ -104,7 +103,7 @@ def get_resources(url_conf='./data/rss/urls.txt'):
     # print(urls)
     resources = []
     for url in urls:
-        resources.append(create_resource_digest(url))
+        resources.append(create_resource_digest(url, data_file_prefix))
     print(json.dumps(resources, indent=2))
     return resources
 
@@ -112,6 +111,9 @@ def short_url(url):
     return url.replace('https://rsshub.app/',"")
 
 class RssHub(object):
+    def __init__(self, data_prefix='data/rss/'):
+        self.data_file_prefix = data_prefix
+
     def downloads(self):
         url = "https://rsshub.app/bilibili/user/video/286700005"
         file_name = "./data/rss/user_video_286700005.xml"
@@ -228,7 +230,7 @@ class RssHub(object):
         :return:
         """
         import os
-        resources=get_resources(url_conf)
+        resources=get_resources(self.data_file_prefix, url_conf)
         pbar = tqdm(resources)
         for res in pbar:
             path = res['file'] + '.xml'
