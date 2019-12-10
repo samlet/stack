@@ -18,8 +18,6 @@ def parse_sents(data):
 
 
 equals = lambda a, b: str(a) == str(b)
-
-
 def children(word, sent):
     return filter(lambda w: equals(w.governor, word.index), sent.words)
 
@@ -65,8 +63,15 @@ def get_verb_domain(sent):
         rs.append(token)
     return rs
 
-def list_words(domains):
-    top = 'ref'
+def chains(word, lang, pos):
+    from sagas.nlu.nlu_cli import get_chains
+    resp = get_chains(word, lang, pos)
+    if len(resp) > 0:
+        return [', '.join(chain['chain']) for chain in resp]
+    return []
+
+def list_words(domains, lang, with_chains):
+    top = '_'
     rs = []
     filters = ('pron', 'punct', 'part')
 
@@ -75,14 +80,20 @@ def list_words(domains):
         upos = domains['upos'].lower()
         word = domains['text']
         lemma = domains['lemma']
-        rel = domains['dependency_relation']
+        # rel = domains['dependency_relation']
         key = f"{top}"
         if upos not in filters:
-            rs.append({key: f"{word}/{lemma}", 'upos': upos})
+            word_f=f"{word}/{lemma}"
+            if with_chains:
+                pos='v' if upos=='verb' else '*'
+                specs=chains(word_f, lang, pos)
+            else:
+                specs=[]
+            rs.append({'ref': key, 'word':word, 'lemma':lemma, 'upos': upos, 'sepcs':specs})
         for k, v in domains.items():
             if isinstance(v, list):
                 for child in v:
-                    get_words(child, key + '_' + k)
+                    get_words(child, key + '/' + k)
 
     get_words(domains, top)
     return rs
@@ -99,13 +110,6 @@ def create_host():
 
     host.register_rulesets(ruleset_definitions)
     return host
-
-def chains(word, lang, pos):
-    from sagas.nlu.nlu_cli import get_chains
-    resp = get_chains(word, lang, pos)
-    if len(resp) > 0:
-        return [', '.join(chain['chain']) for chain in resp]
-    return []
 
 class RulesetProcs(object):
     def print_sents(self, sents, lang='en'):
@@ -148,7 +152,7 @@ class RulesetProcs(object):
               sep='\n')
         tc.gv(g)
 
-    def verbs(self, sents, lang='en'):
+    def verbs(self, sents, lang='en', specs=False):
         """
         $ python -m sagas.nlu.ruleset_procs verbs 'I want to play music.' en
             ```
@@ -156,11 +160,14 @@ class RulesetProcs(object):
              {'ref_xcomp': 'play/play', 'upos': 'verb'},
              {'ref_xcomp_obj': 'music/music', 'upos': 'noun'}]
             ```
+        $ python -m sagas.nlu.ruleset_procs verbs 'I want to play music.' en True
 
         :param sents:
         :param lang:
         :return:
         """
+        import sagas.nlu.ruleset_fixtures as rf
+
         data = {'lang': lang, "sents": sents, 'engine': cf.engine(lang)}
         doc_jsonify, resp = parse_sents(data)
         v_domains=get_verb_domain(doc_jsonify)
@@ -168,9 +175,18 @@ class RulesetProcs(object):
         json_utils.write_json_to_file('./out/v_domain.json', v_domains[0])
 
         # list words
-        tc.emp('cyan', '.. list words')
+        tc.emp('cyan', f"✁ list words. {'-' * 25}")
+
+        host = create_host()
         for d in v_domains:
-            pprint(list_words(d))
+            tokens=list_words(d, lang, with_chains=specs)
+            pprint(tokens)
+
+            if specs:
+                tc.emp('cyan', f"✁ specs evaluate. {'-' * 25}")
+                for token in tokens:
+                    r3 = host.assert_fact('chains', token)
+                    pprint(r3)
 
     def asserts(self, sents, lang='en'):
         """

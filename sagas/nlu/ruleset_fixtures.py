@@ -1,5 +1,6 @@
 from durable.lang import *
 from durable.engine import Host
+import sagas.tracker_fn as tc
 
 with ruleset('verbs'):
     @when_all(m.text.matches('want.*'))
@@ -44,4 +45,18 @@ with ruleset('chains'):
         print('amod natural -> {0}'.format(c.m.word))
 
 
+    @when_all( (m.ref=='_/xcomp/obj') & m.sepcs.anyItem(item.matches('.*sound.n.*, .*perception.n.*')))
+    def amod_with_natural(c):
+        c.s.xcomp_obj = ls(c.s.amod, 'sound')
+        # print('xcomp obj -> {0}'.format(c.m.word))
+        c.assert_fact({'ref': c.m.ref, 'predicate': 'is', 'catalog': 'sound'})
+
+    @when_all(+m.ref & +m.lemma)
+    def output(c):
+        tc.emp('blue', 'word-> Fact: {0} {1} {2}'.format(c.m.ref, c.m.lemma, c.m.upos))
+
+
+    @when_all(+m.ref & +m.predicate)
+    def output(c):
+        tc.emp('red', 'catalog-> Fact: {0} {1} {2}'.format(c.m.ref, c.m.predicate, c.m.catalog))
 
