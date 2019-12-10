@@ -4,8 +4,8 @@
     "action": "action_log_commevent"
   },
   {
-    "intent": "perform_sound",
-    "action": "action_perform_sound"
+    "intent": "perform_media",
+    "action": "action_perform_media"
   }
 ]
 

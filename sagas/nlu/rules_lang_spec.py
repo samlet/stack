@@ -27,9 +27,10 @@ def exec_rules_by_type(ci:LangSpecBase, type_name):
     # ci.root_rules()
 
 def parse_sents(meta):
-    from sagas.nlu.uni_remote import dep_parse
+    from sagas.nlu.uni_remote import dep_parse, parse_and_cache
     # 'lang': lang, "sents": sents, 'engine': engine
-    doc_jsonify, _ = dep_parse(meta['sents'], meta['lang'], meta['engine'])
+    # doc_jsonify, _ = dep_parse(meta['sents'], meta['lang'], meta['engine'])
+    doc_jsonify, _ = parse_and_cache(meta['sents'], meta['lang'], meta['engine'])
     return doc_jsonify
 
 def class_from_module_path(module_path: Text) -> Any:
@@ -86,10 +87,10 @@ langspecs=LangSpecs()
 
 def rs_repr(rs, data):
     for serial, r in enumerate(rs):
-        common = {'lemma': r['lemma'], 'word': r['word'],
-                  'stems': r['stems']}
+        # common = {'lemma': r['lemma'], 'word': r['word'],
+        #           'stems': r['stems']}
         # meta = {'rel': r['rel'], **common, **data}
-        meta=build_meta(r, common, data)
+        meta=build_meta(r, data)
         lang=data['lang']
 
         # if lang in lang_specs:

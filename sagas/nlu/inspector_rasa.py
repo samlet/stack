@@ -1,12 +1,14 @@
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns, print_result
+from sagas.conf.conf import cf
 import logging
 logger = logging.getLogger('inspector')
 
-default_projects={'de':'german', 'en':'english', 'fr':'french',
-                  'ru':'russian', 'es':'spanish',
-                  'zh':'chinese', 'ja':'japanese'}
+# default_projects={'de':'german', 'en':'english', 'fr':'french',
+#                   'ru':'russian', 'es':'spanish',
+#                   'zh':'chinese', 'ja':'japanese'}
+default_projects={'de', 'en', 'fr', 'ru', 'es', 'zh', 'ja'}
 
 class RasaInspector(Inspector):
     def __init__(self, intent:str, confidence:float, entire=False, contains_entity:list=None):
@@ -15,7 +17,8 @@ class RasaInspector(Inspector):
         self.contains_entity=contains_entity
         self.entire=entire
 
-        self.endpoint = "http://localhost:5000"
+        # self.endpoint = "http://localhost:5000"
+        self.endpoint=cf.ensure('nlu_multilang_servant')
         self._result=None
 
     def name(self):

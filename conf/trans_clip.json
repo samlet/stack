@@ -17,6 +17,7 @@
   "ner":"http://localhost:8092/entities",
   "ner_ru":"http://localhost:8095/entities",
   "duckling":"http://0.0.0.0:8000/parse",
+  "nlu_multilang_servant": "http://localhost:5000",
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanford":"http://localhost:14001",

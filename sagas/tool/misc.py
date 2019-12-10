@@ -472,6 +472,9 @@ class MiscTool(object):
         print(result)
 
         addons=[]
+
+        # print('??????? ......')
+        # if False:
         if source in available_sources:
             data = {'lang': source, "sents": text}
             # if source=='zh':

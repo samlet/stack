@@ -209,3 +209,7 @@ alias search_id='python -m sagas.corpus.index_trainer search_id'
 # odoo
 alias open_products='open http://localhost:8069/web#action=283&model=product.template&view_type=kanban&menu_id=168'
 
+## 
+alias verbs='python -m sagas.nlu.ruleset_procs verbs'
+
+

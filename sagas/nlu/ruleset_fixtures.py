@@ -51,11 +51,21 @@ with ruleset('chains'):
         # print('xcomp obj -> {0}'.format(c.m.word))
         c.assert_fact({'ref': c.m.ref, 'predicate': 'as', 'catalog': 'sound'})
 
+    @when_all((m.ref == '_/xcomp/obj') & m.sepcs.anyItem(item.matches('.*video.n.*, .*visual_communication.n.*')))
+    def cat_video(c):
+        c.s.spec_xcomp_obj = ls(c.s.spec_xcomp_obj, 'video')
+        c.assert_fact({'ref': c.m.ref, 'predicate': 'as', 'catalog': 'video'})
+
 
     @when_all((m.ref == '_/xcomp') & m.sepcs.anyItem(item.matches('.*perform.v.*')))
     def act_perform(c):
         c.s.spec_xcomp = ls(c.s.spec_xcomp, 'perform')
         c.assert_fact({'ref': c.m.ref, 'predicate': 'is', 'catalog': 'perform'})
+
+    @when_all((m.ref == '_') & m.sepcs.anyItem(item.matches('.*desire.v.*')))
+    def act_want(c):
+        c.s.spec_verb = ls(c.s.spec_verb, 'willing')
+        c.assert_fact({'ref': c.m.ref, 'predicate': 'is', 'catalog': 'willing'})
 
     @when_all(+m.ref & +m.lemma)
     def output_tokens(c):
@@ -72,11 +82,19 @@ with ruleset('sents'):
         # print('nsubj is prop')
         c.assert_fact({'ref': 'nsubj', 'predicate': 'is', 'catalog': 'prop'})
 
-    @when_all((m.lemma == 'want') &
+    @when_all(m.spec_verb.anyItem(item =='willing') &
               m.spec_xcomp.anyItem(item == 'perform') &
-              m.spec_xcomp_obj.anyItem(item=='sound'))
+              m.spec_xcomp_obj.anyItem(item=='video'))
+    def perform_video(c):
+        # c.s.intents = ls(c.s.intents, 'perform_video')
+        c.s.intents = ls(c.s.intents, {'intent': 'perform_media', 'object_type': 'video'})
+
+    # @when_all((m.lemma == 'want') &
+    @when_all(m.spec_verb.anyItem(item == 'willing') &
+              m.spec_xcomp.anyItem(item == 'perform') &
+              m.spec_xcomp_obj.anyItem(item == 'sound'))
     def perform_sound(c):
-        c.s.intents = ls(c.s.intents, 'perform_sound')
+        c.s.intents = ls(c.s.intents, {'intent':'perform_media', 'object_type':'sound'})
 
     @when_all(+m.ref & +m.predicate)
     def output_predicates(c):
