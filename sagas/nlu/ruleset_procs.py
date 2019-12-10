@@ -152,7 +152,7 @@ class RulesetProcs(object):
               sep='\n')
         tc.gv(g)
 
-    def verbs(self, sents, lang='en', specs=False):
+    def verbs(self, sents, lang='en', do_action=False):
         """
         $ python -m sagas.nlu.ruleset_procs verbs 'I want to play music.' en
             ```
@@ -160,13 +160,14 @@ class RulesetProcs(object):
              {'ref_xcomp': 'play/play', 'upos': 'verb'},
              {'ref_xcomp_obj': 'music/music', 'upos': 'noun'}]
             ```
-        $ python -m sagas.nlu.ruleset_procs verbs 'I want to play music.' en True
+        $ python -m sagas.nlu.ruleset_procs verbs 'I want to play video.' en
 
         :param sents:
         :param lang:
         :return:
         """
         import sagas.nlu.ruleset_fixtures as rf
+        from sagas.nlu.ruleset_actions import ruleset_actions
 
         data = {'lang': lang, "sents": sents, 'engine': cf.engine(lang)}
         doc_jsonify, resp = parse_sents(data)
@@ -177,16 +178,51 @@ class RulesetProcs(object):
         # list words
         tc.emp('cyan', f"✁ list words. {'-' * 25}")
 
+        intents=[]
         host = create_host()
         for d in v_domains:
-            tokens=list_words(d, lang, with_chains=specs)
+            tokens=list_words(d, lang, with_chains=True)
             pprint(tokens)
 
-            if specs:
-                tc.emp('cyan', f"✁ specs evaluate. {'-' * 25}")
-                for token in tokens:
-                    r3 = host.assert_fact('chains', token)
-                    pprint(r3)
+            tc.emp('cyan', f"✁ specs evaluate. {'-' * 25}")
+            r3={}
+            for token in tokens:
+                r3 = host.assert_fact('chains', token)
+                pprint(r3) # the last result is all state
+            [r3.pop(key) for key in ['$s', 'id', 'sid']]
+            tc.emp('red', f"specs state - {r3}")
+
+            tc.emp('cyan', f"✁ sents evaluate. {'-' * 25}")
+            sents_data={**d, **r3}
+            tc.emp('cyan', f"  keys: {', '.join(sents_data.keys())}")
+            result=host.assert_fact('sents', sents_data)
+            tc.emp('red', f"sents state - {result}")
+            if 'intents' in result:
+                intents.extend(result['intents'])
+
+        print('intents: ', intents)
+        action_binds=ruleset_actions.get_intents()
+        pprint(action_binds)
+        schedules=[]
+        for intent in intents:
+            acts=[ac['action'] for ac in action_binds if ac['intent']==intent]
+            tc.emp('green', f"action for intent {intent}: {acts}")
+            schedules.append({'intent': intent, 'action': acts,
+                              'sents': sents, 'lang': lang
+                              })
+
+        self.invoke_actions(schedules, do_action)
+
+    def invoke_actions(self, schedules, do_action):
+        import requests
+        print('schedules:', schedules, ', do action:', do_action)
+        if do_action:
+            for ac in schedules:
+                text = f'/{ac["intent"]}{"object_type": "sents", "sents":"{ac["sents"]}"}'
+                data = {'mod': 'genesis', 'lang': ac['lang'], "sents": text}
+                response = requests.post(f'http://localhost:18099/message/my', json=data)
+                print('status code:', response.status_code)
+                pprint(response.json())
 
     def asserts(self, sents, lang='en'):
         """

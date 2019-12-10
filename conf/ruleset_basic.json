@@ -2,6 +2,10 @@
   {
     "intent": "behave_purpose",
     "action": "action_log_commevent"
+  },
+  {
+    "intent": "perform_sound",
+    "action": "action_perform_sound"
   }
 ]
 

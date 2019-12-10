@@ -5,8 +5,9 @@ class RulesetActions(object):
         self.intents = []
         for f in glob.glob('/pi/stack/conf/ruleset_*.json'):
             rules = json_utils.read_json_file(f)
-            for rule in rules:
-                self.intents.append({rule['intent']: {'triggers': rule['action']}})
+            # for rule in rules:
+            #    self.intents.append({rule['intent']: {'triggers': rule['action']}})
+            self.intents.extend(rules)
 
     def get_intents(self):
         """

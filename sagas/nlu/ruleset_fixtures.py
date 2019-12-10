@@ -46,17 +46,42 @@ with ruleset('chains'):
 
 
     @when_all( (m.ref=='_/xcomp/obj') & m.sepcs.anyItem(item.matches('.*sound.n.*, .*perception.n.*')))
-    def amod_with_natural(c):
-        c.s.xcomp_obj = ls(c.s.amod, 'sound')
+    def cat_sound(c):
+        c.s.spec_xcomp_obj = ls(c.s.spec_xcomp_obj, 'sound')
         # print('xcomp obj -> {0}'.format(c.m.word))
-        c.assert_fact({'ref': c.m.ref, 'predicate': 'is', 'catalog': 'sound'})
+        c.assert_fact({'ref': c.m.ref, 'predicate': 'as', 'catalog': 'sound'})
+
+
+    @when_all((m.ref == '_/xcomp') & m.sepcs.anyItem(item.matches('.*perform.v.*')))
+    def act_perform(c):
+        c.s.spec_xcomp = ls(c.s.spec_xcomp, 'perform')
+        c.assert_fact({'ref': c.m.ref, 'predicate': 'is', 'catalog': 'perform'})
 
     @when_all(+m.ref & +m.lemma)
-    def output(c):
+    def output_tokens(c):
         tc.emp('blue', 'word-> Fact: {0} {1} {2}'.format(c.m.ref, c.m.lemma, c.m.upos))
 
 
     @when_all(+m.ref & +m.predicate)
-    def output(c):
+    def output_predicates(c):
         tc.emp('red', 'catalog-> Fact: {0} {1} {2}'.format(c.m.ref, c.m.predicate, c.m.catalog))
 
+with ruleset('sents'):
+    @when_all(m.nsubj.anyItem(item.upos.imatches('pron')))
+    def subj_play(c):
+        # print('nsubj is prop')
+        c.assert_fact({'ref': 'nsubj', 'predicate': 'is', 'catalog': 'prop'})
+
+    @when_all((m.lemma == 'want') &
+              m.spec_xcomp.anyItem(item == 'perform') &
+              m.spec_xcomp_obj.anyItem(item=='sound'))
+    def perform_sound(c):
+        c.s.intents = ls(c.s.intents, 'perform_sound')
+
+    @when_all(+m.ref & +m.predicate)
+    def output_predicates(c):
+        tc.emp('red', 'catalog-> Fact: {0} {1} {2}'.format(c.m.ref, c.m.predicate, c.m.catalog))
+
+    @when_all(+m.text & +m.lemma)
+    def output_tokens(c):
+        tc.emp('blue', 'sents-> Fact: {0} {1}'.format(c.m.text, c.m.lemma))
