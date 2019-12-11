@@ -1,3 +1,5 @@
+from typing import Text, Dict, List
+
 class Chunk(object):
     def __init__(self, key, children):
         self.key=key
@@ -41,17 +43,32 @@ class Context(object):
         self._results=[]
 
     @property
-    def results(self):
+    def results(self) -> List:
         return self._results
-    def add_result(self, inspector, provider, part_name, val):
-        self._results.append((inspector, provider, part_name, val))
+
+    def add_result(self, inspector:Text, provider:Text, part_name:Text, val, delivery_type='slot'):
+        """
+        Add result to context
+        :param inspector:
+        :param provider:
+        :param part_name:
+        :param val:
+        :param delivery_type: default is slot, the other available values is token/sentence
+        :return:
+        """
+        # self._results.append((inspector, provider, part_name, val, delivery_type))
+        self._results.append({'inspector':inspector,
+                              'provider':provider,
+                              'part':part_name,
+                              'value':val,
+                              'delivery':delivery_type})
 
     def put_data(self, key, val):
         if 'intermedia' not in self.meta:
             self.meta['intermedia'] = {}
         self.meta['intermedia'][key]=val
 
-    def get_data(self, key):
+    def get_data(self, key:Text):
         if 'intermedia' not in self.meta:
             self.meta['intermedia'] = {}
 
@@ -59,10 +76,10 @@ class Context(object):
             return None
         return self.meta['intermedia'][key]
 
-    def get_chunks(self, key):
+    def get_chunks(self, key) -> List:
         return [c for c in self._chunks if c.key==key]
 
-    def get_stems(self, key):
+    def get_stems(self, key) -> List:
         return [c for c in self._stems if c[0]==key]
 
     def chunk_contains(self, key, val):
@@ -89,7 +106,7 @@ class Context(object):
         chunks = self.get_chunks(key)
         return [self.delim.join(c.children).lower() if lowercase else self.delim.join(c.children) for c in chunks]
 
-    def stem_pieces(self, key):
+    def stem_pieces(self, key) -> List:
         stems = self.get_stems(key)
         if self.lang in non_spaces:
             delim=''

@@ -171,12 +171,14 @@ def print_result(rs):
             # .. results
             # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
             tc.info('.. results')
-            tc.info([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
+            # tc.info([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
+            tc.info([f"{r['inspector']}/{r['provider']}/{r['part']}" for r in results])
             # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
             # 以前3个元素作为键去重显示
             from sagas.nlu.content_representers import content_represent
             # color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
             # tc.emp('cyan', {(r[0], r[1], r[2]): content_represent(r[1], r[3]) for r in results})
-            tc.write({f"{r[0]}/{r[1]}/...": content_represent(r[1], r[3]) for r in results})
+            tc.write({f"{r['inspector']}/{r['provider']}/...":
+                          content_represent(r['provider'], r['value']) for r in results})
 

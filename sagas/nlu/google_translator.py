@@ -55,7 +55,7 @@ def buildUrl(text,tk, source='auto', target='zh-CN'):
   # baseUrl+='s1=auto&'
   baseUrl += 'sl=%s&'%source
   # baseUrl+='t1=zh-CN&'
-  baseUrl += 'tl=%s&' % target
+  baseUrl += 'tl=%s&'%target
   # baseUrl+='h1=zh-CN&'
   baseUrl += 'hl=en&'
 
