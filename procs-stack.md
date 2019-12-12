@@ -24,12 +24,18 @@ $ honcho start  # (s1) 代替以下服务启动
     # $ start servant_zh
     $ start servant_words
     $ start servant_multilang
+    $ start odoo
 
     # servant from dir: ./mats/nlu_multilang
-    $ start nlu
+    # $ start nlu
 
 # 如果使用faiss, 需要启动bert
 $ start bert-en
+
+# nlu (rasa-1.x), located: /pi/ws/sagas-ai
+$ honcho start
+    $ start agent_servant
+    $ start genesis_actions
 ```
 
 ## ofbiz
