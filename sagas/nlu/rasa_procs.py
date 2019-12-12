@@ -12,7 +12,8 @@ def invoke_nlu(endpoint, project_name, model_name, text):
     }
     url = "{}/parse".format(endpoint)
     try:
-        result = requests.get(url, params=params)
+        # result = requests.get(url, params=params)
+        result = requests.post(url, json=params)
         if result.status_code == 200:
             return result.json()
         else:
@@ -33,8 +34,11 @@ class RasaProcs(object):
         :param sents:
         :return:
         """
-        endpoint = "http://localhost:5000"
-        result = invoke_nlu(endpoint, "german", "current", sents)
+        from sagas.conf.conf import cf
+        # endpoint = "http://localhost:5000"
+        endpoint = cf.ensure('nlu_multilang_servant')
+        print('.. with endpoing', endpoint)
+        result = invoke_nlu(endpoint, "de", "current", sents)
         if result != None:
             print(json.dumps(result, indent=4))
             intent=result["intent"]
