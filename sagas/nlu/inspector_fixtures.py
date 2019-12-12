@@ -4,8 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 class InspectorFixture(object):
     def __init__(self):
-        from sagas.tool.loggers import init_logger
-        init_logger()
+        pass
 
     def print_table(self, rs):
         import sagas

@@ -116,8 +116,7 @@ def rs_repr(rs, data):
 
 class LangspecRules(object):
     def __init__(self):
-        from sagas.tool.loggers import init_logger
-        init_logger()
+        pass
 
     def langspec(self, sents, lang='en', engine='corenlp'):
         """
@@ -170,5 +169,8 @@ class LangspecRules(object):
 
 if __name__ == '__main__':
     import fire
+    from sagas.tool.loggers import init_logger
+
+    init_logger()
     fire.Fire(LangspecRules)
 

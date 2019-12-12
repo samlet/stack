@@ -278,7 +278,6 @@ class MiscTool(object):
         import sagas.conf.conf as conf
         # import logging
         # import os
-        from sagas.tool.loggers import init_logger
 
         cf = conf.TransClipConf()
         self.translator=cf.conf['translator']
@@ -292,7 +291,6 @@ class MiscTool(object):
                           'google':self.trans_google}
 
         # logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
-        init_logger()
 
     def plain(self):
         """
@@ -734,4 +732,7 @@ class MiscTool(object):
 
 if __name__ == '__main__':
     import fire
+    from sagas.tool.loggers import init_logger
+
+    init_logger()
     fire.Fire(MiscTool)

@@ -28,8 +28,6 @@ def handle_digest():
 
 class SimpleServant(object):
     def __init__(self, port=15001):
-        from sagas.tool.loggers import init_logger
-        init_logger()
         self.port=port
 
     def dev(self):
@@ -45,4 +43,7 @@ class SimpleServant(object):
 
 if __name__ == "__main__":
     import fire
+    from sagas.tool.loggers import init_logger
+
+    init_logger()
     fire.Fire(SimpleServant)

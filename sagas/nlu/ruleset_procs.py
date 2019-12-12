@@ -173,7 +173,7 @@ class RulesetProcs(object):
         $ python -m sagas.nlu.ruleset_procs verbs 'I want to play video.' en
         $ python -m sagas.nlu.ruleset_procs verbs 'I would like to play video.' en
         $ python -m sagas.nlu.ruleset_procs verbs "i'd like to play sound." en
-        $ verbs 'I want to play music.' en
+        $ verbs 'I want to play music.' en True
 
         :param sents:
         :param lang:
@@ -298,4 +298,6 @@ class RulesetProcs(object):
 
 if __name__ == '__main__':
     import fire
+    from sagas.tool.loggers import init_logger
+    init_logger()
     fire.Fire(RulesetProcs)

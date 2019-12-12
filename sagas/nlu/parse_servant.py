@@ -184,8 +184,7 @@ def handle_dep_parse():
 
 class ParseServant(object):
     def __init__(self):
-        from sagas.tool.loggers import init_logger
-        init_logger()
+        pass
 
     def dev(self, port=14000):
         app.run(host='0.0.0.0', port=port)
@@ -196,6 +195,9 @@ class ParseServant(object):
 
 if __name__ == "__main__":
     import fire
+    from sagas.tool.loggers import init_logger
+
+    init_logger()
     # app.run(debug=True)
     # app.run(host='0.0.0.0', port=8090, debug=True)
     # app.run(host='0.0.0.0', port=8090)

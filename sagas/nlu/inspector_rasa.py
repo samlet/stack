@@ -82,11 +82,9 @@ class RasaInspector(Inspector):
 class InspectorRunner(InspectorFixture):
     def __init__(self):
         import sagas.nlu.patterns as pat
-        from sagas.tool.loggers import init_logger
 
         super().__init__()
         pat.print_not_matched=True
-        init_logger()
 
     def procs_common(self, data):
         domains, meta=self.request_domains(data)
@@ -122,5 +120,8 @@ class InspectorRunner(InspectorFixture):
 
 if __name__ == '__main__':
     import fire
+    from sagas.tool.loggers import init_logger
+
+    init_logger()
     fire.Fire(InspectorRunner)
 
