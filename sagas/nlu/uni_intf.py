@@ -2,6 +2,15 @@ import abc
 import io
 
 sub_comps=['ccomp', 'xcomp', # general
+           # advcl：状语从句修饰语, 状语从句修饰语是将动词或其他谓词（形容词等）修饰为修饰语
+           # 而不是核心补语的从句。这包括诸如时间子句，结果，条件子句，目的子句等之类的东西。
+           # 从属必须是子句（否则它是advmod），并且从属是该子句的主要谓词。
+           'advcl', 'obj', # occurs in id
+           # acl：名词的句法修饰语（adjectival clause）
+           # acl代表修改名义的有限和非有限条款。这种acl关系与advcl关系形成对比，
+           # advcl关系用于修改谓词的状语从句。acl关系的头部是被修改的名词，
+           # 而从属关系是修饰名词的子句的头部。
+           'acl',
            'adv', 'coo', 'vob', 'att', # zh
            ]
 

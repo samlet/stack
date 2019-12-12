@@ -114,3 +114,12 @@ def list_with_suffix(dir, suffix):
             if file.endswith(suffix):
                 rs.append(os.path.join(root, file))
     return rs
+
+def list_files_with_basename(dir_pattern):
+    import glob
+    import ntpath
+    files = glob.glob(dir_pattern)
+    bases = []
+    for f in files:
+        bases.append(ntpath.basename(f))
+    return bases

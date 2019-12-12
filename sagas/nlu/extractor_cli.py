@@ -24,6 +24,9 @@ class ExtractorCli(object):
     def datetime(self, text, lang='en'):
         """
         $ python -m sagas.nlu.extractor_cli datetime 'tomorrow at eight' en
+        $ python -m sagas.nlu.extractor_cli datetime 'two weeks ago' en
+            .. search: [('two weeks ago', datetime.datetime(2019, 11, 29, 1, 57, 25, 466421))]
+            .. parse: 2019-11-29 01:57:25.468518
         $ python -m sagas.nlu.extractor_cli datetime 'Jumat lalu' id
         $ python -m sagas.nlu.extractor_cli datetime '12 Mei 2008' id
             .. search: [('12 Mei 2008', datetime.datetime(2008, 5, 12, 0, 0))]
