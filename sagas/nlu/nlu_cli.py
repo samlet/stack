@@ -1,9 +1,10 @@
 import requests
 
 from sagas.util.rest_common import query_data_by_url
+from sagas.conf.conf import cf
 
 def get_chains(word, lang, pos):
-    response = requests.post('http://localhost:8093/get_chains',
+    response = requests.post(f'{cf.ensure("words_servant")}/get_chains',
                              json={'word': word, 'lang': lang, 'pos': pos})
     if response.status_code == 200:
         rs = response.json()
@@ -22,7 +23,7 @@ def retrieve_word_info(path, word, lang, pos):
     :param pos:
     :return:
     """
-    response = requests.post('http://localhost:8093/%s'%path,
+    response = requests.post(f'{cf.ensure("words_servant")}/%s'%path,
                              json={'word': word, 'lang': lang, 'pos': pos})
     if response.status_code == 200:
         rs = response.json()
@@ -53,7 +54,7 @@ def scribes(dot):
     return result_text
 
 def get_word_sets(word, lang='en', pos='*'):
-    response = requests.post('http://localhost:8093/word_sets',
+    response = requests.post(f'{cf.ensure("words_servant")}/word_sets',
                              json={'word':word, 'lang':lang, 'pos':pos})
     # print(response.status_code, response.json())
     if response.status_code == 200:
@@ -116,7 +117,7 @@ class NluCli(object):
         :return:
         """
         from pprint import pprint
-        response = requests.post('http://localhost:8093/word_sets',
+        response = requests.post(f'{cf.ensure("words_servant")}/word_sets',
                                  json={'word': word, 'lang': lang, 'pos': pos})
         # print(response.status_code, response.json())
         if response.status_code == 200:
@@ -157,7 +158,7 @@ class NluCli(object):
                    'kind': 'color', 'only_first': True},
                   ]
         for data in data_set:
-            response = requests.post('http://localhost:8093/predicate',
+            response = requests.post(f'{cf.ensure("words_servant")}/predicate',
                                      json=data)
             if response.status_code == 200:
                 print('(%s) %s is %s'%(data['lang'], data['word'], data['kind']),
@@ -178,7 +179,7 @@ class NluCli(object):
                    'kind': 'food/matter'},
                   ]
         for data in data_set:
-            response = requests.post('http://localhost:8093/predicate_chain',
+            response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
                                      json=data)
             if response.status_code == 200:
                 resp=response.json()
@@ -226,7 +227,7 @@ class NluCli(object):
             targets=['en', 'zh', 'ja', 'es','fr', 'de', 'ru']
         # data = {'word': 'world', 'lang': 'en', 'targets': ['en', 'fr', 'ja', 'zh']}
         data={'word':word, 'lang':lang, 'targets':targets}
-        response = requests.post('http://localhost:8093/explore',
+        response = requests.post(f'{cf.ensure("words_servant")}/explore',
                                  json=data)
         if response.status_code == 200:
             resp = response.json()

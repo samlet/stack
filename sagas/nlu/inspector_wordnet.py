@@ -2,6 +2,7 @@ from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns, print_result
 import requests
+from sagas.conf.conf import cf
 
 feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 # feat_pos_mappings={'c_adj':['n','a','s'], 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
@@ -42,12 +43,12 @@ def predicate(kind, word, lang, pos, only_first=False ):
     if '/' in kind or '/' in word:
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': kind}
-        response = requests.post('http://localhost:8093/predicate_chain',
+        response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
                                  json=data)
     else:
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': kind, 'only_first': only_first}
-        response = requests.post('http://localhost:8093/predicate',
+        response = requests.post(f'{cf.ensure("words_servant")}/predicate',
                                  json=data)
     if response.status_code == 200:
         r = response.json()
@@ -66,7 +67,12 @@ class PredicateWordInspector(WordInspector):
         else:
             pos=self.pos_indicator
 
-        return predicate(self.kind, word, lang, pos, self.only_first)
+        result= predicate(self.kind, word, lang, pos, self.only_first)
+        if result:
+            ctx.add_result(self.name(), 'default', key,
+                           {'category': self.kind, 'pos': pos},
+                           delivery_type='sentence')
+        return result
 
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
@@ -76,7 +82,7 @@ class VerbInspector(WordInspector):
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': self.kind}
         # print('..', word)
-        response = requests.post('http://localhost:8093/predicate_chain',
+        response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
                                  json=data)
 
         if response.status_code == 200:
@@ -100,7 +106,12 @@ class VerbInspector(WordInspector):
             pos='v'
         else:
             pos=self.pos_indicator
-        return self.substitute(word, lang, pos)
+        result= self.substitute(word, lang, pos)
+        if result:
+            ctx.add_result(self.name(), 'default', 'predicate',
+                           {'category': self.kind, 'pos': pos},
+                           delivery_type='sentence')
+        return result
 
     def name(self):
         return "behave_of"
