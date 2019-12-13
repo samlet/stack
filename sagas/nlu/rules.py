@@ -218,5 +218,8 @@ def predict_patterns(meta, domains):
           # $ sj "いくつかのファイルが含まれています"
           Patterns(domains, meta, 5).verb(behaveof('include', 'v'), __engine='knp',
                                           ガ=kindof('file/communication', 'n')),
+          # $ sj "子は羊を聞きません。"
+          Patterns(domains, meta, 5, name='perceive_living').verb(behaveof('perceive', 'v'),
+                                          ガ=kindof('living_thing', 'n')),
           ]
     print_result(pats)

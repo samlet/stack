@@ -1,12 +1,12 @@
 class TransClipConf(object):
-    def __init__(self, conf_file='/pi/conf/trans_clip.json'):
+    def __init__(self, conf_file='/pi/conf/sagas_conf.json'):
         import json_utils
         self.conf = json_utils.read_json_file(conf_file)
 
     def is_enabled(self, opt):
         """
         >>> import sagas.conf.conf as conf
-        >>> cf=conf.TransClipConf('./conf/trans_clip.json')
+        >>> cf=conf.TransClipConf('./conf/sagas_conf.json')
         >>> print(cf.is_enabled('trans_cache'), cf.is_enabled('xx'))
 
         $ python -m sagas.conf.conf is_enabled print_not_matched
