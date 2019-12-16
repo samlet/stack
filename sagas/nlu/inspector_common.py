@@ -114,7 +114,7 @@ class Context(object):
             delim=' '
         return [delim.join(c[1]) for c in stems]
 
-enable_cache=False
+# enable_cache=False
 class Inspector(object):
     def name(self):
         # type: () -> Text
@@ -145,16 +145,16 @@ class Inspector(object):
         :param ctx:
         :return:
         """
-        if enable_cache:
-            cache = ctx.get_data(self.cache_key(key))
-            if cache is not None:
-                return cache
-
-            result=self.run(key, ctx)
-            ctx.put_data(self.cache_key(key), result)
-            return result
-        else:
-            return self.run(key, ctx)
+        # if enable_cache:
+        #     cache = ctx.get_data(self.cache_key(key))
+        #     if cache is not None:
+        #         return cache
+        #
+        #     result=self.run(key, ctx)
+        #     ctx.put_data(self.cache_key(key), result)
+        #     return result
+        # else:
+        return self.run(key, ctx)
 
     def __str__(self):
         return "Inspector('{}')".format(self.name())

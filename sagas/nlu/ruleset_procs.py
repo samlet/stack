@@ -9,6 +9,7 @@ from sagas.nlu.uni_remote import dep_parse, parse_and_cache
 from sagas.nlu.uni_remote_viz import list_contrast, display_doc_deps
 import sagas.tracker_fn as tc
 import json_utils
+from cachetools import cached
 from pprint import pprint
 import logging
 
@@ -19,6 +20,15 @@ def parse_sents(data: Dict):
     sents=fix_sents(sents, source)
     # engine=cf.engine(source)
     return parse_and_cache(sents, source, engine)
+
+@cached(cache={})
+def cached_chunks(sents:Text, source:Text, engine:Text):
+    doc, resp=parse_and_cache(sents, source, engine)
+    return {'doc':doc,
+            'resp': resp,
+            'verb_domains': get_verb_domain(doc),
+            'root_domains': get_root_domain(doc),
+            }
 
 equals = lambda a, b: str(a) == str(b)
 def children(word, sent):
@@ -53,7 +63,7 @@ def get_verb_domain(sent):
         verbs = [word for word in verbs if word.dependency_relation not in sub_comps]
     for word in verbs:
         domains = []
-        stems = []
+        # stems = []
         for c in filter(lambda w: equals(w.governor, word.index), sent.words):
             c_domains = [w.ctx for w in children(c, sent)]
             domains.append({**c.ctx, **group_by(c_domains)})
@@ -71,7 +81,7 @@ def get_root_domain(sent_p):
     logger.debug(f"root: {root.index}, {root.text}({root.upos})")
     root_idx = int(root.index)
     domains = []
-    stems = []
+    # stems = []
     rs = []
     for word in (w for w in sent_p.words if w.governor == root_idx):
         # print(f"{__name__}: {word.dependency_relation}: {word.text}")
