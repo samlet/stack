@@ -228,7 +228,6 @@ class RulesetProcs(object):
         :return:
         """
         import sagas.nlu.ruleset_fixtures as rf
-        from sagas.nlu.ruleset_actions import ruleset_actions
 
         data = {'lang': lang, "sents": sents, 'engine': cf.engine(lang)}
         doc_jsonify, resp = parse_sents(data)
@@ -266,32 +265,44 @@ class RulesetProcs(object):
             if 'intents' in result:
                 intents.extend(result['intents'])
 
+        self.process_intents(sents, lang, intents, do_action)
+
+    def process_intents(self, sents, lang, intents, do_action:bool):
+        from sagas.nlu.ruleset_actions import ruleset_actions
+
         print('intents: ', intents)
-        action_binds=ruleset_actions.get_intents()
+        action_binds = ruleset_actions.get_intents()
         if self.verbose:
             pprint(action_binds)
-        schedules=[]
+        schedules = []
         for intent_item in intents:
-            intent=intent_item['intent']
-            acts=[ac['action'] for ac in action_binds if ac['intent']==intent]
+            intent = intent_item['intent']
+            acts = [ac['action'] for ac in action_binds if ac['intent'] == intent]
 
             tc.emp('green', f"action for intent {intent}: {acts}")
-            if len(acts)>0:
+            if len(acts) > 0:
                 schedules.append({'intent': intent, 'action': acts,
                                   'sents': sents, 'lang': lang,
-                                  'object_type': intent_item['object_type']
+                                  'object_type': intent_item['object_type'],
+                                  'parameters': {},
                                   })
-        if len(schedules)>0:
+        if len(schedules) > 0:
             self.invoke_actions(schedules, do_action)
         else:
             tc.emp("yellow", 'no scheduled actions.')
 
     def invoke_actions(self, schedules, do_action):
         import requests
+        import json
         print('schedules:', schedules, ', do action:', do_action)
         if do_action:
             for ac in schedules:
-                text = f'/{ac["intent"]}{{"object_type": "{ac["object_type"]}", "sents":"{ac["sents"]}"}}'
+                values={"object_type": ac["object_type"],
+                        "sents":ac["sents"],
+                        'parameters': ac['parameters']}
+                values_str=json.dumps(values, ensure_ascii=False)
+                # text = f'/{ac["intent"]}{{"object_type": "{ac["object_type"]}", "sents":"{ac["sents"]}"}}'
+                text = f'/{ac["intent"]}{values_str}'
                 data = {'mod': 'genesis', 'lang': ac['lang'], "sents": text}
                 response = requests.post(f'http://localhost:18099/message/my', json=data)
                 print('status code:', response.status_code)
@@ -303,9 +314,13 @@ class RulesetProcs(object):
 
         :return:
         """
-        schedules= [{'intent': 'perform_sound',
+        schedules= [{'intent': 'perform_media',
+                     'object_type': 'testing',
                      'action': ['action_perform_sound'],
                      'sents': 'I want to play music.',
+                     'parameters': {
+                        'media_list': ['first song', 'second song'],
+                        'media_type': 'sound'},
                      'lang': 'en'}]
         self.invoke_actions(schedules, True)
 

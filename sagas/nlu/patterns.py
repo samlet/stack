@@ -163,10 +163,11 @@ def print_result(rs):
             # tc.info('%s [%s]'%(colored('✔', clr) if r[1] else '✖',
             #                 colored(r[0], clr)))
             pat_name='' if r[3].name=='' else f"({r[3].name}) "
-            tc.emp(clr, '✔' if r[1] else '✖', f"{pat_name}{r[0]}")
+            tc.emp(clr, '✔' if r[1] else '✖', f"{pat_name}{r[0]}")  # r[0] is info
 
     if cf.is_enabled('print_inspector_result'):
-        results = [el for r in rs for el in r[3].results]
+        # results = [el for r in rs for el in r[3].results]
+        results = [el for r in rs for el in r[3].results if r[1]] # r[1] is true/false
         if len(results) > 0:
             # .. results
             # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
@@ -180,5 +181,6 @@ def print_result(rs):
             # color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
             # tc.emp('cyan', {(r[0], r[1], r[2]): content_represent(r[1], r[3]) for r in results})
             tc.write({f"{r['inspector']}/{r['provider']}/...":
-                          content_represent(r['provider'], r['value']) for r in results})
+                          content_represent(r['provider'], r['value'])
+                      for r in results})
 

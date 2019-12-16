@@ -46,6 +46,6 @@ class LangSpecBase(object):
         from sagas.nlu.patterns import print_result
         print_result(pats)
         for r in pats:
-            # 收集命名rule的匹配结果
+            # 收集成功匹配的命名rule的结果
             if r[1] and r[3].name != '':
                 self.matched[r[3].name] = r[3]  # r[3] is Context
