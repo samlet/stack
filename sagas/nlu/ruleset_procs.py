@@ -10,11 +10,14 @@ from sagas.nlu.uni_remote_viz import list_contrast, display_doc_deps
 import sagas.tracker_fn as tc
 import json_utils
 from pprint import pprint
+import logging
+
+logger = logging.getLogger(__name__)
 
 def parse_sents(data: Dict):
-    sents, source=data['sents'], data['lang']
+    sents, source, engine=data['sents'], data['lang'], data['engine']
     sents=fix_sents(sents, source)
-    engine=cf.engine(source)
+    # engine=cf.engine(source)
     return parse_and_cache(sents, source, engine)
 
 equals = lambda a, b: str(a) == str(b)
@@ -62,6 +65,47 @@ def get_verb_domain(sent):
             token['head'] = head.ctx
         rs.append(token)
     return rs
+
+def get_root_domain(sent_p):
+    root = next(w for w in sent_p.words if w.dependency_relation in ('root', 'hed'))
+    logger.debug(f"root: {root.index}, {root.text}({root.upos})")
+    root_idx = int(root.index)
+    domains = []
+    stems = []
+    rs = []
+    for word in (w for w in sent_p.words if w.governor == root_idx):
+        # print(f"{__name__}: {word.dependency_relation}: {word.text}")
+        logger.debug(f"{word.dependency_relation}: {word.text}")
+        # add_domain(domains, stems, word, sent_p)
+        c=word
+        c_domains = [w.ctx for w in children(c, sent_p)]
+        domains.append({**c.ctx, **group_by(c_domains)})
+
+    word = root
+    token = {**word.ctx, **group_by(domains)}
+    rs.append(token)
+    return rs
+
+
+def print_root_domains(sents, lang, comps):
+    # from pprint import pprint
+    data = {'lang': lang, "sents": sents, 'engine': 'corenlp'}
+    doc_jsonify, resp = parse_sents(data)
+    domains = get_root_domain(doc_jsonify)
+    # pprint(domains)
+
+    ###
+    root = domains[0]
+    tc.emp('yellow', f"+ {root['lemma']}_{root['upos'].lower()}")
+    for comp in comps:
+        if comp in root:
+            obj = root[comp][0]
+            comps = []
+            for k, c in obj.items():
+                if isinstance(c, list):
+                    comps.append((k, [f"{citem['lemma']}_{citem['upos'].lower()}" for citem in c]))
+            comps_str = [f"{c[0]}:{','.join(c[1])}" for c in comps]
+            tc.emp('yellow', f"\t☌ {comp}:{obj['lemma']}_{obj['upos'].lower()} {comps_str}")
 
 def chains(word, lang, pos):
     from sagas.nlu.nlu_cli import get_chains
@@ -115,15 +159,19 @@ class RulesetProcs(object):
     def __init__(self, verbose=True):
         self.verbose=verbose
 
-    def print_sents(self, sents, lang='en'):
+    def print_sents(self, sents, lang, engine=None):
         """
         $ python -m sagas.nlu.ruleset_procs print_sents 'I want to play music.' en
+        $ python -m sagas.nlu.ruleset_procs print_sents "クモは4つの右の目をしています。" ja corenlp
+
         :param sents:
         :param lang:
         :return:
         """
         # lang = 'en'
-        data = {'lang': lang, "sents": sents, 'engine': cf.engine(lang)}
+        if engine is None:
+            engine=cf.engine(lang)
+        data = {'lang': lang, "sents": sents, 'engine': engine}
         doc_jsonify, resp = parse_sents(data)
         rs = get_chunks(doc_jsonify)
 
@@ -150,7 +198,7 @@ class RulesetProcs(object):
             # print(ctx.lemmas)
             print('chunks', ctx._chunks)
 
-        g = display_doc_deps(doc_jsonify, resp)
+        g = display_doc_deps(doc_jsonify, resp, translit_lang=lang)
         print(*[(w.index, w.text, w.governor, doc_jsonify.words[w.governor - 1].text) for w in doc_jsonify.words],
               sep='\n')
         tc.gv(g)

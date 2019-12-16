@@ -170,9 +170,9 @@ def print_result(rs):
         if len(results) > 0:
             # .. results
             # ('ins_rasa', 'vob', {'intent': 'how_many', 'confidence': 0.9721028208732605})
-            tc.info('.. results')
+            tc.emp('green', f'.. results {len(results)}')
             # tc.info([f"{r[0]}/{r[1]}/{r[2]}" for r in results])
-            tc.info([f"{r['inspector']}/{r['provider']}/{r['part']}" for r in results])
+            tc.emp('yellow', {f"{r['inspector']}/{r['provider']}/{r['part']}" for r in results})
             # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
             # 以前3个元素作为键去重显示

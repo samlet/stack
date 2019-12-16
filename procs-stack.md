@@ -78,5 +78,13 @@ mongoexport --collection=trans --db=langs --out=./out/trans.json
 mongoimport --db=langs --collection=trans --file=./out/trans.json
 ```
 
+## routines
+```sh
+## stack: rules - actions
+$ python -m sagas.nlu.ruleset_procs verbs 'I want to play video.' en
+$ verbs 'I want to play music.' en True
+```
+
+
 
 

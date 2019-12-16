@@ -20,6 +20,8 @@ def fix_sents(text:str, lang:str):
     # 如果是中文和日文, 清除空格
     if lang in ('ja', 'zh'):
         text = text.replace(' ', '')
+    elif lang=='es':
+        text = text.replace('¿', '')
     return text
 
 def join_text(r, lang):

@@ -126,4 +126,9 @@ class Rules_id(LangSpecBase):
                                           anal(amod=predicate_fn('entity', 'n'))),
         ])
 
-
+    def execute(self):
+        from sagas.nlu.ruleset_procs import print_root_domains
+        super().execute()
+        # $ sid 'Ada ujian matematika di sekolah ini.'
+        print_root_domains(self.meta['sents'], self.meta['lang'],
+                           ['compound', 'amod', 'nsubj', 'obj', 'nmod'])

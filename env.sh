@@ -107,16 +107,19 @@ alias scs+bg="python -m sagas.tool.misc trans_clip cs 'en;bg;ru' ru False"
 
 alias spl="python -m sagas.tool.misc trans_clip pl 'en;cs;ru' ru False"
 
-alias se="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ja' ja False"
+# alias se="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ja' ja False"
+alias se="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ja' en False"
 alias se-ar="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ar' ar False"
 alias se-hi="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;hi' hi False"
 alias se-ko="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ko' ko False"
 
-alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' ja False"
+# alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' ja False"
+alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' en False"
 alias she="python -m sagas.tool.misc trans_clip he 'en;zh;ja' ja False"
 alias saf="python -m sagas.tool.misc trans_clip af 'en;zh;ja' ja False"
 # Indonesian
-alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
+# alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
+alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' en False"
 alias sid+="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' id False"
 
 # Irish
