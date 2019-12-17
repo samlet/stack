@@ -1,5 +1,6 @@
 {
   "id": ["sagas.nlu.rules_lang_spec_id.Rules_id"],
-  "de": ["sagas.nlu.rules_lang_spec_de.Rules_de"]
+  "de": ["sagas.nlu.rules_lang_spec_de.Rules_de"],
+  "en": ["sagas.nlu.rules_lang_spec_en.Rules_en"]
 }
 

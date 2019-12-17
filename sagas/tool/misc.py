@@ -4,6 +4,8 @@ from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.utils import fix_sents, join_text
+import logging
+logger = logging.getLogger(__name__)
 
 merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
 
@@ -165,6 +167,7 @@ def rs_represent(rs, data, return_df=False):
             raise Exception('Cannot process specific type: {}'.format(type_name))
 
         # process language special rules
+        logger.debug(f"meta keys {meta.keys()}")
         langspecs.check_langspec(data['lang'], meta, r['domains'], type_name)
 
         # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])

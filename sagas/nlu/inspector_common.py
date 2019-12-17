@@ -28,6 +28,7 @@ class Context(object):
             self.delim = ''
         else:
             self.delim = ' '
+        self.sents=meta['sents'] if 'sents' in meta else ''
 
         # self.lemmas = {x[0]: x[3] for x in domains}
         # self.words = {x[0]: x[2] for x in domains}

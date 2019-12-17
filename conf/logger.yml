@@ -30,6 +30,14 @@ loggers:
     level: DEBUG
     handlers: [console]
     propagate: no
+  sagas.nlu.inspector_path:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+  sagas.tools.misc:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
 
 root:
   level: DEBUG

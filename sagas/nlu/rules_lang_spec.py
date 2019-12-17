@@ -125,6 +125,7 @@ class LangspecRules(object):
             ♯ matched id rules: {'ask_event': 0}
             features -> ['ask_event']
         $ python -m sagas.nlu.rules_lang_spec langspec 'Die Nutzung der Seite ist kostenlos.' de
+        $ python -m sagas.nlu.rules_lang_spec langspec 'I want to play music.' en
 
         :param sents:
         :param lang:
