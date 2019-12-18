@@ -36,6 +36,11 @@ class IntentsTool(object):
                 for doc in self.db.corpus.find({'chapter': chapter})], sep='\n')
 
     def store_dataset(self, lang):
+        """
+        $ python -m sagas.tool.intents_tool store_dataset de
+        :param lang:
+        :return:
+        """
         dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
         for index, row in dfjson.iterrows():
             result = self.db.corpus.update_one({'text': row['text'], 'chapter': row['chapter'], 'index': row['index']},
@@ -71,6 +76,24 @@ class IntentsTool(object):
         """
         result = self.db.corpus.update_many(filters, {'$set': {'intent': intent}}, upsert=True)
         return result
+
+    def set_intent_by_text(self, text, intent):
+        return self.set_intent({'text':text}, intent)
+
+    def list_intents(self):
+        """
+        $ python -m sagas.tool.intents_tool list_intents
+
+        :return:
+        """
+        rs = self.db.corpus.find({'$and': [
+            {"intent": {'$not': {'$size': 0}}},
+            {"intent": {'$exists': True}}
+        ]})
+        # print(rs.count())
+        rm = {r['text']: r['intent'] for r in rs}
+        print('.. intents', {r for r in rm.values()})
+        print(rm)
 
 intents_tool=IntentsTool()
 
