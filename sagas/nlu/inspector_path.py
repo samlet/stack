@@ -27,8 +27,6 @@ class PathInspector(Inspector):
         from sagas.nlu.inspector_wordnet import predicate
         from sagas.nlu.ruleset_procs import cached_chunks
 
-        print(".................")
-
         lang=ctx.lang
         domain_name=f"{self.domains}_domains"  # like: 'verb_domains'
         parsers = [parse(normal_path(expr)) for expr in self.paths]

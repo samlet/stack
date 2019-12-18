@@ -34,6 +34,7 @@ class UniCli(object):
         import sagas
         from sagas.tool.misc import print_stem_chunks
         from sagas.tool.misc import color_print
+        from pprint import pprint
 
         def print_r(r):
             df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
@@ -46,7 +47,8 @@ class UniCli(object):
         # parser = CoreNlpParserImpl('en')
         # doc = parser('it is a cat')
         doc=self._parsers[engine](lang, sents)
-        color_print('blue', doc.predicts)
+        # color_print('blue', doc.predicts)
+        pprint(doc.predicts)
         if doc.has_predicts():
             for r in doc.predicts:
                 print_r(r)

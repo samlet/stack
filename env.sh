@@ -120,7 +120,7 @@ alias saf="python -m sagas.tool.misc trans_clip af 'en;zh;ja' ja False"
 # Indonesian
 # alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
 alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' en False"
-alias sid+="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' id False"
+# alias sid+="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' id False"
 
 # Irish
 alias sga="python -m sagas.tool.misc trans_clip ga 'en;zh-CN;ja' ja False"

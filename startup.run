@@ -8,8 +8,11 @@ function start_inventory(){
 	start_docker inventory "$msg_mysql"
 }
 
-python="$HOME/miniconda3/envs/bigdata/bin/python"
-jupyter="$HOME/miniconda3/envs/bigdata/bin/jupyter"
+# python="$HOME/miniconda3/envs/bigdata/bin/python"
+# jupyter="$HOME/miniconda3/envs/bigdata/bin/jupyter"
+python="$HOME/miniconda3/envs/rasa/bin/python"
+jupyter="$HOME/miniconda3/envs/rasa/bin/jupyter"
+
 py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
 py_cv="$HOME/miniconda3/envs/cv/bin/python"
 # bert_s="$HOME/miniconda3/envs/bigdata/bin/bert-serving-start"
