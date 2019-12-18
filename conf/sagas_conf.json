@@ -19,6 +19,7 @@
   "duckling":"http://0.0.0.0:8000/parse",
   "nlu_multilang_servant": "http://localhost:18099",
   "words_servant": "http://localhost:8093",
+  "redis": "localhost",
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanford":"http://localhost:14001",
