@@ -129,6 +129,31 @@ class NegativeWordInspector(Inspector):
                 return True
         return False
 
+class InterrogativePronounInspector(Inspector):
+    def __init__(self, cat, is_part=True):
+        self.cat=cat
+        self.is_part=is_part
+
+    def name(self):
+        return 'ins_interrogative'
+
+    def run(self, key, ctx:Context):
+        from sagas.nlu.inspectors_dataset import interrogative_maps
+
+        lang=ctx.meta['lang']
+        if lang in interrogative_maps:
+            data_map=interrogative_maps[lang][self.cat]
+            if self.is_part:
+                return ctx.chunk_contains(key, data_map) or ctx.lemmas[key] in data_map
+            else:
+                return key.split('/')[-1] in data_map
+        return False
+
+    def __str__(self):
+        return f"{self.name()}({self.cat})"
+
+interr_root=lambda cat: InterrogativePronounInspector(cat, is_part=False)
+interr=lambda cat: InterrogativePronounInspector(cat, is_part=True)
 
 class MatchInspector(Inspector):
     def __init__(self, target, match_method='equals'):

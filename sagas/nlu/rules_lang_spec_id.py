@@ -1,10 +1,11 @@
 from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins
-from sagas.nlu.inspectors import MatchInspector as matchins
+from sagas.nlu.inspectors import MatchInspector as matchins, interr_root, interr
 from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
+from sagas.nlu.inspector_path import pred_all_path, pred_any_path, any_path
 from sagas.nlu.lang_spec_intf import LangSpecBase, agency
 
 from sagas.nlu.patterns import Patterns, print_result
@@ -72,6 +73,8 @@ class Rules_id(LangSpecBase):
     def subject_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
         self.collect(pats=[
+            # $ sid 'Apa yang lebih murah?'
+            pat(1).subj('adj', nsubj=agency, head_amod=interr('what')),
             # $ sid 'Siapa yang di kiri Anda?' (zh="谁在你的左边？")
             pat('loc_inquiry', 5).subj('pron', 'noun', nsubj=agency, case=kindof('in', 'r'), head_nmod=matchins('siapa')),
             ])
@@ -124,6 +127,20 @@ class Rules_id(LangSpecBase):
             #                  └−−−−−−−−┘         └────────┘
             pat(5, 'describe_object_chunk').root(behaveof('object', 'n'),
                                           anal(amod=predicate_fn('entity', 'n'))),
+            # $ sid 'Siapa orang terpenting di kantormu?'
+            # ┌−−−−−−┐  root   ┌−−−−−−−−┐  acl   ┌−−−−−−−−−−−−┐  nmod   ┌−−−−−−−−−−┐  case   ┌−−−−┐
+            # ╎ ROOT ╎ ──────▶ ╎ Siapa  ╎ ─────▶ ╎   orang    ╎ ──────▶ ╎ kantormu ╎ ──────▶ ╎ di ╎
+            # └−−−−−−┘         └−−−−−−−−┘        └−−−−−−−−−−−−┘         └−−−−−−−−−−┘         └−−−−┘
+            #                    │                 │
+            #                    │ punct           │ amod
+            #                    ▼                 ▼
+            #                  ┌−−−−−−−−┐        ┌−−−−−−−−−−−−┐
+            #                  ╎   ?    ╎        ╎ terpenting ╎
+            #                  └−−−−−−−−┘        └−−−−−−−−−−−−┘
+            pat(5, name='pred_people').root(interr_root('who'),
+                                            any_path('acl/amod', 'first', 'a'),
+                                            any_path('acl/nmod', 'organization', 'n'),
+                                            acl=kindof('people', 'n')),
         ])
 
     def execute(self):

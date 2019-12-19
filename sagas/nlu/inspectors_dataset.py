@@ -4,4 +4,9 @@ nagative_maps={
     'id': ['tidak', 'tak bisa', 'tak boleh'],
 }
 
-
+interrogative_maps={
+    'id': {
+        'who': ['siapa'],
+        'what': ['apa'],
+    }
+}

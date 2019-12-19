@@ -1,5 +1,6 @@
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.conf.conf import cf
+import sagas.tracker_fn as tc
 import logging
 logger = logging.getLogger(__name__)
 
@@ -37,16 +38,19 @@ class PathInspector(Inspector):
             json_data = chunk
             # for expr in exprs:
             for parser in parsers:
-                print([(match.value, str(match.full_path)) for match in parser.find(json_data)])
+                # print([(match.value, str(match.full_path)) for match in parser.find(json_data)])
                 word = '/'.join([match.value for match in parser.find(json_data)])
-                results.append(predicate(self.kind, word, lang, self.pos))
+                pred_r=predicate(self.kind, word, lang, self.pos)
+                tc.emp('yellow' if not pred_r else 'green', f".. {word} is {self.kind}: {pred_r}")
+                results.append(pred_r)
 
         logger.debug(f"{results}")
         return any(results) if self.match_method=='any' else all(results)
 
     def __str__(self):
-        return "{}({} {} is {})".format(self.name(), self.match_method, ', '.join(self.paths), self.kind)
+        return "{}({} {} is {}@{})".format(self.name(), self.match_method, ', '.join(self.paths), self.kind, self.pos)
 
 pred_any_path=lambda path, kind, pos='*', engine=None: PathInspector(path, kind, pos, domains='verb', match_method='any')
 pred_all_path=lambda path, kind, pos='*', engine=None: PathInspector(path, kind, pos, domains='verb', match_method='all')
+any_path=lambda path, kind, pos='*', engine=None: PathInspector(path, kind, pos, domains='root', match_method='any')
 
