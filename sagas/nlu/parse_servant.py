@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import request
 import json
-from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
 from cachetools import cached, TTLCache
 import logging
 
@@ -73,6 +72,8 @@ def handle_digest():
     will get: {"root": "mögen", "verbs": [["mögen", "mögen"]]}
     :return:
     """
+    from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+
     # print ("request is json?", request.is_json)
     content = request.get_json()
     sents=content['sents']
