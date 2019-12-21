@@ -180,7 +180,8 @@ class CoreNlpParser(object):
         for num, r in enumerate(rs):
             # print(json.dumps(r, indent=2, ensure_ascii=False))
             print(serial_numbers[num], '-'*50)
-            print(r['verb'], r['index'])
+            # print(r['verb'], r['index'])
+            print(r['word'], r['index'])
             # df=sagas.to_df(r[0]['domains'], ['rel', 'index', 'text', 'children'])
             df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
             sagas.print_df(df)
