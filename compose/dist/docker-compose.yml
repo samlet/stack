@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-    # "Server startup complete"
+  # "Server startup complete"
   rabbit:
     image: rabbitmq:3.6
     ports:

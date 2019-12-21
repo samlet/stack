@@ -31,11 +31,15 @@ loggers:
     handlers: [console]
     propagate: no
   sagas.nlu.inspector_path:
-    level: DEBUG
+    level: INFO
     handlers: [console]
     propagate: no
   sagas.tools.misc:
     level: DEBUG
+    handlers: [console]
+    propagate: no
+  sagas.nlu.ruleset_procs:
+    level: INFO
     handlers: [console]
     propagate: no
 

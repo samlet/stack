@@ -8,5 +8,8 @@ interrogative_maps={
     'id': {
         'who': ['siapa'],
         'what': ['apa'],
+        'be': ['apa'],  # am/is/are
+        'will': ['mau'], # would/will
     }
 }
+

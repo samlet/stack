@@ -81,7 +81,7 @@ Vietnamese	VTB	vi	vi_vtb	download	0.2.0	Creative Commons License
 
 class TreeBanks(object):
     def __init__(self):
-        self.conf=json_utils.read_json_file('/pi/conf/treebanks.json')
+        self.conf=json_utils.read_json_file('/pi/stack/conf/treebanks.json')
         self.support_langs=[x['name'] for x in self.conf]
 
     def lang_map(self):
