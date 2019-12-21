@@ -5,10 +5,13 @@ from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
 from cachetools import cached, TTLCache
 import logging
 
+from sagas.nlu.multilang_servant import multilang
+
 logger = logging.getLogger('servant')
 
 # nlp=langs['de']()
 app = Flask(__name__)
+app.register_blueprint(multilang)
 
 def get_doc_verbs(doc):
     return [(word.text, word.lemma) for sent in

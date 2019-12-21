@@ -13,7 +13,6 @@
   "ofbiz_servant":"localhost",
   "odoo_servant":"localhost",
   "common_s":"http://localhost:14000",
-  "multilang":"http://localhost:8095",
   "ner":"http://localhost:8092/entities",
   "ner_ru":"http://localhost:8095/entities",
   "duckling":"http://0.0.0.0:8000/parse",
@@ -23,7 +22,7 @@
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanford":"http://localhost:14001",
-    "ltp":"http://localhost:14000",
+    "ltp":"http://localhost:14005",
     "hanlp":"http://localhost:14000",
     "knp":"http://localhost:14000",
     "spacy":"http://localhost:14001",

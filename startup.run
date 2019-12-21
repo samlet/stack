@@ -151,7 +151,8 @@ else
 		$py_cv -m sagas.nlu.parse_servant run 14002
 		;;
 	"servant_zh")
-		$python -m sagas.zh.chinese_servant
+		# $python -m sagas.zh.chinese_servant
+		$python -m sagas.nlu.parse_servant run 14005
 		;;
 	"servant_nlu")
 		$py_rasa -m sagas.nlu.nlu_servant
