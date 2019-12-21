@@ -1,4 +1,3 @@
-from sagas.nlu.corenlp_helper import get_nlp
 from sagas.nlu.uni_intf import WordIntf, SentenceIntf
 
 class CoreNlpWordImpl(WordIntf):
@@ -26,6 +25,7 @@ class CoreNlpParserImpl(object):
         self.lang = lang
 
     def __call__(self, sents):
+        from sagas.nlu.corenlp_helper import get_nlp
         nlp = get_nlp(self.lang)
         doc = nlp(sents)
         return CoreNlpSentImpl(doc.sentences[0])
