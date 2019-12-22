@@ -314,7 +314,7 @@ class RulesetProcs(object):
                 # text = f'/{ac["intent"]}{{"object_type": "{ac["object_type"]}", "sents":"{ac["sents"]}"}}'
                 text = f'/{ac["intent"]}{values_str}'
                 data = {'mod': 'genesis', 'lang': ac['lang'], "sents": text}
-                response = requests.post(f'http://localhost:18099/message/my', json=data)
+                response = requests.post(f'{cf.ensure("agents_servant")}/message/my', json=data)
                 print('status code:', response.status_code)
                 pprint(response.json())
 
