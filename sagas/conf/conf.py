@@ -1,7 +1,22 @@
+import json_utils
+
 class TransClipConf(object):
-    def __init__(self, conf_file='/pi/stack/conf/sagas_conf.json'):
-        import json_utils
+    def __init__(self, conf_file='/pi/stack/conf/sagas_conf.json',
+                 overrides_file='/pi/stack/conf/sagas_overrides.json'):
+        from sagas.conf.runtime import runtime
         self.conf = json_utils.read_json_file(conf_file)
+        self.overrides_file=overrides_file
+        if runtime.is_docker():
+            self.update_by_overrides()
+
+    def update_by_overrides(self):
+        overrides=json_utils.read_json_file(self.overrides_file)
+        for k, v in overrides.items():
+            if '.' in k:
+                parts = k.split('.')
+                self.conf[parts[0]][parts[1]] = v
+            else:
+                self.conf[k] = v
 
     def is_enabled(self, opt):
         """

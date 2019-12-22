@@ -71,7 +71,8 @@ class NatashaExtractor(object):
                 for match in matches:
                     start, stop = match.span
                     result.append({'text':text[start:stop],
-                                   'start':start, 'end':stop,
+                                   'start':start,
+                                   'end':stop,
                                    'entity':ex_name})
         return result
 

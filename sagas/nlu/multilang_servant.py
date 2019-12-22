@@ -51,6 +51,7 @@ def sent_tokens(sents, lang):
         rs= fn_map[lang](sents)
     else:
         rs= sents.split(' ')
+    logger.debug(f"tokens {lang} result: {rs}")
     return json.dumps(rs)
 
 @multilang.route('/tokens', methods = ['POST'])
