@@ -1,7 +1,4 @@
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
-import grpc
-import nlpserv_pb2
-import nlpserv_pb2_grpc
 
 upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
            'u':'AUX', 'c':'CCONJ', 'h':'DET',
@@ -22,6 +19,9 @@ def get_pos_mapping(pos, default_val='X'):
     return default_val
 
 def nlp_procs(p, func):
+    import grpc
+    import nlpserv_pb2
+    import nlpserv_pb2_grpc
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs
     # of the code.
@@ -73,6 +73,9 @@ class HanlpParserImpl(object):
         self.lang = lang
 
     def __call__(self, sents):
+        import nlpserv_pb2
+        import nlpserv_pb2_grpc
+
         doc = nlp_procs(sents, lambda stub, s: stub.ParseDependency(nlpserv_pb2.NlParseRequest(text=s)))
         return HanlpSentImpl(doc)
 

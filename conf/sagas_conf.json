@@ -25,7 +25,7 @@
     "stanford":"http://localhost:14001",
     "ltp":"http://localhost:14005",
     "hanlp":"http://localhost:14000",
-    "knp":"http://localhost:14000",
+    "knp":"http://localhost:14006",
     "spacy":"http://localhost:14001",
     "spacy_2.2":"http://localhost:14002"
   },

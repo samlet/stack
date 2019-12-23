@@ -118,8 +118,8 @@ alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' en False"
 alias she="python -m sagas.tool.misc trans_clip he 'en;zh;ja' ja False"
 alias saf="python -m sagas.tool.misc trans_clip af 'en;zh;ja' ja False"
 # Indonesian
-# alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
-alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' en False"
+alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
+# alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' en False"
 # alias sid+="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' id False"
 
 # Irish
@@ -215,4 +215,8 @@ alias open_products='open http://localhost:8069/web#action=283&model=product.tem
 ## 
 alias verbs='python -m sagas.nlu.ruleset_procs verbs'
 
+## docker execs
+# agents saai.saai_cli nlu_reload en
+# agents saai.saai_cli bot_reload genesis
+alias agents='docker exec -it sagas_agent_servant_1 python -m'
 
