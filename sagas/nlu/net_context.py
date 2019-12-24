@@ -3,7 +3,8 @@ class EntitiesRequest(object):
         self.sents = req_json['sents']
         self.lang = req_json['lang']
 
-    def wrap_result(self, rs):
+    @staticmethod
+    def wrap_result(rs):
         import json
         data_y = json.dumps(rs, ensure_ascii=False)
         return data_y

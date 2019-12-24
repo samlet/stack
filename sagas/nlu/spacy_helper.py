@@ -1,4 +1,3 @@
-import spacy
 from spacy.symbols import nsubj, VERB
 import pandas as pd
 
@@ -23,6 +22,8 @@ class SpacyManager(object):
         self.models={}
 
     def get_model(self, lang='en', simple=True):
+        import spacy
+
         idx=0 if simple else 1
         spacy_model = lang_spacy_mappings[lang][idx]
         spacy_model=spacy_model.replace('-','_')

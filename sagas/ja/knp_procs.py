@@ -150,10 +150,14 @@ class KnpProcs(object):
 
             for tag in result.tag_list():
                 if "NE:" in tag.fstring:  # if fstring has NE phrase
-                    print('..', tag.fstring)
+                    span=result.get_tag_span(tag.tag_id)
+                    print('..', span,  tag.fstring)
                     # extract NE phrase
-                    tagged_ne_phrase = re.search("<NE:(.*):(.*)>", tag.fstring).group(0)
-                    ne_phrase = re.search("<NE:(.*):(.*)>", tag.fstring).group(2)
+                    search_r=re.search("<NE:(.*):(.*)>", tag.fstring)
+                    # tagged_ne_phrase = re.search("<NE:(.*):(.*)>", tag.fstring).group(0)
+                    # ne_phrase = re.search("<NE:(.*):(.*)>", tag.fstring).group(2)
+                    tagged_ne_phrase =search_r.group(0)
+                    ne_phrase=search_r.group(2)
 
                     # overwrite to src text
                     tagged_text = tagged_text.replace(ne_phrase, tagged_ne_phrase)

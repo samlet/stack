@@ -1,8 +1,11 @@
+from typing import Text, Dict
+
 from flask import Flask
 from flask import request
 import json
 import logging
 from cachetools import cached
+from sagas.nlu.net_context import EntitiesRequest
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
@@ -13,15 +16,25 @@ def spacy_doc(sents, lang):
     return spacy_nlp(sents)
 
 @cached(cache={})
-def analyse_doc(ctx):
+def analyse_doc(sents:Text, lang:Text):
+    from sagas.nlu.spacy_helper import is_available
+
+    if not is_available(lang):
+        logging.warning(f"lang {lang} is unavaiable in entity extractor.")
+        return []
+
     rs = []
-    doc = spacy_doc(ctx.sents, ctx.lang)
+    doc = spacy_doc(sents, lang)
     for ent in doc.ents:
         rs.append({'text': ent.text,
                    'start': ent.start_char,
                    'end': ent.end_char,
                    'entity': ent.label_})
     return rs
+
+def spacy_ner(req_json):
+    ctx = EntitiesRequest(req_json)
+    return analyse_doc(ctx.sents, ctx.lang)
 
 @app.route("/")
 def home():
@@ -33,27 +46,16 @@ def handle_entities():
     $ curl -XPOST -H 'Content-Type: application/json' -d '{"lang":"en", "sents":"I am from China"}'  http://localhost:8092/entities
     :return:
     """
-    from sagas.nlu.net_context import EntitiesRequest
-    from sagas.nlu.spacy_helper import is_available
     # print ("request is json?", request.is_json)
     # content = request.get_json()
     # sents=content['sents']
     # lang=content['lang']
     # print (lang, sents)
 
-    ctx=EntitiesRequest(request.get_json())
-
-    # data = {'lang': lang}
-    if is_available(ctx.lang):
-        rs= analyse_doc(ctx)
-    else:
-        rs = []
-        logging.info(f"lang {ctx.lang} is unavaiable in entity extractor.")
-
     # data_y=yaml.dump(data, default_flow_style=True,Dumper=KludgeDumper,encoding=None)
     # data_y = json.dumps(rs, ensure_ascii=False)
     # return data_y
-    return ctx.wrap_result(rs)
+    return EntitiesRequest.wrap_result(spacy_ner(request.get_json()))
 
 # @app.route('/word_sets', methods = ['POST'])
 # def handle_word_sets():

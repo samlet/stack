@@ -9,7 +9,7 @@
   "print_not_matched":false,
   "print_inspector_result":true,
   "default_word_sets_langs":["en", "zh", "ja", "id", "nl"],
-  "mongo":"mongodb://samlet/langs",
+  "mongo":"mongodb://localhost/langs",
   "bert_servant":"localhost",
   "ofbiz_servant":"localhost",
   "odoo_servant":"localhost",
