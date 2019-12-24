@@ -1,9 +1,12 @@
-import sagas.nlu.google_translator as tr
+# import sagas.nlu.google_translator as tr
 from pymongo import MongoClient
+from sagas.conf.conf import cf
 
 class TransCacher(object):
     def __init__(self):
-        self.client = MongoClient(port=27017)
+        # print('.. connect mongo')
+        # self.client = MongoClient(cf.ensure('mongo'), 27017)
+        self.client = MongoClient(cf.ensure('mongo'))
         self.db = self.client.langs
         self.coll = self.db.trans
 

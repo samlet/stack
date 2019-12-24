@@ -6,7 +6,7 @@ import six
 import sys
 
 from sagas.ja.knp_helper import tokens
-
+import sagas.tracker_fn as tc
 
 def draw_tree(bl, outf):
     assert isinstance(bl, pyknp.BList)
@@ -60,6 +60,8 @@ def draw_trees(inf, outf, lattice_format):
             bl = pyknp.BList(u"".join(lines), juman_format=juman_format)
             draw_tree(bl, outf)
             lines = []
+
+
 
 class KnpProcs(object):
     def __init__(self):
@@ -128,6 +130,38 @@ class KnpProcs(object):
         :return:
         """
         print(','.join(tokens(sents)))
+
+    def ner(self, line):
+        """
+        $ python -m sagas.ja.knp_procs ner "太郎は5月18日の朝9時に花子に会いに行った．"
+        :param line:
+        :return:
+        """
+        import re
+
+        # KNP prepairing:
+        # option (str) – KNP解析オプション (詳細解析結果を出力する-tabは必須。
+        # 省略・照応解析を行う -anaphora, 格解析を行わず構文解析のみを行う -dpnd など)
+        knp = pyknp.KNP(option="-tab -dpnd", jumanpp=False)
+
+        def make_np_tagged_text(src_text: str):
+            tagged_text = src_text  # copy
+            result = knp.parse(src_text)  # tagging
+
+            for tag in result.tag_list():
+                if "NE:" in tag.fstring:  # if fstring has NE phrase
+                    print('..', tag.fstring)
+                    # extract NE phrase
+                    tagged_ne_phrase = re.search("<NE:(.*):(.*)>", tag.fstring).group(0)
+                    ne_phrase = re.search("<NE:(.*):(.*)>", tag.fstring).group(2)
+
+                    # overwrite to src text
+                    tagged_text = tagged_text.replace(ne_phrase, tagged_ne_phrase)
+
+            return tagged_text
+
+        tc.emp('green', line)
+        tc.emp('yellow', make_np_tagged_text(line))
 
 if __name__ == '__main__':
     import fire
