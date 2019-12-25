@@ -179,6 +179,10 @@ else
 		proj_root="$HOME/jcloud/vagrant/sagas/projs/langprocs"
 		cd $proj_root ; mvn compiler:compile && mvn exec:java -Dexec.mainClass="com.samlet.langprocs.App"
 		;;
+	"ruleprocs")
+		proj_root="$HOME/jcloud/vagrant/sagas/projs/ruleprocs"
+		cd $proj_root ; mvn package -DskipTests && java -cp target/ruleprocs-1.0-SNAPSHOT-runner.jar:target/lib/* sagas.rules.ApplicaEntryPoint
+		;;
 	"backup")
 		mark.sh
 		udisk-backup.sh

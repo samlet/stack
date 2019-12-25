@@ -44,10 +44,10 @@ alias nluc='python -m sagas.nlu.nlu_tools clip_parse'
 alias odoo_info='python -m sagas.crmsfa.odoo_info '
 
 ## refs
-alias ja='python -m sagas.train.parallel_corpus refs_shortcut ja'
-alias zh='python -m sagas.train.parallel_corpus refs_shortcut zh'
-alias fr='python -m sagas.train.parallel_corpus refs_shortcut fr'
-alias ru='python -m sagas.train.parallel_corpus refs_shortcut ru'
+# alias ja='python -m sagas.train.parallel_corpus refs_shortcut ja'
+# alias zh='python -m sagas.train.parallel_corpus refs_shortcut zh'
+# alias fr='python -m sagas.train.parallel_corpus refs_shortcut fr'
+# alias ru='python -m sagas.train.parallel_corpus refs_shortcut ru'
 
 alias ko='python -m sagas.ko.korea_processor analyse'
 # $ ka I ask you for an answer.
@@ -120,8 +120,8 @@ alias ses="python -m sagas.tool.misc trans_clip es 'en;zh-CN;ja' en False"
 alias she="python -m sagas.tool.misc trans_clip he 'en;zh;ja' ja False"
 alias saf="python -m sagas.tool.misc trans_clip af 'en;zh;ja' ja False"
 # Indonesian
-alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
-# alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' en False"
+# alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' ja False"
+alias sid="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' en False"
 # alias sid+="python -m sagas.tool.misc trans_clip id 'en;zh-CN;ja' id False"
 
 # Irish

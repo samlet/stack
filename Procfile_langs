@@ -3,4 +3,4 @@ servant_spacy: ./startup.run servant_spacy
 servant_spacy_22: ./startup.run servant_spacy_22
 langprocs: ./startup.run langprocs
 timenlp: ./startup.run timenlp
-
+ruleprocs: ./startup.run ruleprocs

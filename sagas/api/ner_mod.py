@@ -78,3 +78,16 @@ async def handle_zh(request):
     rd = request.json
     return json(ltp_ner(rd['sents']))
 
+@ner_mod.post('/id')
+async def handle_id(request):
+    """
+    $ curl -d '{"sents":"Jokowi pergi ke Singapura."}' \
+        -H "Content-Type: application/json" -X POST \
+        localhost:1700/ner/id | json
+    :param request:
+    :return:
+    """
+    from sagas.id.indonesia_ner import id_ner
+    rd = request.json
+    return json(id_ner.ner(rd['sents']))
+
