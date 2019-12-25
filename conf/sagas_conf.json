@@ -16,6 +16,7 @@
   "common_s":"http://localhost:14000",
   "ner":"http://localhost:8092/entities",
   "ner_ru":"http://localhost:8095/entities",
+  "facade":"http://localhost:1700",
   "duckling":"http://samlet:8000/parse",
   "nlu_multilang_servant": "http://localhost:18099",
   "agents_servant": "http://localhost:18099",
