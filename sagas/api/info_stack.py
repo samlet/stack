@@ -9,10 +9,16 @@ app.blueprint(bp)
 app.blueprint(info)
 app.blueprint(ner_mod)
 
+class InfoStack(object):
+    def run(self, port=1700, debug=True):
+        """
+        $ python -m sagas.api.info_stack run 1700 False
+        $ curl localhost:1700
+        """
+        app.run(host='0.0.0.0', port=1700, debug=debug)
+
 if __name__ == '__main__':
-    """
-    $ python -m sagas.api.info_stack
-    $ curl localhost:1700
-    """
-    app.run(host='0.0.0.0', port=1700, debug=True)
+    import fire
+    fire.Fire(InfoStack)
+
 
