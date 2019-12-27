@@ -4,8 +4,9 @@ class IndonesiaNer(object):
     def __init__(self):
         from py4j.java_gateway import JavaGateway, JavaObject, GatewayParameters
         # from py4j.java_gateway import java_import, get_field
+        from sagas.conf.runtime import runtime
 
-        host = "localhost"
+        host = "localhost" if not runtime.is_docker() else 'ruleprocs'
         port = 4333
         callback_port = 4334
         self.gateway = JavaGateway(python_proxy_port=callback_port,

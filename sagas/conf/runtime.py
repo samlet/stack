@@ -6,4 +6,7 @@ class Runtime(object):
     def is_docker(self):
         return self.run_env=='docker'
 
+"""
+from sagas.conf.runtime import runtime
+"""
 runtime=Runtime()

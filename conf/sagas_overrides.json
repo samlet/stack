@@ -1,4 +1,5 @@
 {
+  "facade":"http://info_stack:1700",
   "words_servant": "http://serv_wordnet:8093",
   "servants.corenlp":"http://serv_stack:14000",
   "servants.ltp":"http://serv_zh:14005",
