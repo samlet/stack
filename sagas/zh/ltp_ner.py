@@ -31,7 +31,8 @@ def ltp_ner(sents):
         running_offset = word_offset + word_len
         rs.append({"start": word_offset,
                    "end": running_offset,
-                   'text': word, 'entity': token['entity']
+                   'text': word,
+                   'entity': token['entity']
                    })
     return [w for w in rs if w['entity'] != 'O']
 

@@ -20,4 +20,7 @@ test.db/
 *.tfrecord
 *.gv
 *.gv.pdf
+dist/
+build/
+*.egg-info
 

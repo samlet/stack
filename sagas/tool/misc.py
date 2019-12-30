@@ -214,7 +214,7 @@ def proc_word(type_name, word, head, lang):
     if head!='':
         res_t, _ = translate(head, source=lang, target=target_lang(lang),
                            trans_verbose=False, options={'disable_correct'})
-        target=f" ⊙︿⊙ {res_t}"
+        target=f" ⊙︿⊙ {res_t}({head})"
     result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
     tc.emp('magenta', result)
     return [result]

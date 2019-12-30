@@ -27,6 +27,7 @@ class UniCli(object):
         $ python -m sagas.nlu.uni_cli parse spacy en 'it is a cat'
         $ python -m sagas.nlu.uni_cli parse knp ja '私の趣味は、多くの小旅行をすることです。'
         $ python -m sagas.nlu.uni_cli parse spacy_2.2 lt 'Ji dirba prie kompiuterio.'
+        $ python -m sagas.nlu.uni_cli parse stanford en 'it is a cat'
 
         :return:
         """

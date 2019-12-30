@@ -58,6 +58,16 @@ class TranslitArabic(object):
         print(text)
         print(r)
 
+    def fixtures(self):
+        """
+        $ python -m sagas.nlu.translit_ar fixtures
+        :return:
+        """
+        sents=['من فضلك، هناك عند الزاوية على اليسار.‬',
+               ]
+        for s in sents:
+            self.translit(True, s)
+
 ar_translit=TranslitArabic()
 
 if __name__ == '__main__':

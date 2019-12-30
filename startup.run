@@ -30,6 +30,19 @@ else
 	"inventory")
 		start_inventory
 		;;
+
+    "build")
+		python setup.py sdist bdist_wheel
+		;;
+    "local")
+        pip install --no-deps -e .
+        ;;
+    "dist")
+	    rm ./dist/*
+        python setup.py sdist bdist_wheel
+        python -m twine upload dist/*
+	    ;;
+
 	"bus")
 		cd compose/rabbit_ws && docker-compose up		
 		;;

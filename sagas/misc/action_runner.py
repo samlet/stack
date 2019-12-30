@@ -2,7 +2,7 @@
 import json
 import logging
 import sys
-from utils import dump
+from .utils import dump
 from rasa_core.domain import Domain
 from rasa_core_sdk import utils, Action, Tracker
 from rasa_core_sdk.executor import CollectingDispatcher, ActionExecutor
