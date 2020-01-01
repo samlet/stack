@@ -21,6 +21,7 @@ class OperValue(object):
 
 class Closure(object):
     def __getattr__(self, name):
+        # print(f'...... closure {name}')
         return OperValue(name)
 
 

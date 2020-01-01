@@ -54,7 +54,7 @@ def list_chunks(doc_jsonify, resp, lang, enable_contrast=False):
         # for c in contras:
         #     print(c)
 
-def display_doc_deps(doc_jsonify, resp, translit_lang=None):
+def display_doc_deps(doc_jsonify, resp=None, translit_lang=None):
     tc.emp('cyan', f"✁ dependency-graph. {'-' * 25}")
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20, translit_lang=translit_lang)
     return cv.analyse_doc(doc_jsonify, None, console=False)

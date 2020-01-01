@@ -23,6 +23,11 @@ def desc_expr(el, domains, lang):
         comp='__'
         sub = el._type
         oper=el._type[2:]
+    elif el._type.startswith('_'):  # is a function in a class
+        # like: _PredictSamples__text
+        comp='__'
+        oper=el._type.split('__')[1]
+        sub='__'+oper
     elif '_' in el._type:
         parts=el._type.split('_')
         comp=f"{parts[0]}'s {parts[1]}"

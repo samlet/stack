@@ -6,6 +6,7 @@ from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspector_path import pred_all_path, pred_any_path, any_path
+from sagas.nlu.inspector_free import comps
 from sagas.nlu.lang_spec_intf import LangSpecBase, agency
 
 from sagas.nlu.patterns import Patterns, print_result
@@ -141,6 +142,8 @@ class Rules_id(LangSpecBase):
                                             any_path('acl/amod', 'first', 'a'),
                                             any_path('acl/nmod', 'organization', 'n'),
                                             acl=kindof('people', 'n')),
+            # $ sid 'Tidak banyak pohon di gurun.'
+            pat(5, name='noun_desc').root(comps(noun_desc=True)),
         ])
 
     def execute(self):

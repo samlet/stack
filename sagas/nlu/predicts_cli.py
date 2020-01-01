@@ -5,13 +5,17 @@ from sagas.nlu.ruleset_procs import get_subj_domain, get_aux_domain
 from sagas.conf.conf import cf
 from sagas.nlu.ruleset_procs import parse_sents, equals, group_by, children
 
-def check_domains(domains, lang):
-    for el in domains:
-        tc.emp('yellow', f"`{el['lemma']}` >> *{el['dc']['lemma']}*")
-        r1 = predicate(el, ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')], lang)
-        # r2=predicate(el, ud.__cat('be') >> [ud.nsubj('what'), ud.dc_cat('animal/object')], lang)
-        result=all([r[0] for r in r1])
-        tc.emp('green' if result else 'red', [r[0] for r in r1], result)
+class PredictSamples(object):
+    def check_domains(self, domains, lang):
+        final_rs=[]
+        for el in domains:
+            tc.emp('yellow', f"`{el['lemma']}` >> *{el['dc']['lemma']}*")
+            r1 = predicate(el, ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')], lang)
+            # r2=predicate(el, ud.__cat('be') >> [ud.nsubj('what'), ud.dc_cat('animal/object')], lang)
+            result=all([r[0] for r in r1])
+            final_rs.append(result)
+            tc.emp('green' if result else 'red', [r[0] for r in r1], result)
+        return any(final_rs)
 
 class PredictsCli(object):
     def check_subj(self, sents, lang):
@@ -25,7 +29,8 @@ class PredictsCli(object):
         doc_jsonify, resp = parse_sents(data)
 
         domains = get_subj_domain(doc_jsonify)
-        check_domains(domains, lang)
+        ps=PredictSamples()
+        tc.emp('cyan', f"result: {ps.check_domains(domains, lang)}")
 
     def check_aux(self, sents, lang):
         """
@@ -37,7 +42,8 @@ class PredictsCli(object):
         data = {'lang': lang, "sents": sents, 'engine': cf.engine(lang)}
         doc_jsonify, resp = parse_sents(data)
         domains = get_aux_domain(doc_jsonify)
-        check_domains(domains, lang)
+        ps = PredictSamples()
+        tc.emp('cyan', f"result: {ps.check_domains(domains, lang)}")
 
 if __name__ == '__main__':
     import fire
