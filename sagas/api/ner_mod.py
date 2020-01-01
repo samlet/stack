@@ -59,7 +59,7 @@ async def handle_zh(request):
     ltp采用BIESO标注体系。B表示实体开始词，I表示实体中间词，E表示实体结束词，
     S表示单独成实体，O表示不构成实体。
 
-    $ curl -d '{"sents":"我在北京工作"}' \
+    $ curl -s -d '{"sents":"我在北京工作"}' \
         -H "Content-Type: application/json" -X POST \
         localhost:1700/ner/zh | json
       > [
@@ -77,6 +77,10 @@ async def handle_zh(request):
     from sagas.zh.ltp_ner import ltp_ner
     rd = request.json
     return json(ltp_ner(rd['sents']))
+
+# @ner_mod.post('/zh/jieba')
+# async def handle_jieba(request):
+#     return json([])
 
 @ner_mod.post('/id')
 async def handle_id(request):

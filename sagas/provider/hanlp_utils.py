@@ -12,10 +12,10 @@ from typing import List
 from typing import Optional
 from typing import Text
 
-from rasa_nlu.components import Component
-from rasa_nlu.config import RasaNLUModelConfig
-from rasa_nlu.training_data import Message
-from rasa_nlu.training_data import TrainingData
+from rasa.nlu.components import Component
+from rasa.nlu.config import RasaNLUModelConfig
+from rasa.nlu.training_data import Message
+from rasa.nlu.training_data import TrainingData
 
 from client_wrapper import ServiceClient
 
@@ -25,7 +25,7 @@ import nlpserv_pb2_grpc as nlp_service
 logger = logging.getLogger(__name__)
 
 if typing.TYPE_CHECKING:
-    from rasa_nlu.model import Metadata
+    from rasa.nlu.model import Metadata
 
 class Hanlp(Component):
     # name = "nlp_hanlp"
@@ -77,12 +77,16 @@ class Hanlp(Component):
         except ValueError as e:  # pragma: no cover
             raise Exception("hanlp init error. {}".format(e))
 
-    @classmethod
-    def create(cls, cfg):
-        # type: (RasaNLUModelConfig) -> Hanlp
+    # @classmethod
+    # def create(cls, cfg):
+    #     # type: (RasaNLUModelConfig) -> Hanlp
         # import spacy
+    @classmethod
+    def create(
+            cls, component_config: Dict[Text, Any], config: RasaNLUModelConfig
+    ) -> "Component":
 
-        component_conf = cfg.for_component(cls.name, cls.defaults)
+        component_conf = config.for_component(cls.name, cls.defaults)
 
         # cls.ensure_proper_language_model(nlp)
         client=cls.create_client(component_conf)
@@ -114,16 +118,24 @@ class Hanlp(Component):
 
         message.set("hanlp_doc", self.doc_for_text(message.text))
 
+    # @classmethod
+    # def load(cls,
+    #          model_dir=None,
+    #          model_metadata=None,
+    #          cached_component=None,
+    #          **kwargs):
+    #     # type: (Text, Metadata, Optional[Hanlp], **Any) -> Hanlp
     @classmethod
-    def load(cls,
-             model_dir=None,
-             model_metadata=None,
-             cached_component=None,
-             **kwargs):
-        # type: (Text, Metadata, Optional[Hanlp], **Any) -> Hanlp
-
+    def load(
+            cls,
+            meta: Dict[Text, Any],
+            model_dir: Optional[Text] = None,
+            model_metadata: Optional["Metadata"] = None,
+            cached_component: Optional["Component"] = None,
+            **kwargs: Any,
+    ) -> "Component":
         if cached_component:
             return cached_component
 
-        component_config = model_metadata.for_component(cls.name)
-        return cls(component_config, cls.create_client(component_config))
+        # component_config = model_metadata.for_component(cls.name)
+        return cls(meta, cls.create_client(meta))

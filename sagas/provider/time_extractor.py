@@ -13,12 +13,13 @@ from typing import List
 from typing import Optional
 from typing import Text
 
-from rasa_nlu.config import RasaNLUModelConfig
-from rasa_nlu.extractors import EntityExtractor
-from rasa_nlu.model import Metadata
-from rasa_nlu.training_data import Message
+from rasa.nlu.config import RasaNLUModelConfig
+from rasa.nlu.extractors import EntityExtractor
+from rasa.nlu.model import Metadata
+from rasa.nlu.training_data import Message
 from py4j.java_gateway import JavaGateway, GatewayParameters
 import py4j
+from rasa_nlu.components import Component
 
 if typing.TYPE_CHECKING:
     from py4j.java_gateway import JavaObject, JavaGateway
@@ -67,9 +68,13 @@ class TimeExtractor(EntityExtractor):
         except ValueError as e:  # pragma: no cover
             raise Exception("time-nlp init error. {}".format(e))
 
+    # @classmethod
+    # def create(cls, config):
+    #     # type: (RasaNLUModelConfig) -> TimeExtractor
     @classmethod
-    def create(cls, config):
-        # type: (RasaNLUModelConfig) -> TimeExtractor
+    def create(
+            cls, component_config: Dict[Text, Any], config: RasaNLUModelConfig
+    ) -> "TimeExtractor":
 
         component_config = config.for_component(cls.name, cls.defaults)
         dims = component_config.get("dimensions")
@@ -77,11 +82,11 @@ class TimeExtractor(EntityExtractor):
         gateway, analyst=cls.create_bridge(component_config)
         return TimeExtractor(component_config, gateway, analyst)
 
-    @classmethod
-    def cache_key(cls, model_metadata):
-        # type: (Metadata) -> Optional[Text]
-
-        return None
+    # @classmethod
+    # def cache_key(cls, model_metadata):
+    #     # type: (Metadata) -> Optional[Text]
+    #
+    #     return None
 
     def f(self, object, fld):
         return py4j.java_gateway.get_field(object, fld)
@@ -133,15 +138,25 @@ class TimeExtractor(EntityExtractor):
         message.set("entities", message.get("entities", []) + extracted,
                     add_to_output=True)
 
+    # @classmethod
+    # def load(cls,
+    #          model_dir=None,  # type: Text
+    #          model_metadata=None,  # type: Metadata
+    #          cached_component=None,  # type: Optional[TimeExtractor]
+    #          **kwargs  # type: **Any
+    #          ):
+    #     # type: (...) -> TimeExtractor
     @classmethod
-    def load(cls,
-             model_dir=None,  # type: Text
-             model_metadata=None,  # type: Metadata
-             cached_component=None,  # type: Optional[TimeExtractor]
-             **kwargs  # type: **Any
-             ):
-        # type: (...) -> TimeExtractor
+    def load(
+            cls,
+            meta: Dict[Text, Any],
+            model_dir: Optional[Text] = None,
+            model_metadata: Optional["Metadata"] = None,
+            cached_component: Optional["Component"] = None,
+            **kwargs: Any,
+    ) -> "TimeExtractor":
 
-        component_config = model_metadata.for_component(cls.name)
-        gateway, analyst = cls.create_bridge(component_config)
-        return cls(component_config, gateway, analyst)
+        # component_config = model_metadata.for_component(cls.name)
+        gateway, analyst = cls.create_bridge(meta)
+        return cls(meta, gateway, analyst)
+

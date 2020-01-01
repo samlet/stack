@@ -9,8 +9,8 @@ from typing import Dict
 from typing import List
 from typing import Text
 
-from rasa_nlu.extractors import EntityExtractor
-from rasa_nlu.training_data import Message
+from rasa.nlu.extractors import EntityExtractor
+from rasa.nlu.training_data import Message
 
 mappings={"地域":"location",
           "人名": "person"

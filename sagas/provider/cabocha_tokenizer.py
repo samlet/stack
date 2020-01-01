@@ -5,11 +5,11 @@ from __future__ import unicode_literals
 
 from typing import Any, List, Text
 
-from rasa_nlu.components import Component
-from rasa_nlu.config import RasaNLUModelConfig
-from rasa_nlu.tokenizers import Tokenizer, Token
-from rasa_nlu.training_data import Message
-from rasa_nlu.training_data import TrainingData
+from rasa.nlu.components import Component
+from rasa.nlu.config import RasaNLUModelConfig
+from rasa.nlu.tokenizers.tokenizer import Tokenizer, Token
+from rasa.nlu.training_data import Message
+from rasa.nlu.training_data import TrainingData
 
 
 class CabochaTokenizer(Tokenizer, Component):
