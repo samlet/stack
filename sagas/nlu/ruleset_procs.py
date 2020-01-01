@@ -28,6 +28,8 @@ def cached_chunks(sents:Text, source:Text, engine:Text):
             'predicts': resp['predicts'] if 'predicts' in resp else [],
             'verb_domains': get_verb_domain(doc),
             'root_domains': get_root_domain(doc),
+            'aux_domains': get_aux_domain(doc),
+            'subj_domains': get_subj_domain(doc),
             }
 
 equals = lambda a, b: str(a) == str(b)
@@ -96,6 +98,47 @@ def get_root_domain(sent_p):
     rs.append(token)
     return rs
 
+def build_token(sent, word, dc, domains):
+    token = {**word.ctx, **group_by(domains)}
+    # add_head(domains, dc, sent)
+    if dc.governor != 0:
+        head = sent.words[dc.governor - 1]
+        token['head'] = head.ctx
+    token['dc'] = dc.ctx
+    return token
+
+def get_aux_domain(sent):
+    rs = []
+    for word in filter(lambda w: w.upos == "AUX", sent.words):
+        if word.governor == 0:
+            # if the aux word is root; (这种情形会出现在德语依存分析中, 但在英语依存分析中是正常的)
+            dc = word
+        else:
+            dc = sent.words[word.governor - 1]
+        domains = []
+        # 需要收集的是aux单词依赖的对象的关联集, 而不是aux单词自身的关联集
+        for c in filter(lambda w: equals(w.governor, dc.index), sent.words):
+            c_domains = [w.ctx for w in children(c, sent)]
+            domains.append({**c.ctx, **group_by(c_domains)})
+
+        token=build_token(sent, word, dc, domains)
+        rs.append(token)
+    return rs
+
+
+def get_subj_domain(sent):
+    rs = []
+    for word in filter(lambda w: w.dependency_relation.endswith('subj'), sent.words):
+        dc = sent.words[word.governor - 1]
+        domains = []
+        # 需要收集的是subj依赖的对象的关联集
+        for c in filter(lambda w: equals(w.governor, dc.index), sent.words):
+            c_domains = [w.ctx for w in children(c, sent)]
+            domains.append({**c.ctx, **group_by(c_domains)})
+
+        token = build_token(sent, word, dc, domains)
+        rs.append(token)
+    return rs
 
 def print_root_domains(sents, lang, comps):
     # from pprint import pprint

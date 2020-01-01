@@ -78,9 +78,19 @@ async def handle_zh(request):
     rd = request.json
     return json(ltp_ner(rd['sents']))
 
-# @ner_mod.post('/zh/jieba')
-# async def handle_jieba(request):
-#     return json([])
+@ner_mod.post('/zh/jieba')
+async def handle_jieba(request):
+    """
+    $ curl -s -d '{"sents":"Rami Eid正在纽约石溪大学学习"}' \
+        -H "Content-Type: application/json" -X POST \
+        localhost:1700/ner/zh/jieba | json
+
+    :param request:
+    :return:
+    """
+    from sagas.zh.jieba_procs import extract_entities
+    rd = request.json
+    return json(extract_entities(rd['sents']))
 
 @ner_mod.post('/id')
 async def handle_id(request):
