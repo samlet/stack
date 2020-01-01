@@ -103,3 +103,9 @@ with ruleset('sents'):
     @when_all(+m.text & +m.lemma)
     def output_tokens(c):
         tc.emp('blue', 'sents-> Fact: {0} {1}'.format(c.m.text, c.m.lemma))
+
+# key is level, values are rule names
+ents_group={"token": ['chains'],
+                "sents": ['sents'],
+                }
+
