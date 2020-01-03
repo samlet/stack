@@ -40,7 +40,9 @@ setuptools.setup(
     python_requires='>=3.6',
     package_data={
               'conf': ['*'],
+              'sagas': ['conf/*'],
               'data': ['synonyms/*']},
+
     # $ setup.py publish support.
     # cmdclass={
     #     'upload': UploadCommand,

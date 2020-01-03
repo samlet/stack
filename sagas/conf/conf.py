@@ -1,9 +1,15 @@
 import json_utils
 
+def runtime_dir():
+    import os
+    return os.path.dirname(__file__)
+
 class TransClipConf(object):
-    def __init__(self, conf_file='/pi/stack/conf/sagas_conf.json',
-                 overrides_file='/pi/stack/conf/sagas_overrides.json'):
+    def __init__(self):
         from sagas.conf.runtime import runtime
+        conf_file=f"{runtime_dir()}/sagas_conf.json"
+        overrides_file=f"{runtime_dir()}/sagas_overrides.json"
+
         self.conf = json_utils.read_json_file(conf_file)
         self.overrides_file=overrides_file
         if runtime.is_docker():
