@@ -45,7 +45,7 @@ def add_head(domains:list, word, sent):
                         c.index, c.text, c.lemma,
                         [c.text], get_word_features(c)))
 
-def get_verb_domain(sent, filters):
+def get_verb_domain(sent):
     from sagas.nlu.uni_intf import sub_comps
     rs = []
     verbs=list(filter(lambda w: w.upos == "VERB", sent.words))
@@ -73,7 +73,7 @@ def get_verb_domain(sent, filters):
                    'domains': domains, 'stems':stems})
     return rs
 
-def get_aux_domain(sent, filters):
+def get_aux_domain(sent):
     rs = []
     for word in filter(lambda w: w.upos == "AUX", sent.words):
         # dc=sent.words[word.governor-1]
@@ -142,10 +142,18 @@ def get_root_domain(sent_p):
                'index': word.index, 'domains': domains, 'stems': stems})
     return rs
 
-def get_chunks(sent, return_root_chunks_if_absent=True):
-    r = get_verb_domain(sent, [])
+domain_getters={"verb": get_verb_domain,
+                'aux': get_aux_domain,
+                'subj': get_subj_domain,
+                'root': get_root_domain,
+                }
+def get_chunks(sent, return_root_chunks_if_absent=True, specified=None):
+    if specified is not None:
+        return domain_getters[specified](sent)
+
+    r = get_verb_domain(sent)
     if len(r) == 0:
-        r = get_aux_domain(sent, [])
+        r = get_aux_domain(sent)
     if len(r) == 0:
         r = get_subj_domain(sent)
     if len(r)==0 and return_root_chunks_if_absent:
@@ -175,7 +183,7 @@ class CoreNlpParser(object):
         # 分析依赖关系, 自下而上, 可用于抽取指定关系的子节点集合, 比如此例中的'nsubj:pass'和'obl'
         # word.governor即为当前word的parent
         sent = doc.sentences[0]
-        rs = get_verb_domain(sent, [])
+        rs = get_verb_domain(sent)
         # r=rs[0]
         for num, r in enumerate(rs):
             # print(json.dumps(r, indent=2, ensure_ascii=False))

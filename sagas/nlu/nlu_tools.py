@@ -189,12 +189,13 @@ class NluTools(object):
         print(text)
         self.contrast(text, source)
 
-    def clip_parse(self, source, sents=''):
+    def clip_parse(self, source, sents='', specified=None):
         """
         >> clip text: ‫یک آبجو مى خواهم.‬
         $ nlu clip_parse fa
         $ nlu clip_parse fi 'Tuolla ylhäällä asuu vanha nainen.'
         $ nluc nl 'De vrouw heeft verschillende appels.'
+        $ nluc id 'Ini adalah judul buku yang saya baca.' aux
 
         :param source:
         :return:
@@ -219,7 +220,7 @@ class NluTools(object):
         if doc_jsonify is None:
             raise Exception(f'Cannot parse sentence for lang {source}')
 
-        list_chunks(doc_jsonify, resp, source, enable_contrast=True)
+        list_chunks(doc_jsonify, resp, source, enable_contrast=True, specified=specified)
         words = [word.text for word in doc_jsonify.words]
         self.contrast(sents, source, word_map=words)
 

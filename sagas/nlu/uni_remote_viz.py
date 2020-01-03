@@ -43,11 +43,11 @@ def list_contrast(rs, lang):
         result.extend(proc_children_column(df['rel'], df['children'], lang))
     return result
 
-def list_chunks(doc_jsonify, resp, lang, enable_contrast=False):
-    if len(resp['predicts']) > 0:
+def list_chunks(doc_jsonify, resp, lang, enable_contrast=False, specified=None):
+    if len(resp['predicts']) > 0 and specified is None:
         rs=resp['predicts']
     else:
-        rs = get_chunks(doc_jsonify)
+        rs = get_chunks(doc_jsonify, return_root_chunks_if_absent=True, specified=specified)
     list_rs(rs, lang)
     if enable_contrast:
         _=list_contrast(rs, lang)
