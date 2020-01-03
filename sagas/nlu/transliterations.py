@@ -12,7 +12,7 @@ class Transliterations(object):
 
         self.tr_icu = icu.Transliterator.createInstance('Any-Latin; Latin-ASCII').transliterate
         self.tr_title = icu.Transliterator.createInstance('Any-Latin; Title').transliterate
-        # self.tr_el=icu.Transliterator.createInstance('Greek-Latin')
+        self.tr_el=icu.Transliterator.createInstance('Greek-Latin').transliterate
         self.lang_maps={'iw':'he'}
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
@@ -20,8 +20,8 @@ class Transliterations(object):
                           # ('hi', 'ar'): lambda s,_:self.tr_icu(s),
                           ('hi'): lambda s, _: self.tr_icu(s),
                           ('ar'): lambda s,_: self.trans_ar(s),
-                          # ('el'): lambda s,_:self.tr_el(s),
-                          ('el'): lambda s, _: self.tr_icu(s),
+                          ('el'): lambda s,_:self.tr_el(s),
+                          # ('el'): lambda s, _: self.tr_icu(s),
                           ('zh'): lambda s,_:self.tr_title(s),
                           # ('ja'): lambda s,_:self.trans_ja(s),
                           ('ja'): lambda s, _: self.tr_icu(s),
@@ -89,6 +89,8 @@ class Transliterations(object):
         $ python -m sagas.nlu.transliterations translit 'صباح الخير' ar
         $ python -m sagas.nlu.transliterations translit 'शुभ प्रभात' hi
         $ python -m sagas.nlu.transliterations translit 'وہ امیر ہے۔' ur
+        $ python -m sagas.nlu.transliterations translit 'Εμείς είμαστε εδώ.' el
+        $ python -m sagas.nlu.transliterations translit 'Αυτός είναι εδώ και αυτή είναι εδώ.' el
 
         :param sents:
         :param lang:

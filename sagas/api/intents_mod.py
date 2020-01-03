@@ -87,6 +87,15 @@ def request_intents(sents, lang, domain):
 
 @intents_mod.post('/retrieve/<domain>/<lang>')
 async def handle_intents(request, domain, lang):
+    """
+    $ curl -d '{"sents":"I want to play music."}' \
+        -H "Content-Type: application/json" -X POST \
+        localhost:1700/intents/retrieve/verb_domains/en | json
+    :param request:
+    :param domain:
+    :param lang:
+    :return:
+    """
     rd = request.json
     sents=rd['sents']
     return json(request_intents(sents, lang, domain))
