@@ -31,7 +31,7 @@ def iter_type(spec, el, attr=None):
             rs_map[tuple(path)]=node
     return rs_map
 
-def vis_domains(sents, lang, domain):
+def vis_domains(sents, lang, domain=None):
     """
     >>> sents='What do you think about the war?'
     >>> lang='en'
@@ -43,12 +43,16 @@ def vis_domains(sents, lang, domain):
     :param domain:
     :return:
     """
-    from sagas.nlu.ruleset_procs import cached_chunks
+    from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
     from sagas.conf.conf import cf
     from sagas.kit.viz_base import BaseViz
 
-    chunks = cached_chunks(sents, lang, cf.engine(lang))
-    domains = chunks[domain]
+    if domain is None:
+        domain, domains=get_main_domains(sents, lang, cf.engine(lang))
+    else:
+        chunks = cached_chunks(sents, lang, cf.engine(lang))
+        domains = chunks[domain]
+
     if len(domains)==0:
         return None
 
@@ -57,7 +61,7 @@ def vis_domains(sents, lang, domain):
     items = iter_type(dict, el, 'text')
 
     viz = BaseViz()
-    print('.. root', el_root)
+    logger.debug('.. root', el_root)
     viz.node(el_root, True)
     for e in items.keys():
         if e[0] == 'dc':
@@ -66,8 +70,8 @@ def vis_domains(sents, lang, domain):
             viz.edge(dc, el_root, domain.replace('_', '.'))
         else:
             head = 'root' if len(e) == 2 else e[0:-2]
-            print(e, '->', head)
-            print('\t', items[e]['text'], items[head]['text'] if head != 'root' else 'root', '.'.join(map(str, e)))
+            logger.debug(f"{e} -> {head}")
+            # print('\t', items[e]['text'], items[head]['text'] if head != 'root' else 'root', '.'.join(map(str, e)))
             viz.edge(items[head]['text'] if head != 'root' else el_root,
                      items[e]['text'],
                      '.'.join(map(str, e)))
@@ -81,4 +85,21 @@ def vis_doc(sents, lang):
 
     chunks = cached_chunks(sents, lang, cf.engine(lang))
     return display_doc_deps(chunks['doc'], None)
+
+
+class AnalysisKit(object):
+    def console_vis(self, sents, lang='en', domain=None):
+        """
+        $ python -m sagas.kit.analysis_kit console_vis 'What do you think about the war?' en
+        :param sents:
+        :param lang:
+        :return:
+        """
+        from sagas.nlu.nlu_cli import scribes
+        gv=vis_domains(sents, lang, domain=domain)
+        print(scribes(gv))
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire(AnalysisKit)
 

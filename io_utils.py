@@ -83,9 +83,11 @@ def list_subdirectories(path):
             for fn in glob.glob(os.path.join(path, '*'))
             if os.path.isdir(fn)]
 
-def write_to_file(filename, text):
+def write_to_file(filename, text, auto_create_dir=False):
     # type: (Text, Text) -> None
     """Write a text to a file."""
+    if auto_create_dir:
+        create_dir_for_file(filename)
 
     with io.open(filename, 'w', encoding="utf-8") as f:
         f.write(str(text))

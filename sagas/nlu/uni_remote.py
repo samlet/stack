@@ -7,12 +7,15 @@ from cachetools import cached
 import json
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
+import logging
+
+logger = logging.getLogger(__name__)
 
 def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceIntf, dict):
     if pipelines is None:
         pipelines = []
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}
-    tc.info(f".. request is {data}")
+    logger.debug(f".. request is {data}")
     # tc.info(data['sents'])
     response = requests.post(f'{cf.servant(engine)}/dep_parse', json=data)
     if response.status_code != 200:

@@ -42,7 +42,7 @@ def scribes(dot):
     import io_utils
     import subprocess
     from subprocess import STDOUT
-    io_utils.write_to_file('./out/sents.dot', dot.source)
+    io_utils.write_to_file('./out/sents.dot', dot.source, True)
     # $ graph-easy ./out/sents.dot --from=dot --as_ascii
     out_format = '--as_boxart'  # '--as_ascii'
     cmd_args = ['graph-easy', './out/sents.dot', '--from=dot', out_format]

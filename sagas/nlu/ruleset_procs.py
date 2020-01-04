@@ -32,6 +32,12 @@ def cached_chunks(sents:Text, source:Text, engine:Text):
             'subj_domains': get_subj_domain(doc),
             }
 
+def get_main_domains(sents:Text, source:Text, engine:Text):
+    chunks=cached_chunks(sents, source, engine)
+    return next((e, chunks[e]) for e in ('predicts', 'verb_domains',
+                                         'aux_domains', 'subj_domains',
+                                         'root_domains') if len(chunks[e]) > 0)
+
 equals = lambda a, b: str(a) == str(b)
 def children(word, sent):
     return filter(lambda w: equals(w.governor, word.index), sent.words)
