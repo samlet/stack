@@ -34,3 +34,5 @@ $ env CC=clang CXX=clang++ pip install python-rocksdb
 b'data'
 ```
 
+## fossildb
+⊕ [scalableminds/fossildb: Versioned Key-Value Store with RocksDB backend and gRPC API](https://github.com/scalableminds/fossildb)

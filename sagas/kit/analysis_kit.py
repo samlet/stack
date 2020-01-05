@@ -31,7 +31,7 @@ def iter_type(spec, el, attr=None):
             rs_map[tuple(path)]=node
     return rs_map
 
-def vis_domains(sents, lang, domain=None):
+def vis_domains(sents, lang, domain=None, engine=None):
     """
     >>> sents='What do you think about the war?'
     >>> lang='en'
@@ -47,10 +47,11 @@ def vis_domains(sents, lang, domain=None):
     from sagas.conf.conf import cf
     from sagas.kit.viz_base import BaseViz
 
+    engine=cf.engine(lang) if engine is None else engine
     if domain is None:
-        domain, domains=get_main_domains(sents, lang, cf.engine(lang))
+        domain, domains=get_main_domains(sents, lang, engine)
     else:
-        chunks = cached_chunks(sents, lang, cf.engine(lang))
+        chunks = cached_chunks(sents, lang, engine)
         domains = chunks[domain]
 
     if len(domains)==0:
@@ -88,15 +89,17 @@ def vis_doc(sents, lang):
 
 
 class AnalysisKit(object):
-    def console_vis(self, sents, lang='en', domain=None):
+    def console_vis(self, sents, lang='en', domain=None, engine=None):
         """
         $ python -m sagas.kit.analysis_kit console_vis 'What do you think about the war?' en
+        $ python -m sagas.kit.analysis_kit console_vis 'どの国に行ったことがありますか？' ja None corenlp
+
         :param sents:
         :param lang:
         :return:
         """
         from sagas.nlu.nlu_cli import scribes
-        gv=vis_domains(sents, lang, domain=domain)
+        gv=vis_domains(sents, lang, domain=domain, engine=engine)
         print(scribes(gv))
 
 if __name__ == '__main__':

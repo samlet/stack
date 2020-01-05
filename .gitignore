@@ -10,6 +10,7 @@ out/
 *.swp
 *.dat
 *.log
+*.db
 db/
 test-output/
 test.db/
