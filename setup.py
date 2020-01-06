@@ -16,6 +16,7 @@ with open("README.md", "r") as fh:
 REQUIRED = [
     "fire",
     "simplejson",
+    "cachetools",
     "graphene-sqlalchemy>=2.0",
 ]
 
@@ -41,7 +42,7 @@ setuptools.setup(
     python_requires='>=3.6',
     package_data={
               'conf': ['*'],
-              'sagas': ['conf/*'],
+              'sagas': ['conf/*', 'dataset/*'],
               'data': ['synonyms/*']},
 
     # $ setup.py publish support.

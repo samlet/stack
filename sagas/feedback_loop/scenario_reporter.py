@@ -4,6 +4,7 @@ import enum
 
 from graphene_sqlalchemy import SQLAlchemyObjectType
 from graphene_sqlalchemy.registry import get_global_registry
+from sagas.misc.utils import to_std_dicts
 from sqlalchemy import (Column, Date, Enum, ForeignKey, Integer, String, Table,
                         func, select)
 from sqlalchemy.ext.declarative import declarative_base
@@ -203,7 +204,7 @@ def test_query_fields(session):
     return result
 
 class ScenarioReporter(object):
-    def __init__(self):
+    def __init__(self, recreate=True):
         from sqlalchemy import create_engine
         from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -211,8 +212,10 @@ class ScenarioReporter(object):
         db = create_engine('sqlite:///out/scenario_reporter.db', convert_unicode=True)
         connection = db.engine.connect()
         transaction = connection.begin()
-        Base.metadata.drop_all(connection)  # drop all exists tables
-        Base.metadata.create_all(connection)
+
+        if recreate:
+            Base.metadata.drop_all(connection)  # drop all exists tables
+            Base.metadata.create_all(connection)
 
         # options = dict(bind=connection, binds={})
         session_factory = sessionmaker(bind=connection)
@@ -226,6 +229,8 @@ class ScenarioReporter(object):
         from pprint import pprint
         r=test_query_fields(self.session)
         pprint(r)
+
+sc_reporter= ScenarioReporter(recreate=False)
 
 if __name__ == '__main__':
     import fire

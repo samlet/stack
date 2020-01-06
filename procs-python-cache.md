@@ -1,5 +1,6 @@
 # procs-python-cache.md
 ⊕ [Speed up your code by using a cache in Python | The Python Corner](https://www.thepythoncorner.com/2018/04/how-to-make-your-code-faster-by-using-a-cache-in-python/?source=post_page-----fb169fbcbb0b----------------------)
+⊕ [cachetools · PyPI](https://pypi.org/project/cachetools/)
 
 ## start
 ```sh
@@ -54,6 +55,27 @@ def handle_get_synsets():
     word = content['word']
     ...
     return get_synsets_as_json(lang, word, pos)    
+```
+
+```python
+from cachetools import cached, LRUCache, TTLCache
+
+# speed up calculating Fibonacci numbers with dynamic programming
+@cached(cache={})
+def fib(n):
+    return n if n < 2 else fib(n - 1) + fib(n - 2)
+
+# cache least recently used Python Enhancement Proposals
+@cached(cache=LRUCache(maxsize=32))
+def get_pep(num):
+    url = 'http://www.python.org/dev/peps/pep-%04d/' % num
+    with urllib.request.urlopen(url) as s:
+        return s.read()
+
+# cache weather data for no longer than ten minutes
+@cached(cache=TTLCache(maxsize=1024, ttl=600))
+def get_weather(place):
+    return owm.weather_at_place(place).get_weather()
 ```
 
 

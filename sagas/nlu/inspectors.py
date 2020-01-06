@@ -1,3 +1,6 @@
+from typing import Text, Dict, Any
+from cachetools import cached
+
 import time
 import requests
 import json
@@ -16,7 +19,8 @@ locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
                  'zh':'zh_CN', 'ar':'ar_Nothing',
                 }
 
-def query_duckling(text, lang):
+@cached(cache={})
+def query_duckling(text:Text, lang:Text) -> Dict[Text, Any]:
     """
     resp=query_duckling('tomorrow at eight', 'en')
     print([d['dim'] for d in resp['data']])

@@ -74,10 +74,16 @@ class LangSpecs(object):
         # lang = data['lang']
         mod_rs={}
         if lang in self.lang_specs:
+            # 1. prepare phrase
+            proc_comps=self.lang_specs[lang]
+            for proc in proc_comps:
+                proc.prepare(meta)  # prepare method will modify the sents or other meta-info
+
+            # 2. rules evaluate phrase
             doc, _=parse_sents(meta)
             # from termcolor import colored
             tc.emp('cyan', f"✁ lang.spec for {lang}.{type_name} {'-' * 25}")
-            for c in self.lang_specs[lang]:
+            for c in proc_comps:
                 ci=c(meta, domains, doc=doc)
                 exec_rules_by_type(ci, type_name)
                 ci.execute()

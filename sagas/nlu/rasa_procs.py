@@ -1,10 +1,14 @@
+from typing import Text
 import requests
 import logging
 import json
 
+from cachetools import cached
+
 logger = logging.getLogger(__name__)
 
-def invoke_nlu(endpoint, project_name, model_name, text):
+@cached(cache={})
+def invoke_nlu(endpoint:Text, project_name:Text, model_name:Text, text:Text):
     params = {
         "model": model_name,
         "project": project_name,
@@ -49,4 +53,5 @@ class RasaProcs(object):
 if __name__ == '__main__':
     import fire
     fire.Fire(RasaProcs)
+
 

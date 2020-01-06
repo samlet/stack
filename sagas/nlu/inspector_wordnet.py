@@ -1,3 +1,6 @@
+from typing import Text
+from cachetools import cached
+
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns, print_result
@@ -39,7 +42,8 @@ class WordInspector(Inspector):
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
-def predicate(kind, word, lang, pos, only_first=False ):
+@cached(cache={})
+def predicate(kind:Text, word:Text, lang:Text, pos:Text, only_first=False ):
     if '/' in kind or '/' in word:
         data = {'word': word, 'lang': lang, 'pos': pos,
                 'kind': kind}

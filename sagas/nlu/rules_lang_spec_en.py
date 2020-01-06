@@ -1,3 +1,5 @@
+from typing import Text, Dict, Any
+
 from sagas.nlu.inspectors import DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns
 from sagas.nlu.lang_spec_intf import LangSpecBase, agency
@@ -9,6 +11,10 @@ from sagas.nlu.operators import ud
 import sagas.tracker_fn as tc
 
 class Rules_en(LangSpecBase):
+    @staticmethod
+    def prepare(meta: Dict[Text, Any]):
+        pass
+
     def verb_rules(self):
         pat, actions_obj=(self.pat, self.actions_obj)
 

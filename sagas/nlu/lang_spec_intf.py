@@ -1,9 +1,11 @@
+from typing import Text, Dict, Any
+
 import sagas.tracker_fn as tc
 
 agency=['c_pron', 'c_noun', 'c_propn']
 
 class LangSpecBase(object):
-    def __init__(self, meta, domains, doc=None):
+    def __init__(self, meta:Dict[Text,Any], domains, doc=None):
         from sagas.nlu.patterns import Patterns
         from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
         from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
@@ -19,6 +21,10 @@ class LangSpecBase(object):
                                            name=f"act_{norm(r[0])}_{norm(r[1])}",
                                            doc=self.doc)
                                       .verb(behaveof(r[0], 'v'), obj=kindof(r[1], 'n')) for r in rs]
+
+    @staticmethod
+    def prepare(meta:Dict[Text,Any]):
+        pass
 
     # def general_rules(self):
     #     pass

@@ -1,3 +1,5 @@
+from typing import Text, Dict, Any
+
 from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins

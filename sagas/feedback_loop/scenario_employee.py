@@ -43,8 +43,9 @@ class Query(graphene.ObjectType):
 schema = graphene.Schema(query=Query, types=[Department, Employee, Role])
 
 class ScenarioEmployee(object):
-    def __init__(self):
-        init_db()
+    def __init__(self, recreate=True):
+        if recreate:
+            init_db()
 
     def query(self):
         """
@@ -74,6 +75,8 @@ class ScenarioEmployee(object):
         result = schema.execute(query, context_value={'session': db_session})
         if not result.errors:
             pprint(to_std_dicts(result.data))
+
+sc_employee=ScenarioEmployee(recreate=False)
 
 if __name__ == '__main__':
     import fire
