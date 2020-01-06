@@ -13,3 +13,6 @@ def print_df(df):
 def print_rs(rs, cols):
     print_df(to_df(rs, cols))
 
+def runtime_dir():
+    import os
+    return os.path.dirname(__file__)

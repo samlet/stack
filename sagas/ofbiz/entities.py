@@ -2,7 +2,6 @@ import datetime
 
 from sagas.ofbiz.runtime_context import platform
 import pandas as pd
-import pyarrow as pa
 import json
 
 import services_common_pb2 as sc
@@ -315,6 +314,8 @@ def default_thru():
     return default_thru
 
 def record_list_df(ent_name, records, drop_null_cols=True, contains_internal=True):
+    import pyarrow as pa
+
     ent = MetaEntity(ent_name)
     field_names = ent.field_names
     data = []

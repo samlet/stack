@@ -1,7 +1,6 @@
 from sagas.ofbiz.runtime_context import platform
 from py4j.java_gateway import get_field
 from sagas.util.string_util import abbrev
-from sagas.hybrid.srv_client import SrvClient
 import json
 
 oc=platform.oc

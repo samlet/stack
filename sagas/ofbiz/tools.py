@@ -136,6 +136,7 @@ class OfTools(object):
         serv=get_serv()
         names = serv.GetEntityNames(q)
         print(names)
+        # print(f".. total entities {len(names)}")
 
     def load_entity_data(self, data_file):
         """

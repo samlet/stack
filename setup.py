@@ -16,6 +16,7 @@ with open("README.md", "r") as fh:
 REQUIRED = [
     "fire",
     "simplejson",
+    "graphene-sqlalchemy>=2.0",
 ]
 
 setuptools.setup(

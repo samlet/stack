@@ -90,6 +90,8 @@ class TransClipConf(object):
         print(f"en_US:      {self.servant_by_lang('en')}")
         print(f"engine for zh: {self.engine('zh')}")
         print(f"ofbiz: {self.conf['ofbiz_servant']}")
+        print(f"conf dir: {runtime_dir()}")
+        print(f"root dir: {sagas.runtime_dir()}")
 
 """
 from sagas.conf.conf import cf
