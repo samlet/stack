@@ -9,11 +9,14 @@ from sagas.nlu.inspector_free import comps, predict_aux, predict_subj
 from sagas.nlu.operators import ud
 
 import sagas.tracker_fn as tc
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Rules_en(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
-        pass
+        tc.emp('yellow', '.. Rules_en prepare phrase')
 
     def verb_rules(self):
         pat, actions_obj=(self.pat, self.actions_obj)

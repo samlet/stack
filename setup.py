@@ -16,8 +16,11 @@ with open("README.md", "r") as fh:
 REQUIRED = [
     "fire",
     "simplejson",
+    "PyYAML",
     "cachetools",
     "graphene-sqlalchemy>=2.0",
+    "py4j",
+    'durable_rules',
 ]
 
 setuptools.setup(
@@ -34,6 +37,19 @@ setuptools.setup(
                                           'agents', ))],
     entry_points={"console_scripts": ["sagas=sagas.__main__:main"]},
     install_requires=REQUIRED,
+    extras_require={
+        'interactive': ['matplotlib>=3.0.3,<4.0.0', 'jupyter', 'streamlit',
+                        'graphviz', 'clipboard'],
+        'servant': ['waitress', 'sanic', 'pika', 'aio-pika', 'kazoo'],
+        'datset': ['pyarrow', 'feedparser', 'pydgraph'],
+        'nlp': ['nltk', 'spacy', 'snips-nlu', 'stanfordnlp', 'kroman',
+                'cyrtranslit', 'iso-639', 'pyicu','morfessor', 'pycld2', 'polyglot',
+                'bert-serving-client', 'bert-serving-server'],
+        'rasa': ['rasa~=1.6.0', 'rasa-sdk~=1.6.0'],
+        'lang_zh': ['pypinyin', 'jieba', 'pyltp'],
+        'lang_ja': ['pyknp'],
+        'lang_ru': ['natasha', 'pymorphy2[fast]~=0.8'],
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

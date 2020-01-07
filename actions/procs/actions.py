@@ -1,7 +1,7 @@
 import requests
 import json
-from rasa_core_sdk import Action
-from rasa_core_sdk.events import SlotSet
+from rasa_sdk import Action
+from rasa_sdk.events import SlotSet
 
 
 class ActionJoke(Action):

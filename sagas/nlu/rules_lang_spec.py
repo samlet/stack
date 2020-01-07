@@ -110,6 +110,8 @@ def rs_repr(rs, data):
         # else:
         #     tc.emp('red', f'no special patterns for lang {lang}')
         mod_rs=langspecs.check_langspec(lang, meta, r['domains'], type_name = r['type'])
+
+        tc.emp('magenta', f"✁ {'_' * 40} {lang}.result")
         if len(mod_rs)>0:
             for mod,matched in mod_rs.items():
                 matched_info = {k: len(v.results) for k, v in matched.items()}
@@ -146,6 +148,7 @@ class LangspecRules(object):
         # doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)
         doc_jsonify, resp =parse_sents(meta)
         rs = get_chunks(doc_jsonify)
+
         rs_repr(rs, data=meta)
 
     def langspec_id(self, sents, engine='corenlp'):

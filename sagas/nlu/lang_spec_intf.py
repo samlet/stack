@@ -22,6 +22,12 @@ class LangSpecBase(object):
                                            doc=self.doc)
                                       .verb(behaveof(r[0], 'v'), obj=kindof(r[1], 'n')) for r in rs]
 
+    @property
+    def name(self):
+        """Access the class's property name from an instance."""
+
+        return type(self).name
+
     @staticmethod
     def prepare(meta:Dict[Text,Any]):
         pass
