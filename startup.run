@@ -32,14 +32,16 @@ else
 		;;
 
     "build")
-		python setup.py sdist bdist_wheel
+		# python setup.py sdist bdist_wheel
+		python setup.py bdist_wheel
 		;;
     "local")
         pip install --no-deps -e .
         ;;
     "dist")
 	    rm ./dist/*
-        python setup.py sdist bdist_wheel
+        # python setup.py sdist bdist_wheel
+        python setup.py bdist_wheel
         python -m twine upload dist/*
 	    ;;
 
