@@ -9,7 +9,9 @@ class Sender(object):
     async def send(self, loop):
         # Perform connection
         connection = await connect(
-            "amqp://guest:guest@localhost/", loop=loop
+            "amqp://guest:guest@localhost/",
+            # "amqp://guest:guest@192.168.0.101/",
+            loop=loop
         )
 
         # Creating a channel
