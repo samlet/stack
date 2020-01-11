@@ -2,6 +2,7 @@
   "id": ["sagas.nlu.rules_lang_spec_id.Rules_id"],
   "de": ["sagas.nlu.rules_lang_spec_de.Rules_de"],
   "en": ["sagas.nlu.rules_lang_spec_en.Rules_en"],
-  "zh": ["sagas.nlu.rules_lang_spec_zh.Rules_zh"]
+  "zh": ["sagas.nlu.rules_lang_spec_zh.Rules_zh"],
+  "ja": ["sagas.nlu.rules_lang_spec_ja.Rules_ja"]
 }
 

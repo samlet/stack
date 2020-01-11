@@ -43,6 +43,8 @@ def get_feats(postags, i):
 
 def extract_predicates(words, roles, postags, arcs, verbose=False):
     from pypinyin import lazy_pinyin
+    from sagas.nlu.uni_impl_ltp import get_pos_mapping
+
     predicts = []
     predict_tuples=[]
     for role in roles:
@@ -73,8 +75,9 @@ def extract_predicates(words, roles, postags, arcs, verbose=False):
         governor=arcs[i].head
         predict_tuples.append({'type':'predicate', 'lemma':lemma, 'index': i,
                                'phonetic':' '.join(lazy_pinyin(lemma)), 'word':lemma,
-                              'rel': dependency_relation, 'governor': governor,
-                              'domains': domains, 'stems':[]})
+                               'rel': dependency_relation, 'governor': governor,
+                               'pos': get_pos_mapping(postags[i]).lower(),
+                               'domains': domains, 'stems':[]})
     return predicts, predict_tuples
 
 class LtpProcs(object):

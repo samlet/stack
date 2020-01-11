@@ -5,6 +5,9 @@ import sagas.tracker_fn as tc
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.utils import fix_sents, join_text
 import logging
+
+from sagas.tool import color_print
+
 logger = logging.getLogger(__name__)
 
 merge_args=lambda args : ' '.join([str(arg[0]) if isinstance(arg, tuple) else arg for arg in args])
@@ -23,14 +26,6 @@ def print_terms(sents, result):
         if 'obl' in item:
             sents = sents.replace(value, colored(value, 'yellow'))
     tc.info('%s: %s' % (result['lang'], sents))
-
-def color_print(color:str, text):
-    # from termcolor import colored
-    if isinstance(text, list):
-        for t in text:
-            tc.emp(color, t)
-    else:
-        tc.emp(color, text)
 
 def print_terms_zh(sents, result):
     from termcolor import colored

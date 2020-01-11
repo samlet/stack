@@ -44,12 +44,19 @@ def class_from_module_path(module_path: Text) -> Any:
     # get the class, will raise AttributeError if class cannot be found
     return getattr(m, class_name)
 
-def load_mods(mod_files):
+def load_mods():
     import json
+    import glob
+    import os
+    from sagas.conf import resource_files, resource_path
+    mod_files=[resource_path(f) for f in resource_files('mod_*.json')]
+    # load custom rulesets
+    if os.path.exists('./ruleset'):
+        mod_files.extend(glob.glob('./ruleset/mod_*.json'))
 
     lang_mods={}
     for mod_file in mod_files:
-        print(f'.. load mod {mod_file}')
+        logger.info(f'.. load mod {mod_file}')
         with open(mod_file) as f:
             cfg=json.load(f)
             for k,v in cfg.items():
@@ -65,10 +72,10 @@ def load_mods(mod_files):
 
 class LangSpecs(object):
     def __init__(self):
-        import glob
+
         # self.lang_specs = {'id': [Rules_id], 'de': [Rules_de], }
         # scan conf/mod_*.json
-        self.lang_specs=load_mods(glob.glob('/pi/stack/conf/mod_*.json'))
+        self.lang_specs=load_mods()
 
     def check_langspec(self, lang, meta, domains, type_name) -> Dict:
         # lang = data['lang']
@@ -126,14 +133,15 @@ class LangspecRules(object):
     def __init__(self):
         pass
 
-    def langspec(self, sents, lang='en', engine='corenlp'):
+    def langspec(self, sents, lang='en', engine='corenlp', print_no_match=False):
         """
         $ python -m sagas.nlu.rules_lang_spec langspec 'Berapa umur kamu?' id
         $ python -m sagas.nlu.rules_lang_spec langspec 'Siapa yang menulis laporan ini?' id
             ♯ matched id rules: {'ask_event': 0}
             features -> ['ask_event']
         $ python -m sagas.nlu.rules_lang_spec langspec 'Die Nutzung der Seite ist kostenlos.' de
-        $ python -m sagas.nlu.rules_lang_spec langspec 'I want to play music.' en
+        $ python -m sagas.nlu.rules_lang_spec langspec 'I want to play music.' en corenlp True
+        $ python -m sagas.nlu.rules_lang_spec langspec 'このお土産はきれいで安いです。' ja knp True
 
         :param sents:
         :param lang:
@@ -142,7 +150,10 @@ class LangspecRules(object):
         """
         from sagas.nlu.uni_remote import dep_parse
         from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.conf.conf import cf
 
+        if print_no_match:
+            cf.enable_opt('print_not_matched')
         pipelines = ['predicts']
         meta={'lang': lang, "sents": sents, 'engine': engine, 'pipelines': pipelines}
         # doc_jsonify, resp = dep_parse(sents, lang, engine, pipelines)

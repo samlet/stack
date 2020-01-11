@@ -245,6 +245,7 @@ def extract_predicates(result, verbose=True):
             predict_tuples.append({'type': 'predicate', 'lemma': predict_lemma, 'index': tag.tag_id,
                                    'phonetic': predict_phonetic, 'word':predict_cnt,
                                    'rel': tag.dpndtype, 'governor': get_governor(tag),
+                                   'pos': tag_pos(tag).lower(),
                                    'domains': domains, 'stems': []})
     if verbose:
         print(deps, predict_keys)

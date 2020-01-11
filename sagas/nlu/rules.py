@@ -221,5 +221,7 @@ def predict_patterns(meta, domains):
           # $ sj "子は羊を聞きません。"
           Patterns(domains, meta, 5, name='perceive_living').verb(behaveof('perceive', 'v'),
                                           ガ=kindof('living_thing', 'n')),
+          # Patterns(domains, meta, 3, name='describe_artifact').aux('adj',
+          #                                       ガ=kindof('artifact', 'n')),
           ]
     print_result(pats)

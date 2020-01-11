@@ -1,3 +1,5 @@
+from typing import Text, Dict, Any
+
 import sagas.tracker_fn as tc
 import logging
 
@@ -22,12 +24,17 @@ class InspectorFixture(object):
             #     display(df)
             tc.dfs(df)
 
-    def request_domains(self, data, print_format='table', engine='corenlp'):
+    def request_domains(self, data:Dict[Text, Any], print_format='table', engine=None):
         import requests
         import json
         from sagas.conf.conf import cf
+        from sagas.nlu.rules_meta import build_meta
 
+        if engine is None:
+            engine=cf.engine(data['lang'])
+        data['engine']=engine
         tc.info(f".. request is {data}")
+
         response = requests.post(f'{cf.servant(engine)}/verb_domains', json=data)
         rs = response.json()
         if len(rs)==0:
@@ -46,8 +53,21 @@ class InspectorFixture(object):
             tc.info(json.dumps(r, indent=2, ensure_ascii=False))
 
         domains = r['domains']
-        common = {'lemma': r['lemma'], 'word': r['word'],
-                  'stems': r['stems']}
-        meta = {'rel': r['rel'], **common, **data}
+        # common = {'lemma': r['lemma'], 'word': r['word'],
+        #           'stems': r['stems']}
+        # meta = {'rel': r['rel'], **common, **data}
+
+        meta = build_meta(r, data)
         return domains, meta
 
+    def analyse_domains(self, sents, lang, engine=None, domain=None):
+        from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
+        from sagas.conf.conf import cf
+
+        engine = cf.engine(lang) if engine is None else engine
+        if domain is None:
+            domain, domains = get_main_domains(sents, lang, engine)
+        else:
+            chunks = cached_chunks(sents, lang, engine)
+            domains = chunks[domain]
+        return domains

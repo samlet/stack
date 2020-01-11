@@ -1,3 +1,5 @@
+from typing import Text, Dict, Any
+
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns, print_result
@@ -86,7 +88,7 @@ class InspectorRunner(InspectorFixture):
         super().__init__()
         pat.print_not_matched=True
 
-    def procs_common(self, data):
+    def procs_common(self, data:Dict[Text, Any]):
         domains, meta=self.request_domains(data)
         agency = ['c_pron', 'c_noun']
         intentof=RasaInspector
