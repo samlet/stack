@@ -59,7 +59,8 @@ class TransClipConf(object):
         return item_val['*']
 
     def engine(self, lang):
-        return self.get_opt('dialectors', lang)
+        import os
+        return os.getenv('engine', self.get_opt('dialectors', lang))
 
     def servant_by_lang(self, lang):
         return self.servant(self.get_opt('dialectors', lang))

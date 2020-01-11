@@ -2,6 +2,7 @@ from sagas.nlu.corenlp_helper import get_nlp
 from sagas.nlu.env import sa_env
 import sagas.tracker_fn as tc
 
+
 class EnhancedViz(object):
     """
     from sagas.nlu.uni_viz import EnhancedViz
@@ -92,7 +93,11 @@ class EnhancedViz(object):
                 pos_attrs=f"({word.upos.lower()}, {word.xpos.lower()})"
                 node_text=word.text if self.translit_lang is None or word.upos=='PUNCT' \
                     else translit_chunk(word.text, self.translit_lang)
-                node_text=unicodedata.normalize('NFKC', node_text) if word.upos=='PUNCT' else node_text
+                # node_text=unicodedata.normalize('NFKC', node_text) if word.upos=='PUNCT' else node_text
+                norm=lambda t: unicodedata.normalize('NFKC', t).encode('ascii', 'ignore').decode("utf-8")
+                node_text = norm(node_text) if word.upos == 'PUNCT' else node_text
+                if node_text=='':
+                    node_text='_'
                 # verbose
                 if word.text!=node_text:
                     print('# ', f"{word.text} -> {node_text}")
