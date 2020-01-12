@@ -24,6 +24,7 @@ class LocaleTable(object):
 class Locales(object):
     def __init__(self):
         import json_utils
+        from sagas.conf import resource_json
         # t = dd(lambda: dd(unicode))
         t=LocaleTable()
         t['eng', 'eng'] = 'English'
@@ -71,7 +72,7 @@ class Locales(object):
         t['tha', 'eng'] = 'Thai'
 
         self.table=t
-        self.iso_map=json_utils.read_json_file('./conf/iso-639.json')
+        self.iso_map=resource_json('iso-639.json')
         self.rev_map = {v: k for k, v in self.iso_map.items()}
 
     def get_def(self, part3):

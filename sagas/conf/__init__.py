@@ -11,6 +11,10 @@ def resource_path(file_name) -> Text:
     import pkg_resources
     return pkg_resources.resource_filename(__name__, file_name)
 
+def resource_json(file_name):
+    import json_utils
+    return json_utils.read_json_file(resource_path(file_name))
+
 def resource_dir(fn_match):
     """
     >>> from sagas.conf import resource_dir

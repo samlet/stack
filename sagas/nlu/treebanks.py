@@ -81,7 +81,8 @@ Vietnamese	VTB	vi	vi_vtb	download	0.2.0	Creative Commons License
 
 class TreeBanks(object):
     def __init__(self):
-        self.conf=json_utils.read_json_file('/pi/stack/conf/treebanks.json')
+        from sagas.conf import resource_json
+        self.conf=resource_json('treebanks.json')
         self.support_langs=[x['name'] for x in self.conf]
 
     def lang_map(self):
@@ -207,7 +208,7 @@ class TreeBanks(object):
                          'model': model_name, 'version': meta['VERSION'], 'treebank': meta['TREEBANK']}
             all_models.append(model_idx)
 
-        target_file='./conf/treebanks.json'
+        target_file='./sagas/conf/treebanks.json'
         json_utils.write_json_to_file(target_file, all_models)
         print('write to', target_file)
 
