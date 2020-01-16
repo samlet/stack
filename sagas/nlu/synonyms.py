@@ -3,13 +3,14 @@ import yaml
 class Synonyms(object):
     def __init__(self):
         # self.mappings={'id': self.load_dict('id')}
-        self.mappings={lang:self.load_dict(lang) for lang in self.availble_langs()}
+        # self.mappings={lang:self.load_dict(lang) for lang in self.availble_langs()}
+        self.mappings =self.load_dataset()
 
-    def load_dict(self, lang):
-        prefix = '/pi/stack/data/synonyms'
-        file = f"{prefix}/{lang}_def.yml"
-        with open(file, 'r') as f:
-            return yaml.safe_load(f.read())
+    # def load_dict(self, lang):
+    #     prefix = '/pi/stack/data/synonyms'
+    #     file = f"{prefix}/{lang}_def.yml"
+    #     with open(file, 'r') as f:
+    #         return yaml.safe_load(f.read())
 
     def query(self, word, lang):
         """
@@ -36,15 +37,27 @@ class Synonyms(object):
         $ python -m sagas.nlu.synonyms availble_langs
         :return:
         """
-        import glob
+        return list(self.mappings.keys())
+
+    def load_dataset(self):
+        """
+        $ python -m sagas.nlu.synonyms load_dataset
+        :return:
+        """
+        # import glob
         import ntpath
-        prefix='/pi/stack/data/synonyms'
-        files=glob.glob(f"{prefix}/*_def.yml")
-        langs=[]
-        for f in files:
-            filename=(ntpath.basename(f))
+        from sagas.conf import resource_dir
+        from fnmatch import fnmatch
+        # prefix='/pi/stack/data/synonyms'
+        # files=glob.glob(f"{prefix}/*_def.yml")
+        files=resource_dir(lambda f: fnmatch(f, '*_def.yml'), 'synonyms', get_full_path=True)
+        langs={}
+        for file in files:
+            filename=(ntpath.basename(file))
             if filename[2]=='_':
-                langs.append(filename[:2])
+                lang=filename[:2]
+                with open(file, 'r') as f:
+                    langs[lang]=yaml.safe_load(f.read())
 
         return langs
 

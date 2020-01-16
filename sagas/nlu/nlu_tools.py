@@ -1,6 +1,8 @@
 import collections
 import numpy
 import sagas.tracker_fn as tc
+from pprint import pprint
+from sagas.conf.conf import cf
 
 def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
     from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
@@ -223,6 +225,34 @@ class NluTools(object):
         list_chunks(doc_jsonify, resp, source, enable_contrast=True, specified=specified)
         words = [word.text for word in doc_jsonify.words]
         self.contrast(sents, source, word_map=words)
+
+    def main_domains(self, sents, lang, engine=None):
+        """
+        $ nlu main_domains '彼のパソコンは便利じゃない。' ja knp
+
+        :param sents:
+        :param lang:
+        :param engine:
+        :return:
+        """
+        from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
+        # get_main_domains('彼のパソコンは便利じゃない。', 'ja', 'knp')
+        domains=get_main_domains(sents, lang, engine or cf.engine(lang))
+        pprint(domains)
+
+    def check_rule(self, sents, lang, rule, engine=None):
+        """
+        $ nlu check_rule '彼のパソコンは便利じゃない。' ja \
+            "subj('adj',ガ=kindof('artifact', 'n'))"
+
+        :param sents:
+        :param lang:
+        :param rule:
+        :return:
+        """
+        from sagas.tool.dynamic_rules import dynamic_rule
+        data = {'lang': lang, "sents": sents}
+        dynamic_rule(data, rule, engine=engine or cf.engine(lang))
 
 if __name__ == '__main__':
     import fire

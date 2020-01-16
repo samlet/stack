@@ -71,4 +71,5 @@ class PredictsInspector(Inspector):
 
 predict_aux=lambda c: PredictsInspector('aux', c)
 predict_subj=lambda c: PredictsInspector('subj', c)
+predict_verb=lambda c: PredictsInspector('verb', c)
 

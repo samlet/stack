@@ -57,9 +57,9 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     package_data={
-              'conf': ['*'],
-              'sagas': ['conf/*', 'dataset/*'],
-              'data': ['synonyms/*']},
+        'conf': ['*'],
+        'sagas': ['conf/*', 'dataset/*', 'conf/synonyms/*'],
+    },
 
     # $ setup.py publish support.
     # cmdclass={

@@ -1,3 +1,5 @@
+from cachetools import cached
+
 from sagas.conf.conf import cf
 from sagas.tracker_jupyter import enable_jupyter_tracker
 from sagas.nlu.rules_header import *  # must be included
@@ -12,6 +14,13 @@ from pprint import pprint
 enable_jupyter_tracker()
 cf.enable_opt('print_not_matched')
 
+@cached(cache={})
+def hot_code(rule_code):
+    cc = compile(rule_code, '<string>', 'eval')
+    return cc
+
+def interp(rule_code, domains, meta):
+    return eval(hot_code(rule_code))
 
 def dynamic_rule(data, rule_str, name='_none_', engine=None):
     """
@@ -43,6 +52,7 @@ def dynamic_rule(data, rule_str, name='_none_', engine=None):
             print(r['type'], meta['word'], meta['lemma'], list(meta.keys()))
             pprint(domains)
             agency = ['c_pron', 'c_noun']
-            rs = eval(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]")
+            rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",
+                        domains, meta)
             print_result(rs)
 
