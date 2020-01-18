@@ -53,8 +53,9 @@ else:
 
 @st.cache
 def dia(el):
+    from sagas.nlu.corenlp_helper import LangDialect as dia
     exprs = []
-    fn=lambda s: sagas.dia(cur_lang, local_translit=True, outf=lambda x: exprs.append(x)).ana(s)
+    fn=lambda s: dia(cur_lang, local_translit=True, outf=lambda x: exprs.append(x)).ana(s)
     return fn(el[1]), exprs
 
 for text in text_raw:

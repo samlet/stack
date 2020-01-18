@@ -22,7 +22,7 @@ def hot_code(rule_code):
 def interp(rule_code, domains, meta):
     return eval(hot_code(rule_code))
 
-def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False):
+def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False, operator=all):
     """
     >>> from sagas.tool.dynamic_rules import dynamic_rule
     >>> data = {'lang': 'ja', "sents": '彼のパソコンは便利じゃない。'}
@@ -53,6 +53,7 @@ def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False):
         if graph:
             AnalysisKit().console_vis(data['sents'], data['lang'])
 
+        check_r=[]
         for r in domains_set:
             domains = r['domains']
             meta = build_meta(r, data)
@@ -63,4 +64,8 @@ def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False):
             rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",
                         domains, meta)
             print_result(rs)
+            check_r.append(operator([r[1] for r in rs]))
 
+        return operator(check_r)
+
+    return False
