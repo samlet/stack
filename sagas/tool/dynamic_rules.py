@@ -22,7 +22,7 @@ def hot_code(rule_code):
 def interp(rule_code, domains, meta):
     return eval(hot_code(rule_code))
 
-def dynamic_rule(data, rule_str, name='_none_', engine=None):
+def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False):
     """
     >>> from sagas.tool.dynamic_rules import dynamic_rule
     >>> data = {'lang': 'ja', "sents": '彼のパソコンは便利じゃない。'}
@@ -34,11 +34,15 @@ def dynamic_rule(data, rule_str, name='_none_', engine=None):
     :param engine:
     :return:
     """
+    import sagas.tracker_fn as tc
+    from sagas.kit.analysis_kit import AnalysisKit
     # ft=InspectorFixture()
     # domains, meta=ft.request_domains(data, engine=engine)
     if engine is None:
         engine = cf.engine(data['lang'])
     pipelines = ['predicts']
+
+    tc.emp('magenta', f"({data['lang']}) {data['sents']}")
     doc_jsonify, resp = dep_parse(data['sents'], data['lang'], engine, pipelines)
     if doc_jsonify is not None:
         if len(resp['predicts']) > 0:
@@ -46,10 +50,14 @@ def dynamic_rule(data, rule_str, name='_none_', engine=None):
         else:
             domains_set = get_chunks(doc_jsonify)
 
+        if graph:
+            AnalysisKit().console_vis(data['sents'], data['lang'])
+
         for r in domains_set:
             domains = r['domains']
             meta = build_meta(r, data)
             print(r['type'], meta['word'], meta['lemma'], list(meta.keys()))
+
             pprint(domains)
             agency = ['c_pron', 'c_noun']
             rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",

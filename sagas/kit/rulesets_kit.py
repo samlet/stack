@@ -1,7 +1,7 @@
 import yaml
 
 class RulesetsKit(object):
-    def execute(self, rules_file, intent_name):
+    def execute(self, rules_file, intent_name, show_graph=True):
         """
         $ python -m sagas.kit.rulesets_kit execute ./assets/test_rules.yml 'describe_object'
         :param rules_file:
@@ -12,13 +12,17 @@ class RulesetsKit(object):
         with open(rules_file) as f:
             pkg = yaml.safe_load(f)
             intents = pkg['intents']
+            lang=pkg['lang']
             if intent_name in intents:
-                for k, rule in intents[intent_name]['rules'].items():
+                intent=intents[intent_name]
+
+                for k, rule in intent['rules'].items():
                     print('✁', '-' * 25, k)
-                    data = {'lang': 'id', "sents": 'Gajah adalah hewan yang dilindungi.'}
-                    dynamic_rule(data, rule)
+                    for ex in intent['examples']:
+                        data = {'lang': lang, "sents": ex}
+                        dynamic_rule(data, rule, name=intent_name, graph=show_graph)
             else:
-                print(f'no such intent {intent_name}')
+                print(f'no such intent {intent_name}.')
 
 if __name__ == '__main__':
     import fire
