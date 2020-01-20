@@ -48,11 +48,13 @@ def load_mods():
     import json
     import glob
     import os
+    import sys
     from sagas.conf import resource_files, resource_path
     mod_files=[resource_path(f) for f in resource_files('mod_*.json')]
     # load custom rulesets
     if os.path.exists('./assets'):
         mod_files.extend(glob.glob('./assets/mod_*.json'))
+        sys.path.append(os.path.abspath('.'))
 
     lang_mods={}
     for mod_file in mod_files:

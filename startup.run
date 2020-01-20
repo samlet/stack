@@ -137,6 +137,13 @@ else
 		$python -m sagas.bots.action_broker
 		;;
 
+	"arabic")
+		target_dir="$HOME/jcloud/assets/langs/workspace/stanford-corenlp-full-2018-10-05"
+		cd $target_dir
+		echo "arabic use memory flag: -Xmx4g ..."
+		java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-arabic.properties -port 9005 -timeout 15000		
+		;;
+
 	"bert-multi")
 		# BERT-Base, Multilingual Cased (New, recommended): 104 languages, 12-layer, 768-hidden, 12-heads, 110M parameters
 		$bert_s -model_dir /pi/ai/bert/multi_cased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization

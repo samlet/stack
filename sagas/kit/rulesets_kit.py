@@ -2,6 +2,9 @@ import yaml
 import sagas.tracker_fn as tc
 
 class RulesetsKit(object):
+    def __init__(self):
+        pass
+
     def execute(self, rules_file, intent_name, test_sents=None, show_graph=True):
         """
         $ python -m sagas.kit.rulesets_kit execute ./assets/test_rules.yml 'describe_object'

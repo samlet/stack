@@ -34,6 +34,8 @@ class Context(object):
         # self.words = {x[0]: x[2] for x in domains}
         # Support repeated keys
         keys = {x[0] for x in domains}
+        self.indexes={x[0]:x[1] for x in domains}
+
         grp = lambda p, idx: [x[idx] for x in domains if x[0] == p]
         self.tokens = {x: grp(x, 2) for x in keys}
         self.words = {x: self.delim.join(grp(x, 2)) for x in keys}

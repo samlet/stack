@@ -12,6 +12,11 @@ def get_children(sent, word, rs, stem):
         rs.append((c.index, c.lemma if stem else c.text))
         get_children(sent, c, rs, stem)
 
+def get_children_index(sent, word):
+    rs = []
+    get_children(sent, word, rs, stem=False)
+    return [word.index]+[w[0] for w in rs]
+
 def get_children_list(sent, word, include_self=True, stem=False):
     rs = []
     get_children(sent, word, rs, stem)

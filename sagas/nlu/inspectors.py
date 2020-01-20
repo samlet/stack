@@ -201,13 +201,18 @@ class MatchInspector(Inspector):
         return f"ins_{self.name()}({self.match_method}: {self.target})"
 
 class PlainInspector(Inspector):
+    def __init__(self, arg):
+        self.arg=arg
+
     def name(self):
         return "plain"
 
     def run(self, key, ctx:Context):
-        result=False
-        print(key, ctx.stem_pieces(key))
-        return result
+        lemma = ctx.lemmas[key]
+        return False
+
+    def __str__(self):
+        return f"ins_{self.name()}({self.arg})"
 
 def query_entities_by_url(url, data):
     response = requests.post(url, json=data)
@@ -220,6 +225,13 @@ def query_entities(data):
     return query_entities_by_url(cf.ensure('ner'), data)
 
 class EntityInspector(Inspector):
+    """
+    >>> from sagas.nlu.inspectors import EntityInspector as entins
+    >>> # 匹配实体: I was born in Beijing.
+    >>> Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=entins('GPE')),
+    >>> # $ sr 'Я работаю в китае.'
+    >>> Patterns(domains, meta, 5).verb(nsubj=agency, obl=entins('location')),
+    """
     def __init__(self, dim):
         self.dim = dim
 

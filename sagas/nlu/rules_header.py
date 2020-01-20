@@ -21,5 +21,8 @@ from sagas.nlu.operators import ud
 # match-exprs
 from sagas.nlu.inspectors import MatchInspector as matchins, interr_root, interr
 
+# registry
+from sagas.nlu.inspector_registry import ci
+
 ## Only includes in jupyter or test-files
 

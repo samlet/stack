@@ -13,6 +13,13 @@ logger = logging.getLogger('inspector')
 default_projects={'de', 'en', 'fr', 'ru', 'es', 'zh', 'ja'}
 
 class RasaInspector(Inspector):
+    """
+    >>> from sagas.nlu.rules_header import *
+    >>> # $ sd 'Shenzhen ist das Silicon Valley für Hardware-Firmen'
+    >>> Patterns(domains, meta, 5).entire(intentof('tech', 0.6, True)),
+    >>> # $ sd 'Die Nutzung der Seite ist kostenlos.'
+    >>> Patterns(domains, meta, 5).aux('adj', nsubj=intentof('using', 0.6, False), cop='c_aux'),
+    """
     def __init__(self, intent:str, confidence:float, entire=False, contains_entity:list=None):
         self.intent = intent
         self.confidence=confidence
