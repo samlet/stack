@@ -58,6 +58,7 @@ def vis_domains_data(domain:Text, el):
 
 def vis_domains(sents, lang, domain=None, engine=None, all_subsents=False):
     """
+    >>> from sagas.kit.analysis_kit import vis_domains
     >>> sents='What do you think about the war?'
     >>> lang='en'
     >>> domain='subj_domains' # 'verb_domains', 'aux_domains'

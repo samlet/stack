@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.ruleset_procs import cached_chunks
 from sagas.conf.conf import cf
@@ -26,7 +27,7 @@ class CompsInspector(Inspector):
     def name(self):
         return "comps"
 
-    def run(self, key, ctx:Context):
+    def run(self, key:Text, ctx:Context):
         result=[]
         for k,v in self.checkers.items():
             logger.debug(f".. check {k}=={v}")
@@ -47,7 +48,7 @@ class PredictsInspector(Inspector):
     def name(self):
         return "predicts"
 
-    def run(self, key, ctx:Context):
+    def run(self, key:Text, ctx:Context) -> bool:
         from sagas.nlu.predicts import predicate
         from sagas.nlu.operators import ud
 

@@ -51,8 +51,8 @@ def load_mods():
     from sagas.conf import resource_files, resource_path
     mod_files=[resource_path(f) for f in resource_files('mod_*.json')]
     # load custom rulesets
-    if os.path.exists('./ruleset'):
-        mod_files.extend(glob.glob('./ruleset/mod_*.json'))
+    if os.path.exists('./assets'):
+        mod_files.extend(glob.glob('./assets/mod_*.json'))
 
     lang_mods={}
     for mod_file in mod_files:
@@ -77,7 +77,7 @@ class LangSpecs(object):
         # scan conf/mod_*.json
         self.lang_specs=load_mods()
 
-    def check_langspec(self, lang, meta, domains, type_name) -> Dict:
+    def check_langspec(self, lang:Text, meta:Dict[Text,Any], domains, type_name:Text) -> Dict[Text,Any]:
         # lang = data['lang']
         mod_rs={}
         if lang in self.lang_specs:

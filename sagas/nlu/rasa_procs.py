@@ -3,11 +3,11 @@ import requests
 import logging
 import json
 
-from cachetools import cached
+from cachetools import cached, TTLCache
 
 logger = logging.getLogger(__name__)
 
-@cached(cache={})
+@cached(cache=TTLCache(maxsize=1024, ttl=600))
 def invoke_nlu(endpoint:Text, project_name:Text, model_name:Text, text:Text):
     params = {
         "model": model_name,

@@ -39,7 +39,7 @@ class RasaInspector(Inspector):
         # proj=default_projects[lang]
         proj=lang
 
-        def proc(cnt):
+        def proc(cnt:Text) -> bool:
             succ=False
             logger.debug('query with rasa-nlu: %s', cnt)
             # print(('query with rasa-nlu: %s'%cnt))

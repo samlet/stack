@@ -1,4 +1,4 @@
-from typing import Text, Dict, List
+from typing import Text, Any, Dict, List
 
 class Chunk(object):
     def __init__(self, key, children):
@@ -77,13 +77,13 @@ class Context(object):
             return None
         return self.meta['intermedia'][key]
 
-    def get_chunks(self, key) -> List:
+    def get_chunks(self, key:Text) -> List:
         return [c for c in self._chunks if c.key==key]
 
-    def get_stems(self, key) -> List:
+    def get_stems(self, key:Text) -> List:
         return [c for c in self._stems if c[0]==key]
 
-    def chunk_contains(self, key, val):
+    def chunk_contains(self, key:Text, val):
         chunks = self.get_chunks(key)
         if isinstance(val, list):
             vals=val
@@ -107,7 +107,7 @@ class Context(object):
         chunks = self.get_chunks(key)
         return [self.delim.join(c.children).lower() if lowercase else self.delim.join(c.children) for c in chunks]
 
-    def stem_pieces(self, key) -> List:
+    def stem_pieces(self, key) -> List[Text]:
         stems = self.get_stems(key)
         if self.lang in non_spaces:
             delim=''
@@ -117,8 +117,7 @@ class Context(object):
 
 # enable_cache=False
 class Inspector(object):
-    def name(self):
-        # type: () -> Text
+    def name(self) -> Text:
         """Unique identifier of this simple inspector."""
 
         raise NotImplementedError("An inspector must implement a name")
@@ -127,7 +126,7 @@ class Inspector(object):
     def result(self):
         return None
 
-    def run(self, key, ctx:Context):
+    def run(self, key:Text, ctx:Context) -> bool:
         """
         仅用于继承, check方法会负责调用这个方法
         :param key:
@@ -139,7 +138,7 @@ class Inspector(object):
     def cache_key(self, key):
         return "%s.%s"%(self.name(), key)
 
-    def check(self, key, ctx:Context):
+    def check(self, key:Text, ctx:Context):
         """
         Api method
         :param key:

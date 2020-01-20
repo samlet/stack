@@ -116,6 +116,7 @@ class CorpusSearcher(object):
         :param text:
         :return:
         """
+        # 先按相似度查找到与给定内容近似的英文句子
         relevant_quotes, relevant_chapters = self.search(text, ['text', 'chapter'], top_result)
         summary_info=[]
         for q in range(top_result):
@@ -123,6 +124,7 @@ class CorpusSearcher(object):
             tc.emp('green', relevant_chapters[q])
 
             if langs is not None:
+                # 因为语料都是按英文作对照的, 所以直接按英文句子查找到其它语言的句子就可以了
                 # search_in_list('I write a letter.', ['ja', 'fa', 'id'])
                 results=search_in_list(relevant_quotes[q], langs)
                 if verbose:

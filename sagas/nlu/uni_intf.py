@@ -66,6 +66,10 @@ class WordIntf(abc.ABC):
         """ Access index of this word. """
         return self.ctx['index']
 
+    @property
+    def entity(self):
+        return self.ctx['entity'] if 'entity' in self.ctx else []
+
     def __repr__(self):
         features = ['index', 'text', 'lemma', 'upos', 'xpos',
                     'feats', 'governor', 'dependency_relation']

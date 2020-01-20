@@ -68,7 +68,7 @@ def verb_patterns(meta, domains):
           Patterns(domains, meta, 5).verb(nsubj=agency, obj=kindof('print_media/artifact', 'n')),
 
           # health theme _________
-          # $ ses '¿Te duelen las piernas?'
+          # $ ses '¿Te duelen las piernas?' (zh="你的腿受伤了吗？")
           Patterns(domains, meta, 5).verb(behaveof('suffer', 'v'), nsubj=kindof('body_part', 'n')),
           # $ sz "吸烟对你的健康有害。"
           Patterns(domains, meta, 5).verb(behaveof('consume', 'v'), cmp='c_adp'),
@@ -142,7 +142,8 @@ def aux_patterns(meta, domains):
           # Ben kimim?
           Patterns(domains, meta).aux('pron', 'noun', aux_q='c_aux'),
 
-          # 匹配继承链: Este juego es facilísimo. ([en] This game is very easy.)
+          # 匹配继承链:
+          # $ ses 'Este juego es facilísimo.' ([en] This game is very easy.)
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('activity', 'n')),
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('person', 'n')),
           Patterns(domains, meta, 2).aux('adj', nsubj=kindof('fruit', 'n')),
