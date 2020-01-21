@@ -45,6 +45,12 @@ class DateInspector(Inspector):
     """
     Testcases:
         $ ses 'Nosotros comíamos con la familia para Navidad.'
+
+    # $ se "what will be the weather in three days ?"
+    >>> Patterns(domains, meta, 5).cop(behaveof('weather/phenomenon', 'n'),
+                                         nsubj=agency, cop='c_aux',
+                                         nmod=dateins({'snips/date', 'snips/datetime'},
+                                                      provider='snips')),
     """
     def __init__(self, dims, provider='duckling'):
         if isinstance(dims, str):
@@ -109,6 +115,11 @@ class DateInspector(Inspector):
 
 
 class NegativeWordInspector(Inspector):
+    """
+    # Passive-Voice: Sie werden nicht berücksichtigt.
+          Patterns(domains, meta, 1).verb(nsubj_pass=agency, aux_pass='c_aux'),
+          Patterns(domains, meta, 2).verb(nsubj_pass=agency, aux_pass='c_aux', advmod=negative()),
+    """
     def name(self):
         return "ins_negative_word"
 
@@ -134,6 +145,24 @@ class NegativeWordInspector(Inspector):
         return False
 
 class InterrogativePronounInspector(Inspector):
+    """
+    # $ sid 'Apa yang lebih murah?'
+            pat(1).subj('adj', nsubj=agency, head_amod=interr('what')),
+    # $ sid 'Siapa orang terpenting di kantormu?'
+            # ┌−−−−−−┐  root   ┌−−−−−−−−┐  acl   ┌−−−−−−−−−−−−┐  nmod   ┌−−−−−−−−−−┐  case   ┌−−−−┐
+            # ╎ ROOT ╎ ──────▶ ╎ Siapa  ╎ ─────▶ ╎   orang    ╎ ──────▶ ╎ kantormu ╎ ──────▶ ╎ di ╎
+            # └−−−−−−┘         └−−−−−−−−┘        └−−−−−−−−−−−−┘         └−−−−−−−−−−┘         └−−−−┘
+            #                    │                 │
+            #                    │ punct           │ amod
+            #                    ▼                 ▼
+            #                  ┌−−−−−−−−┐        ┌−−−−−−−−−−−−┐
+            #                  ╎   ?    ╎        ╎ terpenting ╎
+            #                  └−−−−−−−−┘        └−−−−−−−−−−−−┘
+            pat(5, name='pred_people').root(interr_root('who'),
+                                            any_path('acl/amod', 'first', 'a'),
+                                            any_path('acl/nmod', 'organization', 'n'),
+                                            acl=kindof('people', 'n')),
+    """
     def __init__(self, cat, is_part=True):
         self.cat=cat
         self.is_part=is_part
@@ -160,6 +189,16 @@ interr_root=lambda cat: InterrogativePronounInspector(cat, is_part=False)
 interr=lambda cat: InterrogativePronounInspector(cat, is_part=True)
 
 class MatchInspector(Inspector):
+    """
+    # $ sid 'Apa tujuan mereka?' (ja="彼らの目的は何ですか？")
+    >>> pat(5).verb(matchins('apa'), acl=agency),
+    # $ sid 'Bau apa itu?' (en="What's that smell?", zh="那是什么味道？")
+    >>> pat(5).verb(behaveof('perception', 'n'), acl=matchins('apa')),
+    # $ sid 'Bagaimana tenggorokanmu?' (zh="喉咙怎么样？")
+    >>> pat(5).verb(behaveof('body_part', 'n'), amod=matchins({'bagaimana'}, 'in')),
+    # $ sid "Mengapa lehermu sakit?" (Why does your neck hurt?)
+    >>> pat(5).verb(behaveof('body_part', 'n'), advmod=matchins({'mengapa'}, 'in'), amod=kindof('ill', 'a')),
+    """
     def __init__(self, target, match_method='equals'):
         self.target=target
         self.match_method=match_method
@@ -201,6 +240,9 @@ class MatchInspector(Inspector):
         return f"ins_{self.name()}({self.match_method}: {self.target})"
 
 class PlainInspector(Inspector):
+    """
+    A plain inspector, as a template
+    """
     def __init__(self, arg):
         self.arg=arg
 
@@ -275,7 +317,7 @@ class Inspectors(InspectorFixture):
                   Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=DateInspector('time')),
                   Patterns(domains, meta, 2).verb(nsubj_pass=agency, obl=EntityInspector('GPE')),
                   Patterns(domains, meta, 5).verb(nsubj=agency, obl=EntityInspector('location')),
-                  Patterns(domains, meta, 2).verb(obl=PlainInspector()),
+                  Patterns(domains, meta, 2).verb(obl=PlainInspector('_')),
                   ]
             print_result(rs)
 

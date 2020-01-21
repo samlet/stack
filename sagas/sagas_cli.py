@@ -4,6 +4,12 @@ class SagasCli(object):
         print(f"sagas version: {__version__}")
 
     def vis(self, sents, lang='en'):
+        """
+        $ sagas vis 'i am a student'
+        :param sents:
+        :param lang:
+        :return:
+        """
         from sagas.kit.analysis_kit import AnalysisKit
         AnalysisKit().console_vis(sents, lang)
 
@@ -17,6 +23,8 @@ class SagasCli(object):
         :return:
         """
         from sagas.kit.rulesets_kit import RulesetsKit
+        from sagas.nlu.inspector_registry import ci
+
         RulesetsKit().execute(f"./assets/rs_common_{lang}.yml",
                               intent_name=intent,
                               test_sents=sents,

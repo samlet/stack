@@ -193,7 +193,8 @@ def rs_represent(rs, data, return_df=False):
 
     return result, df_set
 
-target_lang=lambda s: 'zh' if s=='en' else 'en'
+# target_lang=lambda s: 'zh' if s=='en' else 'en'
+target_lang=lambda s: cf.optional('assist_lang', 'zh') if s=='en' else 'en'
 def translit_chunk(chunk, lang):
     from sagas.nlu.transliterations import translits
     # if lang in ('ko', 'ja', 'fa', 'hi', 'ar'):

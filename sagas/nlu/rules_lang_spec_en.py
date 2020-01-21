@@ -18,6 +18,8 @@ class Rules_en(LangSpecBase):
         self.collect(pats=[
             # $ se 'I want to play music.'
             pat(5, name='behave_media').verb(pred_any_path('xcomp/obj','sound/perception', 'n')),
+            # $ se 'I want to watch a movie'
+            pat(5, name='behave_willing_ev').verb(behaveof('want', 'v'), pred_any_path('xcomp/obj','social_event', 'n')),
             ])
 
     def aux_rules(self):

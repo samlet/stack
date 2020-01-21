@@ -77,6 +77,9 @@ class TransClipConf(object):
             return self.conf[item]
         raise ValueError("Cannot find item value: " + item)
 
+    def optional(self, item, defval):
+        return self.conf[item] if item in self.conf else defval
+
     def validate(self):
         """
         $ python -m sagas.conf.conf validate

@@ -10,6 +10,7 @@ from sagas.nlu.corenlp_parser import get_chunks
 from sagas.nlu.rules_meta import build_meta
 
 from pprint import pprint
+from sagas.nlu.inspector_registry import ci  # must be included
 
 enable_jupyter_tracker()
 cf.enable_opt('print_not_matched')
@@ -36,6 +37,7 @@ def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False, operat
     """
     import sagas.tracker_fn as tc
     from sagas.kit.analysis_kit import AnalysisKit
+
     # ft=InspectorFixture()
     # domains, meta=ft.request_domains(data, engine=engine)
     if engine is None:

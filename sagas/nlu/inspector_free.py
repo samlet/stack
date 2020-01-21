@@ -20,6 +20,10 @@ checker_mappings={
     'noun_desc':is_noun_desc,
 }
 class CompsInspector(Inspector):
+    """
+    # $ sid 'Tidak banyak pohon di gurun.'
+    >>> pat(5, name='noun_desc').root(comps(noun_desc=True)),
+    """
     def __init__(self, domain, **kwargs):
         self.domain=domain if domain.endswith('_domains') else domain+'_domains'
         self.checkers=kwargs
@@ -41,6 +45,11 @@ class CompsInspector(Inspector):
 comps=lambda **kwargs: CompsInspector('root', **kwargs)
 
 class PredictsInspector(Inspector):
+    """
+    # $ se 'what will be the weather in three days?'
+    >>> pat(5, name='query_weather').root(predict_aux(
+                ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')])),
+    """
     def __init__(self, domain, checker):
         self.domain=domain if domain.endswith('_domains') else domain+'_domains'
         self.checker=checker
