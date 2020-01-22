@@ -46,7 +46,7 @@ class Context(object):
         self._results=[]
 
     @property
-    def results(self) -> List:
+    def results(self) -> List[Dict[Text, Any]]:
         return self._results
 
     def add_result(self, inspector:Text, provider:Text, part_name:Text, val, delivery_type='slot'):

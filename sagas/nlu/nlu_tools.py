@@ -250,9 +250,9 @@ class NluTools(object):
         :param rule:
         :return:
         """
-        from sagas.tool.dynamic_rules import dynamic_rule
+        from sagas.tool.dynamic_rules import DynamicRules
         data = {'lang': lang, "sents": sents}
-        dynamic_rule(data, rule, engine=engine or cf.engine(lang))
+        DynamicRules().predict(data, rule, engine=engine or cf.engine(lang))
 
 if __name__ == '__main__':
     import fire

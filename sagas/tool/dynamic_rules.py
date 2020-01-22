@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from cachetools import cached
 
 from sagas.conf.conf import cf
@@ -23,51 +24,59 @@ def hot_code(rule_code):
 def interp(rule_code, domains, meta):
     return eval(hot_code(rule_code))
 
-def dynamic_rule(data, rule_str, name='_none_', engine=None, graph=False, operator=all):
-    """
-    >>> from sagas.tool.dynamic_rules import dynamic_rule
-    >>> data = {'lang': 'ja', "sents": '彼のパソコンは便利じゃない。'}
-    >>> dynamic_rule(data, "subj('adj',ガ=kindof('artifact', 'n'))", engine='knp')
+class DynamicRules(object):
+    def __init__(self):
+        self.result_set=[]
 
-    :param data:
-    :param rule_str:
-    :param name:
-    :param engine:
-    :return:
-    """
-    import sagas.tracker_fn as tc
-    from sagas.kit.analysis_kit import AnalysisKit
+    def predict(self, data:Dict[Text, Any], rule_str:Text, name='_none_', engine=None,
+                     graph=False, operator=all) -> bool:
+        """
+        >>> from sagas.tool.dynamic_rules import DynamicRules
+        >>> data = {'lang': 'ja', "sents": '彼のパソコンは便利じゃない。'}
+        >>> DynamicRules().predict(data, "subj('adj',ガ=kindof('artifact', 'n'))", engine='knp')
 
-    # ft=InspectorFixture()
-    # domains, meta=ft.request_domains(data, engine=engine)
-    if engine is None:
-        engine = cf.engine(data['lang'])
-    pipelines = ['predicts']
+        :param data:
+        :param rule_str:
+        :param name:
+        :param engine:
+        :return:
+        """
+        import sagas.tracker_fn as tc
+        from sagas.kit.analysis_kit import AnalysisKit
 
-    tc.emp('magenta', f"({data['lang']}) {data['sents']}")
-    doc_jsonify, resp = dep_parse(data['sents'], data['lang'], engine, pipelines)
-    if doc_jsonify is not None:
-        if len(resp['predicts']) > 0:
-            domains_set = resp['predicts']
-        else:
-            domains_set = get_chunks(doc_jsonify)
+        # ft=InspectorFixture()
+        # domains, meta=ft.request_domains(data, engine=engine)
+        if engine is None:
+            engine = cf.engine(data['lang'])
+        pipelines = ['predicts']
 
-        if graph:
-            AnalysisKit().console_vis(data['sents'], data['lang'])
+        tc.emp('magenta', f"({data['lang']}) {data['sents']}")
+        doc_jsonify, resp = dep_parse(data['sents'], data['lang'], engine, pipelines)
+        if doc_jsonify is not None:
+            if len(resp['predicts']) > 0:
+                domains_set = resp['predicts']
+            else:
+                domains_set = get_chunks(doc_jsonify)
 
-        check_r=[]
-        for r in domains_set:
-            domains = r['domains']
-            meta = build_meta(r, data)
-            print(r['type'], meta['word'], meta['lemma'], list(meta.keys()))
+            if graph:
+                AnalysisKit().console_vis(data['sents'], data['lang'])
 
-            pprint(domains)
-            agency = ['c_pron', 'c_noun']
-            rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",
-                        domains, meta)
-            print_result(rs)
-            check_r.append(operator([r[1] for r in rs]))
+            check_r=[]
+            for r in domains_set:
+                domains = r['domains']
+                meta = build_meta(r, data)
+                print(r['type'], meta['word'], meta['lemma'], list(meta.keys()))
 
-        return operator(check_r)
+                pprint(domains)
+                agency = ['c_pron', 'c_noun']
+                rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",
+                            domains, meta)
+                print_result(rs)
+                results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
+                self.result_set.extend(results)
 
-    return False
+                check_r.append(operator([r[1] for r in rs]))
+
+            return operator(check_r)
+
+        return False

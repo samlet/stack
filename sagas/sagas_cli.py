@@ -1,3 +1,5 @@
+from pprint import pprint
+
 class SagasCli(object):
     def version(self):
         from sagas.version import __version__
@@ -16,6 +18,8 @@ class SagasCli(object):
     def ruleset(self, sents, intent, lang='en', graph=False):
         """
         $ sagas ruleset 'Dia datang ke Shanghai untuk menjumpai adiknya.' purpose id True
+        $ sagas ruleset 'how about french food?' food en True
+
         :param sents:
         :param intent:
         :param lang:
@@ -25,14 +29,16 @@ class SagasCli(object):
         from sagas.kit.rulesets_kit import RulesetsKit
         from sagas.nlu.inspector_registry import ci
 
-        RulesetsKit().execute(f"./assets/rs_common_{lang}.yml",
+        rs=RulesetsKit().execute(f"./assets/rs_common_{lang}.yml",
                               intent_name=intent,
                               test_sents=sents,
                               show_graph=graph)
+        pprint(rs)
 
     def examples(self, intent, lang='en', graph=False):
         """
         $ sagas examples perception id
+
         :param intent:
         :param lang:
         :param graph:
