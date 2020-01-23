@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List
+from typing import Text, Any, Dict, List, Union
 from sagas.nlu.inspector_common import Inspector, Context
 import sagas.tracker_fn as tc
 import logging
@@ -64,7 +64,7 @@ class Patterns(object):
         options.append('{} is {}: {}'.format('pos', args, opt_ret))
         return result
 
-    def execute_args(self, args, ctx:Context, options, meta_key:Text):
+    def execute_args(self, args, ctx:Context, options, meta_key:Union[Text, List[Text]]):
         result=True
         for arg in args:
             if isinstance(arg, Inspector):

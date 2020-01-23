@@ -60,6 +60,17 @@ class SpeechProcs(object):
             target = f"./out/{k}.dat"
             AudioSegment.from_file(target).export(f"./out/{k}.mp3", format="mp3")
 
+    def speech(self, voice_name, sents):
+        """
+        $ python -m sagas.speech.speech_procs speech Tom 'you are a good man'
+        :param voice_name:
+        :param sents:
+        :return:
+        """
+        self.set_voicekind(voice_name)
+        self.engine.say(sents)
+        self.engine.runAndWait()
+
 if __name__ == '__main__':
     import fire
     fire.Fire(SpeechProcs)

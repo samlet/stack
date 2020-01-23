@@ -63,6 +63,7 @@ alias say-ko='python -m sagas.nlu.nlu_tools say_with ko'
 alias say-ar='python -m sagas.nlu.nlu_tools say_with ar'
 alias say-hi='python -m sagas.nlu.nlu_tools say_with hi'
 alias say-id='python -m sagas.nlu.nlu_tools say_with id'
+alias speech='python -m sagas.speech.speech_procs speech'
 
 alias about='python -m sagas.ru.ru_procs about'
 # alias build-ru='python -m sagas.ru.ru_procs build_words_map'
