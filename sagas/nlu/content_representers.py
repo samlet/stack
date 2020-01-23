@@ -8,18 +8,22 @@ def repr_duckling_body(data, iot=None):
     from dateutil.parser import parse
     try:
         for item in data:
+            dim = item['dim']
             val = item['value']
             item_type = val['type']
-            if item_type == 'value':
-                grain=val['grain'] if 'grain' in val else val['unit']
-                grain_val=val['value']
-                print(item['body'], '=', grain,
-                      parse(grain_val) if isinstance(grain_val, str) else grain_val,
-                      file=iot)
-            elif item_type == 'interval':
-                print(val['from'], '-', val['to'], file=iot)
+            if dim=='number':
+                print(f"{item_type}: {val['value']}")
             else:
-                print(f'unknown item type {item_type}', file=iot)
+                if item_type == 'value':
+                    grain=val['grain'] if 'grain' in val else val['unit']
+                    grain_val=val['value']
+                    print(item['body'], '=', grain,
+                          parse(grain_val) if isinstance(grain_val, str) else grain_val,
+                          file=iot)
+                elif item_type == 'interval':
+                    print(val['from'], '-', val['to'], file=iot)
+                else:
+                    print(f'unknown item type {item_type}', file=iot)
     except Exception as e:
         logger.error(
             "Failed to parse text '{}'. "
@@ -61,6 +65,7 @@ class ContentRepresenter(object):
         $ python -m sagas.nlu.content_representers extract_duckling_dt '上个星期编辑'
         $ python -m sagas.nlu.content_representers extract_duckling_dt '周五下午7点到8点'
         $ python -m sagas.nlu.content_representers extract_duckling_dt '金曜日の午後7時から午後8時' ja
+        $ python -m sagas.nlu.content_representers extract_duckling_dt 'fifty damage' en
         $ ses 'Nosotros comíamos con la familia para Navidad.'  # 以content_represent方式显示inspector返回的日期数据
 
         :param text:

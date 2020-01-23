@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.inspector_common import Inspector, Context
 import sagas.tracker_fn as tc
 import logging
@@ -63,14 +64,14 @@ class Patterns(object):
         options.append('{} is {}: {}'.format('pos', args, opt_ret))
         return result
 
-    def execute_args(self, args, ctx:Context, options, meta_key):
+    def execute_args(self, args, ctx:Context, options, meta_key:Text):
         result=True
         for arg in args:
             if isinstance(arg, Inspector):
                 if isinstance(meta_key, list):
                     key_val='/'.join([ctx.meta[k] for k in meta_key])
                 else:
-                    key_val=ctx.meta[meta_key]
+                    key_val=ctx.meta[meta_key] if meta_key in ctx.meta else ''
                 opt_ret = arg.check(key_val, ctx)
                 if not opt_ret:
                     result = False
@@ -91,7 +92,7 @@ class Patterns(object):
         return self.execute_args(args, ctx, options, ['word', 'lemma'])
 
     def execute_args_head(self, args, ctx:Context, options):
-        return self.execute_args(args, ctx, options, 'head')
+        return self.execute_args(args, ctx, options=options, meta_key='head')
 
     def execute_args_entire(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'sents')

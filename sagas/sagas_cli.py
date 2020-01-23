@@ -30,7 +30,7 @@ class SagasCli(object):
         from sagas.nlu.inspector_registry import ci
 
         rs=RulesetsKit().execute(f"./assets/rs_common_{lang}.yml",
-                              intent_name=intent,
+                              test_intent=intent,
                               test_sents=sents,
                               show_graph=graph)
         pprint(rs)
