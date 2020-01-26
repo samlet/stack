@@ -1,4 +1,4 @@
-from typing import Text, Dict
+from typing import Text, Dict, List
 
 from sagas.nlu.uni_intf import SentenceIntf
 from sagas.nlu.uni_jsonifier import JsonifySentImpl
@@ -11,7 +11,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceIntf, dict):
+def dep_parse(sents:Text, lang:Text='en', engine='corenlp', pipelines:List[Text]=None)-> (SentenceIntf, Dict):
     if pipelines is None:
         pipelines = []
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}
@@ -30,7 +30,7 @@ def dep_parse(sents, lang='en', engine='corenlp', pipelines=None)-> (SentenceInt
         return None, None
 
     # print('.......')
-    doc_jsonify = JsonifySentImpl(words)
+    doc_jsonify = JsonifySentImpl(words, text=sents)
     if len(pipelines)>0:
         result_set={p:result[p] for p in pipelines}
         return doc_jsonify, result_set

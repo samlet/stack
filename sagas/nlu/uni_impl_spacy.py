@@ -40,4 +40,4 @@ class SpacyParserImpl(object):
     def __call__(self, sents):
         from sagas.nlu.spacy_helper import spacy_doc
         doc = spacy_doc(sents, self.lang)
-        return SpacySentImpl(doc)
+        return SpacySentImpl(doc, text=sents)

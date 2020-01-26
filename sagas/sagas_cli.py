@@ -19,6 +19,7 @@ class SagasCli(object):
         """
         $ sagas ruleset 'Dia datang ke Shanghai untuk menjumpai adiknya.' purpose id True
         $ sagas ruleset 'how about french food?' food en True
+        $ extractor=rasa sagas ruleset 'how about french food?' food en True
 
         :param sents:
         :param intent:
@@ -29,11 +30,13 @@ class SagasCli(object):
         from sagas.kit.rulesets_kit import RulesetsKit
         from sagas.nlu.inspector_registry import ci
 
-        rs=RulesetsKit().execute(f"./assets/rs_common_{lang}.yml",
+        kit=RulesetsKit()
+        rs=kit.execute(f"./assets/rs_common_{lang}.yml",
                               test_intent=intent,
                               test_sents=sents,
                               show_graph=graph)
         pprint(rs)
+        print('.. matched intents', kit.intent_matched)
 
     def examples(self, intent, lang='en', graph=False):
         """

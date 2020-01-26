@@ -77,5 +77,5 @@ class HanlpParserImpl(object):
         import nlpserv_pb2_grpc
 
         doc = nlp_procs(sents, lambda stub, s: stub.ParseDependency(nlpserv_pb2.NlParseRequest(text=s)))
-        return HanlpSentImpl(doc)
+        return HanlpSentImpl(doc, text=sents)
 

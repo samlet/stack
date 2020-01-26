@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 
 class KnpWordImpl(WordIntf):
@@ -31,9 +32,9 @@ class KnpWordImpl(WordIntf):
 
 
 class KnpSentImpl(SentenceIntf):
-    def __init__(self, sent, predicts, dep_sets):
+    def __init__(self, sent:Any, text:Text, predicts, dep_sets):
         self.dep_sets = dep_sets
-        super(KnpSentImpl, self).__init__(sent, predicts)
+        super(KnpSentImpl, self).__init__(sent, text, predicts)
 
     def setup(self, sent):
         words = []
@@ -56,5 +57,5 @@ class KnpParserImpl(object):
         from sagas.ja.knp_helper import extract_predicates
         result = kh.knp.parse(sents)
         dep_sets, predict_keys, predicts, predict_tuples = extract_predicates(result, verbose=False)
-        return KnpSentImpl(result, predicts=predict_tuples, dep_sets=dep_sets)
+        return KnpSentImpl(result, text=sents, predicts=predict_tuples, dep_sets=dep_sets)
 

@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 
 upos_maps={'JJ':'ADJ', 'RP':'ADP', 'RB':'ADV',
@@ -75,7 +76,7 @@ class SfParserImpl(object):
     def __init__(self, lang):
         self.lang = lang
 
-    def __call__(self, sents):
+    def __call__(self, sents:Text):
         doc = extract_words(sents, self.lang)
-        return SfSentImpl(doc)
+        return SfSentImpl(doc, text=sents)
 

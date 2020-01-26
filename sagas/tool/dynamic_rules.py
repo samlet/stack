@@ -2,6 +2,7 @@ from typing import Text, Any, Dict, List
 from cachetools import cached
 
 from sagas.conf.conf import cf
+from sagas.nlu.uni_intf import SentenceIntf
 from sagas.tracker_jupyter import enable_jupyter_tracker
 from sagas.nlu.rules_header import *  # must be included
 # from sagas.nlu.inspectors import InspectorFixture
@@ -27,6 +28,7 @@ def interp(rule_code, domains, meta):
 class DynamicRules(object):
     def __init__(self):
         self.result_set=[]
+        self.rasa_ents=[]
 
     def predict(self, data:Dict[Text, Any], rule_str:Text, name='_none_', engine=None,
                      graph=False, operator=all) -> bool:
@@ -65,8 +67,8 @@ class DynamicRules(object):
             for r in domains_set:
                 domains = r['domains']
                 meta = build_meta(r, data)
-                print(r['type'], meta['word'], meta['lemma'], list(meta.keys()))
-
+                print(r['type'], meta['index'], meta['word'], meta['lemma'], list(meta.keys()))
+                position=doc_jsonify.get_position(meta['index'])
                 pprint(domains)
                 agency = ['c_pron', 'c_noun']
                 rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",
@@ -74,6 +76,15 @@ class DynamicRules(object):
                 print_result(rs)
                 results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
                 self.result_set.extend(results)
+                self.rasa_ents.append({
+                    'confidence': None,
+                    'start': position[0],
+                    'end': position[1],
+                    'entity': r['type'],
+                    'extractor': 'ruleset',
+                    'value': f"{meta['word']}/{meta['lemma']}",
+                    'additional_info': results,
+                })
 
                 check_r.append(operator([r[1] for r in rs]))
 

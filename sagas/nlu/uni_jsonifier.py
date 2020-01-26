@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.uni_cli import UniCli
 from sagas.nlu.corenlp_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks
@@ -58,7 +59,7 @@ def jsonify_pipelines(sents, lang, engine, pipelines):
             'predicts': doc.predicts}
 
 class UniJsonifier(object):
-    def viz_sample(self, lang, sents, engine='corenlp'):
+    def viz_sample(self, lang:Text, sents:Text, engine='corenlp'):
         """
         $ python -m sagas.nlu.uni_jsonifier viz_sample ja "今何時ですか?"
         >>> viz_sample('ja', "今何時ですか?")
@@ -72,7 +73,7 @@ class UniJsonifier(object):
         # print(len(doc.words))
         words = sent_jsonify(doc)
 
-        doc_jsonify = JsonifySentImpl(words)
+        doc_jsonify = JsonifySentImpl(words, text=sents)
         rs = get_chunks(doc_jsonify)
         rs_summary(rs)
 

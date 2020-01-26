@@ -28,4 +28,4 @@ class CoreNlpParserImpl(object):
         from sagas.nlu.corenlp_helper import get_nlp
         nlp = get_nlp(self.lang)
         doc = nlp(sents)
-        return CoreNlpSentImpl(doc.sentences[0])
+        return CoreNlpSentImpl(doc.sentences[0], text=sents)

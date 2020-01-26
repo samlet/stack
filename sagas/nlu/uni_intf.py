@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 import abc
 import io
 
@@ -85,16 +86,32 @@ class RootWordImpl(WordIntf):
         return features
 
 class SentenceIntf(abc.ABC):
-    def __init__(self, sent, predicts=None):
+    def __init__(self, sent:Any, text:Text, predicts=None):
         if predicts is None:
             predicts=[]
         self.predicts=predicts
         self._words, self._dependencies = self.setup(sent)
         if self._dependencies is None or len(self._dependencies)==0:
             self.build_dependencies()
-        # print('.......')
 
-    def has_predicts(self):
+        self.sents=text
+        self.set_word_positions(text)
+
+    def set_word_positions(self, text:Text):
+        running_offset = 0
+        self.pos_map = {}
+        for token in self._words:
+            word = token.text
+            word_offset = text.find(word, running_offset)
+            if word_offset > -1:
+                word_len = len(word)
+                running_offset = word_offset + word_len
+                self.pos_map[token.index] = (word_offset, running_offset)
+
+    def get_position(self, word_idx:Text):
+        return self.pos_map[word_idx]
+
+    def has_predicts(self) -> bool:
         return self.predicts is not None and len(self.predicts)>0
 
     @abc.abstractmethod
@@ -125,7 +142,7 @@ class SentenceIntf(abc.ABC):
         for word in self.words:
             print(word, file=file)
 
-    def words_string(self):
+    def words_string(self) -> Text:
         wrds_string = io.StringIO()
         self.print_words(file=wrds_string)
         return wrds_string.getvalue().strip()
@@ -134,7 +151,7 @@ class SentenceIntf(abc.ABC):
         for dep_edge in self.dependencies:
             print((dep_edge[2].text, dep_edge[0].index, dep_edge[1]), file=file)
 
-    def dependencies_string(self):
+    def dependencies_string(self) -> Text:
         dep_string = io.StringIO()
         self.print_dependencies(file=dep_string)
         return dep_string.getvalue().strip()

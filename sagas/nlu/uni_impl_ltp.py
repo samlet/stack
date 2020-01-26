@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 
 upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
@@ -50,8 +51,8 @@ class LtpWordImpl(WordIntf):
 
 
 class LtpSentImpl(SentenceIntf):
-    def __init__(self, sent, predicts=None):
-        super().__init__(sent, predicts)
+    def __init__(self, sent, text, predicts=None):
+        super().__init__(sent, text, predicts)
 
     def setup(self, sent):
         words = []
@@ -75,7 +76,7 @@ class LtpParserImpl(object):
     def __init__(self, lang='zh-CN'):
         self.lang = lang
 
-    def __call__(self, sentence):
+    def __call__(self, sentence:Text):
         from sagas.zh.ltp_procs import LtpProcs, ltp
         from sagas.zh.ltp_procs import extract_predicates
 
@@ -100,5 +101,5 @@ class LtpParserImpl(object):
 
         predicts, predict_tuples=extract_predicates(words, roles, postags, arcs)
         # return LtpSentImpl(doc, predicts=predicts)
-        return LtpSentImpl(doc, predicts=predict_tuples)
+        return LtpSentImpl(doc, text=sentence, predicts=predict_tuples)
 

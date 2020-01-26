@@ -8,7 +8,7 @@ meta_pickups={
 
 def build_meta(r, data):
     type_name = r['type']
-    common = {'lemma': r['lemma'], 'word': r['word'],
+    common = {'lemma': r['lemma'], 'word': r['word'], 'index': r['index'],
               'stems': r['stems']}
 
     if type_name in meta_pickups:
