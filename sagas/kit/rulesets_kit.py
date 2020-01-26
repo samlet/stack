@@ -58,6 +58,7 @@ class RulesetsKit(object):
                             tc.emp('blue', f"¤{intent_name}¤ result: {result}")
                             resultset.append({'intent': intent_name,
                                               'result': result,
+                                              'priority': max(dr.priority_list),
                                               'data': self.extract_result(dr)})
                             cur_tests.append(result)
 

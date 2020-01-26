@@ -29,6 +29,7 @@ class DynamicRules(object):
     def __init__(self):
         self.result_set=[]
         self.rasa_ents=[]
+        self.priority_list=[]
 
     def predict(self, data:Dict[Text, Any], rule_str:Text, name='_none_', engine=None,
                      graph=False, operator=all) -> bool:
@@ -75,6 +76,8 @@ class DynamicRules(object):
                             domains, meta)
                 print_result(rs)
                 results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
+                priority = max([r[2] for r in rs if r[1]])
+                self.priority_list.append(priority)
                 self.result_set.extend(results)
                 self.rasa_ents.append({
                     'confidence': None,
