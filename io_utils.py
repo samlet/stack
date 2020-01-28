@@ -117,6 +117,22 @@ def list_with_suffix(dir, suffix):
                 rs.append(os.path.join(root, file))
     return rs
 
+def list_match(dir, pat):
+    """
+    >>> io_utils.list_match('.', 'mod_*.json')
+    :param dir:
+    :param pat:
+    :return:
+    """
+    import os
+    from fnmatch import fnmatch
+    rs=[]
+    for root, dirs, files in os.walk(dir):
+        for file in files:
+            if fnmatch(file, pat):
+                rs.append(os.path.join(root, file))
+    return rs
+
 def list_files_with_basename(dir_pattern):
     import glob
     import ntpath
@@ -125,3 +141,4 @@ def list_files_with_basename(dir_pattern):
     for f in files:
         bases.append(ntpath.basename(f))
     return bases
+

@@ -26,10 +26,12 @@ def interp(rule_code, domains, meta):
     return eval(hot_code(rule_code))
 
 class DynamicRules(object):
-    def __init__(self):
+    def __init__(self, rule_key='r5'):
         self.result_set=[]
         self.rasa_ents=[]
         self.priority_list=[]
+        self.rule_key=rule_key
+        self.priority=int(rule_key[-1])
 
     def predict(self, data:Dict[Text, Any], rule_str:Text, name='_none_', engine=None,
                      graph=False, operator=all) -> bool:
@@ -72,11 +74,12 @@ class DynamicRules(object):
                 position=doc_jsonify.get_position(meta['index'])
                 pprint(domains)
                 agency = ['c_pron', 'c_noun']
-                rs = interp(f"[Patterns(domains, meta, 5, name='{name}').{rule_str}]",
+                rs = interp(f"[Patterns(domains, meta, {self.priority}, name='{name}').{rule_str}]",
                             domains, meta)
                 print_result(rs)
                 results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
-                priority = max([r[2] for r in rs if r[1]])
+                succ=[r[2] for r in rs if r[1]]
+                priority = max(succ) if len(succ)>0 else 0
                 self.priority_list.append(priority)
                 self.result_set.extend(results)
                 self.rasa_ents.append({
