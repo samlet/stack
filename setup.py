@@ -21,6 +21,7 @@ REQUIRED = [
     "graphene-sqlalchemy>=2.0",
     "py4j",
     'durable_rules',
+    'OdooRPC',
 ]
 
 setuptools.setup(

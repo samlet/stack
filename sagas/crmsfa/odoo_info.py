@@ -115,7 +115,7 @@ class OdooInfo(object):
         $ start odoo_info
         $ python -m sagas.crmsfa.odoo_info show-models
         $ python -m sagas.crmsfa.odoo_info show-models zh_CN
-        $ python -m sagas.crmsfa.odoo_info show-models fr_FR
+        $ python -m sagas.crmsfa.odoo_info show-models fr_FR  # 使用法语的数据模型名称
         :return:
         """
         # odoo.env.context['lang'] = 'fr_FR'
@@ -125,9 +125,10 @@ class OdooInfo(object):
     ## odoo_info "res.country"
     def desc_model(self, model, lang="zh_CN"):
         """
+        显示数据模型的字段信息:
         $ start show res.partner
-        $ python -m sagas.crmsfa.odoo_info desc-model res.partner
-        $ python -m sagas.crmsfa.odoo_info desc-model crm.lead
+        $ python -m sagas.crmsfa.odoo_info desc-model res.partner   # 合作伙伴
+        $ python -m sagas.crmsfa.odoo_info desc-model crm.lead      # 潜在客户
         $ python -m sagas.crmsfa.odoo_info desc-model res.country
         $ python -m sagas.crmsfa.odoo_info desc-model res.lang
         :param model:
@@ -148,9 +149,10 @@ class OdooInfo(object):
 
     def all_products(self, lang='fr_FR', show_df=False):
         """
+        显示所有产品的记录
         $ python -m sagas.crmsfa.odoo_info all_products
         $ python -m sagas.crmsfa.odoo_info all_products zh_CN True
-        $ python -m sagas.crmsfa.odoo_info all_products ru_RU
+        $ python -m sagas.crmsfa.odoo_info all_products ru_RU  # 可以指定语言, 比如俄语
         $ open http://localhost:8069/web#action=283&model=product.template&view_type=kanban&menu_id=168
 
         :param lang:

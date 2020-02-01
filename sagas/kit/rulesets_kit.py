@@ -13,7 +13,7 @@ class RulesetsKit(object):
     def extract_result(self, dr:DynamicRules):
         return dr.rasa_ents if self.extractor=='rasa' else dr.result_set
 
-    def execute(self, rules_files: Union[Text, List[Text]],
+    def execute(self, rules_files:Union[Text, List[Text]],
                 test_intent:Text=None, test_sents:Text=None,
                 show_graph:bool=True) -> List[Dict[Text, Any]]:
         """
