@@ -36,6 +36,22 @@ class Rules_en(LangSpecBase):
             pat(5, name='avatar_dead').cop(behaveof('dead', 'a'), nsubj=agency, cop='c_aux'),
         ])
 
+    def root_rules(self):
+        pat, actions_obj = (self.pat, self.actions_obj)
+        self.collect(pats=[
+            # Recognizes dates and times described in many ways:
+            #   today at 5pm
+            #   2014-10-01
+            #   the last Tuesday of October 2012
+            #   twenty five minutes ago
+            #   the day before labor day 2020
+            #   June 10-11 (interval)
+            #   third monday after christmas 1980
+            #
+            # $ se 'the last Tuesday of October 2012'
+            pat(2, name='datetime').entire(dateins('time', entire=True))
+        ])
+
     def execute(self):
         if len(self.matched)>0:
             matched_info={k:len(v.results) for k,v in self.matched.items()}

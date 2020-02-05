@@ -52,7 +52,7 @@ class DateInspector(Inspector):
                                          nmod=dateins({'snips/date', 'snips/datetime'},
                                                       provider='snips')),
     """
-    def __init__(self, dims, provider='duckling'):
+    def __init__(self, dims, provider='duckling', entire=False):
         if isinstance(dims, str):
             self.dims = {dims}
         else:
@@ -63,6 +63,7 @@ class DateInspector(Inspector):
                         'snips': self.snips_provider,
                         }
         self.parsers={}
+        self.entire=entire
 
     def name(self):
         return "ins_date"
@@ -107,8 +108,11 @@ class DateInspector(Inspector):
         # cnt = ' '.join(ctx.chunks['obl'])
         # cnt = ' '.join(ctx.chunks[key])
 
-        for cnt in ctx.chunk_pieces(key):
-            checkers.append(self.providers[self.provider](cnt, lang, ctx, key))
+        if self.entire:
+            checkers.append(self.providers[self.provider](key, lang, ctx, 'sents'))
+        else:
+            for cnt in ctx.chunk_pieces(key):
+                checkers.append(self.providers[self.provider](cnt, lang, ctx, key))
         # print('... put %s'%self.cache_key(key))
         # print(ctx.meta['intermedia'])
         return any(checkers)
