@@ -5,6 +5,12 @@ import traceback
 logger = logging.getLogger(__name__)
 
 def repr_duckling_body(data, iot=None):
+    """
+    对于duckling的分析结果的解读可以参考这个函数来进行
+    :param data:
+    :param iot:
+    :return:
+    """
     from dateutil.parser import parse
     try:
         for item in data:
@@ -62,6 +68,7 @@ class ContentRepresenter(object):
         self.parsers={}
     def extract_duckling_dt(self, text, lang='zh', verobse=False):
         """
+        将duckling的的解析结果以可读形式表示出来:
         $ python -m sagas.nlu.content_representers extract_duckling_dt '上个星期编辑'
         $ python -m sagas.nlu.content_representers extract_duckling_dt '周五下午7点到8点'
         $ python -m sagas.nlu.content_representers extract_duckling_dt '金曜日の午後7時から午後8時' ja

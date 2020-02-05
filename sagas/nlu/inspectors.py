@@ -69,6 +69,18 @@ class DateInspector(Inspector):
         return "ins_date"
 
     def duckling_provider(self, cnt, lang, ctx, key):
+        """
+        Duckling is “almost” a Probabilistic Context Free Grammar.
+        But not exactly! It tries to be more flexible and easier to configure than
+        a formal PCFG.
+        see also: ⊕ [Duckling](https://duckling.wit.ai/)
+
+        :param cnt:
+        :param lang:
+        :param ctx:
+        :param key:
+        :return:
+        """
         result = False
         logger.debug('query with duckling: %s', cnt)
         resp = query_duckling(cnt, lang)
@@ -79,6 +91,7 @@ class DateInspector(Inspector):
             # if self.dim in dims:
             if self.fits(dims):
                 result = True
+                # 将解析结果附加到inspector的结果数据集中, 这个结果数据集将在backend-actions中被处理
                 ctx.add_result(self.name(), self.provider, key, resp['data'])
         return result
 
