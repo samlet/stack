@@ -21,7 +21,8 @@ class SagasCli(object):
         $ sagas ruleset 'how about french food?' food en True
         $ extractor=rasa sagas ruleset 'how about french food?' food en True
         $ extractor=rasa sagas ruleset 'list some products' list_products en True
-        $ extractor=rasa sagas ruleset 'I was born in the spring of 1982.' birth en True
+        $ extractor=rasa sagas ruleset 'I was born in the spring of 1992.' birth en True
+        $ extractor=rasa sagas ruleset 'I was born in the summer of 1992.' birth en True
 
         :param sents:
         :param intent:

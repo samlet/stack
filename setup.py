@@ -22,6 +22,7 @@ REQUIRED = [
     "py4j",
     'durable_rules',
     'OdooRPC',
+    'salang-saara',
 ]
 
 setuptools.setup(

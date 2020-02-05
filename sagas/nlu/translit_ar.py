@@ -1,7 +1,7 @@
 import sys, os, glob, json, codecs, platform
 
-import ArabicTransliterator
-from ArabicTransliterator import ALA_LC_Transliterator
+from arabic import ArabicTransliterator
+from arabic.ArabicTransliterator import ALA_LC_Transliterator
 import mishkal.tashkeel.tashkeel as tashkeel
 
 class TranslitArabic(object):
