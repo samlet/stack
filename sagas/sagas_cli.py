@@ -24,6 +24,9 @@ class SagasCli(object):
         $ extractor=rasa sagas ruleset 'I was born in the spring of 1992.' birth en True
         $ extractor=rasa sagas ruleset 'I was born in the summer of 1992.' birth en True
 
+        # FIXME doc_jsonify.get_position
+        $ extractor=rasa sagas ruleset '‫أقترح أن نلتقي في نهاية الأسبوع.‬' date_and_time ar False
+
         :param sents:
         :param intent:
         :param lang:
