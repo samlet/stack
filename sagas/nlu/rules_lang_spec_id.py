@@ -1,20 +1,11 @@
 from typing import Text, Dict, Any
 
-from sagas.nlu.inspectors import NegativeWordInspector as negative
-from sagas.nlu.inspectors import DateInspector as dateins
-from sagas.nlu.inspectors import EntityInspector as entins
-from sagas.nlu.inspectors import MatchInspector as matchins, interr_root, interr
-from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
-from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
-from sagas.nlu.inspector_rasa import RasaInspector as intentof
-from sagas.nlu.inspector_path import pred_all_path, pred_any_path, any_path
-from sagas.nlu.inspector_free import comps
-from sagas.nlu.lang_spec_intf import LangSpecBase, agency
+from sagas.nlu.rules_header import *
 
-from sagas.nlu.patterns import Patterns, print_result
 import sagas.tracker_fn as tc
-from sagas.nlu.rules_fn import anal, predicate_fn
+import logging
 
+logger = logging.getLogger(__name__)
 
 class Rules_id(LangSpecBase):
     def verb_rules(self):
@@ -82,6 +73,29 @@ class Rules_id(LangSpecBase):
                                                    nsubj=agency,
                                                    amod='c_adj',
                                                    cop='c_aux'),
+
+            # ❶ $ sid 'Minggu depan adalah hari Paskah.'  (Next week is Easter.)
+            # [aux_domains](adalah) is ⊙︿⊙ day(hari)
+            # 	[nsubj](Minggu depan) Next week
+            # 	[cop](adalah) is
+            # 	[flat](Paskah) Easter
+            # +----+-------+---------+--------+---------+-----------------+------------------+
+            # |    | rel   |   index | text   | lemma   | children        | features         |
+            # |----+-------+---------+--------+---------+-----------------+------------------|
+            # |  0 | nsubj |       1 | Minggu | minggu  | Minggu, depan.. | c_propn, x_nsd.. |
+            # |  1 | cop   |       3 | adalah | adalah  | adalah..        | c_aux, x_o--..   |
+            # |  2 | flat  |       5 | Paskah | paskah  | Paskah..        | c_propn, x_nsd.. |
+            # |  3 | punct |       6 | .      | .       | ...             | c_punct, x_z--.. |
+            # +----+-------+---------+--------+---------+-----------------+------------------+
+            #
+            # ❷ $ python -m sagas.nlu.extractor_cli datetime 'Minggu depan' id
+            # ❸ $ def Paskah id
+            pat(5, name='desc_feast_day').cop(behaveof('day', 'n'),
+                                              flat=kindof('feast_day/day', 'n'),
+                                              nsubj='c_propn'),
+            pat(3, name='extract_day').cop(behaveof('day', 'n'),
+                                              flat=kindof('feast_day/day', 'n'),
+                                              nsubj=extract('plain+date_search+date_parse')),
             ])
 
     def subject_rules(self):

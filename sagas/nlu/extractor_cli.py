@@ -36,6 +36,9 @@ class ExtractorCli(object):
         $ python -m sagas.nlu.extractor_cli datetime 'Besok malam jam 8' id
             .. search: [('Besok', datetime.datetime(2019, 12, 1, 23, 22, 16, 689529)), ('jam 8', datetime.datetime(2019, 8, 30, 0, 0))]
             .. parse: None
+        $ python -m sagas.nlu.extractor_cli datetime 'Minggu depan' id
+            .. search: None
+            .. parse: 2020-02-19 16:47:48.548957
         $ python -m sagas.nlu.extractor_cli datetime '三月开始去上学' zh
         $ python -m sagas.nlu.extractor_cli datetime '2008年12月に上海に行きたいです。' ja
 
