@@ -23,7 +23,34 @@ class Rules_en(LangSpecBase):
             # $ se 'you took fifty damage'
             pat(5, name='avatar_injured').verb(behaveof('take', 'v'), pred_any_path('obj', 'damage', 'n'),
                                                obj=dateins('number')),
-            ])
+
+            # $ se 'Giving alms is a good deed.'
+            #                  ┌−−−−−−┐
+            #                  ╎  is  ╎
+            #                  └−−−−−−┘
+            #                    ▲
+            #                    │ cop
+            #                    │
+            # ┌−−−−−−┐  root   ┌−−−−−−┐  csubj   ┌────────┐  obj   ┌──────┐
+            # ╎ ROOT ╎ ──────▶ ╎      ╎ ───────▶ │ Giving │ ─────▶ │ alms │
+            # └−−−−−−┘         ╎ deed ╎          └────────┘        └──────┘
+            # ┌−−−−−−┐  amod   ╎      ╎  punct   ┌−−−−−−−−┐
+            # ╎ good ╎ ◀────── ╎      ╎ ───────▶ ╎   .    ╎
+            # └−−−−−−┘         └−−−−−−┘          └−−−−−−−−┘
+            #                    │
+            #                    │ det
+            #                    ▼
+            #                  ┌−−−−−−┐
+            #                  ╎  a   ╎
+            #                  └−−−−−−┘
+            pat(5, name='desc_subj').verb(behaveof('give', 'v'), obj=agency,
+                                          head_csubj='c_noun'),
+            # 先用指定的方式解析成分, 根据解析的数据来编写predicts
+            # $ nluc en 'Giving alms is a good deed.' aux
+            # $ se 'Giving alms is a good deed.'
+            pat(5, name='desc_subj_good').verb(predict_aux(
+                ud.__cat('be') >> [ud.csubj('give'), ud.amod_cat('good')])),
+        ])
 
     def aux_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)

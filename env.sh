@@ -40,6 +40,9 @@ alias cn='python -m sagas.bots.hanlp_procs tree'
 
 alias parse='python -m sagas.nlu.corenlp_helper parse'
 alias nlu='python -m sagas.nlu.nlu_tools '
+
+# 用指定的方式解析成分:
+# $ nluc id 'Ini adalah judul buku yang saya baca.' aux
 alias nluc='python -m sagas.nlu.nlu_tools clip_parse'
 
 alias odoo_info='python -m sagas.crmsfa.odoo_info '

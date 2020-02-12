@@ -73,6 +73,17 @@ class Rules_id(LangSpecBase):
                 ]),
             ])
 
+    def aux_rules(self):
+        pat, actions_obj=(self.pat, self.actions_obj)
+
+        self.collect(pats=[
+            # $ sid 'Sedekah adalah amal baik.'
+            pat(5, name='desc_social_welfare').cop(behaveof('social_welfare', 'n'),
+                                                   nsubj=agency,
+                                                   amod='c_adj',
+                                                   cop='c_aux'),
+            ])
+
     def subject_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
         self.collect(pats=[
