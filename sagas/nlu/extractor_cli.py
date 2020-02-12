@@ -9,6 +9,7 @@ class ExtractorCli(object):
         $ python -m sagas.nlu.extractor_cli duckling "明天是九月九日" zh
         $ python -m sagas.nlu.extractor_cli duckling 'あしたは四月四日です。' ja
         $ python -m sagas.nlu.extractor_cli duckling '上周' zh
+        $ python -m sagas.nlu.extractor_cli duckling "Maggio e giugno sono mesi dell'anno." it
 
         $ python -m sagas.nlu.extractor_cli duckling "fifty" en
 

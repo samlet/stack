@@ -14,6 +14,9 @@ interrogative_maps={
     },
     'es': {
         'what': ['qué'],
+    },
+    'it': {
+        'where': ['dove'],
     }
 }
 

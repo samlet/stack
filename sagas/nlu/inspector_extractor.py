@@ -8,13 +8,15 @@ class CompExtractInspector(Inspector):
                                               flat=kindof('feast_day/day', 'n'),
                                               nsubj=extract('plain+date_search+date_parse')),
     """
-    def __init__(self, comp_as='plain'):
+    def __init__(self, comp_as='plain', pickup=None):
         self.comp_as=comp_as.split('+')
+        self.pickup=pickup
 
     def name(self):
         return "extract_comps"
 
     def run(self, key, ctx:Context):
+        key=self.pickup or key
         def ex_date_search(cnt, comp):
             from dateparser.search import search_dates
             search_r = search_dates(cnt, languages=[ctx.lang])
@@ -43,3 +45,5 @@ class CompExtractInspector(Inspector):
         return f"ins_{self.name()}({self.comp_as})"
 
 extract=lambda c='plain': CompExtractInspector(c)
+extract_dt=lambda c='plain+date_search+date_parse': CompExtractInspector(c)
+extract_c=lambda p: CompExtractInspector('plain', p)

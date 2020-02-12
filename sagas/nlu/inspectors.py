@@ -17,6 +17,7 @@ locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
                  'es':'es_Nothing', 'fr':'fr_Nothing',
                  'de':'de_Nothing', 'ja':'ja_Nothing',
                  'zh':'zh_CN', 'ar':'ar_Nothing',
+                 'it':'it_Nothing',
                 }
 
 @cached(cache={})
