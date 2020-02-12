@@ -109,7 +109,7 @@ class SentenceIntf(abc.ABC):
                 self.pos_map[token.index] = (word_offset, running_offset)
 
     def get_position(self, word_idx:Text):
-        return self.pos_map[word_idx]
+        return self.pos_map[word_idx] if word_idx in self.pos_map else (0,0)
 
     def has_predicts(self) -> bool:
         return self.predicts is not None and len(self.predicts)>0
