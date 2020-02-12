@@ -157,9 +157,11 @@ def print_result(rs):
     print_not_matched=cf.is_enabled('print_not_matched')
     # print(f'.. print_not_matched: {print_not_matched}')
     for r in rs:
-        ok_clr='red' if r[2]==5 else 'blue'
-        clr=ok_clr if r[1] else 'cyan'
-        if not print_not_matched and not r[1]:
+        priority=r[2]
+        ok_clr='red' if abs(priority)==5 else 'blue'
+        clr=ok_clr if r[1] else 'yellow'
+
+        if priority>-1 and not print_not_matched and not r[1]:
             pass
         else:
             # tc.info('%s [%s]'%(colored('✔', clr) if r[1] else '✖',

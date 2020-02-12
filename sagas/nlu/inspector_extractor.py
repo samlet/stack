@@ -43,4 +43,3 @@ class CompExtractInspector(Inspector):
         return f"ins_{self.name()}({self.comp_as})"
 
 extract=lambda c='plain': CompExtractInspector(c)
-

@@ -78,7 +78,7 @@ class DynamicRules(object):
                             domains, meta)
                 print_result(rs)
                 results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
-                succ=[r[2] for r in rs if r[1]]
+                succ=[abs(r[2]) for r in rs if r[1]]
                 priority = max(succ) if len(succ)>0 else 0
                 self.priority_list.append(priority)
                 self.result_set.extend(results)
