@@ -8,6 +8,7 @@
   "append_ascii_viz":false,
   "print_not_matched":false,
   "print_inspector_result":true,
+  "print_detail":false,
   "assist_lang":"fr",
   "default_word_sets_langs":["en", "zh", "ja", "fr", "id", "nl"],
   "mongo":"mongodb://localhost/langs",

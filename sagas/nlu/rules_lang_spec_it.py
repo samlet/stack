@@ -32,8 +32,12 @@ class Rules_it(LangSpecBase):
         pat, actions_obj = (self.pat, self.actions_obj)
 
         self.collect(pats=[
-            pat(-5, name='desc_professional').cop(behaveof('professional', 'n'),
+            # $ sit 'I miei genitori sono degli avvocati.'
+            pat(-5, name='desc_professional_1').cop(behaveof('professional', 'n'),
                                                    nsubj=agency, cop='c_aux'),
+            # $ sit 'I miei cugini sono idraulici.'  (配管工)
+            pat(-5, name='desc_professional_2').cop(behaveof('craftsman/skilled_worker', 'n'),
+                                                  nsubj=agency, cop='c_aux'),
             # $ sit 'Dove sono i meccanici?'
             pat(5, name='ask_loc').cop(extract_c('nsubj'), extract_c('advmod'),
                                        nsubj=agency,

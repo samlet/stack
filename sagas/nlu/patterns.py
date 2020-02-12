@@ -2,7 +2,8 @@ from typing import Text, Any, Dict, List, Union
 from sagas.nlu.inspector_common import Inspector, Context
 import sagas.tracker_fn as tc
 import logging
-logger = logging.getLogger('inspector')
+
+logger = logging.getLogger(__name__)
 
 def check_item(feats, key, el, ctx):
     if key in feats:
@@ -55,6 +56,7 @@ class Patterns(object):
                     'entire': self.execute_args_entire,
                     'root': self.execute_args_word,
                     }
+        self.after_evs=[]
 
     def check_args(self, args, ctx, options):
         result=True
@@ -72,10 +74,16 @@ class Patterns(object):
                     key_val='/'.join([ctx.meta[k] for k in meta_key])
                 else:
                     key_val=ctx.meta[meta_key] if meta_key in ctx.meta else ''
-                opt_ret = arg.check(key_val, ctx)
-                if not opt_ret:
-                    result = False
-                options.append('{} is {}: {}'.format('pos', arg, opt_ret))
+
+                if arg.after:
+                    self.after_evs.append((arg, key_val))
+                else:
+                    opt_ret = arg.check(key_val, ctx)
+                    # 这样的写法是希望当result=False之后, 不再被True值置换,
+                    # 也就是说一旦result=False之后, 就一直保持False值
+                    if not opt_ret:
+                        result = False
+                    options.append('{} is {}: {}'.format('pos', arg, opt_ret))
             elif callable(arg):
                 opt_ret=arg(self.doc, self.meta)
                 if not opt_ret:
@@ -138,6 +146,19 @@ class Patterns(object):
                 if not opt_ret:
                     result = False
                 options.append('{} is {}: {}'.format(key, value, opt_ret))
+
+            if len(self.after_evs)>0:
+                logger.debug(f".. after_evs {[(el[0].name(), el[1]) for el in self.after_evs]}")
+                for arg, key_val in self.after_evs:
+                    opt_ret = arg.check(key_val, ctx)
+                    # 这样的写法是希望当result=False之后, 不再被True值置换,
+                    # 也就是说一旦result=False之后, 就一直保持False值
+                    if not opt_ret:
+                        result = False
+                    options.append('{} is {}: {}'.format('pos', arg, opt_ret))
+
+                self.after_evs.clear()
+
             if self.track:
                 return "%s with %s" % (method, ', '.join(options)), \
                        result, \
@@ -152,9 +173,12 @@ class Patterns(object):
 def print_result(rs):
     # from termcolor import colored
     from sagas.conf.conf import cf
+    from pprint import pprint
     # from sagas.tool.misc import color_print
 
     print_not_matched=cf.is_enabled('print_not_matched')
+    print_detail=cf.is_enabled('print_detail')
+
     # print(f'.. print_not_matched: {print_not_matched}')
     for r in rs:
         priority=r[2]
@@ -188,3 +212,6 @@ def print_result(rs):
                           content_represent(r['provider'], r['value'])
                       for r in results})
 
+            if print_detail:
+                results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
+                pprint(results)

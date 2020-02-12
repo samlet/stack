@@ -12,6 +12,7 @@ class ExtractorCli(object):
         $ python -m sagas.nlu.extractor_cli duckling "Maggio e giugno sono mesi dell'anno." it
 
         $ python -m sagas.nlu.extractor_cli duckling "fifty" en
+        $ python -m sagas.nlu.extractor_cli duckling 'samlet@ymail.com' en  # "dim": "email"
 
         :param text:
         :param lang:

@@ -4,7 +4,7 @@ from sagas.nlu.inspectors import EntityInspector as entins
 from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
 from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
-from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c
+from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c, extract_for
 
 from sagas.nlu.patterns import Patterns
 

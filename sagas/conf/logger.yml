@@ -22,6 +22,10 @@ loggers:
     level: DEBUG
     handlers: [console]
     propagate: no
+  sagas.nlu.patterns:
+    level: INFO
+    handlers: [console]
+    propagate: no
   sagas.nlu.corenlp_parser:
     level: DEBUG
     handlers: [console]

@@ -128,6 +128,14 @@ class Inspector(object):
     def result(self):
         return None
 
+    @property
+    def after(self):
+        """
+        返回True表示这个inspector将在其它inspector全部为真的情况下才执行
+        :return:
+        """
+        return False
+
     def run(self, key:Text, ctx:Context) -> bool:
         """
         仅用于继承, check方法会负责调用这个方法
