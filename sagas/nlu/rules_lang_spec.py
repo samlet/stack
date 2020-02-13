@@ -1,5 +1,7 @@
 from typing import Any, Callable, Dict, List, Text, Optional, Type
 import logging
+from sagas.util.loader import class_from_module_path
+
 from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins
@@ -14,6 +16,8 @@ import sagas.tracker_fn as tc
 from sagas.nlu.rules_meta import build_meta
 
 # ________________________________________________________________________
+
+
 logger = logging.getLogger(__name__)
 
 def exec_rules_by_type(ci:LangSpecBase, type_name):
@@ -32,17 +36,6 @@ def parse_sents(meta):
     # doc_jsonify, _ = dep_parse(meta['sents'], meta['lang'], meta['engine'])
     doc_jsonify, resp = parse_and_cache(meta['sents'], meta['lang'], meta['engine'])
     return doc_jsonify, resp
-
-def class_from_module_path(module_path: Text) -> Any:
-    """Given the module name and path of a class, tries to retrieve the class.
-    The loaded class can be used to instantiate new objects. """
-    import importlib
-
-    # load the module, will raise ImportError if module cannot be loaded
-    module_name, _, class_name = module_path.rpartition(".")
-    m = importlib.import_module(module_name)
-    # get the class, will raise AttributeError if class cannot be found
-    return getattr(m, class_name)
 
 def load_mods():
     import json

@@ -50,6 +50,11 @@ class Rules_en(LangSpecBase):
             # $ se 'Giving alms is a good deed.'
             pat(5, name='desc_subj_good').verb(predict_aux(
                 ud.__cat('be') >> [ud.csubj('give'), ud.amod_cat('good')])),
+            # $ se 'My grandfather died five years ago at the age of ninety.'
+            pat(5, name='desc_died').verb(extract_for('time', 'advmod'),
+                                          extract_for('number', 'obl'),
+                                          extract_for('plain', 'nsubj'),
+                                          behaveof('die', 'v'), nsubj=agency),
         ])
 
     def aux_rules(self):

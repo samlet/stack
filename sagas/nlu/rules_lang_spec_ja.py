@@ -1,6 +1,28 @@
 from .rules_header import *
 
 class Rules_ja(LangSpecBase):
+    def verb_rules(self):
+        pat, actions_obj=(self.pat, self.actions_obj)
+
+        self.collect(pats=[
+            # $ duckling '二つ' ja
+            # $ sja '庭に植物を二つ植えた。'
+            # $ sja '庭に木を植えた。'
+            pat(5, name='behave_plant').verb(extract_for('number', 'nummod'),
+                                             extract_for('plain', 'iobj'),
+                                             behaveof('plant', 'v'),
+                                             obj=kindof('living_thing', 'n')),
+            # $ sja '祖父は九十歳まで生きた。'
+            pat(5, name='desc_live').verb(extract_for('number', 'obl'),
+                                          extract_for('plain', 'nsubj'),
+                                          behaveof('live', 'v'), nsubj=agency),
+            # $ sja '祖父は五年前に九十歳で死んだ。'  ('My grandfather died five years ago at the age of ninety.')
+            pat(5, name='desc_died').verb(extract_for('time', 'iobj'),
+                                          extract_for('number', 'obl'),
+                                          extract_for('plain', 'nsubj'),
+                                          behaveof('die', 'v'), nsubj=agency),
+        ])
+
     def predicate_rules(self):
         pat, actions_obj=(self.pat, self.actions_obj)
 

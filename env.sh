@@ -46,6 +46,7 @@ alias nlu='python -m sagas.nlu.nlu_tools '
 alias nluc='python -m sagas.nlu.nlu_tools clip_parse'
 
 alias odoo_info='python -m sagas.crmsfa.odoo_info '
+alias duckling='python -m sagas.nlu.extractor_cli duckling '
 
 ## refs
 # alias ja='python -m sagas.train.parallel_corpus refs_shortcut ja'
