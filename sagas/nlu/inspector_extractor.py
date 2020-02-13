@@ -54,6 +54,7 @@ class CompExtractInspector(Inspector):
                 'email': lambda cnt,comp: ex_dims(cnt, comp, 'email'),
                 'number': lambda cnt, comp: ex_dims(cnt, comp, 'number'),
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),
+                'temperature': lambda cnt, comp: ex_dims(cnt, comp, 'temperature'),
                 }
 
         if self.pickup=='_':
