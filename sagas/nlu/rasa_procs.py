@@ -32,9 +32,11 @@ def invoke_nlu(endpoint:Text, project_name:Text, model_name:Text, text:Text):
         return None
 
 class RasaProcs(object):
-    def testing_de(self, sents):
+    def parse(self, sents, lang):
         """
-        $ python -m sagas.nlu.rasa_procs testing_de "Shenzhen ist das Silicon Valley für Hardware-Firmen"
+        $ python -m sagas.nlu.rasa_procs parse "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
+        $ python -m sagas.nlu.rasa_procs parse 'what restaurants can you recommend?' en
+
         :param sents:
         :return:
         """
@@ -42,7 +44,7 @@ class RasaProcs(object):
         # endpoint = "http://localhost:5000"
         endpoint = cf.ensure('nlu_multilang_servant')
         print('.. with endpoing', endpoint)
-        result = invoke_nlu(endpoint, "de", "current", sents)
+        result = invoke_nlu(endpoint, lang, "current", sents)
         if result != None:
             print(json.dumps(result, indent=4))
             intent=result["intent"]

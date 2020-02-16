@@ -56,6 +56,17 @@ class CompExtractInspector(Inspector):
                 ctx.add_result(self.name(), comp, key, values)
                 return True
             return False
+        def ex_rasa(cnt, comp):
+            from sagas.conf.conf import cf
+            from sagas.nlu.rasa_procs import invoke_nlu
+
+            endpoint = cf.ensure('nlu_multilang_servant')
+            result = invoke_nlu(endpoint, ctx.lang, "current", ctx.sents)
+            # print('*******', result)
+            if result != None:
+                ctx.add_result(self.name(), comp, 'sents', result)
+                return True
+            return False
 
         ex_map={'date_search': ex_date_search,
                 'date_parse': ex_date_parse,
@@ -65,6 +76,7 @@ class CompExtractInspector(Inspector):
                 'number': lambda cnt, comp: ex_dims(cnt, comp, 'number'),
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),
                 'temperature': lambda cnt, comp: ex_dims(cnt, comp, 'temperature'),
+                'rasa': lambda cnt, comp: ex_rasa(cnt, comp),
                 }
 
         if self.pickup=='_':

@@ -55,6 +55,13 @@ class Rules_en(LangSpecBase):
                                           extract_for('number', 'obl'),
                                           extract_for('plain', 'nsubj'),
                                           behaveof('die', 'v'), nsubj=agency),
+            # $ print_detail=on se 'what restaurants can you recommend?'
+            # $ se 'what restaurants can you recommend?'
+            pat(5, name='ask_recommend').verb(extract_for('rasa', '_'),
+                                              behaveof('recommend', 'v'),
+                                              obj='c_noun',
+                                              aux='c_aux',
+                                              nsubj=agency),
         ])
 
     def aux_rules(self):
