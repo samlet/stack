@@ -17,7 +17,8 @@ class Rules_fa(LangSpecBase):
         pat, actions_obj = (self.pat, self.actions_obj)
 
         self.collect(pats=[
-            # $ sfa '‫من دوست دارم خیار بخورم.‬'
+            # $ sfa '‫من دوست دارم خیار بخورم.‬'  (I like to eat cucumber.)
+            # $ sfa '‫من دوست دارم گوجه فرنگی بخورم.‬'  (I like to eat tomatoes.)
             pat(-5, name='desc_fav').verb(interr('have', is_part=False),
                                          pred_any_path('ccomp/obj', 'food', 'n'),
                                          nsubj=agency,),

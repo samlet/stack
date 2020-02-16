@@ -44,5 +44,10 @@ def word_values(word: Text, lang: Text):
     from sagas.nlu.transliterations import translits
     text, lemma=word.split('/')
     if translits.is_available_lang(lang):
-        return {'value':word, 'text':translits.translit(text, lang), 'lemma':translits.translit(lemma, lang)}
+        try:
+            text_val=translits.translit(text, lang)
+            return {'value':word, 'text':text_val,
+                    'lemma':translits.translit(lemma, lang) if lemma.strip()!='' else text_val}
+        except ValueError:
+            print(f'*** value error: text: {text}, lemma: {lemma}')
     return {'value':word, 'text':text, 'lemma':lemma}
