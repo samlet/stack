@@ -10,6 +10,9 @@ from sagas.nlu.patterns import Patterns, print_result
 from sagas.conf.conf import cf
 
 import logging
+
+from sagas.nlu.utils import word_values
+
 logger = logging.getLogger('inspector')
 
 current_milli_time = lambda: int(round(time.time() * 1000))
@@ -161,7 +164,7 @@ class NegativeWordInspector(Inspector):
         if lang in nagative_maps:
             data_map=nagative_maps[lang]
             if lang in translit_langs:
-                word_val=translits.translit(ctx.words[key], ctx.lang)
+                word_val=translits.translit(ctx.words[key], lang)
             else:
                 word_val=ctx.lemmas[key]
             if ctx.chunk_contains(key, data_map) or word_val in data_map:
@@ -198,19 +201,39 @@ class InterrogativePronounInspector(Inspector):
         from sagas.nlu.inspectors_dataset import interrogative_maps
 
         lang=ctx.meta['lang']
+        def trans_val(cnt):
+            from sagas.nlu.inspectors_dataset import translit_langs
+            from sagas.nlu.transliterations import translits
+            if lang in translit_langs:
+                return translits.translit(cnt, lang)
+            return cnt
         if lang in interrogative_maps:
             data_map=interrogative_maps[lang][self.cat]
             if self.is_part:
-                return ctx.chunk_contains(key, data_map) or ctx.lemmas[key] in data_map
+                val=ctx.lemmas[key]
+                succ= ctx.chunk_contains(key, data_map) or val in data_map
+                if succ:
+                    ctx.add_result(self.name(), 'default', key,
+                                   {'category': self.cat, 'value': val},
+                                   delivery_type='sentence')
+                return succ
             else:
-                return key.split('/')[-1] in data_map
+                word_val=trans_val(key.split('/')[0])  # index 0 is word, 1 is lemma
+                logger.debug(f"*** {key} -- {word_val}, {data_map}")
+
+                succ= word_val in data_map
+                if succ:
+                    ctx.add_result(self.name(), 'default', 'head',
+                                   {'category': self.cat, **word_values(key, lang)},
+                                   delivery_type='sentence')
+                return succ
         return False
 
     def __str__(self):
         return f"{self.name()}({self.cat})"
 
 interr_root=lambda cat: InterrogativePronounInspector(cat, is_part=False)
-interr=lambda cat: InterrogativePronounInspector(cat, is_part=True)
+interr=lambda cat, is_part=True: InterrogativePronounInspector(cat, is_part=is_part)
 
 class MatchInspector(Inspector):
     """

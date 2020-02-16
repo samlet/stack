@@ -21,6 +21,9 @@ interrogative_maps={
     },
     'it': {
         'where': ['dove'],
+    },
+    'fa': {
+        'have': ['darm'],
     }
 }
 

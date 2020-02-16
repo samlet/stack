@@ -1,7 +1,11 @@
+from typing import Text, Any, Dict, List
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
 import logging
+
+from sagas.nlu.utils import word_values
+
 logger = logging.getLogger(__name__)
 
 def normal_path(path):
@@ -44,12 +48,17 @@ class PathInspector(Inspector):
         for chunk in chunks[domain_name]:
             json_data = chunk
             # for expr in exprs:
-            for parser in parsers:
+            for idx, parser in enumerate(parsers):
                 # print([(match.value, str(match.full_path)) for match in parser.find(json_data)])
                 word = '/'.join([match.value for match in parser.find(json_data)])
                 pred_r=predicate(self.kind, word, lang, self.pos)
                 tc.emp('yellow' if not pred_r else 'green', f".. {word} is {self.kind}: {pred_r}")
                 results.append(pred_r)
+                if pred_r:
+                    ctx.add_result(self.name(), 'default', self.paths[idx],
+                                   {'category': self.kind, 'pos':self.pos,
+                                    **word_values(word, lang)},
+                                   delivery_type='sentence')
 
         logger.debug(f"{results}")
         return any(results) if self.match_method=='any' else all(results)

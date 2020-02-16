@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 import re
 
 def alternate(sents):
@@ -39,3 +40,9 @@ def proc_lang_routines(s, l):
         return lang_routines[l](s)
     return s
 
+def word_values(word: Text, lang: Text):
+    from sagas.nlu.transliterations import translits
+    text, lemma=word.split('/')
+    if translits.is_available_lang(lang):
+        return {'value':word, 'text':translits.translit(text, lang), 'lemma':translits.translit(lemma, lang)}
+    return {'value':word, 'text':text, 'lemma':lemma}

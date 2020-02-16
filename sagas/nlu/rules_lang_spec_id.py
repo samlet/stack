@@ -134,7 +134,16 @@ class Rules_id(LangSpecBase):
             # $ sid 'Karpet ini sangat kotor.'
             pat(5, name='describe_object').verb(behaveof('object', 'n'), amod='c_adj'),
 
-            # $ sid 'Bola Dimas putih.'
+            # $ sid 'Bola Dimas putih.'  ("白色迪马斯球。")
+            # ┌──────┐  root   ┌────────┐  flat   ┌───────┐  amod   ┌───────┐
+            # │ ROOT │ ──────▶ │  Bola  │ ──────▶ │ Dimas │ ──────▶ │ putih │
+            # └──────┘         └────────┘         └───────┘         └───────┘
+            #                    │
+            #                    │ punct
+            #                    ▼
+            #                  ┌────────┐
+            #                  │   .    │
+            #                  └────────┘
             pat(5, 'describe_color').root(behaveof('object', 'n'),
                                           anal(amod=predicate_fn('color', 'n'))),
             # $ sid 'Karpet di kantor saya abu-abu.' (en="The carpet in my office is gray.")

@@ -45,7 +45,7 @@ def predicate_fn(chain, pos):
     from sagas.nlu.inspector_wordnet import predicate
     return lambda word, meta: predicate(chain, word, meta["lang"], pos)
 
-comp_rel=('flat', "compound", 'nmod')
+comp_rel=('flat', "compound", 'nmod', 'ccomp')
 get_domains=lambda w,doc: [{pa.dependency_relation:pa.lemma} for pa in children(w, doc) if pa.dependency_relation not in comp_rel]
 
 def anal(**kwargs):
