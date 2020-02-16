@@ -45,6 +45,9 @@ class Context(object):
         # self.meta['intermedia']={}
         self._results=[]
 
+    def get_word(self, key):
+        return f"{self.words[key]}/{self.lemmas[key]}"
+
     @property
     def results(self) -> List[Dict[Text, Any]]:
         return self._results

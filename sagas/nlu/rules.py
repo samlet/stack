@@ -1,13 +1,13 @@
-from sagas.nlu.inspectors import NegativeWordInspector as negative
-from sagas.nlu.inspectors import DateInspector as dateins
-from sagas.nlu.inspectors import EntityInspector as entins
-from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
-from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
-from sagas.nlu.inspector_rasa import RasaInspector as intentof
+from typing import Text, Dict, Any
 
-from sagas.nlu.patterns import Patterns, print_result
+from sagas.nlu.patterns import print_result
+from sagas.nlu.rules_header import *
 
-agency=['c_pron', 'c_noun', 'c_propn']
+import sagas.tracker_fn as tc
+import logging
+
+logger = logging.getLogger(__name__)
+
 #⊕ [nmod](https://universaldependencies.org/u/dep/nmod.html)
 def verb_patterns(meta, domains):
     behaviours_obl = lambda rs: [Patterns(domains, meta, 5).verb(behaveof(r, 'v'), obl='c_noun') for r in rs]
@@ -125,6 +125,13 @@ def verb_patterns(meta, domains):
           Patterns(domains, meta, 5).verb(behaveof('have', 'v'), __engine='ltp',
                                           vob=intentof('how_many', 0.75)),
           *actions_vob([('have', 'device/artifact'),]),
+
+          # 成分提取
+          # $ sit 'Non abbiamo riscaldamento.'  ("我们没有暖气。")
+          Patterns(domains, meta, 5, name='describe_have_not')
+              .verb(extract_for('plain', 'obj'),
+                    behaveof('have', 'v'),
+                    advmod=kindof('not', '*'), obj='c_noun'),
           ]
     print_result(pats)
 

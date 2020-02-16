@@ -205,20 +205,24 @@ class InterrogativePronounInspector(Inspector):
             from sagas.nlu.inspectors_dataset import translit_langs
             from sagas.nlu.transliterations import translits
             if lang in translit_langs:
-                return translits.translit(cnt, lang)
-            return cnt
+                # index 0 is word, 1 is lemma
+                return translits.translit(cnt.split('/')[0], lang)
+            return cnt.split('/')[1]
+
         if lang in interrogative_maps:
             data_map=interrogative_maps[lang][self.cat]
             if self.is_part:
-                val=ctx.lemmas[key]
+                # val=ctx.lemmas[key]
+                word_full=ctx.get_word(key)
+                val=trans_val(word_full)
                 succ= ctx.chunk_contains(key, data_map) or val in data_map
                 if succ:
                     ctx.add_result(self.name(), 'default', key,
-                                   {'category': self.cat, 'value': val},
+                                   {'category': self.cat, **word_values(word_full, lang)},
                                    delivery_type='sentence')
                 return succ
             else:
-                word_val=trans_val(key.split('/')[0])  # index 0 is word, 1 is lemma
+                word_val=trans_val(key)
                 logger.debug(f"*** {key} -- {word_val}, {data_map}")
 
                 succ= word_val in data_map

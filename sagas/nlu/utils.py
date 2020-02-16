@@ -51,3 +51,5 @@ def word_values(word: Text, lang: Text):
         except ValueError:
             print(f'*** value error: text: {text}, lemma: {lemma}')
     return {'value':word, 'text':text, 'lemma':lemma}
+
+
