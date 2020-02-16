@@ -41,7 +41,7 @@
     "ru":"corenlp",
     "zh":"ltp",
     "ja":"knp",
-    "ar":"stanford",
+    "ar":"corenlp",
     "lt":"spacy_2.2",
     "es":"corenlp_western",
     "fr":"corenlp_western",

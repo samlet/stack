@@ -195,6 +195,7 @@ class NluTools(object):
         """
         >> clip text: ‫یک آبجو مى خواهم.‬
         $ nlu clip_parse fa
+        $ engine='stanford' nluc ar
         $ nlu clip_parse fi 'Tuolla ylhäällä asuu vanha nainen.'
         $ nluc nl 'De vrouw heeft verschillende appels.'
         $ nluc id 'Ini adalah judul buku yang saya baca.' aux

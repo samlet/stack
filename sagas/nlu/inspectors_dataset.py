@@ -1,8 +1,12 @@
+# 列举在dataset中使用转写方式填写的语种
+translit_langs={'ar','fa'}
+
 nagative_maps={
     'da': ['ikke'],
     'de': ['nicht'],
     'id': ['tidak', 'tak bisa', 'tak boleh'],
     'pt': ['não'],
+    'ar': ['lā', 'la'],
 }
 
 interrogative_maps={

@@ -6,6 +6,7 @@
   "ja": ["sagas.nlu.rules_lang_spec_ja.Rules_ja"],
   "pt": ["sagas.nlu.rules_lang_spec_pt.Rules_pt"],
   "es": ["sagas.nlu.rules_lang_spec_es.Rules_es"],
-  "it": ["sagas.nlu.rules_lang_spec_it.Rules_it"]
+  "it": ["sagas.nlu.rules_lang_spec_it.Rules_it"],
+  "ar": ["sagas.nlu.rules_lang_spec_ar.Rules_ar"]
 }
 

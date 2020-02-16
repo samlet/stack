@@ -29,7 +29,7 @@ class Transliterations(object):
 
     def trans_ar(self, sents):
         from sagas.nlu.translit_ar import ar_translit
-        return ar_translit.transliterate(sents, vocalize=True)
+        return ar_translit.transliterate(sents, vocalize=True, trac_unk=True)
 
     def trans_ja(self, sents):
         from sagas.ja.ja_text_procs import text_procs

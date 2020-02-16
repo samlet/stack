@@ -35,6 +35,10 @@ class TransClipConf(object):
         :param opt:
         :return:
         """
+        import os
+        val=os.getenv(opt)
+        if val is not None:
+            return True if val.lower() in ('on', 'yes', 'true', '1') else False
         return opt in self.conf and self.conf[opt]
 
     def enable_opt(self, opt):

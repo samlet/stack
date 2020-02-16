@@ -48,6 +48,10 @@ class Rules_ja(LangSpecBase):
                                                ガ=kindof('artifact', 'n')),
             # $ sj 'コンビニは便利で安い。'
             pat(3, name='describe_noun').subj('adj', ガ='c_noun'),
+            # $ sj '肉料理をたくさん注文しました。'
+            pat(5, name='behave_order').verb(extract_for('plain', 'ヲ'),
+                                             extract_for('plain', '修飾'),
+                                             behaveof('order', 'v'),),
             ])
 
     def execute(self):

@@ -8,12 +8,13 @@ class TranslitArabic(object):
     def __init__(self):
         self.transliterator = ALA_LC_Transliterator()
 
-    def transliterate(self, text, vocalize=True):
+    def transliterate(self, text, vocalize=True, trac_unk=False):
         voc = text
         if vocalize:
             vocalizer = tashkeel.TashkeelClass()
             voc = vocalizer.tashkeel(text)
-        return self.transliterator.do(voc.strip())
+        r= self.transliterator.do(voc.strip())
+        return r.replace('[UNK]', '').strip() if trac_unk else r
 
     def transliterate_df(self, inputdf):
         import pandas as pd
@@ -53,8 +54,7 @@ class TranslitArabic(object):
         if text is None:
             text = get_from_clip()
 
-        r=self.transliterate(text)
-        r=r.replace('[UNK]','').strip() if trac_unk else r
+        r=self.transliterate(text, trac_unk=trac_unk)
         print(text)
         print(r)
 

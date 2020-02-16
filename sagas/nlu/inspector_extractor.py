@@ -38,6 +38,15 @@ class CompExtractInspector(Inspector):
         def ex_plain(cnt, comp):
             ctx.add_result(self.name(), comp, key, cnt)
             return True
+        def ex_translit(cnt, comp):
+            from sagas.nlu.transliterations import translits
+            if translits.is_available_lang(ctx.lang):
+                tval= translits.translit(cnt, ctx.lang)
+                # tval=tval.replace('[UNK]', '').strip()
+                ctx.add_result(self.name(), comp, key, tval)
+            else:
+                ctx.add_result(self.name(), comp, key, cnt)
+            return True
         def ex_dims(cnt, comp, dim):
             from sagas.nlu.inspectors import query_duckling
             resp = query_duckling(cnt, ctx.lang)
@@ -51,6 +60,7 @@ class CompExtractInspector(Inspector):
         ex_map={'date_search': ex_date_search,
                 'date_parse': ex_date_parse,
                 'plain': ex_plain,
+                'translit': ex_translit,
                 'email': lambda cnt,comp: ex_dims(cnt, comp, 'email'),
                 'number': lambda cnt, comp: ex_dims(cnt, comp, 'number'),
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),

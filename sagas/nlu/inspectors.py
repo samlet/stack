@@ -154,11 +154,17 @@ class NegativeWordInspector(Inspector):
 
     def run(self, key, ctx:Context):
         from sagas.nlu.inspectors_dataset import nagative_maps
+        from sagas.nlu.inspectors_dataset import translit_langs
+        from sagas.nlu.transliterations import translits
 
         lang=ctx.meta['lang']
         if lang in nagative_maps:
             data_map=nagative_maps[lang]
-            if ctx.chunk_contains(key, data_map) or ctx.lemmas[key] in data_map:
+            if lang in translit_langs:
+                word_val=translits.translit(ctx.words[key], ctx.lang)
+            else:
+                word_val=ctx.lemmas[key]
+            if ctx.chunk_contains(key, data_map) or word_val in data_map:
                 return True
         return False
 
