@@ -29,6 +29,7 @@ class KnpCli(object):
     def parse(self, sents, output='console'):
         """
         $ python -m sagas.ja.knp_cli parse "望遠鏡で泳いでいる少女を見た。"
+        $ python -m sagas.ja.knp_cli parse "どのおかずを注文したの？"
         :param sents:
         :param output:
         :return:

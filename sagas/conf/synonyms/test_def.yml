@@ -1,3 +1,3 @@
-verbs:
+words:
     a_list: [first,  second, "third part"]
     b_list: [first,  second]

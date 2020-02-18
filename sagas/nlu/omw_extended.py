@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List
+
 langsets={'bg': 'bul', 'ca': 'cat', 'cs': 'ces', 'da': 'dan', 'de': 'deu', 'el': 'ell',
           'en': 'eng', 'eu': 'eus', 'fa': 'fas', 'fi': 'fin', 'fr': 'fra', 'hr': 'hrv',
           'id': 'ind', 'is': 'isl', 'it': 'ita', 'ja': 'jpn', 'nl': 'nld', 'nn': 'nno',
@@ -24,20 +26,25 @@ class OmwExtended(object):
     def __init__(self):
         self.data_tables={}
 
-    def load_dicts(self, lang):
+    def load_dicts(self, lang) -> List[Any]:
         import pandas as pd
         import json
+        import os
         prefix = '/pi/ai/nltk/data/wikt/'
         if lang not in langsets:
             raise Exception("No dict data for language %s"%lang)
 
         if lang not in self.data_tables:
-            df = pd.read_csv(prefix + 'wn-wikt-%s.tab'%langsets[lang], sep='\t')
-            tab = df.to_json(orient='split')
-            json_tab = json.loads(tab)
-            data = json_tab['data']
-            self.data_tables[lang]=data
-            print(lang, 'total:', len(data))
+            data_path=prefix + 'wn-wikt-%s.tab'%langsets[lang]
+            if os.path.exists(data_path):
+                df = pd.read_csv(data_path, sep='\t')
+                tab = df.to_json(orient='split')
+                json_tab = json.loads(tab)
+                data = json_tab['data']
+                self.data_tables[lang]=data
+                print(lang, 'total:', len(data))
+            else:
+                self.data_tables[lang] = []
 
         return self.data_tables[lang]
 

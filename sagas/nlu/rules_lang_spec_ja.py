@@ -48,13 +48,28 @@ class Rules_ja(LangSpecBase):
                                                ガ=kindof('artifact', 'n')),
             # $ sj 'コンビニは便利で安い。'
             pat(3, name='describe_noun').subj('adj', ガ='c_noun'),
+
             # $ sj '肉料理をたくさん注文しました。'
+            # $ python -m sagas.ja.knp_cli parse "どのおかずを注文したの？"
+            # $ sj "どのおかずを注文したの？"
             pat(5, name='behave_order').verb(extract_for('plain', 'ヲ'),
                                              extract_for('plain', '修飾'),
                                              behaveof('order', 'v'),),
+            # $ sj 'それはどんな味ですか？'
+            pat(5, name='ask_taste').verb(extract_for('plain', 'ガ'),
+                                          behaveof('taste', '*'), ),
+            # $ sj 'このお茶はとても苦い。'
+            pat(5, name='describe_taste').verb(extract_for('plain', '_'),
+                                               extract_for('plain', 'ガ'),
+                                               extract_for('plain', '修飾'),
+                                               behaveof('bitter', 'a'),),
+
+            # $ sj 'どんなおかずが好きですか？'
+            pat(-5, name='desc_fav').verb(extract_for('plain', 'ガ'),
+                                          interr('fav', is_part=False),)
             ])
 
-    def execute(self):
-        super().execute()
+    # def execute(self):
+    #     super().execute()
 
 

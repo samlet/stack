@@ -70,6 +70,9 @@ class KnpProcs(object):
     def deps(self, sent):
         """
         $ python -m sagas.ja.knp_procs deps "望遠鏡で泳いでいる少女を見た。"
+        $ python -m sagas.ja.knp_procs deps "どのおかずを注文したの？"
+            どの/どの -> おかず/おかず
+            おかず/おかず  -> 注文/ちゅうもん する/する
         :param sent:
         :return:
         """

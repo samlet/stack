@@ -58,6 +58,10 @@ loggers:
     level: INFO
     handlers: [console]
     propagate: no
+  sagas.nlu.inspector_wordnet:
+    level: INFO
+    handlers: [console]
+    propagate: no
 
 root:
   level: INFO

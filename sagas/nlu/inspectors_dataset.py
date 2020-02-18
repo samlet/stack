@@ -25,6 +25,9 @@ interrogative_maps={
     'fa': {
         'have': ['darm', 'darid'],
         'fav': ['dost'],
-    }
+    },
+    'ja': {
+        'fav': ['好きだ'],
+    },
 }
 

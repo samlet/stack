@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 import yaml
 
 class Synonyms(object):
@@ -12,7 +13,7 @@ class Synonyms(object):
     #     with open(file, 'r') as f:
     #         return yaml.safe_load(f.read())
 
-    def query(self, word, lang):
+    def query(self, word:Text, lang:Text) -> List[Text]:
         """
         $ python -m sagas.nlu.synonyms query memulai id
         $ python -m sagas.nlu.synonyms query dorme pt
@@ -24,22 +25,22 @@ class Synonyms(object):
             return []
 
         syns=self.mappings[lang]
-        verbs=syns['verbs']
-        return verbs[word] if word in verbs else []
+        words=syns['words']
+        return words[word] if word in words else []
 
     def match(self, word, lang):
         # the last part of the word is lemma
         rs=self.query(word.split('/')[-1], lang)
         return rs[0] if len(rs)>0 else None
 
-    def availble_langs(self):
+    def availble_langs(self) -> List[Text]:
         """
         $ python -m sagas.nlu.synonyms availble_langs
         :return:
         """
         return list(self.mappings.keys())
 
-    def load_dataset(self):
+    def load_dataset(self) -> Dict[Text,Any]:
         """
         $ python -m sagas.nlu.synonyms load_dataset
         :return:

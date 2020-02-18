@@ -1,4 +1,4 @@
-from typing import Text
+from typing import Text, Any, Dict, List
 from cachetools import cached
 
 from sagas.nlu.inspector_common import Inspector, Context
@@ -6,41 +6,13 @@ from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspecto
 from sagas.nlu.patterns import Patterns, print_result
 import requests
 from sagas.conf.conf import cf
+import logging
+
+logger = logging.getLogger(__name__)
 
 feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 # feat_pos_mappings={'c_adj':['n','a','s'], 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 
-class WordInspector(Inspector):
-    def __init__(self, kind, pos_indicator='~', only_first=False):
-        """
-        Init a predicate inspector
-        :param kind:
-        :param pos_indicator: 如果是'~'就表示按照当前要测试chunk性质来决定要查找的继承链, 名词可以追溯继承链,
-                形容词可以做直接匹配(用英语词干). 如果是'*'表示查找所有的词性, 这样有可能导致混乱; 如果是指定的词性,
-                比如'n', 那么就会查询名词的继承链.
-        :param only_first:
-        """
-        self.kind = kind
-        self.only_first=only_first
-        self.pos_indicator=pos_indicator
-
-    def name(self):
-        return "kind_of"
-
-    def get_pos_by_feat(self, feats):
-        """
-        Get POS by feature
-        :param feats:
-        :return: '*' represent any pos
-        """
-        # Part-of-speech constants, ADJ, ADJ_SAT, ADV, NOUN, VERB = 'a', 's', 'r', 'n', 'v'
-        att=feats[0] # the first feature is word pos
-        if att in feat_pos_mappings:
-            return feat_pos_mappings[att]
-        return '*'
-
-    def __str__(self):
-        return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
 @cached(cache={})
 def predicate(kind:Text, word:Text, lang:Text, pos:Text, only_first=False ):
@@ -58,6 +30,60 @@ def predicate(kind:Text, word:Text, lang:Text, pos:Text, only_first=False ):
         r = response.json()
         return r['result']
     return False
+
+class WordInspector(Inspector):
+    def __init__(self, kind, pos_indicator='~', only_first=False):
+        """
+        Init a predicate inspector
+        :param kind:
+        :param pos_indicator: 如果是'~'就表示按照当前要测试chunk性质来决定要查找的继承链, 名词可以追溯继承链,
+                形容词可以做直接匹配(用英语词干). 如果是'*'表示查找所有的词性, 这样有可能导致混乱; 如果是指定的词性,
+                比如'n', 那么就会查询名词的继承链.
+        :param only_first:
+        """
+        self.kind = kind
+        self.only_first=only_first
+        self.pos_indicator=pos_indicator
+        self.subs=None
+
+    def name(self):
+        return "kind_of"
+
+    def get_pos_by_feat(self, feats):
+        """
+        Get POS by feature
+        :param feats:
+        :return: '*' represent any pos
+        """
+        # Part-of-speech constants, ADJ, ADJ_SAT, ADV, NOUN, VERB = 'a', 's', 'r', 'n', 'v'
+        att=feats[0] # the first feature is word pos
+        if att in feat_pos_mappings:
+            return feat_pos_mappings[att]
+        return '*'
+
+    def substitute(self, word, lang, pos):
+        from sagas.nlu.synonyms import synonyms
+        r=synonyms.match(word, lang)
+        # print(f'... retrieve substitute with {word}({lang})')
+        if r is None:
+            # return self.process(word, lang, pos)
+            return predicate(self.kind, word, lang, pos, self.only_first)
+        # print(f'... substitute with {r}(en), {pos}')
+        # return self.process(r, 'en', pos)
+        self.subs=r
+
+        return predicate(self.kind, r, 'en', pos, self.only_first)
+
+    @property
+    def result_base(self) -> Dict[Text, Any]:
+        results={'category': self.kind}
+        if self.subs is not None:
+            results['subs']=self.subs
+        return results
+
+    def __str__(self):
+        return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
+
 
 class PredicateWordInspector(WordInspector):
     """
@@ -81,10 +107,12 @@ class PredicateWordInspector(WordInspector):
         else:
             pos=self.pos_indicator
 
-        result= predicate(self.kind, word, lang, pos, self.only_first)
+        # result= predicate(self.kind, word, lang, pos, self.only_first)
+        result=self.substitute(word, lang, pos)
+        logger.debug(f"result base: {self.result_base}")
         if result:
             ctx.add_result(self.name(), 'default', key,
-                           {'category': self.kind, 'pos': pos},
+                           {**self.result_base, 'pos': pos, 'word': word},
                            delivery_type='sentence')
         return result
 
@@ -100,26 +128,17 @@ class VerbInspector(WordInspector):
     # $ se 'Do it correctly.'
     >>> Patterns(domains, meta, 5, name='command_do').verb(behaveof('make', 'v'), advmod='c_adv'),
     """
-    def process(self, word, lang, pos):
-        data = {'word': word, 'lang': lang, 'pos': pos,
-                'kind': self.kind}
-        # print('..', word)
-        response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
-                                 json=data)
-
-        if response.status_code == 200:
-            r = response.json()
-            return r['result']
-        return False
-
-    def substitute(self, word, lang, pos):
-        from sagas.nlu.synonyms import synonyms
-        r=synonyms.match(word, lang)
-        # print(f'... retrieve substitute with {word}({lang})')
-        if r is None:
-            return self.process(word, lang, pos)
-        # print(f'... substitute with {r}(en), {pos}')
-        return self.process(r, 'en', pos)
+    # def process(self, word, lang, pos):
+    #     data = {'word': word, 'lang': lang, 'pos': pos,
+    #             'kind': self.kind}
+    #     # print('..', word)
+    #     response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
+    #                              json=data)
+    #
+    #     if response.status_code == 200:
+    #         r = response.json()
+    #         return r['result']
+    #     return False
 
     def run(self, key, ctx:Context):
         lang=ctx.meta['lang']
@@ -128,10 +147,12 @@ class VerbInspector(WordInspector):
             pos='v'
         else:
             pos=self.pos_indicator
+
         result= self.substitute(word, lang, pos)
+        logger.debug(f"check word {word} against {self.kind}, result is {result}")
         if result:
             ctx.add_result(self.name(), 'default', 'predicate',
-                           {'category': self.kind, 'pos': pos},
+                           {**self.result_base, 'pos': pos, 'word': word},
                            delivery_type='sentence')
         return result
 

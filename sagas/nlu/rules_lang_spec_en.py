@@ -62,6 +62,11 @@ class Rules_en(LangSpecBase):
                                               obj='c_noun',
                                               aux='c_aux',
                                               nsubj=agency),
+            # $ se 'It totally concerns you.'
+            pat(5, name='desc_refer').verb(extract_for('plain', 'nsubj'),
+                                           extract_for('plain', 'obj'),
+                                           behaveof('refer', 'v'),
+                                           nsubj=agency, obj=agency),
         ])
 
     def aux_rules(self):

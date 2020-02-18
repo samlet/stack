@@ -86,6 +86,8 @@ class WordNetProcs(object):
         """
         $ python -m sagas.nlu.wordnet_procs get_word_sets menina pt
         $ python -m sagas.nlu.wordnet_procs get_word_sets ложь ru
+        $ python -m sagas.nlu.wordnet_procs get_word_sets piti hr
+
         :param word:
         :param lang:
         :return:
@@ -127,6 +129,8 @@ class WordNetProcs(object):
         """
         $ python -m sagas.nlu.wordnet_procs predicate_chain koran print_media id n
         $ python -m sagas.nlu.wordnet_procs predicate_chain koran/jjj print_media id n
+        $ python -m sagas.nlu.wordnet_procs predicate_chain pije/piti drink hr v
+
         :param word:
         :param kind:
         :param lang:
