@@ -42,6 +42,10 @@ loggers:
     level: INFO
     handlers: [console]
     propagate: no
+  sagas.nlu.inspector_extractor:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
   sagas.tools.misc:
     level: DEBUG
     handlers: [console]

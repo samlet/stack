@@ -70,6 +70,25 @@ class ExtractorCli(object):
         for expr, val in dt:
             print(f"text:{expr}, date-time: {val}")
 
+    def chunks(self, sents, lang, domain, path):
+        """
+        $ python -m sagas.nlu.extractor_cli chunks 'I like to eat sweet corn.' en verb 'xcomp/obj'
+
+        :param sents:
+        :param lang:
+        :param domain:
+        :param path:
+        :return:
+        """
+        from sagas.nlu.uni_chunks import get_chunk
+        from sagas.nlu.ruleset_procs import list_words, cached_chunks
+        from sagas.conf.conf import cf
+        # get_chunk(f'verb_domains', 'xcomp/obj', lambda w: w.upos)
+        # get_chunk(f'domain_domains', path, lambda w: w.upos)
+        chunks = cached_chunks(sents, lang, cf.engine(lang))
+        result=get_chunk(chunks, f'{domain}_domains', path, lambda w: (w.text, w.upos.lower()))
+        print(result)
+
 if __name__ == '__main__':
     import fire
     fire.Fire(ExtractorCli)

@@ -15,6 +15,19 @@ sub_comps=['ccomp', 'xcomp', # general
            'adv', 'coo', 'vob', 'att', # zh
            ]
 
+def word_jsonify(word):
+    features = ['index', 'text', 'lemma', 'upos', 'xpos', 'feats', 'governor', 'dependency_relation']
+    feature_attrs = {k: getattr(word, k) for k in features if getattr(word, k) is not None}
+    return feature_attrs
+
+def sent_jsonify(doc):
+    words = []
+    for word in doc.words:
+        word_j = word_jsonify(word)
+        # print(word_j)
+        words.append(word_j)
+    return words
+
 class WordIntf(abc.ABC):
     def __init__(self, data):
         self.ctx = self.setup(data)
@@ -70,6 +83,10 @@ class WordIntf(abc.ABC):
     @property
     def entity(self):
         return self.ctx['entity'] if 'entity' in self.ctx else []
+
+    @property
+    def as_json(self):
+        return word_jsonify(self)
 
     def __repr__(self):
         features = ['index', 'text', 'lemma', 'upos', 'xpos',
@@ -155,3 +172,7 @@ class SentenceIntf(abc.ABC):
         dep_string = io.StringIO()
         self.print_dependencies(file=dep_string)
         return dep_string.getvalue().strip()
+
+    @property
+    def as_json(self):
+        return sent_jsonify(self)

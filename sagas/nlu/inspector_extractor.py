@@ -1,5 +1,6 @@
 from sagas.nlu.inspector_common import Inspector, Context
-
+import logging
+logger = logging.getLogger(__name__)
 
 class CompExtractInspector(Inspector):
     """
@@ -67,6 +68,21 @@ class CompExtractInspector(Inspector):
                 ctx.add_result(self.name(), comp, 'sents', result)
                 return True
             return False
+        def ex_chunk(cnt, comp, clo):
+            from sagas.nlu.uni_chunks import get_chunk
+            from sagas.nlu.ruleset_procs import list_words, cached_chunks
+            from sagas.conf.conf import cf
+            # get_chunk(f'verb_domains', 'xcomp/obj', lambda w: w.upos)
+            chunks = cached_chunks(ctx.sents, ctx.lang, cf.engine(ctx.lang))
+            parts=self.pickup.split(':')
+            domain=parts[0]
+            path=parts[1]
+            result = get_chunk(chunks, f'{domain}_domains', path, clo=clo)
+            logger.debug(f"extract chunk: {domain}, {path}, {result}")
+            if len(result)>0:
+                ctx.add_result(self.name(), comp, self.pickup, result)
+                return True
+            return False
 
         ex_map={'date_search': ex_date_search,
                 'date_parse': ex_date_parse,
@@ -77,9 +93,13 @@ class CompExtractInspector(Inspector):
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),
                 'temperature': lambda cnt, comp: ex_dims(cnt, comp, 'temperature'),
                 'rasa': lambda cnt, comp: ex_rasa(cnt, comp),
+                # example: extract_for('chunk', 'verb:xcomp/obj')
+                'chunk': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: (w.text, w.upos.lower())),
+                # example: extract_for('chunk_text', 'verb:xcomp/obj')
+                'chunk_text': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: w.text),
                 }
 
-        if self.pickup=='_':
+        if self.pickup=='_' or ':' in self.pickup:
             for comp in self.comp_as:
                 op=ex_map[comp](comp_val, comp)
                 self.results[comp]=op

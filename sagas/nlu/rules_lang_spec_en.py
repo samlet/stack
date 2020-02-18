@@ -19,9 +19,48 @@ class Rules_en(LangSpecBase):
             # $ se 'I want to play music.'
             pat(5, name='behave_media').verb(pred_any_path('xcomp/obj','sound/perception', 'n')),
             # $ se 'I want to watch a movie'
-            pat(5, name='behave_willing_ev').verb(behaveof('want', 'v'), pred_any_path('xcomp/obj','social_event', 'n')),
+            pat(5, name='behave_willing_ev').verb(behaveof('want', 'v'),
+                                                  pred_any_path('xcomp/obj','social_event', 'n')),
+            # $ se 'I like to eat cucumber.'
+            #                  ┌−−−−−−−−┐
+            #                  ╎   I    ╎
+            #                  └−−−−−−−−┘
+            #                    ▲
+            #                    │ nsubj
+            #                    │
+            # ┌−−−−−−┐  root   ┌−−−−−−−−┐  xcomp   ┌−−−−−−−┐  obj   ┌−−−−−−−−−−┐
+            # ╎ ROOT ╎ ──────▶ ╎  like  ╎ ╴╴╴╴╴╴╴▶ ╎  eat  ╎ ─────▶ ╎ cucumber ╎
+            # └−−−−−−┘         └−−−−−−−−┘          └−−−−−−−┘        └−−−−−−−−−−┘
+            #                    │                   │
+            #                    │ punct             │ mark
+            #                    ▼                   ▼
+            #                  ┌−−−−−−−−┐          ┌−−−−−−−┐
+            #                  ╎   .    ╎          ╎  to   ╎
+            #                  └−−−−−−−−┘          └−−−−−−−┘
+            # I like to eat tomatoes.
+            # $ se 'I like to eat sweet corn.'
+            #                  ┌−−−−−−−−┐
+            #                  ╎   I    ╎
+            #                  └−−−−−−−−┘
+            #                    ▲
+            #                    │ nsubj
+            #                    │
+            # ┌−−−−−−┐  root   ┌−−−−−−−−┐  xcomp   ┌−−−−−−−┐  obj   ┌−−−−−−┐  amod   ┌−−−−−−−┐
+            # ╎ ROOT ╎ ──────▶ ╎  like  ╎ ╴╴╴╴╴╴╴▶ ╎  eat  ╎ ─────▶ ╎ corn ╎ ──────▶ ╎ sweet ╎
+            # └−−−−−−┘         └−−−−−−−−┘          └−−−−−−−┘        └−−−−−−┘         └−−−−−−−┘
+            #                    │                   │
+            #                    │ punct             │ mark
+            #                    ▼                   ▼
+            #                  ┌−−−−−−−−┐          ┌−−−−−−−┐
+            #                  ╎   .    ╎          ╎  to   ╎
+            #                  └−−−−−−−−┘          └−−−−−−−┘
+            pat(5, name='desc_eat').verb(extract_for('chunk+chunk_text', 'verb:xcomp/obj'),
+                                         behaveof('like', 'v'),
+                                         pred_any_path('xcomp/obj', 'food', 'n'),
+                                         xcomp=kindof('eat', 'v'),),
             # $ se 'you took fifty damage'
-            pat(5, name='avatar_injured').verb(behaveof('take', 'v'), pred_any_path('obj', 'damage', 'n'),
+            pat(5, name='avatar_injured').verb(behaveof('take', 'v'),
+                                               pred_any_path('obj', 'damage', 'n'),
                                                obj=dateins('number')),
 
             # $ se 'Giving alms is a good deed.'

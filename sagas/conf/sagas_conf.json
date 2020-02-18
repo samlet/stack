@@ -10,7 +10,7 @@
   "print_inspector_result":true,
   "print_detail":false,
   "assist_lang":"fr",
-  "default_word_sets_langs":["en", "zh", "ja", "fr", "id", "nl"],
+  "default_word_sets_langs":["en", "zh", "ja", "fr", "de", "id", "nl"],
   "mongo":"mongodb://localhost/langs",
   "bert_servant":"localhost",
   "ofbiz_servant":"localhost",

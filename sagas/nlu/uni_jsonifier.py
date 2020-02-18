@@ -2,7 +2,7 @@ from typing import Text, Any, Dict, List
 from sagas.nlu.uni_cli import UniCli
 from sagas.nlu.corenlp_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks
-from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
+from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf, sent_jsonify
 import sagas
 
 def rs_summary(rs, console=True):
@@ -34,20 +34,6 @@ class JsonifySentImpl(SentenceIntf):
         for word in json_words:
             words.append(JsonifyWordImpl(word))
         return words, []
-
-
-def word_jsonify(word):
-    features = ['index', 'text', 'lemma', 'upos', 'xpos', 'feats', 'governor', 'dependency_relation']
-    feature_attrs = {k: getattr(word, k) for k in features if getattr(word, k) is not None}
-    return feature_attrs
-
-def sent_jsonify(doc):
-    words = []
-    for word in doc.words:
-        word_j = word_jsonify(word)
-        # print(word_j)
-        words.append(word_j)
-    return words
 
 def jsonify_with(sents, lang, engine='corenlp'):
     doc= UniCli().parser(engine)(lang, sents)

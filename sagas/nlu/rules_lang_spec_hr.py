@@ -26,6 +26,7 @@ class Rules_hr(LangSpecBase):
             #             'pos': 'n',
             #             'subs': 'cauliflower',
             #             'word': 'cvjetače/cvjetač'}}]
+            # $ shr 'Imate li graha?'
             pat(-5, name='desc_have').verb(behaveof('have', 'v'),
                                            obj=kindof('plant', 'n')),
         ])
