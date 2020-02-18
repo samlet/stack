@@ -568,6 +568,7 @@ class MiscTool(object):
         $ sf "La similitude entre ces deux phrases" 'ja;zh;id'
         $ sz '这两句话的相似程度' en
         $ sz '这两句话的相似程度' 'en;fr;ar;ja;fa'
+        $ engine=spacy se 'I like to eat cucumber.'
 
         :return:
         """
@@ -588,11 +589,12 @@ class MiscTool(object):
         # if source in ('ja','zh'):
         #     text=text.replace(' ','')
         text=fix_sents(text, source)
-
+        engine=cf.engine(source)
+        tc.emp('yellow', f".. parse with {engine}: ({text})")
         # add at 2019.9.15
         ascii_gs=[]
         if self.enable_ascii_viz:
-            rt=NluCli().ascii_viz(text, source, engine=cf.engine(source))
+            rt=NluCli().ascii_viz(text, source, engine=engine)
             if source not in ascii_incompatibles:
                 ascii_gs.extend(rt.split('\n'))
             print(rt)

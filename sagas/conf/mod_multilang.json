@@ -10,6 +10,7 @@
   "ar": ["sagas.nlu.rules_lang_spec_ar.Rules_ar"],
   "fa": ["sagas.nlu.rules_lang_spec_fa.Rules_fa"],
   "fr": ["sagas.nlu.rules_lang_spec_fr.Rules_fr"],
-  "hr": ["sagas.nlu.rules_lang_spec_hr.Rules_hr"]
+  "hr": ["sagas.nlu.rules_lang_spec_hr.Rules_hr"],
+  "nl": ["sagas.nlu.rules_lang_spec_nl.Rules_nl"]
 }
 

@@ -16,16 +16,16 @@ feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 
 @cached(cache={})
 def predicate(kind:Text, word:Text, lang:Text, pos:Text, only_first=False ):
-    if '/' in kind or '/' in word:
-        data = {'word': word, 'lang': lang, 'pos': pos,
-                'kind': kind}
-        response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
-                                 json=data)
-    else:
-        data = {'word': word, 'lang': lang, 'pos': pos,
-                'kind': kind, 'only_first': only_first}
-        response = requests.post(f'{cf.ensure("words_servant")}/predicate',
-                                 json=data)
+    # if '/' in kind or '/' in word:
+    data = {'word': word, 'lang': lang, 'pos': pos,
+            'kind': kind}
+    response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
+                             json=data)
+    # else:
+    #     data = {'word': word, 'lang': lang, 'pos': pos,
+    #             'kind': kind, 'only_first': only_first}
+    #     response = requests.post(f'{cf.ensure("words_servant")}/predicate',
+    #                              json=data)
     if response.status_code == 200:
         r = response.json()
         return r['result']

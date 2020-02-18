@@ -37,6 +37,22 @@ def get_children_cl(sent, word, clo):
 
 
 def get_chunk(chunks, domain_name, expr, clo=None):
+    """
+    子句复合成份提取
+    See also: procs-parse-free.ipynb
+    >>> from sagas.nlu.uni_chunks import get_chunk
+        from sagas.nlu.ruleset_procs import list_words, cached_chunks
+        from sagas.conf.conf import cf
+        # get_chunk(f'verb_domains', 'xcomp/obj', lambda w: w.upos)
+    >>> chunks = cached_chunks(sents, lang, cf.engine(lang))
+    >>> result=get_chunk(chunks, f'{domain}_domains', 'xcomp/obj', lambda w: (w.text, w.upos.lower()))
+
+    :param chunks:
+    :param domain_name:
+    :param expr:
+    :param clo:
+    :return:
+    """
     idx = get_index_with(chunks, domain_name, expr)
     if clo is None:
         clo = lambda w: w.text
