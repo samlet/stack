@@ -24,6 +24,10 @@ def predicate_word(word, lang, pos, kind, only_first):
 
 @app.route('/predicate', methods = ['POST'])
 def handle_predicate():
+    """
+    检测synsets的lemma, 较宽泛, 不适用于rulesets
+    :return:
+    """
     content = request.get_json()
     return predicate_word(content['word'], content['lang'],
                           content['pos'],
@@ -39,6 +43,10 @@ def predicate_chain_as_json(word,kind,lang,pos):
 
 @app.route('/predicate_chain', methods = ['POST'])
 def handle_predicate_chain():
+    """
+    检测synsets的name, 更为严格
+    :return:
+    """
     content = request.get_json()
     word = content['word']
     lang = content['lang']
