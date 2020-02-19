@@ -80,7 +80,11 @@ def get_verb_domain(sent):
 
 def get_aux_domain(sent):
     rs = []
+    parsed_heads=set()
     for word in filter(lambda w: w.upos == "AUX", sent.words):
+        if word.governor in parsed_heads:
+            continue
+
         # dc=sent.words[word.governor-1]
         if word.governor == 0:
             # if the aux word is root; (这种情形会出现在德语依存分析中, 但在英语依存分析中是正常的)
@@ -107,6 +111,7 @@ def get_aux_domain(sent):
                    'head': dc.lemma,
                    'head_pos': dc.upos.lower(), 'delegator':delegator,
                    'index': word.index, 'domains': domains, 'stems':stems})
+        parsed_heads.add(word.governor)
     return rs
 
 def get_subj_domain(sent):

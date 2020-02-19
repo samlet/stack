@@ -13,7 +13,7 @@ from client_wrapper import ServiceClient
 
 import nlpserv_pb2 as nlp_messages
 import nlpserv_pb2_grpc as nlp_service
-from utils import dump
+from sagas.misc.utils import dump
 
 logging.getLogger('pika').setLevel(logging.INFO)
 logging.getLogger('aio_pika').setLevel(logging.INFO)
