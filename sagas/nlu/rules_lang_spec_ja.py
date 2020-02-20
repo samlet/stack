@@ -66,7 +66,30 @@ class Rules_ja(LangSpecBase):
 
             # $ sj 'どんなおかずが好きですか？'
             pat(-5, name='desc_fav').verb(extract_for('plain', 'ガ'),
-                                          interr('fav', is_part=False),)
+                                          interr('fav', is_part=False),),
+
+            # $ sj '風が北から南に変わった。'
+            # +----+-------+---------+--------+---------+------------+---------------+
+            # |    | rel   |   index | text   | lemma   | children   | features      |
+            # |----+-------+---------+--------+---------+------------+---------------|
+            # |  0 | ガ    |       0 | 風が   | 風      | 風..       | c_noun, x_n.. |
+            # |  1 | ニ    |       1 | 北から | 北      | 北..       | c_noun, x_n.. |
+            # |  2 | ニ    |       2 | 南に   | 南      | 南..       | c_noun, x_n.. |
+            # +----+-------+---------+--------+---------+------------+---------------+
+            pat(5, name='ask_taste').verb(extract_for('plain', 'ニ'),
+                                          behaveof('turn', 'v'),
+                                          ガ=kindof('natural_phenomenon/process', 'n')),
+            # $ sj 父は私にとてもきびしかった。
+            chained(pat(5, name='desc_attitude'),
+                    subj('adj', ガ=agency),
+                    verb(extract_for('plain', '_'),
+                         extract_for('plain', 'ガ'),
+                         extract_for('plain', 'ニ'),
+                         extract_for('plain', '修飾'),
+                         specsof('*', 'tight'),
+                         )
+                    ),
+            pat(-5, name='desc_attitude_type').verb(specsof('*', 'tight')),
             ])
 
     # def execute(self):

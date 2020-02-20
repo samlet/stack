@@ -1,8 +1,11 @@
 from sagas.nlu.inspectors import NegativeWordInspector as negative
 from sagas.nlu.inspectors import DateInspector as dateins
 from sagas.nlu.inspectors import EntityInspector as entins
-from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
-from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
+from sagas.nlu.inspector_wordnet import (
+    PredicateWordInspector as kindof,
+    VerbInspector as behaveof,
+    WordSpecsInspector as specsof,
+    )
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c, extract_for
 
@@ -26,6 +29,9 @@ from sagas.nlu.inspectors import MatchInspector as matchins, interr_root, interr
 
 # registry
 # from sagas.nlu.inspector_registry import ci
+
+# combine functors
+from sagas.nlu.chained_patterns import chained, verb, subj
 
 ## Only includes in jupyter or test-files
 

@@ -163,6 +163,46 @@ class VerbInspector(WordInspector):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
 
+class WordSpecsInspector(WordInspector):
+    def __init__(self, pos_indicator, *cats):
+        super().__init__(cats[0], pos_indicator, only_first=False)
+        self.cats=cats
+
+    def check_subs(self, kind, word, lang, pos):
+        from sagas.nlu.synonyms import synonyms
+        r=synonyms.match(word, lang)
+        if r is None:
+            return predicate(kind, word, lang, pos, self.only_first)
+        self.subs=r
+
+        return predicate(self.kind, r, 'en', pos, self.only_first)
+
+    def run(self, key, ctx:Context):
+        lang=ctx.lang
+
+        if '/' in key:
+            word=key  # the key == word
+        else:
+            word = f"{ctx.words[key]}/{ctx.lemmas[key]}"
+        pos=self.pos_indicator
+
+        resultset=[]
+        for kind in self.cats:
+            result= self.check_subs(kind, word, lang, pos)
+            logger.debug(f"check word {word} against {kind}, result is {result}")
+            if result:
+                ctx.add_result(self.name(), 'default', 'predicate',
+                               {**self.result_base, 'pos': pos, 'word': word},
+                               delivery_type='sentence')
+            resultset.append(result)
+        return any(resultset)
+
+    def name(self):
+        return "specs_of"
+
+    def __str__(self):
+        return "{}({},{})".format(self.name(), self.cats, self.pos_indicator)
+
 class InspectorRunner(InspectorFixture):
     def __init__(self):
         super().__init__()

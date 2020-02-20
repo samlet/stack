@@ -56,8 +56,16 @@ class LangSpecBase(object):
 
     def collect(self, pats):
         from sagas.nlu.patterns import print_result
-        print_result(pats)
-        for r in pats:
-            # 收集成功匹配的命名rule的结果
-            if r[1] and r[3].name != '':
-                self.matched[r[3].name] = r[3]  # r[3] is Context
+        print_result([p for p in pats if isinstance(p, tuple)])
+
+        for rs in pats:
+            if isinstance(rs, list):
+                rows=rs
+                print_result(rows)
+            else:
+                rows=[rs]
+
+            for r in rows:
+                # 收集成功匹配的命名rule的结果
+                if r[1] and r[3].name != '':
+                    self.matched[r[3].name] = r[3]  # r[3] is Context

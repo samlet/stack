@@ -105,7 +105,7 @@ class Patterns(object):
     def execute_args_entire(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'sents')
 
-    def __getattr__(self, method):
+    def prepare(self, method):
         """Provide a dynamic access to a service method."""
         if method.startswith('_'):
             return super(Patterns, self).__getattr__(method)
@@ -117,29 +117,29 @@ class Patterns(object):
 
             ctx = Context(self.meta, self.domains, name=self.name)
             # the args has been checked as pos
-            if self.meta is not None and len(args)>0:
+            if self.meta is not None and len(args) > 0:
                 # opt_ret=check_item(self.meta, 'pos', args, ctx)
                 # if not opt_ret:
                 #     result = False
                 # options.append('{} is {}: {}'.format('pos', args, opt_ret))
                 if not self.funcs[method](args, ctx, options):
-                    result=False
+                    result = False
 
             # rel_feats = {x[0]: x[5] for x in self.domains}
-            rel_feats=ctx.feats
+            rel_feats = ctx.feats
 
             for key, value in kwargs.items():
                 if not key.startswith('head_'):
-                    key=key.replace('_', ':')
-                key=trip_number_suffix(key)
+                    key = key.replace('_', ':')
+                key = trip_number_suffix(key)
                 if key.startswith('::'):
                     # starts with '__', likes '__engine'
-                    opt_name=key[2:]
-                    opt_ret=self.meta[opt_name]==value
+                    opt_name = key[2:]
+                    opt_ret = self.meta[opt_name] == value
                     if not opt_ret:
-                        logger.debug('%s=%s checker fail, skip this pattern.'%(key, value))
+                        logger.debug('%s=%s checker fail, skip this pattern.' % (key, value))
                 elif key.startswith(':'):
-                    opt_ret=check_item(self.meta, key[1:], value, ctx)
+                    opt_ret = check_item(self.meta, key[1:], value, ctx)
                 else:
                     opt_ret = check_item(rel_feats, key, value, ctx)
 
@@ -147,7 +147,7 @@ class Patterns(object):
                     result = False
                 options.append('{} is {}: {}'.format(key, value, opt_ret))
 
-            if len(self.after_evs)>0:
+            if len(self.after_evs) > 0:
                 logger.debug(f".. after_evs {[(el[0].name(), el[1]) for el in self.after_evs]}")
                 for arg, key_val in self.after_evs:
                     opt_ret = arg.check(key_val, ctx)
@@ -168,6 +168,9 @@ class Patterns(object):
                 return result, ctx
 
         return service_method
+
+    def __getattr__(self, method):
+        return self.prepare(method)
 
 # print_not_matched=False
 def print_result(rs):
