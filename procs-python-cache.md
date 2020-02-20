@@ -1,6 +1,7 @@
 # procs-python-cache.md
 ⊕ [Speed up your code by using a cache in Python | The Python Corner](https://www.thepythoncorner.com/2018/04/how-to-make-your-code-faster-by-using-a-cache-in-python/?source=post_page-----fb169fbcbb0b----------------------)
 ⊕ [cachetools · PyPI](https://pypi.org/project/cachetools/)
+    ⊕ [cachetools — Extensible memoizing collections and decorators — cachetools 4.0.0 documentation](https://cachetools.readthedocs.io/en/stable/)
 
 ## start
 ```sh

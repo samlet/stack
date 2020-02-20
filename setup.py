@@ -14,6 +14,7 @@ with open("README.md", "r") as fh:
 
 # What packages are required for this module to be executed?
 REQUIRED = [
+    "colorlog",
     "fire",
     "simplejson",
     "PyYAML",

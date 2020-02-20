@@ -2,11 +2,18 @@ version: 1
 formatters:
   simple:
     format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  colored:
+    class: colorlog.ColoredFormatter
+    format: "%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s"
+  color_detail:
+    class: colorlog.ColoredFormatter
+    format: '%(log_color)s%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
 handlers:
   console:
     class: logging.StreamHandler
     level: DEBUG
-    formatter: simple
+    formatter: color_detail
     stream: ext://sys.stdout
 
 loggers:

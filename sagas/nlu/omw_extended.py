@@ -6,7 +6,7 @@ langsets={'bg': 'bul', 'ca': 'cat', 'cs': 'ces', 'da': 'dan', 'de': 'deu', 'el':
           'nb': 'nob', 'pl': 'pol', 'pt': 'por', 'ro': 'ron', 'ru': 'rus', 'sk': 'slk',
           'sl': 'slv', 'es': 'spa', 'sv': 'swe', 'th': 'tha',
           # fixed
-          'zh': 'cmn', 'ar': 'arb', 'ms': 'zsm'
+          'zh': 'cmn', 'ar': 'arb', 'ms': 'zsm', 'ko': 'kor',
           }
 
 # https://stackoverflow.com/questions/319426/how-do-i-do-a-case-insensitive-string-comparison
