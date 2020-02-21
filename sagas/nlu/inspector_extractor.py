@@ -12,6 +12,7 @@ class CompExtractInspector(Inspector):
     def __init__(self, comp_as='plain', pickup=None):
         self.comp_as=comp_as.split('+')
         self.pickup=pickup
+        # key是成分名, value是tuple-list, element-0为判定名, element-1为结果
         self.results={}
 
     def name(self):
@@ -100,15 +101,18 @@ class CompExtractInspector(Inspector):
                 }
 
         if self.pickup=='_' or ':' in self.pickup:
+            self.results['_']=[]
             for comp in self.comp_as:
                 op=ex_map[comp](comp_val, comp)
-                self.results[comp]=op
+                self.results['_'].append((comp,op))
         else:
-            for comp in self.comp_as:
-                for cnt in ctx.chunk_pieces(key):
+            for cnt in ctx.chunk_pieces(key):
+                self.results[key]=[]
+                for comp in self.comp_as:
                     ex=ex_map[comp]
                     op=ex(cnt, comp)
-                    self.results[comp] = op
+                    # self.results[comp] = op
+                    self.results[key].append((comp, op))
 
         return True  # 只负责提取, 并不参与判定, 所以始终返回True
 

@@ -80,16 +80,26 @@ class Rules_ja(LangSpecBase):
                                           behaveof('turn', 'v'),
                                           ガ=kindof('natural_phenomenon/process', 'n')),
             # $ sj 父は私にとてもきびしかった。
+            # $ sj 本田先生は学生たちにきびしそうだ。
             chained(pat(5, name='desc_attitude'),
                     subj('adj', ガ=agency),
-                    verb(extract_for('plain', '_'),
-                         extract_for('plain', 'ガ'),
+                    verb(extract_for('plain', 'ガ'),
                          extract_for('plain', 'ニ'),
                          extract_for('plain', '修飾'),
                          specsof('*', 'tight'),
                          )
                     ),
             pat(-5, name='desc_attitude_type').verb(specsof('*', 'tight')),
+            # $ sj '予約を火曜日から木曜日に変えてもらった。'
+            pat(5, name='change_statement').verb(extract_for('plain+date_search+date_parse', '時間'),
+                                                 specsof('v', 'change'),
+                                                 ヲ=kindof('statement', 'n')
+                                                 ),
+            # $ sj '日本はアメリカに比べて小さいです。'
+            pat(5, name='describe_compare').verb(
+                extract_for('plain', 'ガ'),
+                checker(has_rel='ニクラベル'),
+                specsof('*', 'little'),),
             ])
 
     # def execute(self):

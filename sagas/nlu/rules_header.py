@@ -8,6 +8,7 @@ from sagas.nlu.inspector_wordnet import (
     )
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c, extract_for
+from sagas.nlu.inspector_checker import CheckerInspector as checker
 
 from sagas.nlu.patterns import Patterns
 

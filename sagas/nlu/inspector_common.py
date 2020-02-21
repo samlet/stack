@@ -19,6 +19,8 @@ class Context(object):
         self.name=name
         # self.chunks = {x[0]: x[4] for x in domains}
         self._chunks = [Chunk(x[0], x[4]) for x in domains]
+        # all universal syntactic relations
+        self.rels={x[0] for x in domains}
         self._stems = meta['stems']
         if len(self._stems)==0:
             self._stems=[(x[0], x[4]) for x in domains]
@@ -47,6 +49,10 @@ class Context(object):
 
     def get_word(self, key):
         return f"{self.words[key]}/{self.lemmas[key]}"
+
+    @property
+    def pos(self):
+        return self.meta['pos']
 
     @property
     def results(self) -> List[Dict[Text, Any]]:
