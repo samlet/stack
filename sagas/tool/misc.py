@@ -7,6 +7,7 @@ from sagas.nlu.utils import fix_sents, join_text
 import logging
 
 from sagas.tool import color_print
+from pprint import pprint
 
 logger = logging.getLogger(__name__)
 
@@ -690,7 +691,10 @@ class MiscTool(object):
         doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
         rs = get_chunks(doc_jsonify)
         rs_summary(rs)
-        print(resp)
+        print('-' * 25, 'predicts')
+        pprint(resp)
+        print('-' * 25, 'doc')
+        pprint(doc_jsonify.as_json)
 
     def exec_rules(self, sents, lang='en', engine='corenlp'):
         """

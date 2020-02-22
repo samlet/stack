@@ -82,6 +82,23 @@ def entity_list(leaf):
             string.append(ner_mappings[mrph.bunrui])
     return string
 
+def get_segments(leaf):
+    segs=[]
+    for mrph in leaf.mrph_list():
+        seg={}
+        seg['index']=mrph.mrph_id
+        seg['upos']=get_pos_mapping(mrph.hinsi, mrph.bunrui)
+        seg['xpos'] = [mrph.hinsi, mrph.bunrui]
+        seg['text'] = mrph.midasi
+        if mrph.repname:
+            lemmas=mrph.repname.split('/')
+            if len(lemmas)>0:
+                seg['lemmas']=lemmas
+        if mrph.bunrui in ner_mappings:
+            seg['entity']=ner_mappings[mrph.bunrui]
+        segs.append(seg)
+    return segs
+
 def display(df, col_defs=None):
     if outputer=='console':
         if col_defs is not None:
@@ -246,7 +263,8 @@ def extract_predicates(result, verbose=True):
                                    'phonetic': predict_phonetic, 'word':predict_cnt,
                                    'rel': tag.dpndtype, 'governor': get_governor(tag),
                                    'pos': tag_pos(tag).lower(),
-                                   'domains': domains, 'stems': []})
+                                   'domains': domains, 'stems': [],
+                                   'segments': get_segments(tag)})
     if verbose:
         print(deps, predict_keys)
         # print(predicts)

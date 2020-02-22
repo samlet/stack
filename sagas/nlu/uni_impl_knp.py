@@ -7,7 +7,7 @@ class KnpWordImpl(WordIntf):
         super().__init__(data)
 
     def setup(self, tag):
-        from sagas.ja.knp_helper import get_by_keyset, tag_pos, pos_list, entity_list
+        from sagas.ja.knp_helper import get_by_keyset, tag_pos, pos_list, entity_list, get_segments
         if tag.parent_id == -1:
             governor = 0
         else:
@@ -26,7 +26,8 @@ class KnpWordImpl(WordIntf):
                     'upos': tag_pos(tag), 'xpos': '_'.join(pos_list(tag)),
                     'feats': [tag.fstring], 'governor': governor,
                     'dependency_relation': rel,
-                    'entity': entity_list(tag)
+                    'entity': entity_list(tag),
+                    'segments': get_segments(tag)
                     }
         return features
 
@@ -56,6 +57,8 @@ class KnpParserImpl(object):
         import sagas.ja.knp_helper as kh
         from sagas.ja.knp_helper import extract_predicates
         result = kh.knp.parse(sents)
-        dep_sets, predict_keys, predicts, predict_tuples = extract_predicates(result, verbose=False)
-        return KnpSentImpl(result, text=sents, predicts=predict_tuples, dep_sets=dep_sets)
+        dep_sets, _, _, predict_tuples = extract_predicates(result, verbose=False)
+        return KnpSentImpl(result, text=sents,
+                           predicts=predict_tuples,
+                           dep_sets=dep_sets)
 

@@ -55,6 +55,16 @@ class Context(object):
         return self.meta['pos']
 
     @property
+    def segments(self):
+        return self.meta['segments']
+
+    def in_segments(self, lemma) -> (bool, Dict[Text, Any]):
+        for seg in self.segments:
+            if lemma in seg['lemmas']:
+                return True, seg
+        return False, None
+
+    @property
     def results(self) -> List[Dict[Text, Any]]:
         return self._results
 

@@ -7,6 +7,7 @@ nagative_maps={
     'id': ['tidak', 'tak bisa', 'tak boleh'],
     'pt': ['não'],
     'ar': ['lā', 'la'],
+    'ja': ['ない'],
 }
 
 interrogative_maps={

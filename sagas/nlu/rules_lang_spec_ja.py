@@ -67,6 +67,15 @@ class Rules_ja(LangSpecBase):
             # $ sj 'どんなおかずが好きですか？'
             pat(-5, name='desc_fav').verb(extract_for('plain', 'ガ'),
                                           interr('fav', is_part=False),),
+            # $ sj 'ケーキの甘みが好きじゃなかった。'
+            pat(-5, name='desc_fav_not').verb(
+                extract_for('plain', 'ガ'),
+                interr('fav', is_part=False),
+                checker(has_lemma='ない'),),
+            pat(-5, name='desc_fav_neg').verb(
+                extract_for('plain', 'ガ'),
+                interr('fav', is_part=False),
+                checker(negative='_'), ),
 
             # $ sj '風が北から南に変わった。'
             # +----+-------+---------+--------+---------+------------+---------------+
@@ -96,10 +105,11 @@ class Rules_ja(LangSpecBase):
                                                  ヲ=kindof('statement', 'n')
                                                  ),
             # $ sj '日本はアメリカに比べて小さいです。'
+            # $ sj '太陽は月に比べて大きいです。'
             pat(5, name='describe_compare').verb(
                 extract_for('plain', 'ガ'),
                 checker(has_rel='ニクラベル'),
-                specsof('*', 'little'),),
+                specsof('*', 'little', 'large'),),
             ])
 
     # def execute(self):

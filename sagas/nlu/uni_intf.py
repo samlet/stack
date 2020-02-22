@@ -16,7 +16,9 @@ sub_comps=['ccomp', 'xcomp', # general
            ]
 
 def word_jsonify(word):
-    features = ['index', 'text', 'lemma', 'upos', 'xpos', 'feats', 'governor', 'dependency_relation']
+    features = ['index', 'text', 'lemma', 'upos', 'xpos', 'feats',
+                'governor', 'dependency_relation',
+                'entity', 'segments']
     feature_attrs = {k: getattr(word, k) for k in features if getattr(word, k) is not None}
     return feature_attrs
 
@@ -83,6 +85,10 @@ class WordIntf(abc.ABC):
     @property
     def entity(self):
         return self.ctx['entity'] if 'entity' in self.ctx else []
+
+    @property
+    def segments(self):
+        return self.ctx['segments'] if 'segments' in self.ctx else []
 
     @property
     def as_json(self):
