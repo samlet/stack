@@ -59,6 +59,12 @@ def display_doc_deps(doc_jsonify, resp=None, translit_lang=None):
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20, translit_lang=translit_lang)
     return cv.analyse_doc(doc_jsonify, None, console=False)
 
+def display_root_predicate(doc_jsonify, resp):
+    from sagas.nlu.ruleset_procs import root_predicate
+    root_pred = root_predicate(doc_jsonify, resp['predicts'] if 'predicts' in resp else [])
+    if root_pred:
+        tc.emp('yellow', f".. root predicate: {root_pred['index']}.{root_pred['lemma']}")
+
 def viz_sample(lang, sents, engine='corenlp', translit_lang=None, enable_contrast=False):
     """
     >>> from sagas.nlu.uni_remote_viz import viz_sample
@@ -78,10 +84,14 @@ def viz_sample(lang, sents, engine='corenlp', translit_lang=None, enable_contras
     # uni=UniCli()
     # doc=uni.parsers[engine](lang, sents)
     from sagas.nlu.uni_remote import dep_parse
+
     doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
     if doc_jsonify is None:
         raise Exception(f'Cannot parse sentence for lang {lang}')
+
+    display_root_predicate(doc_jsonify, resp)
     list_chunks(doc_jsonify, resp, lang, enable_contrast=enable_contrast)
+
     return display_doc_deps(doc_jsonify, resp, translit_lang=translit_lang)
 
 

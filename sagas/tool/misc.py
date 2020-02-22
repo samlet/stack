@@ -570,6 +570,7 @@ class MiscTool(object):
         $ sz '这两句话的相似程度' en
         $ sz '这两句话的相似程度' 'en;fr;ar;ja;fa'
         $ engine=spacy se 'I like to eat cucumber.'
+        $ sj '足にひどい痛みを感じました。'  # multiple predicates
 
         :return:
         """

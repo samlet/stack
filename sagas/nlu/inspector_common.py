@@ -60,7 +60,7 @@ class Context(object):
 
     def in_segments(self, lemma) -> (bool, Dict[Text, Any]):
         for seg in self.segments:
-            if lemma in seg['lemmas']:
+            if 'lemmas' in seg and lemma in seg['lemmas']:
                 return True, seg
         return False, None
 

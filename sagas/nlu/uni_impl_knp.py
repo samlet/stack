@@ -44,7 +44,6 @@ class KnpSentImpl(SentenceIntf):
         deps = []
         return words, deps
 
-
 class KnpParserImpl(object):
     """
     >>> from sagas.nlu.uni_viz_checker import *

@@ -4,6 +4,7 @@ from sagas.nlu.corenlp_parser import get_chunks
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.inspector_common import Inspector, Context, non_spaces
 from sagas.conf.conf import cf
+from sagas.nlu.uni_intf import SentenceIntf
 from sagas.nlu.utils import fix_sents
 from sagas.nlu.uni_remote import dep_parse, parse_and_cache
 from sagas.nlu.uni_remote_viz import list_contrast, display_doc_deps
@@ -31,6 +32,15 @@ def cached_chunks(sents:Text, source:Text, engine:Text):
             'aux_domains': get_aux_domain(doc),
             'subj_domains': get_subj_domain(doc),
             }
+
+def root_predicate(doc:SentenceIntf, predicts):
+    tag_id = doc.root.index - 1
+    if predicts:
+        for pred in predicts:
+            idx=pred['index']
+            if tag_id==idx:
+                return pred
+    return None
 
 def get_main_domains(sents:Text, source:Text, engine:Text):
     chunks=cached_chunks(sents, source, engine)

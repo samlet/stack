@@ -119,6 +119,7 @@ class SentenceIntf(abc.ABC):
 
         self.sents=text
         self.set_word_positions(text)
+        self.root=next(w for w in self._words if w.dependency_relation in ('root', 'hed'))
 
     def set_word_positions(self, text:Text):
         running_offset = 0
@@ -135,7 +136,11 @@ class SentenceIntf(abc.ABC):
         return self.pos_map[word_idx] if word_idx in self.pos_map else (0,0)
 
     def has_predicts(self) -> bool:
-        return self.predicts is not None and len(self.predicts)>0
+        # return self.predicts is not None and len(self.predicts)>0
+        return True if self.predicts else False
+
+    # def root_predicate(self):
+    #     pass
 
     @abc.abstractmethod
     def setup(self, sent):
