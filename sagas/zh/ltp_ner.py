@@ -1,3 +1,6 @@
+from cachetools import cached, TTLCache
+
+
 def ltp_parse(sentence):
     from sagas.zh.ltp_procs import ltp
 
@@ -20,6 +23,7 @@ def ltp_parse(sentence):
     return rs
 
 
+@cached(cache=TTLCache(maxsize=1024*768, ttl=600))
 def ltp_ner(sents):
     running_offset = 0
     rs = []

@@ -1,3 +1,6 @@
+from cachetools import cached
+
+@cached(cache={})
 def extract_entities(sents):
     import jieba.posseg as pseg
     words = pseg.cut(sents,use_paddle=True)

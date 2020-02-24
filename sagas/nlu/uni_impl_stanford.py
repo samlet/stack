@@ -40,9 +40,9 @@ def extract_words(sents, lang):
         idx=tok['index']
         dep=[d for d in deps if d['dependent']==idx][0]
         # print(dep)
-        features = {'index': idx, 'text': tok['word'], 'lemma': tok['lemma'],
+        features = {'index': int(idx), 'text': tok['word'], 'lemma': tok['lemma'],
                     'upos': get_pos_mapping(tok['pos']), 'xpos': tok['pos'],
-                    'feats': [], 'governor': dep['governor'],
+                    'feats': [], 'governor': int(dep['governor']),
                     'dependency_relation': dep['dep'].lower(),
                     'entity': [tok['ner']]
                     }

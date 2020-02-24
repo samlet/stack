@@ -52,9 +52,9 @@ class HanlpWordImpl(WordIntf):
         #  get_head_lemma(result, word.head_id))
         governor = token.head_id
         idx = token.id  # start from 1
-        features = {'index': idx, 'text': token.lemma, 'lemma': token.name,
+        features = {'index': int(idx), 'text': token.lemma, 'lemma': token.name,
                     'upos': get_pos_mapping(token.postag2), 'xpos': token.postag2,
-                    'feats': [token.postag1], 'governor': governor, 'dependency_relation': token.deprel,
+                    'feats': [token.postag1], 'governor': int(governor), 'dependency_relation': token.deprel,
                     'entity': []
                     }
         return features

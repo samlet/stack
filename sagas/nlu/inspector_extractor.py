@@ -1,3 +1,6 @@
+from typing import Text, Any, Dict, List
+import requests
+
 from sagas.nlu.inspector_common import Inspector, Context
 import logging
 logger = logging.getLogger(__name__)
@@ -84,6 +87,16 @@ class CompExtractInspector(Inspector):
                 ctx.add_result(self.name(), comp, self.pickup, result)
                 return True
             return False
+        def ex_ner(cnt, comp):
+            data = {"sents": ctx.sents if self.pickup=='_' else cnt}
+            route=f'spacy/{ctx.lang}' if ctx.lang in ('zh', 'ru', 'ja', 'id') else ctx.lang
+            response = requests.post(f'http://localhost:1700/ner/{route}', json=data)
+            if response.status_code==200:
+                result=response.json()
+                if len(result)>0:
+                    ctx.add_result(self.name(), comp, self.pickup, result)
+                    return True
+            return False
 
         ex_map={'date_search': ex_date_search,
                 'date_parse': ex_date_parse,
@@ -93,11 +106,14 @@ class CompExtractInspector(Inspector):
                 'number': lambda cnt, comp: ex_dims(cnt, comp, 'number'),
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),
                 'temperature': lambda cnt, comp: ex_dims(cnt, comp, 'temperature'),
+                # example: extract_for('rasa', '_')
                 'rasa': lambda cnt, comp: ex_rasa(cnt, comp),
                 # example: extract_for('chunk', 'verb:xcomp/obj')
                 'chunk': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: (w.text, w.upos.lower())),
                 # example: extract_for('chunk_text', 'verb:xcomp/obj')
                 'chunk_text': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: w.text),
+                # example: extract_for('ner', '_'), extract_for('ner', 'xcomp')
+                'ner': lambda cnt, comp: ex_ner(cnt, comp),
                 }
 
         if self.pickup=='_' or ':' in self.pickup:

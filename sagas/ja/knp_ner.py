@@ -1,11 +1,14 @@
 import re
 import pyknp
+from cachetools import cached
 
 # KNP preparing:
 # option (str) – KNP解析オプション (詳細解析結果を出力する-tabは必須。
 # 省略・照応解析を行う -anaphora, 格解析を行わず構文解析のみを行う -dpnd など)
+
 knp_ner = pyknp.KNP(option="-tab -dpnd", jumanpp=False)
 
+@cached(cache={})
 def ner(src_text: str):
     rs=[]
     result = knp_ner.parse(src_text)  # tagging

@@ -79,5 +79,60 @@ def get_weather(place):
     return owm.weather_at_place(place).get_weather()
 ```
 
+## cachedmethod
+⊕ [cachetools — Extensible memoizing collections and decorators — cachetools 4.0.0 documentation](https://cachetools.readthedocs.io/en/stable/#cachetools.cachedmethod)
 
+Decorator to wrap a class or instance method with a memoizing callable that saves results in a (possibly shared) cache.
+
+The main difference between this and the cached() function decorator is that cache and lock are not passed objects, but functions. Both will be called with self (or cls for class methods) as their sole argument to retrieve the cache or lock object for the method’s respective instance or class.
+
+Note
+
+As with cached(), the context manager obtained by calling lock(self) will only guard access to the cache itself. It is the user’s responsibility to handle concurrent calls to the underlying wrapped method in a multithreaded environment.
+
+One advantage of cachedmethod() over the cached() function decorator is that cache properties such as maxsize can be set at runtime:
+
+```python
+class CachedPEPs(object):
+
+    def __init__(self, cachesize):
+        self.cache = LRUCache(maxsize=cachesize)
+
+    @cachedmethod(operator.attrgetter('cache'))
+    def get(self, num):
+        """Retrieve text of a Python Enhancement Proposal"""
+        url = 'http://www.python.org/dev/peps/pep-%04d/' % num
+        with urllib.request.urlopen(url) as s:
+            return s.read()
+
+peps = CachedPEPs(cachesize=10)
+print("PEP #1: %s" % peps.get(1))
+```
+
+When using a shared cache for multiple methods, be aware that different cache keys must be created for each method even when function arguments are the same, just as with the @cached decorator:
+
+```python
+class CachedReferences(object):
+
+    def __init__(self, cachesize):
+        self.cache = LRUCache(maxsize=cachesize)
+
+    @cachedmethod(lambda self: self.cache, key=partial(hashkey, 'pep'))
+    def get_pep(self, num):
+        """Retrieve text of a Python Enhancement Proposal"""
+        url = 'http://www.python.org/dev/peps/pep-%04d/' % num
+        with urllib.request.urlopen(url) as s:
+            return s.read()
+
+    @cachedmethod(lambda self: self.cache, key=partial(hashkey, 'rfc'))
+    def get_rfc(self, num):
+        """Retrieve text of an IETF Request for Comments"""
+        url = 'https://tools.ietf.org/rfc/rfc%d.txt' % num
+        with urllib.request.urlopen(url) as s:
+            return s.read()
+
+docs = CachedReferences(cachesize=100)
+print("PEP #1: %s" % docs.get_pep(1))
+print("RFC #1: %s" % docs.get_rfc(1))
+```
 

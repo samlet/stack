@@ -1,7 +1,11 @@
 import json
+import operator
+
+from cachetools import LRUCache, cachedmethod
+
 
 class IndonesiaNer(object):
-    def __init__(self):
+    def __init__(self, cachesize=10000):
         from py4j.java_gateway import JavaGateway, JavaObject, GatewayParameters
         # from py4j.java_gateway import java_import, get_field
         from sagas.conf.runtime import runtime
@@ -13,10 +17,13 @@ class IndonesiaNer(object):
                               gateway_parameters=GatewayParameters(address=host, port=port, auto_field=True))
         self.j = self.gateway.new_jvm_view()
 
+        self.cache = LRUCache(maxsize=cachesize)
+
     def id_parse(self, sents):
         ner = self.gateway.entry_point.getIndonesiaNer()
         return json.loads(ner.nerJson(sents))
 
+    @cachedmethod(operator.attrgetter('cache'))
     def ner(self, sents):
         running_offset = 0
         rs = []

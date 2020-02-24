@@ -43,12 +43,12 @@ class WordIntf(abc.ABC):
         return self.ctx['dependency_relation']
 
     @property
-    def lemma(self):
+    def lemma(self) -> Text:
         """ Access lemma of this word. """
         return self.ctx['lemma'] if 'lemma' in self.ctx else ''
 
     @property
-    def governor(self):
+    def governor(self) -> int:
         """ Access governor of this word. """
         return self.ctx['governor']
 
@@ -58,7 +58,7 @@ class WordIntf(abc.ABC):
         return self.ctx['pos']
 
     @property
-    def text(self):
+    def text(self) -> Text:
         """ Access text of this word. Example: 'The'"""
         return self.ctx['text']
 
@@ -78,7 +78,7 @@ class WordIntf(abc.ABC):
         return self.ctx['feats']
 
     @property
-    def index(self):
+    def index(self) -> int:
         """ Access index of this word. """
         return self.ctx['index']
 

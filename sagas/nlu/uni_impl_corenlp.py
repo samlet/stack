@@ -2,10 +2,11 @@ from sagas.nlu.uni_intf import WordIntf, SentenceIntf
 
 class CoreNlpWordImpl(WordIntf):
     def setup(self, data):
-        features = ['index', 'text', 'lemma', 'upos', 'xpos',
-                    'feats', 'governor', 'dependency_relation']
+        features = ['text', 'lemma', 'upos', 'xpos',
+                    'feats', 'dependency_relation']
+        indexes={k: int(getattr(data, k)) for k in ['index', 'governor'] if getattr(data, k) is not None}
         attrs = {k: getattr(data, k) for k in features if getattr(data, k) is not None}
-        return attrs
+        return {**indexes, **attrs}
 
 
 class CoreNlpSentImpl(SentenceIntf):
