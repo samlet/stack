@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List
 from nltk.corpus import wordnet as wn
 from sagas.nlu.omw_extended import langsets, omw_ext
 from sagas.nlu.locales import is_available
@@ -6,14 +7,14 @@ hypo = lambda s: s.hyponyms()
 hyper = lambda s: s.hypernyms()
 # omw = OmwExtended()
 
-def get_word_lemmas(synset, lang):
+def get_word_lemmas(synset, lang) -> List[Text]:
     if not is_available(lang):
         les = [w['word'] for w in omw_ext.get_word(lang, synset.offset(), synset.pos())]
     else:
         les = synset.lemma_names(langsets[lang])
-    return les
+    return list(filter(lambda w: w is not None,les))
 
-def get_lemmas(synsets, target_langs):
+def get_lemmas(synsets, target_langs) -> List[Any]:
     rs=[]
     for idx, c in enumerate(synsets):
         # print('%d.'%idx, c.name())
@@ -33,7 +34,7 @@ def get_lemmas(synsets, target_langs):
         rs.append(chain)
     return rs
 
-def explore(word, lang='en', target_langs=None):
+def explore(word, lang='en', target_langs=None) -> List[Any]:
     if target_langs is None:
         target_langs = ['en', 'fr', 'ja', 'zh']
     sets = wn.synsets(word, pos=None, lang=langsets[lang])

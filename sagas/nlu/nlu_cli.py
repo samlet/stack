@@ -103,8 +103,9 @@ class NluCli(object):
                 print('\t', domains)
                 # print('\t', s['lemmas'])
                 for key, les in s['lemmas'].items():
-                    if len(les)>0:
-                        print('\t', '[%s] %s'%(key, ', '.join(les)))
+                    if les:
+                        # print('\t', '[%s] %s'%(key, ', '.join('_' if w is None else w for w in les)))
+                        print('\t', '[%s] %s' % (key, ', '.join(les)))
         print(colored('✁ --------------------------', 'red'))
         self.get_chains(word, lang, pos)
 
