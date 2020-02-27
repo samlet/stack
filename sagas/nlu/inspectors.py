@@ -307,6 +307,19 @@ class PlainInspector(Inspector):
     def __str__(self):
         return f"ins_{self.name()}({self.arg})"
 
+class CustInspector(Inspector):
+    def __init__(self, fn):
+        self.fn=fn
+
+    def name(self):
+        return "cust"
+
+    def run(self, key, ctx:Context):
+        return self.fn(key, ctx)
+
+    def __str__(self):
+        return f"ins_{self.name()}({self.fn.__name__})"
+
 def query_entities_by_url(url, data):
     response = requests.post(url, json=data)
     if response.status_code == 200:

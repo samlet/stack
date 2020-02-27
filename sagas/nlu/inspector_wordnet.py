@@ -15,7 +15,7 @@ feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 
 
 @cached(cache={})
-def predicate(kind:Text, word:Text, lang:Text, pos:Text, only_first=False ):
+def predicate(kind:Text, word:Text, lang:Text, pos:Text ):
     # if '/' in kind or '/' in word:
     data = {'word': word, 'lang': lang, 'pos': pos,
             'kind': kind}
@@ -32,7 +32,7 @@ def predicate(kind:Text, word:Text, lang:Text, pos:Text, only_first=False ):
     return False
 
 class WordInspector(Inspector):
-    def __init__(self, kind, pos_indicator='~', only_first=False):
+    def __init__(self, kind, pos_indicator='~', **kwargs):
         """
         Init a predicate inspector
         :param kind:
@@ -42,9 +42,10 @@ class WordInspector(Inspector):
         :param only_first:
         """
         self.kind = kind
-        self.only_first=only_first
+        # self.only_first=only_first
         self.pos_indicator=pos_indicator
         self.subs=None
+        self.parameters=kwargs
 
     def name(self):
         return "kind_of"
@@ -67,12 +68,12 @@ class WordInspector(Inspector):
         # print(f'... retrieve substitute with {word}({lang})')
         if r is None:
             # return self.process(word, lang, pos)
-            return predicate(self.kind, word, lang, pos, self.only_first)
+            return predicate(self.kind, word, lang, pos)
         # print(f'... substitute with {r}(en), {pos}')
         # return self.process(r, 'en', pos)
         self.subs=r
 
-        return predicate(self.kind, r, 'en', pos, self.only_first)
+        return predicate(self.kind, r, 'en', pos)
 
     @property
     def result_base(self) -> Dict[Text, Any]:
@@ -96,11 +97,17 @@ class PredicateWordInspector(WordInspector):
     >>> Patterns(domains, meta, 5, name='describe_animal_hobby')
             .verb(behaveof('like', 'v'), nsubj=kindof('animal', 'n')),
     """
+
+    def extract_word(self, key:Text, ctx:Context):
+        if 'extract' in self.parameters:
+            return self.parameters['extract'](key, ctx)
+        return f"{ctx.words[key]}/{ctx.lemmas[key]}"
+
     def run(self, key, ctx:Context):
         # result=False
         lang=ctx.meta['lang']
         # word=ctx.lemmas[key]
-        word = f"{ctx.words[key]}/{ctx.lemmas[key]}"
+        word = self.extract_word(key, ctx)
         # print(f".. predicate {word}")
         if self.pos_indicator=='~':
             pos=self.get_pos_by_feat(ctx.feats[key])
@@ -140,9 +147,15 @@ class VerbInspector(WordInspector):
     #         return r['result']
     #     return False
 
+    def extract_word(self, key:Text, ctx:Context):
+        if 'extract' in self.parameters:
+            return self.parameters['extract'](key, ctx)
+        return key
+
     def run(self, key, ctx:Context):
         lang=ctx.meta['lang']
-        word=key  # the key == word
+        # word=key  # the key == word
+        word=self.extract_word(key, ctx)
         if self.pos_indicator=='~':
             pos='v'
         else:
@@ -166,27 +179,31 @@ class VerbInspector(WordInspector):
 class WordSpecsInspector(WordInspector):
     """
     Instances: specsof('*', 'little', 'large')
+    $ sj '太陽は月に比べて大きいです。'
     """
-    def __init__(self, pos_indicator, *cats):
-        super().__init__(cats[0], pos_indicator, only_first=False)
+    def __init__(self, pos_indicator, *cats, **kwargs):
+        super().__init__(cats[0], pos_indicator, **kwargs)
         self.cats=cats
 
     def check_subs(self, kind, word, lang, pos):
         from sagas.nlu.synonyms import synonyms
         r=synonyms.match(word, lang)
         if r is None:
-            return predicate(kind, word, lang, pos, self.only_first)
+            return predicate(kind, word, lang, pos)
         self.subs=r
 
-        return predicate(self.kind, r, 'en', pos, self.only_first)
+        return predicate(self.kind, r, 'en', pos)
 
-    def run(self, key, ctx:Context):
-        lang=ctx.lang
-
+    def extract_specs(self, key, ctx:Context):
         if '/' in key:
             word=key  # the key == word
         else:
             word = f"{ctx.words[key]}/{ctx.lemmas[key]}"
+        return word
+
+    def run(self, key, ctx:Context):
+        lang=ctx.lang
+        word=self.extract_specs(key, ctx)
         pos=self.pos_indicator
 
         resultset=[]

@@ -67,6 +67,7 @@ class Transliterations(object):
         from sagas.nlu.common import get_from_clip
         text=get_from_clip()
         if force_ployglot:
+            print('.. force ployglot')
             return self.trans_polyglot(text, lang)
         else:
             return self.translit(text, lang)

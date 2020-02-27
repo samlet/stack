@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union
 from nltk.corpus import wordnet as wn
 
 hypo = lambda s: s.hyponyms()
@@ -82,7 +83,7 @@ class WordNetProcs(object):
             print(', '.join(sorted(langs)))
             print(', '.join(sorted(iso_locales.iso_map.keys())))
 
-    def get_word_sets(self, word, lang='en', pos='*'):
+    def get_word_sets(self, word, lang='en', pos='*') -> List[Dict[Text,Any]]:
         """
         $ python -m sagas.nlu.wordnet_procs get_word_sets menina pt
         $ python -m sagas.nlu.wordnet_procs get_word_sets ложь ru

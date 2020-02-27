@@ -120,7 +120,7 @@ class Context(object):
     def get_single_chunk_text(self, key):
         chunks=self.get_chunks(key)
         if len(chunks)>0:
-            cnt = ' '.join(chunks[0].children)
+            cnt = self.delim.join(chunks[0].children)
             return cnt
         return ''
 

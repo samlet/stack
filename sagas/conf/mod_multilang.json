@@ -11,6 +11,7 @@
   "fa": ["sagas.nlu.rules_lang_spec_fa.Rules_fa"],
   "fr": ["sagas.nlu.rules_lang_spec_fr.Rules_fr"],
   "hr": ["sagas.nlu.rules_lang_spec_hr.Rules_hr"],
-  "nl": ["sagas.nlu.rules_lang_spec_nl.Rules_nl"]
+  "nl": ["sagas.nlu.rules_lang_spec_nl.Rules_nl"],
+  "ko": ["sagas.nlu.rules_lang_spec_ko.Rules_ko"]
 }
 

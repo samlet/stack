@@ -26,7 +26,10 @@ from sagas.nlu.rules_fn import anal, predicate_fn
 from sagas.nlu.operators import ud
 
 # match-exprs
-from sagas.nlu.inspectors import MatchInspector as matchins, interr_root, interr
+from sagas.nlu.inspectors import (
+    MatchInspector as matchins,
+    interr_root, interr,
+    CustInspector as cust)
 
 # registry
 # from sagas.nlu.inspector_registry import ci

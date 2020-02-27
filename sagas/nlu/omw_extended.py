@@ -109,7 +109,7 @@ class OmwExtended(object):
 
 omw_ext=OmwExtended()
 
-def get_synsets(lang, word, pos='*'):
+def get_synsets(lang, word, pos='*') -> List[Any]:
     """
     from sagas.nlu.omw_extended import get_synsets
     sets=get_synsets(lang, word, pos)
