@@ -31,7 +31,7 @@ class KoreaProcessor(object):
         :return:
         """
         verbose = False
-        options = set(['get_pronounce'])
+        options = {'get_pronounce'}
         # options.add('get_pronounce')
         res, t = translate(text, source=source, target=target,
                            trans_verbose=verbose, options=options)

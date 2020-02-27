@@ -164,6 +164,9 @@ class VerbInspector(WordInspector):
 
 
 class WordSpecsInspector(WordInspector):
+    """
+    Instances: specsof('*', 'little', 'large')
+    """
     def __init__(self, pos_indicator, *cats):
         super().__init__(cats[0], pos_indicator, only_first=False)
         self.cats=cats

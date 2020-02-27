@@ -13,7 +13,8 @@ function start_inventory(){
 python="$HOME/miniconda3/envs/rasa/bin/python"
 jupyter="$HOME/miniconda3/envs/rasa/bin/jupyter"
 
-py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
+# py_rasa="$HOME/miniconda3/envs/rasa_1x/bin/python"
+py_rasa="$HOME/miniconda3/envs/rasa/bin/python"
 py_cv="$HOME/miniconda3/envs/cv/bin/python"
 # bert_s="$HOME/miniconda3/envs/bigdata/bin/bert-serving-start"
 bert_s="$HOME/miniconda3/envs/cv/bin/bert-serving-start"

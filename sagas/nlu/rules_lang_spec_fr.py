@@ -27,11 +27,16 @@ class Rules_fr(LangSpecBase):
                                           extract_for('plain', 'iobj'),
                                           behaveof('refer', 'v'),
                                           nsubj=agency, iobj=agency),
-
+            # $ sf "J'aime bien votre humour."
             pat(5, name='behave_love').verb(extract_for('plain', 'nsubj'),
                                            extract_for('plain', 'obj'),
                                            behaveof('love', 'v'),
-                                           nsubj=agency, iobj=agency),
+                                           nsubj=agency, obj=agency),
+            # $ sf 'Elle présente tous les caractères de cette maladie.'
+            pat(5, name='behave_represent').verb(extract_for('plain', 'nsubj'),
+                                            extract_for('plain', 'obj'),
+                                            specsof('v', 'represent', 'show'),
+                                            nsubj=agency, obj=agency),
         ])
     
 
