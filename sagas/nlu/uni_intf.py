@@ -68,7 +68,7 @@ class WordIntf(abc.ABC):
         return self.ctx['xpos']
 
     @property
-    def upos(self):
+    def upos(self) -> Text:
         """ Access universal part-of-speech of this word. Example: 'DET'"""
         return self.ctx['upos']
 
@@ -87,7 +87,7 @@ class WordIntf(abc.ABC):
         return self.ctx['entity'] if 'entity' in self.ctx else []
 
     @property
-    def segments(self):
+    def segments(self) -> List[Any]:
         return self.ctx['segments'] if 'segments' in self.ctx else []
 
     @property

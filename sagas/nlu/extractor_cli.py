@@ -73,6 +73,8 @@ class ExtractorCli(object):
     def chunks(self, sents, lang, domain, path):
         """
         $ python -m sagas.nlu.extractor_cli chunks 'I like to eat sweet corn.' en verb 'xcomp/obj'
+        $ python -m sagas.nlu.extractor_cli chunks 'A casa tem dezenove quartos.' pt verb 'obj'
+            ☇ [('dezenove', 'num'), ('quartos', 'noun')]
 
         :param sents:
         :param lang:

@@ -33,6 +33,8 @@ class Rules_pt(LangSpecBase):
             pat(5, name='behave_touch_not').verb(behaveof('touch', 'v'),
                                                  advmod=negative(),
                                                  obl=kindof('matter', 'n')),
+            # $ spt 'A casa tem dezenove quartos.'  ("The house has nineteen rooms.")
+            pat(3, name='obj_num').verb(checker(has_num='verb:obj'), ),
 
         ])
     

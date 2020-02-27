@@ -13,9 +13,10 @@ def get_index_with(chunks, domain_name, expr):
     parser = parse(index_for_path(expr))
     # chunk=chunks['verb_domains'][0]
     for chunk in chunks[domain_name]:
-        idx = '/'.join([match.value for match in parser.find(chunk)])
-        if idx != '':
-            return idx
+        # idx = '/'.join([match.value for match in parser.find(chunk)])
+        idx = [match.value for match in parser.find(chunk)]
+        if idx:
+            return idx[0]
     return None
 
 
