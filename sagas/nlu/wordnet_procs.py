@@ -10,6 +10,18 @@ def names(rs):
 def ensure(s):
     return '_' if s is None else str(s)
 
+def word_def(refid):
+    """
+    >>> syn=word_def('08829775-n')
+    >>> print(syn.name(), syn.definition())
+
+    :param refid:
+    :return:
+    """
+    offset, pos = refid.split('-')
+    syn = wn.synset_from_pos_and_offset(pos, int(offset))
+    return syn
+
 def check_chains(synsets: list, kind):
     kind_set = set(kind.split('/'))
     for index, c in enumerate(synsets):
@@ -131,6 +143,8 @@ class WordNetProcs(object):
         $ python -m sagas.nlu.wordnet_procs predicate_chain koran print_media id n
         $ python -m sagas.nlu.wordnet_procs predicate_chain koran/jjj print_media id n
         $ python -m sagas.nlu.wordnet_procs predicate_chain pije/piti drink hr v
+        $ python -m sagas.nlu.wordnet_procs predicate_chain 필요 want ko v
+        $ python -m sagas.nlu.wordnet_procs predicate_chain 필요 need ko '*'
 
         :param word:
         :param kind:
@@ -140,7 +154,7 @@ class WordNetProcs(object):
         """
         return predicate_chain(word, kind, lang, pos)
 
-    def predicate(self, word, kind, lang='en', pos='n', only_first=True):
+    def predicate(self, word, kind, lang='en', pos='n', only_first=False):
         """
         $ python -m sagas.nlu.wordnet_procs predicate wolf animal en n
             True
@@ -152,6 +166,7 @@ class WordNetProcs(object):
             True
         $ python -m sagas.nlu.wordnet_procs predicate amarelo color pt n
         $ python -m sagas.nlu.wordnet_procs predicate koran print_media id n False
+        $ python -m sagas.nlu.wordnet_procs predicate 필요 want ko v False
 
         :param word:
         :param kind:

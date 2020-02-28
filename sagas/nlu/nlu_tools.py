@@ -230,6 +230,7 @@ class NluTools(object):
     def main_domains(self, sents, lang, engine=None):
         """
         $ nlu main_domains '彼のパソコンは便利じゃない。' ja knp
+        $ nlu main_domains 'これを作ってあげました。' ja
 
         :param sents:
         :param lang:

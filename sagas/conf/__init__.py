@@ -21,6 +21,7 @@ def resource_dir(fn_match, subdir='', get_full_path=False):
     >>> from sagas.conf import resource_dir
     >>> from fnmatch import fnmatch
     >>> resource_dir(lambda f: fnmatch(f, 'mod_*.json'))
+    >>> files=resource_dir(lambda f: fnmatch(f, '*_def.yml'), 'synonyms', get_full_path=True)
 
     :param fn_match:
     :return:

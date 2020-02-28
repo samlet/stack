@@ -26,15 +26,17 @@ class KoreaHelper(object):
         :return:
         """
         from sagas.nlu.transliterations import translits
+        from sagas.ko.kwn_procs import kwn
         ns= self.mecab.nouns(phrase)
         rs=[]
         for w in ns:
-            ws = get_word_sets(w, 'ko')
+            # ws = get_word_sets(w, 'ko')
+            ws=kwn.get_synsets(w, first=True)
             if ws:
-                rs.append({'spec':ws['name'],
+                rs.append({'spec':ws[0].name(),
                            'text':w,
                            'translit': translits.translit(w, 'ko'),
-                           'definition': ws['definition']})
+                           'definition': ws[0].definition()})
             else:
                 rs.append({'text': w,
                            'translit': translits.translit(w, 'ko'),})

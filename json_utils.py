@@ -28,5 +28,17 @@ def json_object(obj):
     return json.dumps(obj, default=lambda o: o.__dict__,
                sort_keys=True, indent=4)
 
-write_json=lambda f,o: write_json_to_file(f,o)
+# write_json=lambda f,o: write_json_to_file(f,o)
+class SetEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+             return list(obj)
+        return json.JSONEncoder.default(self, obj)
+
+def write_json(filename, o):
+    import io
+    with io.open(filename, 'w', encoding="utf-8") as f:
+        f.write(json.dumps(o, indent=2, ensure_ascii=False,
+                           cls=SetEncoder))
+
 pretty_json=lambda o: json.dumps(o, indent=2, ensure_ascii=False)

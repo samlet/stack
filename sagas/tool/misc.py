@@ -656,7 +656,7 @@ class MiscTool(object):
             from sagas.nlu.nlu_tools import NluTools
             NluTools().say(ctx.sents_map[says], says)
 
-    def verb_domains(self, sents, lang='en', engine='corenlp'):
+    def verb_domains(self, sents, lang='en', engine=None):
         """
         $ python -m sagas.tool.misc verb_domains 'Мы написали три книги за год.' ru
         $ python -m sagas.tool.misc verb_domains 'Ivan is the best dancer .' en
@@ -669,7 +669,7 @@ class MiscTool(object):
         :param lang:
         :return:
         """
-        data = {'lang': lang, "sents": sents, 'engine':engine}
+        data = {'lang': lang, "sents": sents, 'engine':engine or cf.engine(lang)}
         get_verb_domains(data)
 
     def dep_parse(self, sents, lang='en', engine='corenlp'):

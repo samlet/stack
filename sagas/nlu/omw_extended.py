@@ -121,7 +121,15 @@ def get_synsets(lang, word, pos='*') -> List[Any]:
     """
     from nltk.corpus import wordnet as wn
     from sagas.nlu.locales import is_available, iso_locales
+    from sagas.ko.kwn_procs import kwn
     sets=[]
+
+    idx_map={'ko': lambda w,pos: kwn.get_synsets(w, first=False) if pos == '*' else kwn.get_synsets_by_pos(w, pos),
+             }
+    # idx_map = {}
+    if lang in idx_map:
+        return idx_map[lang](word, pos)
+
     if is_available(lang):
         loc, _ = iso_locales.get_code_by_part1(lang)
         sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
@@ -131,6 +139,7 @@ def get_synsets(lang, word, pos='*') -> List[Any]:
             sets=[s['synset'] for s in sets if s['pos']==pos]
         else:
             sets=[s['synset'] for s in sets]
+
     return sets
 
 if __name__ == '__main__':
