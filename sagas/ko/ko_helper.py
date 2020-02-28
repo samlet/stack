@@ -25,7 +25,20 @@ class KoreaHelper(object):
         :param phrase:
         :return:
         """
-        return self.mecab.nouns(phrase)
+        from sagas.nlu.transliterations import translits
+        ns= self.mecab.nouns(phrase)
+        rs=[]
+        for w in ns:
+            ws = get_word_sets(w, 'ko')
+            if ws:
+                rs.append({'spec':ws['name'],
+                           'text':w,
+                           'translit': translits.translit(w, 'ko'),
+                           'definition': ws['definition']})
+            else:
+                rs.append({'text': w,
+                           'translit': translits.translit(w, 'ko'),})
+        return rs
 
     def translit(self, word):
         """

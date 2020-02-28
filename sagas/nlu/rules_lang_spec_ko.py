@@ -41,6 +41,7 @@ class Rules_ko(LangSpecBase):
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
 
+        # $ python -m sagas.ko.ko_helper nouns '피자와 스파게티가'
         # $ sko '우리는 피자와 스파게티가 필요해요.'  (We need pizza and spaghetti.)
         # $ sko '우리는 생선과 스테이크가 필요해요.'  (We need fish and steaks.)
         self.collect(pats=[
