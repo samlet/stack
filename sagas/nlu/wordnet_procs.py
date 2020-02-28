@@ -145,6 +145,7 @@ class WordNetProcs(object):
         $ python -m sagas.nlu.wordnet_procs predicate_chain pije/piti drink hr v
         $ python -m sagas.nlu.wordnet_procs predicate_chain 필요 want ko v
         $ python -m sagas.nlu.wordnet_procs predicate_chain 필요 need ko '*'
+        $ python -m sagas.nlu.wordnet_procs predicate_chain 우리/산 mountain ko n
 
         :param word:
         :param kind:

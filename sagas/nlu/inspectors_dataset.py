@@ -32,6 +32,7 @@ interrogative_maps={
     },
     'ko': {
         'have': ['iss-eo-yo'],
+        'act': ['gar-gga-yo'],
     }
 }
 

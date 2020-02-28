@@ -25,13 +25,15 @@ def extract_verb(key:Text, ctx:Context):
     rs = extract_ko('pos', word)
     if rs:
         # print('******', rs[0][0])
-        return rs[0][0]
+        return rs[0][0] # 第1个元素是动词原形
     return word
 
 def extract_noun_chunk(key:Text, ctx:Context):
     rs = extract_ko('nouns', ctx.get_single_chunk_text(key))
     if rs:
-        return rs[0]['text']
+        # return rs[0]['text']
+        # 任意一个名词块符合条件即可, 所以用'/'串接
+        return '/'.join([w['text'] for w in rs])
     return ctx.words[key]
 
 def extract_nouns(key:Text, ctx:Context):
@@ -75,6 +77,14 @@ class Rules_ko(LangSpecBase):
                 checker(has_rel='obl'),
                 obl=cust(extract_datetime),
                 nsubj=kindof('plan', '*', extract=extract_noun_chunk), ),
+
+            # $ sko '우리 산에 갈까요?'
+            #   (Shall we go to the mountains?)
+            #   (uli san-e galkkayo?)
+            pat(5, name='act_geo').verb(
+                interr_root('act'),
+                checker(has_rel='obl'),
+                obl=kindof('geological_formation', 'n', extract=extract_noun_chunk), ),
         ])
     
 
