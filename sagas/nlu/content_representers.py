@@ -90,6 +90,17 @@ class ContentRepresenter(object):
 
         content_reprs['duckling'](data)
 
+    def parse_snips(self, text, lang):
+        from snips_nlu_parsers import BuiltinEntityParser
+
+        if lang in self.parsers:
+            parser = self.parsers[lang]
+        else:
+            parser = BuiltinEntityParser.build(language=lang)
+            self.parsers[lang] = parser
+        parsing = parser.parse(text)
+        return parsing
+
     def extract_snips(self, text, lang):
         """
         $ python -m sagas.nlu.content_representers extract_snips "in three days" en
@@ -100,19 +111,15 @@ class ContentRepresenter(object):
         :param lang:
         :return:
         """
-        from snips_nlu_parsers import BuiltinEntityParser
-
-        if lang in self.parsers:
-            parser = self.parsers[lang]
-        else:
-            parser = BuiltinEntityParser.build(language=lang)
-            self.parsers[lang] = parser
-        parsing = parser.parse(text)
+        parsing=self.parse_snips(text, lang)
         # parsing = parser.parse("in three days")
         dims = [d['entity_kind'] for d in parsing]
         print(dims)
         content_reprs['snips'](parsing)
 
+cnt_repr=ContentRepresenter()
+
 if __name__ == '__main__':
     import fire
     fire.Fire(ContentRepresenter)
+

@@ -88,6 +88,9 @@ class WordInspector(Inspector):
 
 class PredicateWordInspector(WordInspector):
     """
+    Instances:
+        nsubj=kindof('plan', '*', extract=extract_noun_chunk)
+
     # $ se 'That spider flies.'
     # $ sid 'Burung dan kupu-kupu terbang.'
     # $ sid 'Laba-laba tersebut terbang.'  (这个句子使用的是单词原型'Laba-laba', 而不是词干lemma)

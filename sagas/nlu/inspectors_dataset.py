@@ -1,5 +1,5 @@
 # 列举在dataset中使用转写方式填写的语种
-translit_langs={'ar','fa'}
+translit_langs={'ar','fa','ko'}
 
 nagative_maps={
     'da': ['ikke'],
@@ -30,5 +30,8 @@ interrogative_maps={
     'ja': {
         'fav': ['好きだ'],
     },
+    'ko': {
+        'have': ['iss-eo-yo'],
+    }
 }
 

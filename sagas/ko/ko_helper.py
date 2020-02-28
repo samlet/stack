@@ -17,11 +17,17 @@ class KoreaHelper(object):
         self.mecab = Mecab()
 
     def pos(self, phrase: Text):
+        """
+        $ python -m sagas.ko.ko_helper pos '계획이'
+        :param phrase:
+        :return:
+        """
         return self.mecab.pos(phrase)
 
     def nouns(self, phrase: Text):
         """
         $ python -m sagas.ko.ko_helper nouns '피자와 스파게티가'
+        $ python -m sagas.ko.ko_helper nouns '계획이'
         :param phrase:
         :return:
         """
