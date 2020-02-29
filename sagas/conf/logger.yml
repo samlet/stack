@@ -77,6 +77,10 @@ loggers:
     level: DEBUG
     handlers: [console]
     propagate: no
+  sagas.nlu.inspector_sinkers:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
 
 root:
   level: INFO

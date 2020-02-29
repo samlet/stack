@@ -6,13 +6,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def tags(results: List[Any]):
+def _tags(results: List[Any]):
     val_list = [r['value'] for r in results if r['inspector'] == 'tags']
     all_tags = set([item for sublist in val_list for item in sublist])
 
     logger.info(f"tags: {all_tags}")
 
-sinkers_fn.append(tags)
+sinkers_fn.append(_tags)
 
 class TagsInspector(Inspector):
     """
