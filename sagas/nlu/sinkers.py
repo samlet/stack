@@ -2,19 +2,13 @@ from typing import Text, Any, Dict, List, Union
 import logging
 logger = logging.getLogger(__name__)
 
+sinkers_fn=[]
 class Sinkers(object):
     def __init__(self):
-        def tags(results:List[Any]):
-            val_list=[r['value'] for r in results if r['inspector'] == 'tags']
-            all_tags=set([item for sublist in val_list for item in sublist])
-
-            logger.info(f"tags: {all_tags}")
-
-        self.procs=[tags]
         self.mods=[]
 
     def _process(self, results:List[Any]):
-        for proc in self.procs:
+        for proc in sinkers_fn:
             proc(results)
 
     def add_module_results(self, mod_rs: Dict[Text, Any]):
