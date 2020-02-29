@@ -99,7 +99,10 @@ langspecs=LangSpecs()
 
 def rs_repr(rs, data):
     from pprint import pprint
+    from sagas.nlu.sinkers import Sinkers
+
     feats=[]
+    sinkers=Sinkers()
     for serial, r in enumerate(rs):
         # common = {'lemma': r['lemma'], 'word': r['word'],
         #           'stems': r['stems']}
@@ -115,6 +118,7 @@ def rs_repr(rs, data):
 
         tc.emp('magenta', f"✁ {'_' * 40} {lang}.result")
         if len(mod_rs)>0:
+            sinkers.add_module_results(mod_rs)
             for mod,matched in mod_rs.items():
                 matched_info = {k: len(v.results) for k, v in matched.items()}
                 for ctx in matched.values():  # matched value type is Context
@@ -123,6 +127,7 @@ def rs_repr(rs, data):
                 feats.extend(matched.keys())
 
     tc.emp('green', f"features -> {feats}")
+    sinkers.process_with_sinkers()
 
 class LangspecRules(object):
     def __init__(self):

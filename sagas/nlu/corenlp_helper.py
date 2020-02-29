@@ -7,6 +7,9 @@ def analyse(sents, nlp):
     doc = nlp(sents)
     print(*[f'text: {word.text+" "}\tlemma: {word.lemma}\tupos: {word.upos}\txpos: {word.xpos}' for sent in doc.sentences for word in sent.words], sep='\n')
     doc.sentences[0].print_dependencies()
+    for word in doc.sentences[0].words:
+        # ⊕ [Universal features](https://universaldependencies.org/u/feat/all.html)
+        print(word.text, '--', word.feats)
 
 def nlp_zh():
     return stanfordnlp.Pipeline(models_dir=model_dir,
@@ -195,15 +198,18 @@ class CoreNlp(object):
     def parse(self, sents, lang='en'):
         """
         $ python -m sagas.nlu.corenlp_helper parse 'Barack Obama was born in Hawaii.' en
+        $ python -m sagas.nlu.corenlp_helper parse 'Θα το θέλατε με ρύζι;' el
+
         $ parse 'Die weiße Fläche ist aus dem All sichtbar.' de
         $ parse '私は高校生です。' ja
         $ parse 'Yo tengo una casa en México.' es
+
         :param sents:
         :param lang:
         :return:
         """
-        routine=langs[lang]
-        analyse(sents, routine())
+        # routine=langs[lang]
+        analyse(sents, get_nlp(lang))
 
     def en(self, sents):
         """

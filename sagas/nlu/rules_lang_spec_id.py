@@ -112,7 +112,7 @@ class Rules_id(LangSpecBase):
         self.collect(pats=[
             pat(1).verb(nsubj=agency, obj=agency),
             # $ sid 'Berapa umur kamu?' (en="How old are you?")
-            pat(5, name='years_old').verb(behaveof('age', 'n'), amod='c_det'),
+            pat(5, name='years_old').verb(tags('age?'), behaveof('age', 'n'), amod='c_det'),
             # $ sid 'Bola putih.' (球是白的)
             # notice: 'Bola Dimas putih.'无法匹配这条规则, 因为'Bola Dimas'是flat关系,
             # 针对id中的flat关系, 需要单独处理, 将flat关系的token合并为chunk, 然后再处理这个chunk与外界之间的关系.

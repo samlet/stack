@@ -113,10 +113,11 @@ def rs_represent(rs, data, return_df=False):
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns, predict_patterns
     from sagas.nlu.rules_lang_spec import langspecs
     from sagas.nlu.nlu_cli import NluCli
+    from sagas.nlu.sinkers import Sinkers
 
     df_set = []
     result = []
-
+    sinkers = Sinkers()
     for serial, r in enumerate(rs):
         type_name = r['type']
         meta = build_meta(r, data)
@@ -164,7 +165,8 @@ def rs_represent(rs, data, return_df=False):
 
         # process language special rules
         logger.debug(f"meta keys {meta.keys()}")
-        langspecs.check_langspec(data['lang'], meta, r['domains'], type_name)
+        mod_rs=langspecs.check_langspec(data['lang'], meta, r['domains'], type_name)
+        sinkers.add_module_results(mod_rs)
 
         # df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'children', 'features'])
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
@@ -192,6 +194,7 @@ def rs_represent(rs, data, return_df=False):
                 r = display_synsets(theme, meta, r, data['lang'])
                 result.extend(r)
 
+    sinkers.process_with_sinkers()
     return result, df_set
 
 # target_lang=lambda s: 'zh' if s=='en' else 'en'
