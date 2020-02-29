@@ -81,6 +81,7 @@ class Rules_ko(LangSpecBase):
             # $ sko '우리 산에 갈까요?'
             #   (Shall we go to the mountains?)
             #   (uli san-e galkkayo?)
+            # $ sko '우리 해변에 갈까요?'  (Shall we go to the beach?)
             pat(5, name='act_geo').verb(
                 interr_root('act'),
                 checker(has_rel='obl'),

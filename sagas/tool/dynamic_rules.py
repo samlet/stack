@@ -77,10 +77,15 @@ class DynamicRules(object):
                 rs = interp(f"[Patterns(domains, meta, {self.priority}, name='{name}').{rule_str}]",
                             domains, meta)
                 print_result(rs)
-                results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
+
+                # collect matched context's results
+                # r[1] is true/false, r[3] is context
+                results = [el for r in rs for el in r[3].results if r[1]]
+                # r[2] is priority
                 succ=[abs(r[2]) for r in rs if r[1]]
                 priority = max(succ) if len(succ)>0 else 0
                 self.priority_list.append(priority)
+
                 self.result_set.extend(results)
                 self.rasa_ents.append({
                     'confidence': None,

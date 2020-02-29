@@ -133,7 +133,7 @@ class CompExtractInspector(Inspector):
         return True  # 只负责提取, 并不参与判定, 所以始终返回True
 
     @property
-    def after(self):
+    def when_succ(self):
         return True
 
     def __str__(self):

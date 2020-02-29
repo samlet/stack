@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List
+from typing import Text, Any, Dict, List, Union
 
 class Chunk(object):
     def __init__(self, key, children):
@@ -47,7 +47,7 @@ class Context(object):
         # self.meta['intermedia']={}
         self._results=[]
 
-    def get_word(self, key):
+    def get_word(self, key) -> Text:
         return f"{self.words[key]}/{self.lemmas[key]}"
 
     @property
@@ -104,7 +104,7 @@ class Context(object):
     def get_stems(self, key:Text) -> List:
         return [c for c in self._stems if c[0]==key]
 
-    def chunk_contains(self, key:Text, val):
+    def chunk_contains(self, key:Text, val: Union[Text, List]):
         chunks = self.get_chunks(key)
         if isinstance(val, list):
             vals=val
@@ -117,18 +117,18 @@ class Context(object):
                     return True
         return False
 
-    def get_single_chunk_text(self, key):
+    def get_single_chunk_text(self, key:Text):
         chunks=self.get_chunks(key)
         if len(chunks)>0:
             cnt = self.delim.join(chunks[0].children)
             return cnt
         return ''
 
-    def chunk_pieces(self, key, lowercase=False):
+    def chunk_pieces(self, key:Text, lowercase=False) -> List[Text]:
         chunks = self.get_chunks(key)
         return [self.delim.join(c.children).lower() if lowercase else self.delim.join(c.children) for c in chunks]
 
-    def stem_pieces(self, key) -> List[Text]:
+    def stem_pieces(self, key:Text) -> List[Text]:
         stems = self.get_stems(key)
         if self.lang in non_spaces:
             delim=''
@@ -150,7 +150,16 @@ class Inspector(object):
     @property
     def after(self):
         """
-        返回True表示这个inspector将在其它inspector全部为真的情况下才执行
+        返回True表示这个inspector将在其它inspector全部执行完毕后才执行
+        :return:
+        """
+        return False
+
+    @property
+    def when_succ(self):
+        """
+        返回True表示这个inspector将在其它inspector全部为真的情况下才执行,
+        除了标记after=True的inspector之外.
         :return:
         """
         return False

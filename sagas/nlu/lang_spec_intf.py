@@ -13,6 +13,7 @@ class LangSpecBase(object):
         self.meta=meta
         self.domains=domains
         self.doc=doc
+        # key is pattern name, value is context(contains results)
         self.matched={}
 
         norm = lambda s: s.replace('/', '_').replace(' ', '_')

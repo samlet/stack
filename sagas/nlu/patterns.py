@@ -75,7 +75,7 @@ class Patterns(object):
                 else:
                     key_val=ctx.meta[meta_key] if meta_key in ctx.meta else ''
 
-                if arg.after:
+                if arg.after or arg.when_succ:
                     self.after_evs.append((arg, key_val))
                 else:
                     opt_ret = arg.check(key_val, ctx)
@@ -150,6 +150,9 @@ class Patterns(object):
             if len(self.after_evs) > 0:
                 logger.debug(f".. after_evs {[(el[0].name(), el[1]) for el in self.after_evs]}")
                 for arg, key_val in self.after_evs:
+                    if not result and arg.when_succ:
+                        continue
+
                     opt_ret = arg.check(key_val, ctx)
                     # 这样的写法是希望当result=False之后, 不再被True值置换,
                     # 也就是说一旦result=False之后, 就一直保持False值
