@@ -1,9 +1,10 @@
+from typing import Text, Any, Dict, List, Union
 import requests
 
 from sagas.util.rest_common import query_data_by_url
 from sagas.conf.conf import cf
 
-def get_chains(word, lang, pos):
+def get_chains(word, lang, pos) -> List[Dict[Text, Any]]:
     response = requests.post(f'{cf.ensure("words_servant")}/get_chains',
                              json={'word': word, 'lang': lang, 'pos': pos})
     if response.status_code == 200:
@@ -11,7 +12,7 @@ def get_chains(word, lang, pos):
         return rs
     return []
 
-def retrieve_word_info(path, word, lang, pos):
+def retrieve_word_info(path, word, lang, pos) -> List[Text]:
     """
     >>> from sagas.nlu.nlu_cli import retrieve_word_info
     >>> rs=retrieve_word_info('get_synsets', word, lang, pos)

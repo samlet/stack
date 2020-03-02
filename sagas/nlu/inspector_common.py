@@ -1,4 +1,5 @@
 from typing import Text, Any, Dict, List, Union
+import abc
 
 class Chunk(object):
     def __init__(self, key, children):
@@ -138,9 +139,9 @@ class Context(object):
 
 # enable_cache=False
 class Inspector(object):
+    @abc.abstractmethod
     def name(self) -> Text:
         """Unique identifier of this simple inspector."""
-
         raise NotImplementedError("An inspector must implement a name")
 
     @property
@@ -164,6 +165,7 @@ class Inspector(object):
         """
         return False
 
+    @abc.abstractmethod
     def run(self, key:Text, ctx:Context) -> bool:
         """
         仅用于继承, check方法会负责调用这个方法
@@ -173,8 +175,8 @@ class Inspector(object):
         """
         raise NotImplementedError("An inspector must implement its run method")
 
-    def cache_key(self, key):
-        return "%s.%s"%(self.name(), key)
+    # def cache_key(self, key):
+    #     return "%s.%s"%(self.name(), key)
 
     def check(self, key:Text, ctx:Context):
         """
@@ -193,6 +195,9 @@ class Inspector(object):
         #     return result
         # else:
         return self.run(key, ctx)
+
+    def infer(self, insps:List, insp_pairs:Dict[Text, Any]):
+        pass
 
     def __str__(self):
         return "Inspector('{}')".format(self.name())

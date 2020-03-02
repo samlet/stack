@@ -9,7 +9,8 @@ from sagas.nlu.inspector_wordnet import (
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c, extract_for
 from sagas.nlu.inspector_checker import CheckerInspector as checker
-from sagas.nlu.inspector_sinkers import TagsInspector as tags
+from sagas.nlu.inspector_sinkers import TagsInspector as tags, SeriesInspector as series, SlotsInspector as slots
+from sagas.nlu.inspector_inferencer import InferencerInspector as infer
 
 from sagas.nlu.patterns import Patterns
 

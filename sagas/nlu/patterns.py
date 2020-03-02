@@ -5,7 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def check_item(feats, key, el, ctx):
+def check_item(feats:Dict[Text,Any], key:Text, el:Any, ctx:Context):
     if key in feats:
         if isinstance(el, list) or isinstance(el, tuple):
             # print(el)
@@ -147,12 +147,15 @@ class Patterns(object):
                     result = False
                 options.append('{} is {}: {}'.format(key, value, opt_ret))
 
+            single_insps=[insp for insp in args if isinstance(insp, Inspector)]
+            pair_insps={k:insp for k,insp in kwargs.items() if isinstance(insp, Inspector)}
             if len(self.after_evs) > 0:
                 logger.debug(f".. after_evs {[(el[0].name(), el[1]) for el in self.after_evs]}")
                 for arg, key_val in self.after_evs:
                     if not result and arg.when_succ:
                         continue
 
+                    arg.infer(single_insps, pair_insps)
                     opt_ret = arg.check(key_val, ctx)
                     # 这样的写法是希望当result=False之后, 不再被True值置换,
                     # 也就是说一旦result=False之后, 就一直保持False值

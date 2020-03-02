@@ -1,8 +1,10 @@
 from typing import Text, Any, Dict, List, Union
 import logging
+
+from sagas.nlu.registries import sinkers_fn
+
 logger = logging.getLogger(__name__)
 
-sinkers_fn=[]
 class Sinkers(object):
     def __init__(self):
         self.mods=[]
