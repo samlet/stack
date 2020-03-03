@@ -9,3 +9,12 @@ convert_list_to_seq_dict=lambda listOfStr: { i : listOfStr[i] for i in range(0, 
 convert_2_list=lambda a1,a2: dict(zip(a1, a2))
 
 
+class AttrDict(dict):
+    def __init__(self, *args, **kwargs):
+        super(AttrDict, self).__init__(*args, **kwargs)
+        self.__dict__ = self
+
+def to_obj(m):
+    d = AttrDict()
+    d.update(m)
+    return d
