@@ -1,9 +1,15 @@
+from typing import Text, Any, Dict, List, Union
+
+from cachetools import cached
+
 from sagas.nlu.uni_impl_knp import KnpParserImpl
 from sagas.nlu.uni_impl_ltp import LtpParserImpl
 from sagas.nlu.uni_impl_corenlp import CoreNlpParserImpl
 from sagas.nlu.uni_impl_spacy import SpacyParserImpl
 from sagas.nlu.uni_impl_hanlp import HanlpParserImpl
 from sagas.nlu.uni_impl_stanford import SfParserImpl
+from sagas.nlu.uni_intf import SentenceIntf
+
 
 class UniCli(object):
     def __init__(self):
@@ -59,7 +65,8 @@ class UniCli(object):
             for r in rs:
                 print_r(r)
 
-def parse_with(sents, lang, engine='corenlp'):
+@cached(cache={})
+def parse_with(sents:Text, lang:Text, engine:Text='corenlp') -> SentenceIntf:
     return UniCli().parser(engine)(lang, sents)
 
 if __name__ == '__main__':

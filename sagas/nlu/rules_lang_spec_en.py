@@ -117,6 +117,9 @@ class Rules_en(LangSpecBase):
                 ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')])),
             # $ se 'you are dead'
             pat(5, name='avatar_dead').cop(behaveof('dead', 'a'), nsubj=agency, cop='c_aux'),
+            # the following is wrong pattern
+            # pat(-5, name='desc_dead').cop(behaveof('be', '*'), nsubj=agency, head=kindof('dead', '*')),
+
             # se 'my email is samlet@ymail.com'
             pat(5, name='desc_email').cop(extract_for('email', '_'),
                                        nsubj=kindof('electronic_mail', 'n'),

@@ -1,5 +1,8 @@
+from typing import Text, Any, Dict, List, Union, Optional
 import sagas
 import logging
+
+from sagas.nlu.uni_intf import SentenceIntf
 
 logger = logging.getLogger(__name__)
 
@@ -160,7 +163,8 @@ domain_getters={"verb": get_verb_domain,
                 'subj': get_subj_domain,
                 'root': get_root_domain,
                 }
-def get_chunks(sent, return_root_chunks_if_absent=True, specified=None):
+def get_chunks(sent:SentenceIntf, return_root_chunks_if_absent:bool=True,
+               specified:Optional[Text]=None) -> List[Dict[Text,Any]]:
     if specified is not None:
         return domain_getters[specified](sent)
 

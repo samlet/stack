@@ -8,11 +8,13 @@ logger = logging.getLogger(__name__)
 class CompExtractInspector(Inspector):
     """
     提取指定成分:
+    Instances:
+        extract_for('chunk+chunk_text', 'verb:xcomp/obj'),
     >>> pat(3, name='extract_day').cop(behaveof('day', 'n'),
                                               flat=kindof('feast_day/day', 'n'),
                                               nsubj=extract('plain+date_search+date_parse')),
     """
-    def __init__(self, comp_as='plain', pickup=None):
+    def __init__(self, comp_as='plain', pickup=''):
         self.comp_as=comp_as.split('+')
         self.pickup=pickup
         # key是成分名, value是tuple-list, element-0为判定名, element-1为结果
@@ -99,11 +101,15 @@ class CompExtractInspector(Inspector):
             return False
 
         ex_map={'date_search': ex_date_search,
+                # .. extract_for('plain+date_search+date_parse', '時間'),
                 'date_parse': ex_date_parse,
                 'plain': ex_plain,
+                # .. extract_for('plain+translit', 'obj'),
                 'translit': ex_translit,
                 'email': lambda cnt,comp: ex_dims(cnt, comp, 'email'),
+                # .. extract_for('number', 'obl'),
                 'number': lambda cnt, comp: ex_dims(cnt, comp, 'number'),
+                # .. extract_for('time', 'advmod'),
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),
                 'temperature': lambda cnt, comp: ex_dims(cnt, comp, 'temperature'),
                 # example: extract_for('rasa', '_')

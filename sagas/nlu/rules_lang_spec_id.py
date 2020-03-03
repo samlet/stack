@@ -101,11 +101,15 @@ class Rules_id(LangSpecBase):
     def subject_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
         self.collect(pats=[
-            # $ sid 'Apa yang lebih murah?'
-            pat(1).subj('adj', nsubj=agency, head_amod=interr('what')),
+            # $ sid 'Apa yang lebih murah?'  (What is cheaper?)
+            pat(1, name='desc_attr').subj('adj', nsubj=agency, head_amod=interr('what')),
             # $ sid 'Siapa yang di kiri Anda?' (zh="谁在你的左边？")
-            pat('loc_inquiry', 5).subj('pron', 'noun', nsubj=agency, case=kindof('in', 'r'), head_nmod=matchins('siapa')),
-            ])
+            pat(5, name='loc_inquiry').subj('pron', 'noun', nsubj=agency, case=kindof('in', 'r'), head_nmod=matchins('siapa')),
+
+            # infer: sid 'Apa yang lebih murah?'
+            pat(5, name='desc_abundant').cop(extract_for('plain', 'advmod'), behaveof('abundant', '*'), nsubj=agency,
+                                             head_amod=interr('what')),
+        ])
 
     def root_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
@@ -164,7 +168,7 @@ class Rules_id(LangSpecBase):
             #                  └−−−−−−−−┘         └────────┘
             pat(5, 'describe_object_chunk').root(behaveof('object', 'n'),
                                           anal(amod=predicate_fn('entity', 'n'))),
-            # $ sid 'Siapa orang terpenting di kantormu?'
+            # $ sid 'Siapa orang terpenting di kantormu?' (Who is the most important person in your office?)
             # ┌−−−−−−┐  root   ┌−−−−−−−−┐  acl   ┌−−−−−−−−−−−−┐  nmod   ┌−−−−−−−−−−┐  case   ┌−−−−┐
             # ╎ ROOT ╎ ──────▶ ╎ Siapa  ╎ ─────▶ ╎   orang    ╎ ──────▶ ╎ kantormu ╎ ──────▶ ╎ di ╎
             # └−−−−−−┘         └−−−−−−−−┘        └−−−−−−−−−−−−┘         └−−−−−−−−−−┘         └−−−−┘

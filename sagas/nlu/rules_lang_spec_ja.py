@@ -110,7 +110,12 @@ class Rules_ja(LangSpecBase):
                 extract_for('plain', 'ガ'),
                 checker(has_rel='ニクラベル'),
                 specsof('*', 'little', 'large'),),
-            ])
+
+            # infer: sj '予約を火曜日から木曜日に変えてもらった。'
+            pat(5, name='predict_convert').verb(extract_for('plain+date_search+date_parse', '時間'),
+                                                specsof('*', 'convert'), ヲ=kindof('booking', '*')),
+
+        ])
 
     # def execute(self):
     #     super().execute()

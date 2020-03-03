@@ -63,9 +63,20 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'sbv', 'vob',
                       # predicts
                       'a0', 'a1',
-                      'ガ',
+                      'ガ', 'ヲ',
                       'head_acl',  # governor elements
                       ]
+
+def get_possible_mean(specs):
+    from collections import Counter
+    elements = [s.split('.')[0] for s in specs]
+    if elements:
+        word_counts = Counter(elements)
+        mean = word_counts.most_common(1)[0][0]
+    else:
+        mean = '_'
+    return mean
+
 def display_synsets(theme, meta, r, lang, collect=False):
     from sagas.nlu.nlu_cli import retrieve_word_info
     # from termcolor import colored
@@ -78,12 +89,15 @@ def display_synsets(theme, meta, r, lang, collect=False):
     def retrieve(word, indicator, pos='*'):
         rs = retrieve_word_info('get_synsets', word, lang, pos=pos)
         if len(rs) > 0:
+            mean=get_possible_mean(rs)
             if collect:
-                resp.append({'word':word, 'indicator':indicator, 'comments':rs})
+                resp.append({'word':word, 'indicator':indicator,
+                             'spec': mean,
+                             'comments':rs})
             else:
                 comments=', '.join(rs)[:25]
                 # tc.info('♥ %s(%s): %s...' % (colored(word, 'magenta'), indicator, comments))
-                tc.emp('magenta', '♥ %s(%s): %s...' % (word, indicator, comments))
+                tc.emp('magenta', '♥ %s(%s, %s): %s...' % (word, indicator, mean, comments))
                 resp.append('♥ %s(%s): %s...' % (word, indicator, comments))
             return True
         return False
