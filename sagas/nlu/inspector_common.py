@@ -40,7 +40,9 @@ class Context(object):
         self.indexes={x[0]:x[1] for x in domains}
 
         grp = lambda p, idx: [x[idx] for x in domains if x[0] == p]
-        self.tokens = {x: grp(x, 2) for x in keys}
+        grp_join = lambda p, idx1, idx2: [f"{x[idx1]}/{x[idx2]}" for x in domains if x[0] == p]
+        # self.tokens = {x: grp(x, 2) for x in keys}
+        self.tokens = {x: grp_join(x, 2,3) for x in keys}
         self.words = {x: self.delim.join(grp(x, 2)) for x in keys}
         self.lemmas = {x: self.delim.join(grp(x, 3)) for x in keys}
 

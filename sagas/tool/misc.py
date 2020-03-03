@@ -106,9 +106,13 @@ def display_synsets(theme, meta, r, lang, collect=False):
     if 'head' in meta:
         # print('.........')
         retrieve(meta['head'], 'head')
+    # print(f'.. lemmas: {ctx.lemmas.keys()}')
     for opt in display_synsets_opts:
         if opt in ctx.lemmas:
-            retrieve(ctx.lemmas[opt], opt)
+            # print(f".. retrieve {ctx.lemmas[opt]}, tokens: {ctx.tokens[opt]}")
+            # retrieve(ctx.lemmas[opt], opt)
+            for tok in ctx.tokens[opt]:
+                retrieve(tok, opt)
     return resp
 
 def trunc_cols(df, cols=None, maxlen=15):
