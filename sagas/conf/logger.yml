@@ -85,6 +85,10 @@ loggers:
     level: DEBUG
     handlers: [console]
     propagate: no
+  sagas.nlu.inferencer:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
 
 root:
   level: INFO

@@ -1,5 +1,10 @@
+from sagas.nlu.inferencer import extensions
 from .rules_header import *
 
+extensions.register_parts('ja',{
+    '時間': lambda c,t: (4, "extract_for('plain+date_search+date_parse', '時間')"),
+    'ガ': lambda c,t: (4, "extract_for('plain', 'ガ')"),
+})
 class Rules_ja(LangSpecBase):
     def verb_rules(self):
         pat, actions_obj=(self.pat, self.actions_obj)

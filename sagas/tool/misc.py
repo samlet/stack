@@ -63,7 +63,7 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'sbv', 'vob',
                       # predicts
                       'a0', 'a1',
-                      'ガ', 'ヲ',
+                      'ガ', 'ヲ', 'ニ', 'ガ２', 'カラ',
                       'head_acl',  # governor elements
                       ]
 
@@ -661,11 +661,13 @@ class MiscTool(object):
                     color_print('red', f".. the lang {t} for dep-parse is not available in translated list.")
 
         # do infers
-        from sagas.nlu.inferencer import infers
-        pats=infers.infer(text, source)
+        from sagas.nlu.inferencer import Inferencer
+        infers = Inferencer(source)
+        pats=infers.infer(text)
         shortcuts={'ja':'sj', 'zh':'sz'}
         cli_head=shortcuts[source] if source in shortcuts else f"s{source}"
-        tc.emp('white', f"# $ {cli_head} '{text}'")
+        cli_cmd=f"# $ {cli_head} '{text}'"
+        tc.emp('white', cli_cmd)
         for pat in pats:
             tc.emp('yellow', pat)
 
@@ -678,6 +680,8 @@ class MiscTool(object):
             if len(addons)>0:
                 # result=result+'\n\t'+'\n\t'.join(addons)
                 result = result + '\n\t'.join(addons)
+            if pats:
+                result = '\n\t'.join([result,cli_cmd, '\n\t'.join(pats)])
             if self.enable_chunks_parse:
                 result=result+'\n'
             # clipboard.copy(result+'\n')
