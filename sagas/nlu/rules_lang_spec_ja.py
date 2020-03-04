@@ -4,6 +4,8 @@ from .rules_header import *
 extensions.register_parts('ja',{
     '時間': lambda c,t: (4, "extract_for('plain+date_search+date_parse', '時間')"),
     'ガ': lambda c,t: (4, "extract_for('plain', 'ガ')"),
+    'デ': lambda c,t: (4, "extract_for('plain', 'デ')"),
+    '修飾': lambda c,t: (4, "extract_for('plain+number', '修飾')"),
 })
 class Rules_ja(LangSpecBase):
     def verb_rules(self):
@@ -116,9 +118,17 @@ class Rules_ja(LangSpecBase):
                 checker(has_rel='ニクラベル'),
                 specsof('*', 'little', 'large'),),
 
-            # infer: sj '予約を火曜日から木曜日に変えてもらった。'
+            # infers ------
+            # $ sj '予約を火曜日から木曜日に変えてもらった。'
             pat(5, name='predict_convert').verb(extract_for('plain+date_search+date_parse', '時間'),
                                                 specsof('*', 'convert'), ヲ=kindof('booking', '*')),
+            # $ sj 'ケーキが一つ残っている。'
+            pat(5, name='predict_stay').verb(extract_for('plain+number', '修飾'), specsof('*', 'stay'),
+                                             ガ=kindof('food', 'n')),
+            # $ sj '牛乳を流しに注いだ。'
+            pat(5, name='predict_pour').verb(tags('pour_liquid'), specsof('*', 'pour'),
+                                             ヲ=kindof('liquid', 'n'),
+                                             ニ=kindof('kitchen_sink', '*')),
 
         ])
 

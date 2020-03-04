@@ -102,7 +102,7 @@ def rs_repr(rs, data):
     from sagas.nlu.sinkers import Sinkers
 
     feats=[]
-    sinkers=Sinkers()
+    sinkers=Sinkers(data)
     for serial, r in enumerate(rs):
         # common = {'lemma': r['lemma'], 'word': r['word'],
         #           'stems': r['stems']}

@@ -146,7 +146,7 @@ alias sa="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja False"
 alias sar="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja False"
 alias sfa="python -m sagas.tool.misc trans_clip fa 'en;zh-CN;ja' ja False"
 # alias sj="engine=knp python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
-alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
+alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' en False"
 alias sja="engine=corenlp python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
 
 alias str="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"

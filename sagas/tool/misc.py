@@ -135,7 +135,7 @@ def rs_represent(rs, data, return_df=False):
 
     df_set = []
     result = []
-    sinkers = Sinkers()
+    sinkers = Sinkers(data)
     for serial, r in enumerate(rs):
         type_name = r['type']
         meta = build_meta(r, data)

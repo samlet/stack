@@ -50,4 +50,10 @@ class Rules_fr(LangSpecBase):
                                           behaveof('state/attribute', 'n'),
                                           nsubj=agency,
                                           cop='c_aux'),
+
+            # infers
+            # $ sfr 'Nous sommes très tristes.'
+            pat(5, name='desc_unhappy').cop(extract_for('plain', 'advmod'), behaveof('unhappy', '*'), nsubj=agency,
+                                            cop='c_aux'),
+
         ])

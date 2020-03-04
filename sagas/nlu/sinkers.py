@@ -6,12 +6,13 @@ from sagas.nlu.registries import sinkers_fn
 logger = logging.getLogger(__name__)
 
 class Sinkers(object):
-    def __init__(self):
+    def __init__(self, data):
         self.mods=[]
+        self.data=data
 
     def _process(self, results:List[Any]):
         for proc in sinkers_fn:
-            proc(results)
+            proc(results, self.data)
 
     def add_module_results(self, mod_rs: Dict[Text, Any]):
         self.mods.append(mod_rs)

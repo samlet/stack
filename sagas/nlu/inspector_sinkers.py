@@ -11,10 +11,12 @@ def get_all_tags(results: List[Any]) -> Set[Text]:
     all_tags = set([item for sublist in val_list for item in sublist])
     return all_tags
 
-def _tags(results: List[Any]):
+def _tags(results: List[Any], data:Dict[Text,Any]):
     all_tags=get_all_tags(results)
-
-    logger.info(f"tags: {all_tags}")
+    if all_tags:
+        from sagas.nlu.sinker_orm import post_sents
+        logger.info(f"tags: {all_tags}")
+        post_sents(data['sents'], data['lang'], list(all_tags))
 
 sinkers_fn.append(_tags)
 
