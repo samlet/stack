@@ -1,6 +1,6 @@
 from typing import Text, Any, Dict, List, Set
 from sagas.nlu.inspector_common import Inspector, Context
-from sagas.nlu.registries import sinkers_fn
+from sagas.nlu.registries import registry_sinkers
 import logging
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,39 @@ def _tags(results: List[Any], data:Dict[Text,Any]):
         logger.info(f"tags: {all_tags}")
         post_sents(data['sents'], data['lang'], list(all_tags))
 
-sinkers_fn.append(_tags)
+def _series(results: List[Any], data:Dict[Text,Any]):
+    from jsonpath_ng import jsonpath, parse
+    # val_list = [r['value'] for r in results if r['inspector'] == 'series']
+    series_ins = [r for r in results if r['inspector'] == 'series']
+
+    for series in series_ins:
+        # print(f"{val}")
+        val=series['value']
+        tags = {}
+        fields = {}
+        for k, expr in val.items():
+            if k.startswith('_'):
+                key = k[1:]
+                target_c = fields
+            else:
+                key = k
+                target_c = tags
+            ins_name, val_expr = expr.split(':')
+            head = next(item for item in results if item['inspector'] == ins_name)
+            vals = head['value']
+            if val_expr.startswith('$'):
+                jsonpath_expr = parse(val_expr)
+                eval_val = next(match.value for match in jsonpath_expr.find(vals))
+            else:
+                eval_val = vals[val_expr]
+            target_c[key] = eval_val
+
+        # post series data
+        from sagas.nlu.sinker_series import series_store
+        series_store.post(series['provider'], tags, fields)
+        logger.info(f"post to {series['provider']}: {tags}; {fields}")
+
+registry_sinkers(_tags, _series)
 
 class TagsInspector(Inspector):
     """
@@ -58,6 +90,14 @@ class KeyValuesInspector(Inspector):
 
 
 class SeriesInspector(KeyValuesInspector):
+    """
+    Instances:
+        series('events',
+                action='specs_of:category',
+                object='kind_of:category',
+                _count='ins_date:$[0].value.value'),
+    Testcases: $ sj '流しを8つ直した。'
+    """
     def name(self):
         return "series"
 

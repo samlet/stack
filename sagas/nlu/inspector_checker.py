@@ -41,7 +41,9 @@ class CheckerInspector(Inspector):
             from sagas.conf.conf import cf
             chunks = cached_chunks(ctx.sents, ctx.lang, cf.engine(ctx.lang))
             domain,path = part.split(':')
-            result = get_chunk(chunks, f'{domain}_domains', path, lambda w: (w.upos.lower(), w.text))
+            result = get_chunk(chunks,
+                               f'{domain}_domains' if domain!='predicts' else domain,
+                               path, lambda w: (w.upos.lower(), w.text))
             if isinstance(pos, str):
                 pos=[pos]
             succ=False

@@ -47,6 +47,7 @@ def query_duckling(text:Text, lang:Text) -> Dict[Text, Any]:
 
 class DateInspector(Inspector):
     """
+    Instances: obj=dateins('number')
     Testcases:
         $ ses 'Nosotros comíamos con la familia para Navidad.'
 

@@ -126,9 +126,18 @@ class Rules_ja(LangSpecBase):
             pat(5, name='predict_stay').verb(extract_for('plain+number', '修飾'), specsof('*', 'stay'),
                                              ガ=kindof('food', 'n')),
             # $ sj '牛乳を流しに注いだ。'
+            # $ sj '古いビールを流しに注ぐ。'  (I will pour the old beer into the sink.)
             pat(5, name='predict_pour').verb(tags('pour_liquid'), specsof('*', 'pour'),
                                              ヲ=kindof('liquid', 'n'),
                                              ニ=kindof('kitchen_sink', '*')),
+            # $ sj '流しを8つ直した。'
+            pat(5, name='predict_heal').verb(series('events',
+                                                    action='specs_of:category',
+                                                    object='kind_of:category',
+                                                    _count='ins_date:$[0].value.value'),
+                                             specsof('v', 'correct'),
+                                             修飾=dateins('number'),
+                                             ヲ=kindof('artifact', 'n')),
 
         ])
 
