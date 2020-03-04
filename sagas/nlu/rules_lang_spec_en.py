@@ -106,6 +106,12 @@ class Rules_en(LangSpecBase):
                                            extract_for('plain', 'obj'),
                                            behaveof('refer', 'v'),
                                            nsubj=agency, obj=agency),
+            # $ sen 'I baked it in the oven at 180 degrees for an hour.'
+            pat(2, name='behave_cook').verb(behaveof('cook', 'v'),
+                                            extract_for('plain', 'obj'),
+                                            nsubj=agency,
+                                            obl=extract('plain+number+time+temperature'),
+                                            obj=agency),
         ])
 
     def aux_rules(self):

@@ -5,6 +5,7 @@ extensions.register_parts('ja',{
     '時間': lambda c,t: (4, "extract_for('plain+date_search+date_parse', '時間')"),
     'ガ': lambda c,t: (4, "extract_for('plain', 'ガ')"),
     'デ': lambda c,t: (4, "extract_for('plain', 'デ')"),
+    'ニ': lambda c,t: (4, "extract_for('plain', 'ニ')"),
     '修飾': lambda c,t: (4, "extract_for('plain+number', '修飾')"),
 })
 class Rules_ja(LangSpecBase):
@@ -138,6 +139,11 @@ class Rules_ja(LangSpecBase):
                                              specsof('v', 'correct'),
                                              修飾=dateins('number'),
                                              ヲ=kindof('artifact', 'n')),
+            # $ sj 'オーブンを百八十度に温めてください。'
+            pat(5, name='predict_heat').verb(specsof('*', 'heat'),
+                                             extract_for('plain+temperature', 'ニ'),
+                                             ヲ=kindof('oven', '*'),
+                                             ニ=kindof('degree', '*')),
 
         ])
 

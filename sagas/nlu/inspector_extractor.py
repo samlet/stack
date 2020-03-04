@@ -10,6 +10,7 @@ class CompExtractInspector(Inspector):
     提取指定成分:
     Instances:
         extract_for('chunk+chunk_text', 'verb:xcomp/obj'),
+        nsubj=extract('plain+date_search+date_parse'),
     >>> pat(3, name='extract_day').cop(behaveof('day', 'n'),
                                               flat=kindof('feast_day/day', 'n'),
                                               nsubj=extract('plain+date_search+date_parse')),
@@ -111,6 +112,7 @@ class CompExtractInspector(Inspector):
                 'number': lambda cnt, comp: ex_dims(cnt, comp, 'number'),
                 # .. extract_for('time', 'advmod'),
                 'time': lambda cnt, comp: ex_dims(cnt, comp, 'time'),
+                # .. extract_for('plain+temperature', 'ニ'),
                 'temperature': lambda cnt, comp: ex_dims(cnt, comp, 'temperature'),
                 # example: extract_for('rasa', '_')
                 'rasa': lambda cnt, comp: ex_rasa(cnt, comp),
