@@ -23,6 +23,9 @@ class Rules_fi(LangSpecBase):
                                                extract_for('plain', 'obj'),
                                                behaveof('borrow', 'v'),
                                                obj=kindof('artifact', 'n')),
+            # infers ------
+            # $ sfi 'Haluaisin appelsiinimehun.'
+            pat(5, name='behave_desire').verb(behaveof('desire', 'v'), nmod=kindof('orange_juice', 'n')),
 
         ])
     
