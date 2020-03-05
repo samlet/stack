@@ -87,7 +87,13 @@ def display_synsets(theme, meta, r, lang, collect=False):
     resp=[]
     # word = r['lemma']
     def retrieve(word, indicator, pos='*'):
-        rs = retrieve_word_info('get_synsets', word, lang, pos=pos)
+        from sagas.nlu.synonyms import synonyms
+        word_syn = synonyms.match(word, lang)
+        # print(f".. subs {word}: {word_syn}")
+        if word_syn is not None:
+            rs = retrieve_word_info('get_synsets', word_syn, 'en', pos=pos)
+        else:
+            rs = retrieve_word_info('get_synsets', word, lang, pos=pos)
         if len(rs) > 0:
             mean=get_possible_mean(rs)
             if collect:

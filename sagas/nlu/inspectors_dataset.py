@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List, Union
+
 # 列举在dataset中使用转写方式填写的语种
 translit_langs={'ar','fa','ko'}
 
@@ -33,6 +35,31 @@ interrogative_maps={
     'ko': {
         'have': ['iss-eo-yo'],
         'act': ['gar-gga-yo'],
-    }
+    },
+    'ru': {
+        'can': ['можно'],
+    },
 }
+
+def get_interrogative(word:Text, lang:Text):
+    if lang in interrogative_maps:
+        data_map = interrogative_maps[lang]
+        for k,v in data_map.items():
+            if word in v:
+                return k
+    return None
+
+class DataSetCli(object):
+    def interr(self, word, lang):
+        """
+        $ python -m sagas.nlu.inspectors_dataset interr 'можно' ru
+        :param word:
+        :param lang:
+        :return:
+        """
+        return get_interrogative(word, lang)
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire(DataSetCli)
 

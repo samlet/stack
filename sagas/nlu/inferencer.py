@@ -89,6 +89,7 @@ class Inferencer(object):
         for id, row in df.iterrows():
             # df['rel'], df['children'], df['index']
             name, r, idx = row['rel'], row['children'], row['index']
+            lemma=row['lemma']
             if name in rels:
                 continue
             else:
@@ -99,6 +100,7 @@ class Inferencer(object):
                                    trans_verbose=False, options={'disable_correct'})
                 # chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
                 chunk = {'name': name, 'text': sent,
+                         'lemma': lemma,
                          'translit': translit_chunk(sent, lang),
                          'translate': res,
                          'index': idx,

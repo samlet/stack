@@ -9,9 +9,18 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def head_interr(c, part:Text):
+    from sagas.nlu.inspectors_dataset import get_interrogative
+    rep=get_interrogative(c.lemma, 'ru')
+    if rep:
+        return 2, f"{part}=interr('{rep}')"
+    else:
+        return 4, f"extract_for('plain', '{part}')"
+
 extensions.register_parts('ru',{
     'nsubj': lambda c,t: [(4, "extract_for('plain', 'nsubj')"),
                           (2, "nsubj=agency")],
+    'head_csubj': lambda c,t: head_interr(c, 'head_csubj'),
 })
 class Rules_ru(LangSpecBase):
     @staticmethod
@@ -35,6 +44,9 @@ class Rules_ru(LangSpecBase):
                                               behaveof('desire', 'v'),
                                               nsubj=agency,
                                               obj=kindof('food', 'n')),
+            # $ sru 'Можно прикурить?'
+            pat(5, name='behave_light').verb(behaveof('light', 'v'),
+                                             head_csubj=interr('can')),
         ])
 
     def subject_rules(self):
