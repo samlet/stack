@@ -22,7 +22,8 @@ def hot_code(rule_code):
     cc = compile(rule_code, '<string>', 'eval')
     return cc
 
-def interp(rule_code, domains, meta):
+def interp(rule_code, domains, meta, pat):
+    # 这里的参数(domains, meta, pat)是必须的
     return eval(hot_code(rule_code))
 
 class DynamicRules(object):
@@ -73,9 +74,14 @@ class DynamicRules(object):
                 print(r['type'], meta['index'], meta['word'], meta['lemma'], list(meta.keys()))
                 position=doc_jsonify.get_position(meta['index'])
                 pprint(domains)
-                agency = ['c_pron', 'c_noun']
-                rs = interp(f"[Patterns(domains, meta, {self.priority}, name='{name}').{rule_str}]",
-                            domains, meta)
+                # agency = ['c_pron', 'c_noun']
+                pat = lambda p, name='': Patterns(domains, meta, p, name=name, doc=doc_jsonify)
+                # rs = interp(f"[Patterns(domains, meta, {self.priority}, name='{name}').{rule_str}]",
+                if rule_str.startswith('pat('):
+                    pattern_text=f"[{rule_str}]"
+                else:
+                    pattern_text=f"[pat({self.priority}, name='{name}').{rule_str}]"
+                rs = interp(pattern_text, domains, meta, pat)
                 print_result(rs)
 
                 # collect matched context's results

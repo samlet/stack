@@ -224,7 +224,8 @@ class Inferencer(object):
 
             pats = sorted(pats, key=lambda pat: -pat[0])
             paras = ', '.join(p[1] for p in pats)
-            result_pats.append(f"{pat_r}({paras}),")
+            if paras:
+                result_pats.append(f"{pat_r}({paras}),")
 
             # debug
             if verbose:
@@ -235,6 +236,17 @@ class Inferencer(object):
         return result_pats
 
 # infers=Inferencer()
+
+def do_infers(text:Text, source:Text) -> (Text, List[Text]):
+    infers = Inferencer(source)
+    pats = infers.infer(text)
+    shortcuts = {'ja': 'sj', 'zh': 'sz'}
+    cli_head = shortcuts[source] if source in shortcuts else f"s{source}"
+    cli_cmd = f"# $ {cli_head} '{text}'"
+    tc.emp('white', cli_cmd)
+    for pat in pats:
+        tc.emp('yellow', pat)
+    return cli_cmd, pats
 
 class InferencerCli(object):
     def infer(self, sents, lang='en', verbose=False):

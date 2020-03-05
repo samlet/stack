@@ -661,15 +661,8 @@ class MiscTool(object):
                     color_print('red', f".. the lang {t} for dep-parse is not available in translated list.")
 
         # do infers
-        from sagas.nlu.inferencer import Inferencer
-        infers = Inferencer(source)
-        pats=infers.infer(text)
-        shortcuts={'ja':'sj', 'zh':'sz'}
-        cli_head=shortcuts[source] if source in shortcuts else f"s{source}"
-        cli_cmd=f"# $ {cli_head} '{text}'"
-        tc.emp('white', cli_cmd)
-        for pat in pats:
-            tc.emp('yellow', pat)
+        from sagas.nlu.inferencer import do_infers
+        cli_cmd, pats=do_infers(text, source)
 
         # copy to clipboard
         if interact_mode:
