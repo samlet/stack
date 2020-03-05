@@ -2,10 +2,13 @@ from typing import Text, Dict, Any
 
 from cachetools import cached
 
+from sagas.nlu.inferencer import extensions, DomainToken
 from sagas.nlu.rules_header import *
 from sagas.nlu.inspector_common import Context
 import sagas.tracker_fn as tc
 import logging
+
+from sagas.nlu.utils import get_possible_mean
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +22,7 @@ def extract_ko(target:Text, word:Text):
         return sets
     return []
 
-def extract_verb(key:Text, ctx:Context):
+def extract_verb(key:Text, ctx:Context=None):
     # word=ctx.words[key]
     word=key
     rs = extract_ko('pos', word)
@@ -51,6 +54,48 @@ def extract_datetime(key:Text, ctx:Context):
         ctx.add_result('cust', 'datetime', key, rs)
         return True
     return False
+
+def get_nouns_spec(c, part:Text):
+    rs = extract_ko('nouns', c.text)
+    if rs:
+        last_spec=[r['spec'] for r in rs if 'spec' in r]
+        if last_spec:
+            spec=last_spec[-1].split('.')[0]
+            return 2, f"{part}=kindof('{spec}', '*', extract=extract_noun_chunk)"
+    return 4, f"extract_for('plain', '{part}')"
+
+def get_verb_spec(c:DomainToken, part:Text):
+    from sagas.nlu.nlu_cli import retrieve_word_info
+    # rs = retrieve_word_info('get_synsets', f"{c.text}/{c.lemma}", 'ko', '*')
+    word=extract_verb(c.text)
+    rs = retrieve_word_info('get_synsets', word, 'ko', '*')
+    print('.. ', c.text, rs)
+    mean=get_possible_mean(rs)
+    if mean:
+        return 4, f"behaveof('{mean}', '*', extract=extract_verb)"
+    return None
+
+def get_verb_interr(c:DomainToken, part:Text):
+    from sagas.nlu.inspectors_dataset import get_interrogative
+    from sagas.nlu.transliterations import translits
+    word=translits.translit(c.text.split('/')[0], 'ko')
+    rep=get_interrogative(word, 'ko')
+    if rep:
+        return 4, f"interr_root('{rep}')"
+    else:
+        return 4, "interr_root('??')"
+
+extensions.register_parts('ko',{
+    'nsubj': lambda c,t: [(4, "extract_for('plain', 'nsubj')"),
+                          (2, "nsubj=agency")],
+    'obl': lambda c,t: get_nouns_spec(c, 'obl'),
+})
+extensions.register_domains('ko',{
+    # Testcases:
+    # $ sko '우리는 피자와 스파게티가 필요해요.'   -> spec
+    # $ sko '이번 주말에 벌써 계획이 있어요?'     -> interr_root
+    'verb': lambda c,t: get_verb_spec(c, t) or get_verb_interr(c,t),
+})
 
 class Rules_ko(LangSpecBase):
     @staticmethod

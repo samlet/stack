@@ -3,7 +3,7 @@ import requests
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
 from sagas.nlu.rules_meta import build_meta
-from sagas.nlu.utils import fix_sents, join_text
+from sagas.nlu.utils import fix_sents, join_text, get_possible_mean
 import logging
 
 from sagas.tool import color_print
@@ -66,16 +66,6 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'ガ', 'ヲ', 'ニ', 'ガ２', 'カラ',
                       'head_acl',  # governor elements
                       ]
-
-def get_possible_mean(specs):
-    from collections import Counter
-    elements = [s.split('.')[0] for s in specs]
-    if elements:
-        word_counts = Counter(elements)
-        mean = word_counts.most_common(1)[0][0]
-    else:
-        mean = '_'
-    return mean
 
 def display_synsets(theme, meta, r, lang, collect=False):
     from sagas.nlu.nlu_cli import retrieve_word_info

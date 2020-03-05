@@ -51,20 +51,53 @@ class InferExtensionPoints(object):
             ext_point = f"part.{lang}.{k}"
             self.register(ext_point, f)
 
+    def register_domains(self, lang, fn_map):
+        for k,f in fn_map.items():
+            ext_point = f"domain.{lang}.{k}"
+            self.register(ext_point, f)
+
 extensions=InferExtensionPoints()
+
+class DomainToken(object):
+    def __init__(self, **kwargs):
+        self.props=kwargs
+
+    @property
+    def type_name(self):
+        return self.props['type']
+    @property
+    def text(self):
+        return self.props['text']
+
+    @property
+    def lemma(self):
+        return self.props['lemma']
+    @property
+    def index(self):
+        return self.props['index']
+
+    @property
+    def head(self):
+        return self.props['head']
+
+    @property
+    def translit(self):
+        return self.props['translit']
 
 class Inferencer(object):
     def __init__(self, lang):
         self.lang=lang
 
-    def proc_word(self, type_name:Text, word:Text, head:Text, index:int, lang:Text) -> Dict[Text, Any]:
+    def proc_word(self, type_name:Text, word:Text, head:Text, index:int, r, lang:Text) -> Dict[Text, Any]:
         from sagas.tool.misc import translit_chunk, display_synsets, target_lang
         from sagas.nlu.google_translator import translate
         res, _ = translate(word, source=lang, target=target_lang(lang),
                            trans_verbose=False)
 
         # result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
-        result = {'type': type_name, 'text': word,
+        result = {'type': type_name,
+                  'text': word,
+                  'lemma': r['lemma'],
                   'translit': translit_chunk(word, lang),
                   'translate': res,
                   'lang': lang,
@@ -153,6 +186,19 @@ class Inferencer(object):
             else:
                 pats.append(fnr)
 
+    def induce_domain_from_exts(self, chunk:Dict[Text, Any],
+                                domain: Text, pats:List[Text]):
+        ext_point = f"domain.{self.lang}.{domain}"
+        fn = extensions.value(ext_point)
+        logger.debug(f".. get extension from {ext_point}: {fn}")
+        if fn:
+            fnr = fn(DomainToken(**chunk), domain)
+            if fnr:
+                if isinstance(fnr, list):
+                    pats.extend(fnr)
+                else:
+                    pats.append(fnr)
+
     def induce_pattern(self, pat, ds, enable_verbose=False) -> Text:
         if enable_verbose:
             tc.emp('magenta', pat)
@@ -221,11 +267,15 @@ class Inferencer(object):
                 df = sagas.to_df(r['domains'], ['rel', 'index',
                                                 'text', 'lemma',
                                                 'children', 'features'])
-
                 pat = self.proc_word(type_name, r['word'],
                                 r['head'] if 'head' in r else '',
-                                r['index'],
+                                r['index'], r,
                                 self.lang)
+                logger.debug(f".. proc word {r['word']}, "
+                             f"verb in filter ({'[verb]' in filters})")
+                if not '[verb]' in filters:
+                    self.induce_domain_from_exts(pat, 'verb', pats)
+
                 pat_r = self.induce_pattern(sagas.to_obj(pat), ds, verbose)
                 parts = self.proc_children_column(df, self.lang)
                 for part in parts:

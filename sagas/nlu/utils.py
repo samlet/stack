@@ -55,4 +55,16 @@ def word_values(word: Text, lang: Text):
             print(f'*** value error: text: {text}, lemma: {lemma}')
     return {'value':word, 'text':text, 'lemma':lemma}
 
+def get_possible_mean(specs):
+    from collections import Counter
+    if not specs:
+        return ''
+    elements = [s.split('.')[0] for s in specs]
+    if elements:
+        word_counts = Counter(elements)
+        mean = word_counts.most_common(1)[0][0]
+    else:
+        mean = ''
+    return mean
+
 
