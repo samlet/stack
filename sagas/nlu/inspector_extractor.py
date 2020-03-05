@@ -150,5 +150,6 @@ class CompExtractInspector(Inspector):
 extract=lambda c='plain': CompExtractInspector(c)
 extract_dt=lambda c='plain+date_search+date_parse': CompExtractInspector(c)
 extract_c=lambda p: CompExtractInspector('plain', p)
+# extract_for('chunk+chunk_text', 'verb:xcomp/obj'),
 extract_for=lambda f, p: CompExtractInspector(f, p)
 

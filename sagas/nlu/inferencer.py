@@ -137,7 +137,11 @@ class Inferencer(object):
         fn=extensions.value(ext_point)
         logger.debug(f".. get extension from {ext_point}: {fn}")
         if fn:
-            pats.append(fn(chunk, type_name))
+            fnr=fn(chunk, type_name)
+            if isinstance(fnr, list):
+                pats.extend(fnr)
+            else:
+                pats.append(fnr)
         elif chunk.name in gen_map:
             pats.append(gen_map[chunk.name]())
 
@@ -194,7 +198,7 @@ class Inferencer(object):
             # sinkers.add_module_results(mod_rs)
 
             # infers
-            pats = []
+            pats = []  # tuples list
 
             def do_infers(ds, filters):
                 df = sagas.to_df(r['domains'], ['rel', 'index',
