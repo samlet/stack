@@ -110,7 +110,7 @@ class DateInspector(Inspector):
         if lang in self.parsers:
             parser = self.parsers[lang]
         else:
-            parser = BuiltinEntityParser.build(language=lang)
+            parser = BuiltinEntityParser.build(language='pt_pt' if lang=='pt' else lang)
             self.parsers[lang] = parser
         parsing = parser.parse(cnt)
         dims = [d['entity_kind'] for d in parsing]
