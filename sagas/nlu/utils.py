@@ -42,7 +42,10 @@ def proc_lang_routines(s, l):
 
 def word_values(word: Text, lang: Text):
     from sagas.nlu.transliterations import translits
-    text, lemma=word.split('/')
+    if '/' in word:
+        text, lemma=word.split('/')
+    else:
+        text=lemma=word
     if translits.is_available_lang(lang):
         try:
             text_val=translits.translit(text, lang)

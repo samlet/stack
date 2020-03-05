@@ -25,6 +25,9 @@ interrogative_maps={
     'it': {
         'where': ['dove'],
     },
+    'pt': {
+        'where': ['onde'],
+    },
     'fa': {
         'have': ['darm', 'darid'],
         'fav': ['dost'],

@@ -130,8 +130,10 @@ class Inferencer(object):
                     type_name:Text, enable_verbose=False) -> None:
         if enable_verbose:
             tc.emp('cyan', chunk)
-        gen_map = {'nsubj': lambda: (2, "nsubj=agency"),
+        gen_map = {'nsubj': lambda: [(4, "extract_for('plain', 'nsubj')"),
+                                     (2, "nsubj=agency")],
                    'advmod': lambda: (4, "extract_for('plain', 'advmod')"),
+                   'det': lambda: (4, "extract_for('plain', 'det')"),
                    'cop': lambda: (2, "cop='c_aux'"),
                    'head_amod': lambda: (2, "head_amod=interr('what')"),
                    }
@@ -140,12 +142,16 @@ class Inferencer(object):
         logger.debug(f".. get extension from {ext_point}: {fn}")
         if fn:
             fnr=fn(chunk, type_name)
+        elif chunk.name in gen_map:
+            fnr=gen_map[chunk.name]()
+        else:
+            fnr=None
+
+        if fnr:
             if isinstance(fnr, list):
                 pats.extend(fnr)
             else:
                 pats.append(fnr)
-        elif chunk.name in gen_map:
-            pats.append(gen_map[chunk.name]())
 
     def induce_pattern(self, pat, ds, enable_verbose=False) -> Text:
         if enable_verbose:
@@ -181,7 +187,7 @@ class Inferencer(object):
                  'root_domains': gen_root,
                  'predicate': lambda: gen_verb('predicate', 'predict'),
                  }
-        return domap[pat.type]()
+        return domap[pat.type]().lower()
 
     def infer(self, sents, verbose=False) -> List[Text]:
         from sagas.tool.misc import translit_chunk, display_synsets, target_lang
@@ -203,6 +209,15 @@ class Inferencer(object):
             pats = []  # tuples list
 
             def do_infers(ds, filters):
+                from sagas.nlu.inspectors_dataset import get_interrogative
+                if 'head' in r:
+                    # $ se 'you are dead'  # true
+                    # $ spt 'Com licença, onde é o banheiro?'  # false
+                    logger.debug(f"head: {r['head']}, filter: {'head' in filters}")
+                    rep = get_interrogative(r['head'], self.lang)
+                    if rep:
+                        pats.append((5, f"interr_root('{rep}')"))
+
                 df = sagas.to_df(r['domains'], ['rel', 'index',
                                                 'text', 'lemma',
                                                 'children', 'features'])

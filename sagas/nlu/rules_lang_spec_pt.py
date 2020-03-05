@@ -37,5 +37,15 @@ class Rules_pt(LangSpecBase):
             pat(3, name='obj_num').verb(checker(has_num='verb:obj'), ),
 
         ])
+
+    def aux_rules(self):
+        pat, actions_obj = (self.pat, self.actions_obj)
+
+        self.collect(pats=[
+            # $ spt 'Com licença, onde é o banheiro?'
+            pat(5, name='desc_where').cop(interr_root('where'), extract_for('plain', 'nsubj'), cop='c_aux',
+                                          nsubj=agency),
+
+        ])
     
 
