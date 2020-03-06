@@ -173,7 +173,8 @@ class Rules_ja(LangSpecBase):
                                              ヲ=kindof('oven', '*'),
                                              ニ=kindof('degree', '*')),
             # $ sj '新幹線で東京から大阪まで行きました。'
-            pat(5, name='predict_proceed').verb(slots('transport', fn='from_to,transport'),
+            # pat(5, name='predict_proceed').verb(slots('transport', fn='from_to,transport'),
+            pat(5, name='predict_proceed').verb(slots('transport', fn='from_to,transport', driver='cache+tracker'),
                                                 extract_for('plain', 'カラ'),
                                                 extract_for('plain', 'マデ'),
                                                 specsof('*', 'proceed'),

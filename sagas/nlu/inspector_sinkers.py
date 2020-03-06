@@ -56,15 +56,22 @@ def _series(results: List[Any], data:Dict[Text,Any]):
 
 def _slots(results: List[Any], data:Dict[Text,Any]):
     from sagas.nlu.sinker_cache import cache_store
+    from sagas.nlu.sinker_rasa_tracker import rasa_tracker_store
     slots_ins = [r for r in results if r['inspector'] == 'slots']
+    driver_fire={'cache': lambda bucket,vals: cache_store.store(bucket, vals),
+                 'tracker': lambda bucket, vals: rasa_tracker_store.store(bucket, vals),
+                 }
     for slots in slots_ins:
         fn=slots['value']['fn']
+        drivers = slots['value']['driver'].split('+')
         for f in fn.split(','):
             r = named_exprs[f.strip()](results)
             value_map=dict(zip(*r))
             bucket=slots['provider']
-            logger.info(f"post slots to {bucket}: {value_map}")
-            cache_store.store(bucket, value_map)
+            logger.info(f"post slots to {bucket}, drivers is {drivers}: {value_map}")
+            # cache_store.store(bucket, value_map)
+            for driver in drivers:
+                driver_fire[driver](bucket, value_map)
 
 registry_sinkers(_tags, _series, _slots)
 
@@ -126,16 +133,19 @@ class SlotsInspector(KeyValuesInspector):
     """
     Instances:
         slots('transport', fn='from_to,transport'),
+        slots('transport', fn='from_to,transport', driver='cache+tracker'),
     Testcases: $ sj '新幹線で東京から大阪まで行きました。'
+    Notes: 如果使用tracker作为driver, 需要先将相应的slots名称添加到rasa-domain中
     """
 
     def __init__(self, provider, **kwargs):
         super().__init__(provider, **kwargs)
-        self.bucket=kwargs['bucket'] if 'bucket' in kwargs else 'cache'
+        self.driver=kwargs['driver'] if 'driver' in kwargs else 'cache'
 
     def name(self):
         return "slots"
 
     @property
     def result_map(self):
-        return {'bucket':self.bucket}
+        return {'driver':self.driver}
+

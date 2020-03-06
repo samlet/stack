@@ -45,7 +45,6 @@ def query_duckling(text:Text, lang:Text) -> Dict[Text, Any]:
         return {'result':'success', 'data':r}
     return {'result':'fail', 'cause':'error response'}
 
-fits=lambda ds: any([c in ds for c in self.dims])
 class DateInspector(Inspector):
     """
     Instances: obj=dateins('number')
@@ -63,7 +62,7 @@ class DateInspector(Inspector):
             self.dims = {dims}
         else:
             self.dims=dims
-        # self.fits=lambda ds: any([c in ds for c in self.dims])
+        self.fits=lambda ds: any([c in ds for c in self.dims])
         self.provider=provider
         self.providers={'duckling':self.duckling_provider,
                         'snips': self.snips_provider,
@@ -95,7 +94,7 @@ class DateInspector(Inspector):
             dims = [d['dim'] for d in resp['data']]
             logger.debug('dims: %s', dims)
             # if self.dim in dims:
-            if fits(dims):
+            if self.fits(dims):
                 result = True
                 # 将解析结果附加到inspector的结果数据集中, 这个结果数据集将在backend-actions中被处理
                 ctx.add_result(self.name(), self.provider, key, resp['data'])
@@ -116,7 +115,7 @@ class DateInspector(Inspector):
         parsing = parser.parse(cnt)
         dims = [d['entity_kind'] for d in parsing]
         print(cnt, '->', 'dims', dims, 'to fits in', self.dims)
-        if fits(dims):
+        if self.fits(dims):
             result = True
             ctx.add_result(self.name(), self.provider, key, parsing)
         return result

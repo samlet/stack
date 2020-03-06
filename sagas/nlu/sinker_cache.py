@@ -1,8 +1,9 @@
 from typing import Text, Any, Dict, List, Union
 from sagas.conf.conf import cf
+from sagas.nlu.sinker_intf import SinkerStoreIntf
 
 bucket_id=lambda h_id, user=None: f"{cf.user}:{h_id}" if user is None else f"{user}:{h_id}"
-class CacheStore(object):
+class CacheStore(SinkerStoreIntf):
     def __init__(self):
         import redis
         self.r=redis.StrictRedis(decode_responses=True)
