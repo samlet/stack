@@ -96,7 +96,7 @@ class CompExtractInspector(Inspector):
             response = requests.post(f'http://localhost:1700/ner/{route}', json=data)
             if response.status_code==200:
                 result=response.json()
-                if len(result)>0:
+                if result:
                     ctx.add_result(self.name(), comp, self.pickup, result)
                     return True
             return False

@@ -6,10 +6,11 @@ logger = logging.getLogger(__name__)
 
 class CheckerInspector(Inspector):
     """
-    Instances: checker(has_lemma='ない')
-        checker(negative='_')
-        checker(has_rel='ニクラベル')
-        checker(has_num='verb:obj')
+    Instances: checker(has_lemma='ない'),
+        checker(negative='_'),
+        checker(has_rel='ニクラベル'),
+        checker(has_num='verb:obj'),
+        checker(has_all_rels=['カラ', 'マデ']),
 
     >>> pat(3, name='obj_num').verb(checker(has_num='verb:obj'), ),
     """
@@ -53,6 +54,8 @@ class CheckerInspector(Inspector):
                     succ=True
             return succ
         checkers={'has_rel': lambda c: c in ctx.rels,
+                  'has_any_rels': lambda c: any(elem in ctx.rels for elem in c),
+                  'has_all_rels': lambda c: all(elem in ctx.rels for elem in c),
                   'has_pos': lambda pos_list: ctx.pos in pos_list,
                   'has_lemma': lambda ls: has_lemma(ls),
                   'negative': lambda part: nagative(part),

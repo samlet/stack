@@ -45,6 +45,13 @@ async def handle_ja(request):
     $ curl -d '{"sents":"太郎は5月18日の朝9時に花子に会いに行った"}' \
         -H "Content-Type: application/json" -X POST \
         localhost:1700/ner/ja | json
+    $ curl -d '{"sents":"東京"}' \
+         -H "Content-Type: application/json" -X POST \
+         localhost:1700/ner/ja | json
+    $ curl -d '{"sents":"大阪"}' \
+         -H "Content-Type: application/json" -X POST \
+         localhost:1700/ner/ja | json
+
     :param request:
     :return:
     """

@@ -1,5 +1,16 @@
-from sagas.nlu.inferencer import extensions
+from typing import Text, Any, Dict, List, Union
+from sagas.nlu.inferencer import extensions, DomainToken
+from sagas.nlu.inspector_sinkers import get_all_plains
+from sagas.nlu.registries import registry_named_exprs
 from .rules_header import *
+
+def get_from_to(c,t):
+    results=[]
+    if 'カラ' in c.domain.rels:
+        results.append((4, "extract_for('plain', 'カラ')"))
+    if 'マデ' in c.domain.rels:
+        results.append((4, "extract_for('plain', 'マデ')"))
+    return results
 
 extensions.register_parts('ja',{
     '時間': lambda c,t: (4, "extract_for('plain+date_search+date_parse', '時間')"),
@@ -7,7 +18,22 @@ extensions.register_parts('ja',{
     'デ': lambda c,t: (4, "extract_for('plain', 'デ')"),
     'ニ': lambda c,t: (4, "extract_for('plain', 'ニ')"),
     '修飾': lambda c,t: (4, "extract_for('plain+number', '修飾')"),
+    'カラ': lambda c,t: get_from_to(c,t),
+    'マデ': lambda c,t: get_from_to(c,t),
 })
+
+def get_verb_interr(c:DomainToken, part:Text):
+    return 4, "interr_root('??')"
+
+extensions.register_domains('ja',{
+    'verb': lambda c,t: get_verb_interr(c,t),
+})
+registry_named_exprs(
+    # test notes: procs-jsonpath.ipynb
+    from_to=lambda rs: (['from','to'], get_all_plains(rs, '$[?inspector = "extract_comps" & provider = "plain"].value')),
+    transport=lambda rs: (['transport'], get_all_plains(rs, '$[?inspector = "kind_of" & part = "デ"].value')),
+)
+
 class Rules_ja(LangSpecBase):
     def verb_rules(self):
         pat, actions_obj=(self.pat, self.actions_obj)
@@ -144,6 +170,13 @@ class Rules_ja(LangSpecBase):
                                              extract_for('plain+temperature', 'ニ'),
                                              ヲ=kindof('oven', '*'),
                                              ニ=kindof('degree', '*')),
+            # $ sj '新幹線で東京から大阪まで行きました。'
+            pat(5, name='predict_proceed').verb(slots('tracker', fn='from_to,transport'),
+                                                extract_for('plain', 'カラ'),
+                                                extract_for('plain', 'マデ'),
+                                                specsof('*', 'proceed'),
+                                                checker(has_all_rels=['カラ', 'マデ']),
+                                                デ=kindof('public_transport', 'n')),
 
         ])
 

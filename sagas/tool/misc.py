@@ -63,7 +63,7 @@ display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
                       'sbv', 'vob',
                       # predicts
                       'a0', 'a1',
-                      'ガ', 'ヲ', 'ニ', 'ガ２', 'カラ',
+                      'ガ', 'ヲ', 'ニ', 'ガ２', 'カラ', 'デ',
                       'head_acl',  # governor elements
                       ]
 

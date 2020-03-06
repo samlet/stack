@@ -1,10 +1,14 @@
 from typing import Text, Any, Dict, List, Set
 from sagas.nlu.inspector_common import Inspector, Context
-from sagas.nlu.registries import registry_sinkers
+from sagas.nlu.registries import registry_sinkers, named_exprs
 import logging
 
 logger = logging.getLogger(__name__)
 
+def get_all_plains(results: List[Any], expr) -> List[Text]:
+    from jsonpath_ng.ext import parse
+    jsonpath_expr = parse(expr)
+    return [match.value for match in jsonpath_expr.find(results)]
 
 def get_all_tags(results: List[Any]) -> Set[Text]:
     val_list = [r['value'] for r in results if r['inspector'] == 'tags']
@@ -50,7 +54,16 @@ def _series(results: List[Any], data:Dict[Text,Any]):
         series_store.post(series['provider'], tags, fields)
         logger.info(f"post to {series['provider']}: {tags}; {fields}")
 
-registry_sinkers(_tags, _series)
+def _slots(results: List[Any], data:Dict[Text,Any]):
+    slots_ins = [r for r in results if r['inspector'] == 'slots']
+    for slots in slots_ins:
+        fn=slots['value']['fn']
+        for f in fn.split(','):
+            r = named_exprs[f.strip()](results)
+            value_map=dict(zip(*r))
+            logger.info(f"post slots to {slots['provider']}: {value_map}")
+
+registry_sinkers(_tags, _series, _slots)
 
 class TagsInspector(Inspector):
     """
@@ -102,6 +115,11 @@ class SeriesInspector(KeyValuesInspector):
         return "series"
 
 class SlotsInspector(KeyValuesInspector):
+    """
+    Instances:
+        slots('tracker', fn='from_to,transport'),
+    Testcases: $ sj '新幹線で東京から大阪まで行きました。'
+    """
     def name(self):
         return "slots"
 

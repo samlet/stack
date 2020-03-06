@@ -84,6 +84,11 @@ class DomainToken(object):
     def translit(self):
         return self.props['translit']
 
+    @property
+    def rels(self) -> List[Text]:
+        return self.props['rels']
+
+
 class Inferencer(object):
     def __init__(self, lang):
         self.lang=lang
@@ -186,13 +191,13 @@ class Inferencer(object):
             else:
                 pats.append(fnr)
 
-    def induce_domain_from_exts(self, chunk:Dict[Text, Any],
+    def induce_domain_from_exts(self, chunk:DomainToken,
                                 domain: Text, pats:List[Text]):
         ext_point = f"domain.{self.lang}.{domain}"
         fn = extensions.value(ext_point)
         logger.debug(f".. get extension from {ext_point}: {fn}")
         if fn:
-            fnr = fn(DomainToken(**chunk), domain)
+            fnr = fn(chunk, domain)
             if fnr:
                 if isinstance(fnr, list):
                     pats.extend(fnr)
@@ -271,15 +276,19 @@ class Inferencer(object):
                                 r['head'] if 'head' in r else '',
                                 r['index'], r,
                                 self.lang)
+                pat['rels']=[sub[0] for sub in r['domains']]
+                domain=DomainToken(**pat)
                 logger.debug(f".. proc word {r['word']}, "
-                             f"verb in filter ({'[verb]' in filters})")
-                if not '[verb]' in filters:
-                    self.induce_domain_from_exts(pat, 'verb', pats)
+                             f"verb in filter ({'[verb]' in filters}), "
+                             f"predicate in filter ({'[predicate]' in filters})")
+                if '[verb]' not in filters and '[predicate]' not in filters:
+                    self.induce_domain_from_exts(domain, 'verb', pats)
 
                 pat_r = self.induce_pattern(sagas.to_obj(pat), ds, verbose)
                 parts = self.proc_children_column(df, self.lang)
                 for part in parts:
                     if part['name'] not in filters:
+                        part['domain']=domain
                         self.induce_part(sagas.to_obj(part), pats, type_name, verbose)
                 # display_synsets(f"[{theme}]", meta, r, data['lang'])
                 return pat_r
