@@ -55,13 +55,16 @@ def _series(results: List[Any], data:Dict[Text,Any]):
         logger.info(f"post to {series['provider']}: {tags}; {fields}")
 
 def _slots(results: List[Any], data:Dict[Text,Any]):
+    from sagas.nlu.sinker_cache import cache_store
     slots_ins = [r for r in results if r['inspector'] == 'slots']
     for slots in slots_ins:
         fn=slots['value']['fn']
         for f in fn.split(','):
             r = named_exprs[f.strip()](results)
             value_map=dict(zip(*r))
-            logger.info(f"post slots to {slots['provider']}: {value_map}")
+            bucket=slots['provider']
+            logger.info(f"post slots to {bucket}: {value_map}")
+            cache_store.store(bucket, value_map)
 
 registry_sinkers(_tags, _series, _slots)
 
@@ -91,8 +94,13 @@ class KeyValuesInspector(Inspector):
         self.provider=provider
         self.fields=kwargs
 
+    @property
+    def result_map(self):
+        return {}
+
     def run(self, key, ctx: Context):
-        ctx.add_result(self.name(), self.provider, 'defined', self.fields)
+        self.fields.update(self.result_map)
+        ctx.add_result(self.name(), self.provider, 'defined',self.fields)
         return True
 
     def when_succ(self):
@@ -117,9 +125,17 @@ class SeriesInspector(KeyValuesInspector):
 class SlotsInspector(KeyValuesInspector):
     """
     Instances:
-        slots('tracker', fn='from_to,transport'),
+        slots('transport', fn='from_to,transport'),
     Testcases: $ sj '新幹線で東京から大阪まで行きました。'
     """
+
+    def __init__(self, provider, **kwargs):
+        super().__init__(provider, **kwargs)
+        self.bucket=kwargs['bucket'] if 'bucket' in kwargs else 'cache'
+
     def name(self):
         return "slots"
 
+    @property
+    def result_map(self):
+        return {'bucket':self.bucket}

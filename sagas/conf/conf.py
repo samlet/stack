@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union
 import json_utils
 
 def runtime_dir():
@@ -15,7 +16,7 @@ class TransClipConf(object):
         if runtime.is_docker():
             self.update_by_overrides()
 
-    def update_by_overrides(self):
+    def update_by_overrides(self) -> None:
         overrides=json_utils.read_json_file(self.overrides_file)
         for k, v in overrides.items():
             if '.' in k:
@@ -24,7 +25,7 @@ class TransClipConf(object):
             else:
                 self.conf[k] = v
 
-    def is_enabled(self, opt):
+    def is_enabled(self, opt) -> bool:
         """
         >>> import sagas.conf.conf as conf
         >>> cf=conf.TransClipConf('./conf/sagas_conf.json')
@@ -41,7 +42,7 @@ class TransClipConf(object):
             return True if val.lower() in ('on', 'yes', 'true', '1') else False
         return opt in self.conf and self.conf[opt]
 
-    def enable_opt(self, opt):
+    def enable_opt(self, opt) -> None:
         self.conf[opt]=True
 
     @property
@@ -52,7 +53,7 @@ class TransClipConf(object):
         """
         return self.conf['common_s']
 
-    def servant(self, engine):
+    def servant(self, engine) -> Text:
         servants = self.conf['servants']
         return servants[engine]
 
@@ -62,12 +63,16 @@ class TransClipConf(object):
             return item_val[item_name]
         return item_val['*']
 
-    def engine(self, lang):
+    def engine(self, lang) -> Text:
         import os
         return os.getenv('engine', self.get_opt('dialectors', lang))
 
     def servant_by_lang(self, lang):
         return self.servant(self.get_opt('dialectors', lang))
+
+    @property
+    def user(self) -> Text:
+        return self.ensure('user')
 
     def ensure(self, item):
         """

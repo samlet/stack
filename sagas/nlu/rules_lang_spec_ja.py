@@ -30,8 +30,10 @@ extensions.register_domains('ja',{
 })
 registry_named_exprs(
     # test notes: procs-jsonpath.ipynb
-    from_to=lambda rs: (['from','to'], get_all_plains(rs, '$[?inspector = "extract_comps" & provider = "plain"].value')),
-    transport=lambda rs: (['transport'], get_all_plains(rs, '$[?inspector = "kind_of" & part = "デ"].value')),
+    from_to=lambda rs: (['from','to'],
+                        get_all_plains(rs, '$[?inspector = "extract_comps" & provider = "plain"].value')),
+    transport=lambda rs: (['transport_cat', 'transport_name'],
+                          get_all_plains(rs, '$[?inspector = "kind_of" & part = "デ"].value.category,word')),
 )
 
 class Rules_ja(LangSpecBase):
@@ -171,7 +173,7 @@ class Rules_ja(LangSpecBase):
                                              ヲ=kindof('oven', '*'),
                                              ニ=kindof('degree', '*')),
             # $ sj '新幹線で東京から大阪まで行きました。'
-            pat(5, name='predict_proceed').verb(slots('tracker', fn='from_to,transport'),
+            pat(5, name='predict_proceed').verb(slots('transport', fn='from_to,transport'),
                                                 extract_for('plain', 'カラ'),
                                                 extract_for('plain', 'マデ'),
                                                 specsof('*', 'proceed'),
