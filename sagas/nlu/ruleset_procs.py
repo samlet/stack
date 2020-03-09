@@ -1,10 +1,10 @@
-from typing import Text, Dict
+from typing import Text, Dict, Iterator
 
 from sagas.nlu.corenlp_parser import get_chunks
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.inspector_common import Inspector, Context, non_spaces
 from sagas.conf.conf import cf
-from sagas.nlu.uni_intf import SentenceIntf
+from sagas.nlu.uni_intf import SentenceIntf, WordIntf
 from sagas.nlu.utils import fix_sents
 from sagas.nlu.uni_remote import dep_parse, parse_and_cache
 from sagas.nlu.uni_remote_viz import list_contrast, display_doc_deps
@@ -49,7 +49,7 @@ def get_main_domains(sents:Text, source:Text, engine:Text):
                                          'root_domains') if len(chunks[e]) > 0)
 
 equals = lambda a, b: str(a) == str(b)
-def children(word, sent):
+def children(word, sent) -> Iterator[WordIntf]:
     return filter(lambda w: equals(w.governor, word.index), sent.words)
 
 def extract(l, delim):

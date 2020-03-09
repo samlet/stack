@@ -60,6 +60,12 @@ class Rules_pt(LangSpecBase):
                                                nsubj=agency,
                                                obj=specsof('n', 'beverage', 'food')),
 
+            # $ spt 'Ela negou ser minha mãe.'  (She denied being my mother)
+            pat(5, name='behave_deny').verb(extract_for('plain', 'nsubj'),
+                                            behaveof('deny', 'v'),
+                                            clauses(all, cla_expr('verb:obl', cop={'be'})),
+                                            nsubj=agency,
+                                            obl=kindof('relative', 'n')),
         ])
 
     def aux_rules(self):

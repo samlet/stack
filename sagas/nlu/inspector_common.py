@@ -13,8 +13,30 @@ class Chunk(object):
         cnt = ' '.join(self.children)
         return f"{self.key}: {cnt}"
 
+class cla_meta_intf():
+    @property
+    def sents(self):
+        raise NotImplementedError('Property not implemented!')
+
+    @property
+    def lang(self):
+        raise NotImplementedError('Property not implemented!')
+
+class cla_meta(cla_meta_intf):
+    def __init__(self, sents:Text, lang:Text):
+        self._sents=sents
+        self._lang=lang
+
+    @property
+    def lang(self):
+        return self._lang
+
+    @property
+    def sents(self):
+        return self._sents
+
 non_spaces=['ja', 'zh']
-class Context(object):
+class Context(cla_meta_intf, object):
     def __init__(self, meta, domains, name=''):
         self.meta=meta
         self.name=name
@@ -26,12 +48,12 @@ class Context(object):
         if len(self._stems)==0:
             self._stems=[(x[0], x[4]) for x in domains]
 
-        self.lang = meta['lang']
-        if self.lang in non_spaces:
+        self._lang = meta['lang']
+        if self._lang in non_spaces:
             self.delim = ''
         else:
             self.delim = ' '
-        self.sents=meta['sents'] if 'sents' in meta else ''
+        self._sents=meta['sents'] if 'sents' in meta else ''
 
         # self.lemmas = {x[0]: x[3] for x in domains}
         # self.words = {x[0]: x[2] for x in domains}
@@ -52,6 +74,14 @@ class Context(object):
 
     def get_word(self, key) -> Text:
         return f"{self.words[key]}/{self.lemmas[key]}"
+
+    @property
+    def lang(self):
+        return self._lang
+
+    @property
+    def sents(self):
+        return self._sents
 
     @property
     def pos(self):

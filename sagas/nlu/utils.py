@@ -1,5 +1,9 @@
+import requests
 from typing import Text, Any, Dict, List
 import re
+
+from cachetools import cached
+from sagas.conf.conf import cf
 
 def alternate(sents):
     if '/' in sents:
@@ -68,3 +72,27 @@ def get_possible_mean(specs):
     return mean
 
 
+@cached(cache={})
+def predicate(kind:Text, word:Text, lang:Text, pos:Text ):
+    # if '/' in kind or '/' in word:
+    data = {'word': word, 'lang': lang, 'pos': pos,
+            'kind': kind}
+    response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
+                             json=data)
+    # else:
+    #     data = {'word': word, 'lang': lang, 'pos': pos,
+    #             'kind': kind, 'only_first': only_first}
+    #     response = requests.post(f'{cf.ensure("words_servant")}/predicate',
+    #                              json=data)
+    if response.status_code == 200:
+        r = response.json()
+        return r['result']
+    return False
+
+def check_chain(kind, word, pos, lang):
+    from sagas.nlu.synonyms import synonyms
+
+    r = synonyms.match(word, lang)
+    if r is None:
+        return predicate(kind, word, lang, pos)
+    return predicate(kind, r, 'en', pos)

@@ -4,32 +4,15 @@ from cachetools import cached
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspector
 from sagas.nlu.patterns import Patterns, print_result
-import requests
-from sagas.conf.conf import cf
 import logging
+
+from sagas.nlu.utils import predicate
 
 logger = logging.getLogger(__name__)
 
 feat_pos_mappings={'c_adj':'a', 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 # feat_pos_mappings={'c_adj':['n','a','s'], 'c_adv':'r', 'c_noun':'n', 'c_verb':'v'}
 
-
-@cached(cache={})
-def predicate(kind:Text, word:Text, lang:Text, pos:Text ):
-    # if '/' in kind or '/' in word:
-    data = {'word': word, 'lang': lang, 'pos': pos,
-            'kind': kind}
-    response = requests.post(f'{cf.ensure("words_servant")}/predicate_chain',
-                             json=data)
-    # else:
-    #     data = {'word': word, 'lang': lang, 'pos': pos,
-    #             'kind': kind, 'only_first': only_first}
-    #     response = requests.post(f'{cf.ensure("words_servant")}/predicate',
-    #                              json=data)
-    if response.status_code == 200:
-        r = response.json()
-        return r['result']
-    return False
 
 class WordInspector(Inspector):
     def __init__(self, kind, pos_indicator='~', **kwargs):
@@ -199,9 +182,9 @@ class WordSpecsInspector(WordInspector):
         r=synonyms.match(word, lang)
         if r is None:
             return predicate(kind, word, lang, pos)
-        self.subs=r
-
-        return predicate(self.kind, r, 'en', pos)
+        # self.subs=r
+        self.subs.append((word, r))
+        return predicate(kind, r, 'en', pos)
 
     def extract_specs(self, key, ctx:Context):
         if '/' in key:

@@ -54,10 +54,10 @@ def print_stem_chunks(r):
             tc.label('%s ->'%stem[0], value)
 
 # others: 'nsubj'
-display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',
+display_synsets_opts=['obl', 'obj', 'iobj', 'nmod',  # Nominals
                       'obl:arg',
                       # $ ses 'La reina decía que la aldea era bonita.'
-                      'ccomp',
+                      'ccomp', 'xcomp', 'csubj', 'advcl', 'acl',  # Clauses
                       # $ sz '现在是几点？'
                       # $ sz '昨天是星期几？'
                       'sbv', 'vob',
