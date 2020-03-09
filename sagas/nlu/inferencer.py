@@ -88,6 +88,9 @@ class DomainToken(object):
     def rels(self) -> List[Text]:
         return self.props['rels']
 
+    @property
+    def stems(self) -> List[Tuple[Text,Text]]:
+        return self.props['stems']
 
 class Inferencer(object):
     def __init__(self, lang):
@@ -240,6 +243,17 @@ class Inferencer(object):
                  }
         return domap[pat.type]().lower()
 
+    def stem_chunks(self, r):
+        tuple_list=[] # 使用tuple-list是因为一个句子会有重复的成分
+        for stem in r['stems']:
+            # if stem[0] in stem_filters:
+            # stem[1]是一个列表, 包含了所有的word-lemmas
+            if stem[1]:
+                value = ' '.join(stem[1])
+                # stem[0]是成分名称, 比如obj/obl/nsubj/...
+                tuple_list.append((stem[0], value))
+        return tuple_list
+
     def infer(self, sents, verbose=False) -> List[Text]:
         from sagas.tool.misc import translit_chunk, display_synsets, target_lang
         data = {'lang': self.lang, "sents": sents}
@@ -277,10 +291,12 @@ class Inferencer(object):
                                 r['index'], r,
                                 self.lang)
                 pat['rels']=[sub[0] for sub in r['domains']]
+                pat['stems']=self.stem_chunks(r)
                 domain=DomainToken(**pat)
                 logger.debug(f".. proc word {r['word']}, "
                              f"verb in filter ({'[verb]' in filters}), "
-                             f"predicate in filter ({'[predicate]' in filters})")
+                             f"predicate in filter ({'[predicate]' in filters}), "
+                             f"stems: {domain.stems}")
                 if '[verb]' not in filters and '[predicate]' not in filters:
                     self.induce_domain_from_exts(domain, 'verb', pats)
 
@@ -320,10 +336,13 @@ class Inferencer(object):
 def do_infers(text:Text, source:Text) -> (Text, List[Text]):
     infers = Inferencer(source)
     pats = infers.infer(text)
+
+    # generate cli command
     shortcuts = {'ja': 'sj', 'zh': 'sz'}
     cli_head = shortcuts[source] if source in shortcuts else f"s{source}"
     cli_cmd = f"# $ {cli_head} '{text}'"
     tc.emp('white', cli_cmd)
+
     for pat in pats:
         tc.emp('yellow', pat)
     return cli_cmd, pats

@@ -328,17 +328,19 @@ class CustInspector(Inspector):
             obl=cust(extract_datetime),
             nsubj=kindof('plan', '*', extract=extract_noun_chunk), ),
     """
-    def __init__(self, fn):
+    def __init__(self, fn, check_fn=None):
         self.fn=fn
+        self.check_fn=check_fn
 
     def name(self):
         return "cust"
 
     def run(self, key, ctx:Context):
-        return self.fn(key, ctx)
+        return self.fn(key, ctx, self.check_fn)
 
     def __str__(self):
-        return f"ins_{self.name()}({self.fn.__name__})"
+        return f"ins_{self.name()}({self.fn.__name__}, " \
+               f"{self.check_fn.__name__ if self.check_fn else '_'})"
 
 def query_entities_by_url(url, data):
     response = requests.post(url, json=data)

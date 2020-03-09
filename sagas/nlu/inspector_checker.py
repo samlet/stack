@@ -32,7 +32,7 @@ class CheckerInspector(Inspector):
             if isinstance(lemmas, str):
                 lemmas=[lemmas]
             return check(lemmas, 'has_lemma')
-        def nagative(part):
+        def nagative(part='_'):
             from sagas.nlu.inspectors_dataset import nagative_maps
             data_map = nagative_maps[ctx.lang]
             return check(data_map, 'negative')

@@ -77,7 +77,9 @@ registry_sinkers(_tags, _series, _slots)
 
 class TagsInspector(Inspector):
     """
-    Instances: tags('age?')
+    Instances:
+        tags('age?'),
+        tags('inform'),
     """
     def __init__(self, *tags):
         self.tags = tags

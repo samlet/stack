@@ -39,7 +39,7 @@ def extract_noun_chunk(key:Text, ctx:Context):
         return '/'.join([w['text'] for w in rs])
     return ctx.words[key]
 
-def extract_nouns(key:Text, ctx:Context):
+def extract_nouns(key:Text, ctx:Context, check_fn) -> bool:
     # rs=extract_ko('nouns', ctx.words[key])
     rs = extract_ko('nouns', ctx.get_single_chunk_text(key))
     if rs:
@@ -47,7 +47,7 @@ def extract_nouns(key:Text, ctx:Context):
         return True
     return False
 
-def extract_datetime(key:Text, ctx:Context):
+def extract_datetime(key:Text, ctx:Context, check_fn):
     from sagas.nlu.content_representers import cnt_repr
     rs=cnt_repr.parse_snips(ctx.get_single_chunk_text(key), 'ko')
     if rs:

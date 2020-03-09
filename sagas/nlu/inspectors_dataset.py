@@ -27,6 +27,7 @@ interrogative_maps={
     },
     'pt': {
         'where': ['onde'],
+        'why': ['por que'],
     },
     'fa': {
         'have': ['darm', 'darid'],
@@ -45,6 +46,12 @@ interrogative_maps={
 }
 
 def get_interrogative(word:Text, lang:Text):
+    """
+    >>> get_interrogative('можно', 'ru')
+    :param word:
+    :param lang:
+    :return:
+    """
     if lang in interrogative_maps:
         data_map = interrogative_maps[lang]
         for k,v in data_map.items():
@@ -56,6 +63,7 @@ class DataSetCli(object):
     def interr(self, word, lang):
         """
         $ python -m sagas.nlu.inspectors_dataset interr 'можно' ru
+        $ python -m sagas.nlu.inspectors_dataset interr 'por que' pt
         :param word:
         :param lang:
         :return:
