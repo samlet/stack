@@ -86,7 +86,9 @@ class Context(object):
                               'provider':provider,
                               'part':part_name,
                               'value':val,
-                              'delivery':delivery_type})
+                              'delivery': delivery_type,
+                              'pattern': self.name,
+                              })
 
     def put_data(self, key, val):
         if 'intermedia' not in self.meta:

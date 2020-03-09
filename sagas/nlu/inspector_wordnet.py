@@ -44,7 +44,7 @@ class WordInspector(Inspector):
         self.kind = kind
         # self.only_first=only_first
         self.pos_indicator=pos_indicator
-        self.subs=None
+        self.subs=[]
         self.parameters=kwargs
 
     def name(self):
@@ -71,14 +71,14 @@ class WordInspector(Inspector):
             return predicate(self.kind, word, lang, pos)
         # print(f'... substitute with {r}(en), {pos}')
         # return self.process(r, 'en', pos)
-        self.subs=r
+        self.subs.append((word, r))
 
         return predicate(self.kind, r, 'en', pos)
 
     @property
     def result_base(self) -> Dict[Text, Any]:
         results={'category': self.kind}
-        if self.subs is not None:
+        if self.subs:
             results['subs']=self.subs
         return results
 
@@ -191,7 +191,7 @@ class WordSpecsInspector(WordInspector):
     $ sj '太陽は月に比べて大きいです。'
     """
     def __init__(self, pos_indicator, *cats, **kwargs):
-        super().__init__(cats[0], pos_indicator, **kwargs)
+        super().__init__('|'.join(cats), pos_indicator, **kwargs)
         self.cats=cats
 
     def check_subs(self, kind, word, lang, pos):
@@ -219,12 +219,15 @@ class WordSpecsInspector(WordInspector):
         for kind in self.cats:
             result= self.check_subs(kind, word, lang, pos)
             logger.debug(f"check word {word} against {kind}, result is {result}")
-            if result:
-                ctx.add_result(self.name(), 'default', 'predicate',
-                               {**self.result_base, 'pos': pos, 'word': word},
-                               delivery_type='sentence')
             resultset.append(result)
-        return any(resultset)
+
+        fin=any(resultset)
+        if fin:
+            ctx.add_result(self.name(), 'default', 'predicate',
+                           {**self.result_base, 'pos': pos, 'word': word},
+                           delivery_type='sentence')
+
+        return fin
 
     def name(self):
         return "specs_of"

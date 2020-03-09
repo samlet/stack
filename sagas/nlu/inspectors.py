@@ -310,6 +310,8 @@ class PlainInspector(Inspector):
 
 class CustInspector(Inspector):
     """
+    Instances:
+        obl=cust(check_interr, lambda w: w=='why'),
     Examples:
         # $ python -m sagas.ko.ko_helper nouns '피자와 스파게티가'
         # $ sko '우리는 피자와 스파게티가 필요해요.'  (We need pizza and spaghetti.)

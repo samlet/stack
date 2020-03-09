@@ -54,6 +54,11 @@ class Rules_pt(LangSpecBase):
                                            advmod=negative(),
                                            obl=cust(check_interr, lambda w: w=='why'),
                                            nsubj=agency),
+            # $ spt 'Ele pediu uma cerveja.'  (He has asked for a beer.)
+            pat(5, name='behave_request').verb(extract_for('plain', 'nsubj'),
+                                               behaveof('request', 'v'),
+                                               nsubj=agency,
+                                               obj=specsof('n', 'beverage', 'food')),
 
         ])
 

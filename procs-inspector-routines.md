@@ -295,6 +295,7 @@ advmod=matchins({'mengapa'}, 'in'),
 ```python
 nsubj=cust(extract_nouns),
 obl=cust(extract_datetime),
+obl=cust(check_interr, lambda w: w=='why'),
 ```
 
 ## 18. EntityInspector
