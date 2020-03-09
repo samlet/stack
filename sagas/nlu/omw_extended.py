@@ -133,6 +133,7 @@ def get_synsets(lang, word, pos='*') -> List[Any]:
     if is_available(lang):
         loc, _ = iso_locales.get_code_by_part1(lang)
         sets = wn.synsets(word, lang=loc, pos=None if pos == '*' else pos)
+    # search the extended wordnet, if absent
     if len(sets)==0:
         sets=omw_ext.get_synset(lang=lang, word=word)
         if pos is not None and pos!='*':

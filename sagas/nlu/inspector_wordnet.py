@@ -131,6 +131,9 @@ class PredicateWordInspector(WordInspector):
 
 class VerbInspector(WordInspector):
     """
+    Instances:
+        behaveof('need', '*', extract=extract_verb),
+
     # $ ses '¿Te duelen las piernas?' (zh="你的腿受伤了吗？")
     >>> Patterns(domains, meta, 5).verb(behaveof('suffer', 'v'), nsubj=kindof('body_part', 'n')),
     # $ sz "吸烟对你的健康有害。"
@@ -181,7 +184,10 @@ class VerbInspector(WordInspector):
 
 class WordSpecsInspector(WordInspector):
     """
-    Instances: specsof('*', 'little', 'large')
+    Instances:
+        specsof('*', 'little', 'large'),
+        obj=specsof('n', 'beverage', 'water', 'juice', 'cafe'),
+        specsof('v', 'represent', 'show'),
     $ sj '太陽は月に比べて大きいです。'
     """
     def __init__(self, pos_indicator, *cats, **kwargs):

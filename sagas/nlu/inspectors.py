@@ -309,6 +309,25 @@ class PlainInspector(Inspector):
         return f"ins_{self.name()}({self.arg})"
 
 class CustInspector(Inspector):
+    """
+    Examples:
+        # $ python -m sagas.ko.ko_helper nouns '피자와 스파게티가'
+        # $ sko '우리는 피자와 스파게티가 필요해요.'  (We need pizza and spaghetti.)
+        # $ sko '우리는 생선과 스테이크가 필요해요.'  (We need fish and steaks.)
+        pat(-5, name='desc_need').verb(
+            behaveof('need', '*', extract=extract_verb),
+            checker(has_rel='nsubj'),
+            nsubj=cust(extract_nouns),),
+
+        # $ sko '이번 주말에 벌써 계획이 있어요?'
+        #   (Do you already have plans for this weekend?)
+        #   (ibeon jumal-e beolsseo gyehoeg-i iss-eoyo?)
+        pat(-5, name='desc_plan').verb(
+            interr_root('have'),
+            checker(has_rel='obl'),
+            obl=cust(extract_datetime),
+            nsubj=kindof('plan', '*', extract=extract_noun_chunk), ),
+    """
     def __init__(self, fn):
         self.fn=fn
 

@@ -6,6 +6,22 @@ def subj(*args, **kwargs):
     return {'method':'subj', 'args':args, 'kwargs':kwargs}
 
 def chained(pat:Patterns, *args):
+    """
+    Examples:
+        # $ sj 父は私にとてもきびしかった。
+        # $ sj 本田先生は学生たちにきびしそうだ。
+        chained(pat(5, name='desc_attitude'),
+                subj('adj', ガ=agency),
+                verb(extract_for('plain', 'ガ'),
+                     extract_for('plain', 'ニ'),
+                     extract_for('plain', '修飾'),
+                     specsof('*', 'tight'),
+                     )
+                ),
+    :param pat:
+    :param args:
+    :return:
+    """
     coll=[]
     for insp in args:
         serv=pat.prepare(insp['method'])

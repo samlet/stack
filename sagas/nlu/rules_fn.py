@@ -1,6 +1,7 @@
 """
 See notebook: procs-dep-parser.ipynb
 """
+from typing import Text, Any, Dict, List, Union
 
 def it(*dl):
     rs=[]
@@ -41,7 +42,7 @@ def check_fn(domain_list, meta, **kwargs):
         rs.append(item_r)
     return all(rs) if len(rs)>0 else False
 
-def predicate_fn(chain, pos):
+def predicate_fn(chain:Text, pos:Text):
     from sagas.nlu.inspector_wordnet import predicate
     return lambda word, meta: predicate(chain, word, meta["lang"], pos)
 
