@@ -40,6 +40,8 @@ class Context(cla_meta_intf, object):
     def __init__(self, meta, domains, name=''):
         self.meta=meta
         self.name=name
+        self.domains=domains
+
         # self.chunks = {x[0]: x[4] for x in domains}
         self._chunks = [Chunk(x[0], x[4]) for x in domains]
         # all universal syntactic relations

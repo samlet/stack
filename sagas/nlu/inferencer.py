@@ -2,6 +2,7 @@ from typing import Text, Any, Dict, List, Union, Tuple
 import requests
 from sagas.conf.conf import cf
 from sagas.nlu.inspector_common import Context
+from sagas.nlu.patterns import Patterns
 from sagas.nlu.rules_meta import build_meta
 from sagas.tool import init_logger
 import sagas.tracker_fn as tc
@@ -97,6 +98,23 @@ class DomainToken(object):
     def stems(self) -> List[Tuple[Text,Text]]:
         return self.props['stems']
 
+    def pattern(self, dominator='verb', priority=5, name='_noname_'):
+        """
+        >>> from sagas.nlu.rules_header import *
+        >>> pat=token.pattern('verb')
+        >>> r=pat(behaveof('eat', 'v'))
+        >>> assert r[1]
+        >>> r=pat(obl=kindof('building', 'n'))
+        >>> assert r[1]
+        :param dominator:
+        :param priority:
+        :param name:
+        :return:
+        """
+        ctx=self.ctx
+        pat = Patterns(ctx.domains, ctx.meta, priority=priority, name=name)
+        serv = pat.prepare(dominator)
+        return serv
 
 class Inferencer(object):
     def __init__(self, lang):
@@ -146,7 +164,8 @@ class Inferencer(object):
                 res, _ = translate(sent, source=lang, target=target_lang(lang),
                                    trans_verbose=False, options={'disable_correct'})
                 # chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
-                chunk = {'name': name, 'text': sent,
+                chunk = {'name': name,
+                         'text': sent,
                          'lemma': lemma,
                          'translit': translit_chunk(sent, lang),
                          'translate': res,

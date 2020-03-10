@@ -73,7 +73,9 @@ class Rules_pt(LangSpecBase):
 
         self.collect(pats=[
             # $ spt 'Com licença, onde é o banheiro?'
-            pat(5, name='desc_where').cop(interr_root('where'), extract_for('plain', 'nsubj'), cop='c_aux',
+            pat(5, name='desc_where').cop(interr_root('where'),
+                                          extract_for('plain', 'nsubj'),
+                                          cop='c_aux',
                                           nsubj=agency),
 
         ])
