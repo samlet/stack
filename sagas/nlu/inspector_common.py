@@ -212,7 +212,7 @@ class Inspector(object):
     # def cache_key(self, key):
     #     return "%s.%s"%(self.name(), key)
 
-    def check(self, key:Text, ctx:Context):
+    def check(self, key:Text, ctx:Context) -> bool:
         """
         Api method
         :param key:

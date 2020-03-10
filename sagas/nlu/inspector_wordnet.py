@@ -164,6 +164,8 @@ class VerbInspector(WordInspector):
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
+    def __repr__(self):
+        return self.__str__()
 
 class WordSpecsInspector(WordInspector):
     """

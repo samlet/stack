@@ -1,6 +1,7 @@
 from typing import Text, Any, Dict, List, Union, Tuple
 import requests
 from sagas.conf.conf import cf
+from sagas.nlu.inspector_common import Context
 from sagas.nlu.rules_meta import build_meta
 from sagas.tool import init_logger
 import sagas.tracker_fn as tc
@@ -89,8 +90,13 @@ class DomainToken(object):
         return self.props['rels']
 
     @property
+    def ctx(self) -> Context:
+        return self.props['ctx']
+
+    @property
     def stems(self) -> List[Tuple[Text,Text]]:
         return self.props['stems']
+
 
 class Inferencer(object):
     def __init__(self, lang):
@@ -273,7 +279,7 @@ class Inferencer(object):
             # infers
             pats = []  # tuples list
 
-            def do_infers(ds, filters):
+            def do_infers(ctx:Context, ds, filters):
                 from sagas.nlu.inspectors_dataset import get_interrogative
                 if 'head' in r:
                     # $ se 'you are dead'  # true
@@ -292,6 +298,8 @@ class Inferencer(object):
                                 self.lang)
                 pat['rels']=[sub[0] for sub in r['domains']]
                 pat['stems']=self.stem_chunks(r)
+                pat['ctx']=ctx
+
                 domain=DomainToken(**pat)
                 logger.debug(f".. proc word {r['word']}, "
                              f"verb in filter ({'[verb]' in filters}), "
@@ -311,7 +319,9 @@ class Inferencer(object):
 
             # induce with wordnet
             ds = display_synsets(f"[{theme}]", meta, r, self.lang, collect=True)
-            pat_r = do_infers(ds, [el['indicator'] for el in ds])
+            domains = r['domains']
+            ctx = Context(meta, domains, name='_test_')
+            pat_r = do_infers(ctx, ds, [el['indicator'] for el in ds])
             indicators = []
             for el in ds:
                 if el['indicator'] not in indicators:
