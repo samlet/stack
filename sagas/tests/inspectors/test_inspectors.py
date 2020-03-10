@@ -35,3 +35,17 @@ def test_kindof(data, dominator, insp):
         r = serv(**insp)
         assert r[1]
 
+@pytest.mark.parametrize(
+    "data, dominator, insp",
+    [
+        ({'lang': 'pt', "sents": 'Eu preciso disso até amanhã.'},
+         'verb', dict(advmod=dateins('time'))),
+        ({'lang': 'pt', "sents": 'Nós não vemos nossos pais desde ontem.'},
+         'verb', dict(advmod=dateins('time'))),
+    ],
+)
+def test_dateins(data, dominator, insp):
+    for ctx,serv in build_context(data, dominator, name='_test_'):
+        r = serv(**insp)
+        assert r[1]
+

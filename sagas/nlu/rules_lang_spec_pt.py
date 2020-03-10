@@ -1,7 +1,6 @@
 from typing import Text, Dict, Any
 
 from sagas.nlu.inspector_common import Context
-from sagas.nlu.inspectors_dataset import get_interrogative
 from sagas.nlu.rules_header import *
 
 import sagas.tracker_fn as tc
@@ -9,12 +8,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def check_interr(key:Text, ctx:Context, check_fn) -> bool:
-    for stem in ctx.stem_pieces(key):
-        interr=get_interrogative(stem, 'pt')
-        if interr and check_fn(interr):
-            return True
-    return False
 
 class Rules_pt(LangSpecBase):
     @staticmethod
@@ -66,6 +59,13 @@ class Rules_pt(LangSpecBase):
                                             clauses(all, cla_expr('verb:obl', cop={'be'})),
                                             nsubj=agency,
                                             obl=kindof('relative', 'n')),
+            # $ spt 'Desde quando você gosta de abacaxi?'
+            pat(5, name='behave_like').verb(extract_for('plain', 'advmod'),
+                                            extract_for('plain', 'nsubj'),
+                                            behaveof('like', 'v'),
+                                            nsubj=agency,
+                                            advmod=cust(check_interr, lambda w: w == 'since_when'),
+                                            obl=kindof('matter', 'n')),
         ])
 
     def aux_rules(self):

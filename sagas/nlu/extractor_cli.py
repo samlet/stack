@@ -10,6 +10,7 @@ class ExtractorCli(object):
         $ python -m sagas.nlu.extractor_cli duckling 'あしたは四月四日です。' ja
         $ python -m sagas.nlu.extractor_cli duckling '上周' zh
         $ python -m sagas.nlu.extractor_cli duckling "Maggio e giugno sono mesi dell'anno." it
+        $ python -m sagas.nlu.extractor_cli duckling 'desde ontem' pt
 
         $ python -m sagas.nlu.extractor_cli duckling "fifty" en
         $ python -m sagas.nlu.extractor_cli duckling 'samlet@ymail.com' en  # "dim": "email"
@@ -22,8 +23,9 @@ class ExtractorCli(object):
 
         resp = query_duckling(text, lang)
         print(pretty_json(resp))
-        print('-'*25)
-        print([d['dim'] for d in resp['data']])
+        if resp['result']=='success':
+            print('-'*25)
+            print([d['dim'] for d in resp['data']])
 
     def datetime(self, text, lang='en'):
         """

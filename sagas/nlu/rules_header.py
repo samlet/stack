@@ -13,6 +13,8 @@ from sagas.nlu.inspector_sinkers import TagsInspector as tags, SeriesInspector a
 from sagas.nlu.inspector_inferencer import InferencerInspector as infer
 from sagas.nlu.inspector_clauses import ClausesInspector as clauses, cla_expr
 
+from sagas.nlu.parse_client_helper import check_interr
+
 from sagas.nlu.patterns import Patterns
 
 from sagas.tool.misc import color_print

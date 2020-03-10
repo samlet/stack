@@ -28,6 +28,7 @@ interrogative_maps={
     'pt': {
         'where': ['onde'],
         'why': ['por que'],
+        'since_when': ['desde quando'],
     },
     'fa': {
         'have': ['darm', 'darid'],
@@ -58,6 +59,7 @@ def get_interrogative(word:Text, lang:Text):
             if word in v:
                 return k
     return None
+
 
 class DataSetCli(object):
     def interr(self, word, lang):
