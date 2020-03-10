@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List
+from typing import Text, Any, Dict, List, Union
 import yaml
 
 class Synonyms(object):
@@ -26,12 +26,15 @@ class Synonyms(object):
 
         syns=self.mappings[lang]
         words=syns['words']
-        return words[word] if word in words else []
+        # return words[word] if word in words else []
+        return [k for k,words in words.items() if word in words]
 
-    def match(self, word, lang):
+    def match(self, word, lang, multi_result=False) -> Union[Text, List[Text]]:
         # the last part of the word is lemma
         rs=self.query(word.split('/')[-1], lang)
-        return rs[0] if len(rs)>0 else None
+        # return rs[0] if len(rs)>0 else None
+        if rs:
+            return rs if multi_result else rs[0]
 
     def availble_langs(self) -> List[Text]:
         """

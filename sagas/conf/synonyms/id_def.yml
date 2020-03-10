@@ -1,6 +1,5 @@
 words:
-    memulai: [initiate]
-    menmulai: [initiate]
-    lehermu: [neck]
-    lakukan: [make]
-    dilindungi: [protected]
+    initiate: [memulai, menmulai]
+    neck: [lehermu]
+    make: [lakukan]
+    protected: [dilindungi]
