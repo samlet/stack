@@ -89,6 +89,10 @@ loggers:
     level: INFO
     handlers: [console]
     propagate: no
+  sagas.nlu.rules_lang_spec_pt:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
 
 root:
   level: INFO

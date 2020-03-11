@@ -112,8 +112,9 @@ class DomainToken(object):
         :return:
         """
         ctx=self.ctx
+        domain=dominator.split('_')[0]
         pat = Patterns(ctx.domains, ctx.meta, priority=priority, name=name)
-        serv = pat.prepare(dominator)
+        serv = pat.prepare(domain)
         return serv
 
 class Inferencer(object):
@@ -196,6 +197,7 @@ class Inferencer(object):
                     type_name:Text, enable_verbose=False) -> None:
         if enable_verbose:
             tc.emp('cyan', chunk)
+
         gen_map = {'nsubj': lambda: [(4, "extract_for('plain', 'nsubj')"),
                                      (2, "nsubj=agency")],
                    'advmod': lambda: (4, "extract_for('plain', 'advmod')"),
@@ -206,12 +208,11 @@ class Inferencer(object):
         ext_point=f"part.{self.lang}.{chunk.name}"
         fn=extensions.value(ext_point)
         logger.debug(f".. get extension from {ext_point}: {fn}")
+        fnr=None
         if fn:
             fnr=fn(chunk, type_name)
-        elif chunk.name in gen_map:
+        if fnr is None and chunk.name in gen_map:
             fnr=gen_map[chunk.name]()
-        else:
-            fnr=None
 
         if fnr:
             if isinstance(fnr, list):

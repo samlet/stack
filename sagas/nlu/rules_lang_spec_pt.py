@@ -1,6 +1,6 @@
 from typing import Text, Dict, Any
 
-from sagas.nlu.inspector_common import Context
+from sagas.nlu.inferencer import extensions
 from sagas.nlu.rules_header import *
 
 import sagas.tracker_fn as tc
@@ -8,6 +8,17 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def induce_dim(c, t:Text, dim:Text):
+    pat=c.domain.pattern(t)
+    r = pat(**{c.name:dateins(dim)})
+    logger.debug(f"t:{t}, dim:{dim}, result:{r[1]}, {r[0]}")
+    if r[1]:
+        return 2, f"{c.name}=dateins('{dim}')"
+
+extensions.register_parts('pt',{
+    # spt 'Eu preciso disso até amanhã.'
+    'advmod': lambda c,t: induce_dim(c, t, 'time'),
+})
 
 class Rules_pt(LangSpecBase):
     @staticmethod
@@ -66,6 +77,11 @@ class Rules_pt(LangSpecBase):
                                             nsubj=agency,
                                             advmod=cust(check_interr, lambda w: w == 'since_when'),
                                             obl=kindof('matter', 'n')),
+            # infers
+            # $ spt 'Eu preciso disso até amanhã.'
+            pat(5, name='behave_want').verb(extract_for('plain', 'nsubj'),
+                                            behaveof('want', 'v'), nsubj=agency,
+                                            advmod=dateins('time')),
         ])
 
     def aux_rules(self):

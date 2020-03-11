@@ -1,4 +1,17 @@
 # procs-inspector-routines.md
+## start
+```python
+# procs-inspectors.ipynb
+from sagas.nlu.parse_client_helper import build_context
+from sagas.nlu.rules_header import *
+
+data={'lang': 'en', "sents": 'I want to watch a movie'}
+ctx,pat=next(build_context(data, 'verb', name='_test_'))
+r = pat(behaveof('want', 'v'))
+print('ok' if r[1] else 'fail', '->', r[0])
+# ok -> verb with pos is behave_of(want,v): True
+```
+
 ## 1. CheckerInspector
     """
     Instances: checker(has_lemma='ない'),
