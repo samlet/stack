@@ -8,6 +8,8 @@ from sagas.tool import init_logger
 import sagas.tracker_fn as tc
 from sagas.nlu.utils import join_text
 import sagas
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json, LetterCase
 from pprint import pprint
 import logging
 
@@ -67,6 +69,14 @@ class DomainToken(object):
     @property
     def type_name(self):
         return self.props['type']
+
+    @property
+    def type(self):
+        return self.props['type']
+
+    @property
+    def lang(self):
+        return self.props['lang']
     @property
     def text(self):
         return self.props['text']
@@ -83,8 +93,16 @@ class DomainToken(object):
         return self.props['head']
 
     @property
+    def head_trans(self):
+        return self.props['head_trans']
+
+    @property
     def translit(self):
         return self.props['translit']
+
+    @property
+    def translate(self):
+        return self.props['translate']
 
     @property
     def rels(self) -> List[Text]:
@@ -117,6 +135,22 @@ class DomainToken(object):
         serv = pat.prepare(domain)
         return serv
 
+@dataclass_json(letter_case=LetterCase.CAMEL)  # all fields are encoded/decoded from camelCase
+@dataclass
+class InferPart:
+    name: str
+    chunk: str
+    text: str
+    lemma: str
+    translit: str
+    translate: str
+    index: int
+    domain: DomainToken=None
+
+    @property
+    def word(self) -> str:
+        return f"{self.text}/{self.lemma}"
+
 class Inferencer(object):
     def __init__(self, lang):
         self.lang=lang
@@ -146,7 +180,7 @@ class Inferencer(object):
         return result
 
     # def proc_children_column(partcol, textcol, idxcol, lang):
-    def proc_children_column(self, df, lang:Text) -> List[Dict[Text,Any]]:
+    def proc_children_column(self, df, lang:Text) -> List[InferPart]:
         from sagas.nlu.google_translator import translate
         from sagas.tool.misc import translit_chunk, display_synsets, target_lang
         result = []
@@ -155,7 +189,6 @@ class Inferencer(object):
         for id, row in df.iterrows():
             # df['rel'], df['children'], df['index']
             name, r, idx = row['rel'], row['children'], row['index']
-            lemma=row['lemma']
             if name in rels:
                 continue
             else:
@@ -165,13 +198,14 @@ class Inferencer(object):
                 res, _ = translate(sent, source=lang, target=target_lang(lang),
                                    trans_verbose=False, options={'disable_correct'})
                 # chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
-                chunk = {'name': name,
-                         'text': sent,
-                         'lemma': lemma,
-                         'translit': translit_chunk(sent, lang),
-                         'translate': res,
-                         'index': idx,
-                         }
+                chunk = InferPart(name= name,
+                         chunk= sent,
+                         text= row['text'],
+                         lemma= row['lemma'],
+                         translit= translit_chunk(sent, lang),
+                         translate= res,
+                         index= idx,
+                )
                 result.append(chunk)
                 # tc.emp('cyan', chunk)
         return result
@@ -193,7 +227,7 @@ class Inferencer(object):
             else:
                 pats.append((1, f"{el.indicator}=kindof('{el.spec}', '*')"))
 
-    def induce_part(self, chunk, pats:List[Tuple[int, Text]],
+    def induce_part(self, chunk:InferPart, pats:List[Tuple[int, Text]],
                     type_name:Text, enable_verbose=False) -> None:
         if enable_verbose:
             tc.emp('cyan', chunk)
@@ -233,7 +267,7 @@ class Inferencer(object):
                 else:
                     pats.append(fnr)
 
-    def induce_pattern(self, pat, ds, enable_verbose=False) -> Text:
+    def induce_pattern(self, pat:DomainToken, ds, enable_verbose=False) -> Text:
         if enable_verbose:
             tc.emp('magenta', pat)
 
@@ -328,12 +362,12 @@ class Inferencer(object):
                 if '[verb]' not in filters and '[predicate]' not in filters:
                     self.induce_domain_from_exts(domain, 'verb', pats)
 
-                pat_r = self.induce_pattern(sagas.to_obj(pat), ds, verbose)
+                pat_r = self.induce_pattern(domain, ds, verbose)
                 parts = self.proc_children_column(df, self.lang)
                 for part in parts:
-                    if part['name'] not in filters:
-                        part['domain']=domain
-                        self.induce_part(sagas.to_obj(part), pats, type_name, verbose)
+                    if part.name not in filters:
+                        part.domain=domain
+                        self.induce_part(part, pats, type_name, verbose)
                 # display_synsets(f"[{theme}]", meta, r, data['lang'])
                 return pat_r
 

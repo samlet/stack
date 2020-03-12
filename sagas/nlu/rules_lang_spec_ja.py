@@ -1,10 +1,10 @@
 from typing import Text, Any, Dict, List, Union
-from sagas.nlu.inferencer import extensions, DomainToken
-from sagas.nlu.inspector_sinkers import get_all_plains
+from sagas.nlu.inferencer import extensions, DomainToken, InferPart
+from sagas.nlu.inferencer_common import get_all_plains
 from sagas.nlu.registries import registry_named_exprs
 from .rules_header import *
 
-def get_from_to(c,t):
+def get_from_to(c:InferPart,t):
     results=[]
     if 'カラ' in c.domain.rels:
         results.append((4, "extract_for('plain', 'カラ')"))

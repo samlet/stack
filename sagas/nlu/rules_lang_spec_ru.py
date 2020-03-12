@@ -1,6 +1,6 @@
 from typing import Text, Dict, Any
 
-from sagas.nlu.inferencer import extensions
+from sagas.nlu.inferencer import extensions, InferPart
 from sagas.nlu.rules_header import *
 from sagas.nlu.registries import sinkers_fn
 
@@ -9,7 +9,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def head_interr(c, part:Text):
+def head_interr(c:InferPart, part:Text):
     from sagas.nlu.inspectors_dataset import get_interrogative
     rep=get_interrogative(c.lemma, 'ru')
     if rep:

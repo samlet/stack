@@ -1,6 +1,7 @@
 from typing import Text, Dict, Any
 
-from sagas.nlu.inferencer import extensions
+from sagas.nlu.inferencer import extensions, InferPart
+from sagas.nlu.inferencer_common import predict_pos
 from sagas.nlu.rules_header import *
 
 import sagas.tracker_fn as tc
@@ -8,19 +9,12 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def induce_dim(c, t:Text, dim:Text):
+def induce_dim(c:InferPart, t:Text, dim:Text):
     pat=c.domain.pattern(t)
     r = pat(**{c.name:dateins(dim)})
     logger.debug(f"t:{t}, dim:{dim}, result:{r[1]}, {r[0]}")
     if r[1]:
         return 2, f"{c.name}=dateins('{dim}')"
-
-def predict_pos(c, t:Text, arg):
-    pat = c.domain.pattern(t)
-    r=pat(**{c.name:arg})
-    if r[1]:
-        return [(4, f"extract_for('plain', '{c.name}')"),
-                (2, f"{c.name}='{arg}')")]
 
 extensions.register_parts('pt',{
     # $ spt 'Eu preciso disso até amanhã.'

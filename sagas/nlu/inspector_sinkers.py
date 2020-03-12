@@ -5,11 +5,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def get_all_plains(results: List[Any], expr) -> List[Text]:
-    from jsonpath_ng.ext import parse
-    jsonpath_expr = parse(expr)
-    return [match.value for match in jsonpath_expr.find(results)]
-
 def get_all_tags(results: List[Any]) -> Set[Text]:
     val_list = [r['value'] for r in results if r['inspector'] == 'tags']
     all_tags = set([item for sublist in val_list for item in sublist])

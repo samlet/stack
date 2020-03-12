@@ -2,7 +2,7 @@ from typing import Text, Dict, Any
 
 from cachetools import cached
 
-from sagas.nlu.inferencer import extensions, DomainToken
+from sagas.nlu.inferencer import extensions, DomainToken, InferPart
 from sagas.nlu.rules_header import *
 from sagas.nlu.inspector_common import Context
 import sagas.tracker_fn as tc
@@ -55,7 +55,7 @@ def extract_datetime(key:Text, ctx:Context, check_fn):
         return True
     return False
 
-def get_nouns_spec(c, part:Text):
+def get_nouns_spec(c:InferPart, part:Text):
     rs = extract_ko('nouns', c.text)
     if rs:
         last_spec=[r['spec'] for r in rs if 'spec' in r]
@@ -69,7 +69,7 @@ def get_verb_spec(c:DomainToken, part:Text):
     # rs = retrieve_word_info('get_synsets', f"{c.text}/{c.lemma}", 'ko', '*')
     word=extract_verb(c.text)
     rs = retrieve_word_info('get_synsets', word, 'ko', '*')
-    print('.. ', c.text, rs)
+    # print('.. ', c.text, rs)
     mean=get_possible_mean(rs)
     if mean:
         return 4, f"behaveof('{mean}', '*', extract=extract_verb)"
