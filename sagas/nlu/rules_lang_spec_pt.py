@@ -15,9 +15,18 @@ def induce_dim(c, t:Text, dim:Text):
     if r[1]:
         return 2, f"{c.name}=dateins('{dim}')"
 
+def predict_pos(c, t:Text, arg):
+    pat = c.domain.pattern(t)
+    r=pat(**{c.name:arg})
+    if r[1]:
+        return [(4, f"extract_for('plain', '{c.name}')"),
+                (2, f"{c.name}='{arg}')")]
+
 extensions.register_parts('pt',{
-    # spt 'Eu preciso disso até amanhã.'
+    # $ spt 'Eu preciso disso até amanhã.'
     'advmod': lambda c,t: induce_dim(c, t, 'time'),
+    # $ spt 'Ele está entre meu irmão e minha irmã.'
+    'case': lambda c,t: predict_pos(c, t, 'c_adp'),
 })
 
 class Rules_pt(LangSpecBase):
@@ -82,6 +91,10 @@ class Rules_pt(LangSpecBase):
             pat(5, name='behave_want').verb(extract_for('plain', 'nsubj'),
                                             behaveof('want', 'v'), nsubj=agency,
                                             advmod=dateins('time')),
+            # $ spt 'Nós falamos durante o jantar.'
+            pat(5, name='behave_talk').verb(extract_for('plain', 'nsubj'),
+                                            behaveof('talk', 'v'), nsubj=agency,
+                                            obl=kindof('dine', '*')),
         ])
 
     def aux_rules(self):

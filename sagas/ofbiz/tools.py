@@ -59,6 +59,10 @@ class OfTools(object):
         print(ok, ret)
 
     def users(self):
+        """
+        $ python -m sagas.ofbiz.tools users
+        :return:
+        """
         from sagas.ofbiz.entities import OfEntity as e, oc
         rs=e().allUserLogin()
         for r in rs:

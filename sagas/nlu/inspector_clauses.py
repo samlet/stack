@@ -18,8 +18,7 @@ def check_clause_sub(sents:Text, lang:Text, domain:Text, cla:Text,
     :return:
     """
     from sagas.nlu.uni_chunks import get_chunk
-    import sagas
-    from sagas.nlu.ruleset_procs import list_words, cached_chunks, get_main_domains
+    from sagas.nlu.ruleset_procs import cached_chunks
 
     # cla = 'obl', rel = 'cop', cat='be'
     chunks = cached_chunks(sents, lang, cf.engine(lang))

@@ -49,3 +49,16 @@ def test_dateins(data, dominator, insp):
         r = serv(**insp)
         assert r[1]
 
+@pytest.mark.parametrize(
+    "data, dominator, insp",
+    [
+        ({'lang': 'pt', "sents": 'Ele está entre meu irmão e minha irmã.'},
+         'aux', dict(case='c_adp')),
+    ],
+)
+def test_aux_pos(data, dominator, insp):
+    for ctx,serv in build_context(data, dominator, name='_test_'):
+        r = serv(**insp)
+        assert r[1]
+
+

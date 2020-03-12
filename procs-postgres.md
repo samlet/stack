@@ -1,5 +1,6 @@
 # procs-postgres.md
 ⊕ [library/postgres - Docker Hub](https://hub.docker.com/_/postgres/)
+⊕ [第 46 章 PL/Python - Python 过程语言](http://www.postgres.cn/docs/11/plpython.html)
 
 + 查看数据库表
 
