@@ -30,6 +30,10 @@ class Startup(object):
                     self.mods.append(ci)
                     ci.start()
 
+    def __call__(self, *args, **kwargs):
+        self.start()
+
+
 startup=Startup()
 
 

@@ -100,7 +100,7 @@ extensions.register_domains('ko',{
 class Rules_ko(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
-        tc.emp('yellow', '.. Rules_ko prepare phrase')
+        tc.emp('yellow', '.. Rules_ko(Korean, 韩语) prepare phrase')
 
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)

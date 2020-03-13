@@ -26,7 +26,7 @@ extensions.register_parts('pt',{
 class Rules_pt(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
-        tc.emp('yellow', '.. Rules_pt prepare phrase')
+        tc.emp('yellow', '.. Rules_pt(Portuguese, 葡萄牙语) prepare phrase')
 
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
@@ -89,6 +89,14 @@ class Rules_pt(LangSpecBase):
             pat(5, name='behave_talk').verb(extract_for('plain', 'nsubj'),
                                             behaveof('talk', 'v'), nsubj=agency,
                                             obl=kindof('dine', '*')),
+
+            # $ spt 'A cobra fala com o menino.' -> below 2 pats
+            pat(5, name='behave_talk').verb(extract_for('plain', 'nsubj'),
+                                            behaveof('talk', 'v'), nsubj=agency,
+                                            obl=kindof('living_thing', 'n')),
+            pat(5, name='living_thing_talk').verb(behaveof('talk', 'v'),
+                                            nsubj=kindof('living_thing'),
+                                            obl=kindof('living_thing', 'n')),
         ])
 
     def aux_rules(self):

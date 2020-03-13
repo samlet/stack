@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class Rules_es(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
-        tc.emp('yellow', '.. Rules_es prepare phrase')
+        tc.emp('yellow', '.. Rules_es(Spanish) prepare phrase')
 
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)

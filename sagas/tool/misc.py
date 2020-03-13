@@ -6,6 +6,7 @@ from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.utils import fix_sents, join_text, get_possible_mean
 import logging
 
+from sagas.startup import startup
 from sagas.tool import color_print
 from pprint import pprint
 
@@ -765,4 +766,5 @@ if __name__ == '__main__':
     from sagas.tool.loggers import init_logger
 
     init_logger()
+    startup()
     fire.Fire(MiscTool)

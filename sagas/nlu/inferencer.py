@@ -4,7 +4,6 @@ from sagas.conf.conf import cf
 from sagas.nlu.inspector_common import Context
 from sagas.nlu.patterns import Patterns
 from sagas.nlu.rules_meta import build_meta
-from sagas.tool import init_logger
 import sagas.tracker_fn as tc
 from sagas.nlu.utils import join_text
 import sagas
@@ -232,15 +231,14 @@ class Inferencer(object):
         if enable_verbose:
             tc.emp('cyan', chunk)
 
-        gen_map = {'nsubj': lambda: [(4, "extract_for('plain', 'nsubj')"),
-                                     (2, "nsubj=agency")],
-                   'advmod': lambda: (4, "extract_for('plain', 'advmod')"),
+        gen_map = {'advmod': lambda: (4, "extract_for('plain', 'advmod')"),
                    'det': lambda: (4, "extract_for('plain', 'det')"),
                    'cop': lambda: (2, "cop='c_aux'"),
                    'head_amod': lambda: (2, "head_amod=interr('what')"),
                    }
         ext_point=f"part.{self.lang}.{chunk.name}"
-        fn=extensions.value(ext_point)
+        global_point=f"part.*.{chunk.name}"
+        fn=extensions.value(ext_point) or extensions.value(global_point)
         logger.debug(f".. get extension from {ext_point}: {fn}")
         fnr=None
         if fn:
@@ -365,6 +363,7 @@ class Inferencer(object):
                 pat_r = self.induce_pattern(domain, ds, verbose)
                 parts = self.proc_children_column(df, self.lang)
                 for part in parts:
+                    # logger.debug(f"{part.name}: {part.word}")
                     if part.name not in filters:
                         part.domain=domain
                         self.induce_part(part, pats, type_name, verbose)
@@ -435,6 +434,7 @@ class InferencerCli(object):
         return infers.infer(sents, verbose=verbose)
 
 if __name__ == '__main__':
+    from sagas.tool.loggers import init_logger
     import fire
     init_logger()
     # startup.start()

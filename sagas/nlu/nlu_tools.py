@@ -3,6 +3,8 @@ import numpy
 import sagas.tracker_fn as tc
 from pprint import pprint
 from sagas.conf.conf import cf
+from sagas.startup import startup
+
 
 def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
     from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
@@ -266,8 +268,27 @@ class NluTools(object):
         data = {'lang': lang, "sents": sents}
         DynamicRules().predict(data, rule, engine=engine or cf.engine(lang))
 
+    def infer(self, sents, lang='en', verbose=False):
+        """
+        $ python -m sagas.nlu.nlu_tools infer '水としょうゆを混ぜた。' ja
+            pat(5, name='predict_mix').verb(specsof('*', 'mix'), ヲ=kindof('water', '*')),
+        $ python -m sagas.nlu.nlu_tools infer 'Ellos ya leyeron ese libro en la escuela.' es
+            pat(5, name='behave_read').verb(extract_for('plain', 'advmod'), behaveof('read', 'v'), nsubj=agency, obl=kindof('school', '*'), obj=kindof('book', '*')),
+
+        :param sents:
+        :param lang:
+        :return:
+        """
+        from sagas.nlu.inferencer import Inferencer
+        infers = Inferencer(lang)
+        return infers.infer(sents, verbose=verbose)
+
 if __name__ == '__main__':
+    from sagas.tool.loggers import init_logger
     import fire
+
+    init_logger()
+    startup.start()
     fire.Fire(NluTools)
 
 
