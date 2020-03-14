@@ -295,6 +295,21 @@ class NluCli(object):
         else:
             print('fail.')
 
+    def get_iwn(self, word, pos='noun'):
+        """
+        $ python -m sagas.nlu.nlu_cli get_iwn "सेब"
+        :param word:
+        :return:
+        """
+        from pprint import pprint
+        response = requests.post('http://localhost:1700/hi/iwn/hypers',
+                                 json={"word":word, "pos":pos})
+        if response.status_code == 200:
+            rs = response.json()
+            pprint(rs)
+        else:
+            print('fail.')
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NluCli)
