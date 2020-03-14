@@ -5,6 +5,7 @@ from .ner_mod import ner_mod
 from .root_mod import bp
 from .info_mod import info
 from .ko_mod import ko
+from .en_mod import en
 
 app = Sanic(__name__)
 app.blueprint(bp)
@@ -12,6 +13,7 @@ app.blueprint(info)
 app.blueprint(ner_mod)
 app.blueprint(intents_mod)
 app.blueprint(ko)
+app.blueprint(en)
 
 class InfoStack(object):
     def run(self, port=1700, debug=True):

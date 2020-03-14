@@ -227,15 +227,11 @@ class Inferencer(object):
                 pats.append((1, f"{el.indicator}=kindof('{el.spec}', '*')"))
 
     def induce_part(self, chunk:InferPart, pats:List[Tuple[int, Text]],
-                    type_name:Text, enable_verbose=False) -> None:
+                    type_name:Text, enable_verbose=False):
         if enable_verbose:
             tc.emp('cyan', chunk)
 
-        gen_map = {'advmod': lambda: (4, "extract_for('plain', 'advmod')"),
-                   'det': lambda: (4, "extract_for('plain', 'det')"),
-                   'cop': lambda: (2, "cop='c_aux'"),
-                   'head_amod': lambda: (2, "head_amod=interr('what')"),
-                   }
+
         ext_point=f"part.{self.lang}.{chunk.name}"
         global_point=f"part.*.{chunk.name}"
         fn=extensions.value(ext_point) or extensions.value(global_point)
@@ -243,8 +239,8 @@ class Inferencer(object):
         fnr=None
         if fn:
             fnr=fn(chunk, type_name)
-        if fnr is None and chunk.name in gen_map:
-            fnr=gen_map[chunk.name]()
+        # if fnr is None and chunk.name in gen_map:
+        #     fnr=gen_map[chunk.name]()
 
         if fnr:
             if isinstance(fnr, list):

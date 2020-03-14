@@ -97,6 +97,12 @@ class Rules_pt(LangSpecBase):
             pat(5, name='living_thing_talk').verb(behaveof('talk', 'v'),
                                             nsubj=kindof('living_thing'),
                                             obl=kindof('living_thing', 'n')),
+            # $ spt 'A folha tem vinte centímetros.'
+            pat(5, name='behave_measure').verb(behaveof('have', 'v'),
+                                                  extract_for('plain+number', 'obj'),
+                                                  nsubj=kindof('matter', 'n'),
+                                                  obj=kindof('unit_of_measurement', '*')),
+
         ])
 
     def aux_rules(self):

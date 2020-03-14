@@ -280,6 +280,21 @@ class NluCli(object):
 
         print(f"{word} is category {kind}: {predicate(kind, word, lang, pos)}")
 
+    def get_wsd(self, sents):
+        """
+        $ python -m sagas.nlu.nlu_cli get_wsd 'The sheet is twenty centimeters.'
+        :param sents:
+        :return:
+        """
+        from pprint import pprint
+        response = requests.post('http://localhost:1700/en/wsd/default',
+                                 json={'sents': sents})
+        if response.status_code == 200:
+            rs = response.json()
+            pprint(rs)
+        else:
+            print('fail.')
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NluCli)
