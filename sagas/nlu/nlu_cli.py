@@ -298,6 +298,8 @@ class NluCli(object):
     def get_iwn(self, word, pos='noun'):
         """
         $ python -m sagas.nlu.nlu_cli get_iwn "सेब"
+        $ python -m sagas.nlu.nlu_cli get_iwn "सेब" noun
+
         :param word:
         :return:
         """

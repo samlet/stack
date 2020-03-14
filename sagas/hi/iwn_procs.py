@@ -14,7 +14,9 @@ def trans(w):
             'candidates':candidates}
 
 def word_map(id:int, all_ws:List[Any]) -> Dict[Text,Any]:
-    return {tr(w.head_word()):{'head':w.head_word(), 'trans':trans(w.head_word())} for w in all_ws if w.synset_id()==id}
+    return {tr(w.head_word()):{'index':w.synset_id(),
+                               'head':w.head_word(),
+                               'trans':trans(w.head_word())} for w in all_ws if w.synset_id()==id}
 
 def load_hypernymy(file_path):
     d = {}
