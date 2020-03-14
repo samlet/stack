@@ -10,13 +10,13 @@ class TransCacher(object):
         self.db = self.client.langs
         self.coll = self.db.trans
 
-    def update(self, meta, arg):
+    def update(self, meta, r):
         rec = {}
         result=0
         if self.count(meta)==0:
             # print('.. persist -> %s'%(meta['text']))
             rec.update(meta)
-            rec['content'] = arg
+            rec['content'] = r
             result = self.coll.insert_one(rec)
         else:
             # print('.. text already cached, skip.')

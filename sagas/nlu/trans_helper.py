@@ -6,7 +6,7 @@ def marks(t):
         return ','+' '.join(t)[1:]
     return ''
 def process(source, target, text):
-    options=set(['get_pronounce'])
+    options={'get_pronounce'}
     # options.add('get_pronounce')
     res,t = translate(text, source=source, target=target,
                       trans_verbose=False, options=options)
@@ -17,7 +17,6 @@ def process(source, target, text):
                           trans_verbose=False, options=options)
         # print(res, sent, t[ips_idx])
         print('%s(%s%s)'%(sent,res,marks(t.pronounce)), end =" ")
-        time.sleep(0.05)
     print('.')
 
 def analyse_vi(text):
@@ -55,7 +54,6 @@ def process_zh_vi(text, target='vi'):
         res,t = translate(sent, source=source, target=target,
                           trans_verbose=False)
         print('%s(%s%s)'%(sent,res,marks(t.pronounce)), end =" ")
-        time.sleep(0.05)
     print('.')
 
 def process_en_vi(text, target='vi'):
@@ -79,7 +77,6 @@ def process_en_vi(text, target='vi'):
         res,t = translate(sent, source=source, target=target,
                           trans_verbose=False)
         print('%s(%s%s)'%(sent,res,marks(t.pronounce)), end =" ")
-        time.sleep(0.05)
     print('.')
 
 def marks_th(t):
@@ -106,7 +103,7 @@ def process_en_th(text, target='th'):
     :return:
     """
     source='en'
-    options=set(['get_pronounce'])
+    options={'get_pronounce'}
     res,t = translate(text, source=source, target=target,
                       trans_verbose=False, options=options)
     print('✁', '%s(%s %s)'%(text, res, ''.join(t.pronounce)))
@@ -114,7 +111,6 @@ def process_en_th(text, target='th'):
         res,t = translate(sent, source=source, target=target,
                           trans_verbose=False, options=options)
         print('%s(%s%s)'%(sent,res,marks_th(t.pronounce)), end =" ")
-        time.sleep(0.05)
     print('.')
 
 

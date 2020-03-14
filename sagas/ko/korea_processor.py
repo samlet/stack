@@ -42,7 +42,6 @@ class KoreaProcessor(object):
                                trans_verbose=verbose, options=options)
             # print(res, sent, t[ips_idx])
             print('%s(%s,%s)' % (sent, res, t.pronounce[ips_idx][1:]), end=" ")
-            time.sleep(0.05)
         print('.')
 
     def analyse_ko(self, text):

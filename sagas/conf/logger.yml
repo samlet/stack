@@ -93,6 +93,10 @@ loggers:
     level: DEBUG
     handlers: [console]
     propagate: no
+  sagas.nlu.google_translator:
+    level: INFO
+    handlers: [console]
+    propagate: no
 
 root:
   level: INFO

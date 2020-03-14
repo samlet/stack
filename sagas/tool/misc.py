@@ -403,7 +403,7 @@ class MiscTool(object):
                 # will exit
                 return False
 
-            time.sleep(random.uniform(0.05, 0.20))
+            # time.sleep(random.uniform(0.05, 0.20))
 
         return True
 
@@ -426,7 +426,6 @@ class MiscTool(object):
             ctx.target_sents.append(line)
             ctx.sents_map[t[:2]] = trans
 
-            time.sleep(1.0)  # must wait 1 second
         return True
 
     def trans_clip_opt(self, source):

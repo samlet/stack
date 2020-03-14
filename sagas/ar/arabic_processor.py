@@ -12,7 +12,7 @@ def marks(tracker, lead=True):
     return ''
 
 def process(source, target, text, ips_idx=0):
-    options=set(['get_pronounce'])
+    options={'get_pronounce'}
     # options.add('get_pronounce')
     res,t = translate(text, source=source, target=target,
                       trans_verbose=False, options=options)
@@ -23,7 +23,6 @@ def process(source, target, text, ips_idx=0):
                           trans_verbose=False, options=options)
         # print(res, sent, t[ips_idx])
         print('%s(%s%s)'%(sent,res,marks(t)), end =" ")
-        time.sleep(0.05)
     print('.')
 
 # Set CSS properties for th elements in dataframe
@@ -53,7 +52,7 @@ styles = [
 def process_df(source, target, text, with_styles=True):
     import sagas
     rs=[]
-    options=set(['get_pronounce'])
+    options = {'get_pronounce'}
     # options.add('get_pronounce')
     res,t = translate(text, source=source, target=target,
                       trans_verbose=False, options=options)
@@ -65,7 +64,6 @@ def process_df(source, target, text, with_styles=True):
         # print(res, sent, t[ips_idx])
         print('%s(%s%s)'%(sent,res,marks(t)), end =" ")
         rs.append((sent,res,marks(t,False)))
-        time.sleep(0.05)
     print('.')
     if with_styles:
         return sagas.to_df(rs, ['word', 'trans', 'ips']).style.set_table_styles(styles)
@@ -135,7 +133,7 @@ class ArabicProcessor(object):
         """
         import sagas
         source = 'en'
-        options = set(['get_pronounce', 'get_translations'])
+        options = {'get_pronounce', 'get_translations'}
         res, t = translate(text, source=source, target=target,
                            trans_verbose=False, options=options)
         print('✁', '%s(%s %s)' % (text, res, ''.join(t.pronounce)))
@@ -145,7 +143,6 @@ class ArabicProcessor(object):
             # print('%s(%s%s)' % (sent, res, marks_th(t.pronounce)), end=" ")
             print('%s(%s%s)' % (sent, res, marks_th(t.pronounce)))
             sagas.print_df(t.translations)
-            time.sleep(0.05)
         print('.')
 
     def ana_ar(self, text):

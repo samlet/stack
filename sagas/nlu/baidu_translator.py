@@ -10,7 +10,7 @@ def translate(q, from_lang, to_lang):
     import urllib.parse
     import http.client
     import random
-    import json
+    import time
     import requests
 
     # httpClient = None
@@ -41,6 +41,7 @@ def translate(q, from_lang, to_lang):
         # # response是HTTPResponse对象
         # response = httpClient.getresponse()
         # result = response.read()
+        time.sleep(1.0)  # must wait 1 second
 
         response=requests.get(url='http://api.fanyi.baidu.com'+myurl)
         if response.status_code == 200:

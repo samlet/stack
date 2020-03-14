@@ -1,8 +1,12 @@
+import random
+
 import requests
 import json
 from bs4 import BeautifulSoup
 ## $ pip install PyExecJS
 import execjs #必须，需要先用pip 安装，用来执行js脚本
+import logging
+logger = logging.getLogger(__name__)
 
 class Py4Js():
   def __init__(self):
@@ -111,11 +115,11 @@ def display_translations(trans):
     print(tabulate(translations_df(trans), headers='keys', tablefmt='psql'))
 
 class TransTracker(object):
-    def __init__(self):
+    def __init__(self, *obs):
         self.pronounce=[]
         # word translations as a pandas dataframe
         self.translations=None
-        self.obs = []
+        self.obs = list(obs)
 
     def add_observer(self, observer):
         if observer not in self.obs:
@@ -124,11 +128,33 @@ class TransTracker(object):
     def delete_observer(self, observer):
         self.obs.remove(observer)
 
-    def notify_observers(self, meta, arg=None):
+    def notify_observers(self, meta, r=None):
         localArray = self.obs[:]
         # Updating is not required to be synchronized:
         for observer in localArray:
-            observer.update(meta, arg)
+            observer.update(meta, r)
+
+    def observer(self, type_of):
+        return next(ob for ob in self.obs if type(ob)==type_of)
+
+class WordsObserver(object):
+    def __init__(self):
+        self.word_trans_df=None
+    def update(self, meta, r):
+        if r[1]:
+            self.word_trans_df=translations_df(r[1])
+
+def with_words():
+    """
+    >>> from sagas.nlu.google_translator import translate, with_words, WordsObserver
+    >>> r,t=translate('गतिविधि', source='hi', target='en', options={'get_pronounce'}, tracker=with_words())
+    >>> print(r)
+    >>> t.observer(WordsObserver).word_trans_df
+
+    :return:
+    """
+    from sagas.nlu.trans_cacher import cacher
+    return TransTracker(cacher, WordsObserver())
 
 def process_result(meta, r, trans_verbose, options, tracker:TransTracker):
     import sagas
@@ -172,80 +198,81 @@ def process_result(meta, r, trans_verbose, options, tracker:TransTracker):
             # tracker.translations=sagas.to_df(trans[0][2], ['word', 'translations', 'c', 'freq'])
             tracker.translations =translations_df(trans)
 
-# lang_maps={'he':'iw'}
+
 def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=None, tracker=None):
-  import sagas.conf.conf as conf
-  from sagas.nlu.trans_cacher import cacher
+    import sagas.conf.conf as conf
+    from sagas.nlu.trans_cacher import cacher
+    import time
 
-  if options is None:
-      options = {}
+    if options is None:
+        options = {}
 
-  # tracker=TransTracker()
-  meta={'text':text, 'source':source, 'target':target}
+    # tracker=TransTracker()
+    meta = {'text': text, 'source': source, 'target': target}
 
-  if tracker is None:
-      if conf.cf.is_enabled('trans_cache'):
-          tracker=TransTracker()
-          # cacher = TransCacher()
-          tracker.add_observer(cacher)
+    if tracker is None:
+        if conf.cf.is_enabled('trans_cache'):
+            tracker = TransTracker()
+            tracker.add_observer(cacher)
+        else:
+            tracker = TransTracker()
 
-          r = cacher.retrieve(meta)
-          # try to get from cacher
-          if r is not None:
-              cnt=r['content']
-              res = join_sentence(cnt)
-              process_result(meta, cnt, trans_verbose, options, tracker)
-              return res, tracker
-      else:
-          tracker = TransTracker()
+    # try to get from cacher
+    r = cacher.retrieve(meta)
+    if r:
+        cnt = r['content']
+        res = join_sentence(cnt)
+        process_result(meta, cnt, trans_verbose, options, tracker)
+        logger.debug(f'get {text} from cacher')
+        return res, tracker
 
-  header={
-    'authority':'translate.google.cn',
-    'method':'GET',
-    'path':'',
-    'scheme':'https',
-    'accept':'*/*',
-    'accept-encoding':'gzip, deflate, br',
-    'accept-language':'zh-CN,zh;q=0.9',
-    'cookie':'',
-    'user-agent':'Mozilla/5.0 (Windows NT 10.0; WOW64)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
-    # 'x-client-data':'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
-  }
-  url=buildUrl(text,js.getTk(text), source, target)
-  res=''
-  try:
-      # r=requests.get(url)
-      r = requests.get(url, headers=header, timeout=1.5)
-      result=json.loads(r.text)
-      # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
-      # if result[7]!=None:
-      if result[7] is not None and 'disable_correct' not in options:
-          try:
-              correctText=result[7][0].replace('<b><i>',' ').replace('</i></b>','')
-              print(correctText)
-              correctUrl=buildUrl(correctText,js.getTk(correctText), source, target)
-              correctR=requests.get(correctUrl)
-              newResult=json.loads(correctR.text)
-              # res=newResult[0][0][0]
-              res=join_sentence(newResult)
+    header = {
+        'authority': 'translate.google.cn',
+        'method': 'GET',
+        'path': '',
+        'scheme': 'https',
+        'accept': '*/*',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'cookie': '',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
+        # 'x-client-data':'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
+    }
+    url = buildUrl(text, js.getTk(text), source, target)
+    res = ''
+    try:
+        time.sleep(random.uniform(0.05, 0.20))
+        r = requests.get(url, headers=header, timeout=1.5)
+        result = json.loads(r.text)
+        # 如果我们文本输错，提示你是不是要找xxx的话，那么重新把xxx正确的翻译之后返回
+        # if result[7]!=None:
+        if result[7] is not None and 'disable_correct' not in options:
+            try:
+                correctText = result[7][0].replace('<b><i>', ' ').replace('</i></b>', '')
+                print(correctText)
+                correctUrl = buildUrl(correctText, js.getTk(correctText), source, target)
+                correctR = requests.get(correctUrl)
+                newResult = json.loads(correctR.text)
+                # res=newResult[0][0][0]
+                res = join_sentence(newResult)
 
-              process_result(meta, newResult, trans_verbose, options, tracker)
-          except Exception as e:
-              # print('translate error: ', e, f", in process text {text}")
-              # res=result[0][0][0]
-              res = join_sentence(result)
-              process_result(meta, result, trans_verbose, options, tracker)
-      else:
-          process_result(meta, result, trans_verbose, options, tracker)
-          # res=result[0][0][0]
-          res = join_sentence(result)
-  except Exception as e:
-      res=''
-      # print(url)
-      print("翻译"+text+"失败")
-      print("错误信息:", e)
-  finally:
-      return res, tracker
+                process_result(meta, newResult, trans_verbose, options, tracker)
+            except Exception as e:
+                # print('translate error: ', e, f", in process text {text}")
+                # res=result[0][0][0]
+                res = join_sentence(result)
+                process_result(meta, result, trans_verbose, options, tracker)
+        else:
+            process_result(meta, result, trans_verbose, options, tracker)
+            # res=result[0][0][0]
+            res = join_sentence(result)
+    except Exception as e:
+        res = ''
+        logger.error("translate fail: " + text)
+        logger.error("error message: %s", e)
+    finally:
+        return res, tracker
+
 
 def marks(t, ips_idx):
     if len(t.pronounce)>0:
@@ -268,8 +295,6 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
     :param ips_idx:
     :return:
     """
-    # from sagas.nlu.google_translator import translate
-    import time
     from sagas.nlu.transliterations import translits
 
     rs = {}
@@ -290,7 +315,6 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
         rs[sent] = '%s\n(%s%s)' % (sent, res, trans)
         res_r=f"({res})" if res!='' and res not in ('(', ')', '[', ']', '/') else ''
         trans_table.append(f"{trans[2:]}{res_r}")
-        time.sleep(0.05)
     return rs, trans_table
 
 def trans_multi(sent, source, targets):
@@ -329,6 +353,7 @@ class GoogleTranslator(object):
         # word translations
         $ python -m sagas.nlu.google_translator translate 'city' ar en True
         $ python -m sagas.nlu.google_translator translate 'tiger' lo en True
+        $ python -m sagas.nlu.google_translator translate 'गतिविधि' en hi True
         :param text:
         :return:
         """
