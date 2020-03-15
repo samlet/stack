@@ -304,13 +304,9 @@ class NluCli(object):
         :return:
         """
         from pprint import pprint
-        response = requests.post('http://localhost:1700/hi/iwn/hypers',
-                                 json={"word":word, "pos":pos})
-        if response.status_code == 200:
-            rs = response.json()
-            pprint(rs)
-        else:
-            print('fail.')
+        from sagas.tool.servant_delegator import Delegator
+        rs=Delegator().iwn_hypers(word=word, pos=pos)
+        pprint(rs)
 
 if __name__ == '__main__':
     import fire

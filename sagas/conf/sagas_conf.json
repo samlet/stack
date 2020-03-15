@@ -1,5 +1,10 @@
 {
   "user": "samlet",
+  "delegates": {
+    "iwn_hypers": {
+      "url": "http://localhost:1700/hi/iwn/hypers"
+    }
+  },
   "collect_verbs":true,
   "trans_cache":true,
   "translator":"google",

@@ -61,9 +61,23 @@ class IwnProcs(object):
                 self.get_all_hypers(hypers[syn_id], results, pos=pos)
 
     def get_word_hypers(self, word:Text, pos:Text='noun'):
+        try:
+            results = []
+            ids = [syn.synset_id() for syn in self.iwn.synsets(word)]
+            self.get_all_hypers(ids, results, pos=pos)
+            return [word_map(sid, self.all_ws[pos]) for sid in results]
+        except KeyError:
+            return []
+
+    def get_hypers_by_id(self, ids, pos:Text='noun'):
+        """
+        >>> iwn_procs.get_hypers_by_id(8358)
+        :param ids:
+        :param pos:
+        :return:
+        """
         results = []
-        ids = [syn.synset_id() for syn in self.iwn.synsets(word)]
-        self.get_all_hypers(ids, results, pos=pos)
+        self.get_all_hypers(ids if isinstance(ids, list) else [ids], results, pos=pos)
         return [word_map(sid, self.all_ws[pos]) for sid in results]
 
 iwn_procs=IwnProcs()

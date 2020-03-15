@@ -86,6 +86,10 @@ class TransClipConf(object):
             return self.conf[item]
         raise ValueError("Cannot find item value: " + item)
 
+    @property
+    def delegates(self):
+        return self.ensure('delegates')
+
     def optional(self, item, defval):
         return self.conf[item] if item in self.conf else defval
 
