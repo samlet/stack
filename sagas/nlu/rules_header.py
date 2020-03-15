@@ -11,7 +11,10 @@ from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c, extrac
 from sagas.nlu.inspector_checker import CheckerInspector as checker
 from sagas.nlu.inspector_sinkers import TagsInspector as tags, SeriesInspector as series, SlotsInspector as slots
 from sagas.nlu.inspector_inferencer import InferencerInspector as infer
-from sagas.nlu.inspector_clauses import ClausesInspector as clauses, cla_expr
+from sagas.nlu.inspector_clauses import (
+    ClausesInspector as clauses, cla_expr,
+    UnderstructureInspector as understructure,
+    )
 
 from sagas.nlu.parse_client_helper import check_interr
 

@@ -1,8 +1,10 @@
 from typing import Text, Any, Dict, List, Union
 from sagas.nlu.inferencer import extensions, DomainToken, InferPart
 from sagas.nlu.inferencer_common import get_all_plains
+from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.registries import registry_named_exprs
 from .rules_header import *
+import sagas.tracker_fn as tc
 
 def get_from_to(c:InferPart,t):
     results=[]
@@ -21,6 +23,7 @@ extensions.register_parts('ja',{
     'カラ': lambda c,t: get_from_to(c,t),
     'マデ': lambda c,t: get_from_to(c,t),
 })
+
 
 def get_verb_interr(c:DomainToken, part:Text):
     return 4, "interr_root('??')"
@@ -184,6 +187,10 @@ class Rules_ja(LangSpecBase):
                                                 specsof('*', 'proceed'),
                                                 checker(has_all_rels=['カラ', 'マデ']),
                                                 デ=kindof('public_transport', 'n')),
+            # $ sj '建物の裏に駐車しました。'
+            pat(5, name='predict_parking').verb(specsof('*', 'parking'),
+                                                understructure('ニ'),
+                                                ニ=kindof('back', '*')),
 
         ])
 

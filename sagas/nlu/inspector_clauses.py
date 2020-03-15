@@ -86,3 +86,39 @@ class ClausesInspector(Inspector):
     def __str__(self):
         return f"ins_{self.name()}({self.exprs})"
 
+
+class UnderstructureInspector(Inspector):
+    def __init__(self, part:Text):
+        self.part=part
+
+    def name(self):
+        return "unders"
+
+    def collect_children(self, chunks, lang, index):
+        from sagas.nlu.ruleset_procs import children
+        from sagas.nlu.nlu_cli import retrieve_word_info
+        from sagas.nlu.utils import get_possible_mean
+        sent = chunks['doc']
+        word = next(filter(lambda w: w.index == index, sent.words))
+        print(word.index, word.text)
+        result=[]
+        for c in children(word, sent):
+            word = f"{c.text}/{c.lemma}"
+            rs = retrieve_word_info('get_synsets', word, lang, '*')
+            mean = get_possible_mean(rs)
+            result.append({'mean':mean, 'word':word})
+        return result
+
+    def run(self, key, ctx:Context):
+        from sagas.nlu.ruleset_procs import list_words, cached_chunks, get_main_domains
+        from sagas.conf.conf import cf
+        chunks = cached_chunks(ctx.sents, ctx.lang, cf.engine(ctx.lang))
+        index = next(x[1] for x in ctx.domains if x[0] == self.part)
+        rs=self.collect_children(chunks, ctx.lang, index+1)
+        if rs:
+            ctx.add_result(self.name(), 'default', self.part, rs)
+        return True
+
+    def __str__(self):
+        return f"ins_{self.name()}({self.part})"
+
