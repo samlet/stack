@@ -7,6 +7,7 @@ from .info_mod import info
 from .ko_mod import ko
 from .en_mod import en
 from .hi_mod import hi
+from .zh_mod import zh
 
 app = Sanic(__name__)
 app.blueprint(bp)
@@ -16,6 +17,7 @@ app.blueprint(intents_mod)
 app.blueprint(ko)
 app.blueprint(en)
 app.blueprint(hi)
+app.blueprint(zh)
 
 class InfoStack(object):
     def run(self, port=1700, debug=True):

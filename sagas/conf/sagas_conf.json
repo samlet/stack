@@ -3,6 +3,9 @@
   "delegates": {
     "iwn_hypers": {
       "url": "http://localhost:1700/hi/iwn/hypers"
+    },
+    "sememes": {
+      "url": "http://localhost:1700/zh/hownet/sememes"
     }
   },
   "collect_verbs":true,

@@ -75,6 +75,13 @@ class CacherProcs(object):
             rs.append((r['text'], r['target']))
         sagas.print_df(sagas.to_df(rs, ['text', 'target']))
 
+    def total(self):
+        """
+        $ python -m sagas.nlu.trans_cacher total
+        :return:
+        """
+        print('total:', cacher.coll.estimated_document_count())
+
 if __name__ == '__main__':
     import fire
     fire.Fire(CacherProcs)
