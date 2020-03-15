@@ -42,11 +42,11 @@ def get_chunk(chunks, domain_name, expr, clo=None):
     子句复合成份提取
     See also: procs-parse-free.ipynb
     >>> from sagas.nlu.uni_chunks import get_chunk
-        from sagas.nlu.ruleset_procs import list_words, cached_chunks
-        from sagas.conf.conf import cf
+    >>> from sagas.nlu.ruleset_procs import list_words, cached_chunks
+    >>> from sagas.conf.conf import cf
         # get_chunk(f'verb_domains', 'xcomp/obj', lambda w: w.upos)
     >>> chunks = cached_chunks(sents, lang, cf.engine(lang))
-    >>> result=get_chunk(chunks, f'{domain}_domains', 'xcomp/obj', lambda w: (w.text, w.upos.lower()))
+    >>> result=get_chunk(chunks, f'{domain}_domains' if domain!='predicts' else domain, 'xcomp/obj', lambda w: (w.text, w.upos.lower()))
 
     :param chunks:
     :param domain_name:

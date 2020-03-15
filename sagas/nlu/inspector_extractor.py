@@ -5,6 +5,9 @@ from sagas.nlu.inspector_common import Inspector, Context
 import logging
 logger = logging.getLogger(__name__)
 
+def starts_with_in(w, *args):
+    return any(w.startswith(arg) for arg in args)
+
 class CompExtractInspector(Inspector):
     """
     提取指定成分:
@@ -84,7 +87,9 @@ class CompExtractInspector(Inspector):
             parts=self.pickup.split(':')
             domain=parts[0]
             path=parts[1]
-            result = get_chunk(chunks, f'{domain}_domains', path, clo=clo)
+            result = get_chunk(chunks,
+                               f'{domain}_domains' if domain!='predicts' else domain,
+                               path, clo=clo)
             logger.debug(f"extract chunk: {domain}, {path}, {result}")
             if len(result)>0:
                 ctx.add_result(self.name(), comp, self.pickup, result)
@@ -124,7 +129,7 @@ class CompExtractInspector(Inspector):
                 'ner': lambda cnt, comp: ex_ner(cnt, comp),
                 }
 
-        if self.pickup=='_' or ':' in self.pickup:
+        if self.pickup=='_' or starts_with_in(self.pickup, 'verb:', 'aux:', 'subj:', 'predicts:'):
             self.results['_']=[]
             for comp in self.comp_as:
                 op=ex_map[comp](comp_val, comp)

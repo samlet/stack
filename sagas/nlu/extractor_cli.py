@@ -90,7 +90,9 @@ class ExtractorCli(object):
         # get_chunk(f'verb_domains', 'xcomp/obj', lambda w: w.upos)
         # get_chunk(f'domain_domains', path, lambda w: w.upos)
         chunks = cached_chunks(sents, lang, cf.engine(lang))
-        result=get_chunk(chunks, f'{domain}_domains', path, lambda w: (w.text, w.upos.lower()))
+        result=get_chunk(chunks,
+                         f'{domain}_domains' if domain!='predicts' else domain,
+                         path, lambda w: (w.text, w.upos.lower()))
         print(result)
 
 if __name__ == '__main__':

@@ -29,6 +29,9 @@ def parse(data):
         return response.json()
     return None
 
+def norm_arg(arg):
+    return arg.replace(':', '_')
+
 class InferExtensionPoints(object):
     def __init__(self):
         self.exts={}
@@ -224,7 +227,7 @@ class Inferencer(object):
             if type_name in ('aux_domains', 'subj_domains') and el.indicator == 'head':
                 pats.append((3, f"behaveof('{el.spec}', '*')"))
             else:
-                pats.append((1, f"{el.indicator}=kindof('{el.spec}', '*')"))
+                pats.append((1, f"{norm_arg(el.indicator)}=kindof('{el.spec}', '*')"))
 
     def induce_part(self, chunk:InferPart, pats:List[Tuple[int, Text]],
                     type_name:Text, enable_verbose=False):

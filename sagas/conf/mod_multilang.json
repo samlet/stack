@@ -18,6 +18,7 @@
   "pl": ["sagas.nlu.rules_lang_spec_pl.Rules_pl"],
   "ru": ["sagas.nlu.rules_lang_spec_ru.Rules_ru"],
   "bg": ["sagas.nlu.rules_lang_spec_bg.Rules_bg"],
-  "ro": ["sagas.nlu.rules_lang_spec_ro.Rules_ro"]
+  "ro": ["sagas.nlu.rules_lang_spec_ro.Rules_ro"],
+  "cs": ["sagas.nlu.rules_lang_spec_cs.Rules_cs"]
 }
 
