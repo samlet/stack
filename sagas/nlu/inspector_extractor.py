@@ -49,6 +49,10 @@ class CompExtractInspector(Inspector):
         def ex_plain(cnt, comp):
             ctx.add_result(self.name(), comp, key, cnt)
             return True
+        def ex_word(cnt, comp):
+            ctx.add_result(self.name(), comp, key,
+                           {'text': cnt, 'lemma':ctx.lemmas[key]})
+            return True
         def ex_translit(cnt, comp):
             from sagas.nlu.transliterations import translits
             if translits.is_available_lang(ctx.lang):
@@ -110,6 +114,7 @@ class CompExtractInspector(Inspector):
                 # .. extract_for('plain+date_search+date_parse', '時間'),
                 'date_parse': ex_date_parse,
                 'plain': ex_plain,
+                'word': ex_word,
                 # .. extract_for('plain+translit', 'obj'),
                 'translit': ex_translit,
                 'email': lambda cnt,comp: ex_dims(cnt, comp, 'email'),

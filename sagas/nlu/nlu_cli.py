@@ -92,6 +92,8 @@ class NluCli(object):
             if df is not None:
                 tc.emp('cyan', f"2. candidates:")
                 sagas.print_df(df)
+            else:
+                tc.emp('cyan', f"2. no candidates.")
             return word_r
         return ''
 

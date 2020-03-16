@@ -18,9 +18,17 @@ class Rules_tr(LangSpecBase):
         pat, actions_obj = (self.pat, self.actions_obj)
 
         self.collect(pats=[
-            # $ str 'Bir bira isterim.'
+            # $ str 'Bir bira isterim.'  (I’d like a beer.)
             pat(-5, name='behave_i_want').verb(specs_trans('v', 'request'),
                                               obj=kindof('food', 'n')),
         ])
     
 
+    def aux_rules(self):
+        pat, actions_obj = (self.pat, self.actions_obj)
+
+        self.collect(pats=[
+            # $ str 'Sigaranız var mı?'  (Do you have cigarettes?)
+            pat(5, name='desc_exist').cop(extract_for('word', 'nsubj'),
+                                          behaveof('exist', '*'), nsubj='c_noun'),
+        ])

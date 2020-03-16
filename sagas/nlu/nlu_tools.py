@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List, Union
+
 import collections
 import numpy
 import sagas.tracker_fn as tc
@@ -42,6 +44,28 @@ def to_str(obj):
     if isinstance(obj, tuple):
         return ', '.join(obj)+','
     return obj
+
+def treeing(ds):
+    child_tags=[k for k,v in ds.items() if isinstance(v, list) and k not in ('entity', 'segments')]
+    data={'children':[]}
+    for k,v in ds.items():
+        if k in child_tags:
+            for vchild in v:
+                data['children'].append(treeing(vchild))
+        else:
+            data[k]=v
+    return data
+
+def vis_tree(ds:Dict[Text, Any]):
+    from anytree.importer import DictImporter
+    from anytree import RenderTree
+
+    data = treeing(ds)
+    importer = DictImporter()
+    tree_root = importer.import_(data)
+    tree = RenderTree(tree_root)
+    for pre, fill, node in tree:
+        print(f"{pre}{node.dependency_relation}: {node.lemma}({node.upos.lower()})")
 
 class NluTools(object):
     def say(self, text, lang='en'):
@@ -243,6 +267,7 @@ class NluTools(object):
         """
         $ nlu main_domains '彼のパソコンは便利じゃない。' ja knp
         $ nlu main_domains 'これを作ってあげました。' ja
+        $ nlu main_domains 'What do you think about the war?' en
 
         :param sents:
         :param lang:
@@ -251,8 +276,14 @@ class NluTools(object):
         """
         from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
         # get_main_domains('彼のパソコンは便利じゃない。', 'ja', 'knp')
-        domains=get_main_domains(sents, lang, engine or cf.engine(lang))
+        domain, domains = get_main_domains(sents, lang, engine or cf.engine(lang))
+        print('domain type:', domain)
         pprint(domains)
+
+        if domain != 'predicts':
+            tc.emp('cyan', f"✁ tree vis. {'-' * 25}")
+            for ds in domains:
+                    vis_tree(ds)
 
     def check_rule(self, sents, lang, rule, engine=None):
         """

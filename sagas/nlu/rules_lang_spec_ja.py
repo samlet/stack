@@ -191,6 +191,10 @@ class Rules_ja(LangSpecBase):
             pat(5, name='predict_parking').verb(specsof('*', 'parking'),
                                                 understructure('ニ'),
                                                 ニ=kindof('back', '*')),
+            # $ sj '紙の裏に書いてください。'
+            pat(5, name='predict_write').verb(specsof('*', 'write'),
+                                              understructure('ニ'),
+                                              ニ=kindof('back', '*')),
 
         ])
 
