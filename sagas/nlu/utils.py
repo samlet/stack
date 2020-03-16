@@ -1,5 +1,5 @@
 import requests
-from typing import Text, Any, Dict, List
+from typing import Text, Any, Dict, List, Union, Optional
 import re
 
 from cachetools import cached
@@ -71,9 +71,20 @@ def get_possible_mean(specs):
         mean = ''
     return mean
 
+def get_word_sets(word:Text, lang:Text='en', pos:Text='*', first:bool=True) \
+        -> Union[List[Dict[Text, Any]], Dict[Text, Any], None]:
+    import requests
+    from sagas.conf.conf import cf
+    response = requests.post(f'{cf.ensure("words_servant")}/word_sets',
+                             json={'word':word, 'lang':lang, 'pos':pos})
+    if response.status_code == 200:
+        sets= response.json()
+        if sets:
+            return sets[0] if first else sets
+    return None
 
 @cached(cache={})
-def predicate(kind:Text, word:Text, lang:Text, pos:Text ):
+def predicate(kind:Text, word:Text, lang:Text, pos:Text ) -> bool:
     # if '/' in kind or '/' in word:
     data = {'word': word, 'lang': lang, 'pos': pos,
             'kind': kind}
@@ -89,10 +100,11 @@ def predicate(kind:Text, word:Text, lang:Text, pos:Text ):
         return r['result']
     return False
 
-def check_chain(kind, word, pos, lang):
+def check_chain(kind:Text, word:Text, pos:Text, lang:Text) -> bool:
     from sagas.nlu.synonyms import synonyms
 
     r = synonyms.match(word, lang)
     if r is None:
         return predicate(kind, word, lang, pos)
     return predicate(kind, r, 'en', pos)
+

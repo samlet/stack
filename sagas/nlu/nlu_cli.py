@@ -3,6 +3,7 @@ import requests
 
 from sagas.util.rest_common import query_data_by_url
 from sagas.conf.conf import cf
+import sagas.tracker_fn as tc
 
 def get_chains(word, lang, pos) -> List[Dict[Text, Any]]:
     response = requests.post(f'{cf.ensure("words_servant")}/get_chains',
@@ -80,6 +81,20 @@ class NluCli(object):
         """
         return get_word_sets(word, lang, pos)
 
+    def get_word_trans(self, word, lang):
+        import sagas
+        from sagas.nlu.google_translator import translate, with_words, WordsObserver
+        r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
+        if r:
+            word_r=r.lower()
+            tc.emp('cyan', f"1. translate: {word_r}")
+            df=t.observer(WordsObserver).word_trans_df
+            if df is not None:
+                tc.emp('cyan', f"2. candidates:")
+                sagas.print_df(df)
+            return word_r
+        return ''
+
     def get_word_def(self, word, lang='en', pos='*'):
         """
         在终端上输出单词的定义和继承链.
@@ -87,6 +102,8 @@ class NluCli(object):
         $ python -m sagas.nlu.nlu_cli get_word_def cepillar es
         $ python -m sagas.nlu.nlu_cli get_word_def Krieg de
         $ def krieg de
+        $ def iste tr v
+
         :param word:
         :param lang:
         :param pos:
@@ -95,18 +112,29 @@ class NluCli(object):
         from termcolor import colored
         resp=get_word_sets(word, lang, pos)
         if resp['result']=='success':
-            sets=resp['data']
-            for s in sets:
-                print("%s -> %s"%(colored(s['name'], 'green'), s['definition']))
-                for exa in s['examples']:
-                    print('\t', exa)
-                domains=s['domains']
-                print('\t', domains)
-                # print('\t', s['lemmas'])
-                for key, les in s['lemmas'].items():
-                    if les:
-                        # print('\t', '[%s] %s'%(key, ', '.join('_' if w is None else w for w in les)))
-                        print('\t', '[%s] %s' % (key, ', '.join(les)))
+            sets:List[Any]=resp['data']
+            if sets:
+                for s in sets:
+                    print("%s -> %s"%(colored(s['name'], 'green'), s['definition']))
+                    for exa in s['examples']:
+                        print('\t', exa)
+                    domains=s['domains']
+                    print('\t', domains)
+                    # print('\t', s['lemmas'])
+                    for key, les in s['lemmas'].items():
+                        if les:
+                            # print('\t', '[%s] %s'%(key, ', '.join('_' if w is None else w for w in les)))
+                            print('\t', '[%s] %s' % (key, ', '.join(les)))
+            else:
+                tc.emp('red', f'no synsets for {word}.')
+
+        if lang!='en':
+            print(colored('✁ --------------------------', 'red'))
+            word_r=self.get_word_trans(word, lang)
+            if word_r:
+                tc.emp('cyan', f"3. chains for {word_r}:")
+                self.get_chains(word_r, 'en', pos=pos)
+
         print(colored('✁ --------------------------', 'red'))
         self.get_chains(word, lang, pos)
 
@@ -190,7 +218,7 @@ class NluCli(object):
             else:
                 print('fail')
 
-    def get_chains(self, word, lang, pos, simple=True):
+    def get_chains(self, word:Text, lang, pos, simple=True):
         """
         $ python -m sagas.nlu.nlu_cli get_chains menina pt n
         :param word:
@@ -211,7 +239,7 @@ class NluCli(object):
                                        colored(chain['name'], 'red'),
                                        ', '.join(chain['chain'])))
         else:
-            print('none.')
+            tc.emp('red', f'no chains for {word}.')
 
     def explore(self, word, lang='en', targets=None):
         """

@@ -5,6 +5,7 @@ from sagas.nlu.inspector_wordnet import (
     PredicateWordInspector as kindof,
     VerbInspector as behaveof,
     WordSpecsInspector as specsof,
+    specs_no_subs, specs_trans,
     )
 from sagas.nlu.inspector_rasa import RasaInspector as intentof
 from sagas.nlu.inspector_extractor import extract, extract_dt, extract_c, extract_for

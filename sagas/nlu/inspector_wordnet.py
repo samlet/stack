@@ -6,7 +6,7 @@ from sagas.nlu.inspectors import InspectorFixture, DateInspector, EntityInspecto
 from sagas.nlu.patterns import Patterns, print_result
 import logging
 
-from sagas.nlu.utils import predicate
+from sagas.nlu.utils import predicate, get_word_sets
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +45,10 @@ class WordInspector(Inspector):
             return feat_pos_mappings[att]
         return '*'
 
+    def add_subs(self, word, r, candidates=None):
+        self.subs.append({'word':word, 'substitute':r,
+                          'candidates':[] if candidates is None else candidates})
+
     def substitute(self, word, lang, pos):
         from sagas.nlu.synonyms import synonyms
         r=synonyms.match(word, lang)
@@ -54,7 +58,7 @@ class WordInspector(Inspector):
             return predicate(self.kind, word, lang, pos)
         # print(f'... substitute with {r}(en), {pos}')
         # return self.process(r, 'en', pos)
-        self.subs.append((word, r))
+        self.add_subs(word, r)
 
         return predicate(self.kind, r, 'en', pos)
 
@@ -178,15 +182,41 @@ class WordSpecsInspector(WordInspector):
     def __init__(self, pos_indicator, *cats, **kwargs):
         super().__init__('|'.join(cats), pos_indicator, **kwargs)
         self.cats=cats
+        self.subs_fn=self.check_subs
 
-    def check_subs(self, kind, word, lang, pos):
+    def check_subs(self, kind:Text, word:Text, lang:Text, pos:Text) -> bool:
         from sagas.nlu.synonyms import synonyms
         r=synonyms.match(word, lang)
         if r is None:
             return predicate(kind, word, lang, pos)
         # self.subs=r
-        self.subs.append((word, r))
+        self.add_subs(word, r)
         return predicate(kind, r, 'en', pos)
+
+    def no_subs(self, kind:Text, word:Text, lang:Text, pos:Text) -> bool:
+        ws = get_word_sets(word, lang, pos) # ensure synsets existence
+        return predicate(kind, word, lang, pos) if ws else False
+
+    def trans_subs(self, kind:Text, word:Text, lang:Text, pos:Text) -> bool:
+        from sagas.nlu.google_translator import translate, with_words, WordsObserver
+
+        ws = get_word_sets(word, lang, pos)  # ensure synsets existence
+        if ws:
+            return predicate(kind, word, lang, pos)
+
+        word = word.split('/')[-1] # lemma
+        r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
+        if not r:
+            return self.check_subs(kind, word, lang, pos)
+
+        word_r = r.lower()
+        candidates=[w for w in t.observer(WordsObserver).word_trans_df['word']]
+        self.add_subs(word, word_r, candidates)
+        return predicate(kind, word_r, 'en', pos)
+
+    def uses(self, fn):
+        self.subs_fn=fn
+        return self
 
     def extract_specs(self, key, ctx:Context):
         if '/' in key:
@@ -200,9 +230,9 @@ class WordSpecsInspector(WordInspector):
         word=self.extract_specs(key, ctx)
         pos=self.pos_indicator
 
-        resultset=[]
+        resultset:List[bool]=[]
         for kind in self.cats:
-            result= self.check_subs(kind, word, lang, pos)
+            result= self.subs_fn(kind, word, lang, pos)
             logger.debug(f"check word {word} against {kind}, result is {result}")
             resultset.append(result)
 
@@ -219,6 +249,14 @@ class WordSpecsInspector(WordInspector):
 
     def __str__(self):
         return "{}({},{})".format(self.name(), self.cats, self.pos_indicator)
+
+def specs_no_subs(pos_indicator, *cats, **kwargs):
+    ins=WordSpecsInspector(pos_indicator, *cats, **kwargs)
+    return ins.uses(ins.no_subs)
+
+def specs_trans(pos_indicator, *cats, **kwargs):
+    ins=WordSpecsInspector(pos_indicator, *cats, **kwargs)
+    return ins.uses(ins.trans_subs)
 
 class InspectorRunner(InspectorFixture):
     def __init__(self):

@@ -1,15 +1,7 @@
 from typing import Text, Any, Dict, List, Union
 
-def get_word_sets(word, lang='en', pos='*'):
-    import requests
-    from sagas.conf.conf import cf
-    response = requests.post(f'{cf.ensure("words_servant")}/word_sets',
-                             json={'word':word, 'lang':lang, 'pos':pos})
-    if response.status_code == 200:
-        sets= response.json()
-        if sets:
-            return sets[0]
-    return None
+from sagas.nlu.utils import get_word_sets
+
 
 class KoreaHelper(object):
     def __init__(self):

@@ -20,6 +20,7 @@
   "bg": ["sagas.nlu.rules_lang_spec_bg.Rules_bg"],
   "ro": ["sagas.nlu.rules_lang_spec_ro.Rules_ro"],
   "cs": ["sagas.nlu.rules_lang_spec_cs.Rules_cs"],
-  "sk": ["sagas.nlu.rules_lang_spec_sk.Rules_sk"]
+  "sk": ["sagas.nlu.rules_lang_spec_sk.Rules_sk"],
+  "tr": ["sagas.nlu.rules_lang_spec_tr.Rules_tr"]
 }
 

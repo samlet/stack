@@ -1,6 +1,7 @@
+from typing import Text, Any, Dict, List, Union
 import sagas.tracker_fn as tc
 
-def vis_trees(trees):
+def vis_trees(trees:List[Any]):
     from anytree.importer import DictImporter
     from anytree import RenderTree
     importer = DictImporter()
@@ -14,6 +15,7 @@ def vis_trees(trees):
             else:
                 cl='yellow'
             tc.emp(cl, "%s[%s]%s" % (pre, node.role, node.name))
+
 
 class HowNetCli(object):
     def vis(self, word, format='tree'):

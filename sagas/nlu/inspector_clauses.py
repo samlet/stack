@@ -113,10 +113,11 @@ class UnderstructureInspector(Inspector):
         from sagas.nlu.ruleset_procs import list_words, cached_chunks, get_main_domains
         from sagas.conf.conf import cf
         chunks = cached_chunks(ctx.sents, ctx.lang, cf.engine(ctx.lang))
-        index = next(x[1] for x in ctx.domains if x[0] == self.part)
-        rs=self.collect_children(chunks, ctx.lang, index+1)
-        if rs:
-            ctx.add_result(self.name(), 'default', self.part, rs)
+        index = next((x[1] for x in ctx.domains if x[0] == self.part), -1)
+        if index!=-1:
+            rs=self.collect_children(chunks, ctx.lang, index+1)
+            if rs:
+                ctx.add_result(self.name(), 'default', self.part, rs)
         return True
 
     def __str__(self):
