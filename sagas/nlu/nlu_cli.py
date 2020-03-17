@@ -1,6 +1,7 @@
 from typing import Text, Any, Dict, List, Union
 import requests
 
+from sagas.nlu.constants import viz_translit_langs
 from sagas.util.rest_common import query_data_by_url
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
@@ -279,7 +280,7 @@ class NluCli(object):
         from sagas.nlu.uni_remote_viz import viz_sample
         # sents = 'what time is it ?'
         dot = viz_sample(lang, sents, engine=engine,
-                         translit_lang=lang if lang in ('ja', 'ko','zh', 'fa', 'ar', 'he') else None)
+                         translit_lang=lang if lang in viz_translit_langs else None)
         return scribes(dot)
 
     def tokens(self, sents, lang='en'):

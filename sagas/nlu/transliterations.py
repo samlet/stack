@@ -18,14 +18,16 @@ class Transliterations(object):
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
                           ('he', 'fa', 'ur'): lambda s,lang:translit(s,lang),
                           # ('hi', 'ar'): lambda s,_:self.tr_icu(s),
-                          ('hi'): lambda s, _: self.tr_icu(s),
+                          ('hi', 'hy'): lambda s, _: self.tr_icu(s),
                           ('ar'): lambda s,_: self.trans_ar(s),
                           ('el'): lambda s,_:self.tr_el(s),
                           # ('el'): lambda s, _: self.tr_icu(s),
                           ('zh'): lambda s,_:self.tr_title(s),
                           # ('ja'): lambda s,_:self.trans_ja(s),
                           ('ja'): lambda s, _: self.tr_icu(s),
+                          ('ug'): lambda s, lang: self.trans_ipa(s, lang),
                           }
+        self.ipa_dels={}
 
     def trans_ar(self, sents):
         from sagas.nlu.translit_ar import ar_translit
@@ -56,6 +58,14 @@ class Transliterations(object):
         """
         return translit(sents, lang)
 
+    def trans_ipa(self, sents, lang):
+        import epitran
+        trans_map={'ug': lambda : epitran.Epitran('uig-Arab'),  # Uyghur in Perso-Arabic script
+                   }
+        epi = self.ipa_dels[lang] if lang in self.ipa_dels else trans_map[lang]()
+        self.ipa_dels[lang]=epi
+        return epi.transliterate(sents)
+
     def trans_polyglot_from_clip(self, lang, force_ployglot=False):
         """
         Merge sentence from clipboard and do translit
@@ -75,7 +85,7 @@ class Transliterations(object):
     def available_langs(self):
         return ['iw', 'he', 'ko', 'sr', 'me', 'mk',
                 'ru', 'ar', 'fa', 'hi', 'ur',
-                'el', 'zh', 'ja'
+                'el', 'zh', 'ja', 'ug',
                 ]
 
     def is_available_lang(self, lang):

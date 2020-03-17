@@ -180,6 +180,7 @@ alias sel="python -m sagas.tool.misc trans_clip el 'en;zh-CN;ja' ja False"
 alias sca="python -m sagas.tool.misc trans_clip ca 'en;es;ja' ja False"
 alias sko="python -m sagas.tool.misc trans_clip ko 'en;zh-CN;ja' ja False"
 alias sfi="python -m sagas.tool.misc trans_clip fi 'en;zh-CN;ja' ja False"
+alias sug="python -m sagas.tool.misc trans_clip ug 'en;zh-CN;ja' ja False"
 
 # 
 alias ta='python -m sagas.tool.misc trans_en_ar'

@@ -207,7 +207,7 @@ class TreeBanks(object):
             model_idx = {'name': meta['LANGUAGE CODE'], 'lang': lang,
                          'model': model_name, 'version': meta['VERSION'], 'treebank': meta['TREEBANK']}
             all_models.append(model_idx)
-
+        all_models=sorted(all_models, key=lambda el: el['name'])
         target_file='./sagas/conf/treebanks.json'
         json_utils.write_json_to_file(target_file, all_models)
         print('write to', target_file)

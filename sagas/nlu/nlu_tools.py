@@ -5,6 +5,7 @@ import numpy
 import sagas.tracker_fn as tc
 from pprint import pprint
 from sagas.conf.conf import cf
+from sagas.nlu.constants import contrast_translit_langs
 from sagas.startup import startup
 
 
@@ -189,7 +190,6 @@ class NluTools(object):
         from sagas.nlu.google_translator import translate
         from sagas.tool.misc import color_print
 
-        local_trans_langs=('fa', 'ur', 'he')
         r, tracker = translate(text, source=source, target=target, options={'get_pronounce'})
         tc.info(r)
         for i, p in enumerate(tracker.pronounce):
@@ -197,7 +197,7 @@ class NluTools(object):
             tc.info(f'v{i}="{ps}"')
         rs, trans_table=get_word_map(source, target, text,
                                      words=word_map,
-                                     local_translit=True if source in local_trans_langs else False)
+                                     local_translit=True if source in contrast_translit_langs else False)
         for i, (k, r) in enumerate(rs.items()):
             tc.info(f"{i} - ", r.replace('\n', ' '))
 

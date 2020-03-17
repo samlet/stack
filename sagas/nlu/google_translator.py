@@ -1,17 +1,12 @@
 from typing import Text, Any, Dict, List, Union
-import random
 
-import requests
-import json
-from bs4 import BeautifulSoup
-## $ pip install PyExecJS
-import execjs # 执行js脚本
 import logging
 
 logger = logging.getLogger(__name__)
 
 class Py4Js():
     def __init__(self):
+        import execjs
         self.ctx = execjs.compile(""" 
         function TL(a) { 
         var k = ""; 
@@ -216,6 +211,9 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
     import sagas.conf.conf as conf
     from sagas.nlu.trans_cacher import cacher
     import time
+    import random
+    import requests
+    import json
 
     if options is None:
         options = {}
