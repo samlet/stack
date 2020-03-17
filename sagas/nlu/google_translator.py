@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 ## $ pip install PyExecJS
 import execjs # 执行js脚本
 import logging
+
 logger = logging.getLogger(__name__)
 
 class Py4Js():
@@ -169,7 +170,7 @@ def with_words():
     return TransTracker(cacher, WordsObserver())
 
 def process_result(meta, r, trans_verbose, options, tracker:TransTracker):
-    import sagas
+    # import sagas
     tracker.notify_observers(meta, r)
     if trans_verbose:
         print('❶ total result', len(r))
@@ -229,14 +230,15 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
         else:
             tracker = TransTracker()
 
-    # try to get from cacher
-    r = cacher.retrieve(meta)
-    if r:
-        cnt = r['content']
-        res = join_sentence(cnt)
-        process_result(meta, cnt, trans_verbose, options, tracker)
-        logger.debug(f'get {text} from cacher')
-        return res, tracker
+    if 'disable_cache' not in options:
+        # try to get from cacher
+        r = cacher.retrieve(meta)
+        if r:
+            cnt = r['content']
+            res = join_sentence(cnt)
+            process_result(meta, cnt, trans_verbose, options, tracker)
+            logger.debug(f'get {text} from cacher')
+            return res, tracker
 
     header = {
         'authority': 'translate.google.cn',
@@ -248,7 +250,7 @@ def translate(text, source='auto', target='zh-CN', trans_verbose=False, options=
         'accept-language': 'zh-CN,zh;q=0.9',
         'cookie': '',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36',
-        # 'x-client-data':'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
+        'x-client-data':'CIa2yQEIpbbJAQjBtskBCPqcygEIqZ3KAQioo8oBGJGjygE='
     }
     url = buildUrl(text, js.getTk(text), source, target)
     res = ''
@@ -347,47 +349,6 @@ def trans_multi(sent, source, targets):
         rs.append(res)
     return rs
 
-class GoogleTranslator(object):
-    def translate(self, text, target='zh-CN', source='auto', verbose=False):
-        """
-        $ python -m sagas.nlu.google_translator translate 'Садись, где хочешь.'
-        $ python -m sagas.nlu.google_translator translate 'Садись, где хочешь.' en
-        $ python -m sagas.nlu.google_translator translate 'Садись, где хочешь.' en ru
 
-        # multi-sentences
-        $ python -m sagas.nlu.google_translator translate 'Что в этом конверте? Письмо и фотографии.' ja auto True
-        $ python -m sagas.nlu.google_translator translate 'Что в этом конверте? Письмо и фотографии.' en auto True
-        $ python -m sagas.nlu.google_translator translate 'I am a student.' ar en True
-
-        $ python -m sagas.nlu.google_translator translate 'I have two refrigerators' th en True
-        $ python -m sagas.nlu.google_translator translate 'I have two refrigerators' iw en True
-
-        # word translations
-        $ python -m sagas.nlu.google_translator translate 'city' ar en True
-        $ python -m sagas.nlu.google_translator translate 'tiger' lo en True
-        $ python -m sagas.nlu.google_translator translate 'गतिविधि' en hi True
-        :param text:
-        :return:
-        """
-        # trans_verbose=verbose
-        res,_ = translate(text, source=source, target=target,
-                        trans_verbose=verbose, options={'disable_correct'})
-        print(res)
-        # print(translate('Садись, где хочешь.'))
-        # print(translate('I am a student.'))
-
-    def trans_en(self, text, target='zh-CN'):
-        """
-        $ python -m sagas.nlu.google_translator trans_en 'I have two refrigerators' es
-        $ python -m sagas.nlu.google_translator trans_en 'I have two refrigerators' he
-        :param text:
-        :param target:
-        :return:
-        """
-        self.translate(text, source='en', target=target, verbose=True)
-
-if __name__ == '__main__':
-  import fire
-  fire.Fire(GoogleTranslator)
 
 

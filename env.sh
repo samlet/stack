@@ -234,6 +234,7 @@ alias open_products='open http://localhost:8069/web#action=283&model=product.tem
 
 ## 
 alias verbs='python -m sagas.nlu.ruleset_procs verbs'
+alias hownet='python -m sagas.zh.hownet_helper vis'
 
 ## docker execs
 # agents saai.saai_cli nlu_reload en

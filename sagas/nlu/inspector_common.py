@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List, Union
+from typing import Text, Any, Dict, List, Union, Optional
 import abc
 
 class Chunk(object):
@@ -88,6 +88,9 @@ class Context(cla_meta_intf, object):
     @property
     def pos(self):
         return self.meta['pos']
+
+    def get_feat_pos(self, part:Text) -> Optional[Text]:
+        return self.feats[part][0] if part in self.feats else None
 
     @property
     def segments(self):

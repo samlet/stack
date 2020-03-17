@@ -47,7 +47,7 @@ def expand_tree(tree, property_name:Text, layer:int, is_root=True):
     return res
 
 class HowNetCli(object):
-    def vis(self, word, word_info=True, format='tree'):
+    def vis(self, word:Text, word_info:bool=True, format:Text='tree'):
         """
         $ python -m sagas.zh.hownet_helper vis '大学生'
         $ python -m sagas.zh.hownet_helper vis '苹果'

@@ -183,15 +183,18 @@ class WordSpecsInspector(WordInspector):
         super().__init__('|'.join(cats), pos_indicator, **kwargs)
         self.cats=cats
         self.subs_fn=self.check_subs
+        self.opts={}
 
     def check_subs(self, kind:Text, word:Text, lang:Text, pos:Text) -> bool:
         from sagas.nlu.synonyms import synonyms
         r=synonyms.match(word, lang)
         if r is None:
             return predicate(kind, word, lang, pos)
-        # self.subs=r
-        self.add_subs(word, r)
-        return predicate(kind, r, 'en', pos)
+
+        result= predicate(kind, r, 'en', pos)
+        if result:
+            self.add_subs(word, r)
+        return result
 
     def no_subs(self, kind:Text, word:Text, lang:Text, pos:Text) -> bool:
         ws = get_word_sets(word, lang, pos) # ensure synsets existence
@@ -204,15 +207,41 @@ class WordSpecsInspector(WordInspector):
         if ws:
             return predicate(kind, word, lang, pos)
 
-        word = word.split('/')[-1] # lemma
+        word = word.split('/')[self.get_opt('trans_idx', -1)] # text or lemma, default is lemma
         r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
+        logger.debug(f"translate {word}: {r}")
         if not r:
             return self.check_subs(kind, word, lang, pos)
 
         word_r = r.lower()
-        candidates=[w for w in t.observer(WordsObserver).word_trans_df['word']]
-        self.add_subs(word, word_r, candidates)
-        return predicate(kind, word_r, 'en', pos)
+        trans_df=t.observer(WordsObserver).word_trans_df
+        candidates=[w for w in trans_df['word']] if trans_df is not None else []
+
+        result= predicate(kind, word_r, 'en', pos)
+        if result:
+            self.add_subs(word, word_r, candidates)
+        return result
+
+    def opt(self, **kwargs):
+        self.opts.update(kwargs)
+        return self
+
+    def get_opt(self, name, default=None):
+        return self.opts[name] if name in self.opts else default
+
+    def check_opts(self, key, ctx:Context):
+        evts={}
+
+        def use_raw_fmt(opt_val):
+            pos=ctx.get_feat_pos(key)
+            if pos in opt_val:
+                evts['trans_idx']=0
+
+        check_fn={'raw_fmt': use_raw_fmt}
+        for k,v in self.opts.items():
+            if k in check_fn:
+                check_fn[k](v)
+        self.opts.update(evts)
 
     def uses(self, fn):
         self.subs_fn=fn
@@ -220,26 +249,35 @@ class WordSpecsInspector(WordInspector):
 
     def extract_specs(self, key, ctx:Context):
         if '/' in key:
-            word=key  # the key == word
+            words=[key]  # the key == word
         else:
-            word = f"{ctx.words[key]}/{ctx.lemmas[key]}"
-        return word
+            # word = f"{ctx.words[key]}/{ctx.lemmas[key]}"
+            words=ctx.tokens[key]
+        return words
 
     def run(self, key, ctx:Context):
+        logger.debug(f"check key: {key}")
         lang=ctx.lang
-        word=self.extract_specs(key, ctx)
+        words=self.extract_specs(key, ctx)
         pos=self.pos_indicator
 
+        self.check_opts(key, ctx)
+
         resultset:List[bool]=[]
+        valid_words=set()
         for kind in self.cats:
-            result= self.subs_fn(kind, word, lang, pos)
-            logger.debug(f"check word {word} against {kind}, result is {result}")
-            resultset.append(result)
+            for word in words:
+                result= self.subs_fn(kind, word, lang, pos)
+                logger.debug(f"check word {word} against {kind}, result is {result}")
+                resultset.append(result)
+                if result:
+                    valid_words.add(word)
 
         fin=any(resultset)
         if fin:
             ctx.add_result(self.name(), 'default', 'predicate',
-                           {**self.result_base, 'pos': pos, 'word': word},
+                           {**self.result_base, 'pos': pos,
+                            'words': list(valid_words)},
                            delivery_type='sentence')
 
         return fin
@@ -254,7 +292,17 @@ def specs_no_subs(pos_indicator, *cats, **kwargs):
     ins=WordSpecsInspector(pos_indicator, *cats, **kwargs)
     return ins.uses(ins.no_subs)
 
+raw_fmt_pos=['c_adj', 'c_adv']
 def specs_trans(pos_indicator, *cats, **kwargs):
+    """
+    >>> specs_trans('v', 'request')
+    >>> specs_trans('v', 'request').opt(trans_idx=0)
+    >>> advmod=specs_trans('*', 'slow', 'fast').opt(raw_fmt=raw_fmt_pos)
+    :param pos_indicator:
+    :param cats:
+    :param kwargs:
+    :return:
+    """
     ins=WordSpecsInspector(pos_indicator, *cats, **kwargs)
     return ins.uses(ins.trans_subs)
 

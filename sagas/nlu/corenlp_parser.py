@@ -112,7 +112,10 @@ def get_aux_domain(sent):
                    'rel': word.dependency_relation, 'governor': word.governor,
                    # 'head': dc.text,
                    'head': dc.lemma,
-                   'head_pos': dc.upos.lower(), 'delegator':delegator,
+                   'head_word': dc.text,
+                   'head_pos': dc.upos.lower(),
+                   'head_feats': dc.feats,
+                   'delegator':delegator,
                    'index': word.index, 'domains': domains, 'stems':stems})
         parsed_heads.add(word.governor)
     return rs
@@ -135,7 +138,9 @@ def get_subj_domain(sent):
         rs.append({'type':'subj_domains', 'word': word.text, 'lemma':word.lemma,
                    'rel': word.dependency_relation, 'governor': word.governor,
                    'head': dc.lemma,
-                   'head_pos': dc.upos.lower(), 'head_feats':[dc.lemma, dc.upos, dc.xpos],
+                   'head_pos': dc.upos.lower(),
+                   'head_word': dc.text,
+                   'head_feats':dc.feats,
                    'index': word.index, 'domains': domains, 'stems':stems})
     return rs
 

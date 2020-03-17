@@ -102,6 +102,10 @@ class Rules_pt(LangSpecBase):
                                                   extract_for('plain+number', 'obj'),
                                                   nsubj=kindof('matter', 'n'),
                                                   obj=kindof('unit_of_measurement', '*')),
+            # $ spt 'O café abre em fevereiro.'
+            pat(5, name='behave_open').verb(behaveof('open', 'v'),
+                                            nsubj=kindof('restaurant'),
+                                            obl=kindof('time_period', 'n')),
 
         ])
 

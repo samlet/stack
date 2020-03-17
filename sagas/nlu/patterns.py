@@ -100,7 +100,8 @@ class Patterns(object):
         return self.execute_args(args, ctx, options, ['word', 'lemma'])
 
     def execute_args_head(self, args, ctx:Context, options):
-        return self.execute_args(args, ctx, options=options, meta_key='head')
+        return self.execute_args(args, ctx, options=options,
+                                 meta_key=['head_word', 'head'])
 
     def execute_args_entire(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'sents')

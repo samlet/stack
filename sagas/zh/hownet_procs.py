@@ -19,6 +19,7 @@ class HowNetProcs(object):
 
         query_result:List = self.hownet_dict[word]
         query_result.sort(key=lambda x: x["No"])
+        # query_result.sort(key=lambda x: x["No"], reverse=True)
         # print("Find {0} result(s)".format(len(queryResult)))
         if K is not None and K >= 1 and type(K) == int:
             query_result = query_result[:K]
