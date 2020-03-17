@@ -208,7 +208,7 @@ class InterrogativePronounInspector(Inspector):
             if lang in translit_langs:
                 # index 0 is word, 1 is lemma
                 return translits.translit(cnt.split('/')[0], lang)
-            return cnt.split('/')[-1]
+            return cnt.split('/')[-1].lower()
 
         if lang in interrogative_maps:
             data_map=interrogative_maps[lang][self.cat]

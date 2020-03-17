@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List, Union
+from typing import Text, Any, Dict, List, Union, Tuple
 from sagas.nlu.inspector_common import Inspector, Context
 import sagas.tracker_fn as tc
 import logging
@@ -56,7 +56,8 @@ class Patterns(object):
                     'entire': self.execute_args_entire,
                     'root': self.execute_args_word,
                     }
-        self.after_evs=[]
+        self.after_evs:List[Tuple]=[]
+        self._opts={}
 
     def check_args(self, args, ctx, options):
         result=True
@@ -106,6 +107,26 @@ class Patterns(object):
     def execute_args_entire(self, args, ctx:Context, options):
         return self.execute_args(args, ctx, options, 'sents')
 
+    def opts(self, **kwargs):
+        self._opts.update(kwargs)
+        return self
+
+    def verify(self, ctx:Context) -> bool:
+        evts = {}
+
+        def is_engine(opt_val):
+            # engine value maybe is corenlp_western, ...
+            return ctx.engine.startswith(opt_val)
+
+        results=[]
+        check_fn = {'engine': is_engine}
+        for k, v in self._opts.items():
+            if k in check_fn:
+                results.append(check_fn[k](v))
+
+        self._opts.update(evts)
+        return all(results)
+
     def prepare(self, method):
         """Provide a dynamic access to a service method."""
         if method.startswith('_'):
@@ -117,6 +138,13 @@ class Patterns(object):
             options = []
 
             ctx = Context(self.meta, self.domains, name=self.name)
+            if not self.verify(ctx):
+                options.append(f"verify fail: {self._opts}")
+                return "%s with %s" % (method, ', '.join(options)), \
+                       False, \
+                       self.priority, \
+                       ctx
+
             # the args has been checked as pos
             if self.meta is not None and len(args) > 0:
                 # opt_ret=check_item(self.meta, 'pos', args, ctx)
@@ -166,13 +194,10 @@ class Patterns(object):
 
                 self.after_evs.clear()
 
-            if self.track:
-                return "%s with %s" % (method, ', '.join(options)), \
-                       result, \
-                       self.priority, \
-                       ctx
-            else:
-                return result, ctx
+            return "%s with %s" % (method, ', '.join(options)), \
+                   result, \
+                   self.priority, \
+                   ctx
 
         return service_method
 

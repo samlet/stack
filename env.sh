@@ -141,6 +141,7 @@ alias sga="python -m sagas.tool.misc trans_clip ga 'en;zh-CN;ja' ja False"
 alias scy="python -m sagas.tool.misc trans_clip cy 'en;zh-CN;ja' ja False"
 # Hungarian (匈牙利语)
 alias shu="python -m sagas.tool.misc trans_clip hu 'en;zh-CN;ja' ja False"
+alias slt="python -m sagas.tool.misc trans_clip lt 'en;zh-CN;ja' en False"
 
 alias sa="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja False"
 alias sar="python -m sagas.tool.misc trans_clip ar 'en;zh-CN;ja' ja False"

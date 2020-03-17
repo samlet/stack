@@ -17,7 +17,10 @@ class LangSpecBase(object):
         self.matched={}
 
         norm = lambda s: s.replace('/', '_').replace(' ', '_')
-        self.pat = lambda p, name='': Patterns(self.domains, self.meta, p, name=name, doc=self.doc)
+        self.pat = lambda p, name='': Patterns(
+            self.domains, self.meta,
+            p, name=name,
+            doc=self.doc).opts(**self.opts())
         self.actions_obj = lambda rs: [Patterns(self.domains, self.meta, 5,
                                            name=f"act_{norm(r[0])}_{norm(r[1])}",
                                            doc=self.doc)
@@ -32,6 +35,9 @@ class LangSpecBase(object):
     @staticmethod
     def prepare(meta:Dict[Text,Any]):
         pass
+
+    def opts(self):
+        return {}
 
     # def general_rules(self):
     #     pass

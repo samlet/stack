@@ -4,7 +4,7 @@ from sagas.nlu.patterns import Patterns
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.inspectors_dataset import get_interrogative
 
-def build_context(data:Dict[Text,Text], dominator:Text, name='_noname_'):
+def build_context(data:Dict[Text,Text], dominator:Text, name='_noname_', **kwargs):
     from sagas.nlu.inferencer import parse
 
     rs = parse(data)
@@ -15,7 +15,7 @@ def build_context(data:Dict[Text,Text], dominator:Text, name='_noname_'):
         # print(type_name)
         meta = build_meta(r, data)
         ctx = Context(meta, domains, name=name)
-        pat = Patterns(domains, meta, 5, name=name)
+        pat = Patterns(domains, meta, 5, name=name).opts(**kwargs)
         serv = pat.prepare(dominator)
         yield ctx, serv
 

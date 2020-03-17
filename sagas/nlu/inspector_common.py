@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional
 import abc
+from sagas.conf.conf import cf
 
 class Chunk(object):
     def __init__(self, key, children):
@@ -56,6 +57,7 @@ class Context(cla_meta_intf, object):
         else:
             self.delim = ' '
         self._sents=meta['sents'] if 'sents' in meta else ''
+        self.engine=meta['engine'] if 'engine' in meta else cf.engine(self._lang)
 
         # self.lemmas = {x[0]: x[3] for x in domains}
         # self.words = {x[0]: x[2] for x in domains}

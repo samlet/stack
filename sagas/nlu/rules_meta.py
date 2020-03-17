@@ -14,9 +14,13 @@ meta_pickups={
 }
 
 def build_meta(r, data):
+    # from sagas.conf.conf import cf
+
     type_name = r['type']
     common = {'lemma': r['lemma'], 'word': r['word'], 'index': r['index'],
               'stems': r['stems']}
+    # if 'engine' not in data:
+    #     data['engine']=cf.engine(data['lang'])
 
     if type_name in meta_pickups:
         return meta_pickups[type_name](r, common, data)

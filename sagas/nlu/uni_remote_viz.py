@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List, Union
+
 from sagas.nlu.uni_viz import EnhancedViz
 from sagas.nlu.corenlp_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks, display_synsets, proc_word, proc_children_column, trunc_cols
@@ -6,7 +8,7 @@ import sagas.tracker_fn as tc
 
 serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 
-def list_synsets(r, lang, collect=False):
+def list_synsets(r:Dict[Text, Any], lang:Text, collect=False):
     # create a meta structure
     common = {'lemma': r['lemma'], 'stems': r['stems']}
     meta = {'rel': r['rel'], 'lang': lang, **common}
@@ -21,7 +23,7 @@ def list_rs(rs, lang):
     for serial, r in enumerate(rs):
         df = sagas.to_df(r['domains'], ['rel', 'index', 'text', 'lemma', 'children', 'features'])
         if 'head' in r:
-            cla = "%s(%s)" % (r['head'], r['head_pos'])
+            cla = "%s/%s(%s)" % (r['head_word'], r['head'], r['head_pos'])
         else:
             cla = '_'
         tc.info(serial_numbers[serial], '%s(%s)' % (r['type'], r['lemma']), cla)

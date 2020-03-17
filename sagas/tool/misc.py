@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List, Union
+
 from time import sleep
 import requests
 from sagas.conf.conf import cf
@@ -123,7 +125,7 @@ def trunc_cols(df, cols=None, maxlen=15):
 print_def=False
 print_synsets=True
 serial_numbers='❶❷❸❹❺❻❼❽❾❿'
-def rs_represent(rs, data, return_df=False):
+def rs_represent(rs:List[Any], data:Dict[Text, Any], return_df=False):
     import sagas
     from sagas.nlu.rules import verb_patterns, aux_patterns, subj_patterns, predict_patterns
     from sagas.nlu.rules_lang_spec import langspecs
@@ -250,7 +252,7 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
             tc.emp('cyan', chunk)
     return result
 
-def get_verb_domains(data, return_df=False):
+def get_verb_domains(data:Dict[Text, Any], return_df=False):
     # import requests
     # from sagas.conf.conf import cf
 
@@ -445,6 +447,7 @@ class MiscTool(object):
     def parse_chunks(self, text, source, targets, ctx, details=True):
         import sagas.nlu.corenlp_helper as helper
         from sagas.nlu.treebanks import treebanks
+        from sagas.nlu.spacy_helper import lang_spacy_mappings
 
         def query_serv(data, print_it=True):
             response = requests.post(f'{cf.servant_by_lang(data["lang"])}/digest', json=data)
@@ -455,6 +458,7 @@ class MiscTool(object):
                 if print_it:
                     result= response.json()
                     print_terms(data['sents'], result)
+
         def query_serv_zh(data, print_it=True):
             response = requests.post('http://localhost:8091/digest', json=data)
             if response.status_code == 200:
@@ -466,7 +470,9 @@ class MiscTool(object):
 
         # available_sources=['en', 'de', 'fr', 'ru', 'es', 'it', 'pt', 'cs', 'sk', 'pl', 'tr',
         #                    'sv', 'no', 'hi']
-        available_sources=set(list(helper.langs.keys())+treebanks.support_langs)
+        available_sources=set(list(helper.langs.keys())+
+                              treebanks.support_langs+
+                              list(lang_spacy_mappings.keys()))
         if details:
             if source in available_sources:
                 data = {'lang': source, "sents": text}
@@ -501,6 +507,8 @@ class MiscTool(object):
         elif 'en' in ctx.sents_map:
             # there is no available dep-parser for the source language,
             # use english instead of it
+            tc.emp('red', f"there is no available dep-parser for the source language {source}, "
+                          f"use english instead of it")
             data = {'lang': 'en', "sents": ctx.sents_map['en']}
             addons.extend(get_verb_domains(data))
 

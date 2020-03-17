@@ -44,6 +44,9 @@ interrogative_maps={
     'ru': {
         'can': ['можно'],
     },
+    'lt': {
+        'when': ['kada'],
+    },
 }
 
 def get_interrogative(word:Text, lang:Text):
