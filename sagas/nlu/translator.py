@@ -3,15 +3,16 @@ from typing import Text, Any, Dict, List, Union, Set
 import logging
 import time
 import random
-
+from sagas.conf.conf import cf
 from sagas.nlu.translator_intf import join_sentence, TransTracker
+import sagas.tracker_fn as tc
 
 logger = logging.getLogger(__name__)
 
-def translations_df(trans):
+def translations_df(trans, idx=0):
     import sagas
     # fill with default field names
-    size = len(trans[0][2][0])
+    size = len(trans[idx][2][0])
     # print('size', size)
     listOfStrings = ['ext_' + str(i) for i in range(size)]
     if size==2:
@@ -19,26 +20,48 @@ def translations_df(trans):
     else:
         listOfStrings[0:4] = ['word', 'translations', 'c', 'freq']
 
-    return sagas.to_df(trans[0][2], listOfStrings)
+    return sagas.to_df(trans[idx][2], listOfStrings)
 
 def display_translations(trans):
     from tabulate import tabulate
-    print(tabulate(translations_df(trans), headers='keys', tablefmt='psql'))
+    for idx, el in enumerate(trans):
+        tc.emp('cyan', '⊕', el[0])
+        tc.emp('yellow', tabulate(translations_df(trans, idx), headers='keys', tablefmt='psql'))
+
+def norm_pos(pos:Text):
+    pos_cuts={'v':'verb', 'n':'noun', 'a':'adjective'}
+    if pos is not None and len(pos)==1:
+        return None if pos not in pos_cuts else pos_cuts[pos]
+    return pos
 
 class WordsObserver(object):
+
     def __init__(self):
-        self.word_trans_df=None
+        self.word_trans_df=None # default
+        self.trans_dfs={} # key is pos: noun, verb, adjective, adverb, conjunction
+
+    def fill_trans_map(self, trans):
+        for idx, el in enumerate(trans):
+            self.trans_dfs[el[0]]=translations_df(trans, idx)
+
     def update(self, meta, r):
         if r[1]:
             self.word_trans_df=translations_df(r[1])
+            self.fill_trans_map(r[1])
 
-    @property
-    def candidates(self) -> List[Text]:
-        if self.word_trans_df is not None:
-            candidates = [w for w in self.word_trans_df['word']]
+    def get_candidates(self, pos=None) -> List[Text]:
+        pos = norm_pos(pos)
+        if pos is None:
+            if self.word_trans_df is not None:
+                return [w for w in self.word_trans_df['word']]
         else:
-            candidates = []
-        return candidates
+            if pos in self.trans_dfs:
+                df=self.trans_dfs[pos]
+                return [w for w in df['word']]
+        return []
+
+    candidates = property(get_candidates)
+
 
 def with_words():
     """
@@ -99,7 +122,6 @@ def process_result(meta:Dict[Text, Text], r, trans_verbose,
 def translate(text, source:Text='auto', target:Text='zh-CN',
               trans_verbose:bool=False, options:Set[Text]=None,
               tracker:TransTracker=None) -> (Text, TransTracker):
-    import sagas.conf.conf as conf
     from sagas.nlu.trans_cacher import cacher
 
     if options is None:
@@ -109,7 +131,7 @@ def translate(text, source:Text='auto', target:Text='zh-CN',
     meta = {'text': text, 'source': source, 'target': target}
 
     if tracker is None:
-        if conf.cf.is_enabled('trans_cache'):
+        if cf.is_enabled('trans_cache'):
             tracker = TransTracker()
             tracker.add_observer(cacher)
         else:
@@ -141,7 +163,7 @@ def translate(text, source:Text='auto', target:Text='zh-CN',
                                  options, tracker, process_result=process_result)
 
     trans_fn={'impl': impl, 'impl2': impl2}
-    trans_text=trans_fn['impl2']()
+    trans_text=trans_fn[cf.ensure('translator_impl')]()
     return trans_text, tracker
 
 

@@ -47,6 +47,9 @@ interrogative_maps={
     'lt': {
         'when': ['kada'],
     },
+    'no': {
+        'when': ['når'],
+    },
 }
 
 def get_interrogative(word:Text, lang:Text):

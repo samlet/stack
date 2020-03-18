@@ -214,8 +214,9 @@ class WordSpecsInspector(WordInspector):
             return self.check_subs(kind, word, lang, pos)
 
         word_r = r.lower()
-        trans_df=t.observer(WordsObserver).word_trans_df
-        candidates=[w for w in trans_df['word']] if trans_df is not None else []
+        # trans_df=t.observer(WordsObserver).word_trans_df
+        # candidates=[w for w in trans_df['word']] if trans_df is not None else []
+        candidates=t.observer(WordsObserver).get_candidates(pos)
 
         result= predicate(kind, word_r, 'en', pos)
         if result:

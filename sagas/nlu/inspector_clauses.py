@@ -100,7 +100,7 @@ class UnderstructureInspector(Inspector):
         from sagas.nlu.utils import get_possible_mean
         sent = chunks['doc']
         word = next(filter(lambda w: w.index == index, sent.words))
-        print(word.index, word.text)
+        # print(word.index, word.text)
         result=[]
         for c in children(word, sent):
             word = f"{c.text}/{c.lemma}"

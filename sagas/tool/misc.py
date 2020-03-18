@@ -371,9 +371,9 @@ class MiscTool(object):
         # for target in tqdm(targets.split(';')):
         print('.. translate to', ctx.target_list)
         for target in tqdm(ctx.target_list):
-            options=set()
             # default options
-            options.add('disable_correct')
+            options=set(cf.ensure('translator_opts'))
+            # options.add('disable_correct')
             if says==target:
                 options.add('get_pronounce')
             if says==source and target=='en':

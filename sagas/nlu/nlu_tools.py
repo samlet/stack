@@ -186,7 +186,7 @@ class NluTools(object):
         :param target:
         :return:
         """
-        from sagas.nlu.google_translator import get_word_map
+        from sagas.nlu.translator import get_word_map
         from sagas.nlu.translator import translate
         from sagas.tool.misc import color_print
 

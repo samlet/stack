@@ -23,6 +23,7 @@ class GoogleTranslator(object):
         $ python -m sagas.nlu.translator_cli translate 'city' ar en True
         $ python -m sagas.nlu.translator_cli translate 'tiger' lo en True
         $ python -m sagas.nlu.translator_cli translate 'गतिविधि' en hi True
+        $ python -m sagas.nlu.translator_cli translate 'fly' en no True
         :param text:
         :return:
         """

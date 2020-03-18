@@ -4,11 +4,8 @@ import urllib.parse
 import json
 import execjs
 import re
-import time
-import random
 
 from sagas.conf import resource_path
-from sagas.nlu.translator import display_translations
 from sagas.nlu.translator_intf import join_sentence, TransTracker
 
 
@@ -30,7 +27,7 @@ class GoogleTrans(object):
             "client": "webapp",  # 基于网页访问服务器
             "sl": "auto",  # 源语言,auto表示由谷歌自动识别
             "tl": "en",  # 翻译的目标语言
-            "hl": "zh-CN",  # 界面语言选中文，毕竟URL都是cn后缀了，就不装美国人了
+            "hl": "en",  # 界面语言
             "dt": ["at", "bd", "ex", "ld", "md", "qca", "rw", "rm", "ss", "t"],  # dt表示要求服务器返回的数据类型
             "otf": "2",
             "ssel": "0",

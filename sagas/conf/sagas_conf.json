@@ -11,6 +11,8 @@
   "collect_verbs":true,
   "trans_cache":true,
   "translator":"google",
+  "translator_opts": ["disable_correct"],
+  "translator_impl": "impl2",
   "retries":3,
   "enable_chunks_parse":true,
   "enable_ascii_viz":true,

@@ -8,6 +8,7 @@ langsets={'bg': 'bul', 'ca': 'cat', 'cs': 'ces', 'da': 'dan', 'de': 'deu', 'el':
           # fixed
           'zh': 'cmn', 'ar': 'arb', 'ms': 'zsm', 'ko': 'kor', 'he': 'heb', 'hi': 'hin',
           'tr': 'tur', 'af': 'afr', 'lt': 'lit',
+          'no': 'nob', # nob -> Bokmål, Norwegian; Norwegian Bokmål
           }
 
 # https://stackoverflow.com/questions/319426/how-do-i-do-a-case-insensitive-string-comparison
