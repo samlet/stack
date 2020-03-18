@@ -1,6 +1,113 @@
-from typing import Text, Any, Dict, List, Union
+from typing import Text, Any, Dict, List, Union, Set
+from dataclasses import dataclass
 import sagas.tracker_fn as tc
 from pprint import pprint
+import logging
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class SenseSyn:
+    id: str
+    text: str
+
+
+@dataclass
+class SenseWord:
+    definition: str
+    en_grammar: str
+    zh_grammar: str
+    en_word: str
+    zh_word: str
+    id: str
+    syns: List[SenseSyn]
+
+
+@dataclass
+class SenseNode:
+    role: str
+    name: str
+    children: List['SenseNode']
+
+    def role_in(self, role_name):
+        return [c for c in self.children if c.role == role_name]
+
+    @property
+    def all_roles(self):
+        return {c.role for c in self.children}
+
+
+@dataclass
+class SenseTree:
+    root: SenseNode
+    inherits: List[SenseNode]
+    roles: Dict[Text, Set[Text]]
+    word: SenseWord
+
+    def cat_of(self, cat):
+        """
+        >>> st.cat_of('human|人')
+        :param cat:
+        :return:
+        """
+        rs = [ci for ci in self.inherits if ci.name == cat]
+        return len(rs) > 0
+
+    def has_role(self, **kwargs):
+        """
+        >>> st.has_role(agent='study|学习')
+        :param kwargs:
+        :return:
+        """
+        for k, v in kwargs.items():
+            role_data = self.roles[k]
+            if v not in role_data:
+                return False
+        return True
+
+
+def build_sense_word(word:Dict[Text, Any]) -> SenseWord:
+    s_word = SenseWord(definition=word['Def'],
+                       en_grammar=word['en_grammar'],
+                       zh_grammar=word['ch_grammar'],
+                       en_word=word['en_word'],
+                       zh_word=word['ch_word'],
+                       id=word['No'],
+                       syns=[SenseSyn(row['id'], row['text']) for row in word['syn']]
+                       )
+    return s_word
+
+def build_node(tree_data, inherits, roles):
+    role=tree_data['role']
+    node=SenseNode(role=tree_data['role'] if role!='None' else '',
+                   name=tree_data['name'],
+                   children=[build_node(c, inherits, roles) for c in tree_data['children']] if 'children' in tree_data else []
+                  )
+    if role=='None':
+        inherits.append(node)
+    else:
+        if role in roles:
+            roles[role].add(node.name)
+        else:
+            roles[role]={node.name}
+    return node
+
+def build_trees(json_trees:List[Dict[Text, Any]]) -> List[SenseTree]:
+    trees=[]
+    for data in json_trees:
+        logger.debug(f"data keys {list(data.keys())}")
+        tree_data = data['tree']
+        word_data=data['word']
+
+        inherits = []
+        roles = {}
+        root = build_node(tree_data, inherits, roles)
+        word=build_sense_word(word_data)
+        s_tree = SenseTree(root=root, inherits=inherits, roles=roles, word=word)
+        trees.append(s_tree)
+
+    return trees
+
 
 def vis_trees(trees:List[Dict[Text, Any]], word_info=True):
     from anytree.importer import DictImporter

@@ -97,6 +97,10 @@ loggers:
     level: INFO
     handlers: [console]
     propagate: no
+  sagas.zh.hownet_helper:
+    level: INFO
+    handlers: [console]
+    propagate: no
 
 root:
   level: INFO
