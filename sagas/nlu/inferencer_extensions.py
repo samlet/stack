@@ -39,6 +39,7 @@ def registry_infer_exts():
     extensions.register_parts('*',{
         'advmod': lambda c,t: (4, "extract_for('word', 'advmod')"),
         'det': lambda c,t: (4, "extract_for('plain', 'det')"),
+        'obl': lambda c, t: (4, "extract_for('chunk', 'verb:obl')"),
         'cop': lambda c,t: (2, "cop='c_aux'"),
         'head_amod': lambda c,t: (2, "head_amod=interr('what')"),
 
