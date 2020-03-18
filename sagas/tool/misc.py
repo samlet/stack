@@ -224,7 +224,7 @@ def translit_chunk(chunk, lang):
     return ''
 
 def proc_word(type_name, word, head, lang):
-    from sagas.nlu.google_translator import translate
+    from sagas.nlu.translator import translate
     res, _ = translate(word, source=lang, target=target_lang(lang),
                        trans_verbose=False)
     target=''
@@ -237,7 +237,7 @@ def proc_word(type_name, word, head, lang):
     return [result]
 
 def proc_children_column(partcol, textcol, lang, indent='\t'):
-    from sagas.nlu.google_translator import translate
+    from sagas.nlu.translator import translate
     result=[]
     # print(partcol, textcol)
     for id, (name, r) in enumerate(zip(partcol, textcol)):
@@ -363,7 +363,7 @@ class MiscTool(object):
 
     def trans_google(self, ctx:TransContext):
         from tqdm import tqdm
-        from sagas.nlu.google_translator import translate
+        from sagas.nlu.translator import translate
         import time
         import random
         source, targets, text, says=ctx.pars()

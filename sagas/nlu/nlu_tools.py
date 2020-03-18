@@ -187,7 +187,7 @@ class NluTools(object):
         :return:
         """
         from sagas.nlu.google_translator import get_word_map
-        from sagas.nlu.google_translator import translate
+        from sagas.nlu.translator import translate
         from sagas.tool.misc import color_print
 
         r, tracker = translate(text, source=source, target=target, options={'get_pronounce'})

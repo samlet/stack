@@ -337,13 +337,13 @@ class LangDialect(object):
         self.ana_s = lambda sents: self.ana(sents, trans_it=False)
 
     def tra(self, sents):
-        from sagas.nlu.google_translator import translate
+        from sagas.nlu.translator import translate
         r,_ = translate(sents, source='en', target=self.lang)
         print(r)
         return r
 
     def trans_to(self, sents, targets):
-        from sagas.nlu.google_translator import translate
+        from sagas.nlu.translator import translate
         rs=[]
         for target in targets:
             r,_ = translate(sents, source=self.lang, target=target)

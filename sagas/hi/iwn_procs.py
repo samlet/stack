@@ -1,6 +1,6 @@
 from typing import Text, Any, Dict, List, Union
 from sagas.nlu.transliterations import translits
-from sagas.nlu.google_translator import translate, with_words, WordsObserver
+from sagas.nlu.translator import translate, with_words, WordsObserver
 
 tr=lambda w:translits.translit(w, 'hi')
 def trans(w):

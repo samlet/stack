@@ -84,7 +84,7 @@ class NluCli(object):
 
     def get_word_trans(self, word, lang):
         import sagas
-        from sagas.nlu.google_translator import translate, with_words, WordsObserver
+        from sagas.nlu.translator import translate, with_words, WordsObserver
         r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
         if r:
             word_r=r.lower()

@@ -32,6 +32,20 @@ s = pd.Series(np.random.randint(0, 7, size=10))
 s.value_counts()
 # 创建一个Series
 s = pd.Series(['A', 'B', 'C', 'Aaba', 'Baca', np.nan, 'CABA', 'dog', 'cat']) 
+
+# ⊕ [python dataframe pandas drop column using int - Stack Overflow](https://stackoverflow.com/questions/20297317/python-dataframe-pandas-drop-column-using-int)
+
+# You can delete column on i index like this:
+df.drop(df.columns[i], axis=1)
+
+# It could work strange, if you have duplicate names in columns, so to do this you can rename column you want to delete column by new name. Or you can reassign DataFrame like this:
+
+df = df.iloc[:, [j for j, c in enumerate(df.columns) if j != i]]
+
+# Drop multiple columns like this:
+
+cols = [1,2,4,5,12]
+df.drop(df.columns[cols],axis=1,inplace=True)
 ```
 
 ## read

@@ -1,5 +1,5 @@
 import time
-from sagas.nlu.google_translator import translate
+from sagas.nlu.translator import translate
 
 def marks(t):
     if len(t)>0:

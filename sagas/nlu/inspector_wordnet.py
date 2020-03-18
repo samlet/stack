@@ -201,7 +201,7 @@ class WordSpecsInspector(WordInspector):
         return predicate(kind, word, lang, pos) if ws else False
 
     def trans_subs(self, kind:Text, word:Text, lang:Text, pos:Text) -> bool:
-        from sagas.nlu.google_translator import translate, with_words, WordsObserver
+        from sagas.nlu.translator import translate, with_words, WordsObserver
 
         ws = get_word_sets(word, lang, pos)  # ensure synsets existence
         if ws:

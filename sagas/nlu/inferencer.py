@@ -159,7 +159,7 @@ class Inferencer(object):
 
     def proc_word(self, type_name:Text, word:Text, head:Text, index:int, r, lang:Text) -> Dict[Text, Any]:
         from sagas.tool.misc import translit_chunk, display_synsets, target_lang
-        from sagas.nlu.google_translator import translate
+        from sagas.nlu.translator import translate
         res, _ = translate(word, source=lang, target=target_lang(lang),
                            trans_verbose=False)
 
@@ -183,7 +183,7 @@ class Inferencer(object):
 
     # def proc_children_column(partcol, textcol, idxcol, lang):
     def proc_children_column(self, df, lang:Text) -> List[InferPart]:
-        from sagas.nlu.google_translator import translate
+        from sagas.nlu.translator import translate
         from sagas.tool.misc import translit_chunk, display_synsets, target_lang
         result = []
         # for id, (name, r) in enumerate(zip(partcol, textcol)):

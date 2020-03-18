@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-# -*- coding:utf-8 -*-
-
+from typing import Text, Any, Dict, List, Union, Set
 import urllib.request
 import urllib.parse
 import json
@@ -9,7 +7,9 @@ import re
 import time
 import random
 
+from sagas.conf import resource_path
 from sagas.nlu.translator import display_translations
+from sagas.nlu.translator_intf import join_sentence, TransTracker
 
 
 class GoogleTrans(object):
@@ -40,7 +40,7 @@ class GoogleTrans(object):
             "q": ""  # 待翻译的字符串
         }
 
-        with open('token.js', 'r', encoding='utf-8') as f:
+        with open(resource_path('token.js'), 'r', encoding='utf-8') as f:
             self.js_fun = execjs.compile(f.read())
 
     def update_TKK(self):
@@ -61,64 +61,22 @@ class GoogleTrans(object):
         base = base[:-1]
         return base
 
-    def query(self, q, lang_from='', lang_to=''):
-        self.data['q'] = urllib.parse.quote(q)
-        self.data['tk'] = self.js_fun.call('wo', q, self.TKK)
-        if lang_from:
-            self.data['sl'] = lang_from
-        if lang_to:
-            self.data['tl'] = lang_to
+    def execute(self, text: Text, source: Text, target: Text,
+                trans_verbose, options: Set[Text],
+                tracker: TransTracker, process_result) -> Text:
+        self.data['q'] = urllib.parse.quote(text)
+        self.data['tk'] = self.js_fun.call('wo', text, self.TKK)
+        self.data['sl'] = source
+        self.data['tl'] = target
+        meta = {'text': text, 'source': source, 'target': target}
+
         url = self.construct_url()
         req = urllib.request.Request(url=url, headers=self.header)
         response = json.loads(urllib.request.urlopen(req).read().decode("utf-8"))
-        print(response[0][0][0])
-        if response[1] is not None:
-            print('.. translations for word')
-            # print(r[1])
-            display_translations(response[1])
+        # print(response[0][0][0])
+        res = join_sentence(response)
+        process_result(meta, response, trans_verbose, options, tracker)
+        return res
 
-class TransCli(object):
-    def tests(self):
-        """
-        $ ./test_trans_2.py tests
-        :return:
-        """
-        googletrans = GoogleTrans()
-        googletrans.update_TKK()  # 构建完对象以后要同步更新一下TKK值
-        time.sleep(random.uniform(0.05, 0.20))
-        text = 'يىغلىمايۋاتىدۇ'
-        googletrans.query(text, 'ug', 'en')  # 默认的目标语言是英语，如果要翻译到其他语言请自行修改相应参数
 
-        time.sleep(random.uniform(0.05, 0.20))
-
-        # googletrans = GoogleTrans()
-        googletrans.update_TKK()
-        time.sleep(random.uniform(0.05, 0.20))
-        googletrans.query('你好', 'zh', 'en')
-
-    def trans(self, sents, lang):
-        """
-        $ ./test_trans_2.py trans 'Ontem nós fizemos almoço na minha padaria.' pt
-        $ ./test_trans_2.py trans 'يىغلىمايۋاتىدۇ' ug
-
-        :param sents:
-        :param lang:
-        :return:
-        """
-        from urllib.error import URLError
-        for n in range(3):
-            try:
-                googletrans = GoogleTrans()
-                googletrans.update_TKK()
-                # time.sleep(random.uniform(0.05, 0.20))
-                googletrans.query(sents, lang, 'en')
-                break
-            except URLError:
-                print('.. wait to retry')
-                time.sleep(random.uniform(0.05, 0.20))
-                continue
-
-if __name__ == '__main__':
-    import fire
-    fire.Fire(TransCli)
-
+translator_impl=GoogleTrans()

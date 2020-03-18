@@ -1,6 +1,6 @@
 import time
 # from sagas.nlu.nlu_tools import NluTools
-from sagas.nlu.google_translator import translate
+from sagas.nlu.translator import translate
 
 class KoreaProcessor(object):
     def __init__(self):
