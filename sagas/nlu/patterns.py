@@ -1,11 +1,11 @@
-from typing import Text, Any, Dict, List, Union, Tuple
+from typing import Text, Any, Dict, List, Union, Tuple, Optional
 from sagas.nlu.inspector_common import Inspector, Context
 import sagas.tracker_fn as tc
 import logging
 
 logger = logging.getLogger(__name__)
 
-def check_item(feats:Dict[Text,Any], key:Text, el:Any, ctx:Context):
+def check_item(feats:Dict[Text,Any], key:Text, el:Any, ctx:Optional[Context]):
     if key in feats:
         if isinstance(el, list) or isinstance(el, tuple):
             # print(el)

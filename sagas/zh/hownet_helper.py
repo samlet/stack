@@ -63,6 +63,8 @@ class SenseTree:
         :return:
         """
         for k, v in kwargs.items():
+            if k not in self.roles:
+                return False
             role_data = self.roles[k]
             if v not in role_data:
                 return False
