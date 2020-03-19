@@ -1,10 +1,13 @@
 from typing import Text, Any, Dict, List, Union, Set
+
+from cachetools import TTLCache, cached
 from dataclasses import dataclass
+from sagas.tool.servant_delegator import Delegator
 import sagas.tracker_fn as tc
 from pprint import pprint
 import logging
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class SenseSyn:
@@ -108,6 +111,35 @@ def build_trees(json_trees:List[Dict[Text, Any]]) -> List[SenseTree]:
 
     return trees
 
+def get_words(text: Text):
+    from sagas.tool.servant_delegator import Delegator
+    words = Delegator().sense(word=text)
+    return words
+
+
+@cached(cache=TTLCache(maxsize=1024, ttl=600))
+def get_word_sense(text: Text) -> List[SenseWord]:
+    words=get_words(text)
+    return [build_sense_word(item) for item in words]
+
+word_sets=lambda text: [(word.zh_word, word.zh_grammar,
+                              word.en_word, word.en_grammar)
+                             for word in get_word_sense(text)]
+
+@cached(cache={})
+def get_trees(text: Text) -> List[SenseTree]:
+    from OpenHowNet.SememeTreeParser import GenSememeTree
+
+    trees = []
+    # 只需要解析不同的树即可
+    words=get_words(text)
+    uniques = {item['Def']: item['No'] for item in words}
+    unique_rs = [item for item in words if item['No'] in uniques.values()]
+    for item in unique_rs:
+        tree = GenSememeTree(item["Def"], text)
+        trees.append({"word": item, "tree": tree})
+    sts = build_trees(trees)
+    return sts
 
 def vis_trees(trees:List[Dict[Text, Any]], word_info=True):
     from anytree.importer import DictImporter
@@ -154,21 +186,21 @@ def expand_tree(tree, property_name:Text, layer:int, is_root=True):
     return res
 
 class HowNetCli(object):
-    def vis(self, word:Text, word_info:bool=True, format:Text='tree'):
+    def vis(self, word:Text, word_info:bool=True, format:Text='tree', merge:bool=True):
         """
         $ python -m sagas.zh.hownet_helper vis '大学生'
         $ python -m sagas.zh.hownet_helper vis '苹果'
         $ python -m sagas.zh.hownet_helper vis '杯子'
         $ python -m sagas.zh.hownet_helper vis '杯子' False json
+        $ hownet 合作 True tree False  # 因为是按def合并的(所以tree是相同的), 单词属性有所不同
 
         :param word:
         :param format:
         :return:
         """
         # from sagas.zh.hownet_procs import hownet_procs
-        from sagas.tool.servant_delegator import Delegator
         # trees = hownet_procs.build_sememe_trees(word)
-        trees=Delegator().sememes(word=word)
+        trees=Delegator().sememes(word=word, merge=merge)
         if format=='json':
             for tree in trees:
                 if word_info:
@@ -176,6 +208,23 @@ class HowNetCli(object):
                 pprint(tree['tree'])
         else:
             vis_trees(trees, word_info=word_info)
+
+    def sense(self, word:Text, info='raw'):
+        """
+        $ python -m sagas.zh.hownet_helper sense '合作'
+        :param word:
+        :return:
+        """
+        words=Delegator().sense(word=word)
+        pprint(words)
+
+    def word_sets(self, word:Text):
+        """
+        $ python -m sagas.zh.hownet_helper word_sets '合作'
+        :param word:
+        :return:
+        """
+        pprint(word_sets(word))
 
 if __name__ == '__main__':
     import fire

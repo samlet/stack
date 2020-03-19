@@ -8,6 +8,9 @@ class HowNetProcs(object):
         import OpenHowNet
         self.hownet_dict = OpenHowNet.HowNetDict()
 
+    def get_sense(self, word) -> List[Any]:
+        return self.hownet_dict[word]
+
     def build_sememe_trees(self, word, merge=True, K=None) -> List[Dict[Text, Any]]:
         """
         :param word: (str)The target word to be visualized in command line. Notice that single word may correspond to multiple HowNet annotations.

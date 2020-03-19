@@ -6,6 +6,9 @@
     },
     "sememes": {
       "url": "http://localhost:1700/zh/hownet/sememes"
+    },
+    "sense": {
+      "url": "http://localhost:1700/zh/hownet/sense"
     }
   },
   "collect_verbs":true,

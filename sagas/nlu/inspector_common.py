@@ -178,6 +178,11 @@ class Context(cla_meta_intf, object):
             delim=' '
         return [delim.join(c[1]) for c in stems]
 
+    def __str__(self):
+        return f"context for pattern {self.name}, keys: {', '.join(self.tokens.keys())}"
+    def __repr__(self):
+        return self.__str__()
+
 # enable_cache=False
 class Inspector(object):
     @abc.abstractmethod

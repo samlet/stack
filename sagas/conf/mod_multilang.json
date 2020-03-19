@@ -25,6 +25,8 @@
   "af": ["sagas.nlu.rules_lang_spec_af.Rules_af"],
   "lt": ["sagas.nlu.rules_lang_spec_lt.Rules_lt"],
   "no": ["sagas.nlu.rules_lang_spec_no.Rules_no"],
-  "da": ["sagas.nlu.rules_lang_spec_da.Rules_da"]
+  "da": ["sagas.nlu.rules_lang_spec_da.Rules_da"],
+  "sv": ["sagas.nlu.rules_lang_spec_sv.Rules_sv"],
+  "ca": ["sagas.nlu.rules_lang_spec_ca.Rules_ca"]
 }
 

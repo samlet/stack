@@ -152,7 +152,6 @@ alias sja="engine=corenlp python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' 
 
 alias str="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"
 alias sz="python -m sagas.tool.misc trans_clip zh 'en;fr;ja' ja False"
-alias ssv="python -m sagas.tool.misc trans_clip sv 'en;no;ja' ja False"
 alias sv-de="python -m sagas.tool.misc trans_clip sv 'en;no;de' de False"
 # alias sv-de="python -m sagas.tool.misc trans_clip sv 'en;ja;de' de False"
 
@@ -170,7 +169,7 @@ alias snl="python -m sagas.tool.misc trans_clip nl 'en;zh;ja' ja False"
 
 # Norwegian
 alias sno="python -m sagas.tool.misc trans_clip no 'en;ja;de' de False"
-alias ssv="python -m sagas.tool.misc trans_clip sv 'en;ja;de' de False"
+alias ssv="python -m sagas.tool.misc trans_clip sv 'en;zh;ja' en False"
 alias snl+de="python -m sagas.tool.misc trans_clip nl 'en;ja;de' de False"
 
 alias shi="python -m sagas.tool.misc trans_clip hi 'zh-CN;ur;en' hi False"

@@ -16,6 +16,7 @@ from sagas.nlu.inspector_clauses import (
     ClausesInspector as clauses, cla_expr,
     UnderstructureInspector as understructure,
     )
+from sagas.nlu.inspector_inform import InformInspector as inform
 
 from sagas.nlu.parse_client_helper import check_interr
 
