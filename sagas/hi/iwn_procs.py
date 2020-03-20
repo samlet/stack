@@ -10,8 +10,9 @@ def trans(w, pos:Text):
     #     candidates=[w for w in df['word']][:3]
     # else:
     #     candidates=[]
-    candidates=t.observer(WordsObserver).get_candidates(pos)
-    return {'word': r.lower(),
+    obs:WordsObserver=t.observer(WordsObserver)
+    candidates=obs.get_candidates(pos)
+    return {'word': obs.get_axis(r.lower(), pos),
             'candidates':candidates}
 
 def word_map(id:int, all_ws:List[Any], pos:Text) -> Dict[Text,Any]:
