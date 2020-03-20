@@ -14,8 +14,11 @@ def _tags(results: List[Any], data:Dict[Text,Any]):
     all_tags=get_all_tags(results)
     if all_tags:
         from sagas.nlu.sinker_orm import post_sents
+        from sagas.nlu.events import process_tags_data
+
         logger.info(f"tags: {all_tags}")
         post_sents(data['sents'], data['lang'], list(all_tags))
+        process_tags_data(all_tags, results, data)
 
 def _series(results: List[Any], data:Dict[Text,Any]):
     from jsonpath_ng import jsonpath, parse

@@ -15,9 +15,6 @@ class InformInspector(Inspector):
         >>>
         >>> data={'lang': 'pt', "sents": 'A folha tem vinte centímetros.'}
         >>> ctx,pat=next(build_context(data, 'verb', name='_test_', engine='corenlp'))
-        >>> print(ctx.engine)
-        >>>
-        >>> all_of=lambda *arg: all([r[1] for r in arg])
         >>> rs=pat(inform('track'), obj=kindof('unit_of_measurement', 'n'))
         >>> (rs[1], rs[0], rs[3].results)
     """

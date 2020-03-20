@@ -620,6 +620,10 @@ class MiscTool(object):
         engine=cf.engine(source)
         tc.emp('yellow', f".. parse with {engine}: ({text})")
 
+        # events
+        from sagas.nlu.events import init_reps
+        init_reps()
+
         # add at 2019.9.15
         ascii_gs=[]
         if self.enable_ascii_viz:
@@ -672,8 +676,8 @@ class MiscTool(object):
 
         # tools
         tools=NluTools()
-        if cf.is_enabled('print_tree'):
-            tools.main_domains(text, lang=source, engine=engine, print_domains=False)
+        # if cf.is_enabled('print_tree'):  # move to events
+        #     tools.main_domains(text, lang=source, engine=engine, print_domains=False)
 
         # copy to clipboard
         if interact_mode:

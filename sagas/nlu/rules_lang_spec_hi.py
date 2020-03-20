@@ -34,7 +34,7 @@ axis=AxisInspector
 class Rules_hi(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
-        tc.emp('yellow', '.. Rules_hi prepare phrase')
+        tc.emp('yellow', '.. Rules_hi(Hindi, 印地语) prepare phrase')
 
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
@@ -42,6 +42,7 @@ class Rules_hi(LangSpecBase):
         self.collect(pats=[
             # $ shi 'मैं सेब खाता हूं'
             pat(-5, name='behave_fruits').verb(
+                tags('watch'),
                 axis('obj').inherit('khadya phala|edible fruits'),
                 extract_for('word', 'nsubj'),
                 nsubj=agency,

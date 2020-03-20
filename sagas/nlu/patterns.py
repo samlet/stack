@@ -212,7 +212,7 @@ def print_result(rs):
     # from sagas.tool.misc import color_print
 
     print_not_matched=cf.is_enabled('print_not_matched')
-    print_detail=cf.is_enabled('print_detail')
+    # print_detail=cf.is_enabled('print_detail')
 
     # print(f'.. print_not_matched: {print_not_matched}')
     for r in rs:
@@ -241,13 +241,13 @@ def print_result(rs):
 
             # 以前3个元素作为键去重显示
             from sagas.nlu.content_representers import content_represent
-            if not print_detail:
+            # if not print_detail:
                 # color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
                 # tc.emp('cyan', {(r[0], r[1], r[2]): content_represent(r[1], r[3]) for r in results})
-                tc.write({f"{r['inspector']}/{r['provider']}/...":
-                              content_represent(r['provider'], r['value'])
-                          for r in results})
+            tc.write({f"{r['inspector']}/{r['provider']}/...":
+                          content_represent(r['provider'], r['value'])
+                      for r in results})
 
-            else:
-                results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
-                pprint(results)
+            # else:  # move to events module
+            #     results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false
+            #     pprint(results)
