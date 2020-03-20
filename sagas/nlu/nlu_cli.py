@@ -82,17 +82,20 @@ class NluCli(object):
         """
         return get_word_sets(word, lang, pos)
 
-    def get_word_trans(self, word, lang):
+    def get_word_trans(self, word, lang, pos='*'):
         import sagas
         from sagas.nlu.translator import translate, with_words, WordsObserver
         r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
         if r:
             word_r=r.lower()
             tc.emp('cyan', f"1. translate: {word_r}")
-            df=t.observer(WordsObserver).word_trans_df
-            if df is not None:
-                tc.emp('cyan', f"2. candidates:")
-                sagas.print_df(df)
+            obs:WordsObserver=t.observer(WordsObserver)
+            dfs=obs.trans_dfs
+            if dfs:
+                tc.emp('cyan', f"2. candidates: {obs.get_axis(word_r, pos)}")
+                for k,df in dfs.items():
+                    print(f"- pos:{k} -")
+                    sagas.print_df(df)
             else:
                 tc.emp('cyan', f"2. no candidates.")
             return word_r
@@ -106,6 +109,7 @@ class NluCli(object):
         $ python -m sagas.nlu.nlu_cli get_word_def Krieg de
         $ def krieg de
         $ def iste tr v
+        $ def 建筑 zh v
 
         :param word:
         :param lang:
@@ -133,7 +137,7 @@ class NluCli(object):
 
         if lang!='en':
             print(colored('✁ --------------------------', 'red'))
-            word_r=self.get_word_trans(word, lang)
+            word_r=self.get_word_trans(word, lang, pos)
             if word_r:
                 tc.emp('cyan', f"3. chains for {word_r}:")
                 self.get_chains(word_r, 'en', pos=pos)

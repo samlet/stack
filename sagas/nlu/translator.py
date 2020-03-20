@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List, Union, Set
+from typing import Text, Any, Dict, List, Union, Set, Optional
 
 import logging
 import time
@@ -49,7 +49,7 @@ class WordsObserver(object):
             self.word_trans_df=translations_df(r[1])
             self.fill_trans_map(r[1])
 
-    def get_candidates(self, pos=None) -> List[Text]:
+    def get_candidates(self, pos:Optional[Text]=None) -> List[Text]:
         pos = norm_pos(pos)
         if pos is None:
             if self.word_trans_df is not None:
@@ -59,6 +59,12 @@ class WordsObserver(object):
                 df=self.trans_dfs[pos]
                 return [w for w in df['word']]
         return []
+
+    def get_axis(self, default:Text, pos:Optional[Text]=None):
+        candidates=self.get_candidates(pos)
+        if candidates and candidates[0]!=default:
+            return f"{candidates[0]}/{default}"
+        return default
 
     candidates = property(get_candidates)
 

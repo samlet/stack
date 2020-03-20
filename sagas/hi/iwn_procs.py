@@ -3,20 +3,21 @@ from sagas.nlu.transliterations import translits
 from sagas.nlu.translator import translate, with_words, WordsObserver
 
 tr=lambda w:translits.translit(w, 'hi')
-def trans(w):
+def trans(w, pos:Text):
     r,t=translate(w, source='hi', target='en', options={'get_pronounce'}, tracker=with_words())
-    df=t.observer(WordsObserver).word_trans_df
-    if df is not None:
-        candidates=[w for w in df['word']][:3]
-    else:
-        candidates=[]
+    # df=t.observer(WordsObserver).word_trans_df
+    # if df is not None:
+    #     candidates=[w for w in df['word']][:3]
+    # else:
+    #     candidates=[]
+    candidates=t.observer(WordsObserver).get_candidates(pos)
     return {'word': r.lower(),
             'candidates':candidates}
 
-def word_map(id:int, all_ws:List[Any]) -> Dict[Text,Any]:
+def word_map(id:int, all_ws:List[Any], pos:Text) -> Dict[Text,Any]:
     return {tr(w.head_word()):{'index':w.synset_id(),
                                'head':w.head_word(),
-                               'trans':trans(w.head_word())} for w in all_ws if w.synset_id()==id}
+                               'trans':trans(w.head_word(), pos)} for w in all_ws if w.synset_id()==id}
 
 def load_hypernymy(file_path):
     d = {}
@@ -48,7 +49,7 @@ class IwnProcs(object):
         verb_data_path = f'{IWN_DATA_PATH}/synset_relations/hypernymy.verb'
         self.all_hypers={PosTag.NOUN.value: load_hypernymy(noun_data_path),
                          PosTag.VERB.value: load_hypernymy(verb_data_path),
-                     }
+                         }
         self.all_ws={PosTag.NOUN.value: self.iwn.all_synsets(pos=PosTag.NOUN),
                      PosTag.VERB.value: self.iwn.all_synsets(pos=PosTag.VERB),
                      }
@@ -65,7 +66,7 @@ class IwnProcs(object):
             results = []
             ids = [syn.synset_id() for syn in self.iwn.synsets(word)]
             self.get_all_hypers(ids, results, pos=pos)
-            return [word_map(sid, self.all_ws[pos]) for sid in results]
+            return [word_map(sid, self.all_ws[pos], pos) for sid in results]
         except KeyError:
             return []
 
@@ -78,7 +79,7 @@ class IwnProcs(object):
         """
         results = []
         self.get_all_hypers(ids if isinstance(ids, list) else [ids], results, pos=pos)
-        return [word_map(sid, self.all_ws[pos]) for sid in results]
+        return [word_map(sid, self.all_ws[pos], pos) for sid in results]
 
 iwn_procs=IwnProcs()
 
@@ -87,6 +88,7 @@ class IwnCli(object):
         """
         $ python -m sagas.hi.iwn_procs hypers 'सेब'
 
+        :param pos:
         :param word:
         :return:
         """
