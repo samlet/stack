@@ -2,6 +2,9 @@ from typing import Text, Any, Dict, List, Union
 from sagas.nlu.transliterations import translits
 from sagas.nlu.translator import translate, with_words, WordsObserver
 
+import logging
+logger = logging.getLogger(__name__)
+
 tr=lambda w:translits.translit(w, 'hi')
 def trans(w, pos:Text):
     r,t=translate(w, source='hi', target='en', options={'get_pronounce'}, tracker=with_words())
@@ -16,9 +19,14 @@ def trans(w, pos:Text):
             'candidates':candidates}
 
 def word_map(id:int, all_ws:List[Any], pos:Text) -> Dict[Text,Any]:
-    return {tr(w.head_word()):{'index':w.synset_id(),
-                               'head':w.head_word(),
-                               'trans':trans(w.head_word(), pos)} for w in all_ws if w.synset_id()==id}
+    w=next((w for w in all_ws if w.synset_id()==id), None)
+    if w:
+        return {'synset':tr(w.head_word()),
+                'index': w.synset_id(),
+                'head': w.head_word(),
+                'trans': trans(w.head_word(), pos)}
+    logger.warning(f"absent synset for id {id}, with pos {pos}")
+    return {}
 
 def load_hypernymy(file_path):
     d = {}

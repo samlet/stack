@@ -6,6 +6,7 @@ import random
 from sagas.conf.conf import cf
 from sagas.nlu.translator_intf import join_sentence, TransTracker
 import sagas.tracker_fn as tc
+from sagas.nlu.utils import norm_pos
 
 logger = logging.getLogger(__name__)
 
@@ -27,12 +28,6 @@ def display_translations(trans):
     for idx, el in enumerate(trans):
         tc.emp('cyan', '⊕', el[0])
         tc.emp('yellow', tabulate(translations_df(trans, idx), headers='keys', tablefmt='psql'))
-
-def norm_pos(pos:Text):
-    pos_cuts={'v':'verb', 'n':'noun', 'a':'adjective'}
-    if pos is not None and len(pos)==1:
-        return None if pos not in pos_cuts else pos_cuts[pos]
-    return pos
 
 class WordsObserver(object):
 

@@ -13,7 +13,7 @@ import logging
 
 from sagas.nlu.utils import word_values
 
-logger = logging.getLogger('inspector')
+logger = logging.getLogger(__name__)
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 locale_mappings={'en':'en_GB', 'ru':'ru_Nothing',
@@ -392,6 +392,46 @@ class EntityInspector(Inspector):
 
     def __str__(self):
         return "{}('{}')".format(self.name(), self.dim)
+
+
+class GeneralInspector(Inspector):
+    """
+    >>> gi=GeneralInspector
+    >>> gi('obj').axis('khadya phala|edible fruits')
+    """
+    def __init__(self, arg=''):
+        self.arg = arg
+        self.calls = []
+
+    def name(self):
+        return "general"
+
+    def run(self, key, ctx: Context):
+        results = []
+        for call in self.calls:
+            if call[0] in self.fn_map:
+                r = self.fn_map[call[0]](self.arg, ctx, *call[1], **call[2])
+                logger.debug(f"fn {call[0]}({self.arg}, {call[1]}) result: {r}")
+                results.append(r)
+            else:
+                raise ValueError(f"Cannot find fn {call[0]}")
+        return all(results)
+
+    @property
+    def fn_map(self):
+        return {}
+
+    def __getattr__(self, method):
+        def serv(*args, **kwargs):
+            print(f"{method}: {args}, {kwargs}")
+            self.calls.append((method, args, kwargs))
+            return self
+
+        return serv
+
+    def __str__(self):
+        return f"ins_{self.name()}({self.arg})"
+
 
 class Inspectors(InspectorFixture):
     def procs_common(self, data, print_format='table', engine='corenlp'):

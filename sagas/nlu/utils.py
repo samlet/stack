@@ -108,3 +108,12 @@ def check_chain(kind:Text, word:Text, pos:Text, lang:Text) -> bool:
         return predicate(kind, word, lang, pos)
     return predicate(kind, r, 'en', pos)
 
+def norm_pos(pos:Text):
+    pos_cuts={'v':'verb', 'n':'noun', 'a':'adjective'}
+    if pos is None:
+        return None
+    if len(pos)==1:
+        return None if pos not in pos_cuts else pos_cuts[pos]
+    elif pos.startswith('c_'):
+        return pos[2:]
+    return pos

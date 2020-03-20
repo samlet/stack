@@ -1,6 +1,10 @@
-from sagas.nlu.inspectors import NegativeWordInspector as negative
-from sagas.nlu.inspectors import DateInspector as dateins
-from sagas.nlu.inspectors import EntityInspector as entins
+from sagas.nlu.inspectors import (
+    NegativeWordInspector as negative,
+    GeneralInspector,
+    DateInspector as dateins,
+    EntityInspector as entins,
+)
+
 from sagas.nlu.inspector_wordnet import (
     PredicateWordInspector as kindof,
     VerbInspector as behaveof,
