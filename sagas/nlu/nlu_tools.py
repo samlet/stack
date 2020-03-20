@@ -47,6 +47,7 @@ def to_str(obj):
     return obj
 
 def treeing(ds):
+    """ 将解析树转化为anytree形式, 以便遍历或可视化 """
     child_tags=[k for k,v in ds.items() if isinstance(v, list) and k not in ('entity', 'segments')]
     data={'children':[]}
     for k,v in ds.items():
@@ -58,6 +59,7 @@ def treeing(ds):
     return data
 
 def vis_tree(ds:Dict[Text, Any]):
+    """ 可视化domains """
     from anytree.importer import DictImporter
     from anytree import RenderTree
 
@@ -66,7 +68,7 @@ def vis_tree(ds:Dict[Text, Any]):
     tree_root = importer.import_(data)
     tree = RenderTree(tree_root)
     for pre, fill, node in tree:
-        print(f"{pre}{node.dependency_relation}: {node.lemma}({node.upos.lower()})")
+        print(f"{pre}{node.dependency_relation}: {node.lemma}({node.upos.lower()}, {node.index})")
 
 class NluTools(object):
     def say(self, text, lang='en'):
@@ -263,7 +265,7 @@ class NluTools(object):
             for pat in pats:
                 self.check_rule(sents, source, pat)
 
-    def main_domains(self, sents, lang, engine=None):
+    def main_domains(self, sents, lang, engine=None, print_domains=True):
         """
         $ nlu main_domains '彼のパソコンは便利じゃない。' ja knp
         $ nlu main_domains 'これを作ってあげました。' ja
@@ -277,11 +279,12 @@ class NluTools(object):
         from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
         # get_main_domains('彼のパソコンは便利じゃない。', 'ja', 'knp')
         domain, domains = get_main_domains(sents, lang, engine or cf.engine(lang))
-        print('domain type:', domain)
-        pprint(domains)
+        if print_domains:
+            print('domain type:', domain)
+            pprint(domains)
 
         if domain != 'predicts':
-            tc.emp('cyan', f"✁ tree vis. {'-' * 25}")
+            tc.emp('cyan', f"✁ tree vis {domain}. {'-' * 25}")
             for ds in domains:
                     vis_tree(ds)
 

@@ -23,6 +23,7 @@
   "print_not_matched":false,
   "print_inspector_result":true,
   "print_detail":false,
+  "print_tree":false,
   "assist_lang":"fr",
   "default_word_sets_langs":["en", "zh", "ja", "fr", "de", "id", "nl", "he"],
   "mongo":"mongodb://localhost/langs",

@@ -601,6 +601,7 @@ class MiscTool(object):
         """
         import clipboard
         from sagas.nlu.nlu_cli import NluCli
+        from sagas.nlu.nlu_tools import NluTools
 
         ascii_incompatibles=['zh', 'ja', 'ko', 'ar', 'fa']
 
@@ -618,6 +619,7 @@ class MiscTool(object):
         text=fix_sents(text, source)
         engine=cf.engine(source)
         tc.emp('yellow', f".. parse with {engine}: ({text})")
+
         # add at 2019.9.15
         ascii_gs=[]
         if self.enable_ascii_viz:
@@ -668,6 +670,11 @@ class MiscTool(object):
         from sagas.nlu.inferencer import do_infers
         cli_cmd, pats=do_infers(text, source)
 
+        # tools
+        tools=NluTools()
+        if cf.is_enabled('print_tree'):
+            tools.main_domains(text, lang=source, engine=engine, print_domains=False)
+
         # copy to clipboard
         if interact_mode:
             result = result + '\n\t'
@@ -685,8 +692,7 @@ class MiscTool(object):
             clipboard.copy(result)
 
         if interact_mode and says is not None:
-            from sagas.nlu.nlu_tools import NluTools
-            NluTools().say(ctx.sents_map[says], says)
+            tools.say(ctx.sents_map[says], says)
 
     def verb_domains(self, sents, lang='en', engine=None):
         """
