@@ -1,6 +1,7 @@
 from typing import Text, Any, Dict, List, Set
 from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.registries import registry_sinkers, named_exprs
+from sagas.conf.conf import cf
 import logging
 
 logger = logging.getLogger(__name__)
@@ -71,7 +72,12 @@ def _slots(results: List[Any], data:Dict[Text,Any]):
             for driver in drivers:
                 driver_fire[driver](bucket, value_map)
 
-registry_sinkers(_tags, _series, _slots)
+def _dev_info(results: List[Any], data:Dict[Text,Any]):
+    from pprint import pprint
+    if cf.is_enabled('print_detail'):
+        pprint(results)
+
+registry_sinkers(_tags, _series, _slots, _dev_info)
 
 class TagsInspector(Inspector):
     """

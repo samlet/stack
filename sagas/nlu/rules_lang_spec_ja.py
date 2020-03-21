@@ -64,6 +64,13 @@ class Rules_ja(LangSpecBase):
                                           extract_for('number', 'obl'),
                                           extract_for('plain', 'nsubj'),
                                           behaveof('die', 'v'), nsubj=agency),
+            # $ sja '僕は君を探し始めたよ。'
+            pat(5, name='behave_search').verb(tags('watch'),
+                                              extract_for('word', 'nsubj'),
+                                              extract_for('word', 'obj'),
+                                              behaveof('search', 'v'),
+                                              nsubj=agency,
+                                              obj='c_pron'),
         ])
 
     def predicate_rules(self):
