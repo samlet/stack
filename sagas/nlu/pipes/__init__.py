@@ -1,6 +1,30 @@
+from typing import Text, Any, Dict, List, Union
 from rx import Observable
-
+from dataclasses import dataclass
 from sagas.util.collection_util import to_obj
+import rx
+from rx import operators as ops
+from sagas.util.collection_util import wrap
+
+@dataclass
+class pred_cond:
+    part: str
+    cond: Union[Text, List[Text]]
+
+def filter_path(*cands):
+    return rx.pipe(
+        ops.filter(lambda t: t.path in cands),)
+
+def filter_pos(pos_list:List[Text]):
+    return rx.pipe(
+        ops.filter(lambda t: t.upos.lower() in pos_list),
+    )
+
+def to_token():
+    return rx.pipe(
+        ops.map(lambda t: wrap(word=f"{t.text}/{t.lemma}",
+                               path=t.path,
+                               pos=t.upos.lower())), )
 
 def flat_table(ds, parent, table_rs, is_root=True):
     child_tags=[k for k,v in ds.items() if isinstance(v, list) and k not in ('entity', 'segments')]
@@ -29,4 +53,8 @@ def get_source(sents, lang, domain_type=None)-> Observable:
     for ds in domains:
         flat_table(ds, '', table_rs)
     return rx.of(*table_rs)
+
+
+# __all__=['helpers']
+from . import pos, collect, interrogative
 
