@@ -29,8 +29,8 @@ def to_token():
                                path=t.path,
                                pos=t.upos.lower())), )
 
-collect = signal('collect')
-@collect.connect
+collect_sig = signal('collect')
+@collect_sig.connect
 def collect_pos(sender, **kwargs):
     results=[]
     source = rx.of(*kwargs['rs'])
@@ -41,7 +41,7 @@ def collect_pos(sender, **kwargs):
         to_token(),
     ).subscribe(
         on_next=lambda value: results.append(value),
-        on_error=lambda e: print(e),
+        on_error=lambda e: logger.error(e),
         on_completed=lambda: print("done."),
     )
     return results
@@ -60,7 +60,7 @@ def pred_interr(cand, lang):
 @dataclass
 class pred_cond:
     part: str
-    cond: str
+    cond: Union[Text, List[Text]]
 
 interr_sig=signal('interr')
 @interr_sig.connect
@@ -80,8 +80,28 @@ def interr_proc(sender, **kwargs):
         to_token(),
     ).subscribe(
         on_next=lambda value: results.append({'interr':cond.cond, **value}),
-        on_error=lambda e: print(e),
+        on_error=lambda e: logger.error(e),
         on_completed=lambda: print('done.'),
+    )
+
+    return results
+
+pos_sig=signal('pos')
+@pos_sig.connect
+def pos_proc(sender, **kwargs):
+    results=[]
+
+    source = rx.of(*kwargs['rs'])
+    cond:pred_cond=kwargs['data']
+    logger.debug(f"pred pos: {cond}")
+
+    source.pipe(
+        filter_path(cond.part),
+        ops.filter(lambda t: t.upos.lower() in cond.cond),
+        to_token(),
+    ).subscribe(
+        on_next=lambda value: results.append({**value}),
+        on_error=lambda e: logger.error(e),
     )
 
     return results
@@ -92,6 +112,9 @@ class PipesInspector(Inspector):
     Pipes inspector
     Instances: pipes(collect=['verb']),
         pipes(interr=pred_cond('/conj/cc', 'but')),
+        pipes(pos=pred_cond('/conj', 'adj')),
+    Examples:
+        $ shu 'A magas tanár nem angol, hanem magyar.'
     """
     def __init__(self, **kwargs):
         self.parameters=kwargs

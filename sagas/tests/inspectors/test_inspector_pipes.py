@@ -40,7 +40,9 @@ def test_pipes_interr(sents, lang):
     data = {'lang': lang, "sents": sents}
     ctx, pat = next(build_context(data, 'cop', name='_test_'))
 
-    rs=pat(pipes(interr=pred_cond('/conj/cc', 'but')))
+    rs=pat(pipes(interr=pred_cond('/conj/cc', 'but')),
+           pipes(pos=pred_cond('/conj', ['adj'])),
+           )
     pprint((rs[1], rs[0], rs[3].results))
     assert all_of(rs)
 

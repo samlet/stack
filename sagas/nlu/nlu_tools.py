@@ -68,7 +68,8 @@ def vis_tree(ds:Dict[Text, Any]):
     tree_root = importer.import_(data)
     tree = RenderTree(tree_root)
     for pre, fill, node in tree:
-        print(f"{pre}{node.dependency_relation}: {node.lemma}({node.upos.lower()}, {node.index})")
+        print(f"{pre}{node.dependency_relation}: "
+              f"{node.text}({node.lemma}, {node.upos.lower()}, {node.index})")
 
 class NluTools(object):
     def say(self, text, lang='en'):
