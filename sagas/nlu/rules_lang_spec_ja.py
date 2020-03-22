@@ -202,6 +202,10 @@ class Rules_ja(LangSpecBase):
             pat(5, name='predict_write').verb(specsof('*', 'write'),
                                               understructure('ニ'),
                                               ニ=kindof('back', '*')),
+            # $ sj '私は去年、大学を卒業しました。'
+            pat(5, name='predict_graduation').verb(extract_for('plain', 'ガ'),
+                                                   specsof('*', 'graduation'),
+                                                   ヲ=kindof('educational_institution', 'n')),
 
         ])
 

@@ -50,11 +50,11 @@ class PredictsInspector(Inspector):
     # $ nluc en 'Giving alms is a good deed.' aux
     # $ se 'Giving alms is a good deed.'
     >>> pat(5, name='desc_subj_good').verb(predict_aux(
-            ud.__cat('be') >> [ud.csubj('give'), ud.amod_cat('good')])),
+    >>>        ud.__cat('be') >> [ud.csubj('give'), ud.amod_cat('good')])),
 
     # $ se 'what will be the weather in three days?'
     >>> pat(5, name='query_weather').root(predict_aux(
-            ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')])),
+    >>>        ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')])),
     """
     def __init__(self, domain, checker):
         self.domain=domain if domain.endswith('_domains') else domain+'_domains'

@@ -216,7 +216,7 @@ class Inferencer(object):
         # print(f"{el.indicator} {el.word}: {el.spec}")
         if el.indicator == '[verb]':
             pats.append((3, f"behaveof('{el.spec}', 'v')"))
-        elif el.indicator == '[aux]':
+        elif el.indicator in ('[aux]', '[subj]'):
             # pats.append((3, f"behaveof('{el.spec}', '*')"))
             pass
         elif el.indicator == '[root]':

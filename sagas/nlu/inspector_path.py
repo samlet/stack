@@ -19,9 +19,9 @@ class PathInspector(Inspector):
     """
     >>> pat(5, name='behave_media').verb(pred_any_path('xcomp/obj','sound/perception', 'n')),
     >>> pat(5, name='pred_people').root(interr_root('who'),
-                                            any_path('acl/amod', 'first', 'a'),
-                                            any_path('acl/nmod', 'organization', 'n'),
-                                            acl=kindof('people', 'n')),
+    >>>                                 any_path('acl/amod', 'first', 'a'),
+    >>>                                 any_path('acl/nmod', 'organization', 'n'),
+    >>>                                 acl=kindof('people', 'n')),
     """
     def __init__(self, path, kind, pos='*', domains='verb', engine=None, match_method='any'):
         self.paths=path if isinstance(path, list) else [path]

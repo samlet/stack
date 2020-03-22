@@ -18,7 +18,9 @@ def build_meta(r, data):
 
     type_name = r['type']
     common = {'lemma': r['lemma'], 'word': r['word'], 'index': r['index'],
-              'stems': r['stems']}
+              'stems': r['stems'],
+              'domain_type': type_name,
+              }
     # if 'engine' not in data:
     #     data['engine']=cf.engine(data['lang'])
 

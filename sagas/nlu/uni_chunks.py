@@ -1,5 +1,9 @@
+from typing import Text, Any, Dict, List, Union
 from sagas.nlu.inspector_path import normal_path
 from jsonpath_ng import jsonpath, parse
+
+from sagas.nlu.uni_intf import SentenceIntf, WordIntf
+
 
 def index_for_path(path):
     prefix = '$.'
@@ -9,7 +13,7 @@ def index_for_path(path):
     return f"{prefix}{parts_str}{suffix}"
 
 
-def get_index_with(chunks, domain_name, expr):
+def get_index_with(chunks, domain_name:Text, expr:Text):
     parser = parse(index_for_path(expr))
     # chunk=chunks['verb_domains'][0]
     for chunk in chunks[domain_name]:
@@ -20,14 +24,14 @@ def get_index_with(chunks, domain_name, expr):
     return None
 
 
-def it_children_cl(sent, word, rs, clo):
+def it_children_cl(sent:SentenceIntf, word:WordIntf, rs:List, clo):
     equals = lambda a, b: str(a) == str(b)
     for c in filter(lambda w: equals(w.governor, word.index), sent.words):
         rs.append((c.index, clo(c)))
         it_children_cl(sent, c, rs, clo)
 
 
-def get_children_cl(sent, word, clo):
+def get_children_cl(sent:SentenceIntf, word:WordIntf, clo) -> List[Any]:
     rs = []
     it_children_cl(sent, word, rs, clo)
     rs.append((word.index, clo(word)))
@@ -37,7 +41,7 @@ def get_children_cl(sent, word, clo):
     return result
 
 
-def get_chunk(chunks, domain_name, expr, clo=None):
+def get_chunk(chunks:Dict[Text, Any], domain_name:Text, expr:Text, clo=None):
     """
     子句复合成份提取
     See also: procs-parse-free.ipynb

@@ -28,7 +28,7 @@ class Signals(object):
         import fnmatch
         results=[]
 
-        def proc_sig(sig):
+        def proc_sig(sig:NamedSignal):
             result = sig.send(sender, **kwargs)
             results.extend([{'name':fn.__name__, 'result':r} for fn, r in result])
 

@@ -158,7 +158,7 @@ def rs_represent(rs:List[Any], data:Dict[Text, Any], return_df=False):
         elif type_name == 'subj_domains':
             theme = '[subj]'
             tc.info(serial_numbers[serial], theme, r['lemma'], r['rel'], '☇',
-                  "%s(%s)" % (r['head'], ', '.join(r['head_feats'])))
+                  f"{r['head']}")
             # verb_patterns(r['domains'])
             # meta = {'pos': r['head_pos'], 'head': r['head'], **common, **data}
             subj_patterns(meta, r['domains'])
@@ -232,6 +232,7 @@ def proc_word(type_name, word, head, lang):
         res_t, _ = translate(head, source=lang, target=target_lang(lang),
                            trans_verbose=False, options={'disable_correct'})
         target=f" ⊙︿⊙ {res_t}({head}{translit_chunk(head, lang)})"
+        # target = f" ⊙︿⊙ {res_t}({head})"
     result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
     tc.emp('magenta', result)
     return [result]

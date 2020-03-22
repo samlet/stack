@@ -42,6 +42,7 @@ class Context(cla_meta_intf, object):
         self.meta=meta
         self.name=name
         self.domains=domains
+        self.domain_type=meta['domain_type']
 
         # self.chunks = {x[0]: x[4] for x in domains}
         self._chunks = [Chunk(x[0], x[4]) for x in domains]
