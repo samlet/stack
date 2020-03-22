@@ -5,8 +5,9 @@ from sagas.nlu.inspector_common import Context, Inspector
 from blinker import NamedSignal, signal
 import logging
 
+from sagas.nlu.pipes import flat_table
 from sagas.util.collection_util import wrap
-from sagas.nlu.pipes import *
+# from sagas.nlu.pipes import *
 
 logger = logging.getLogger(__name__)
 
