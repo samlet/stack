@@ -6,6 +6,8 @@ import rx
 from rx import operators as ops
 from dataclasses import dataclass
 from sagas.util.collection_util import to_obj
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -14,9 +16,9 @@ class token_data:
     pos: str
     path: str
 
-def filter_pos(pos):
+def filter_pos(pos_list:List[Text]):
     return rx.pipe(
-        ops.filter(lambda t: t.upos.lower()==pos),
+        ops.filter(lambda t: t.upos.lower() in pos_list),
     )
 def to_token():
     return rx.pipe(
@@ -26,16 +28,17 @@ def to_token():
 
 collect = signal('collect')
 @collect.connect
-def collect_verb(sender, **kwargs):
+def collect_pos(sender, **kwargs):
     results=[]
     source = rx.of(*kwargs['rs'])
+    pos_list:List[Text]=kwargs['data']
     source.pipe(
-        filter_pos('verb'),
+        filter_pos(pos_list),
         to_token(),
     ).subscribe(
         on_next=lambda value: results.append(value),
         on_error=lambda e: print(e),
-        on_completed=lambda: print("Process done!"),
+        on_completed=lambda: print("done."),
     )
     return results
 
@@ -54,11 +57,11 @@ def flat_table(ds, parent, table_rs):
 class PipesInspector(Inspector):
     """
     Pipes inspector
-    Instances: pipes('collect'),
+    Instances: pipes(collect=['verb']),
     """
-    def __init__(self, *args):
-        self.sig_names=args
-        self.sigs=[signal(arg) for arg in args]
+    def __init__(self, **kwargs):
+        self.parameters=kwargs
+        self.sigs_conf=[(signal(sig), paras) for sig,paras in kwargs.items()]
 
     def name(self):
         return "pipes"
@@ -80,7 +83,12 @@ class PipesInspector(Inspector):
         :param results:
         :return:
         """
-
+        for result in results:
+            logger.debug(result)
+            ctx.add_result(self.name(),
+                           provider=result['sig'],
+                           part_name=result['name'],
+                           val=result['result'])
         return True
 
     def run(self, key, ctx:Context):
@@ -92,13 +100,16 @@ class PipesInspector(Inspector):
             flat_table(ds, '', table_rs)
 
         results = []
-        for sig in self.sigs:
-            result = sig.send(self.name(), rs=table_rs)
-            results.extend([{'name': fn.__name__, 'result': r} for fn, r in result])
-
-        return self.process_result(ctx, results)
+        for sig, paras in self.sigs_conf:
+            result = sig.send(self.name(), rs=table_rs, data=paras)
+            if result:
+                results.extend([{'name': fn.__name__, 'sig':sig.name, 'result': r} for fn, r in result])
+        if results:
+            return self.process_result(ctx, results)
+        else:
+            return False
 
     def __str__(self):
-        return f"ins_{self.name()}({self.sig_names})"
+        return f"ins_{self.name()}({self.parameters})"
 
 

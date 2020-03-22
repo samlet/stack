@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union
 
+from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.uni_viz import EnhancedViz
 from sagas.nlu.corenlp_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks, display_synsets, proc_word, proc_children_column, trunc_cols
@@ -11,7 +12,8 @@ serial_numbers='❶❷❸❹❺❻❼❽❾❿'
 def list_synsets(r:Dict[Text, Any], lang:Text, collect=False):
     # create a meta structure
     common = {'lemma': r['lemma'], 'stems': r['stems']}
-    meta = {'rel': r['rel'], 'lang': lang, **common}
+    # meta = {'rel': r['rel'], 'lang': lang, **common}
+    meta=build_meta(r, {'lang': lang})
     if 'head' in r:
         meta['head'] = r['head']
     return display_synsets(r['type'], meta, r, lang, collect=collect)
