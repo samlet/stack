@@ -50,7 +50,18 @@ interrogative_maps={
     'no': {
         'when': ['når'],
     },
+    'hu': {
+        'but': ['hanem'],
+    },
 }
+
+
+def trans_val(cnt, lang):
+    from sagas.nlu.transliterations import translits
+    if lang in translit_langs:
+        # index 0 is word, 1 is lemma
+        return translits.translit(cnt.split('/')[0], lang)
+    return cnt.split('/')[-1].lower()
 
 def get_interrogative(word:Text, lang:Text):
     """
@@ -59,6 +70,7 @@ def get_interrogative(word:Text, lang:Text):
     :param lang:
     :return:
     """
+    word=word.split('/')[-1].lower()
     if lang in interrogative_maps:
         data_map = interrogative_maps[lang]
         for k,v in data_map.items():

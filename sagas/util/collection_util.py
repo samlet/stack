@@ -18,3 +18,7 @@ def to_obj(m):
     d = AttrDict()
     d.update(m)
     return d
+
+def wrap(**kwargs):
+    return AttrDict(**kwargs)
+

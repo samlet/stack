@@ -27,3 +27,20 @@ def test_pipes(sents, lang):
     pprint((rs[1], rs[0], rs[3].results))
     assert all_of(rs)
 
+@pytest.mark.parametrize(
+    "sents, lang",
+    [
+        ('A magas tanár nem angol, hanem magyar.', 'hu'),
+    ],
+)
+def test_pipes_interr(sents, lang):
+    inspectors.logger.setLevel(logging.DEBUG)
+    inspector_pipes.logger.setLevel(logging.DEBUG)
+
+    data = {'lang': lang, "sents": sents}
+    ctx, pat = next(build_context(data, 'cop', name='_test_'))
+
+    rs=pat(pipes(interr=pred_cond('/conj/cc', 'but')))
+    pprint((rs[1], rs[0], rs[3].results))
+    assert all_of(rs)
+

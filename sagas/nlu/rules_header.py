@@ -22,7 +22,7 @@ from sagas.nlu.inspector_clauses import (
     )
 from sagas.nlu.inspector_inform import InformInspector as inform
 from sagas.nlu.inspector_sense import SenseInspector as sense
-from sagas.nlu.inspector_pipes import PipesInspector as pipes
+from sagas.nlu.inspector_pipes import PipesInspector as pipes, pred_cond
 
 from sagas.nlu.parse_client_helper import check_interr
 
