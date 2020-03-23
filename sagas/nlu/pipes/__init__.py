@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List, Union
+from typing import Text, Any, Dict, List, Union, Optional
 from rx import Observable
 from dataclasses import dataclass
 from sagas.util.collection_util import to_obj
@@ -10,6 +10,23 @@ from sagas.util.collection_util import wrap
 class pred_cond:
     part: str
     cond: Union[Text, List[Text]]
+
+@dataclass
+class sense_cond:
+    part: str
+    roles: Optional[Dict]
+    cat: Optional[str]
+
+    @staticmethod
+    def is_cat(part, cat):
+        return sense_cond(part, None, cat)
+
+    @staticmethod
+    def has_roles(part, **roles):
+        return sense_cond(part, roles, None)
+    def set_roles(self, **roles):
+        self.roles=roles
+        return self
 
 def filter_path(*cands):
     return rx.pipe(
@@ -56,5 +73,6 @@ def get_source(sents, lang, domain_type=None)-> Observable:
 
 
 # __all__=['helpers']
-from . import pos, collect, interrogative
+from . import pos, collect, interrogative, cat, sense
+
 

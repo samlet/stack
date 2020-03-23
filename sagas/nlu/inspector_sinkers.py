@@ -75,7 +75,10 @@ def _slots(results: List[Any], data:Dict[Text,Any]):
 def _dev_info(results: List[Any], data:Dict[Text,Any]):
     from pprint import pprint
     if cf.is_enabled('print_detail'):
-        pprint(results)
+        if results:
+            pprint(results)
+        else:
+            print('.. no results')
 
 registry_sinkers(_tags, _series, _slots, _dev_info)
 

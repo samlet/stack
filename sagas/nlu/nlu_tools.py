@@ -259,6 +259,8 @@ class NluTools(object):
         words = [word.text for word in doc_jsonify.words]
         self.contrast(sents, source, word_map=words)
 
+        ## visual tree
+        self.main_domains(sents, source, engine, False)
         ## add rulesets procs
         from sagas.nlu.inferencer import do_infers
         cli_cmd, pats = do_infers(sents, source)
