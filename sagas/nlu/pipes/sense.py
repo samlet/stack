@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 def filter_sense(data:sense_cond):
     exprs=[]
     if data.roles:
-        print(data.roles)
+        # print(data.roles)
         exprs.append(ops.filter(lambda t: any([st.has_role(**data.roles) for st in t.sense])))
     if data.cat:
         exprs.append(ops.filter(lambda t: any([st.cat_of(data.cat) for st in t.sense])))
@@ -41,7 +41,7 @@ def sense_proc(sender, **kwargs):
     ).subscribe(
         on_next=lambda value: results.append(value),
         on_error=lambda e: logger.error(e),
-        on_completed=lambda: print("done."),
+        on_completed=lambda: logger.debug("done."),
     )
     return results
 

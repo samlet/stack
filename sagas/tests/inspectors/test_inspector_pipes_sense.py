@@ -25,8 +25,8 @@ def test_pipes_sense(sents, lang):
     ctx, pat = next(build_context(data, 'verb', name='_test_'))
 
     rs=pat(pipes(collect=['verb', 'noun']),
-           # pipes(sense=sense_cond.has_roles('/obl', domain='military|军')),
-           pipes(sense=sense_cond.is_cat('/obl', 'fact|事情').set_roles(domain='military|军')),
+           pipes(sense=sense_cond.is_cat('/obl', 'fact|事情')
+                 .with_roles(domain='military|军')),
            )
     pprint((rs[1], rs[0], rs[3].results))
     assert all_of(rs)

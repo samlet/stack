@@ -37,7 +37,7 @@ def interr_proc(sender, **kwargs):
     ).subscribe(
         on_next=lambda value: results.append({'interr':cond.cond, **value}),
         on_error=lambda e: logger.error(e),
-        on_completed=lambda: print('done.'),
+        on_completed=lambda: logger.debug('done.'),
     )
 
     return results

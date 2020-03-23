@@ -24,7 +24,7 @@ class sense_cond:
     @staticmethod
     def has_roles(part, **roles):
         return sense_cond(part, roles, None)
-    def set_roles(self, **roles):
+    def with_roles(self, **roles):
         self.roles=roles
         return self
 

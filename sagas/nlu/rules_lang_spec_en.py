@@ -112,6 +112,22 @@ class Rules_en(LangSpecBase):
                                             nsubj=agency,
                                             obl=extract('plain+number+time+temperature'),
                                             obj=agency),
+            # $ se 'What do you think about the war?'
+            pat(5, name='military_fact').verb(
+                pipes(collect=['verb', 'noun']),
+                pipes(sense=sense_cond.is_cat('/obl', 'fact|事情')
+                      .with_roles(domain='military|军')),),
+            # pat(1, name='collect_v_n').verb(pipes(collect=['verb', 'noun'])),
+
+            # $ se 'i play football'
+            pat(5, name='sports').verb(
+                inform('track'),
+                sense('obj').cat_of(obj='SportTool|运动器材')
+                    .has_role(domain='football|足球')
+                    .has_role(domain='sport|体育')
+                    .has_role(CoEvent='exercise|锻炼'),
+                obj=kindof('football', 'n')
+            ),
         ])
 
     def aux_rules(self):
