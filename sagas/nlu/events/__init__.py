@@ -1,10 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Set
-from blinker import NamedSignal, signal
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
-from sagas.conf.conf import cf
-import sagas.tracker_fn as tc
-from pprint import pprint
 import logging
 
 logger = logging.getLogger(__name__)
@@ -43,29 +39,4 @@ def init_reps():
     logger.debug('add console rep')
     representers.append(ConsoleRepresenter())
 
-
-watch = signal('watch')
-evts=[watch]
-
-@watch.connect
-def console_watch(sender, **kw):
-    import datetime
-    from sagas.nlu.nlu_tools import NluTools
-
-    ds:ResultDataset=kw['dataset']
-    meta:RequestMeta=kw['meta']
-
-    print(f"****** watch {sender}")
-    tc.emp('magenta', meta)
-
-    tools = NluTools()
-    if cf.is_enabled('print_tree'):
-        tools.main_domains(meta.sents,
-                           lang=meta.lang,
-                           engine=meta.engine,
-                           print_domains=False)
-
-    return datetime.datetime.now()
-
-
-
+from . import watch

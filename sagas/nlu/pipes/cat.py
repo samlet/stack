@@ -10,33 +10,11 @@ from sagas.util.collection_util import wrap, to_obj
 import logging
 logger = logging.getLogger(__name__)
 
-pos_map={'adj': 'adjective',
-         'adp': 'adposition',
-         'adv': 'adverb',
-         'cconj': 'conjunction',
-         'sconj': 'conjunction',
-        }
-def get_pos(upos):
-    pos=upos.lower()
-    return pos_map[pos] if pos in pos_map else pos
-
-pos_abbrev={'adj': 'a', 'noun':'n', 'verb':'v'}
-def get_abbrev(upos):
-    pos=upos.lower()
-    return pos_abbrev[pos] if pos in pos_abbrev else '*'
-
-def trans(word, lang, pos):
-    from sagas.nlu.translator import translate, with_words, WordsObserver
-    pos=get_pos(pos)
-    logger.debug(f"trans {word}, {lang}, {pos}")
-    r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
-    candidates=t.observer(WordsObserver).get_axis(r, pos)
-    return candidates
-
 cat_sig=signal('cat')
 @cat_sig.connect
 def cat_proc(sender, **kwargs):
-    from sagas.nlu.utils import predicate, get_word_sets
+    from sagas.nlu.utils import predicate
+    from sagas.nlu.translator import trans_axis
 
     results=[]
 
@@ -50,7 +28,7 @@ def cat_proc(sender, **kwargs):
     source.pipe(
         filter_path(cond.part),
         ops.map(lambda t: to_obj({'word': t.text if t.upos.lower() in ['adj'] else t.lemma, **t})),
-        ops.map(lambda t: to_obj({'trans': trans(t.word, lang, t.upos), **t})),
+        ops.map(lambda t: to_obj({'trans': trans_axis(t.word, lang, t.upos), **t})),
         ops.filter(lambda t: predicate(kind, t.trans, 'en', '*')),
 
         ops.map(lambda t: {'path':t.path,

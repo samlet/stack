@@ -229,6 +229,30 @@ def trans_multi(sent, source, targets):
         rs.append(res)
     return rs
 
+pos_map={'adj': 'adjective',
+         'adp': 'adposition',
+         'adv': 'adverb',
+         'cconj': 'conjunction',
+         'sconj': 'conjunction',
+        }
+def get_pos(upos):
+    pos=upos.lower()
+    return pos_map[pos] if pos in pos_map else pos
+
+pos_abbrev={'adj': 'a', 'noun':'n', 'verb':'v'}
+def get_abbrev(upos):
+    pos=upos.lower()
+    return pos_abbrev[pos] if pos in pos_abbrev else '*'
+
+def trans_axis(word, lang, pos):
+    if lang=='en':
+        return word
+
+    pos=get_pos(pos)
+    logger.debug(f"trans {word}, {lang}, {pos}")
+    r, t = translate(word, source=lang, target='en', options={'get_pronounce'}, tracker=with_words())
+    candidates=t.observer(WordsObserver).get_axis(r, pos)
+    return candidates
 
 
 
