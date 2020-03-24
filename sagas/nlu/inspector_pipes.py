@@ -5,7 +5,7 @@ from sagas.nlu.inspector_common import Context, Inspector
 from blinker import NamedSignal, signal
 import logging
 
-from sagas.nlu.pipes import flat_table
+from sagas.nlu.pipes import flat_table, pred_cond
 from sagas.util.collection_util import wrap
 # from sagas.nlu.pipes import *
 
@@ -17,6 +17,10 @@ class PipesInspector(Inspector):
     Instances: pipes(collect=['verb']),
         pipes(interr=pred_cond('/conj/cc', 'but')),
         pipes(pos=pred_cond('/conj', 'adj')),
+        pipes(sense=sense_cond.is_cat('/obl', 'fact|事情')
+                 .with_roles(domain='military|军')),
+        pipes(cat=pred_cond('/conj', 'person')),
+
     Examples:
         $ shu 'A magas tanár nem angol, hanem magyar.'
     """
@@ -82,4 +86,60 @@ class PipesInspector(Inspector):
     def __str__(self):
         return f"ins_{self.name()}({self.parameters})"
 
+
+class ExpressionInspector(Inspector):
+    """
+    Instances: ins().cat('/obj')=='animal',
+    Examples:
+        >>> rs =pat(ins().interr('/conj/cc')=='but',
+        >>>         ins().pos('/conj')==['adj'],
+        >>>         ins().cat('/conj')=='person',
+        >>>         )
+    """
+    def __init__(self):
+        self.callee = {}
+
+    def name(self):
+        return "exprs"
+
+    def run(self, key, ctx: Context):
+        pipes=PipesInspector
+
+        if 'cond_val' in self.callee:
+            # pipes(interr=pred_cond('/conj/cc', 'but')),
+            ins=pipes(**{self.callee['sig']: pred_cond(
+                self.callee['path'], self.callee['cond_val']
+            )})
+        elif 'cond_obj' in self.callee:
+            # pipes(sense=sense_cond.is_cat('/obl', 'fact|事情')
+            #                  .with_roles(domain='military|军')),
+            ins =pipes(**{self.callee['sig']: self.callee['cond_obj']})
+        else:
+            # pipes(collect=['verb']),
+            val=self.callee['value'] if 'value' in self.callee else None
+            ins =pipes(**{self.callee['sig']: val})
+
+        return ins.check(key, ctx)
+
+    def __eq__(self, other):
+        self.callee['cond_val']=other
+        return self
+
+    def __rshift__(self, other):
+        self.callee['cond_obj']=other
+        return self
+
+    def __lt__(self, other):
+        self.callee['value'] = other
+        return self
+
+    def __getattr__(self, method):
+        def serv(path):
+            self.callee={'sig': method, 'path': path}
+            return self
+
+        return serv
+
+    def __str__(self):
+        return f"ins_{self.name()}({', '.join(self.callee.keys())})"
 

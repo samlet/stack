@@ -36,4 +36,3 @@ def test_pipes_sense(sents, lang):
              )
     pprint((rs[1], rs[0], rs[3].results))
     assert all_of(rs)
-

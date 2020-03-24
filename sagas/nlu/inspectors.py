@@ -416,7 +416,7 @@ class GeneralInspector(Inspector):
 
     def __getattr__(self, method):
         def serv(*args, **kwargs):
-            print(f"{method}: {args}, {kwargs}")
+            logger.debug(f"{method}: {args}, {kwargs}")
             self.calls.append((method, args, kwargs))
             return self
 
