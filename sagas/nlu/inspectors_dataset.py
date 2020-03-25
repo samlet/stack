@@ -50,6 +50,9 @@ interrogative_maps={
     'no': {
         'when': ['når'],
     },
+    'et': {
+        'when': ['millal'],
+    },
     'hu': {
         'but': ['hanem'],
     },

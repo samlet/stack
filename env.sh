@@ -174,12 +174,14 @@ alias snl+de="python -m sagas.tool.misc trans_clip nl 'en;ja;de' de False"
 
 alias shi="python -m sagas.tool.misc trans_clip hi 'zh-CN;ur;en' hi False"
 alias sro="python -m sagas.tool.misc trans_clip ro 'zh-CN;es;en' en False"
+alias sur="python -m sagas.tool.misc trans_clip ur 'zh-CN;es;en' en False"
 
 alias sel="python -m sagas.tool.misc trans_clip el 'en;zh-CN;ja' ja False"
 alias sca="python -m sagas.tool.misc trans_clip ca 'en;es;ja' ja False"
 alias sko="python -m sagas.tool.misc trans_clip ko 'en;zh-CN;ja' ja False"
 alias sfi="python -m sagas.tool.misc trans_clip fi 'en;zh-CN;ja' ja False"
 alias sug="python -m sagas.tool.misc trans_clip ug 'en;zh-CN;ja' ja False"
+alias set="python -m sagas.tool.misc trans_clip et 'en;zh-CN;ja' en False"
 
 # 
 alias ta='python -m sagas.tool.misc trans_en_ar'
@@ -244,3 +246,6 @@ alias agents='docker exec -it sagas_agent_servant_1 python -m'
 
 alias cpt='python -m sagas.nlu.nlu_tools tree_comp _ pt'
 alias cit='python -m sagas.nlu.nlu_tools tree_comp _ it'
+alias cuk='python -m sagas.nlu.nlu_tools tree_comp _ uk'
+alias cur='python -m sagas.nlu.nlu_tools tree_comp _ ur'
+alias che='python -m sagas.nlu.nlu_tools tree_comp _ he'

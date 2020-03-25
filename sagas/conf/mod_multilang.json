@@ -29,6 +29,10 @@
   "sv": ["sagas.nlu.rules_lang_spec_sv.Rules_sv"],
   "ca": ["sagas.nlu.rules_lang_spec_ca.Rules_ca"],
   "hi": ["sagas.nlu.rules_lang_spec_hi.Rules_hi"],
-  "hu": ["sagas.nlu.rules_lang_spec_hu.Rules_hu"]
+  "hu": ["sagas.nlu.rules_lang_spec_hu.Rules_hu"],
+  "uk": ["sagas.nlu.rules_lang_spec_uk.Rules_uk"],
+  "ur": ["sagas.nlu.rules_lang_spec_ur.Rules_ur"],
+  "he": ["sagas.nlu.rules_lang_spec_he.Rules_he"],
+  "et": ["sagas.nlu.rules_lang_spec_et.Rules_et"]
 }
 

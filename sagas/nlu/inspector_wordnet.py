@@ -215,7 +215,7 @@ class WordSpecsInspector(WordInspector):
 
         word_r = r.lower()
         candidates=t.observer(WordsObserver).get_axis(word_r, pos)
-        result= predicate(kind, word_r, 'en', pos)
+        result= predicate(kind, candidates, 'en', pos)
         if result:
             self.add_subs(word, word_r, candidates)
         return result

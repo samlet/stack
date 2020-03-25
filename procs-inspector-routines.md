@@ -218,6 +218,10 @@ behaveof('need', '*', extract=extract_verb),
 specsof('*', 'little', 'large'),
 obj=specsof('n', 'beverage', 'water', 'juice', 'cafe'),
 specsof('v', 'represent', 'show'),
+
+>>> specs_trans('v', 'request')
+>>> specs_trans('v', 'request').opt(trans_idx=0)
+>>> advmod=specs_trans('*', 'slow', 'fast').opt(raw_fmt=raw_fmt_pos)
 ```
 
 ## 13. DateInspector

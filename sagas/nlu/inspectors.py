@@ -174,6 +174,9 @@ class NegativeWordInspector(Inspector):
 
 class InterrogativePronounInspector(Inspector):
     """
+    Instances:  head_amod=interr('what'),
+        interr_root('who'),
+    Examples:
     # $ sid 'Apa yang lebih murah?'
             pat(1).subj('adj', nsubj=agency, head_amod=interr('what')),
     # $ sid 'Siapa orang terpenting di kantormu?'

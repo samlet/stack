@@ -18,8 +18,11 @@ def translations_df(trans, idx=0):
     listOfStrings = ['ext_' + str(i) for i in range(size)]
     if size==2:
         listOfStrings[0:2] = ['word', 'translations']
-    else:
+    elif size==4:
         listOfStrings[0:4] = ['word', 'translations', 'c', 'freq']
+    else:
+        listOfStrings[0:size] = ['word', 'translations',
+                                 *[f'ex_{idx}' for idx in range(size-2)]]
 
     return sagas.to_df(trans[idx][2], listOfStrings)
 
@@ -234,6 +237,7 @@ pos_map={'adj': 'adjective',
          'adv': 'adverb',
          'cconj': 'conjunction',
          'sconj': 'conjunction',
+         'pron': 'pronoun',
         }
 def get_pos(upos):
     pos=upos.lower()

@@ -4,7 +4,7 @@ import json
 from sagas.nlu.wordnet_procs import WordNetProcs, predicate_chain, get_chains
 from cachetools import cached, TTLCache
 import logging
-logger = logging.getLogger('servant')
+logger = logging.getLogger(__name__)
 
 # cache = TTLCache(maxsize=100, ttl=300)
 app = Flask(__name__)
