@@ -346,6 +346,30 @@ chained(pat(5, name='desc_attitude'),
         ),
 ```
 
+## 20. Pipes and Exprs
+```python
+## pipes
+    rs=pat(pipes(interr=pred_cond('/conj/cc', 'but')),
+           pipes(pos=pred_cond('/conj', ['adj'])),
+           pipes(cat=pred_cond('/conj', 'person')),
+           )
+
+    rs=pat(pipes(collect=['verb', 'noun']),)
+
+    rs=pat(pipes(collect=['verb', 'noun']),
+           pipes(sense=sense_cond.is_cat('/obl', 'fact|事情')
+                 .with_roles(domain='military|军')),
+           )
+    rs = pat(pipes(collect=['verb', 'noun']),
+             pipes(sense=sense_cond.has_roles('/obl', domain='military|军')),
+             )
+
+## exprs     
+    rs = pat(ins().interr('/conj/cc')=='but',
+             ins().pos('/conj')==['adj'],
+             ins().cat('/conj')=='person',
+             )            
+```
 
 
 

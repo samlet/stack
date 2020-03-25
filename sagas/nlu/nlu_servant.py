@@ -71,8 +71,8 @@ def handle_entities():
 #     return data_y
 
 if __name__ == "__main__":
-    from sagas.tool.loggers import init_logger
+
     # app.run(host='0.0.0.0', port=8091, debug=True)
-    init_logger()
+
     app.run(host='0.0.0.0', port=8092)
 

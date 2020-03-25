@@ -1,6 +1,6 @@
 from typing import Text, Any, Dict, List
 from sagas.nlu.uni_cli import UniCli
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf, sent_jsonify
 import sagas

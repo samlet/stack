@@ -1,6 +1,5 @@
 import logging
 
-from sagas.tool import init_logger
 from sagas.util.loader import class_from_module_path
 
 logger = logging.getLogger(__name__)

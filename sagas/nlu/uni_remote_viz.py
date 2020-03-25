@@ -2,7 +2,7 @@ from typing import Text, Any, Dict, List, Union
 
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.uni_viz import EnhancedViz
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks, display_synsets, proc_word, proc_children_column, trunc_cols
 import sagas
 import sagas.tracker_fn as tc

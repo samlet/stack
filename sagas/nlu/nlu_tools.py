@@ -321,10 +321,10 @@ class NluTools(object):
         return infers.infer(sents, verbose=verbose)
 
 if __name__ == '__main__':
-    from sagas.tool.loggers import init_logger
+
     import fire
 
-    init_logger()
+
     startup.start()
     fire.Fire(NluTools)
 

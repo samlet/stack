@@ -1,6 +1,6 @@
 from typing import Text, Dict, Iterator
 
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.inspector_common import Inspector, Context, non_spaces
 from sagas.conf.conf import cf
@@ -430,6 +430,6 @@ class RulesetProcs(object):
 
 if __name__ == '__main__':
     import fire
-    from sagas.tool.loggers import init_logger
-    init_logger()
+
+
     fire.Fire(RulesetProcs)

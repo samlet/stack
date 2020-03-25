@@ -1,5 +1,5 @@
 from sagas.nlu.ruleset import result_df
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 from sagas.nlu.uni_remote import dep_parse
 from sagas.nlu.uni_remote_viz import list_chunks, display_doc_deps, list_rs
 from sagas.nlu.inspector_fixtures import InspectorFixture

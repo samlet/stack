@@ -20,7 +20,7 @@ def sents_summary(sents, source):
     from sagas.nlu.uni_remote_viz import list_contrast
     from sagas.conf.conf import cf
     from sagas.nlu.utils import fix_sents
-    from sagas.nlu.corenlp_parser import get_chunks
+    from sagas.nlu.uni_parser import get_chunks
 
     sents=fix_sents(sents, source)
     engine=cf.engine(source)

@@ -38,7 +38,7 @@ class UniCli(object):
 
         :return:
         """
-        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_parser import get_chunks
         import sagas
         from sagas.tool.misc import print_stem_chunks
         from sagas.tool.misc import color_print

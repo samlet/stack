@@ -7,7 +7,7 @@ import requests
 from sagas.conf.conf import cf
 import logging
 
-from sagas.tool.loggers import init_logger
+
 from sagas.nlu.ruleset_registry import *
 
 logger = logging.getLogger(__name__)
@@ -129,6 +129,6 @@ class IntentsMod(object):
 
 if __name__ == '__main__':
     import fire
-    init_logger()
+
     fire.Fire(IntentsMod)
 

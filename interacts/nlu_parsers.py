@@ -1,7 +1,7 @@
 from sagas.nlu.utils import fix_sents
 from sagas.conf.conf import cf
 from sagas.nlu.uni_remote import dep_parse
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 import sagas
 import json
 from sagas.nlu.uni_remote_viz import list_synsets

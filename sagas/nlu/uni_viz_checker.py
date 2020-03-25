@@ -1,5 +1,5 @@
 from sagas.nlu.uni_viz import EnhancedViz
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks
 import sagas
 

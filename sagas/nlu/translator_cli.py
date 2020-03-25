@@ -55,6 +55,6 @@ class GoogleTranslator(object):
 
 if __name__ == '__main__':
   import fire
-  init_logger()
+
   fire.Fire(GoogleTranslator)
 

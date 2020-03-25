@@ -8,7 +8,6 @@ from sagas.nlu.rules_meta import build_meta
 from sagas.nlu.utils import fix_sents, join_text, get_possible_mean
 import logging
 
-from sagas.startup import startup
 from sagas.tool import color_print
 from pprint import pprint
 
@@ -412,7 +411,7 @@ class MiscTool(object):
 
     def trans_baidu(self, ctx: TransContext):
         from tqdm import tqdm
-        from sagas.nlu.baidu_translator import BaiduTranslator
+        from sagas.nlu.providers.baidu_translator import BaiduTranslator
         import time
 
         tr=BaiduTranslator()
@@ -469,15 +468,15 @@ class MiscTool(object):
                     result= response.json()
                     print_terms_zh(data['sents'], result)
 
-        # available_sources=['en', 'de', 'fr', 'ru', 'es', 'it', 'pt', 'cs', 'sk', 'pl', 'tr',
-        #                    'sv', 'no', 'hi']
-        available_sources=set(list(helper.langs.keys())+
-                              treebanks.support_langs+
+        available_sources=set(treebanks.support_langs+
                               list(lang_spacy_mappings.keys()))
+
         if details:
             if source in available_sources:
                 data = {'lang': source, "sents": text}
                 query_serv(data)
+            else:
+                logger.error(f"lang {source} is not available")
 
             # common targets
             if 'en' in targets:
@@ -620,6 +619,7 @@ class MiscTool(object):
         text=fix_sents(text, source)
         engine=cf.engine(source)
         tc.emp('yellow', f".. parse with {engine}: ({text})")
+        logger.error("***************")
 
         # events
         from sagas.nlu.events import init_reps
@@ -729,7 +729,7 @@ class MiscTool(object):
         :return:
         """
         from sagas.nlu.uni_jsonifier import rs_summary
-        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_parser import get_chunks
         from sagas.nlu.uni_remote import dep_parse
 
         doc_jsonify, resp = dep_parse(sents, lang, engine, ['predicts'])
@@ -758,7 +758,7 @@ class MiscTool(object):
         :param engine:
         :return:
         """
-        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_parser import get_chunks
         from sagas.nlu.uni_remote import dep_parse
 
         pipelines=['predicts']
@@ -781,8 +781,6 @@ class MiscTool(object):
 
 if __name__ == '__main__':
     import fire
-    from sagas.tool.loggers import init_logger
-
-    init_logger()
+    from sagas.startup import startup
     startup()
     fire.Fire(MiscTool)

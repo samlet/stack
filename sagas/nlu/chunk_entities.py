@@ -41,7 +41,7 @@ def equals(a, b):
 #         get_children(sent, c, rs)
 
 def get_children_list(sent, word, include_self=True):
-    from sagas.nlu.corenlp_parser import get_children
+    from sagas.nlu.uni_parser import get_children
     rs = []
     get_children(sent, word, rs)
     if include_self:
@@ -114,7 +114,7 @@ class ChunkEntitiesProcs(object):
         return rs
 
     def get_chunks(self, sent):
-        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_parser import get_chunks
         return get_chunks(sent)
 
     def list_chunk_entities(self, sents, lang='en'):

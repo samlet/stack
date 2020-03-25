@@ -2,7 +2,7 @@ from typing import Text, Any, Dict, List, Union, Optional
 import sagas
 import logging
 
-from sagas.nlu.uni_intf import SentenceIntf
+from sagas.nlu.uni_intf import SentenceIntf, WordIntf
 
 logger = logging.getLogger(__name__)
 
@@ -10,17 +10,17 @@ def equals(a, b):
     return str(a) == str(b)
 
 # except_from_stems=['DET']
-def get_children(sent, word, rs, stem):
+def get_children(sent:SentenceIntf, word:WordIntf, rs, stem:bool=False):
     for c in filter(lambda w: equals(w.governor, word.index), sent.words):
         rs.append((c.index, c.lemma if stem else c.text))
         get_children(sent, c, rs, stem)
 
-def get_children_index(sent, word):
+def get_children_index(sent:SentenceIntf, word:WordIntf):
     rs = []
     get_children(sent, word, rs, stem=False)
     return [word.index]+[w[0] for w in rs]
 
-def get_children_list(sent, word, include_self=True, stem=False):
+def get_children_list(sent:SentenceIntf, word:WordIntf, include_self=True, stem=False):
     rs = []
     get_children(sent, word, rs, stem)
     if include_self:
@@ -32,7 +32,7 @@ def get_children_list(sent, word, include_self=True, stem=False):
     #     result.append(word.text)
     return result
 
-def get_word_features(word):
+def get_word_features(word:WordIntf):
     # 'c' represent a chunk
     # return ['c_{}_{}'.format(word.lemma, word.upos).lower()]
     feats=[]
@@ -185,20 +185,20 @@ def get_chunks(sent:SentenceIntf, return_root_chunks_if_absent:bool=True,
 class CoreNlpParser(object):
     def verb_domains(self, sents, lang='en'):
         """
-        $ python -m sagas.nlu.corenlp_parser verb_domains "Barack Obama was born in Hawaii." en
+        $ python -m sagas.nlu.uni_parser verb_domains "Barack Obama was born in Hawaii." en
         # 我有一只阿比西尼亚猫
-        $ python -m sagas.nlu.corenlp_parser verb_domains "I have an Abyssinian cat." en
+        $ python -m sagas.nlu.uni_parser verb_domains "I have an Abyssinian cat." en
 
-        $ python -m sagas.nlu.corenlp_parser verb_domains 'Что ты обычно ешь на ужин?' ru
-        $ python -m sagas.nlu.corenlp_parser verb_domains 'Die Zeitschrift erscheint monatlich.' de
+        $ python -m sagas.nlu.uni_parser verb_domains 'Что ты обычно ешь на ужин?' ru
+        $ python -m sagas.nlu.uni_parser verb_domains 'Die Zeitschrift erscheint monatlich.' de
 
         # 测试多个动词(过滤掉从句的动词):
-        $ python -m sagas.nlu.corenlp_parser verb_domains 'Tu as choisi laquelle tu vas manger ?' fr
+        $ python -m sagas.nlu.uni_parser verb_domains 'Tu as choisi laquelle tu vas manger ?' fr
         :param sents:
         :param lang:
         :return:
         """
-        from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+        from sagas.nlu.corenlp_helper import get_nlp
         serial_numbers = '❶❷❸❹❺❻❼❽❾❿'
         nlp = get_nlp(lang)
         doc=nlp(sents)

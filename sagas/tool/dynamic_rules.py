@@ -8,7 +8,7 @@ from sagas.nlu.rules_header import *  # must be included
 # from sagas.nlu.inspectors import InspectorFixture
 from sagas.nlu.patterns import print_result
 from sagas.nlu.uni_remote import dep_parse
-from sagas.nlu.corenlp_parser import get_chunks
+from sagas.nlu.uni_parser import get_chunks
 from sagas.nlu.rules_meta import build_meta
 
 from pprint import pprint

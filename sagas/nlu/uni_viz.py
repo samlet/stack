@@ -160,7 +160,7 @@ def viz(sents, lang='fr'):
     return cv.analyse_doc(sentence, None)
 
 def universal_viz(intp, sents):
-    from sagas.nlu.corenlp_parser import get_chunks
+    from sagas.nlu.uni_parser import get_chunks
     from sagas.tool.misc import print_stem_chunks
     import sagas
 

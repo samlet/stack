@@ -149,7 +149,7 @@ class LangspecRules(object):
         :return:
         """
         from sagas.nlu.uni_remote import dep_parse
-        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_parser import get_chunks
         from sagas.conf.conf import cf
 
         if print_no_match:
@@ -170,7 +170,7 @@ class LangspecRules(object):
         :return:
         """
         from sagas.nlu.uni_remote import dep_parse
-        from sagas.nlu.corenlp_parser import get_chunks
+        from sagas.nlu.uni_parser import get_chunks
         from sagas.nlu.rules_lang_spec_de import Rules_de
         from sagas.nlu.rules_lang_spec_id import Rules_id
 
@@ -190,8 +190,8 @@ class LangspecRules(object):
 
 if __name__ == '__main__':
     import fire
-    from sagas.tool.loggers import init_logger
 
-    init_logger()
+
+
     fire.Fire(LangspecRules)
 

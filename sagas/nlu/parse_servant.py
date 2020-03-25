@@ -72,7 +72,7 @@ def handle_digest():
     will get: {"root": "mögen", "verbs": [["mögen", "mögen"]]}
     :return:
     """
-    from sagas.nlu.corenlp_helper import CoreNlp, CoreNlpViz, get_nlp
+    from sagas.nlu.corenlp_helper import get_nlp
 
     # print ("request is json?", request.is_json)
     content = request.get_json()
@@ -115,8 +115,8 @@ def is_disabled(opts, opt):
 # verb_domains
 @app.route('/verb_domains', methods = ['POST'])
 def handle_verb_domains():
-    # from sagas.nlu.corenlp_parser import get_verb_domain, get_aux_domain, get_subj_domain
-    from sagas.nlu.corenlp_parser import get_chunks
+    # from sagas.nlu.uni_parser import get_verb_domain, get_aux_domain, get_subj_domain
+    from sagas.nlu.uni_parser import get_chunks
     from sagas.nlu.uni_cli import parse_with
 
     content = request.get_json()
@@ -199,9 +199,9 @@ class ParseServant(object):
 
 if __name__ == "__main__":
     import fire
-    from sagas.tool.loggers import init_logger
 
-    init_logger()
+
+
     # app.run(debug=True)
     # app.run(host='0.0.0.0', port=8090, debug=True)
     # app.run(host='0.0.0.0', port=8090)
