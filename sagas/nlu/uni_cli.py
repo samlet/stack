@@ -8,18 +8,20 @@ from sagas.nlu.uni_impl_corenlp import CoreNlpParserImpl
 from sagas.nlu.uni_impl_spacy import SpacyParserImpl
 from sagas.nlu.uni_impl_hanlp import HanlpParserImpl
 from sagas.nlu.uni_impl_stanford import SfParserImpl
+from sagas.nlu.uni_impl_stanza import StanzaParserImpl
 from sagas.nlu.uni_intf import SentenceIntf
 
 
 class UniCli(object):
     def __init__(self):
-        self._parsers={'corenlp':lambda lang, sents: CoreNlpParserImpl(lang)(sents),
-                      'ltp':lambda lang, sents: LtpParserImpl(lang)(sents),
-                      'spacy':lambda lang, sents: SpacyParserImpl(lang)(sents),
-                      'hanlp':lambda lang, sents: HanlpParserImpl(lang)(sents),
-                      'knp':lambda lang, sents: KnpParserImpl(lang)(sents),
-                      'stanford':lambda lang, sents: SfParserImpl(lang)(sents),
-                      }
+        self._parsers={'corenlp': lambda lang, sents: CoreNlpParserImpl(lang)(sents),
+                       'stanza': lambda lang, sents: StanzaParserImpl(lang)(sents),
+                       'ltp': lambda lang, sents: LtpParserImpl(lang)(sents),
+                       'spacy': lambda lang, sents: SpacyParserImpl(lang)(sents),
+                       'hanlp': lambda lang, sents: HanlpParserImpl(lang)(sents),
+                       'knp': lambda lang, sents: KnpParserImpl(lang)(sents),
+                       'stanford': lambda lang, sents: SfParserImpl(lang)(sents),
+                       }
 
     def parser(self, engine):
         engine = engine.split('_')[0]

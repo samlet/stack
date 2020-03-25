@@ -1,9 +1,10 @@
+from typing import Text, Any, Dict, List, Union
 from flask import Flask
 from flask import request
 import json
 from cachetools import cached, TTLCache
 import logging
-
+from sagas.conf.conf import cf
 from sagas.nlu.multilang_servant import multilang
 
 logger = logging.getLogger('servant')
@@ -15,6 +16,7 @@ app.register_blueprint(multilang)
 def get_doc_verbs(doc):
     return [(word.text, word.lemma) for sent in
                 doc.sentences for word in sent.words if word.upos=='VERB']
+
 def get_doc_root(doc):
     root=''
     segs=doc.sentences[0]
@@ -112,6 +114,9 @@ def is_disabled(opts, opt):
         return opts[opt]
     return False
 
+def get_engine(lang, content:Dict[Text, Any]):
+    return cf.engine(lang) if 'engine' not in content else content['engine']
+
 # verb_domains
 @app.route('/verb_domains', methods = ['POST'])
 def handle_verb_domains():
@@ -122,10 +127,7 @@ def handle_verb_domains():
     content = request.get_json()
     sents = content['sents']
     lang = content['lang']
-    if 'engine' in content:
-        engine=content['engine']
-    else:
-        engine='corenlp'
+    engine = get_engine(lang, content)
 
     sents=fix_sents(lang, sents)
 
@@ -165,10 +167,7 @@ def parse_sents(raw):
     print('.. only print once', content)
     sents = content['sents']
     lang = content['lang']
-    if 'engine' in content:
-        engine = content['engine']
-    else:
-        engine = 'corenlp'
+    engine = get_engine(lang, content)
     if 'pipelines' in content:
         pipelines = content['pipelines']
     else:

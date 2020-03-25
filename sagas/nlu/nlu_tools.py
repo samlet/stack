@@ -273,6 +273,7 @@ class NluTools(object):
         $ nlu main_domains '彼のパソコンは便利じゃない。' ja knp
         $ nlu main_domains 'これを作ってあげました。' ja
         $ nlu main_domains 'What do you think about the war?' en
+        $ engine='stanza' nluc en 'I was born in Beijing.'
 
         :param sents:
         :param lang:
@@ -281,13 +282,14 @@ class NluTools(object):
         """
         from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
         # get_main_domains('彼のパソコンは便利じゃない。', 'ja', 'knp')
-        domain, domains = get_main_domains(sents, lang, engine or cf.engine(lang))
+        engine=engine or cf.engine(lang)
+        domain, domains = get_main_domains(sents, lang, engine)
         if print_domains:
             print('domain type:', domain)
             pprint(domains)
 
         if domain != 'predicts':
-            tc.emp('cyan', f"✁ tree vis {domain}. {'-' * 25}")
+            tc.emp('cyan', f"✁ tree vis {domain}, {engine} {'-' * 25}")
             for ds in domains:
                     vis_tree(ds)
 

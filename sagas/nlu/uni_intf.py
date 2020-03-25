@@ -75,7 +75,7 @@ class WordIntf(abc.ABC):
     @property
     def feats(self):
         """ Access morphological features of this word. Example: 'Gender=Fem'"""
-        return self.ctx['feats']
+        return self.ctx['feats'] if 'feats' in self.ctx else ''
 
     @property
     def index(self) -> int:

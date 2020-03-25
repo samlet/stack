@@ -41,6 +41,7 @@
   "redis": "localhost",
   "servants":{
     "corenlp":"http://localhost:14000",
+    "stanza":"http://localhost:14000",
     "corenlp_western":"http://localhost:14007",
     "stanford":"http://localhost:14001",
     "ltp":"http://localhost:14005",
