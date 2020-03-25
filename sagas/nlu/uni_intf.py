@@ -11,7 +11,7 @@ sub_comps=['ccomp', 'xcomp', # general
            # acl代表修改名义的有限和非有限条款。这种acl关系与advcl关系形成对比，
            # advcl关系用于修改谓词的状语从句。acl关系的头部是被修改的名词，
            # 而从属关系是修饰名词的子句的头部。
-           'acl',
+           'acl', 'acl:relcl',
            'adv', 'coo', 'vob', 'att', # zh
            ]
 
@@ -33,6 +33,7 @@ def sent_jsonify(doc):
 class WordIntf(abc.ABC):
     def __init__(self, data):
         self.ctx = self.setup(data)
+        self._xpos=self.ctx['xpos'] if 'xpos' in self.ctx else ''
 
     @abc.abstractmethod
     def setup(self, data):
@@ -65,7 +66,7 @@ class WordIntf(abc.ABC):
     @property
     def xpos(self):
         """ Access treebank-specific part-of-speech of this word. Example: 'NNP'"""
-        return self.ctx['xpos']
+        return self._xpos
 
     @property
     def upos(self) -> Text:

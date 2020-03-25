@@ -42,7 +42,7 @@
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanza":"http://localhost:14000",
-    "corenlp_western":"http://localhost:14007",
+    "stanza_western":"http://localhost:14007",
     "stanford":"http://localhost:14001",
     "ltp":"http://localhost:14005",
     "hanlp":"http://localhost:14000",
@@ -51,20 +51,20 @@
     "spacy_2.2":"http://localhost:14002"
   },
   "dialectors":{
-    "*":"corenlp",
-    "auto":"corenlp",
-    "el":"corenlp",
-    "ru":"corenlp",
+    "*":"stanza",
+    "auto":"stanza",
+    "el":"stanza",
+    "ru":"stanza",
     "zh":"ltp",
     "ja":"knp",
-    "ar":"corenlp",
+    "ar":"stanza",
     "lt":"spacy_2.2",
-    "es":"corenlp_western",
-    "fr":"corenlp_western",
-    "de":"corenlp_western",
-    "it":"corenlp_western",
-    "pt":"corenlp_western",
-    "nl":"corenlp_western"
+    "es":"stanza_western",
+    "fr":"stanza_western",
+    "de":"stanza_western",
+    "it":"stanza_western",
+    "pt":"corenlp",
+    "nl":"stanza_western"
   }
 }
 

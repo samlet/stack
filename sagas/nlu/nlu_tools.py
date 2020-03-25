@@ -293,6 +293,44 @@ class NluTools(object):
             for ds in domains:
                     vis_tree(ds)
 
+    def tree_comp(self, sents, lang):
+        """
+        $ nlu tree_comp 'What do you think about the war?' en
+        $ nlu tree_comp 'A casa tem dezenove quartos.' pt
+        $ nlu tree_comp "Por que você não perguntou?" pt
+        $ nlu tree_comp "I postini lavorano di mattina." it
+
+        :param sents:
+        :param lang:
+        :return:
+        """
+        from sagas.nlu.ruleset_procs import cached_chunks, get_main_domains
+        from sagas.nlu.spacy_helper import is_available
+
+        if not sents or sents=='_':
+            import clipboard
+            text = clipboard.paste()
+            sents = text.replace("\n", "")
+
+        print(f'$ nlu tree_comp "{sents}" {lang}')
+        engines=['corenlp', 'stanza']
+        if is_available(lang):
+            engines.append('spacy_2.2')
+        tags_map={}
+        for engine in engines:
+            domain, domains = get_main_domains(sents, lang, engine)
+            if domain != 'predicts':
+                tc.emp('cyan', f"✁ tree vis {domain}, {engine} {'-' * 25}")
+                for ds in domains:
+                    vis_tree(ds)
+            tags_map[engine] = [k for k, v in domains[0].items() if isinstance(v, list) and k not in ('entity', 'segments')]
+
+        diff=set(tags_map['corenlp']).symmetric_difference(set(tags_map['stanza']))
+        if diff:
+            tc.emp('red', 'differences', diff)
+        else:
+            tc.emp('green', 'no differences')
+
     def check_rule(self, sents, lang, rule, engine=None):
         """
         $ nlu check_rule '彼のパソコンは便利じゃない。' ja \

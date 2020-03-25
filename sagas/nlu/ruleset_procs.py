@@ -25,8 +25,10 @@ def parse_sents(data: Dict):
 @cached(cache={})
 def cached_chunks(sents:Text, source:Text, engine:Text):
     doc, resp=parse_and_cache(sents, source, engine)
+    if not doc:
+        raise ValueError(f'Cannot parse sents {sents}, with {engine}, {source}')
     return {'doc':doc,
-            'predicts': resp['predicts'] if 'predicts' in resp else [],
+            'predicts': resp['predicts'] if resp and 'predicts' in resp else [],
             'verb_domains': get_verb_domain(doc),
             'root_domains': get_root_domain(doc),
             'aux_domains': get_aux_domain(doc),

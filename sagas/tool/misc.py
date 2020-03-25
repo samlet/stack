@@ -619,7 +619,6 @@ class MiscTool(object):
         text=fix_sents(text, source)
         engine=cf.engine(source)
         tc.emp('yellow', f".. parse with {engine}: ({text})")
-        logger.error("***************")
 
         # events
         from sagas.nlu.events import init_reps

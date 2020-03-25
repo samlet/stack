@@ -35,6 +35,8 @@ class SenseInspector(Inspector):
             from sagas.zh.hownet_helper import get_word_sense, get_trees
             results=[]
             for k,v in kwargs.items():
+                if k not in ctx.words.keys():
+                    return False
                 word=ctx.words[k]
                 sts = get_trees(word)
                 results.append(any([st.cat_of(v) for st in sts]))

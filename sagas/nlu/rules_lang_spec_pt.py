@@ -55,12 +55,19 @@ class Rules_pt(LangSpecBase):
                                                   behaveof('understand', 'v'),
                                                   nsubj=agency, ccomp=kindof('say', '*')),
             # $ spt 'Por que você não perguntou?'  (Why have you not asked?)
-            pat(5, name='behave_ask').verb(tags('inform'),
+            pat(5, name='behave_ask_0.2').verb(tags('inform'),
                                            extract_for('plain', 'nsubj'),
                                            behaveof('ask', 'v'),
                                            advmod=negative(),
                                            obl=cust(check_interr, lambda w: w=='why'),
                                            nsubj=agency),
+            pat(-5, name='behave_ask').verb(tags('inform'),
+                                            extract_for('plain', 'nsubj'),
+                                            behaveof('ask', 'v'),
+                                            advmod=negative(),
+                                            obj=cust(check_interr, lambda w: w == 'why'),
+                                            nsubj=agency),
+
             # $ spt 'Ele pediu uma cerveja.'  (He has asked for a beer.)
             pat(5, name='behave_request').verb(extract_for('plain', 'nsubj'),
                                                behaveof('request', 'v'),

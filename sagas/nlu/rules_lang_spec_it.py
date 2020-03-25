@@ -17,9 +17,6 @@ class Rules_it(LangSpecBase):
         pat, actions_obj = (self.pat, self.actions_obj)
 
         self.collect(pats=[
-            # $ se 'I want to watch a movie'
-            pat(5, name='behave_willing_ev').verb(behaveof('want', 'v'),
-                                                  pred_any_path('xcomp/obj', 'social_event', 'n')),
             # $ sit 'I postini lavorano di mattina.'
             pat(5, name='desc_work_time').verb(behaveof('work', 'v'),
                                                nsubj=agency,

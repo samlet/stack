@@ -13,6 +13,7 @@ class StanzaWordImpl(WordIntf):
         indexes={k: int(getattr(data, v)) for k,v in int_map.items() if getattr(data, v) is not None}
         attrs = {k: getattr(data, v) for k,v in features_map.items() if getattr(data, v) is not None}
         attrs['entity']=[data.parent.ner] if data.parent and data.parent.ner else []
+
         return {**indexes, **attrs}
 
 

@@ -242,3 +242,5 @@ alias hownet='python -m sagas.zh.hownet_helper vis'
 # agents saai.saai_cli bot_reload genesis
 alias agents='docker exec -it sagas_agent_servant_1 python -m'
 
+alias cpt='python -m sagas.nlu.nlu_tools tree_comp _ pt'
+alias cit='python -m sagas.nlu.nlu_tools tree_comp _ it'

@@ -25,6 +25,7 @@ REQUIRED = [
     'durable_rules',
     'OdooRPC',
     'salang-saara',
+    'stanza',
 ]
 
 setuptools.setup(
