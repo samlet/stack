@@ -429,6 +429,23 @@ class GeneralInspector(Inspector):
         return f"ins_{self.name()}({self.arg})"
 
 
+class NamedArgInspector(Inspector):
+    def __init__(self, arg):
+        self.arg=arg
+
+    def name(self):
+        from sagas.util.string_util import snake_case
+        return snake_case(type(self).__name__).replace('_inspector', '')
+
+    def run(self, key, ctx:Context):
+        ctx.add_result(self.name(), type(self.arg).__name__,
+                       self.arg.part, self.arg.__dict__)
+        return True
+
+    def __str__(self):
+        return f"ins_{self.name()}({self.arg})"
+
+
 class Inspectors(InspectorFixture):
     def procs_common(self, data, print_format='table', engine='corenlp'):
         domains, meta=self.request_domains(data, print_format, engine)

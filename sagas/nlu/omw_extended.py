@@ -13,6 +13,7 @@ langsets={'bg': 'bul', 'ca': 'cat', 'cs': 'ces', 'da': 'dan', 'de': 'deu', 'el':
           'uk': 'ukr', # Ukrainian, 3,761(20%)
           'ur': 'urd', # Urdu, 2,073(15%)
           'et': 'est', # Estonian, 4,317(21%)
+          'vi': 'vie', # Vietnamese, 3,869(23%)
           }
 
 # https://stackoverflow.com/questions/319426/how-do-i-do-a-case-insensitive-string-comparison

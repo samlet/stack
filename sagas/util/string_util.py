@@ -19,3 +19,9 @@ def abbrev(data, l=15):
     info = (data[:l] + '..') if len(data) > l else data
     return info
 
+def snake_case(str):
+    """Convert string from camel case to snake case """
+    return ''.join(['_' + i.lower() if i.isupper()
+                    else i for i in str]).lstrip('_')
+
+

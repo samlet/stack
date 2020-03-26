@@ -1,5 +1,7 @@
-from typing import Text, Any, Dict, List, Set
+from typing import Text, Any, Dict, List, Set, Union, Optional
+from dataclasses import dataclass
 from sagas.nlu.inspector_common import Inspector, Context
+from sagas.nlu.inspectors import NamedArgInspector
 from sagas.nlu.registries import registry_sinkers, named_exprs
 from sagas.conf.conf import cf
 import logging
@@ -157,4 +159,34 @@ class SlotsInspector(KeyValuesInspector):
     @property
     def result_map(self):
         return {'driver':self.driver}
+
+class FactsInspector(NamedArgInspector):
+    """
+    >>> facts=FactsInspector
+    >>> fact('/obj').is_cat('person').with_roles(x='len').into(facts)
+    """
+    pass
+
+
+@dataclass
+class fact:
+    part: str
+    roles: Optional[Dict]
+    cat: Optional[str]
+
+    def __init__(self, part):
+        self.part = part
+        self.roles = {}
+        self.cat = ''
+
+    def is_cat(self, cat):
+        self.cat = cat
+        return self
+
+    def with_roles(self, **roles):
+        self.roles = roles
+        return self
+
+    def into(self, ins):
+        return ins(self)
 
