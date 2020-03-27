@@ -23,6 +23,16 @@ class Rules_vi(LangSpecBase):
                                             behaveof('wish', 'v'),
                                             xcomp=specs_trans('*', 'registration'),
                                             nsubj=agency),
+            # $ svi 'Tôi ăn me.'
+            pat(5, name='behave_eat').verb(extract_for('word', 'nsubj'),
+                                           behaveof('eat', 'v'),
+                                           obj=specs_trans('n', 'food'),
+                                           nsubj=agency),
+            # $ svi 'Đứa trẻ chia sẻ bánh mì.'  (The child shares bread.)
+            pat(5, name='behave_share').verb(extract_for('word', 'nsubj'),
+                                             specs_trans('v', 'share'),
+                                             nsubj=agency,
+                                             xcomp=kindof('bread', '*')),
         ])
     
 

@@ -19,8 +19,14 @@ class Rules_tr(LangSpecBase):
 
         self.collect(pats=[
             # $ str 'Bir bira isterim.'  (I’d like a beer.)
-            pat(-5, name='behave_i_want').verb(specs_trans('v', 'request'),
-                                              obj=kindof('food', 'n')),
+            pat(-5, name='behave_food').verb(
+                specs_trans('v', 'request'),
+                obj=kindof('food', 'n')),
+            # $ str 'Rezervasyonumu onaylamak istiyorum.'  (I would like to confirm my reservation.)
+            pat(5, name='behave_reservation').verb(
+                specs_trans('v', 'request'),
+                ins().cat('/obj/obj') == 'reservation',
+                obj=kindof('approve', '*')),
         ])
     
 

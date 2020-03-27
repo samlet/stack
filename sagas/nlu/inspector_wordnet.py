@@ -69,6 +69,9 @@ class WordInspector(Inspector):
             results['subs']=self.subs
         return results
 
+    def norm_path(self, key):
+        return '_' if '/' in key else key
+
     def __str__(self):
         return "{}({},{})".format(self.name(), self.kind, self.pos_indicator)
 
@@ -108,7 +111,7 @@ class PredicateWordInspector(WordInspector):
         result=self.substitute(word, lang, pos)
         logger.debug(f"result base: {self.result_base}")
         if result:
-            ctx.add_result(self.name(), 'default', key,
+            ctx.add_result(self.name(), 'default', self.norm_path(key),
                            {**self.result_base, 'pos': pos, 'word': word},
                            delivery_type='sentence')
         return result
@@ -157,7 +160,7 @@ class VerbInspector(WordInspector):
         result= self.substitute(word, lang, pos)
         logger.debug(f"check word {word} against {self.kind}, result is {result}")
         if result:
-            ctx.add_result(self.name(), 'default', 'predicate',
+            ctx.add_result(self.name(), 'default', self.norm_path(key),
                            {**self.result_base, 'pos': pos, 'word': word},
                            delivery_type='sentence')
         return result
@@ -231,7 +234,7 @@ class WordSpecsInspector(WordInspector):
         evts={}
 
         def use_raw_fmt(opt_val):
-            pos=ctx.get_feat_pos(key)
+            pos=ctx.check_pos(key)
             if pos in opt_val:
                 evts['trans_idx']=0
 
@@ -273,7 +276,8 @@ class WordSpecsInspector(WordInspector):
 
         fin=any(resultset)
         if fin:
-            ctx.add_result(self.name(), 'default', 'predicate',
+            ctx.add_result(self.name(), 'default',
+                           '_' if '/' in key else key,
                            {**self.result_base, 'pos': pos,
                             'words': list(valid_words)},
                            delivery_type='sentence')

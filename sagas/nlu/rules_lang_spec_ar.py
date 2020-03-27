@@ -19,9 +19,11 @@ class Rules_ar(LangSpecBase):
         self.collect(pats=[
             # $ sa '‫لا أحب البصل.‬'  (I don’t like onions.)
             # $ print_detail=true sa '‫لا أحب البصل.‬'
-            pat(5, name='behave_fav').verb(extract_for('plain+translit', 'obj'),
+            pat(-5, name='behave_fav').verb(extract_for('plain+translit', 'obj'),
                                            extract_for('plain+translit', 'nsubj'),
-                                           behaveof('love', 'v'), obj='c_noun', nsubj=negative()),
+                                           behaveof('love', 'v'),
+                                           obj='c_noun',
+                                           advmod=negative()),
         ])
     
 

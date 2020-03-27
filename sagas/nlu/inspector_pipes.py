@@ -57,9 +57,10 @@ class PipesInspector(Inspector):
                 # 如果希望所有管道都必须有匹配才为真, 可以分成多个pipes(即多个inspector)编写,
                 # 因为pattern的匹配规则就是所有inspectors均为真
                 has_result=True
+                path_val=ctx.domain_name+':'+vals[0]['path'][1:] if vals else '_'
                 ctx.add_result(self.name(),
-                               provider=result['sig'],
-                               part_name=result['name'],
+                               provider=f"{result['sig']}/{result['name']}",
+                               part_name=path_val,
                                val=vals)
         return has_result
 

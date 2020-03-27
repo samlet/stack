@@ -43,6 +43,7 @@ class Context(cla_meta_intf, object):
         self.name=name
         self.domains=domains
         self.domain_type=meta['domain_type']
+        self.domain_name=self.domain_type.replace('_domains', '')
 
         # self.chunks = {x[0]: x[4] for x in domains}
         self._chunks = [Chunk(x[0], x[4]) for x in domains]
@@ -94,6 +95,12 @@ class Context(cla_meta_intf, object):
 
     def get_feat_pos(self, part:Text) -> Optional[Text]:
         return self.feats[part][0] if part in self.feats else None
+
+    def check_pos(self, part_or_val:Text) -> Optional[Text]:
+        if '/' in part_or_val:
+            return self.pos
+        else:
+            return self.get_feat_pos(part_or_val)
 
     @property
     def segments(self):

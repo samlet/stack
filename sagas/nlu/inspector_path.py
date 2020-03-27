@@ -55,7 +55,8 @@ class PathInspector(Inspector):
                 tc.emp('yellow' if not pred_r else 'green', f".. {word} is {self.kind}: {pred_r}")
                 results.append(pred_r)
                 if pred_r:
-                    ctx.add_result(self.name(), 'default', self.paths[idx],
+                    ctx.add_result(self.name(), 'default',
+                                   f"{self.domains}:{self.paths[idx]}",
                                    {'category': self.kind, 'pos':self.pos,
                                     **word_values(word, lang)},
                                    delivery_type='sentence')

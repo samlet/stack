@@ -1,4 +1,13 @@
 # procs-stack.md
+## latest
+```sh
+$ cdd /pi/agent_dispatcher  # sagas-ai/bots/agent_dispatcher
+$ . env.sh
+$ s1
+$ s2
+```
+
+## old ..
 * procs-cabocha-provider.ipynb
     - 使用grpc封装cabocha作为provider, 提供给前端的nlu组件.
 * procs-nlu-cn-pipelines.ipynb
