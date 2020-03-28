@@ -35,6 +35,7 @@ def cat_proc(sender, **kwargs):
                            'word': t.word,
                            'trans': t.trans,
                            'cat': kind,
+                           'value': kind,
                            'pos': t.upos.lower()}),
     ).subscribe(
         on_next=lambda value: results.append({**value}),

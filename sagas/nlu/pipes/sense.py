@@ -36,6 +36,7 @@ def sense_proc(sender, **kwargs):
         ops.map(lambda t: {'path': t.path,
                            'word': t.lemma,
                            'cat': cond.cat,
+                           'value': cond.cat,
                            'roles': cond.roles,
                            'pos': t.upos.lower()}),
     ).subscribe(

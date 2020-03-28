@@ -5,6 +5,7 @@ from sagas.nlu.inspectors import NamedArgInspector
 from sagas.nlu.registries import registry_sinkers, named_exprs
 from sagas.conf.conf import cf
 import logging
+import sagas.tracker_fn as tc
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +83,15 @@ def _dev_info(results: List[Any], data:Dict[Text,Any]):
         else:
             print('.. no results')
 
-registry_sinkers(_tags, _series, _slots, _dev_info)
+def _descriptors(results: List[Any], data:Dict[Text,Any]):
+    from sagas.nlu.descriptor import Descriptor
+    dsp = Descriptor()
+    pats=dsp.build(results)
+    tc.emp('cyan', f"✁ render patterns {len(pats)}. {'-' * 25}")
+    for i,pat in enumerate(pats.values()):
+        tc.emp('magenta', f"{i}. {pat}")
+
+registry_sinkers(_tags, _series, _slots, _dev_info, _descriptors)
 
 class TagsInspector(Inspector):
     """

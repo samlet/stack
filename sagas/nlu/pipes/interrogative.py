@@ -33,7 +33,7 @@ def interr_proc(sender, **kwargs):
     source.pipe(
         filter_path(cond.part),
         pred_interr(cond.cond, lang),
-        to_token(),
+        to_token(cond.cond),
     ).subscribe(
         on_next=lambda value: results.append({'interr':cond.cond, **value}),
         on_error=lambda e: logger.error(e),

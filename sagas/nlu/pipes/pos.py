@@ -22,7 +22,7 @@ def pos_proc(sender, **kwargs):
     source.pipe(
         filter_path(cond.part),
         ops.filter(lambda t: t.upos.lower() in cond.cond),
-        to_token(),
+        to_token(cond.cond),
     ).subscribe(
         on_next=lambda value: results.append({**value}),
         on_error=lambda e: logger.error(e),

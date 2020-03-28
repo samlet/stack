@@ -37,11 +37,12 @@ def filter_pos(pos_list:List[Text]):
         ops.filter(lambda t: t.upos.lower() in pos_list),
     )
 
-def to_token():
+def to_token(value=''):
     return rx.pipe(
         ops.map(lambda t: wrap(word=f"{t.text}/{t.lemma}",
                                path=t.path,
-                               pos=t.upos.lower())), )
+                               pos=t.upos.lower(),
+                               value=value)), )
 
 def flat_table(ds, parent, table_rs, is_root=True):
     child_tags=[k for k,v in ds.items() if isinstance(v, list) and k not in ('entity', 'segments')]
