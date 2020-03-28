@@ -27,6 +27,11 @@ class Rules_tr(LangSpecBase):
                 specs_trans('v', 'request'),
                 ins().cat('/obj/obj') == 'reservation',
                 obj=kindof('approve', '*')),
+            # $ str 'Köyden geliyorum.'
+            pat(5, name='come from {obl:_}').verb(
+                extract_for('feats', 'verb:_'),
+                specs_trans('v', 'come'),
+                obl=kindof('social_group', 'n')),
         ])
     
 

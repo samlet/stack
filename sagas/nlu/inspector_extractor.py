@@ -14,9 +14,11 @@ class CompExtractInspector(Inspector):
     Instances:
         extract_for('chunk+chunk_text', 'verb:xcomp/obj'),
         nsubj=extract('plain+date_search+date_parse'),
+        extract_for('feats', 'verb:_'),
+        extract_for('feats', 'verb:obj')
     >>> pat(3, name='extract_day').cop(behaveof('day', 'n'),
-                                              flat=kindof('feast_day/day', 'n'),
-                                              nsubj=extract('plain+date_search+date_parse')),
+    >>>                           flat=kindof('feast_day/day', 'n'),
+    >>>                           nsubj=extract('plain+date_search+date_parse')),
     """
     def __init__(self, comp_as='plain', pickup=''):
         self.comp_as=comp_as.split('+')
@@ -82,15 +84,14 @@ class CompExtractInspector(Inspector):
                 ctx.add_result(self.name(), comp, 'sents', result)
                 return True
             return False
+
         def ex_chunk(cnt, comp, clo):
             from sagas.nlu.uni_chunks import get_chunk
             from sagas.nlu.ruleset_procs import list_words, cached_chunks
             from sagas.conf.conf import cf
             # get_chunk(f'verb_domains', 'xcomp/obj', lambda w: w.upos)
             chunks = cached_chunks(ctx.sents, ctx.lang, cf.engine(ctx.lang))
-            parts=self.pickup.split(':')
-            domain=parts[0]
-            path=parts[1]
+            domain, path=self.pickup.split(':')
             result = get_chunk(chunks,
                                f'{domain}_domains' if domain!='predicts' else domain,
                                path, clo=clo)
@@ -99,6 +100,16 @@ class CompExtractInspector(Inspector):
                 ctx.add_result(self.name(), comp, self.pickup, result)
                 return True
             return False
+
+        def ex_feats(cnt, comp):
+            from sagas.nlu.features import get_feats_map
+            domain, path = self.pickup.split(':')
+            result=get_feats_map(ctx.sents, ctx.lang, domain, path)
+            if result:
+                ctx.add_result(self.name(), comp, self.pickup, result)
+                return True
+            return False
+
         def ex_ner(cnt, comp):
             data = {"sents": ctx.sents if self.pickup=='_' else cnt}
             route=f'spacy/{ctx.lang}' if ctx.lang in ('zh', 'ru', 'ja', 'id') else ctx.lang
@@ -130,6 +141,10 @@ class CompExtractInspector(Inspector):
                 'chunk': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: (w.text, w.upos.lower())),
                 # example: extract_for('chunk_text', 'verb:xcomp/obj')
                 'chunk_text': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: w.text),
+                'chunk_feats': lambda cnt, comp: ex_chunk(cnt, comp, lambda w: w.feats),
+                # .. extract_for('feats', 'verb:_'),
+                #        extract_for('feats', 'verb:obj')
+                'feats': lambda cnt, comp: ex_feats(cnt, comp),
                 # example: extract_for('ner', '_'), extract_for('ner', 'xcomp')
                 'ner': lambda cnt, comp: ex_ner(cnt, comp),
                 }

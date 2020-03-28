@@ -75,7 +75,8 @@ def get_verb_domain(sent):
         # add_domain(domains, stems, sent.words[word.governor - 1], sent)
         add_head(domains, word, sent)
 
-        rs.append({'type':'verb_domains', 'word': word.text, 'lemma':word.lemma, 'index': word.index,
+        rs.append({'type':'verb_domains', 'word': word.text,
+                   'lemma':word.lemma, 'index': word.index,
                    'upos': word.upos.lower(), 'xpos': word.xpos.lower(),
                    'rel': word.dependency_relation, 'governor': word.governor,
                    'domains': domains, 'stems':stems})

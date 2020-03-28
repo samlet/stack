@@ -58,9 +58,13 @@ def get_chunk(chunks:Dict[Text, Any], domain_name:Text, expr:Text, clo=None):
     :param clo:
     :return:
     """
-    idx = get_index_with(chunks, domain_name, expr)
     if clo is None:
         clo = lambda w: w.text
+    if expr=='_':
+        domains = chunks[domain_name]
+        idx=domains[0]['index']
+    else:
+        idx = get_index_with(chunks, domain_name, expr)
     if idx:
         sent_p = chunks['doc']
         root = next(w for w in sent_p.words if w.index == idx)
