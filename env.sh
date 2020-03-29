@@ -161,6 +161,7 @@ alias shr="python -m sagas.tool.misc trans_clip hr 'en;zh-CN;ja' en False"
 alias sbg="python -m sagas.tool.misc trans_clip bg 'en;zh-CN;ja' en False"
 alias ssk="python -m sagas.tool.misc trans_clip sk 'en;zh-CN;ja' en False"
 alias ssr="python -m sagas.tool.misc trans_clip sr 'en;zh-CN' en False"
+alias ssl="python -m sagas.tool.misc trans_clip sl 'en;zh-CN' en False"
 
 # alias sda="python -m sagas.tool.misc trans_clip da 'en;ja;de' de False"
 alias sda="python -m sagas.tool.misc trans_clip da 'en;no;de' de False"
