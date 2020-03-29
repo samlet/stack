@@ -16,7 +16,7 @@ class Transliterations(object):
         self.lang_maps={'iw':'he'}
         self.transliters={('ko'):lambda s,_: kroman.parse(s),
                           ('sr', 'me', 'mk', 'ru'): lambda s,lang:cyrtranslit.to_latin(s, lang),
-                          ('he', 'fa', 'ur'): lambda s,lang:translit(s,lang),
+                          ('he', 'fa', 'ur', 'sr'): lambda s,lang:translit(s,lang),
                           # ('hi', 'ar'): lambda s,_:self.tr_icu(s),
                           ('hi', 'hy'): lambda s, _: self.tr_icu(s),
                           ('ar'): lambda s,_: self.trans_ar(s),
@@ -51,6 +51,7 @@ class Transliterations(object):
         $ python -m sagas.nlu.transliterations trans_polyglot 'وہ امیر ہے۔' ur
         $ python -m sagas.nlu.transliterations trans_polyglot 'वह धनी है।' hi
         $ python -m sagas.nlu.transliterations trans_polyglot 'الان تنیس بازی میکنم' fa
+        $ python -m sagas.nlu.transliterations trans_polyglot 'Када полеће следећи авион за Рим?' sr
 
         :param sents:
         :param lang:

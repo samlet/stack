@@ -182,7 +182,7 @@ def handle_dep_parse():
 
     # content=request.get_json()
     content=request.get_data(as_text=True)
-    print('..', content)
+    # print('..', content)
     return parse_sents(content)
 
 class ParseServant(object):

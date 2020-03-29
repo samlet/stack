@@ -2,7 +2,7 @@ from typing import Text, Dict, Any
 
 import sagas.tracker_fn as tc
 
-agency=['c_pron', 'c_noun', 'c_propn']
+agency=['c_pron', 'c_noun', 'c_propn', 'c_det']
 
 class LangSpecBase(object):
     def __init__(self, meta:Dict[Text,Any], domains, doc=None):

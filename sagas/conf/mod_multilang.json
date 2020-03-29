@@ -34,6 +34,7 @@
   "ur": ["sagas.nlu.rules_lang_spec_ur.Rules_ur"],
   "he": ["sagas.nlu.rules_lang_spec_he.Rules_he"],
   "et": ["sagas.nlu.rules_lang_spec_et.Rules_et"],
-  "vi": ["sagas.nlu.rules_lang_spec_vi.Rules_vi"]
+  "vi": ["sagas.nlu.rules_lang_spec_vi.Rules_vi"],
+  "sr": ["sagas.nlu.rules_lang_spec_sr.Rules_sr"]
 }
 

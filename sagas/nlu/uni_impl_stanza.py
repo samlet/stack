@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union
 from sagas.nlu.uni_intf import WordIntf, SentenceIntf
 
 class StanzaWordImpl(WordIntf):
@@ -34,8 +35,15 @@ class StanzaParserImpl(object):
     def __init__(self, lang):
         self.lang = lang
 
-    def __call__(self, sents):
+    def __call__(self, sents:Text):
         from sagas.nlu.stanza_helper import get_nlp
+        from sagas.nlu.transliterations import translits
+
+        preprocs={'sr':lambda : translits.translit(sents, self.lang),
+                  }
         nlp = get_nlp(self.lang)
+        if self.lang in preprocs:
+            sents=preprocs[self.lang]()
         doc = nlp(sents)
         return StanzaSentImpl(doc.sentences[0], text=sents)
+

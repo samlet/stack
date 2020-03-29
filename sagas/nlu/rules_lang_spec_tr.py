@@ -28,10 +28,17 @@ class Rules_tr(LangSpecBase):
                 ins().cat('/obj/obj') == 'reservation',
                 obj=kindof('approve', '*')),
             # $ str 'Köyden geliyorum.'
+            # $ str 'Hangi köylerden geliyorsun?'  ("您来自哪个村庄？")
             pat(5, name='come from {obl:_}').verb(
                 extract_for('feats', 'verb:_'),
                 specs_trans('v', 'come'),
                 obl=kindof('social_group', 'n')),
+            # $ str 'Ofiste yumurta yiyorlar.'
+            pat(5, name='behave {_:_} with {obj:_}').verb(
+                extract_for('feats', 'verb:_'),
+                specs_trans('v', 'eat', 'feed', 'consume'),
+                nsubj=kindof('place_of_business', 'n'),
+                obj=kindof('food', 'n')),
         ])
     
 

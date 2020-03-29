@@ -44,7 +44,7 @@ class GoogleTrans(object):
         url = "https://translate.google.cn/"
 
         req = urllib.request.Request(url=url, headers=self.header)
-        page_source = urllib.request.urlopen(req).read().decode("utf-8")
+        page_source = urllib.request.urlopen(req, timeout=2).read().decode("utf-8")
 
         self.TKK = re.findall(r"tkk:'([0-9]+\.[0-9]+)'", page_source)[0]
 
@@ -69,7 +69,7 @@ class GoogleTrans(object):
 
         url = self.construct_url()
         req = urllib.request.Request(url=url, headers=self.header)
-        response = json.loads(urllib.request.urlopen(req).read().decode("utf-8"))
+        response = json.loads(urllib.request.urlopen(req, timeout=2).read().decode("utf-8"))
         # print(response[0][0][0])
         res = join_sentence(response)
         process_result(meta, response, trans_verbose, options, tracker)

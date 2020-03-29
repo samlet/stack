@@ -76,11 +76,12 @@ class LtpParserImpl(object):
     def __init__(self, lang='zh-CN'):
         self.lang = lang
 
-    def __call__(self, sentence:Text):
-        from sagas.zh.ltp_procs import LtpProcs, ltp
+    def __call__(self, sents:Text):
+        from sagas.zh.ltp_procs import ltp
         from sagas.zh.ltp_procs import extract_predicates
+        import opencc
 
-        # doc = spacy_doc(sents, self.lang)
+        sentence=opencc.convert(sents) # convert to Simplified Chinese
         words = ltp.segmentor.segment(sentence)
         postags = ltp.postagger.postag(words)
         arcs = ltp.parser.parse(words, postags)

@@ -46,8 +46,10 @@ class WordInspector(Inspector):
         return '*'
 
     def add_subs(self, word, r, candidates=None):
-        self.subs.append({'word':word, 'substitute':r,
-                          'candidates':[] if candidates is None else candidates})
+        if word not in [w['word'] for w in self.subs] and \
+                r not in [w['substitute'] for w in self.subs]:
+            self.subs.append({'word':word, 'substitute':r,
+                              'candidates':[] if candidates is None else candidates})
 
     def substitute(self, word, lang, pos):
         from sagas.nlu.synonyms import synonyms
