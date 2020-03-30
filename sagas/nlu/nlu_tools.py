@@ -9,7 +9,7 @@ from sagas.nlu.constants import contrast_translit_langs
 from sagas.startup import startup
 
 
-def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
+def load_corpus(dataf= f"{cf.conf_dir}/ai/seq2seq/fra-eng-2019/fra.txt"):
     from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
     # print('loading spacy english model ...')
     # nlp_spacy = spacy.load('en_core_web_sm')
@@ -31,14 +31,14 @@ def load_corpus(dataf= "/pi/ai/seq2seq/fra-eng-2019/fra.txt"):
     return rows
 
 corpus_resources={
-    "fr":"/pi/ai/seq2seq/fra-eng-2019/fra.txt",
-    "zh":'/pi/ai/seq2seq/cmn-eng-2019/cmn.txt',
-    'ja':'/pi/ai/seq2seq/jpn-eng-2019/jpn.txt',
-    'de':'/pi/ai/seq2seq/deu-eng/deu.txt',
-    'es':'/pi/ai/seq2seq/spa-eng/spa.txt',
-    'ru':'/pi/ai/seq2seq/rus-eng/rus.txt',
-    'it':'/pi/ai/seq2seq/ita-eng/ita.txt',
-    'pt':'/pi/ai/seq2seq/por-eng/por.txt'
+    "fr":f"{cf.conf_dir}/ai/seq2seq/fra-eng-2019/fra.txt",
+    "zh":f'{cf.conf_dir}/ai/seq2seq/cmn-eng-2019/cmn.txt',
+    'ja':f'{cf.conf_dir}/ai/seq2seq/jpn-eng-2019/jpn.txt',
+    'de':f'{cf.conf_dir}/ai/seq2seq/deu-eng/deu.txt',
+    'es':f'{cf.conf_dir}/ai/seq2seq/spa-eng/spa.txt',
+    'ru':f'{cf.conf_dir}/ai/seq2seq/rus-eng/rus.txt',
+    'it':f'{cf.conf_dir}/ai/seq2seq/ita-eng/ita.txt',
+    'pt':f'{cf.conf_dir}/ai/seq2seq/por-eng/por.txt'
 }
 
 def to_str(obj):
@@ -158,7 +158,7 @@ class NluTools(object):
         import pandas as pd
         from pprint import pprint
         def list_chapter_titles(lang):
-            dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+            dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
             return [name for name, group in dfjson.groupby('chapter')]
 
         rs=list_chapter_titles(lang)

@@ -1,4 +1,5 @@
 from sanic import Sanic
+from sagas.conf.conf import cf
 
 app = Sanic(__name__)
 
@@ -9,7 +10,7 @@ class ResourcesServe(object):
         :return:
         """
         chunk_size = 1024 * 1024 * 8 # Set chunk size to 8KB
-        app.static('/id_0198.mp3', '/pi/resources/id_0198.mp3',
+        app.static('/id_0198.mp3', f'{cf.conf_dir}/resources/id_0198.mp3',
                    stream_large_files=chunk_size)
 
         app.run(host="0.0.0.0", port=8000)

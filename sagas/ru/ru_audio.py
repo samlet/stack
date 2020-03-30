@@ -2,16 +2,17 @@ import pandas as pd
 from tqdm import tqdm
 import requests
 import os
+from sagas.conf.conf import cf
 
 def download_file_stream(word, url):
     # url = "http://download.thinkbroadband.com/10MB.zip"
     response = requests.get(url, stream=True)
-    with open("/pi/data/audio/%s.mp3"%word, "wb") as handle:
+    with open(f"{cf.conf_dir}/data/audio/%s.mp3"%word, "wb") as handle:
         for data in tqdm(response.iter_content()):
             handle.write(data)
 
 def download_file(word, url, overwrites=False):
-    path="/pi/data/audio/%s.mp3"%word
+    path=f"{cf.conf_dir}/data/audio/%s.mp3"%word
     if not overwrites and os.path.isfile(path):
         return False
     r = requests.get(url)

@@ -1,9 +1,11 @@
 def write_proto_to(proto, file):
-    with open(file, "wb") as f:
+    from os.path import expanduser
+    with open(expanduser(file), "wb") as f:
         f.write(proto.SerializeToString())
 
 def read_proto(proto, file):
-    with open(file, "rb") as f:
+    from os.path import expanduser
+    with open(expanduser(file), "rb") as f:
         proto.ParseFromString(f.read())
 
 def convert_proto(java_proto, py_proto):

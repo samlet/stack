@@ -13,7 +13,7 @@ from interacts.sl_utils import all_labels, fix_sents, write_styles
 enable_streamlit_tracker()
 write_styles()
 
-corpus_prefix='/pi/stack/interacts'
+corpus_prefix=f'{cf.conf_dir}/stack/interacts'
 
 def choose_lang_and_corpus():
 

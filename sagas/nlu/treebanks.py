@@ -2,6 +2,7 @@ import io_utils
 import os
 import json_utils
 import json
+from sagas.conf.conf import cf
 
 treebanks_defs="""LANGUAGE	TREEBANK	LANGUAGE CODE	TREEBANK CODE	MODELS	VERSION	TREEBANK LICENSE	TREEBANK DOC	NOTES
 Afrikaans	AfriBooms	af	af_afribooms	download	0.2.0	Creative Commons License		 
@@ -107,7 +108,7 @@ class TreeBanks(object):
         """
         import glob
         from sagas.tool.misc import color_print
-        prefix = '/pi/stack/crawlers/langcrs/'
+        prefix = f'{cf.conf_dir}/stack/crawlers/langcrs/'
         file_names = []
         for f in glob.glob(f'{prefix}all_*.json'):
             fname = f.replace(prefix + 'all_', '').replace('.json', '')
@@ -191,7 +192,7 @@ class TreeBanks(object):
         rs = json.loads(df.to_json(orient='records'))
 
         # find all models
-        folders = io_utils.list_subdirectories('/pi/ai/corenlp/')
+        folders = io_utils.list_subdirectories(f'{cf.conf_dir}/ai/corenlp/')
         model_dirs = []
         suffix = '_models'
         for folder in folders:

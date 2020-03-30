@@ -8,7 +8,7 @@ class Synonyms(object):
         self.mappings =self.load_dataset()
 
     # def load_dict(self, lang):
-    #     prefix = '/pi/stack/data/synonyms'
+    #     prefix = f'{cf.conf_dir}/stack/data/synonyms'
     #     file = f"{prefix}/{lang}_def.yml"
     #     with open(file, 'r') as f:
     #         return yaml.safe_load(f.read())
@@ -52,7 +52,7 @@ class Synonyms(object):
         import ntpath
         from sagas.conf import resource_dir
         from fnmatch import fnmatch
-        # prefix='/pi/stack/data/synonyms'
+        # prefix=f'{cf.conf_dir}/stack/data/synonyms'
         # files=glob.glob(f"{prefix}/*_def.yml")
         files=resource_dir(lambda f: fnmatch(f, '*_def.yml'), 'synonyms', get_full_path=True)
         langs={}

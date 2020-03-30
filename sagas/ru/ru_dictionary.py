@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+from sagas.conf.conf import cf
 
 dict_maps={'v':'verbs', 'n':'nouns', 'a':'adjectives', 'o':'others'}
 class RuDictionary(object):
@@ -9,7 +10,7 @@ class RuDictionary(object):
         else:
             self.word_col='bare'
         dict_name=dict_maps[pos]
-        verbs = '/pi/nlp/russian-dictionary/%s.csv'%dict_name
+        verbs = f'{cf.conf_dir}/nlp/russian-dictionary/%s.csv'%dict_name
         self.df = pd.read_csv(verbs, delimiter='\t')
 
     def lookup(self, word_pat, enable_de=True):

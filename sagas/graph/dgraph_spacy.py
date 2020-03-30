@@ -7,7 +7,7 @@ import protobuf_utils
 from tqdm import tqdm, trange
 
 from sagas.nlu.spacy_helper import chunks_df
-
+from sagas.conf.conf import cf
 
 def lines(filename):
     with open(filename) as f:
@@ -15,7 +15,7 @@ def lines(filename):
         return [line.split('\t') for line in lines]
 
 def data_ja_en():
-    dataf = "/pi/ai/seq2seq/jpn-eng/jpn.txt"
+    dataf = f"{cf.conf_dir}/ai/seq2seq/jpn-eng/jpn.txt"
     pairs = lines(dataf)
     return pairs
 
@@ -120,9 +120,9 @@ class SpacyBuilder(object):
     # def step(self, val=1):
     #     self.f.value += val  # signal to increment the progress bar
 
-    def procs(self, out_file='/pi/data/langs/jpn_eng_spacy.data'):
+    def procs(self, out_file):
         """
-        $ python -m sagas.graph.dgraph_spacy procs
+        $ python -m sagas.graph.dgraph_spacy procs '~/pi/data/langs/jpn_eng_spacy.data'
         :param out_file:
         :return:
         """
@@ -173,7 +173,7 @@ class SpacyBuilder(object):
         lang = res.RsLang(entries=pair, store=data)
         rs.append(lang)
 
-    def write_samples(self, only_samples=True, out_file='/pi/data/langs/samples_100.data'):
+    def write_samples(self, only_samples=True, out_file=f'{cf.conf_dir}/data/langs/samples_100.data'):
         rs = []
         if only_samples:
             for i in range(2000, 2100):
@@ -185,7 +185,7 @@ class SpacyBuilder(object):
         langs = res.RsLangs(langs=rs)
         protobuf_utils.write_proto_to(langs, out_file)
 
-    def load_samples(self, input_file='/pi/data/langs/samples_100.data'):
+    def load_samples(self, input_file=f'{cf.conf_dir}/data/langs/samples_100.data'):
         load_langs = res.RsLangs()
         protobuf_utils.read_proto(load_langs, input_file)
         print(len(load_langs.langs))

@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 import json
+from sagas.conf.conf import cf
 
 # engine = create_engine('sqlite:///:memory:', echo=True)
 engine = create_engine('sqlite:///sagas/dataset/corpus.db', convert_unicode=True)
@@ -20,7 +21,7 @@ corpus = Table('corpus', metadata,
 def load_corpus(langs):
     rs=[]
     for lang in langs:
-        with open(f'/pi/stack/crawlers/langcrs/all_{lang}.json') as json_file:
+        with open(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json') as json_file:
             sents=json.load(json_file)
             for s in sents:
                 s['lang']=lang
@@ -30,7 +31,7 @@ def load_corpus(langs):
 class CorpusDataset(object):
     def all_corpus(self):
         import glob
-        corpus_prefix = '/pi/stack/crawlers/langcrs'
+        corpus_prefix = f'{cf.conf_dir}/stack/crawlers/langcrs'
         ds = [f for f in glob.glob(f'{corpus_prefix}/all_*.json')]
         print('\n'.join(ds))
 

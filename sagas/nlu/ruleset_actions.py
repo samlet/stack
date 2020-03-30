@@ -6,7 +6,7 @@ class RulesetActions(object):
 
         self.intents = []
         files = [resource_path(f) for f in resource_files('ruleset_*.json')]
-        # for f in glob.glob('/pi/stack/conf/ruleset_*.json'):
+        # for f in glob.glob(f'{cf.conf_dir}/stack/conf/ruleset_*.json'):
         for f in files:
             rules = json_utils.read_json_file(f)
             # for rule in rules:

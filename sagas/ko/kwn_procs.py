@@ -3,6 +3,7 @@ import json
 import io
 from sagas.nlu.transliterations import translits
 from nltk.corpus import wordnet as wn
+from sagas.conf.conf import cf
 
 class SetEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -20,7 +21,7 @@ def write_indexes(output_path, lookups_nor, lookups_tra):
 
 def build_omw(lookups_nor, lookups_tra):
     import pandas as pd
-    data_path = '/pi/ai/nltk/data/wikt/wn-wikt-kor.tab'
+    data_path = f'{cf.conf_dir}/ai/nltk/data/wikt/wn-wikt-kor.tab'
     df = pd.read_csv(data_path, sep='\t')
     for index, row in df.iterrows():
         refid = row['# Wiktionary']
@@ -37,7 +38,7 @@ def build_omw(lookups_nor, lookups_tra):
 def build_kwn(lookups_nor, lookups_tra):
     rs = []
     import pandas as pd
-    data_path = '/pi/ai/nltk/kwn_1.0/kwn_synset_list.tsv'
+    data_path = f'{cf.conf_dir}/ai/nltk/kwn_1.0/kwn_synset_list.tsv'
     df = pd.read_csv(data_path, sep='\t')
 
     for index, row in df.iterrows():
@@ -69,7 +70,7 @@ class KwnProcs(object):
     def __init__(self):
         self.idx_nor={}
         self.idx_tra={}
-        self.index_dir = '/pi/stack/sagas/conf/synsets'
+        self.index_dir = f'{cf.conf_dir}/stack/sagas/conf/synsets'
 
     def write_indexes(self):
         """

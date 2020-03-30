@@ -2,6 +2,7 @@ import json_utils
 import pandas as pd
 import json
 import re
+from sagas.conf.conf import cf
 
 def norm_key(s):
     s = re.sub(r"[^a-zA-Z]+", r"", s)
@@ -57,7 +58,7 @@ def build_dicts():
                  'others': 'bare'.split('\t'),
                  }
     for dict_name, cols in dict_maps.items():
-        verbs = '/pi/nlp/russian-dictionary/%s.csv' % dict_name
+        verbs = f'{cf.conf_dir}/nlp/russian-dictionary/%s.csv' % dict_name
         print('process', verbs)
         df = pd.read_csv(verbs, delimiter='\t')
         add_to(df, all_dicts, cols)
@@ -65,8 +66,8 @@ def build_dicts():
     return all_dicts
 
 def build_voc():
-    voc_file='/pi/langs/voc/ru-voc.json'
-    voc_dicts='/pi/langs/voc/ru-voc-dicts.json'
+    voc_file=f'{cf.conf_dir}/langs/voc/ru-voc.json'
+    voc_dicts=f'{cf.conf_dir}/langs/voc/ru-voc-dicts.json'
     words=json_utils.read_json_file(voc_file)
     all_dicts=build_dicts()
 
@@ -76,14 +77,14 @@ def build_voc():
     json_utils.write_json_to_file(voc_dicts, rs)
     # print('done.')
     print('absents %d, see these words in file ru-voc-absents.json'%len(skips))
-    json_utils.write_json_to_file('/pi/langs/voc/ru-voc-absents.json', skips)
+    json_utils.write_json_to_file(f'{cf.conf_dir}/langs/voc/ru-voc-absents.json', skips)
 
     return rs, skips
 
 def build_input_pairs(additions):
     import clipboard
 
-    voc_dicts = '/pi/langs/voc/ru-voc-dicts.json'
+    voc_dicts = f'{cf.conf_dir}/langs/voc/ru-voc-dicts.json'
     voc_words = json_utils.read_json_file(voc_dicts)
     print('total voc words', len(voc_words))
     rs = []

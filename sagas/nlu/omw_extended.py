@@ -1,4 +1,5 @@
 from typing import Text, Any, Dict, List
+from sagas.conf.conf import cf
 
 langsets={'bg': 'bul', 'ca': 'cat', 'cs': 'ces', 'da': 'dan', 'de': 'deu', 'el': 'ell',
           'en': 'eng', 'eu': 'eus', 'fa': 'fas', 'fi': 'fin', 'fr': 'fra', 'hr': 'hrv',
@@ -37,7 +38,7 @@ class OmwExtended(object):
         import pandas as pd
         import json
         import os
-        prefix = '/pi/ai/nltk/data/wikt/'
+        prefix = f'{cf.conf_dir}/ai/nltk/data/wikt/'
         if lang not in langsets:
             raise Exception("No dict data for language %s"%lang)
 

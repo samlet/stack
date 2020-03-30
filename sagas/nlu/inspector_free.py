@@ -79,7 +79,7 @@ class PredictsInspector(Inspector):
             # r2=predicate(el, ud.__cat('be') >> [ud.nsubj('what'), ud.dc_cat('animal/object')], lang)
             result = all([r[0] for r in r1])
             final_rs.append(result)
-            logger.debug(f"{r[0] for r in r1}, {result}")
+            logger.debug(f'{r[0] for r in r1}, {result}')
         return any(final_rs)
 
     def __str__(self):

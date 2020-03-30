@@ -1,5 +1,6 @@
 from spacy.symbols import nsubj, VERB
 import pandas as pd
+from sagas.conf.conf import cf
 
 lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
                      'fr':['fr_core_news_sm', 'fr_core_news_md'],
@@ -11,7 +12,7 @@ lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
                      'es':['es-core-news-sm', 'es-core-news-sm'],
                      'no':['nb_core_news_sm', 'nb_core_news_sm'], # Norwegian Bokmaal
                      'lt':['lt_core_news_sm', 'lt_core_news_sm'], # Lithuanian(立陶宛语)
-                     'ru':['/pi/ru2', '/pi/ru2'],
+                     'ru':[f'{cf.conf_dir}/ru2', f'{cf.conf_dir}/ru2'],
                      }
 
 def is_available(lang):

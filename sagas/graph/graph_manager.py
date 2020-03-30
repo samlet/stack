@@ -8,6 +8,7 @@ from sagas.nlu.spacy_helper import get_lemmas, get_verb_lemmas
 import pydgraph
 import sagas.graph.dgraph_helper as helper
 from tqdm import tqdm
+from sagas.conf.conf import cf
 
 logger = logging.getLogger('sagas_graph')
 
@@ -166,12 +167,12 @@ class GraphCommander(object):
         print(json.dumps(rs, indent=True))
 
     def create_lang_feeds(self, tr='fr',
-                          dataf = "/pi/ai/seq2seq/fra-eng-2019/fra.txt",
+                          dataf = f"{cf.conf_dir}/ai/seq2seq/fra-eng-2019/fra.txt",
                           outf='./data/graph/fra_eng_feed.json',
                           parse_zh=False):
         """
         $ python -m sagas.graph.graph_manager create_lang_feeds
-        $ python -m sagas.graph.graph_manager create_lang_feeds ja /pi/ai/seq2seq/jpn-eng-2019/jpn.txt ./data/graph/jpn_eng_feed.json
+        $ python -m sagas.graph.graph_manager create_lang_feeds ja ~/pi/ai/seq2seq/jpn-eng-2019/jpn.txt ./data/graph/jpn_eng_feed.json
         :return:
         """
         from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks

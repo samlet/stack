@@ -1,5 +1,6 @@
 from pprint import pprint
 import pandas as pd
+from sagas.conf.conf import cf
 
 class AugmentorCli(object):
     def chapters(self, lang='zh'):
@@ -8,7 +9,7 @@ class AugmentorCli(object):
         :param lang:
         :return:
         """
-        dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+        dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
         del dfjson['audio']
         for name, group in dfjson.groupby('chapter'):
             print(f"`{name}`")
@@ -20,7 +21,7 @@ class AugmentorCli(object):
         $ python -m augmentor.cli chapter_titles
         :return:
         """
-        dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+        dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
         names= [name for name, group in dfjson.groupby('chapter')]
         pprint(names)
 

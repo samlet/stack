@@ -2,6 +2,7 @@ from pyltp import SentenceSplitter, Segmentor, Postagger, Parser, NamedEntityRec
 import sys, os
 import pandas as pd
 import sagas
+from sagas.conf.conf import cf
 
 def join_words(words, arg_range):
     return ''.join([str(words[idx]) for idx in range(arg_range.start, arg_range.end+1)])
@@ -82,7 +83,7 @@ def extract_predicates(words, roles, postags, arcs, verbose=False):
 
 class LtpProcs(object):
     def __init__(self):
-        MODELDIR = '/pi/ai/ltp/ltp_data_v3.4.0'
+        MODELDIR = f'{cf.conf_dir}/ai/ltp/ltp_data_v3.4.0'
         self.segmentor = Segmentor()
         self.segmentor.load(os.path.join(MODELDIR, "cws.model"))
         self.postagger = Postagger()

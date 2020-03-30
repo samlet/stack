@@ -1,3 +1,5 @@
+from sagas.conf.conf import cf
+
 def list_ru_files(dir):
     suffix='.md'
     prefix='ru-'
@@ -50,8 +52,8 @@ class RuProcs(object):
         print(".. load rus-Cyrl")
         self.epi = epitran.Epitran('rus-Cyrl')
 
-        self.target_file = '/pi/langs/voc/ru-map.json'
-        self.target_file_rev = '/pi/langs/voc/ru-rev-map.json'
+        self.target_file = f'{cf.conf_dir}/langs/voc/ru-map.json'
+        self.target_file_rev = f'{cf.conf_dir}/langs/voc/ru-rev-map.json'
 
     def get_phonetic(self, argument):
         """
@@ -64,7 +66,7 @@ class RuProcs(object):
         return result
 
     def get_files(self):
-        files=list_ru_files('/pi/langs')
+        files=list_ru_files(f'{cf.conf_dir}/langs')
         return files
 
     def get_all_words(self, get_ref_lines=False):
@@ -98,7 +100,7 @@ class RuProcs(object):
     def save_voc(self):
         import json_utils
         all_words=self.get_all_words()
-        json_utils.write_json_to_file('/pi/langs/voc/ru-voc.json', list(all_words))
+        json_utils.write_json_to_file(f'{cf.conf_dir}/langs/voc/ru-voc.json', list(all_words))
 
     def get_norm_key(self, word, verbose=False, truncate=4):
         ipa_xs = self.epi.xsampa_list(word)

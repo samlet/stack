@@ -1,16 +1,16 @@
 import json
 import utils
-from rasa_core.domain import Domain
-from rasa_core.trackers import DialogueStateTracker, EventVerbosity
-from rasa_core.events import (
+from rasa.core.domain import Domain
+from rasa.core.trackers import DialogueStateTracker, EventVerbosity
+from rasa.core.events import (
     UserUttered, ActionExecuted, Restarted, ActionReverted,
     UserUtteranceReverted)
-from rasa_core.actions.action import ACTION_LISTEN_NAME
-from rasa_core.interpreter import RasaNLUHttpInterpreter
-from rasa_core.utils import EndpointConfig, AvailableEndpoints
-from rasa_core_sdk.executor import CollectingDispatcher
-from rasa_core_sdk.executor import ActionExecutor
-from rasa_core.events import deserialise_events
+from rasa.core.actions.action import ACTION_LISTEN_NAME
+from rasa.core.interpreter import RasaNLUHttpInterpreter
+from rasa.core.utils import EndpointConfig, AvailableEndpoints
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.executor import ActionExecutor
+from rasa.core.events import deserialise_events
 import logging
 
 # DEFAULT_DOMAIN_PATH = "data/test_domains/default_with_slots.yml"

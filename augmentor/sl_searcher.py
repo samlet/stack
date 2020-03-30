@@ -1,4 +1,5 @@
 import streamlit as st
+from sagas.conf.conf import cf
 
 from interacts.common import display_lang_selector
 from interacts.sl_utils import all_labels, write_styles
@@ -37,7 +38,7 @@ def corpus_search_bar():
     langs=select_langs()
     top_result = st.number_input('Insert a number', value=5)
 
-    searcher=CorpusSearcher(model_file='/pi/stack/spacy-2.2/data/embedded_corpus.pkl')
+    searcher=CorpusSearcher(model_file=f'{cf.conf_dir}/stack/spacy-2.2/data/embedded_corpus.pkl')
     relevant_quotes, relevant_chapters = searcher.search(text, ['text', 'chapter'], top_result)
     for q in range(top_result):
         # tc.emp('magenta', '>' + relevant_quotes[q])

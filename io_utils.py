@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union, Optional
 import errno
 import os
 import io
@@ -84,8 +85,10 @@ def list_subdirectories(path):
             if os.path.isdir(fn)]
 
 def write_to_file(filename, text, auto_create_dir=False):
-    # type: (Text, Text) -> None
+    # type: (Text, Text, bool) -> None
     """Write a text to a file."""
+    from os.path import expanduser
+    filename=expanduser(filename)
     if auto_create_dir:
         create_dir_for_file(filename)
 

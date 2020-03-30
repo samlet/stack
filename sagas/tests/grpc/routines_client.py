@@ -1,6 +1,7 @@
 import services_common_pb2 as sc
 import services_common_pb2_grpc as sc_service
 from client_wrapper import ServiceClient
+from sagas.conf.conf import cf
 
 serv = ServiceClient(sc_service, 'EntityServantStub', 'localhost', 50051)
 
@@ -14,7 +15,7 @@ def a_store():
     from sagas.util.string_util import abbrev
     import xml.etree.ElementTree as ET
     from sagas.ofbiz.entity_prefabs import EntityPrefabs
-    xml_file = '/pi/stack/data/product/ProductPriceTestData.xml'
+    xml_file = f'{cf.conf_dir}/stack/data/product/ProductPriceTestData.xml'
     tree = ET.parse(xml_file)
     root = tree.getroot()
     ep = EntityPrefabs()

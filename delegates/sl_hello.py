@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import urllib.request
 import json
+from sagas.conf.conf import cf
 
 from delegates.geo_helper import get_states
 
@@ -74,7 +75,7 @@ state = st.selectbox("State", options=list(states.keys()), format_func=lambda k:
 #     "https://arcos-api.ext.nile.works/v1/total_pharmacies_state?state={state}&key=WaPo".format(state=state))
 
 ## only state==CA
-raw_pharmacy_data = fetch_json('/pi/ai/streamlit/total_pharmacies_state.json')
+raw_pharmacy_data = fetch_json(f'{cf.conf_dir}/ai/streamlit/total_pharmacies_state.json')
 
 st.markdown("""### Opioid Sales in {state}
 
@@ -104,7 +105,7 @@ Source: Mike Bostock [https://observablehq.com/@mbostock/vega-lite-line-chart](h
 
 # aapl = fetch_csv(
 #     'https://gist.githubusercontent.com/mbostock/14613fb82f32f40119009c94f5a46d72/raw/d0d70ffb7b749714e4ba1dece761f6502b2bdea2/aapl.csv')
-aapl = fetch_csv('/pi/ai/streamlit/aapl.csv')
+aapl = fetch_csv(f'{cf.conf_dir}/ai/streamlit/aapl.csv')
 
 aapl
 
@@ -128,7 +129,7 @@ Source: Los Angeles Times [highschool-homicide-analysis
 
 # raw_la_schools = fetch_csv(
 #     "https://github.com/datadesk/highschool-homicide-analysis/raw/master/output/la-high-schools.csv")
-raw_la_schools = fetch_csv('/pi/ai/streamlit/la-high-schools.csv')
+raw_la_schools = fetch_csv(f'{cf.conf_dir}/ai/streamlit/la-high-schools.csv')
 
 map_df = pd.DataFrame()
 map_df["lat"] = raw_la_schools["Latitude"]

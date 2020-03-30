@@ -369,9 +369,10 @@ def load_xml_seed(xml_file):
     import xml.etree.ElementTree as ET
     from sagas.ofbiz.entity_prefabs import EntityPrefabs
     from sagas.util.string_util import abbrev
+    from os.path import expanduser
 
     # xml_file = 'data/product/ProductPriceTestData.xml'
-    tree = ET.parse(xml_file)
+    tree = ET.parse(expanduser(xml_file))
     root = tree.getroot()
     ep = EntityPrefabs()
     record_set, ids = ep.convert_to_record_set(root)

@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union, Optional
 import os
 import json
 import simplejson
@@ -18,8 +19,7 @@ def read_json_file(filename):
         raise ValueError("Failed to read json from '{}'. Error: "
                          "{}".format(os.path.abspath(filename), e))
 
-def write_json_to_file(filename, obj, **kwargs):
-    # type: (Text, Any) -> None
+def write_json_to_file(filename:Text, obj:Any, **kwargs):
     """Write an object as a json string to a file."""
 
     write_to_file(filename, json_to_string(obj, **kwargs))

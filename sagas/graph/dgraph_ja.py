@@ -2,6 +2,7 @@ import sagas.graph.dgraph_helper as helper
 import pydgraph
 from sagas.nlu.corpus_helper import filter_term, lines, divide_chunks
 from tqdm import tqdm, trange
+from sagas.conf.conf import cf
 
 def add_term(index, pair, rs, lang='ja'):
     rs.append('<_:s%d> <sents> "%s" .'%(index, filter_term(pair[0])))
@@ -24,7 +25,7 @@ class JaProcs(object):
         :param do_samples:
         :return:
         """
-        dataf = "/pi/ai/seq2seq/jpn-eng/jpn.txt"
+        dataf = f"{cf.conf_dir}/ai/seq2seq/jpn-eng/jpn.txt"
         pairs = lines(dataf)
 
         client = helper.reset('''

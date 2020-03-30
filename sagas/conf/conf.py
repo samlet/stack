@@ -46,6 +46,16 @@ class TransClipConf(object):
         self.conf[opt]=True
 
     @property
+    def user_home(self) -> Text:
+        from pathlib import Path
+        return str(Path.home())
+
+    @property
+    def conf_dir(self) -> Text:
+        from os.path import expanduser
+        return expanduser(self.ensure('conf_dir'))
+
+    @property
     def common_s(self):
         """
         $ python -m sagas.conf.conf common_s

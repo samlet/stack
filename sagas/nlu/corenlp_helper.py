@@ -1,7 +1,8 @@
 import stanfordnlp
 import pandas as pd
+from sagas.conf.conf import cf
 
-model_dir='/pi/ai/corenlp'
+model_dir=f'{cf.conf_dir}/ai/corenlp'
 
 
 def load_model(lang,treebank):

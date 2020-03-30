@@ -144,7 +144,7 @@ class OfTools(object):
 
     def load_entity_data(self, data_file):
         """
-        $ tool load_entity_data '/pi/stack/data/product/ProductPriceTestData.xml'
+        $ tool load_entity_data '~/pi/stack/data/product/ProductPriceTestData.xml'
         :param data_file:
         :return:
         """

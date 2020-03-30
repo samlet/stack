@@ -1,6 +1,7 @@
 from functools import singledispatch
 import streamlit as st
 import pandas as pd
+from sagas.conf.conf import cf
 
 # corpus('Around the house', 'ar')
 # corpus_audio('Around the house', 'ja')
@@ -11,7 +12,7 @@ def corpus(arg, lang, verbose=False):
     raise NotImplementedError('Unsupported type')
 
 def list_chapters(lang, chapters):
-    dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+    dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
     del dfjson['audio']
     for name, group in dfjson.groupby('chapter'):
         if name in chapters:
@@ -21,7 +22,7 @@ def list_chapters(lang, chapters):
 
 def list_audio_urls(lang, chapters):
     from augmentor.viz_fun import parse_deps
-    dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+    dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
     for name, group in dfjson.groupby('chapter'):
         if name in chapters:
             # st.markdown(f"`{name}`")
@@ -50,7 +51,7 @@ def corpus_audio(arg, lang, verbose=False):
 
 
 def list_chapter_titles(lang):
-    dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+    dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
     return [name for name, group in dfjson.groupby('chapter')]
 
 @corpus_audio.register(str)

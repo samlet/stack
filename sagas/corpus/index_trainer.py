@@ -1,14 +1,15 @@
 from sagas.corpus.searcher import CorpusSearcher, search_in_list
+from sagas.conf.conf import cf
 
 class IndexTrainer(object):
     def __init__(self):
         self.default_models={
-            'id': '/pi/data/bert/embedded_id.pkl'
+            'id': f'{cf.conf_dir}/data/bert/embedded_id.pkl'
         }
 
     def train(self, lang_col, corpus_file, model_file):
         """
-        $ python -m sagas.corpus.index_trainer train id '/pi/ai/seq2seq/ind-eng/ind.txt' '/pi/data/bert/embedded_id.pkl'
+        $ python -m sagas.corpus.index_trainer train id '~/pi/ai/seq2seq/ind-eng/ind.txt' '~/pi/data/bert/embedded_id.pkl'
         :param corpus_file:
         :return:
         """
@@ -26,7 +27,7 @@ class IndexTrainer(object):
 
     def search(self, text, lang_col, model_file, top_result=5):
         """
-        $ python -m sagas.corpus.index_trainer search 'hi' id '/pi/data/bert/embedded_id.pkl'
+        $ python -m sagas.corpus.index_trainer search 'hi' id '~/pi/data/bert/embedded_id.pkl'
         :param text:
         :param lang_col:
         :param model_file:

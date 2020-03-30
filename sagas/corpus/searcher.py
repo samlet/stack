@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 import json
 import sagas.tracker_fn as tc
+from sagas.conf.conf import cf
 
 def search_in(text, lang):
-    with open(f'/pi/stack/crawlers/langcrs/all_{lang}.json') as json_file:
+    with open(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json') as json_file:
         sents=json.load(json_file)
         return [sent for sent in sents if sent['text']==text]
 
@@ -41,8 +42,9 @@ def sents_summary(sents, source):
 
 class CorpusSearcher(object):
     def __init__(self, model_file='spacy-2.2/data/embedded_corpus.pkl'):
+        from os.path import expanduser
         self.bc = BertClient()
-        self.model_file=model_file
+        self.model_file=expanduser(model_file)
 
     def train(self, quotes, source_col='text'):
         embeddings = self.bc.encode(quotes[source_col].to_list())
@@ -52,7 +54,7 @@ class CorpusSearcher(object):
         quotes.to_pickle(self.model_file)
 
     def train_corpus(self, data_file, source_col='text'):
-        # f'/pi/stack/crawlers/langcrs/all_{lang}.json'
+        # f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json'
         dfjson = pd.read_json(data_file)
         self.train(dfjson, source_col=source_col)
 

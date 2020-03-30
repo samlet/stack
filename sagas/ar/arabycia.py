@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import nltk
 import re
 import pyaramorph
-
+from sagas.conf.conf import cf
 
 def swap(word_1, word_2):
 				tmp = word_1
@@ -43,7 +43,7 @@ class Arabycia:
 
 		self.analyze_text()
 		self.ambig()
-		self.load_corpus('/pi/Tashkeela')
+		self.load_corpus(f'{cf.conf_dir}/Tashkeela')
 		self.select_cand()
 		self.print_result()
 

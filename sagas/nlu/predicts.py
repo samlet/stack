@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union, Optional
 import logging
 logger = logging.getLogger(__name__)
 
@@ -54,7 +55,7 @@ def desc_expr(el, domains, lang):
 
     return result, msg
 
-def predicate(domains, val, lang):
+def predicate(domains, val, lang) -> List[Any]:
     results=[]
     logger.debug(f"*{val._left._type}* {val._left._op} {val._left._right}")
     results.append(desc_expr(val._left, domains, lang))

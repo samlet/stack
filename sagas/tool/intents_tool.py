@@ -1,8 +1,9 @@
 import pandas as pd
 from sagas.nlu.utils import fix_sents
+from sagas.conf.conf import cf
 
 def list_chapter_titles(lang):
-    dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+    dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
     return [name for name, group in dfjson.groupby('chapter')]
 
 class IntentsTool(object):
@@ -41,7 +42,7 @@ class IntentsTool(object):
         :param lang:
         :return:
         """
-        dfjson = pd.read_json(f'/pi/stack/crawlers/langcrs/all_{lang}.json')
+        dfjson = pd.read_json(f'{cf.conf_dir}/stack/crawlers/langcrs/all_{lang}.json')
         for index, row in dfjson.iterrows():
             result = self.db.corpus.update_one({'text': row['text'], 'chapter': row['chapter'], 'index': row['index']},
                                           {'$set': {f'lang_{lang}': row['translate']}},
