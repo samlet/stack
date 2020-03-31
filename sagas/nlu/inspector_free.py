@@ -75,11 +75,11 @@ class PredictsInspector(Inspector):
         for el in domains:
             # logger.debug(f"`{el['lemma']}` >> *{el['dc']['lemma']}*")
             # r1 = predicate(el, ud.__text('will') >> [ud.nsubj('what'), ud.dc_cat('weather')], lang)
-            r1 = predicate(el, self.checker, lang)
+            rs:List[Any] = predicate(el, self.checker, lang)
             # r2=predicate(el, ud.__cat('be') >> [ud.nsubj('what'), ud.dc_cat('animal/object')], lang)
-            result = all([r[0] for r in r1])
+            result = all([r[0] for r in rs])
             final_rs.append(result)
-            logger.debug(f'{r[0] for r in r1}, {result}')
+            logger.debug(f'{[r[0] for r in rs]}, {result}')
         return any(final_rs)
 
     def __str__(self):

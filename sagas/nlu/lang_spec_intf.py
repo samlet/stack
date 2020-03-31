@@ -36,7 +36,7 @@ class LangSpecBase(object):
     def prepare(meta:Dict[Text,Any]):
         pass
 
-    def opts(self):
+    def opts(self) -> Dict[Text, Any]:
         return {}
 
     # def general_rules(self):

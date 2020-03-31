@@ -2,6 +2,7 @@ from typing import Text, Any, Dict, List, Union, Tuple, Optional
 from sagas.nlu.inspector_common import Inspector, Context
 import sagas.tracker_fn as tc
 import logging
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +34,14 @@ def trip_number_suffix(k):
     if k[-2]=='_' and k[-1].isdigit():
         return k[:-2]
     return k
+
+@dataclass
+class DefaultArgs:
+    args: List[Any]
+    kwargs: Dict[Text, Any]
+    @staticmethod
+    def create(*args, **kwargs):
+        return DefaultArgs(args=list(args), kwargs=kwargs)
 
 class Patterns(object):
     # _name = None
@@ -132,7 +141,7 @@ class Patterns(object):
         if method.startswith('_'):
             return super(Patterns, self).__getattr__(method)
 
-        def service_method(*args, **kwargs):
+        def service_method(*args_, **kwargs_):
             """Return the result of the check request."""
             result = True
             options = []
@@ -145,7 +154,12 @@ class Patterns(object):
                        self.priority, \
                        ctx
 
-            # the args has been checked as pos
+            def_args=self._opts[ctx.domain_name].args if ctx.domain_name in self._opts else []
+            def_kwargs=self._opts[ctx.domain_name].kwargs if ctx.domain_name in self._opts else {}
+            args=[*args_, *def_args]
+            kwargs={**kwargs_, **def_kwargs}
+
+            # the args has been checked as pos or inspector or callable functor
             if self.meta is not None and len(args) > 0:
                 # opt_ret=check_item(self.meta, 'pos', args, ctx)
                 # if not opt_ret:

@@ -1,5 +1,6 @@
 from typing import Text, Dict, Any
 
+from sagas.nlu.patterns import DefaultArgs
 from sagas.nlu.rules_header import *
 from sagas.nlu.registries import sinkers_fn
 
@@ -13,6 +14,10 @@ class Rules_tr(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_tr(Turkish, 土耳其语) prepare phrase')
+
+    def opts(self) -> Dict[Text, Any]:
+        return {'verb': DefaultArgs.create(extract_for('feats', 'verb:_')),
+                }
 
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
@@ -30,12 +35,12 @@ class Rules_tr(LangSpecBase):
             # $ str 'Köyden geliyorum.'
             # $ str 'Hangi köylerden geliyorsun?'  ("您来自哪个村庄？")
             pat(5, name='come from {obl:_}').verb(
-                extract_for('feats', 'verb:_'),
+                # extract_for('feats', 'verb:_'),
                 specs_trans('v', 'come'),
                 obl=kindof('social_group', 'n')),
             # $ str 'Ofiste yumurta yiyorlar.'
             pat(5, name='behave {_:_} with {obj:_}').verb(
-                extract_for('feats', 'verb:_'),
+                # extract_for('feats', 'verb:_'),
                 specs_trans('v', 'eat', 'feed', 'consume'),
                 nsubj=kindof('place_of_business', 'n'),
                 obj=kindof('food', 'n')),
