@@ -6,9 +6,10 @@ from sagas.nlu.registries import sinkers_fn
 logger = logging.getLogger(__name__)
 
 class Sinkers(object):
-    def __init__(self, data):
+    def __init__(self, data, domain_type:Text):
         self.mods=[]
         self.data=data
+        self.data['domain']=domain_type.replace('_domains', '')
 
     def _process(self, results:List[Any]):
         for proc in sinkers_fn:

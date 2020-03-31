@@ -117,3 +117,9 @@ def norm_pos(pos:Text):
     elif pos.startswith('c_'):
         return pos[2:]
     return pos
+
+def starts_with_in(w, *args):
+    return any(w.startswith(arg) for arg in args)
+def is_full_domain_path(path):
+    return starts_with_in(path, 'verb:', 'aux:', 'subj:', 'predicts:')
+

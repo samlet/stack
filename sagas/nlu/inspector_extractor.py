@@ -3,10 +3,10 @@ import requests
 
 from sagas.nlu.inspector_common import Inspector, Context
 import logging
-logger = logging.getLogger(__name__)
 
-def starts_with_in(w, *args):
-    return any(w.startswith(arg) for arg in args)
+from sagas.nlu.utils import is_full_domain_path
+
+logger = logging.getLogger(__name__)
 
 class CompExtractInspector(Inspector):
     """
@@ -149,7 +149,7 @@ class CompExtractInspector(Inspector):
                 'ner': lambda cnt, comp: ex_ner(cnt, comp),
                 }
 
-        if self.pickup=='_' or starts_with_in(self.pickup, 'verb:', 'aux:', 'subj:', 'predicts:'):
+        if self.pickup=='_' or is_full_domain_path(self.pickup):
             self.results['_']=[]
             for comp in self.comp_as:
                 op=ex_map[comp](comp_val, comp)

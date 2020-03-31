@@ -127,6 +127,9 @@ class Context(cla_meta_intf, object):
         :return:
         """
         # self._results.append((inspector, provider, part_name, val, delivery_type))
+        from sagas.nlu.utils import is_full_domain_path
+        if not is_full_domain_path(part_name):
+            part_name=self.domain_name+':'+part_name
         self._results.append({'inspector':inspector,
                               'provider':provider,
                               'part':part_name,

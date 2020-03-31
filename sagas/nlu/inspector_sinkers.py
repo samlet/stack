@@ -85,6 +85,7 @@ def _dev_info(results: List[Any], data:Dict[Text,Any]):
 
 def _descriptors(results: List[Any], data:Dict[Text,Any]):
     from sagas.nlu.descriptor import Descriptor
+    logger.debug(f"data keys: {list(data.keys())}")
     dsp = Descriptor()
     pats=dsp.build(results)
     tc.emp('cyan', f"✁ render patterns {len(pats)}. {'-' * 25}")

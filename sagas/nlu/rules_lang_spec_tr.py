@@ -28,18 +28,22 @@ class Rules_tr(LangSpecBase):
                 specs_trans('v', 'request'),
                 obj=kindof('food', 'n')),
             # $ str 'Rezervasyonumu onaylamak istiyorum.'  (I would like to confirm my reservation.)
-            pat(5, name='behave {obj:_} for {obj:/obj}, modal {_:_}').verb(
+            pat(5, name='behave {verb.obj:cat} for {verb.obj.obj:cat}, '
+                        'modal {verb._:cat}, personal {verb._:personal}').verb(
                 specs_trans('v', 'request'),
                 ins().cat('/obj/obj') == 'reservation',
                 obj=kindof('approve', '*')),
             # $ str 'Köyden geliyorum.'
             # $ str 'Hangi köylerden geliyorsun?'  ("您来自哪个村庄？")
-            pat(5, name='come from {obl:_}').verb(
+            pat(5, name='come from {verb.obl:cat}, '
+                        'personal {verb._:personal}').verb(
                 # extract_for('feats', 'verb:_'),
                 specs_trans('v', 'come'),
                 obl=kindof('social_group', 'n')),
             # $ str 'Ofiste yumurta yiyorlar.'
-            pat(5, name='behave {_:_} with {obj:_}').verb(
+            pat(5, name='behave {verb._:cat} with {verb.obj:cat}, '
+                        'loc {verb.nsubj:cat}, '
+                        'personal {verb._:personal}').verb(
                 # extract_for('feats', 'verb:_'),
                 specs_trans('v', 'eat', 'feed', 'consume'),
                 nsubj=kindof('place_of_business', 'n'),

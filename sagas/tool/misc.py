@@ -133,7 +133,7 @@ def rs_represent(rs:List[Any], data:Dict[Text, Any], return_df=False):
 
     df_set = []
     result = []
-    sinkers = Sinkers(data)
+    sinkers = Sinkers(data, rs[0]['type'])
     for serial, r in enumerate(rs):
         type_name = r['type']
         meta = build_meta(r, data)
