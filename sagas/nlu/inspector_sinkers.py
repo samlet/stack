@@ -6,6 +6,7 @@ from sagas.nlu.registries import registry_sinkers, named_exprs
 from sagas.conf.conf import cf
 import logging
 import sagas.tracker_fn as tc
+from pprint import pprint
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +77,6 @@ def _slots(results: List[Any], data:Dict[Text,Any]):
                 driver_fire[driver](bucket, value_map)
 
 def _dev_info(results: List[Any], data:Dict[Text,Any]):
-    from pprint import pprint
     if cf.is_enabled('print_detail'):
         if results:
             pprint(results)
@@ -91,6 +91,9 @@ def _descriptors(results: List[Any], data:Dict[Text,Any]):
     tc.emp('cyan', f"✁ render patterns {len(pats)}. {'-' * 25}")
     for i,pat in enumerate(pats.values()):
         tc.emp('magenta', f"{i}. {pat}")
+
+    if cf.is_enabled('print_detail'):
+        pprint(list(dsp.value_map.values()))
 
 registry_sinkers(_tags, _series, _slots, _dev_info, _descriptors)
 

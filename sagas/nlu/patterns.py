@@ -254,13 +254,10 @@ def print_result(rs):
             # color_print('blue', json.dumps(results, indent=2, ensure_ascii=False))
 
             # 以前3个元素作为键去重显示
-            from sagas.nlu.content_representers import content_represent
-            # if not print_detail:
-                # color_print('cyan', {(r[0], r[1], r[2]):content_represent(r[1], r[3]) for r in results})
-                # tc.emp('cyan', {(r[0], r[1], r[2]): content_represent(r[1], r[3]) for r in results})
-            tc.write({f"{r['inspector']}/{r['provider']}/...":
-                          content_represent(r['provider'], r['value'])
-                      for r in results})
+            # from sagas.nlu.content_representers import content_represent
+            # tc.write({f"{r['inspector']}/{r['provider']}/...":
+            #               content_represent(r['provider'], r['value'])
+            #           for r in results})
 
             # else:  # move to events module
             #     results = [el for r in rs for el in r[3].results if r[1]]  # r[1] is true/false

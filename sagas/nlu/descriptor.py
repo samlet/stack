@@ -47,19 +47,33 @@ def digest(results, path, spec):
 class PatternDescriptor(string.Formatter):
     def __init__(self, results):
         self.results = results
+        self.values=[]
 
-    def format_field(self, value, spec):
+    def format_field(self, value:token, spec:Text):
         val = digest(self.results, value.value, spec)
+        self.values.append({'path':value.value, 'spec':spec, 'value':val})
         if isinstance(val, list):
             val = '_'.join(val)
         return val if val else '_'
 
 class Descriptor(object):
+    def __init__(self):
+        self.value_map={}
+
+    def create_values(self, values:List[Any], patt:Text):
+        import re
+        raw = re.sub(r" ?{[^{]+\}", "|", patt)
+        logger.debug(raw)
+        name_list = raw.replace(',', '').split('|')
+        names=[name.strip() for name in name_list if name]
+        self.value_map[patt]=dict(zip(names, values))
+
     def render(self, patt: Text, results: List[Any]) -> Text:
         logger.debug(f"process {patt}")
         pf = PatternDescriptor(results)
         ctx={key:token(key+':') for key in ('verb', 'aux', 'subj', 'root', 'predicts', '_')}
         r=pf.format(patt, **ctx)
+        self.create_values(pf.values, patt)
         return r
 
     def build(self, results: List[Any]) -> Dict[Text, Text]:
