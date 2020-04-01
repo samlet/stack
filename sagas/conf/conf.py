@@ -84,7 +84,7 @@ class TransClipConf(object):
     def user(self) -> Text:
         return self.ensure('user')
 
-    def ensure(self, item):
+    def ensure(self, item:Text) -> Any:
         """
         $ python -m sagas.conf.conf ensure multilang
         => http://localhost:8095

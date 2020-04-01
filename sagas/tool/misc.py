@@ -223,13 +223,11 @@ def translit_chunk(chunk, lang):
     return ''
 
 def proc_word(type_name, word, head, lang):
-    from sagas.nlu.translator import translate
-    res, _ = translate(word, source=lang, target=target_lang(lang),
-                       trans_verbose=False)
+    from sagas.nlu.translator import translate_try
+    res, _ = translate_try(word, source=lang, target=target_lang(lang))
     target=''
     if head!='':
-        res_t, _ = translate(head, source=lang, target=target_lang(lang),
-                           trans_verbose=False, options={'disable_correct'})
+        res_t, _ = translate_try(head, source=lang, target=target_lang(lang), options={'disable_correct'})
         target=f" ⊙︿⊙ {res_t}({head}{translit_chunk(head, lang)})"
         # target = f" ⊙︿⊙ {res_t}({head})"
     result=f"[{type_name}]({word}{translit_chunk(word, lang)}) {res}{target}"
@@ -237,7 +235,7 @@ def proc_word(type_name, word, head, lang):
     return [result]
 
 def proc_children_column(partcol, textcol, lang, indent='\t'):
-    from sagas.nlu.translator import translate
+    from sagas.nlu.translator import translate_try
     result=[]
     # print(partcol, textcol)
     for id, (name, r) in enumerate(zip(partcol, textcol)):
@@ -245,8 +243,7 @@ def proc_children_column(partcol, textcol, lang, indent='\t'):
         # if len(r)>1:
             # sent=' '.join(r) if lang not in ('ja','zh') else ''.join(r)
             sent=join_text(r, lang)
-            res, _ = translate(sent, source=lang, target=target_lang(lang),
-                               trans_verbose=False, options={'disable_correct'})
+            res, _ = translate_try(sent, source=lang, target=target_lang(lang), options={'disable_correct'})
             chunk=f"{indent}[{name}]({sent}{translit_chunk(sent, lang)}) {res}"
             result.append(chunk)
             tc.emp('cyan', chunk)
@@ -301,7 +298,7 @@ class MiscTool(object):
 
         cf = conf.TransClipConf()
         self.translator=cf.conf['translator']
-        self.retries=cf.conf['retries']
+        self.retries=cf.conf['translator_retries']
         self.enable_chunks_parse=cf.conf['enable_chunks_parse']
         self.enable_ascii_viz = cf.conf['enable_ascii_viz']
         self.append_ascii_viz=cf.conf['append_ascii_viz']

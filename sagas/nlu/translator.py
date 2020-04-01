@@ -163,13 +163,34 @@ def translate(text, source:Text='auto', target:Text='zh-CN',
         time.sleep(random.uniform(0.05, 0.20))
         translator_impl.update_TKK()  # update kk value
         time.sleep(random.uniform(0.05, 0.20))
-        return translator_impl.execute(text, source, target, trans_verbose,
-                                 options, tracker, process_result=process_result)
+        try:
+            return translator_impl.execute(text, source, target, trans_verbose,
+                                     options, tracker, process_result=process_result)
+        except Exception as e:
+            logger.error(f"translate fail: {text}, error message: {e}")
+            return ''
 
     trans_fn={'impl': impl, 'impl2': impl2}
     trans_text=trans_fn[cf.ensure('translator_impl')]()
     return trans_text, tracker
 
+def translate_try(text, source: Text, target: Text,
+                  options: Set[Text] = None,
+                  tracker: TransTracker = None) -> (Text, TransTracker):
+    trans, tracker = translate(text, source=source,
+                               target=target,
+                               options=options,
+                               tracker=tracker)
+    count = 0
+    retries=cf.ensure('translator_retries')
+    while trans == '':
+        print('wait a second, try again ...')
+        time.sleep(random.uniform(0.5, 1.20))
+        trans, tracker = translate(text, source=source, target=target, options=options)
+        count = count + 1
+        if count > retries:
+            break
+    return trans, tracker
 
 def marks(t, ips_idx):
     if len(t.pronounce)>0:

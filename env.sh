@@ -149,6 +149,7 @@ alias sfa="python -m sagas.tool.misc trans_clip fa 'en;zh-CN;ja' ja False"
 # alias sj="engine=knp python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
 alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' en False"
 alias sja="engine=stanza python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
+alias szh="engine=stanza python -m sagas.tool.misc trans_clip zh 'en;zh-CN;ja' ja False"
 
 alias str="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"
 alias sz="python -m sagas.tool.misc trans_clip zh 'en;fr;ja' ja False"

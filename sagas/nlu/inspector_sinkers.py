@@ -93,7 +93,7 @@ def _descriptors(results: List[Any], data:Dict[Text,Any]):
         tc.emp('magenta', f"{i}. {pat}")
 
     if cf.is_enabled('print_detail'):
-        pprint(list(dsp.value_map.values()))
+        pprint(list(dsp.value_map.values()) or '.. no rendered results')
 
 registry_sinkers(_tags, _series, _slots, _dev_info, _descriptors)
 
