@@ -174,7 +174,7 @@ def translate(text, source:Text='auto', target:Text='zh-CN',
     trans_text=trans_fn[cf.ensure('translator_impl')]()
     return trans_text, tracker
 
-def translate_try(text, source: Text, target: Text,
+def translate_try(text:Text, source: Text, target: Text,
                   options: Set[Text] = None,
                   tracker: TransTracker = None) -> (Text, TransTracker):
     trans, tracker = translate(text, source=source,
@@ -196,6 +196,22 @@ def marks(t, ips_idx):
     if len(t.pronounce)>0:
         return ', '+t.pronounce[ips_idx][1:]
     return ''
+
+def get_contrast(word:Text, source:Text, target:Text='en', ips_idx=0):
+    from sagas.nlu.transliterations import translits
+    from sagas.nlu.constants import contrast_translit_langs
+
+    if source==target:
+        return word
+
+    options = {'get_pronounce', 'disable_correct'}
+    local_translit = True if source in contrast_translit_langs else False
+    res, t = translate_try(word, source=source, target=target, options=options)
+    if local_translit and translits.is_available_lang(source):
+        trans = ', ' + translits.translit(word, source)
+    else:
+        trans = marks(t, ips_idx)
+    return res+trans
 
 def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=False):
     """
@@ -223,8 +239,7 @@ def get_word_map(source, target, text, ips_idx=0, words=None, local_translit=Fal
 
     trans_table=[]
     for sent in words:
-        res, t = translate(sent, source=source, target=target,
-                           trans_verbose=verbose, options=options)
+        res, t = translate_try(sent, source=source, target=target, options=options)
         # print(res, sent, t[ips_idx])
         if local_translit and translits.is_available_lang(source):
             trans=', '+translits.translit(sent, source)

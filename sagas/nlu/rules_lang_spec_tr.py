@@ -7,10 +7,12 @@ from sagas.nlu.registries import sinkers_fn
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
 
-class Rules_tr(LangSpecBase):
+class Rules_tr(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_tr(Turkish, 土耳其语) prepare phrase')
@@ -48,6 +50,12 @@ class Rules_tr(LangSpecBase):
                 specs_trans('v', 'eat', 'feed', 'consume'),
                 nsubj=kindof('place_of_business', 'n'),
                 obj=kindof('food', 'n')),
+
+            # $ str 'Ağustosta güzel elbiseler giyeriz.'
+            pat(5, name='behave_we_wear').verb(
+                specs_trans('v', 'wear'),
+                obl=kindof('time_period', 'n'),
+                obj=kindof('dress', 'n')),
         ])
     
 
@@ -59,3 +67,10 @@ class Rules_tr(LangSpecBase):
             pat(5, name='desc_exist').cop(extract_for('word', 'nsubj'),
                                           behaveof('exist', '*'), nsubj='c_noun'),
         ])
+
+    def execute(self):
+        super().execute()
+        self.tree_vis()
+
+
+

@@ -1,8 +1,9 @@
+from typing import Text, Any, Dict, List, Union, Optional
 from jsonpath_ng import jsonpath, parse
 from pprint import pprint
 from sagas.conf.conf import cf
 
-def feats_for_path(path):
+def feats_for_path(path:Text):
     if path=='_':
         return '$.feats'
     prefix = '$.'
@@ -11,7 +12,7 @@ def feats_for_path(path):
     parts_str = '.'.join([f"{t}[*]" for t in parts])
     return f"{prefix}{parts_str}{suffix}"
 
-def feats_map(ft):
+def feats_map(ft:Text) -> Dict[Text, Text]:
     tuples=[pairs.split('=') for pairs in ft.split('|')]
     ft_m={k:v for k,v in tuples}
     return ft_m

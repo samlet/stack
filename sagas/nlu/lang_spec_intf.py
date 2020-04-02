@@ -9,8 +9,9 @@ class LangSpecBase(object):
         from sagas.nlu.patterns import Patterns
         from sagas.nlu.inspector_wordnet import PredicateWordInspector as kindof
         from sagas.nlu.inspector_wordnet import VerbInspector as behaveof
+        from sagas import to_obj
 
-        self.meta=meta
+        self.meta=to_obj(meta)
         self.domains=domains
         self.doc=doc
         # key is pattern name, value is context(contains results)
@@ -22,9 +23,9 @@ class LangSpecBase(object):
             p, name=name,
             doc=self.doc).opts(**self.opts())
         self.actions_obj = lambda rs: [Patterns(self.domains, self.meta, 5,
-                                           name=f"act_{norm(r[0])}_{norm(r[1])}",
-                                           doc=self.doc)
-                                      .verb(behaveof(r[0], 'v'), obj=kindof(r[1], 'n')) for r in rs]
+                                                name=f"act_{norm(r[0])}_{norm(r[1])}",
+                                                doc=self.doc)
+                                           .verb(behaveof(r[0], 'v'), obj=kindof(r[1], 'n')) for r in rs]
 
     @property
     def name(self):

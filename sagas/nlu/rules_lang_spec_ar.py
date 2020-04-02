@@ -5,10 +5,12 @@ from sagas.nlu.rules_header import *
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
 
-class Rules_ar(LangSpecBase):
+class Rules_ar(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_ar(Arabic, 阿拉伯语) prepare phrase')
@@ -27,3 +29,6 @@ class Rules_ar(LangSpecBase):
         ])
     
 
+    def execute(self):
+        super().execute()
+        self.tree_vis()

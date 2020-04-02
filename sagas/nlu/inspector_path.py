@@ -52,7 +52,8 @@ class PathInspector(Inspector):
                 # print([(match.value, str(match.full_path)) for match in parser.find(json_data)])
                 word = '/'.join([match.value for match in parser.find(json_data)])
                 pred_r=predicate(self.kind, word, lang, self.pos)
-                tc.emp('yellow' if not pred_r else 'green', f".. {word} is {self.kind}: {pred_r}")
+                # tc.emp('yellow' if not pred_r else 'green', f".. {word} is {self.kind}: {pred_r}")
+                logger.debug(f".. {word} is {self.kind}: {pred_r}")
                 results.append(pred_r)
                 if pred_r:
                     ctx.add_result(self.name(), 'default',

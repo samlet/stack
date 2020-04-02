@@ -58,18 +58,24 @@ def treeing(ds):
             data[k]=v
     return data
 
-def vis_tree(ds:Dict[Text, Any]):
+def vis_tree(ds:Dict[Text, Any], lang, trans=False):
     """ 可视化domains """
     from anytree.importer import DictImporter
     from anytree import RenderTree
+    from sagas.nlu.translator import get_contrast
 
     data = treeing(ds)
     importer = DictImporter()
     tree_root = importer.import_(data)
     tree = RenderTree(tree_root)
     for pre, fill, node in tree:
+        if node.dependency_relation=='punct':
+            addons='_'
+        else:
+            addons=f"{node.lemma}; {get_contrast(node.text, lang)}" \
+                if trans else f"{node.lemma}"
         print(f"{pre}{node.dependency_relation}: "
-              f"{node.text}({node.lemma}, {node.upos.lower()}, {node.index})")
+              f"{node.text}({addons}, {node.upos.lower()}, {node.index})")
 
 class NluTools(object):
     def say(self, text, lang='en'):
@@ -291,7 +297,7 @@ class NluTools(object):
         if domain != 'predicts':
             tc.emp('cyan', f"✁ tree vis {domain}, {engine} {'-' * 25}")
             for ds in domains:
-                    vis_tree(ds)
+                    vis_tree(ds, lang)
 
     def tree_comp(self, sents, lang):
         """
@@ -322,7 +328,7 @@ class NluTools(object):
             if domain != 'predicts':
                 tc.emp('cyan', f"✁ tree vis {domain}, {engine} {'-' * 25}")
                 for ds in domains:
-                    vis_tree(ds)
+                    vis_tree(ds, lang)
             tags_map[engine] = [k for k, v in domains[0].items() if isinstance(v, list) and k not in ('entity', 'segments')]
 
         diff=set(tags_map['corenlp']).symmetric_difference(set(tags_map['stanza']))
