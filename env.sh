@@ -117,7 +117,8 @@ alias scs="python -m sagas.tool.misc trans_clip cs 'en;sk;ru' ru False"
 alias scs+pl="python -m sagas.tool.misc trans_clip cs 'en;pl;ru' ru False"
 alias scs+bg="python -m sagas.tool.misc trans_clip cs 'en;bg;ru' ru False"
 
-alias spl="python -m sagas.tool.misc trans_clip pl 'en;cs;ru' ru False"
+# alias spl="python -m sagas.tool.misc trans_clip pl 'en;cs;ru' ru False"
+alias spl="python -m sagas.tool.misc trans_clip pl 'en;zh-CN;ja' en False"
 
 # alias se="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ja' ja False"
 alias se="python -m sagas.tool.misc trans_clip en 'fr;zh-CN;ja' en False"
@@ -151,7 +152,7 @@ alias sj="python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' en False"
 alias sja="engine=stanza python -m sagas.tool.misc trans_clip ja 'en;zh-CN;fr' ja False"
 alias szh="engine=stanza python -m sagas.tool.misc trans_clip zh 'en;zh-CN;ja' ja False"
 
-alias str="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' ja False"
+alias str="python -m sagas.tool.misc trans_clip tr 'en;zh-CN;ja' en False"
 alias sz="python -m sagas.tool.misc trans_clip zh 'en;fr;ja' ja False"
 alias sv-de="python -m sagas.tool.misc trans_clip sv 'en;no;de' de False"
 # alias sv-de="python -m sagas.tool.misc trans_clip sv 'en;ja;de' de False"

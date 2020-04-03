@@ -5,6 +5,7 @@ from sagas.nlu.rules_header import *
 from sagas.nlu.registries import sinkers_fn
 
 import sagas.tracker_fn as tc
+from sagas.conf.conf import cf
 import logging
 
 logger = logging.getLogger(__name__)
@@ -19,5 +20,5 @@ class LangToolBase(LangSpecBase):
                                engine=self.meta.engine)
         tc.emp('cyan', f"✁ tree vis {self.meta.engine} {'-' * 25}")
         ds=chunks['root_domains'][0]
-        vis_tree(ds, self.meta.lang, trans=True)
+        vis_tree(ds, self.meta.lang, trans=cf.is_enabled('trans_tree'))
 

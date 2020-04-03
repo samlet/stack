@@ -14,6 +14,7 @@
   },
   "collect_verbs":true,
   "trans_cache":true,
+  "trans_tree":false,
   "translator":"google",
   "translator_opts": ["disable_correct"],
   "translator_impl": "impl2",

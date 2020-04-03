@@ -13,6 +13,8 @@ def feats_for_path(path:Text):
     return f"{prefix}{parts_str}{suffix}"
 
 def feats_map(ft:Text) -> Dict[Text, Text]:
+    if not ft:
+        return {}
     tuples=[pairs.split('=') for pairs in ft.split('|')]
     ft_m={k:v for k,v in tuples}
     return ft_m

@@ -104,9 +104,12 @@ class WordIntf(abc.ABC):
 
 
 class RootWordImpl(WordIntf):
+    def __init__(self):
+        super().__init__(None)
+
     def setup(self, token):
         features = {'index':0, 'text':'ROOT', 'lemma':'root', 'upos':'', 'xpos':'',
-                    'feats':[], 'governor':0, 'dependency_relation':''}
+                    'feats':[], 'governor':-1, 'dependency_relation':''}
         return features
 
 class SentenceIntf(abc.ABC):
@@ -161,7 +164,7 @@ class SentenceIntf(abc.ABC):
         for word in self.words:
             if word.governor == 0:
                 # make a word for the ROOT
-                governor = RootWordImpl(None)
+                governor = RootWordImpl()
             else:
                 # id is index in words list + 1
                 governor = self.words[word.governor - 1]
