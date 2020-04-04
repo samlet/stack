@@ -31,6 +31,18 @@ class AnalNode(NodeMixin, Token):
 
 @cached(cache={})
 def build_anal_tree(sents:Text, lang:Text, engine:Text):
+    """
+    >>> from sagas.nlu.anal import build_anal_tree
+    >>> from anytree.search import findall, findall_by_attr
+    >>> f=build_anal_tree(sents, lang, engine)
+    >>> words = findall_by_attr(f, name='upos', value='VERB')
+    >>> objs = findall(words[0], filter_=lambda n: n.dependency_relation in ("obj"))
+
+    :param sents:
+    :param lang:
+    :param engine:
+    :return:
+    """
     chunks = cached_chunks(sents,
                            source=lang,
                            engine=engine)

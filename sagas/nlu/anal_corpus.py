@@ -40,7 +40,7 @@ def domains_as_tree(sents, lang, engine='stanza', domain='root_domains'):
     f = importer.import_(ds)
     return f
 
-def digest(sents, lang, engine='stanza'):
+def digest_verb(sents, lang, engine='stanza'):
     f=build_anal_tree(sents, lang, engine)
     words = findall_by_attr(f, name='upos', value='VERB')
     if words:
@@ -75,7 +75,7 @@ def proc_corpus(lang, chapter):
         text = fix_sents(sent, lang)
         print('-', i, ref, '-' * 10)
         # digest(text, 'spacy')
-        rs_map[i] = digest(text, lang, 'stanza')
+        rs_map[i] = digest_verb(text, lang, 'stanza')
     return len(ch), len([t for t in rs_map.values() if t])
 
 class AnalCorpus(object):
