@@ -5,10 +5,12 @@ from sagas.nlu.rules_header import *
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
 
-class Rules_es(LangSpecBase):
+class Rules_es(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_es(Spanish) prepare phrase')
@@ -17,9 +19,6 @@ class Rules_es(LangSpecBase):
         pat, actions_obj = (self.pat, self.actions_obj)
 
         self.collect(pats=[
-            # $ se 'I want to watch a movie'
-            pat(5, name='behave_willing_ev').verb(behaveof('want', 'v'),
-                                                  pred_any_path('xcomp/obj', 'social_event', 'n')),
             # $ ses '¿Qué hace Marta?'
             pat(5, name='behave_make?').verb(behaveof('make', 'v'), nsubj=agency,
                                              obj=interr('what'),),

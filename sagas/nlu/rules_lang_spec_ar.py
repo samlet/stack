@@ -31,4 +31,3 @@ class Rules_ar(LangToolBase):
 
     def execute(self):
         super().execute()
-        self.tree_vis()

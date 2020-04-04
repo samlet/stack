@@ -89,7 +89,7 @@ alias sr-d="python -m sagas.tool.misc trans_clip ru 'en;zh-CN;ja' ja True"
 # add ukrainian
 # alias sr="python -m sagas.tool.misc trans_clip ru 'en;uk;zh-CN;ja' ja"
 # alias sp="python -m sagas.tool.misc trans_clip pt 'en;it;ja' ja False"
-alias sp="python -m sagas.tool.misc trans_clip pt 'en;es;ja' ja False"
+alias sp="engine=corenlp python -m sagas.tool.misc trans_clip pt 'en;es;ja' ja False"
 alias spt="python -m sagas.tool.misc trans_clip pt 'en;zh;ja' en False"
 alias si="python -m sagas.tool.misc trans_clip it 'en;pt;ja' ja False"
 alias sit="python -m sagas.tool.misc trans_clip it 'en;zh;ja' ja False"

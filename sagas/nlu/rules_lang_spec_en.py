@@ -5,9 +5,11 @@ from sagas.nlu.rules_header import *
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
-class Rules_en(LangSpecBase):
+class Rules_en(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_en(English) prepare phrase')
@@ -163,9 +165,3 @@ class Rules_en(LangSpecBase):
             # $ se 'the last Tuesday of October 2012'
             pat(2, name='datetime').entire(dateins('time', entire=True))
         ])
-
-    def execute(self):
-        if len(self.matched)>0:
-            matched_info={k:len(v.results) for k,v in self.matched.items()}
-            tc.emp('green', f"♯ matched id rules: {matched_info}")
-

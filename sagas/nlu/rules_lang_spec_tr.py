@@ -65,12 +65,6 @@ class Rules_tr(LangToolBase):
         self.collect(pats=[
             # $ str 'Sigaranız var mı?'  (Do you have cigarettes?)
             pat(5, name='desc_exist').cop(extract_for('word', 'nsubj'),
-                                          behaveof('exist', '*'), nsubj='c_noun'),
+                                          behaveof('exist', '*'),
+                                          nsubj='c_noun'),
         ])
-
-    def execute(self):
-        super().execute()
-        self.tree_vis()
-
-
-

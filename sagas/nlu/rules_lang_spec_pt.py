@@ -7,6 +7,8 @@ from sagas.nlu.rules_header import *
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
 def induce_dim(c:InferPart, t:Text, dim:Text):
@@ -23,7 +25,7 @@ extensions.register_parts('pt',{
     'case': lambda c,t: predict_pos(c, t, 'c_adp'),
 })
 
-class Rules_pt(LangSpecBase):
+class Rules_pt(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_pt(Portuguese, 葡萄牙语) prepare phrase')
@@ -80,6 +82,11 @@ class Rules_pt(LangSpecBase):
                                             clauses(all, cla_expr('verb:obl', cop={'be'})),
                                             nsubj=agency,
                                             obl=kindof('relative', 'n')),
+            pat(5, name='behave_deny_1.0').verb(extract_for('plain', 'nsubj'),
+                                             behaveof('deny', 'v'),
+                                             clauses(all, cla_expr('verb:xcomp', cop={'be'})),
+                                             nsubj=agency,
+                                             xcomp=kindof('relative', 'n')),
             # $ spt 'Desde quando você gosta de abacaxi?'
             pat(5, name='behave_like').verb(extract_for('plain', 'advmod'),
                                             extract_for('plain', 'nsubj'),
@@ -87,6 +94,13 @@ class Rules_pt(LangSpecBase):
                                             nsubj=agency,
                                             advmod=cust(check_interr, lambda w: w == 'since_when'),
                                             obl=kindof('matter', 'n')),
+            pat(5, name='behave_like_1.0').verb(extract_for('plain', 'advmod'),
+                                            extract_for('plain', 'nsubj'),
+                                            behaveof('like', 'v'),
+                                            nsubj=agency,
+                                            advmod=cust(check_interr, lambda w: w == 'since_when'),
+                                            obj=kindof('matter', 'n')),
+
             # infers
             # $ spt 'Eu preciso disso até amanhã.'
             pat(5, name='behave_want').verb(extract_for('plain', 'nsubj'),

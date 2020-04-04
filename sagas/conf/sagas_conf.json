@@ -65,7 +65,7 @@
     "fr":"stanza_western",
     "de":"stanza_western",
     "it":"stanza_western",
-    "pt":"corenlp",
+    "pt":"stanza_western",
     "nl":"stanza_western"
   }
 }

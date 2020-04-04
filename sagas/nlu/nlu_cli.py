@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union
 import requests
+from cachetools import cached
 
 from sagas.nlu.constants import viz_translit_langs
 from sagas.util.rest_common import query_data_by_url
@@ -14,7 +15,9 @@ def get_chains(word, lang, pos) -> List[Dict[Text, Any]]:
         return rs
     return []
 
-def retrieve_word_info(path, word, lang, pos) -> List[Text]:
+
+@cached(cache={})
+def retrieve_word_info(path:Text, word:Text, lang:Text, pos:Text) -> List[Text]:
     """
     >>> from sagas.nlu.nlu_cli import retrieve_word_info
     >>> rs=retrieve_word_info('get_synsets', word, lang, pos)

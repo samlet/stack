@@ -9,6 +9,11 @@ class HowNetProcs(object):
         self.hownet_dict = OpenHowNet.HowNetDict()
 
     def get_sense(self, word) -> List[Any]:
+        if '/' in word:
+            rs=[]
+            for w in word.split('/'):
+                rs.extend(self.hownet_dict[w])
+            return rs
         return self.hownet_dict[word]
 
     def build_sememe_trees(self, word, merge=True, K=None) -> List[Dict[Text, Any]]:
