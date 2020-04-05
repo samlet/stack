@@ -15,7 +15,7 @@ from sagas.zh.hownet_helper import SenseTree, get_trees
 
 class Token(object):
     def __init__(self, tok:Optional[WordIntf]):
-        self.tok=tok
+        self.tok=tok  # readonly
         self.name=tok.dependency_relation if tok is not None else '_'
 
 upos_mappings={'ADJ':'a', 'ADV':'r', 'NOUN':'n', 'VERB':'v'}
@@ -191,7 +191,8 @@ class AnalNode(NodeMixin, Token):
         return get_chains(self.word, self.lang, self.get_pos(pos))
 
 
-@cached(cache={})
+# @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
+#                       但anal-node.tok引用的是只读的文档结点.
 def build_anal_tree(sents:Text, lang:Text, engine:Text):
     """
     >>> from sagas.nlu.anal import build_anal_tree
