@@ -12,6 +12,38 @@ from cachetools import cached
 from cached_property import cached_property
 from sagas.zh.hownet_helper import SenseTree, get_trees
 
+class Doc(NodeMixin, object):
+    """
+    Integrate with extractors
+    >>> f=build_anal_tree('2008年12月に上海に行きたいです。', 'ja', 'stanza')
+    >>> from sagas.nlu.inspector_extractor import ex_translit
+    >>> if ex_translit('', 'たいです', '', f.doc):
+    >>>     print(f.doc.resultset)
+    """
+    resultset: List[Dict[Text, Any]]=[]
+    domain_name:str='anal'
+
+    def __init__(self, parent=None, children=None, **kwargs):
+        self.__dict__.update(kwargs)
+        self.parent = parent
+        if children:
+            self.children = children
+
+    def __repr__(self):
+        return _repr(self)
+
+    def add_result(self, inspector: Text, provider: Text, part_name: Text,
+                   val:Any, delivery_type='slot'):
+        from sagas.nlu.utils import is_full_domain_path
+        if not is_full_domain_path(part_name):
+            part_name = self.domain_name + ':' + part_name
+        self.resultset.append({'inspector': inspector,
+                              'provider': provider,
+                              'part': part_name,
+                              'value': val,
+                              'delivery': delivery_type,
+                              'pattern': '_',
+                              })
 
 class Token(object):
     def __init__(self, tok:Optional[WordIntf]):
@@ -190,6 +222,29 @@ class AnalNode(NodeMixin, Token):
         from sagas.nlu.nlu_cli import get_chains
         return get_chains(self.word, self.lang, self.get_pos(pos))
 
+    @cached_property
+    def chunk(self):
+        from itertools import chain
+        from sagas.nlu.constants import delim
+        rs = sorted([(c.index, c.text) for c in chain([self], self.descendants)], key=lambda x: x[0])
+        return delim(self.lang).join([r[1] for r in rs])
+
+    def as_date(self):
+        """
+        >>> f=build_anal_tree('2008年12月に上海に行きたいです。', 'ja', 'stanza')
+        >>> f.rels('iobj')[0].text, f.rels('iobj')[0].chunk, f.rels('iobj')[0].as_date()
+        :return:
+        """
+        from dateparser.search import search_dates
+        from dateparser import parse
+        return search_dates(self.chunk, languages=[self.lang]) or \
+               parse(self.chunk, languages=[self.lang])
+
+    @cached_property
+    def doc(self):
+        for node in self.iter_path_reverse():
+            if isinstance(node, Doc):
+                return node
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
@@ -212,11 +267,11 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
                            engine=engine)
     words = chunks['doc'].words
     node_map = {word.index: nodecls(word, lang=lang) for word in words}
-    node_map[0] = nodecls(None, sents=sents, lang=lang, engine=engine)
+    node_map[0] = Doc(sents=sents, lang=lang, engine=engine)
     tree_root = next(w for w in node_map.values() if w.governor == 0)
 
     def set_parent(w):
-        if w.tok:
+        if isinstance(w, AnalNode):
             w.parent = node_map[w.tok.governor]
 
     list(map(set_parent, node_map.values()))

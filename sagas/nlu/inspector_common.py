@@ -1,6 +1,9 @@
 from typing import Text, Any, Dict, List, Union, Optional
 import abc
 from sagas.conf.conf import cf
+from sagas.nlu.constants import non_spaces
+from sagas.nlu.intf import cla_meta_intf
+
 
 class Chunk(object):
     def __init__(self, key, children):
@@ -13,23 +16,6 @@ class Chunk(object):
     def __repr__(self):
         cnt = ' '.join(self.children)
         return f"{self.key}: {cnt}"
-
-class cla_meta_intf:
-    @property
-    def sents(self):
-        raise NotImplementedError('Property not implemented!')
-
-    @property
-    def lang(self):
-        raise NotImplementedError('Property not implemented!')
-
-    @property
-    def engine(self):
-        raise NotImplementedError('Property not implemented!')
-
-    def add_result(self, inspector: Text, provider: Text, part_name: Text,
-                   val:Any, delivery_type='slot'):
-        pass
 
 class cla_meta(cla_meta_intf):
     def __init__(self, sents:Text, lang:Text, engine=None):
@@ -49,7 +35,6 @@ class cla_meta(cla_meta_intf):
     def engine(self):
         return self._engine
 
-non_spaces=['ja', 'zh']
 class Context(cla_meta_intf, object):
     def __init__(self, meta, domains, name=''):
         self.meta=meta
