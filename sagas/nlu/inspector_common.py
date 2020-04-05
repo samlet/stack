@@ -14,7 +14,7 @@ class Chunk(object):
         cnt = ' '.join(self.children)
         return f"{self.key}: {cnt}"
 
-class cla_meta_intf():
+class cla_meta_intf:
     @property
     def sents(self):
         raise NotImplementedError('Property not implemented!')
@@ -23,10 +23,19 @@ class cla_meta_intf():
     def lang(self):
         raise NotImplementedError('Property not implemented!')
 
+    @property
+    def engine(self):
+        raise NotImplementedError('Property not implemented!')
+
+    def add_result(self, inspector: Text, provider: Text, part_name: Text,
+                   val:Any, delivery_type='slot'):
+        pass
+
 class cla_meta(cla_meta_intf):
-    def __init__(self, sents:Text, lang:Text):
+    def __init__(self, sents:Text, lang:Text, engine=None):
         self._sents=sents
         self._lang=lang
+        self._engine=cf.engine(lang) if not engine else engine
 
     @property
     def lang(self):
@@ -35,6 +44,10 @@ class cla_meta(cla_meta_intf):
     @property
     def sents(self):
         return self._sents
+
+    @property
+    def engine(self):
+        return self._engine
 
 non_spaces=['ja', 'zh']
 class Context(cla_meta_intf, object):
@@ -59,7 +72,7 @@ class Context(cla_meta_intf, object):
         else:
             self.delim = ' '
         self._sents=meta['sents'] if 'sents' in meta else ''
-        self.engine=meta['engine'] if 'engine' in meta else cf.engine(self._lang)
+        self._engine=meta['engine'] if 'engine' in meta else cf.engine(self._lang)
 
         # self.lemmas = {x[0]: x[3] for x in domains}
         # self.words = {x[0]: x[2] for x in domains}
@@ -88,6 +101,10 @@ class Context(cla_meta_intf, object):
     @property
     def sents(self):
         return self._sents
+
+    @property
+    def engine(self):
+        return self._engine
 
     @property
     def pos(self):

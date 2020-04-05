@@ -7,6 +7,7 @@ from sagas.util.rest_common import query_data_by_url
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
 
+@cached(cache={})
 def get_chains(word, lang, pos) -> List[Dict[Text, Any]]:
     response = requests.post(f'{cf.ensure("words_servant")}/get_chains',
                              json={'word': word, 'lang': lang, 'pos': pos})

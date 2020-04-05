@@ -20,8 +20,9 @@ class Rules_es(LangToolBase):
 
         self.collect(pats=[
             # $ ses '¿Qué hace Marta?'
-            pat(5, name='behave_make?').verb(behaveof('make', 'v'), nsubj=agency,
-                                             obj=interr('what'),),
+            pat(5, name='behave_make?').verb(
+                behaveof('make', 'v'), nsubj=agency,
+                obj=interr('what'), ),
             # $ ses 'Ella trabaja en una oficina.'
             pat(5, name='behave_work').verb(behaveof('work', 'v'), nsubj=agency,
                                             obl=kindof('place_of_business', 'n')),

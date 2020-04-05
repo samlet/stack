@@ -9,7 +9,7 @@ from anytree import Node, RenderTree, AsciiStyle, Walker, Resolver
 from anytree.search import findall, findall_by_attr
 
 from cachetools import cached
-
+from cached_property import cached_property
 from sagas.zh.hownet_helper import SenseTree, get_trees
 
 
@@ -36,7 +36,7 @@ class AnalNode(NodeMixin, Token):
     def __repr__(self):
         return _repr(self)
 
-    @property
+    @cached_property
     def personal_pronoun_repr(self):
         def feat_or(name):
             return self.feats[name] if name in self.feats else '_'
@@ -135,7 +135,7 @@ class AnalNode(NodeMixin, Token):
     def get_pos(self, pos='~'):
         return self.pos_abbr if pos == '~' else pos
 
-    @property
+    @cached_property
     def axis(self):
         from sagas.nlu.translator import trans_axis
         t=self.tok
@@ -193,7 +193,8 @@ class AnalNode(NodeMixin, Token):
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
-def build_anal_tree(sents:Text, lang:Text, engine:Text):
+def build_anal_tree(sents:Text, lang:Text, engine:Text,
+                    nodecls=AnalNode):
     """
     >>> from sagas.nlu.anal import build_anal_tree
     >>> from anytree.search import findall, findall_by_attr
@@ -210,8 +211,8 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text):
                            source=lang,
                            engine=engine)
     words = chunks['doc'].words
-    node_map = {word.index: AnalNode(word, lang=lang) for word in words}
-    node_map[0] = AnalNode(None, sents=sents, lang=lang, engine=engine)
+    node_map = {word.index: nodecls(word, lang=lang) for word in words}
+    node_map[0] = nodecls(None, sents=sents, lang=lang, engine=engine)
     tree_root = next(w for w in node_map.values() if w.governor == 0)
 
     def set_parent(w):
