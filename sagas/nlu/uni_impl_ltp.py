@@ -1,5 +1,7 @@
 from typing import Text, Any, Dict, List
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
+import logging
+logger = logging.getLogger(__name__)
 
 upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
            'u':'AUX', 'c':'CCONJ', 'h':'DET',
@@ -66,7 +68,7 @@ class LtpSentImpl(SentenceIntf):
         for word in self.words:
             if word.governor == 0:
                 # make a word for the ROOT
-                governor = RootWordImpl(None)
+                governor = RootWordImpl()
             else:
                 # id is index in words list + 1
                 governor = self.words[word.governor - 1]
@@ -92,8 +94,7 @@ class LtpParserImpl(object):
         doc = []
         for i in range(len(words)):
             a = words[int(arcs[i].head) - 1]
-            print("%s --> %s|%s|%s|%s" % (a, words[i], \
-                                          arcs[i].relation, postags[i], netags[i]))
+            logger.debug("%s --> %s|%s|%s|%s" % (a, words[i], arcs[i].relation, postags[i], netags[i]))
             unit = WordUnit(i=i, text=words[i],
                             dependency_relation=arcs[i].relation.lower(),
                             governor=arcs[i].head,

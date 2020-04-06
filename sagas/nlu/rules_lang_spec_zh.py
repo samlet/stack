@@ -5,9 +5,11 @@ from sagas.nlu.rules_header import *
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
-class Rules_zh(LangSpecBase):
+class Rules_zh(LangToolBase):
     def predicate_rules(self):
         pat, actions_obj=(self.pat, self.actions_obj)
 
