@@ -44,7 +44,8 @@ class LtpWordImpl(WordIntf):
         idx = token.i + 1  # start from 1
         features = {'index': idx, 'text': token.text, 'lemma': token.lemma,
                     'upos': token.upos, 'xpos': token.pos,
-                    'feats': [], 'governor': int(governor), 'dependency_relation': rel,
+                    'feats': '', 'governor': int(governor),
+                    'dependency_relation': rel,
                     'entity': [token.netag]
                     }
         return features

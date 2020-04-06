@@ -10,7 +10,8 @@ class SpacyWordImpl(WordIntf):
         idx = token.i + 1  # start from 1
         features = {'index': idx, 'text': token.text, 'lemma': token.lemma_,
                     'upos': token.pos_, 'xpos': token.tag_,
-                    'feats': [], 'governor': governor, 'dependency_relation': token.dep_.lower(),
+                    'feats': '', 'governor': governor,
+                    'dependency_relation': token.dep_.lower(),
                     'entity': [token.ent_type_, token.ent_iob_]
                     }
         return features

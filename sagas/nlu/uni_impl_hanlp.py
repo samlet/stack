@@ -54,7 +54,8 @@ class HanlpWordImpl(WordIntf):
         idx = token.id  # start from 1
         features = {'index': int(idx), 'text': token.lemma, 'lemma': token.name,
                     'upos': get_pos_mapping(token.postag2), 'xpos': token.postag2,
-                    'feats': [token.postag1], 'governor': int(governor), 'dependency_relation': token.deprel,
+                    'feats': token.postag1, 'governor': int(governor),
+                    'dependency_relation': token.deprel,
                     'entity': []
                     }
         return features

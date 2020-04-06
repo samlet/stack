@@ -24,7 +24,7 @@ class KnpWordImpl(WordIntf):
             rel = tag.dpndtype if governor!=0 else 'root'
         features = {'index': idx, 'text': text, 'lemma': predict_lemma, 'phonetic':predict_phonetic,
                     'upos': tag_pos(tag), 'xpos': '_'.join(pos_list(tag)),
-                    'feats': [tag.fstring], 'governor': governor,
+                    'feats': tag.fstring, 'governor': governor,
                     'dependency_relation': rel,
                     'entity': entity_list(tag),
                     'segments': get_segments(tag)

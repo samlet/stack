@@ -4,7 +4,7 @@ from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
 from anytree.node.util import _repr
 from sagas.nlu.uni_intf import SentenceIntf, WordIntf, RootWordImpl
-from sagas.nlu.features import feats_map
+from sagas.nlu.features import extract_feats_map
 from anytree import Node, RenderTree, AsciiStyle, Walker, Resolver
 from anytree.search import findall, findall_by_attr
 
@@ -22,6 +22,9 @@ class Doc(NodeMixin, object):
     """
     resultset: List[Dict[Text, Any]]=[]
     domain_name:str='anal'
+    sents: Text
+    lang: Text
+    engine: Text
 
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
@@ -60,13 +63,16 @@ class AnalNode(NodeMixin, Token):
         self.__dict__.update(kwargs)
         if tok:
             self.__dict__.update(tok.ctx)
-            self.feats=feats_map(tok.feats)
         self.parent = parent
         if children:
             self.children = children
 
     def __repr__(self):
         return _repr(self)
+
+    @cached_property
+    def feats(self) -> Dict[Text, Any]:
+        return extract_feats_map(self.tok.feats, self.doc.engine)
 
     @cached_property
     def personal_pronoun_repr(self):

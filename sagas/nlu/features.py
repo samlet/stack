@@ -23,6 +23,13 @@ def feats_map(ft:Text) -> Dict[Text, Text]:
     ft_m={k:v for k,v in tuples}
     return ft_m
 
+def extract_feats_map(ft:Text, engine:Text) -> Dict[Text, Text]:
+    ex_fn={'corenlp': feats_map,
+           'stanza': feats_map}
+    if engine in ex_fn:
+        return ex_fn[engine](ft)
+    return {}
+
 def get_feats_map(sents, lang, domain, path):
     domain_name=f'{domain}_domains' if domain != 'predicts' else domain
     from sagas.nlu.ruleset_procs import cached_chunks

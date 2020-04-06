@@ -42,7 +42,7 @@ def extract_words(sents, lang):
         # print(dep)
         features = {'index': int(idx), 'text': tok['word'], 'lemma': tok['lemma'],
                     'upos': get_pos_mapping(tok['pos']), 'xpos': tok['pos'],
-                    'feats': [], 'governor': int(dep['governor']),
+                    'feats': '', 'governor': int(dep['governor']),
                     'dependency_relation': dep['dep'].lower(),
                     'entity': [tok['ner']]
                     }

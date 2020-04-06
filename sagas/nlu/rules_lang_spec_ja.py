@@ -5,6 +5,8 @@ from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.registries import registry_named_exprs
 from .rules_header import *
 import sagas.tracker_fn as tc
+from .tool_base import LangToolBase
+
 
 def get_from_to(c:InferPart,t):
     results=[]
@@ -39,7 +41,7 @@ registry_named_exprs(
                           get_all_plains(rs, '$[?inspector = "kind_of" & part = "デ"].value.category,word')),
 )
 
-class Rules_ja(LangSpecBase):
+class Rules_ja(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_ja(Japanese, 日本语) prepare phrase')
