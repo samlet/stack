@@ -24,21 +24,15 @@ def word_def(refid):
 
 def check_chains(synsets: list, kind):
     kind_set = set(kind.split('/'))
-    for index, c in enumerate(synsets):
-        # c = wn.synset(synset)
-        chain = {}
+    for i, c in enumerate(synsets):
         chain_keys=[]
         for c_c in [c] + list(c.closure(hyper)):
             key = c_c.name().split('.')[0]
-            if key in chain:
-                print('!! duplicated key %s' % c_c.name())
-            chain[key] =c_c.name()
             chain_keys.append(key)
-        container = set(chain.keys())
+        container = set(chain_keys)
         check_r = kind_set.issubset(container)
-        # print(index, check_r, container)
         if check_r:
-            return True, {'index': 0, 'keys': chain_keys, 'maps': chain}
+            return True, {'index': i, 'keys': chain_keys}
     return False, None
 
 def predicate_chain(word_candicates, kind, lang='en', pos='n'):
@@ -49,7 +43,6 @@ def predicate_chain(word_candicates, kind, lang='en', pos='n'):
     from sagas.nlu.omw_extended import get_synsets
     for word in word_candicates.split('/'):
         sets = get_synsets(lang, word, pos)
-        # ret = False
         if len(sets) > 0:
             # c=[s.name() for s in sets]
             ok,r= check_chains(sets, kind)

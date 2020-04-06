@@ -13,12 +13,14 @@ class Rules_zh(LangSpecBase):
 
         self.collect(pats=[
             # $ sz '你有多少文件'
-            pat(5, name='possessions_file').verb(behaveof('have', 'v'),
-                                                 a1=kindof('file/communication', 'n')),
+            pat(5, name='possessions_file').verb(
+                behaveof('have', 'v'),
+                a1=kindof('file/communication', 'n')),
             # $ sz '今天温度是九十度'
-            pat(5, name='desc_temperature').verb(extract_for('temperature', 'a1'),
-                                                 behaveof('be', 'v'),
-                                                 a0=kindof('temperature', 'n')),
+            pat(5, name='desc_temperature').verb(
+                extract_for('temperature', 'a1'),
+                behaveof('be', 'v'),
+                a0=kindof('temperature', 'n')),
         ])
 
     def execute(self):

@@ -24,12 +24,16 @@ class Rules_es(LangToolBase):
                 behaveof('make', 'v'), nsubj=agency,
                 obj=interr('what'), ),
             # $ ses 'Ella trabaja en una oficina.'
-            pat(5, name='behave_work').verb(behaveof('work', 'v'), nsubj=agency,
-                                            obl=kindof('place_of_business', 'n')),
+            pat(5, name='behave_work').verb(
+                behaveof('work', 'v'),
+                nsubj=agency,
+                obl=kindof('place_of_business', 'n')),
 
             ## infers
-            pat(5, name='behave_read').verb(extract_for('plain', 'advmod'), behaveof('read', 'v'), nsubj=agency,
-                                            obl=kindof('school', '*'), obj=kindof('book', '*'))
+            pat(5, name='behave_read').verb(
+                extract_for('plain', 'advmod'),
+                behaveof('read', 'v'), nsubj=agency,
+                obl=kindof('school', '*'), obj=kindof('book', '*'))
 
         ])
     
