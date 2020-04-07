@@ -43,7 +43,7 @@ def query_duckling(text:Text, lang:Text) -> Dict[Text, Any]:
         r=response.json()
         # print(json.dumps(r, indent=2, ensure_ascii=False))
         return {'result':'success', 'data':r}
-    return {'result':'fail', 'cause':'error response'}
+    return {'result':'fail', 'cause':'error response', 'data':[]}
 
 class DateInspector(Inspector):
     """

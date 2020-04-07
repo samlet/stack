@@ -26,6 +26,7 @@ def feats_map(ft:Text) -> Dict[Text, Text]:
 def extract_feats_map(ft:Text, engine:Text) -> Dict[Text, Text]:
     ex_fn={'corenlp': feats_map,
            'stanza': feats_map}
+    engine=engine.split('_')[0]
     if engine in ex_fn:
         return ex_fn[engine](ft)
     return {}

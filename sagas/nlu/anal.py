@@ -1,4 +1,5 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple
+from dataclasses import dataclass
 
 from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
@@ -53,6 +54,19 @@ class Token(object):
         self.tok=tok  # readonly
         self.name=tok.dependency_relation if tok is not None else '_'
 
+@dataclass
+class Desc:
+    subj: 'AnalNode'
+    aux: 'AnalNode'
+    desc: 'AnalNode'
+    nchks: List['AnalNode']
+    @property
+    def subj_spec(self) -> Text:
+        return self.subj.spec() if self.subj.is_noun() else '_'
+
+def node_or(nodels):
+    return nodels[0] if nodels else None
+
 upos_mappings={'ADJ':'a', 'ADV':'r', 'NOUN':'n', 'VERB':'v'}
 class AnalNode(NodeMixin, Token):
     lang: Text
@@ -71,33 +85,34 @@ class AnalNode(NodeMixin, Token):
         return _repr(self)
 
     @cached_property
-    def feats(self) -> Dict[Text, Any]:
+    def feats_map(self) -> Dict[Text, Any]:
         return extract_feats_map(self.tok.feats, self.doc.engine)
 
     @cached_property
     def personal_pronoun_repr(self):
         def feat_or(name):
-            return self.feats[name] if name in self.feats else '_'
-        if 'Person' in self.feats:
+            return self.feats_map[name] if name in self.feats_map else '_'
+        if 'Person' in self.feats_map:
             personal = feat_or('Tense') + '_' + feat_or('Person') \
                        + '_' + feat_or('Number')
             return personal
         return ''
 
+    def by_pos(self, pos:Text) -> Tuple['AnalNode', ...]:
+        return findall_by_attr(self, name='upos', value=pos)
     @property
     def verbs(self) -> Tuple['AnalNode', ...]:
-        words = findall_by_attr(self, name='upos', value='VERB')
-        return words
+        return self.by_pos('VERB')
 
     @property
     def nouns(self) -> Tuple['AnalNode', ...]:
-        words = findall_by_attr(self, name='upos', value='NOUN')
-        return words
+        return self.by_pos('NOUN')
+    def is_noun(self) -> bool:
+        return self.tok.upos=='NOUN'
 
     @property
     def adjectives(self) -> Tuple['AnalNode', ...]:
-        words = findall_by_attr(self, name='upos', value='ADJ')
-        return words
+        return self.by_pos('ADJ')
 
     def rels(self, *args) -> Tuple['AnalNode', ...]:
         return findall(self, filter_=lambda n: n.dependency_relation in args)
@@ -246,11 +261,42 @@ class AnalNode(NodeMixin, Token):
         return search_dates(self.chunk, languages=[self.lang]) or \
                parse(self.chunk, languages=[self.lang])
 
+    def dims(self, with_chunk=False):
+        from sagas.nlu.inspectors import query_duckling
+        resp = query_duckling(self.chunk if with_chunk else self.tok.text, self.lang)
+        return resp['data']
+
+    def as_type(self, dim:Text, with_chunk):
+        dims = self.dims(with_chunk)
+        values = [d for d in dims if d['dim'] == dim]
+        return values
+
+    def as_num(self, with_chunk=False):
+        vals = self.as_type('number', with_chunk)
+        if vals:
+            return vals[0]['value']['value']
+
     @cached_property
     def doc(self):
         for node in self.iter_path_reverse():
             if isinstance(node, Doc):
                 return node
+
+    def as_desc(self):
+        """
+        >>> f=build_anal_tree('Nuestro horario es de nueve a cinco.', 'es', 'stanza')
+        >>> desc=f.as_desc()
+        >>> desc.subj.text, desc.subj_spec, desc.aux.lemma, desc.desc.as_num()
+        :return:
+        """
+        aux_ls = self.by_pos('AUX')
+        if aux_ls:
+            aux = aux_ls[0]
+            head = aux.parent
+            subjs = head.rels('nsubj', 'csubj')
+            nchks = head.rels('compound')
+            return Desc(subj=node_or(subjs), aux=aux, desc=head, nchks=nchks)
+
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
