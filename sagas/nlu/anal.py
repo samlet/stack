@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List, Union, Optional, Tuple
+from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
 
 from sagas.nlu.ruleset_procs import cached_chunks
@@ -70,11 +70,19 @@ class Desc:
     def modifier_names(self):
         return [m[0] for m in self.modifiers]
 
+    @property
+    def target(self):
+        return self.subj
+
 @dataclass
 class Behave:
     subj: 'AnalNode'
     obj: 'AnalNode'
     behave: 'AnalNode'
+
+    @property
+    def target(self):
+        return self.obj
 
 @dataclass
 class Phrase:
@@ -83,6 +91,18 @@ class Phrase:
     @property
     def modifier_names(self):
         return [m[0] for m in self.modifiers]
+
+    @property
+    def target(self):
+        return self.head
+
+@dataclass
+class Nosense:
+    node: 'AnalNode'
+
+    @property
+    def target(self):
+        return self.node
 
 def node_or(nodels):
     return nodels[0] if nodels else None
@@ -235,22 +255,27 @@ class AnalNode(NodeMixin, Token):
         """
         return any([st.has_role(**roles) for st in self.sense])
 
-    def inherts(self, base):
+    def inherits(self, base):
         """
-        >>> f.inherts('human|人')
-        >>> f.nouns[0].with_trans().inherts('language|语言')
+        >>> f.inherits('human|人')
+        >>> f.nouns[0].with_trans().inherits('language|语言')
         :param base:
         :return:
         """
         return any([st.cat_of(base) for st in self.sense])
 
-    @property
+    @cached_property
     def sense(self) -> List[SenseTree]:
         """
-        >>> f.with_trans().sense
+        >>> f.sense
         :return:
         """
-        return get_trees(self.tok.lemma if not self.with_trans_opt else self.axis)
+        text=self.axis if self.lang not in ('en', 'zh') else self.tok.lemma
+        return get_trees(text)
+
+    @cached_property
+    def types(self) -> Set[Text]:
+        return {t.name for st in self.sense for t in st.inherits}
 
     @property
     def word(self):
@@ -361,6 +386,19 @@ class AnalNode(NodeMixin, Token):
                           obj=node_or(node.rels('obj', 'obl')),
                           behave=node,
                           )
+
+    def model(self):
+        """
+        >>> type(f.model()).__name__
+        >>> target=f.model().target
+        >>> target.axis, target.types
+            ('carpet', {'tool|用具'})
+
+        :return:
+        """
+        return self.as_behave() or self.as_desc() or \
+               self.as_subj() or self.as_noun_phrase() \
+               or Nosense(node=self)
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
