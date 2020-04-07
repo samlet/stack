@@ -22,17 +22,9 @@ class LangToolBase(LangSpecBase):
         ds=chunks['root_domains'][0]
         vis_tree(ds, self.meta.lang, trans=cf.is_enabled('trans_tree'))
 
-    def doc_tree(self):
-        from sagas.nlu.anal import build_anal_tree
-        from anytree import Node, RenderTree, AsciiStyle, Walker, Resolver
-        sents, lang, engine=self.meta.sents, self.meta.lang, self.meta.engine
-        tree_root = build_anal_tree(sents, lang, engine)
-        def additional(n):
-            if n.upos=='VERB':
-                return n.personal_pronoun_repr
-            return ''
-        print(RenderTree(tree_root, style=AsciiStyle()).by_attr(lambda n: f"{n.dependency_relation}: {n.text} ({n.upos.lower()}) {additional(n)}"))
-
     def execute(self):
+        from sagas.nlu.anal_corpus import AnalCorpus
         super().execute()
-        self.doc_tree()
+        AnalCorpus().descrip(self.meta.sents,
+                             self.meta.lang,
+                             self.meta.engine)

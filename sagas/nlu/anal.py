@@ -204,8 +204,13 @@ class AnalNode(NodeMixin, Token):
         return '.'.join(path)
 
     def draw(self):
+        def additional(n):
+            if n.upos=='VERB':
+                return n.personal_pronoun_repr
+            return ''
         print(RenderTree(self, style=AsciiStyle()).by_attr(
-            lambda n: f"{n.dependency_relation}: {n.text} ({n.lemma}, {n.upos.lower()})"))
+            lambda n: f"{n.dependency_relation}: {n.text} "
+                      f"({n.lemma}, {n.upos.lower()}) {additional(n)}"))
 
     @property
     def pos_abbr(self):

@@ -100,6 +100,24 @@ class AnalCorpus(object):
         total, parsed= proc_corpus(lang, chapter)
         print(f"total {total}, parsed {parsed}")
 
+    def descrip(self, sents, lang, engine=None):
+        """
+        $ python -m sagas.nlu.anal_corpus descrip 'Karpet di kantor saya abu-abu.' id
+        :param sents:
+        :param lang:
+        :param engine:
+        :return:
+        """
+        from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
+        from sagas.conf.conf import cf
+        f = build_anal_tree(sents, lang, cf.engine(lang))
+        f.draw()
+        model=f.model()
+        target = model.target
+        tc.emp('cyan', type(model).__name__, '-'*10, '✁')
+        tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
+        # tc.emp('white', f.model())
+
 if __name__ == '__main__':
     import fire
     fire.Fire(AnalCorpus)

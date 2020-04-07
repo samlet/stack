@@ -7,6 +7,8 @@ from sagas.nlu.registries import sinkers_fn
 import sagas.tracker_fn as tc
 import logging
 
+from sagas.nlu.tool_base import LangToolBase
+
 logger = logging.getLogger(__name__)
 
 def head_interr(c:InferPart, part:Text):
@@ -22,7 +24,7 @@ extensions.register_parts('ru',{
                           (2, "nsubj=agency")],
     'head_csubj': lambda c,t: head_interr(c, 'head_csubj'),
 })
-class Rules_ru(LangSpecBase):
+class Rules_ru(LangToolBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
         tc.emp('yellow', '.. Rules_ru(Russian, 俄语) prepare phrase')
