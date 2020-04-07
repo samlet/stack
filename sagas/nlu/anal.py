@@ -57,12 +57,32 @@ class Token(object):
 @dataclass
 class Desc:
     subj: 'AnalNode'
-    aux: 'AnalNode'
+    aux: Optional['AnalNode']
     desc: 'AnalNode'
     nchks: List['AnalNode']
+    modifiers: Optional[List[Tuple[Text, 'AnalNode']]]
+
     @property
     def subj_spec(self) -> Text:
         return self.subj.spec() if self.subj.is_noun() else '_'
+
+    @property
+    def modifier_names(self):
+        return [m[0] for m in self.modifiers]
+
+@dataclass
+class Behave:
+    subj: 'AnalNode'
+    obj: 'AnalNode'
+    behave: 'AnalNode'
+
+@dataclass
+class Phrase:
+    head: 'AnalNode'
+    modifiers: Optional[List[Tuple[Text, 'AnalNode']]]
+    @property
+    def modifier_names(self):
+        return [m[0] for m in self.modifiers]
 
 def node_or(nodels):
     return nodels[0] if nodels else None
@@ -156,6 +176,11 @@ class AnalNode(NodeMixin, Token):
         """
         return findall(self, filter_=fn)
 
+    def path_to(self, f):
+        path = [n.deprel for n in self.walk_to(f)[0]]
+        path.reverse()
+        return '.'.join(path)
+
     def draw(self):
         print(RenderTree(self, style=AsciiStyle()).by_attr(
             lambda n: f"{n.dependency_relation}: {n.text} ({n.lemma}, {n.upos.lower()})"))
@@ -187,6 +212,9 @@ class AnalNode(NodeMixin, Token):
 
     def get_pos(self, pos='~'):
         return self.pos_abbr if pos == '~' else pos
+    @property
+    def deprel(self):
+        return self.tok.dependency_relation
 
     @cached_property
     def axis(self):
@@ -295,8 +323,44 @@ class AnalNode(NodeMixin, Token):
             head = aux.parent
             subjs = head.rels('nsubj', 'csubj')
             nchks = head.rels('compound')
-            return Desc(subj=node_or(subjs), aux=aux, desc=head, nchks=nchks)
+            return Desc(subj=node_or(subjs), aux=aux,
+                        desc=head, nchks=nchks,
+                        modifiers=head.modifiers)
 
+    @cached_property
+    def modifiers(self) -> List[Tuple[Text, 'AnalNode']]:
+        return [(n.tok.dependency_relation,n) for n in self.rels('amod', 'cop')]
+
+    @cached_property
+    def subjs(self):
+        subjs=self.find(fn=lambda n: n.dependency_relation.endswith('subj'))
+        rs=[]
+        for node in subjs:
+            head = node.parent
+            rs.append(Desc(subj=node, aux=None,
+                           desc=head,
+                           nchks=head.rels('compound'),
+                           modifiers=head.modifiers))
+        return rs
+
+    def as_noun_phrase(self):
+        if self.is_noun():
+            modis=s=self.find(fn=lambda n: n.dependency_relation.endswith('mod'))
+            return Phrase(head=self,
+                          modifiers=[(n.path_to(self),n) for n in modis])
+
+    def as_subj(self):
+        rs=self.subjs
+        return rs[0] if rs else None
+
+    def as_behave(self):
+        node_ls=self.by_pos('VERB')
+        if node_ls:
+            node=node_ls[0]
+            return Behave(subj=node_or(node.rels('nsubj', 'csubj')),
+                          obj=node_or(node.rels('obj', 'obl')),
+                          behave=node,
+                          )
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.

@@ -108,7 +108,10 @@ class Rules_id(LangSpecBase):
             # $ sid 'Apa yang lebih murah?'  (What is cheaper?)
             pat(1, name='desc_attr').subj('adj', nsubj=agency, head_amod=interr('what')),
             # $ sid 'Siapa yang di kiri Anda?' (zh="谁在你的左边？")
-            pat(5, name='loc_inquiry').subj('pron', 'noun', nsubj=agency, case=kindof('in', 'r'), head_nmod=matchins('siapa')),
+            pat(5, name='loc_inquiry').subj('pron', 'noun',
+                                            nsubj=agency,
+                                            case=kindof('in', 'r'),
+                                            head_nmod=matchins('siapa')),
 
             # infer: sid 'Apa yang lebih murah?'
             pat(5, name='desc_abundant').cop(extract_for('plain', 'advmod'), behaveof('abundant', '*'), nsubj=agency,
