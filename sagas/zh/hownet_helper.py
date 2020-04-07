@@ -132,6 +132,10 @@ word_sets=lambda text: [(word.zh_word, word.zh_grammar,
 def get_trees(text: Text) -> List[SenseTree]:
     from OpenHowNet.SememeTreeParser import GenSememeTree
 
+    text=text.strip()
+    if not text:
+        return []
+
     trees = []
     # 只需要解析不同的树即可
     words=get_words(text)

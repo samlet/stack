@@ -54,6 +54,11 @@ class Token(object):
         self.tok=tok  # readonly
         self.name=tok.dependency_relation if tok is not None else '_'
 
+def node_or(nodels):
+    return nodels[0] if nodels else None
+def node_desc(n:'AnalNode'):
+    return f"{n.tok.lemma}({n.deprel})" if n else '_'
+
 @dataclass
 class Desc:
     subj: 'AnalNode'
@@ -103,9 +108,6 @@ class Nosense:
     @property
     def target(self):
         return self.node
-
-def node_or(nodels):
-    return nodels[0] if nodels else None
 
 upos_mappings={'ADJ':'a', 'ADV':'r', 'NOUN':'n', 'VERB':'v'}
 class AnalNode(NodeMixin, Token):
@@ -226,7 +228,7 @@ class AnalNode(NodeMixin, Token):
         if self.with_trans_opt and self.lang!='en':
             w, lang=self.axis, 'en'
         else:
-            w, lang=f"{self.tok.text}/{self.tok.lemma}", self.lang
+            w, lang=self.word, self.lang
         pos=self.get_pos(pos)
         return predicate(cat, w, lang, pos)
 
@@ -273,9 +275,17 @@ class AnalNode(NodeMixin, Token):
         text=self.axis if self.lang not in ('en', 'zh') else self.tok.lemma
         return get_trees(text)
 
+    def spec_sense(self, pos='~'):
+        specs=self.syn_names(pos)
+        if specs:
+            return get_trees('/'.join(specs))
+
     @cached_property
     def types(self) -> Set[Text]:
         return {t.name for st in self.sense for t in st.inherits}
+
+    def spec_types(self, pos='~') -> Set[Text]:
+        return {t.name for st in self.spec_sense(pos) for t in st.inherits}
 
     @property
     def word(self):
@@ -286,7 +296,14 @@ class AnalNode(NodeMixin, Token):
         rs = retrieve_word_info('get_synsets',
                                 self.word, self.lang,
                                 self.get_pos(pos))
+        if not rs and self.lang!='en':
+            rs = retrieve_word_info('get_synsets',
+                                    self.axis, 'en',
+                                    self.get_pos(pos))
         return rs
+
+    def syn_names(self, pos='~'):
+        return [s.split('.')[0] for s in self.synsets(pos)]
 
     def spec(self, pos='~'):
         from sagas.nlu.utils import get_possible_mean
