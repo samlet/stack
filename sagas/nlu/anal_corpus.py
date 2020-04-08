@@ -113,13 +113,17 @@ class AnalCorpus(object):
         f = build_anal_tree(sents, lang, cf.engine(lang))
         f.draw()
         model=f.model()
+        tc.emp('cyan', type(model).__name__, '-' * 10, '✁')
         target = model.target
-        tc.emp('cyan', type(model).__name__, '-'*10, '✁')
-        tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
+        if target:
+            tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
+        else:
+            tc.emp('white', '\tno target.')
         # tc.emp('white', f.model())
         if isinstance(model, Behave):
             subj=model.subj.types if model.subj and not model.subj.is_pron() else '_'
-            tc.emp('white', f"\t{model.behave.lemma}: {model.behave.types} ☜ {subj}")
+            neg='[not]' if model.negative else ''
+            tc.emp('white', f"\t{model.behave.lemma}{neg}: {model.behave.types} ☜ {subj}")
         elif isinstance(model, Desc):
             tc.emp('white', f"\tdesc: {model.desc.types}")
 

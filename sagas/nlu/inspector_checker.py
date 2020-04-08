@@ -32,9 +32,9 @@ class CheckerInspector(Inspector):
             if isinstance(lemmas, str):
                 lemmas=[lemmas]
             return check(lemmas, 'has_lemma')
-        def nagative(part='_'):
-            from sagas.nlu.inspectors_dataset import nagative_maps
-            data_map = nagative_maps[ctx.lang]
+        def negative(part='_'):
+            from sagas.nlu.inspectors_dataset import negative_maps
+            data_map = negative_maps[ctx.lang]
             return check(data_map, 'negative')
         def has_pos_in_part(part:Text, pos: Union[list, str]):
             from sagas.nlu.uni_chunks import get_chunk
@@ -58,7 +58,7 @@ class CheckerInspector(Inspector):
                   'has_all_rels': lambda c: all(elem in ctx.rels for elem in c),
                   'has_pos': lambda pos_list: ctx.pos in pos_list,
                   'has_lemma': lambda ls: has_lemma(ls),
-                  'negative': lambda part: nagative(part),
+                  'negative': lambda part: negative(part),
                   'has_num': lambda part: has_pos_in_part(part, 'num'),
                   }
         results=[]

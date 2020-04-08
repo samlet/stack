@@ -84,6 +84,7 @@ class Behave:
     subj: 'AnalNode'
     obj: 'AnalNode'
     behave: 'AnalNode'
+    negative: bool
 
     @property
     def target(self):
@@ -265,6 +266,15 @@ class AnalNode(NodeMixin, Token):
         from sagas.nlu.inspectors_dataset import get_interrogative
         return get_interrogative(self.tok.lemma, self.lang)
 
+    def is_negative(self):
+        from sagas.nlu.inspectors_dataset import is_negative
+        return is_negative(self.word, self.lang)
+
+    @cached_property
+    def pred_negative(self):
+        ns=self.rels('advmod')
+        return ns[0].is_negative() if ns else False
+
     def has_role(self, **roles):
         """
         >>> f.has_role(agent='study|学习')
@@ -412,12 +422,19 @@ class AnalNode(NodeMixin, Token):
         return rs[0] if rs else None
 
     def as_behave(self):
+        """
+        Instances for obj:
+            * nsubj:pass
+                $ se 'the clipboard content has not been changed.'
+        :return:
+        """
         node_ls=self.by_pos('VERB')
         if node_ls:
             node=node_ls[0]
             return Behave(subj=node_or(node.rels('nsubj', 'csubj')),
-                          obj=node_or(node.rels('obj', 'obl')),
+                          obj=node_or(node.rels('obj', 'obl', 'nsubj:pass')),
                           behave=node,
+                          negative=node.pred_negative,
                           )
 
     def model(self):

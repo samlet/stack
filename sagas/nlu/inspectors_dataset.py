@@ -3,7 +3,8 @@ from typing import Text, Any, Dict, List, Union
 # 列举在dataset中使用转写方式填写的语种
 translit_langs={'ar','fa','ko'}
 
-nagative_maps={
+negative_maps={
+    'en': ['not'],
     'da': ['ikke'],
     'de': ['nicht'],
     'id': ['tidak', 'tak bisa', 'tak boleh'],
@@ -81,6 +82,10 @@ def get_interrogative(word:Text, lang:Text):
                 return k
     return None
 
+def is_negative(word: Text, lang: Text):
+    data_map = negative_maps[lang]
+    word_val=trans_val(word, lang)
+    return word_val in data_map
 
 class DataSetCli(object):
     def interr(self, word, lang):
