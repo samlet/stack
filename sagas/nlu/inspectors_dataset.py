@@ -19,6 +19,7 @@ interrogative_maps={
         'what': ['apa'],
         'be': ['apa'],  # am/is/are
         'will': ['mau'], # would/will
+        'can': ['bisa']
     },
     'es': {
         'what': ['qué'],

@@ -103,6 +103,8 @@ class AnalCorpus(object):
     def descrip(self, sents, lang, engine=None):
         """
         $ python -m sagas.nlu.anal_corpus descrip 'Karpet di kantor saya abu-abu.' id
+        $ sid 'Celana ini bisa diperbesar.'
+
         :param sents:
         :param lang:
         :param engine:
@@ -122,11 +124,18 @@ class AnalCorpus(object):
         # tc.emp('white', f.model())
         if isinstance(model, Behave):
             subj=model.subj.types if model.subj and not model.subj.is_pron() else '_'
-            neg='[not]' if model.negative else ''
-            tc.emp('white', f"\t{model.behave.lemma}{neg}: {model.behave.types} ☜ {subj}")
+            indicators=[]
+            if model.negative:
+                indicators.append('not')
+            if model.behave.pred_enable:
+                indicators.append('enable')
+            behave_ds=model.behave.types or model.behave.spec() or model.behave.axis
+            tc.emp('white', f"\t{model.behave.lemma}[{','.join(indicators)}]: {behave_ds} ☜ {subj}")
         elif isinstance(model, Desc):
             tc.emp('white', f"\tdesc: {model.desc.types}")
 
 if __name__ == '__main__':
     import fire
     fire.Fire(AnalCorpus)
+
+

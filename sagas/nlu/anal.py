@@ -93,6 +93,7 @@ class Behave:
 @dataclass
 class Phrase:
     head: 'AnalNode'
+    # the key elements are paths
     modifiers: Optional[List[Tuple[Text, 'AnalNode']]]
     @property
     def modifier_names(self):
@@ -258,8 +259,8 @@ class AnalNode(NodeMixin, Token):
         word=t.text if t.upos.lower() in ['adj'] else t.lemma
         return trans_axis(word, self.lang, self.tok.upos)
 
-    def is_interr(self, interr:Text) -> bool:
-        return self.interr == interr
+    def is_interr(self, *interrs) -> bool:
+        return self.interr in interrs
 
     @cached_property
     def interr(self):
@@ -273,7 +274,19 @@ class AnalNode(NodeMixin, Token):
     @cached_property
     def pred_negative(self):
         ns=self.rels('advmod')
-        return ns[0].is_negative() if ns else False
+        if not ns:
+            return False
+        return any([n.is_negative() for n in ns])
+
+    def pred_interr(self, rel, *interrs):
+        ns = self.rels(rel)
+        if not ns:
+            return False
+        return any([n.is_interr(*interrs) for n in ns])
+
+    @cached_property
+    def pred_enable(self):
+        return self.pred_interr('advmod', 'can')
 
     def has_role(self, **roles):
         """
@@ -397,7 +410,8 @@ class AnalNode(NodeMixin, Token):
 
     @cached_property
     def modifiers(self) -> List[Tuple[Text, 'AnalNode']]:
-        return [(n.tok.dependency_relation,n) for n in self.rels('amod', 'cop')]
+        return [(n.tok.dependency_relation,n) for n in
+                self.rels('amod', 'cop', 'advmod')]
 
     @cached_property
     def subjs(self):
