@@ -1,4 +1,4 @@
-from sagas.nlu.anal import build_anal_tree
+from sagas.nlu.anal import build_anal_tree, Behave, Desc
 from sagas.nlu.ruleset_procs import cached_chunks
 from sagas.nlu.utils import fix_sents
 from sagas.nlu.nlu_tools import treeing
@@ -117,6 +117,11 @@ class AnalCorpus(object):
         tc.emp('cyan', type(model).__name__, '-'*10, '✁')
         tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
         # tc.emp('white', f.model())
+        if isinstance(model, Behave):
+            subj=model.subj.types if model.subj and not model.subj.is_pron() else '_'
+            tc.emp('white', f"\t{model.behave.lemma}: {model.behave.types} ☜ {subj}")
+        elif isinstance(model, Desc):
+            tc.emp('white', f"\tdesc: {model.desc.types}")
 
 if __name__ == '__main__':
     import fire

@@ -151,6 +151,8 @@ class AnalNode(NodeMixin, Token):
         return self.by_pos('NOUN')
     def is_noun(self) -> bool:
         return self.tok.upos=='NOUN'
+    def is_pron(self) -> bool:
+        return self.tok.upos in ('PRON', 'DET')
 
     @property
     def adjectives(self) -> Tuple['AnalNode', ...]:
@@ -197,6 +199,11 @@ class AnalNode(NodeMixin, Token):
         :return:
         """
         return findall(self, filter_=fn)
+
+    def has_num(self) -> bool:
+        rs= self.find(fn=lambda node: node.dependency_relation in ("nummod")) or \
+            self.find(fn=lambda node: node.upos in ("NUM"))
+        return len(rs)>0
 
     def path_to(self, f):
         path = [n.deprel for n in self.walk_to(f)[0]]
@@ -251,8 +258,12 @@ class AnalNode(NodeMixin, Token):
         return trans_axis(word, self.lang, self.tok.upos)
 
     def is_interr(self, interr:Text) -> bool:
+        return self.interr == interr
+
+    @cached_property
+    def interr(self):
         from sagas.nlu.inspectors_dataset import get_interrogative
-        return get_interrogative(self.tok.lemma, self.lang) == interr
+        return get_interrogative(self.tok.lemma, self.lang)
 
     def has_role(self, **roles):
         """

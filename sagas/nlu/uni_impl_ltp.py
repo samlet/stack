@@ -3,13 +3,19 @@ from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 import logging
 logger = logging.getLogger(__name__)
 
-upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
-           'u':'AUX', 'c':'CCONJ', 'h':'DET',
-           'e':'INTJ', 'n':'NOUN', 'm':'NUM',
-           'z':'PART', 'r':'PRON', 'nh':'PROPN',
-           'wp':'PUNCT', 'ws':'SYM',
-           'v':'VERB', 'x':'X'
-          }
+# upos_maps={'a':'ADJ', 'p':'ADP', 'd':'ADV',
+#            'u':'AUX', 'c':'CCONJ', 'h':'DET',
+#            'e':'INTJ', 'n':'NOUN', 'm':'NUM',
+#            'z':'PART', 'r':'PRON', 'nh':'PROPN',
+#            'wp':'PUNCT', 'ws':'SYM',
+#            'v':'VERB', 'x':'X'
+#           }
+upos_maps={'a': 'ADJ', 'b': 'NOUN', 'c': 'CCONJ', 'd': 'ADV', 'e': 'INTJ',
+           'g': 'NOUN', 'h': 'PART', 'i': 'NOUN', 'j': 'PROPN', 'k': 'PART',
+           'm': 'NUM', 'n': 'NOUN', 'nd': 'NOUN', 'nh': 'PROPN', 'ni': 'PROPN',
+           'nl': 'NOUN', 'ns': 'PROPN', 'nt': 'NOUN', 'nz': 'PROPN', 'o': 'INTJ',
+           'p': 'ADP', 'q': 'NOUN', 'r': 'PRON', 'u': 'PART', 'v': 'VERB',
+           'wp': 'PUNCT', 'ws': 'X', 'x': 'SYM', 'z': 'ADV'}
 upos_rev_maps={'SCONJ':['c'], 'NOUN':['ni', 'nl', 'ns', 'nt', 'nz', 'n', 'nd', 'nh']}
 
 def get_pos_mapping(pos, default_val='X'):
