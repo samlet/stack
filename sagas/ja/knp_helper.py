@@ -75,7 +75,6 @@ def pos_map_list(leaf):
     return string
 
 def entity_list(leaf):
-    import re
     string=[]
     for mrph in leaf.mrph_list():
         if mrph.bunrui in ner_mappings:

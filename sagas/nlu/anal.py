@@ -26,6 +26,8 @@ class Doc(NodeMixin, object):
     sents: Text
     lang: Text
     engine: Text
+    index_data: Dict[Text, Any]={}
+    doc: SentenceIntf
 
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
@@ -48,6 +50,19 @@ class Doc(NodeMixin, object):
                               'delivery': delivery_type,
                               'pattern': '_',
                               })
+
+    def ensure_data(self, provider_name:Text):
+        from sagas.nlu.anal_providers import get_provider_by_name
+        if provider_name not in self.index_data:
+            data = get_provider_by_name(provider_name)(self, provider_name)
+            self.index_data[provider_name] = data
+        else:
+            data = self.index_data[provider_name]
+        return data
+
+    def get_index_data(self, provider_name:Text, index:int):
+        data=self.ensure_data(provider_name)
+        return data[index] if index in data else None
 
 class Token(object):
     def __init__(self, tok:Optional[WordIntf]):
@@ -115,6 +130,7 @@ upos_mappings={'ADJ':'a', 'ADV':'r', 'NOUN':'n', 'VERB':'v'}
 class AnalNode(NodeMixin, Token):
     lang: Text
     with_trans_opt: bool=False
+    position: Tuple[int,int]
 
     def __init__(self, tok:Optional[WordIntf], parent=None, children=None, **kwargs):
         super(AnalNode, self).__init__(tok)
@@ -287,6 +303,13 @@ class AnalNode(NodeMixin, Token):
     @cached_property
     def pred_enable(self):
         return self.pred_interr('advmod', 'can')
+
+    @cached_property
+    def ner(self, provider='rasa_simple'):
+        return self.doc.get_index_data(provider, self.tok.index)
+
+    def get_by_index(self, idx) -> 'AnalNode':
+        return next((n for n in self.descendants if n.index==idx), None)
 
     def has_role(self, **roles):
         """
@@ -483,9 +506,10 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
     chunks = cached_chunks(sents,
                            source=lang,
                            engine=engine)
-    words = chunks['doc'].words
-    node_map = {word.index: nodecls(word, lang=lang) for word in words}
-    node_map[0] = Doc(sents=sents, lang=lang, engine=engine)
+    doc:SentenceIntf=chunks['doc']
+    words = doc.words
+    node_map = {word.index: nodecls(word, lang=lang, position=doc.get_position(word.index)) for word in words}
+    node_map[0] = Doc(sents=sents, lang=lang, engine=engine, doc=doc)
     tree_root = next(w for w in node_map.values() if w.governor == 0)
 
     def set_parent(w):

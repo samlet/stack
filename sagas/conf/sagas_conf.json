@@ -41,6 +41,8 @@
   "agents_servant": "http://localhost:18099",
   "words_servant": "http://localhost:8093",
   "redis": "localhost",
+  "rasa_default": "http://localhost:5005",
+  "rasa_simple": "http://localhost:15008",
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanza":"http://localhost:14000",

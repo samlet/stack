@@ -1,4 +1,4 @@
-from typing import Text, Any, Dict, List
+from typing import Text, Any, Dict, List, Tuple
 import abc
 import io
 
@@ -136,7 +136,7 @@ class SentenceIntf(abc.ABC):
                 running_offset = word_offset + word_len
                 self.pos_map[token.index] = (word_offset, running_offset)
 
-    def get_position(self, word_idx:Text):
+    def get_position(self, word_idx:Text) -> Tuple[int, int]:
         return self.pos_map[word_idx] if word_idx in self.pos_map else (0,0)
 
     def has_predicts(self) -> bool:
