@@ -78,6 +78,44 @@ def proc_corpus(lang, chapter):
         rs_map[i] = digest_verb(text, lang, 'stanza')
     return len(ch), len([t for t in rs_map.values() if t])
 
+def model_info(model):
+    """
+    >>> from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
+    >>> from sagas.nlu.anal_corpus import model_info
+    >>> f=build_anal_tree('We expect them to change their minds', 'en', 'stanza')
+    >>> f.draw()
+        root: expect (expect; , verb)
+        |-- nsubj: We (we, pron)
+        |-- obj: them (they, pron)
+        |-- xcomp: change (change; , verb)
+        |   |-- mark: to (to, part)
+        |   +-- obj: minds (mind, noun)
+        |       +-- nmod:poss: their (they, pron)
+        +-- punct: . (., punct)
+    >>> model=f.rels('xcomp')[0].model()
+    >>> model_info(model)
+    :param model:
+    :return:
+    """
+    tc.emp('cyan', type(model).__name__, '-' * 10, '✁')
+    target = model.target
+    if target:
+        tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
+    else:
+        tc.emp('white', '\tno target.')
+    # tc.emp('white', f.model())
+    if isinstance(model, Behave):
+        subj = model.subj.types if model.subj and not model.subj.is_pron() else '_'
+        indicators = []
+        if model.negative:
+            indicators.append('not')
+        if model.behave.pred_enable:
+            indicators.append('enable')
+        behave_ds = model.behave.types or model.behave.spec() or model.behave.axis
+        tc.emp('white', f"\t{model.behave.lemma}[{','.join(indicators)}]: {behave_ds} ☜ {subj}")
+    elif isinstance(model, Desc):
+        tc.emp('white', f"\tdesc: {model.desc.types}")
+
 class AnalCorpus(object):
     def chapters(self):
         """
@@ -115,24 +153,7 @@ class AnalCorpus(object):
         f = build_anal_tree(sents, lang, cf.engine(lang))
         f.draw()
         model=f.model()
-        tc.emp('cyan', type(model).__name__, '-' * 10, '✁')
-        target = model.target
-        if target:
-            tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
-        else:
-            tc.emp('white', '\tno target.')
-        # tc.emp('white', f.model())
-        if isinstance(model, Behave):
-            subj=model.subj.types if model.subj and not model.subj.is_pron() else '_'
-            indicators=[]
-            if model.negative:
-                indicators.append('not')
-            if model.behave.pred_enable:
-                indicators.append('enable')
-            behave_ds=model.behave.types or model.behave.spec() or model.behave.axis
-            tc.emp('white', f"\t{model.behave.lemma}[{','.join(indicators)}]: {behave_ds} ☜ {subj}")
-        elif isinstance(model, Desc):
-            tc.emp('white', f"\tdesc: {model.desc.types}")
+        model_info(model)
 
 if __name__ == '__main__':
     import fire

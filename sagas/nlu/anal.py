@@ -228,14 +228,27 @@ class AnalNode(NodeMixin, Token):
         path.reverse()
         return '.'.join(path)
 
-    def draw(self):
+    def draw(self, translate=False):
+        """
+        >>> from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
+        >>> f=build_anal_tree('Η σαλάτα μου έχει τομάτα.', 'el', 'stanza')
+        >>> f.draw(True)
+        :param translate:
+        :return:
+        """
         def additional(n):
+            addons=[n.lemma]
             if n.upos=='VERB':
-                return n.personal_pronoun_repr
-            return ''
+                if n.personal_pronoun_repr:
+                    addons.append(n.personal_pronoun_repr)
+            if n.dependency_relation != 'punct':
+                if translate:
+                    from sagas.nlu.translator import get_contrast
+                    addons.append(get_contrast(n.text, n.lang))
+            return '; '.join(addons)
         print(RenderTree(self, style=AsciiStyle()).by_attr(
             lambda n: f"{n.dependency_relation}: {n.text} "
-                      f"({n.lemma}, {n.upos.lower()}) {additional(n)}"))
+                      f"({additional(n)}, {n.upos.lower()})"))
 
     @property
     def pos_abbr(self):
@@ -274,6 +287,43 @@ class AnalNode(NodeMixin, Token):
         t=self.tok
         word=t.text if t.upos.lower() in ['adj'] else t.lemma
         return trans_axis(word, self.lang, self.tok.upos)
+
+    @staticmethod
+    def translit_text(text, lang) -> Text:
+        from sagas.nlu.transliterations import translits
+        if translits.is_available_lang(lang):
+            return translits.translit(text, lang)
+        return text
+
+    @staticmethod
+    def translate_text(text:Text, source:Text, target:Text='en', cache=True) -> Text:
+        """
+        >>> AnalNode.translate_text('σαλάτα', 'el', 'en', cache=False)
+        """
+        from sagas.nlu.translator import translate_try
+        options = {'get_pronounce', 'disable_correct'}
+        if not cache:
+            options.add('disable_cache')
+        res_t, _ = translate_try(text, source=source,
+                                 target=target,
+                                 options=options)
+        return res_t
+
+    @cached_property
+    def translit(self) -> Text:
+        return AnalNode.translit_text(self.tok.text, self.lang)
+
+    @cached_property
+    def translit_chunk(self) -> Text:
+        return AnalNode.translit_text(self.chunk, self.lang)
+
+    @cached_property
+    def translate_chunk(self) -> Text:
+        return AnalNode.translate_text(self.chunk, self.lang)
+
+    @cached_property
+    def translate(self) -> Text:
+        return AnalNode.translate_text(self.tok.text, self.lang)
 
     def is_interr(self, *interrs) -> bool:
         return self.interr in interrs
