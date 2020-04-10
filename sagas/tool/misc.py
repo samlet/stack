@@ -191,7 +191,7 @@ def rs_represent(rs:List[Any], data:Dict[Text, Any], return_df=False):
         if not return_df:
 
             result.extend(proc_word(type_name, r['word'],
-                                    r['head'] if 'head' in r else '',
+                                    r['head_word'] if 'head_word' in r else '',
                                     data['lang']))
             result.extend(proc_children_column(df['rel'], df['children'], data['lang']))
 

@@ -384,13 +384,24 @@ class AnalNode(NodeMixin, Token):
         >>> f.sense
         :return:
         """
-        text=self.axis if self.lang not in ('en', 'zh') else self.tok.lemma
-        return get_trees(text)
+        def try_trans():
+            from sagas.nlu.translator import trans_axis
+            for word in (self.text, self.lemma):
+                rt=trans_axis(word, self.lang, self.tok.upos)
+                if rt:
+                    st=get_trees(rt, self.pos_abbr)
+                    if st:
+                        return st
+            return []
+        if self.lang in ('en', 'zh'):
+            return get_trees(self.tok.lemma, self.pos_abbr)
+        else:
+            return try_trans()
 
     def spec_sense(self, pos='~'):
         specs=self.syn_names(pos)
         if specs:
-            return get_trees('/'.join(specs))
+            return get_trees('/'.join(specs), self.get_pos(pos))
 
     @cached_property
     def types(self) -> Set[Text]:

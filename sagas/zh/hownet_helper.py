@@ -113,9 +113,9 @@ def build_trees(json_trees:List[Dict[Text, Any]]) -> List[SenseTree]:
 
     return trees
 
-def get_words(text: Text):
+def get_words(text: Text, pos='*'):
     from sagas.tool.servant_delegator import Delegator
-    words = Delegator().sense(word=text)
+    words = Delegator().sense(word=text, pos=pos)
     return words
 
 
@@ -129,7 +129,7 @@ word_sets=lambda text: [(word.zh_word, word.zh_grammar,
                              for word in get_word_sense(text)]
 
 @cached(cache={})
-def get_trees(text: Text) -> List[SenseTree]:
+def get_trees(text: Text, pos='*') -> List[SenseTree]:
     from OpenHowNet.SememeTreeParser import GenSememeTree
 
     text=text.strip()
@@ -138,7 +138,7 @@ def get_trees(text: Text) -> List[SenseTree]:
 
     trees = []
     # 只需要解析不同的树即可
-    words=get_words(text)
+    words=get_words(text, pos=pos)
     uniques = {item['Def']: item['No'] for item in words}
     unique_rs = [item for item in words if item['No'] in uniques.values()]
     for item in unique_rs:
@@ -192,13 +192,13 @@ def expand_tree(tree, property_name:Text, layer:int, is_root=True):
     return res
 
 class HowNetCli(object):
-    def vis(self, word:Text, word_info:bool=True, format:Text='tree', merge:bool=True):
+    def vis(self, word:Text, pos='*', word_info:bool=True, format:Text='tree', merge:bool=True):
         """
         $ python -m sagas.zh.hownet_helper vis '大学生'
         $ python -m sagas.zh.hownet_helper vis '苹果'
         $ python -m sagas.zh.hownet_helper vis '杯子'
-        $ python -m sagas.zh.hownet_helper vis '杯子' False json
-        $ hownet 合作 True tree False  # 因为是按def合并的(所以tree是相同的), 单词属性有所不同
+        $ python -m sagas.zh.hownet_helper vis '杯子' '*' False json
+        $ hownet 合作 '*' True tree False  # 因为是按def合并的(所以tree是相同的), 单词属性有所不同
 
         :param word:
         :param format:
@@ -206,7 +206,7 @@ class HowNetCli(object):
         """
         # from sagas.zh.hownet_procs import hownet_procs
         # trees = hownet_procs.build_sememe_trees(word)
-        trees=Delegator().sememes(word=word, merge=merge)
+        trees=Delegator().sememes(word=word, merge=merge, pos=pos)
         if format=='json':
             for tree in trees:
                 if word_info:

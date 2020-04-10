@@ -114,7 +114,7 @@ def model_info(model):
         behave_ds = model.behave.types or model.behave.spec() or model.behave.axis
         tc.emp('white', f"\t{model.behave.lemma}[{','.join(indicators)}]: {behave_ds} ☜ {subj}")
     elif isinstance(model, Desc):
-        tc.emp('white', f"\tdesc: {model.desc.types}")
+        tc.emp('white', f"\tdesc: {model.desc.types or model.desc.spec('*')}")
 
 class AnalCorpus(object):
     def chapters(self):
