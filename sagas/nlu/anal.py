@@ -100,6 +100,7 @@ class Desc:
 class Behave:
     subj: 'AnalNode'
     obj: 'AnalNode'
+    iobj: 'AnalNode'
     behave: 'AnalNode'
     negative: bool
 
@@ -178,8 +179,14 @@ class AnalNode(NodeMixin, Token):
     def adjectives(self) -> Tuple['AnalNode', ...]:
         return self.by_pos('ADJ')
 
-    def rels(self, *args) -> Tuple['AnalNode', ...]:
-        return findall(self, filter_=lambda n: n.dependency_relation in args)
+    def rels(self, *args, level=2) -> Tuple['AnalNode', ...]:
+        return findall(self, filter_=lambda n: n.dependency_relation in args, maxlevel=level)
+
+    def rels_by_order(self, *args, level=2) -> Optional['AnalNode']:
+        for a in args:
+            rs=findall(self, filter_=lambda n: n.dependency_relation==a, maxlevel=level)
+            if rs:
+                return rs[0]
 
     def resolve_rel(self, path) -> 'AnalNode':
         """
@@ -212,13 +219,13 @@ class AnalNode(NodeMixin, Token):
             print(' ._ '.join([','.join(val_repr(r)) for r in rs]))
         return rs
 
-    def find(self, fn) -> Tuple:
+    def find(self, fn, level=None) -> Tuple:
         """
         >>> f.find(fn=lambda node: node.dependency_relation in ("obj"))
         :param fn:
         :return:
         """
-        return findall(self, filter_=fn)
+        return findall(self, filter_=fn, maxlevel=level)
 
     def has_num(self) -> bool:
         rs= self.find(fn=lambda node: node.dependency_relation in ("nummod")) or \
@@ -513,7 +520,7 @@ class AnalNode(NodeMixin, Token):
 
     def as_noun_phrase(self):
         if self.is_noun():
-            modis=s=self.find(fn=lambda n: n.dependency_relation.endswith('mod'))
+            modis=self.find(fn=lambda n: n.dependency_relation.endswith('mod'))
             return Phrase(head=self,
                           modifiers=[(n.path_to(self),n) for n in modis])
 
@@ -531,8 +538,9 @@ class AnalNode(NodeMixin, Token):
         node_ls=self.by_pos('VERB')
         if node_ls:
             node=node_ls[0]
-            return Behave(subj=node_or(node.rels('nsubj', 'csubj')),
-                          obj=node_or(node.rels('obj', 'obl', 'nsubj:pass')),
+            return Behave(subj=node.rels_by_order('nsubj', 'csubj'),
+                          obj=node.rels_by_order('obj', 'ccomp', 'xcomp', 'nsubj:pass', 'obl'),
+                          iobj=node.rels_by_order('iobj'),
                           behave=node,
                           negative=node.pred_negative,
                           )
