@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
+from sagas.nlu.anal_data_types import path_, pos_
 
 from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
@@ -12,6 +13,7 @@ from anytree.search import findall, findall_by_attr
 from cachetools import cached
 from cached_property import cached_property
 from sagas.zh.hownet_helper import SenseTree, get_trees
+from sagas.conf.conf import cf
 
 class Doc(NodeMixin, object):
     """
@@ -548,10 +550,25 @@ class AnalNode(NodeMixin, Token):
                self.as_subj() or self.as_noun_phrase() \
                or Nosense(node=self)
 
+    def __floordiv__(self, other):
+        if isinstance(other, str):
+            return self.rels(other)
+        elif isinstance(other, path_):
+            return self.resolve_rels(other.val)
+        elif isinstance(other, pos_):
+            return self.by_pos(other.val.upper())
+
+    def __truediv__(self, other):
+        """ (f/'nsubj').lemma, (f//'obj')[0].lemma,
+            (f/pos_('pron')).text
+        """
+        rs= self.__floordiv__(other)
+        return rs[0] if rs else None
+
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
 def build_anal_tree(sents:Text, lang:Text, engine:Text,
-                    nodecls=AnalNode):
+                    nodecls=None):
     """
     >>> from sagas.nlu.anal import build_anal_tree
     >>> from anytree.search import findall, findall_by_attr
@@ -569,6 +586,8 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
                            engine=engine)
     doc:SentenceIntf=chunks['doc']
     words = doc.words
+    if nodecls is None:
+        nodecls=cf.extensions('anal.'+lang)
     node_map = {word.index: nodecls(word, lang=lang, position=doc.get_position(word.index)) for word in words}
     node_map[0] = Doc(sents=sents, lang=lang, engine=engine, doc=doc)
     tree_root = next(w for w in node_map.values() if w.governor == 0)

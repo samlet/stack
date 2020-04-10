@@ -100,9 +100,9 @@ def model_info(model):
     tc.emp('cyan', type(model).__name__, '-' * 10, '✁')
     target = model.target
     if target:
-        tc.emp('cyan', '\ttarget:', target.spec(), target.axis, target.types)
+        tc.emp('cyan', '1. target:', target.spec(), target.axis, target.types)
     else:
-        tc.emp('white', '\tno target.')
+        tc.emp('white', '1. no target.')
     # tc.emp('white', f.model())
     if isinstance(model, Behave):
         subj = model.subj.types if model.subj and not model.subj.is_pron() else '_'
@@ -112,9 +112,9 @@ def model_info(model):
         if model.behave.pred_enable:
             indicators.append('enable')
         behave_ds = model.behave.types or model.behave.spec() or model.behave.axis
-        tc.emp('white', f"\t{model.behave.lemma}[{','.join(indicators)}]: {behave_ds} ☜ {subj}")
+        tc.emp('white', f"2. {model.behave.lemma}[{','.join(indicators)}]: {behave_ds} ☜ {subj}")
     elif isinstance(model, Desc):
-        tc.emp('white', f"\tdesc: {model.desc.types or model.desc.spec('*')}")
+        tc.emp('white', f"2. desc: {model.desc.types or model.desc.spec('*')}")
 
 class AnalCorpus(object):
     def chapters(self):
