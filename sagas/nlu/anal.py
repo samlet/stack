@@ -1,5 +1,7 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
 from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_
 
 from sagas.nlu.ruleset_procs import cached_chunks
@@ -14,9 +16,33 @@ from cachetools import cached
 from cached_property import cached_property
 from sagas.zh.hownet_helper import SenseTree, get_trees
 from sagas.conf.conf import cf
+import pandas as pd
 import logging
 
 logger = logging.getLogger(__name__)
+
+@dataclass_json
+@dataclass
+class SemanticRole:
+    rel: str
+    index: int
+    text: str
+    lemma: str
+    children: List[Text]
+    features: List[Text]
+
+@dataclass_json
+@dataclass
+class Predict:
+    type: str
+    lemma: str
+    index: int
+    phonetic: str
+    word: str
+    rel: str
+    governor: int
+    pos: str
+    domains: List[SemanticRole]
 
 class Doc(NodeMixin, object):
     """
@@ -33,7 +59,7 @@ class Doc(NodeMixin, object):
     engine: Text
     index_data: Dict[Text, Any]={}
     doc: SentenceIntf
-    predicts: List[Any]
+    _predicts: List[Any]
 
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
@@ -69,6 +95,41 @@ class Doc(NodeMixin, object):
     def get_index_data(self, provider_name:Text, index:int):
         data=self.ensure_data(provider_name)
         return data[index] if index in data else None
+
+    @property
+    def predict_domains_df(self) -> List[pd.DataFrame]:
+        import sagas
+        if not self._predicts:
+            return []
+
+        dfs=[]
+        for r in self._predicts:
+            df = sagas.to_df(r['domains'], ['rel', 'index', 'text',
+                                            'lemma', 'children', 'features'])
+            dfs.append(df)
+        return dfs
+
+    @cached_property
+    def predicts(self):
+        import sagas
+        import sagas.util.pandas_helper as ph
+        preds = []
+        for p in self._predicts:
+            pred = Predict(type=p['type'], lemma=p['lemma'], index=p['index'],
+                           phonetic=p['phonetic'], word=p['word'],
+                           rel=p['rel'], governor=p['governor'],
+                           pos=p['pos'], domains=[]
+                           )
+            df = sagas.to_df(p['domains'], ['rel', 'index', 'text', 'lemma',
+                                            'children', 'features'])
+
+            for e in ph.to_json(df):
+                pred.domains.append(SemanticRole(rel=e['rel'], index=e['index'], text=e['text'],
+                                                 lemma=e['lemma'], children=e['children'],
+                                                 features=e['features']
+                                                 ))
+            preds.append(pred)
+        return preds
 
 class Token(object):
     def __init__(self, tok:Optional[WordIntf]):
@@ -710,7 +771,7 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
     node_map = {word.index: nodecls(word, lang=lang, position=doc.get_position(word.index)) for word in words}
     doccls=cf.extensions('anal.doc', lang)
     node_map[0] = doccls(sents=sents, lang=lang, engine=engine,
-                         doc=doc, predicts=predicts)
+                         doc=doc, _predicts=predicts)
     tree_root = next(w for w in node_map.values() if w.governor == 0)
 
     def set_parent(w):

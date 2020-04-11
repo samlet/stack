@@ -1,4 +1,8 @@
+import operator
 from typing import Text, Any, Dict, List, Union
+
+from cachetools import cachedmethod
+
 import json_utils
 
 def runtime_dir():
@@ -8,6 +12,8 @@ def runtime_dir():
 class TransClipConf(object):
     def __init__(self):
         from sagas.conf.runtime import runtime
+        from cachetools import LRUCache
+
         conf_file=f"{runtime_dir()}/sagas_conf.json"
         overrides_file=f"{runtime_dir()}/sagas_overrides.json"
 
@@ -15,6 +21,8 @@ class TransClipConf(object):
         self.overrides_file=overrides_file
         if runtime.is_docker():
             self.update_by_overrides()
+
+        self.cache = LRUCache(maxsize=1024)
 
     def update_by_overrides(self) -> None:
         overrides=json_utils.read_json_file(self.overrides_file)
@@ -77,6 +85,7 @@ class TransClipConf(object):
         import os
         return os.getenv('engine', self.get_opt('dialectors', lang))
 
+    @cachedmethod(operator.attrgetter('cache'))
     def extensions(self, ext:Text, item:Text) -> Any:
         from sagas.util.loader import class_from_module_path
         ext_node=self.conf['extensions'][ext]

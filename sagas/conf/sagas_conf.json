@@ -14,11 +14,16 @@
   },
   "extensions": {
     "anal": {
-      "tr": "sagas.nlu.extensions.anal_tr.AnalNode_tr",
+      "tr": "sagas.nlu.extensions.lang_tr.AnalNode_tr",
       "*": "sagas.nlu.anal.AnalNode"
     },
     "anal.doc": {
       "*": "sagas.nlu.anal.Doc"
+    },
+    "doc.wrapper": {
+      "ltp": "sagas.nlu.extensions.lang_zh.LtpSentWrapper",
+      "knp": "sagas.nlu.extensions.lang_ja.KnpSentWrapper",
+      "*": "sagas.nlu.uni_jsonifier.JsonifySentImpl"
     }
   },
   "collect_verbs":true,

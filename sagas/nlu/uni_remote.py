@@ -11,13 +11,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def dep_parse(sents:Text, lang:Text='en', engine='corenlp',
+def dep_parse(sents:Text, lang:Text='en', engine='stanza',
               pipelines:List[Text]=None,
               doc_impl=None)-> (SentenceIntf, Dict):
     if pipelines is None:
         pipelines = []
     if doc_impl is None:
-        doc_impl=JsonifySentImpl
+        doc_impl=cf.extensions('doc.wrapper', engine)
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}
     logger.debug(f".. request is {data}")
     # tc.info(data['sents'])

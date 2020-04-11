@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List, Union, Optional, Tuple
+
 import pandas as pd
 import json
 
@@ -6,7 +8,7 @@ to_json=lambda df: json.loads(df.to_json(orient='records'))
 def crop_column(df, col, width=20):
     df[col] = df[col].apply(lambda x: ', '.join(x)[:width] + "..")
 
-def to_df(list_of_tuples, columns):
+def to_df(list_of_tuples:List[Tuple], columns:List[Text]) -> pd.DataFrame:
     """
     import sagas.util.pandas_helper as ph
     ph.to_df(tuples, ['title', 'published', 'id'])
