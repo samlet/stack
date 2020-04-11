@@ -3,7 +3,6 @@ from sagas.nlu.uni_cli import UniCli
 from sagas.nlu.uni_parser import get_chunks
 from sagas.tool.misc import print_stem_chunks
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf, sent_jsonify
-import sagas
 
 def rs_summary(rs, console=True):
     from IPython.display import display
@@ -35,7 +34,7 @@ class JsonifySentImpl(SentenceIntf):
             words.append(JsonifyWordImpl(word))
         return words, []
 
-def jsonify_with(sents, lang, engine='corenlp'):
+def jsonify_with(sents, lang, engine='stanza'):
     doc= UniCli().parser(engine)(lang, sents)
     return sent_jsonify(doc)
 

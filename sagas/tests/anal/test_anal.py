@@ -14,3 +14,4 @@ def test_ner_rasa():
     from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
     f = build_anal_tree('i would like to find an expensive restaurant', 'en', 'stanza')
     assert f.get_by_index(7).ner.value=='hi'
+

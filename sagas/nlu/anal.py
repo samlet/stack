@@ -1,6 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
-from sagas.nlu.anal_data_types import path_, pos_
+from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_
 
 from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
@@ -14,6 +14,9 @@ from cachetools import cached
 from cached_property import cached_property
 from sagas.zh.hownet_helper import SenseTree, get_trees
 from sagas.conf.conf import cf
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Doc(NodeMixin, object):
     """
@@ -76,6 +79,26 @@ def node_or(nodels):
 def node_desc(n:'AnalNode'):
     return f"{n.tok.lemma}({n.deprel})" if n else '_'
 
+MatchResult=Tuple[bool, List[Tuple[str, bool]]]
+
+def match_and_rep(a,b,c, flags, head) -> MatchResult:
+    chk_rep = []
+    for n, chk, op in zip(a, b, c):
+        if chk == _:
+            r = True
+        elif n is not None:
+            r = n.match(chk)
+        else:
+            r = False
+        chk_rep.append((op, r))
+
+    for flag in flags:
+        node = head / flag
+        r = node.match(flag.cond) if node else False
+        chk_rep.append((str(flag), r))
+
+    return all([r for op, r in chk_rep]), chk_rep
+
 @dataclass
 class Desc:
     subj: 'AnalNode'
@@ -96,6 +119,12 @@ class Desc:
     def target(self):
         return self.subj
 
+    def match(self, pred:desc_) -> MatchResult:
+        a=(self.subj, self.desc, self.aux)
+        b=(pred.subj, pred.desc, pred.aux)
+        c = ('subj', 'desc', 'aux')
+        return match_and_rep(a,b,c, pred.flags, self.desc)
+
 @dataclass
 class Behave:
     subj: 'AnalNode'
@@ -107,6 +136,12 @@ class Behave:
     @property
     def target(self):
         return self.obj
+
+    def match(self, pred:behave_) -> MatchResult:
+        a=(self.subj, self.behave, self.obj, self.iobj)
+        b=(pred.subj, pred.behave, pred.obj, pred.iobj)
+        c = ('subj', 'behave', 'obj', 'iobj')
+        return match_and_rep(a,b,c, pred.flags, self.behave)
 
 @dataclass
 class Phrase:
@@ -120,6 +155,12 @@ class Phrase:
     @property
     def target(self):
         return self.head
+
+    def match(self, pred:phrase_) -> MatchResult:
+        a=[self.head]
+        b=[pred.head]
+        c = ['head']
+        return match_and_rep(a,b,c, pred.flags, self.head)
 
 @dataclass
 class Nosense:
@@ -559,19 +600,84 @@ class AnalNode(NodeMixin, Token):
                or Nosense(node=self)
 
     def __floordiv__(self, other):
+        """ (f//'obj')[0].lemma,
+        """
         if isinstance(other, str):
             return self.rels(other)
+        elif isinstance(other, rel_):
+            return self.rels(other.val)
         elif isinstance(other, path_):
             return self.resolve_rels(other.val)
         elif isinstance(other, pos_):
             return self.by_pos(other.val.upper())
 
     def __truediv__(self, other):
-        """ (f/'nsubj').lemma, (f//'obj')[0].lemma,
+        """ (f/'nsubj').lemma,
             (f/pos_('pron')).text
         """
         rs= self.__floordiv__(other)
         return rs[0] if rs else None
+
+    def match(self, pred:PredCond) -> bool:
+        """
+        位置参数值的解释途径, 默认是spec, 可包含'/', 包含了'|'则为sense,
+        包含了':'则为角色, 以'$'开始则为interr, 特别前辍也与角色一样使用':',
+        比如pos. 也可以用结构类, 比如pos_, 就可以不用':'前辍了.
+        如果是'或'条件, 使用';'分隔多个值, 值可以是spec/sense/roles/interr/pos.
+        如果是'与'条件, 则以'+'作为起始字符, 值以';'分隔.
+
+        :param pred:
+        :return:
+        """
+        result_op=any
+        def do_op(op):
+            if op:
+                r,t=op.match(pred)
+                logger.debug(t)
+                return r
+            return False
+        if isinstance(pred, ConstType):
+            vals=[str(pred)]
+        elif isinstance(pred, str):
+            if pred[0]=='+':
+                pred=pred[1:]
+                result_op=all
+            vals=[s.strip() for s in pred.split(';')]
+        elif isinstance(pred, behave_):
+            return do_op(self.as_behave())
+        elif isinstance(pred, desc_):
+            op=self.as_desc()
+            op=self.as_subj() if not op else op
+            return do_op(op)
+        elif isinstance(pred, phrase_):
+            op=self.as_noun_phrase()
+            return do_op(op)
+        else:
+            return False
+
+        results=[]
+        for val in vals:
+            r=False
+            if val=='_':
+                r= True
+            elif '|' in val:
+                r= self.inherits(val)
+            elif val.startswith('$'):
+                r= self.is_interr(val[1:])
+            elif ':' in val:
+                k,v=val.split(':')
+                item_name, item_val=k.strip(), v.strip()
+                if item_name =='pos':
+                    r=self.tok.upos==item_val.upper()
+                else:
+                    r=self.has_role(**{item_name:item_val})
+            else:
+                r= self.is_cat(val)
+            results.append(r)
+        return result_op(results)
+
+    def __eq__(self, cond):
+        return self.match(cond)
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
