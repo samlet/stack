@@ -1,10 +1,9 @@
 from typing import Text, Any, Dict, List
-from sagas.nlu.uni_cli import UniCli
-from sagas.nlu.uni_parser import get_chunks
-from sagas.tool.misc import print_stem_chunks
+
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf, sent_jsonify
 
 def rs_summary(rs, console=True):
+    from sagas.tool.misc import print_stem_chunks
     from IPython.display import display
     import sagas
     for serial, r in enumerate(rs):
@@ -25,20 +24,20 @@ class JsonifyWordImpl(WordIntf):
     def setup(self, token):
         return token
 
-
 class JsonifySentImpl(SentenceIntf):
     def setup(self, json_words):
         words = []
-        # print(f'words count {len(json_words)}')
         for word in json_words:
             words.append(JsonifyWordImpl(word))
         return words, []
 
 def jsonify_with(sents, lang, engine='stanza'):
+    from sagas.nlu.uni_cli import UniCli
     doc= UniCli().parser(engine)(lang, sents)
     return sent_jsonify(doc)
 
 def jsonify_pipelines(sents, lang, engine, pipelines):
+    from sagas.nlu.uni_cli import UniCli
     doc = UniCli().parser(engine)(lang, sents)
     return {'sents':sent_jsonify(doc),
             'predicts': doc.predicts}
@@ -53,6 +52,9 @@ class UniJsonifier(object):
         :param engine:
         :return:
         """
+        from sagas.nlu.uni_cli import UniCli
+        from sagas.nlu.uni_parser import get_chunks
+
         uni = UniCli()
         doc = uni.parser(engine)(lang, sents)
         # print(len(doc.words))

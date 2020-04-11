@@ -33,6 +33,7 @@ class Doc(NodeMixin, object):
     engine: Text
     index_data: Dict[Text, Any]={}
     doc: SentenceIntf
+    predicts: List[Any]
 
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
@@ -682,7 +683,7 @@ class AnalNode(NodeMixin, Token):
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
 def build_anal_tree(sents:Text, lang:Text, engine:Text,
-                    nodecls=None):
+                    nodecls=None, docimpl=None):
     """
     >>> from sagas.nlu.anal import build_anal_tree
     >>> from anytree.search import findall, findall_by_attr
@@ -695,15 +696,21 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
     :param engine:
     :return:
     """
-    chunks = cached_chunks(sents,
-                           source=lang,
-                           engine=engine)
-    doc:SentenceIntf=chunks['doc']
+    from sagas.nlu.uni_remote import dep_parse
+    from sagas.nlu.utils import fix_sents
+
+    sents=fix_sents(sents, lang)
+    # doc is SentenceIntf
+    doc, resp = dep_parse(sents, lang=lang, engine=engine, pipelines=['predicts'],
+                          doc_impl=docimpl)
+    predicts=resp['predicts'] if resp and 'predicts' in resp else []
     words = doc.words
     if nodecls is None:
-        nodecls=cf.extensions('anal.'+lang)
+        nodecls=cf.extensions('anal', lang)
     node_map = {word.index: nodecls(word, lang=lang, position=doc.get_position(word.index)) for word in words}
-    node_map[0] = Doc(sents=sents, lang=lang, engine=engine, doc=doc)
+    doccls=cf.extensions('anal.doc', lang)
+    node_map[0] = doccls(sents=sents, lang=lang, engine=engine,
+                         doc=doc, predicts=predicts)
     tree_root = next(w for w in node_map.values() if w.governor == 0)
 
     def set_parent(w):

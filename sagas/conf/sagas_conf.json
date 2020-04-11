@@ -13,8 +13,13 @@
     }
   },
   "extensions": {
-    "anal.tr": "sagas.nlu.extensions.anal_tr.AnalNode_tr",
-    "*": "sagas.nlu.anal.AnalNode"
+    "anal": {
+      "tr": "sagas.nlu.extensions.anal_tr.AnalNode_tr",
+      "*": "sagas.nlu.anal.AnalNode"
+    },
+    "anal.doc": {
+      "*": "sagas.nlu.anal.Doc"
+    }
   },
   "collect_verbs":true,
   "trans_cache":true,

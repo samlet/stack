@@ -11,9 +11,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def dep_parse(sents:Text, lang:Text='en', engine='corenlp', pipelines:List[Text]=None)-> (SentenceIntf, Dict):
+def dep_parse(sents:Text, lang:Text='en', engine='corenlp',
+              pipelines:List[Text]=None,
+              doc_impl=None)-> (SentenceIntf, Dict):
     if pipelines is None:
         pipelines = []
+    if doc_impl is None:
+        doc_impl=JsonifySentImpl
     data = {'lang': lang, "sents": sents, 'engine': engine, 'pipelines':pipelines}
     logger.debug(f".. request is {data}")
     # tc.info(data['sents'])
@@ -30,7 +34,7 @@ def dep_parse(sents:Text, lang:Text='en', engine='corenlp', pipelines:List[Text]
         return None, None
 
     # print('.......')
-    doc_jsonify = JsonifySentImpl(words, text=sents)
+    doc_jsonify = doc_impl(words, text=sents)
     if len(pipelines)>0:
         result_set={p:result[p] for p in pipelines}
         return doc_jsonify, result_set

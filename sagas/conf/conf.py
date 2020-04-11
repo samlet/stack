@@ -77,9 +77,10 @@ class TransClipConf(object):
         import os
         return os.getenv('engine', self.get_opt('dialectors', lang))
 
-    def extensions(self, item) -> Any:
+    def extensions(self, ext:Text, item:Text) -> Any:
         from sagas.util.loader import class_from_module_path
-        clz=self.get_opt('extensions', item)
+        ext_node=self.conf['extensions'][ext]
+        clz=ext_node[item] if item in ext_node else ext_node['*']
         return class_from_module_path(clz)
 
     def servant_by_lang(self, lang):
