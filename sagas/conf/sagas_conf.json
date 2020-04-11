@@ -13,7 +13,7 @@
     }
   },
   "extensions": {
-    "anal.tr": "sagas.nlu.anal_extensions.AnalNode_tr",
+    "anal.tr": "sagas.nlu.extensions.anal_tr.AnalNode_tr",
     "*": "sagas.nlu.anal.AnalNode"
   },
   "collect_verbs":true,

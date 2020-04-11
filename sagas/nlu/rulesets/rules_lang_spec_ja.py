@@ -1,11 +1,16 @@
-from typing import Text, Any, Dict, List, Union
-from sagas.nlu.inferencer import extensions, DomainToken, InferPart
+from typing import Text, Dict, Any
+
+from sagas.nlu.inferencer import InferPart, extensions, DomainToken
 from sagas.nlu.inferencer_common import get_all_plains
-from sagas.nlu.inspector_common import Inspector, Context
 from sagas.nlu.registries import registry_named_exprs
-from .rules_header import *
+from sagas.nlu.rules_header import *
+
 import sagas.tracker_fn as tc
-from .tool_base import LangToolBase
+import logging
+
+from sagas.nlu.tool_base import LangToolBase
+
+logger = logging.getLogger(__name__)
 
 
 def get_from_to(c:InferPart,t):
