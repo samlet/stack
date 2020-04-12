@@ -3,7 +3,7 @@ $ pytest -s -v test_matchers.py
 """
 import logging
 
-from sagas.nlu.ana_expr import match
+from sagas.nlu.anal_expr import match
 from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _
 from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
 from sagas.nlu.anal_corpus import model_info
