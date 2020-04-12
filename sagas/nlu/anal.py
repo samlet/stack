@@ -726,20 +726,25 @@ class AnalNode(NodeMixin, Token):
             r=False
             if val=='_':
                 r= True
-            elif '|' in val:
-                r= self.inherits(val)
-            elif val.startswith('$'):
-                r= self.is_interr(val[1:])
+
             elif ':' in val:
+                # roles
                 k,v=val.split(':')
                 item_name, item_val=k.strip(), v.strip()
                 if item_name =='pos':
                     r=self.tok.upos==item_val.upper()
                 else:
                     r=self.has_role(**{item_name:item_val})
+            elif '|' in val:
+                # inherits
+                r= self.inherits(val)
+            elif val.startswith('$'):
+                r= self.is_interr(val[1:])
+
             else:
                 r= self.is_cat(val)
             results.append(r)
+
         return result_op(results), self
 
     def __eq__(self, cond):

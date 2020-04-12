@@ -29,6 +29,15 @@ def test_behave_matcher():
 
     assert f==behave_(_, 'expect|期望', _, _)
 
+def test_and_or():
+    f = build_anal_tree('list some restaurants', 'en', 'stanza')
+    f.draw()
+    target = f.model().target
+    print(target.text, target.types)
+    assert target.match('InstitutePlace|场所')
+    assert target.match('location: reside|住下; location: eat|吃')
+    assert not target.match('+location: reside|住下; location: eat|吃')
+
 def test_desc_matcher():
     f = build_anal_tree('Note the output is a string', 'en', 'stanza')
     f.draw()
