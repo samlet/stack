@@ -3,6 +3,7 @@ $ pytest -s -v test_matchers.py
 """
 import logging
 
+from sagas.nlu.ana_expr import match
 from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _
 from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
 from sagas.nlu.anal_corpus import model_info
@@ -34,4 +35,32 @@ def test_desc_matcher():
     assert f == behave_(_, 'perception|感知', _, _)
     assert f == behave_(_, 'perception|感知', desc_('result|结果', _), _)
     assert not f == behave_(_, 'perception|感知', desc_('food', _), _)
+
+def test_match_expr():
+    f = build_anal_tree('Note the output is a string', 'en', 'stanza')
+    f.draw()
+    r=match(f,
+            behave_(_, 'perception|感知', _, _), lambda arg: 'perception',
+            behave_(_, 'perception|感知', desc_('result|结果', _), _), lambda arg: arg.text,
+            _, None
+            )
+    assert 'perception'==r
+    r = match(f,
+              behave_(_, 'unknown', _, _), lambda arg: 'unknown',
+              behave_(_, 'perception|感知', desc_('result|结果', _), _), lambda arg: arg.behave.text,
+              _, None
+              )
+    assert 'Note' == r
+    r = match(f/'ccomp'/'nsubj',
+              'pos:noun', lambda arg: arg.text,
+              _, None
+              )
+    assert 'output' == r
+    r = match(f / 'ccomp' / 'nsubj',
+              'pos:pron', lambda arg: arg.text,
+              _, None
+              )
+    assert r is None
+
+
 

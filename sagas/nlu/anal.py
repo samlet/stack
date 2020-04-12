@@ -680,7 +680,11 @@ class AnalNode(NodeMixin, Token):
         rs= self.__floordiv__(other)
         return rs[0] if rs else None
 
-    def match(self, pred:PredCond) -> bool:
+    def match(self, pred: PredCond) -> bool:
+        ret, _=self.do_match(pred)
+        return ret
+
+    def do_match(self, pred:PredCond) -> Tuple[bool, Any]:
         """
         位置参数值的解释途径, 默认是spec, 可包含'/', 包含了'|'则为sense,
         包含了':'则为角色, 以'$'开始则为interr, 特别前辍也与角色一样使用':',
@@ -696,8 +700,8 @@ class AnalNode(NodeMixin, Token):
             if op:
                 r,t=op.match(pred)
                 logger.debug(t)
-                return r
-            return False
+                return r, op
+            return False, None
         if isinstance(pred, ConstType):
             vals=[str(pred)]
         elif isinstance(pred, str):
@@ -715,7 +719,7 @@ class AnalNode(NodeMixin, Token):
             op=self.as_noun_phrase()
             return do_op(op)
         else:
-            return False
+            return False, None
 
         results=[]
         for val in vals:
@@ -736,7 +740,7 @@ class AnalNode(NodeMixin, Token):
             else:
                 r= self.is_cat(val)
             results.append(r)
-        return result_op(results)
+        return result_op(results), self
 
     def __eq__(self, cond):
         return self.match(cond)

@@ -2,6 +2,7 @@ from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 
 rel_mapping={'hed': 'root', 'sbv': 'nsubj',
              'vob': 'obj', 'iob': 'iobj', 'fob': 'obj', 'pob': 'obl',
+             'wp': 'punct',
             }
 class LtpWordWrapper(WordIntf):
     def setup(self, token):
