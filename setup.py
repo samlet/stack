@@ -64,7 +64,9 @@ setuptools.setup(
     package_data={
         'conf': ['*'],
         'sagas': ['conf/*', 'dataset/*',
-                  'conf/synonyms/*', 'conf/synsets/*'],
+                  'conf/synonyms/*', 'conf/synsets/*',
+                  'modules/life/*',
+                  ],
     },
 
     # $ setup.py publish support.

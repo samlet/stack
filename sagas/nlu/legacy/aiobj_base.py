@@ -1,4 +1,4 @@
-from sagas.nlu.aiobj_kit import get_domains, display_result_df
+from sagas.nlu.legacy.aiobj_kit import get_domains, display_result_df
 from sagas.conf.conf import cf
 # from termcolor import colored
 import sagas.tracker_fn as tc

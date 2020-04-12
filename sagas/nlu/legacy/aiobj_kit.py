@@ -26,7 +26,7 @@ class DomainGetOptions(object):
 
 def get_domains(sents, lang, engine='corenlp', options=None):
     """
-    >>> from sagas.nlu.aiobj_kit import get_domains
+    >>> from sagas.nlu.legacy.aiobj_kit import get_domains
     >>> get_domains('你有几台笔记本电脑？', 'zh', 'ltp')
     >>> get_domains('列出上周编辑的文件。', 'zh', 'ltp', DomainGetOptions(enable_predicts=True))
 

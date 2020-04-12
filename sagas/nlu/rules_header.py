@@ -34,7 +34,7 @@ from sagas.nlu.patterns import Patterns
 
 from sagas.tool.misc import color_print
 
-from sagas.nlu.aiobj_base import BaseMeta, Keeper
+# from sagas.nlu.aiobj_base import BaseMeta, Keeper
 from sagas.nlu.ruleset import RuleSet, actions_vob, behaviours_obl
 
 from sagas.nlu.lang_spec_intf import LangSpecBase, agency
