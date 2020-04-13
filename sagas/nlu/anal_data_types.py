@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
+import threading
 
 class ConstType(object):
     def __init__(self, val):
@@ -90,4 +91,42 @@ class phrase_(base_model_):
     def __init__(self, head, *flags):
         super().__init__(*flags)
         self.head = head
+
+class Carrier(threading.local):
+    def __init__(self, index:int):
+        self.index=index
+        self.req = None
+        self.resp = None
+
+    def __lshift__(self, req):
+        """_1 << val"""
+        self.req=req
+        return self
+
+    def put_resp(self, resp):
+        self.resp=resp
+
+    def clean(self):
+        self.req=None
+        self.resp=None
+
+    @staticmethod
+    def clean_all():
+        for n in _x:
+            n.clean()
+
+    @staticmethod
+    def availables() -> List[Any]:
+        rs=[]
+        for n in _x:
+            if n.resp is not None:
+                rs.append(n.resp)
+        return rs
+
+_1=Carrier(1)
+_2=Carrier(2)
+_3=Carrier(3)
+_4=Carrier(4)
+_5=Carrier(5)
+_x=[_1,_2,_3,_4,_5]
 

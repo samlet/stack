@@ -4,7 +4,7 @@ $ pytest -s -v test_matchers.py
 import logging
 
 from sagas.nlu.anal_expr import match
-from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _
+from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _, _1, _2
 from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
 from sagas.nlu.anal_corpus import model_info
 import sagas.nlu.anal
@@ -71,5 +71,9 @@ def test_match_expr():
               )
     assert r is None
 
-
+    r = match(f,
+              behave_(_, 'perception|感知', _1<<_, _), lambda arg, v1: v1.text,
+              _, None
+              )
+    assert 'string' == r
 

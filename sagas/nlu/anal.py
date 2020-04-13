@@ -2,7 +2,7 @@ from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
-from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_
+from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_, Carrier
 
 from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
@@ -702,6 +702,12 @@ class AnalNode(NodeMixin, Token):
                 logger.debug(t)
                 return r, op
             return False, None
+
+        if isinstance(pred, Carrier):
+            carrier=pred
+            pred=carrier.req
+            carrier.put_resp(self)
+
         if isinstance(pred, ConstType):
             vals=[str(pred)]
         elif isinstance(pred, str):

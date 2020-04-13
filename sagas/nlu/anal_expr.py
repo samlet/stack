@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Iterable
-from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _
+from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _, Carrier
+
 
 class NoDefaultType:
     pass
@@ -69,7 +70,10 @@ def match(var, *args, default=NoDefault, strict=True):
 
 def match_value(pattern, value) -> Tuple[bool, List]:
     result, data= value.do_match(pattern)
-    return result, data if isinstance(data, List) or isinstance(data, Tuple) else [data]
+    args=[x for x in data] if isinstance(data, List) or isinstance(data, Tuple) else [data]
+    args.extend(Carrier.availables())
+    Carrier.clean_all()
+    return result, args
 
 
 
