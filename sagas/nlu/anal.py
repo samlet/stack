@@ -691,22 +691,30 @@ class AnalNode(NodeMixin, Token):
         比如pos. 也可以用结构类, 比如pos_, 就可以不用':'前辍了.
         如果是'或'条件, 使用';'分隔多个值, 值可以是spec/sense/roles/interr/pos.
         如果是'与'条件, 则以'+'作为起始字符, 值以';'分隔.
+        如果使用了抽取符(_1,_2,..), 则抽取对应位置的node,
+        如果是对应位置是behave_, desc_等类型, 则抽取的为对应的Behave, Desc结构.
 
         :param pred:
         :return:
         """
         result_op=any
+
+        if isinstance(pred, Carrier):
+            carrier=pred
+            pred=carrier.get_req()
+            logger.debug(f"found a carrier, pred is {pred}")
+            carrier.put_resp(self)
+        else:
+            carrier=None
+
         def do_op(op):
             if op:
                 r,t=op.match(pred)
                 logger.debug(t)
+                if carrier is not None:
+                    carrier.put_resp(op)
                 return r, op
             return False, None
-
-        if isinstance(pred, Carrier):
-            carrier=pred
-            pred=carrier.req
-            carrier.put_resp(self)
 
         if isinstance(pred, ConstType):
             vals=[str(pred)]
@@ -718,6 +726,7 @@ class AnalNode(NodeMixin, Token):
         elif isinstance(pred, behave_):
             return do_op(self.as_behave())
         elif isinstance(pred, desc_):
+            # logger.debug(f"pred desc: {pred}")
             op=self.as_desc()
             op=self.as_subj() if not op else op
             return do_op(op)

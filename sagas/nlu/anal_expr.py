@@ -60,7 +60,10 @@ def match(var, *args, default=NoDefault, strict=True):
 
         if matched_as_value:
             lambda_args = args if len(args) > 0 else BoxedArgs(var)
+            Carrier.clean_all_reqs()  # clear all carrier
             return run(action, lambda_args)
+
+    Carrier.clean_all_reqs()  # clear all carrier
 
     if default is NoDefault:
         if _ not in patterns:
@@ -72,7 +75,7 @@ def match_value(pattern, value) -> Tuple[bool, List]:
     result, data= value.do_match(pattern)
     args=[x for x in data] if isinstance(data, List) or isinstance(data, Tuple) else [data]
     args.extend(Carrier.availables())
-    Carrier.clean_all()
+    Carrier.clean_all_resp()
     return result, args
 
 

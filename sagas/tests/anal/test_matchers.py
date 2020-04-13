@@ -54,17 +54,24 @@ def test_match_expr():
             _, None
             )
     assert 'perception'==r
+
     r = match(f,
               behave_(_, 'unknown', _, _), lambda arg: 'unknown',
-              behave_(_, 'perception|感知', desc_('result|结果', _), _), lambda arg: arg.behave.text,
+              # behave_(_, 'perception|感知', desc_('result|结果', _), _),
+              #       lambda arg: [arg.behave.text],
+              behave_(_, 'perception|感知', _1<<desc_('result|结果', _), _),
+                    lambda arg, v1: [arg.behave.text, v1.target.text],
               _, None
               )
-    assert 'Note' == r
+    assert ['Note', 'output'] == r
+    # assert ['Note'] == r
+
     r = match(f/'ccomp'/'nsubj',
               'pos:noun', lambda arg: arg.text,
               _, None
               )
     assert 'output' == r
+
     r = match(f / 'ccomp' / 'nsubj',
               'pos:pron', lambda arg: arg.text,
               _, None
@@ -76,4 +83,10 @@ def test_match_expr():
               _, None
               )
     assert 'string' == r
+
+    r = match(f,
+              behave_(_, _1<<'perception|感知', _2 << _, _), lambda arg, v1, v2: [v1.text, v2.text],
+              _, None
+              )
+    assert ['Note', 'string'] == r
 

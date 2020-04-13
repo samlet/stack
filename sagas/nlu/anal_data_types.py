@@ -1,6 +1,7 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
 import threading
+from collections import deque
 
 class ConstType(object):
     def __init__(self, val):
@@ -46,6 +47,7 @@ class base_model_(object):
 
     def __init__(self, *flags):
         self.flags=flags
+        self.ops=[]
 
     def __and__(self, other):
         self.ops.append(('and', other))
@@ -68,7 +70,6 @@ class behave_(base_model_):
         self.obj = obj
         self.iobj = iobj
         self.behave = behave
-        self.ops = []
 
 @dataclass
 class desc_(base_model_):
@@ -95,25 +96,29 @@ class phrase_(base_model_):
 class Carrier(threading.local):
     def __init__(self, index:int):
         self.index=index
-        self.req = None
+        self.reqs = deque()
         self.resp = None
 
     def __lshift__(self, req):
         """_1 << val"""
-        self.req=req
+        self.reqs.append(req)
         return self
+
+    def get_req(self):
+        return self.reqs.popleft()
 
     def put_resp(self, resp):
         self.resp=resp
 
-    def clean(self):
-        self.req=None
-        self.resp=None
+    @staticmethod
+    def clean_all_reqs():
+        for n in _x:
+            n.reqs.clear()
 
     @staticmethod
-    def clean_all():
+    def clean_all_resp():
         for n in _x:
-            n.clean()
+            n.resp=None
 
     @staticmethod
     def availables() -> List[Any]:
