@@ -33,4 +33,14 @@ def test_match_expr():
     assert ['Note', 'Note'] == r
     assert 0==len(_1.reqs)
 
+def test_match_embed_expr():
+    f = build_anal_tree('We expect them to change their minds', 'en', 'stanza')
+    f.draw()
+    r = match(f,
+              behave_(_, _1<<'expect|期望', _, _,
+                      rel_('xcomp') == behave_(_, _2<<'change|变', 'mind')),
+                lambda arg, v1, v2: [v1.text, v2.text],
+              _, None
+              )
+    assert ['expect', 'change'] == r
 
