@@ -1,5 +1,5 @@
 import graphene
-from sagas.ofbiz.util import ModelBase
+from sagas.ofbiz.schema_base import ModelBase
 from sagas.ofbiz.schema_queries_g import *
 from sagas.ofbiz.runtime_context import platform
 

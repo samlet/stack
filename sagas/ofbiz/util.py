@@ -1,10 +1,4 @@
 from sagas.util.str_converters import to_camel_case, to_snake_case
-import graphene
-
-class ModelBase(graphene.ObjectType):
-    def __init__(self, helper, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper=helper
 
 class QueryHelper(object):
     def __init__(self, oc, finder):

@@ -152,11 +152,12 @@ def vis_trees(trees:List[Dict[Text, Any]], word_info=True):
     from anytree import RenderTree
     importer = DictImporter()
     for index, data in enumerate(trees):
+        word=data['word']
         if word_info:
-            pprint(data['word'])
+            pprint(word)
         tree_root = importer.import_(data['tree'])
         tree = RenderTree(tree_root)
-        tc.emp('green', "Display #{0} sememe tree".format(index))
+        tc.emp('green', f"Display #{index} sememe tree: {word['en_word']}|{word['ch_word']}.{word['No']}")
         for pre, fill, node in tree:
             if node.role and node.role!='None':
                 cl='magenta'

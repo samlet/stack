@@ -466,7 +466,6 @@ class AnalNode(NodeMixin, Token):
     def pred_enable(self):
         return self.pred_interr('advmod', 'can')
 
-    @cached_property
     def ner(self, provider='rasa_simple'):
         return self.doc.get_index_data(provider, self.tok.index)
 
@@ -701,7 +700,7 @@ class AnalNode(NodeMixin, Token):
 
         if isinstance(pred, Carrier):
             carrier=pred
-            pred=carrier.get_req()
+            pred=carrier.take_req()
             logger.debug(f"found a carrier, pred is {pred}")
             carrier.put_resp(self)
         else:

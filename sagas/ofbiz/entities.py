@@ -313,7 +313,8 @@ def default_thru():
     default_thru = date.today() + hundred_years
     return default_thru
 
-def record_list_df(ent_name, records, drop_null_cols=True, contains_internal=True):
+def record_list_df(ent_name:str, records, drop_null_cols=True,
+                   contains_internal=True) -> pd.DataFrame:
     import pyarrow as pa
 
     ent = MetaEntity(ent_name)

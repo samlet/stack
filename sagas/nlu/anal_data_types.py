@@ -104,7 +104,7 @@ class Carrier(threading.local):
         self.reqs.append(req)
         return self
 
-    def get_req(self):
+    def take_req(self):
         return self.reqs.popleft()
 
     def put_resp(self, resp):
