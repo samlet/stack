@@ -34,11 +34,18 @@ class path_(object):
 
 class rel_(path_):
     def __repr__(self):
-        return f'path: {self.val} -> {type(self.cond).__name__}'
+        return f'rel: {self.val} -> {type(self.cond).__name__}'
 
 class pos_(path_):
     def __repr__(self):
-        return f'path: {self.val} -> {type(self.cond).__name__}'
+        return f'pos: {self.val} -> {type(self.cond).__name__}'
+
+class e_(path_):
+    def __repr__(self):
+        return f'entity: {self.val} -> {type(self.cond).__name__}'
+class s_(path_):
+    def __repr__(self):
+        return f'service: {self.val} -> {type(self.cond).__name__}'
 
 @dataclass
 class base_model_(object):
