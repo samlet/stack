@@ -67,3 +67,15 @@ class Warehouse(NodeMixin, object):
     def __truediv__(self, patt):
         rs= self.__floordiv__(patt)
         return rs[0] if rs else None
+
+    def resolve_entity(self, gid):
+        from sagas import from_global_id
+        t, _ = from_global_id(gid)
+        ent = self / t
+        return ent.meta.global_ref.get_record(gid)
+
+    def get_gid(self, val):
+        ent = self / val.getEntityName()
+        return ent.meta.global_ref.get_gid(val)
+
+    

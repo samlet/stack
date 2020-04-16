@@ -10,7 +10,7 @@ from sagas.conf.conf import cf
 import pandas as pd
 import logging
 
-from sagas.ofbiz.entities import finder, MetaEntity
+from sagas.ofbiz.entities import finder, MetaEntity, create_data_frame
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +32,10 @@ class AnalBucket(AnalResource):
         from sagas.ofbiz.entities import record_list_df
         records = finder.find_list(self.name, limit, offset)
         return record_list_df(self.name, records)
+
+    @property
+    def meta_df(self):
+        return create_data_frame(self.name)
 
     @cached_property
     def meta(self):

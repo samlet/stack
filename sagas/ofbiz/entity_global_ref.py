@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union, Optional
 from sagas.util.name_util import to_global_id, from_global_id
 from sagas.ofbiz.entities import oc
 # import sagas.ofbiz.entities as ee
@@ -9,10 +10,10 @@ def ensure(val, fld):
     return r
 
 class EntityGlobalRef(object):
-    def __init__(self, entity):
+    def __init__(self, entity_name:Text):
         # entity='ProductType'
-        self.entity=entity
-        self.model=oc.delegator.getModelEntity(entity)
+        self.entity=entity_name
+        self.model=oc.delegator.getModelEntity(entity_name)
         self.pks=[]
         for fld in self.model.getPkFieldNames():
             self.pks.append(fld)

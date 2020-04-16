@@ -98,9 +98,9 @@ class SpacyProcs(object):
     # def __init__(self):
     #     self.nlp = spacy.load('en_core_web_sm')
 
-    def spacy_doc(self, sents, lang):
+    def spacy_doc(self, sents, lang, simple=True):
         from sagas.nlu.spacy_helper import spacy_mgr
-        spacy_nlp = spacy_mgr.get_model(lang)
+        spacy_nlp = spacy_mgr.get_model(lang, simple=simple)
         return spacy_nlp(sents)
 
     def stuffs(self):
@@ -116,20 +116,21 @@ class SpacyProcs(object):
         analyse(doc)  ## main
         print("ok.")
 
-    def ents(self, sents, lang='en'):
+    def ents(self, sents, lang='en', simple=True):
         """
         $ python -m sagas.nlu.spacy_procs ents 'New York'
         $ python -m sagas.nlu.spacy_procs ents 'I am from China'
+        $ python -m sagas.nlu.spacy_procs ents "Ada Lovelace was born in London"
         :param sents:
         :param lang:
         :return:
         """
         import sagas
         rs = []
-        doc=self.spacy_doc(sents, lang)
+        doc=self.spacy_doc(sents, lang, simple=simple)
         for ent in doc.ents:
-            rs.append((ent.text, ent.start_char, ent.end_char, ent.label_))
-        r= sagas.to_df(rs, ['word', 'start', 'end', 'entity'])
+            rs.append((ent.text, ent.start_char, ent.end_char, ent.label_, ent.kb_id_))
+        r= sagas.to_df(rs, ['word', 'start', 'end', 'entity', 'kb'])
         sagas.print_df(r)
 
 if __name__ == '__main__':
