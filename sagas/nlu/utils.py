@@ -59,14 +59,24 @@ def word_values(word: Text, lang: Text):
             print(f'*** value error: text: {text}, lemma: {lemma}')
     return {'value':word, 'text':text, 'lemma':lemma}
 
-def get_possible_mean(specs):
-    from collections import Counter
+def get_possible_mean(specs, algo='freq'):
+    def count_word(elements:List[Text]):
+        from collections import Counter
+        word_counts = Counter(elements)
+        mean = word_counts.most_common(1)[0][0]
+        return mean
+
+    def word_freq(elements:List[Text]):
+        from wordfreq import zipf_frequency
+        freqs=[(w, zipf_frequency(w, 'en')) for w in elements]
+        return sorted(freqs, key=lambda x:-x[1])[0][0]
+
+    fn={'count':count_word, 'freq':word_freq}
     if not specs:
         return ''
     elements = [s.split('.')[0] for s in specs]
     if elements:
-        word_counts = Counter(elements)
-        mean = word_counts.most_common(1)[0][0]
+        return fn[algo](elements)
     else:
         mean = ''
     return mean
