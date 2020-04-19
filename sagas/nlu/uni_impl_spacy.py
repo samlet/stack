@@ -1,6 +1,5 @@
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 
-
 class SpacyWordImpl(WordIntf):
     def setup(self, token):
         if token.dep_ == 'ROOT':
@@ -28,12 +27,11 @@ class SpacySentImpl(SentenceIntf):
 
 class SpacyParserImpl(object):
     """
-    from sagas.nlu.uni_impl_spacy import SpacyParserImpl
-    from sagas.nlu.uni_viz import EnhancedViz
-
-    doc=SpacyParserImpl('ru')("Сегодня неплохая погода.")
-    cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
-    cv.analyse_doc(doc, None)
+    >>> from sagas.nlu.uni_impl_spacy import SpacyParserImpl
+    >>> from sagas.nlu.uni_viz import EnhancedViz
+    >>> doc=SpacyParserImpl('ru')("Сегодня неплохая погода.")
+    >>> cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
+    >>> cv.analyse_doc(doc, None)
     """
     def __init__(self, lang):
         self.lang = lang
@@ -42,3 +40,4 @@ class SpacyParserImpl(object):
         from sagas.nlu.spacy_helper import spacy_doc
         doc = spacy_doc(sents, self.lang)
         return SpacySentImpl(doc, text=sents)
+

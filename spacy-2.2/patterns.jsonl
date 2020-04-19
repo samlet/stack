@@ -1,0 +1,2 @@
+{"label": "ORG", "pattern": "Apple"}
+{"label": "GPE", "pattern": [{"LOWER": "san"}, {"LOWER": "francisco"}]}
