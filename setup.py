@@ -26,6 +26,7 @@ REQUIRED = [
     'OdooRPC',
     'salang-saara',
     'stanza',
+    'wordfreq',
 ]
 
 setuptools.setup(

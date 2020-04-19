@@ -136,11 +136,12 @@ def get_trees(text: Text, pos='*') -> List[SenseTree]:
     if not text:
         return []
 
-    trees = []
     # 只需要解析不同的树即可
     words=get_words(text, pos=pos)
     uniques = {item['Def']: item['No'] for item in words}
+
     unique_rs = [item for item in words if item['No'] in uniques.values()]
+    trees = []
     for item in unique_rs:
         tree = GenSememeTree(item["Def"], text)
         trees.append({"word": item, "tree": tree})
@@ -232,6 +233,13 @@ class HowNetCli(object):
         :return:
         """
         pprint(word_sets(word))
+
+    def sense_id(self, id:Text):
+        """
+        $ python -m sagas.zh.hownet_helper sense_id 019839
+        """
+        words=Delegator().by_sense_id(id=id)
+        pprint(words)
 
 if __name__ == '__main__':
     import fire

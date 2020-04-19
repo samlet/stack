@@ -25,6 +25,9 @@ class HowNetProcs(object):
         else:
             return pos_filter(self.hownet_dict[word], pos)
 
+    def get_sense_by_id(self, id) -> List[Any]:
+        return self.hownet_dict.ids[id]
+
     def build_sememe_trees(self, word, merge=True, K=None, pos='*') -> List[Dict[Text, Any]]:
         """
         :param word: (str)The target word to be visualized in command line. Notice that single word may correspond to multiple HowNet annotations.

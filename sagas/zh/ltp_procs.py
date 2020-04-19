@@ -1,7 +1,6 @@
 from pyltp import SentenceSplitter, Segmentor, Postagger, Parser, NamedEntityRecognizer, SementicRoleLabeller
-import sys, os
+import os
 import pandas as pd
-import sagas
 from sagas.conf.conf import cf
 
 def join_words(words, arg_range):
@@ -83,9 +82,13 @@ def extract_predicates(words, roles, postags, arcs, verbose=False):
 
 class LtpProcs(object):
     def __init__(self):
+        from sagas.conf import resource_path
+
         MODELDIR = f'{cf.conf_dir}/ai/ltp/ltp_data_v3.4.0'
         self.segmentor = Segmentor()
-        self.segmentor.load(os.path.join(MODELDIR, "cws.model"))
+        # self.segmentor.load(os.path.join(MODELDIR, "cws.model"))
+        dictf = resource_path('dict_zh.txt')
+        self.segmentor.load_with_lexicon(os.path.join(MODELDIR, "cws.model"), dictf)
         self.postagger = Postagger()
         self.postagger.load(os.path.join(MODELDIR, "pos.model"))
         self.parser = Parser()
@@ -111,6 +114,15 @@ class LtpProcs(object):
         return words, postags, arcs, roles, netags
 
     def tokens(self, sents):
+        """
+        $ python -m sagas.zh.ltp_procs tokens '中国进出口银行与中国银行加强合作。'
+        $ python -m sagas.zh.ltp_procs tokens '列出采购订单'  # fail
+        $ python -m sagas.zh.ltp_procs tokens '列出派工单'  # ok
+        $ python -m sagas.zh.ltp_procs tokens '亚硝酸盐是一种化学物质'
+
+        :param sents:
+        :return:
+        """
         words = self.segmentor.segment(sents)
         return [str(w) for w in words]
 

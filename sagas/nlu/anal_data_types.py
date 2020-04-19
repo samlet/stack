@@ -40,10 +40,10 @@ class pos_(path_):
     def __repr__(self):
         return f'pos: {self.val} -> {type(self.cond).__name__}'
 
-class e_(path_):
+class ent_(path_):
     def __repr__(self):
         return f'entity: {self.val} -> {type(self.cond).__name__}'
-class s_(path_):
+class srv_(path_):
     def __repr__(self):
         return f'service: {self.val} -> {type(self.cond).__name__}'
 

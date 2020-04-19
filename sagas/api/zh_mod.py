@@ -24,6 +24,7 @@ async def extract(request, target):
     pos='*' if 'pos' not in rd else rd['pos']
     fn_map={'sememes': lambda : hownet_procs.build_sememe_trees(rd['word'], merge=merge, pos=pos),
             'sense': lambda : hownet_procs.get_sense(rd['word'], pos),
+            'by_sense_id': lambda: hownet_procs.get_sense_by_id(rd['id']),
             }
     result=fn_map[target]() if target in fn_map else []
     return json(result)

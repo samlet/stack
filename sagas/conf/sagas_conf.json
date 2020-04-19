@@ -10,6 +10,9 @@
     },
     "sense": {
       "url": "http://localhost:1700/zh/hownet/sense"
+    },
+    "by_sense_id": {
+      "url": "http://localhost:1700/zh/hownet/by_sense_id"
     }
   },
   "extensions": {
