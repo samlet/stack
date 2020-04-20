@@ -2,8 +2,8 @@ from typing import Text, Any, Dict, List, Union, Optional, Tuple
 
 class AnalSpa(object):
     """
-    >>> from sagas.nlu.analspa import AnalSpa
-    >>> spa=AnalSpa('ja')
+    >>> from sagas.nlu.analspa import analspa
+    >>> spa=analspa('ja')
     >>> spa.add_pats("TerminologyList", ["主FAX番号"])
     >>> doc,terms=spa.parse('主FAX番号はありますか')
     >>> spa.vis(doc)
@@ -43,3 +43,8 @@ class AnalSpa(object):
         from spacy import displacy
         displacy.render([doc], style="dep")
 
+spa_modules={}
+def analspa(lang) -> AnalSpa:
+    if lang not in spa_modules:
+        spa_modules[lang]=AnalSpa(lang)
+    return spa_modules[lang]

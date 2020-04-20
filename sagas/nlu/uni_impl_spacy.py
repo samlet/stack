@@ -1,8 +1,9 @@
+from typing import Text, Any, Dict, List, Union, Optional
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 
 class SpacyWordImpl(WordIntf):
     def setup(self, token):
-        if token.dep_ == 'ROOT':
+        if token.dep_.upper() == 'ROOT':
             governor = 0
         else:
             governor = token.head.i + 1
@@ -36,8 +37,18 @@ class SpacyParserImpl(object):
     def __init__(self, lang):
         self.lang = lang
 
-    def __call__(self, sents):
+    def __call__(self, sents:Text):
         from sagas.nlu.spacy_helper import spacy_doc
         doc = spacy_doc(sents, self.lang)
+        return SpacySentImpl(doc, text=sents)
+
+class AnalSpaImpl(object):
+    def __init__(self, lang):
+        self.lang = lang
+
+    def __call__(self, sents:Text):
+        from sagas.nlu.analspa import analspa
+        spa = analspa(self.lang)
+        doc, terms=spa.parse(sents)
         return SpacySentImpl(doc, text=sents)
 

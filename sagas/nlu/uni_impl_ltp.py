@@ -1,4 +1,6 @@
 from typing import Text, Any, Dict, List
+
+from sagas.nlu.analz_base import Docz
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
 import logging
 logger = logging.getLogger(__name__)
@@ -81,34 +83,46 @@ class LtpSentImpl(SentenceIntf):
             self.dependencies.append((governor, word.dependency_relation, word))
 
 
-class LtpParserImpl(object):
+class LtpParserBase(object):
+    def parse(self, sents:Text) -> Docz:
+        pass
+
+    def __call__(self, sents:Text):
+        import opencc
+        from sagas.zh.ltp_procs import extract_predicates
+        sentence = opencc.convert(sents)  # convert to Simplified Chinese
+        doc=self.parse(sentence)
+        toks = []
+        for i in range(len(doc.words)):
+            a = doc.words[int(doc.arcs[i].head) - 1]
+            logger.debug("%s --> %s|%s|%s|%s" % (a, doc.words[i], doc.arcs[i].relation, doc.postags[i], doc.netags[i]))
+            unit = WordUnit(i=i, text=doc.words[i],
+                            dependency_relation=doc.arcs[i].relation.lower(),
+                            governor=doc.arcs[i].head,
+                            head_text=a, pos=doc.postags[i], netag=doc.netags[i])
+            # rel = unit.dependency_relation
+            toks.append(unit)
+
+        predicts, predict_tuples=extract_predicates(doc.words, doc.roles, doc.postags, doc.arcs)
+        # return LtpSentImpl(doc, predicts=predicts)
+        return LtpSentImpl(toks, text=sentence, predicts=predict_tuples)
+
+class LtpParserImpl(LtpParserBase):
     def __init__(self, lang='zh-CN'):
         self.lang = lang
 
-    def __call__(self, sents:Text):
+    def parse(self, sents) -> Docz:
         from sagas.zh.ltp_procs import ltp
-        from sagas.zh.ltp_procs import extract_predicates
-        import opencc
 
-        sentence=opencc.convert(sents) # convert to Simplified Chinese
-        words = ltp.segmentor.segment(sentence)
+        words = ltp.segmentor.segment(sents)
         postags = ltp.postagger.postag(words)
         arcs = ltp.parser.parse(words, postags)
         roles = ltp.labeller.label(words, postags, arcs)
         netags = ltp.recognizer.recognize(words, postags)
+        return Docz(words, postags, arcs, roles, netags, [])
 
-        doc = []
-        for i in range(len(words)):
-            a = words[int(arcs[i].head) - 1]
-            logger.debug("%s --> %s|%s|%s|%s" % (a, words[i], arcs[i].relation, postags[i], netags[i]))
-            unit = WordUnit(i=i, text=words[i],
-                            dependency_relation=arcs[i].relation.lower(),
-                            governor=arcs[i].head,
-                            head_text=a, pos=postags[i], netag=netags[i])
-            # rel = unit.dependency_relation
-            doc.append(unit)
-
-        predicts, predict_tuples=extract_predicates(words, roles, postags, arcs)
-        # return LtpSentImpl(doc, predicts=predicts)
-        return LtpSentImpl(doc, text=sentence, predicts=predict_tuples)
+class AnalzImpl(LtpParserBase):
+    def parse(self, sents) -> Docz:
+        from sagas.nlu.analz import analz
+        return analz.parse(sents)
 

@@ -4,6 +4,7 @@ rel_mapping={'hed': 'root', 'sbv': 'nsubj',
              'vob': 'obj', 'iob': 'iobj', 'fob': 'obj', 'pob': 'obl',
              'wp': 'punct',
             }
+
 class LtpWordWrapper(WordIntf):
     def setup(self, token):
         deprel=token['dependency_relation']

@@ -25,6 +25,7 @@
     },
     "doc.wrapper": {
       "ltp": "sagas.nlu.extensions.lang_zh.LtpSentWrapper",
+      "analz": "sagas.nlu.extensions.lang_zh.LtpSentWrapper",
       "knp": "sagas.nlu.extensions.lang_ja.KnpSentWrapper",
       "*": "sagas.nlu.uni_jsonifier.JsonifySentImpl"
     }
@@ -63,9 +64,11 @@
   "servants":{
     "corenlp":"http://localhost:14000",
     "stanza":"http://localhost:14000",
+    "analspa":"http://localhost:14000",
     "stanza_western":"http://localhost:14007",
     "stanford":"http://localhost:14001",
     "ltp":"http://localhost:14005",
+    "analz":"http://localhost:14005",
     "hanlp":"http://localhost:14000",
     "knp":"http://localhost:14006",
     "spacy":"http://localhost:14001",
@@ -74,9 +77,10 @@
   "dialectors":{
     "*":"stanza",
     "auto":"stanza",
+    "en":"analspa",
     "el":"stanza",
     "ru":"stanza",
-    "zh":"ltp",
+    "zh":"analz",
     "ja":"knp",
     "ar":"stanza",
     "lt":"spacy_2.2",

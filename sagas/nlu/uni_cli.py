@@ -3,9 +3,9 @@ from typing import Text, Any, Dict, List, Union
 from cachetools import cached
 
 from sagas.nlu.uni_impl_knp import KnpParserImpl
-from sagas.nlu.uni_impl_ltp import LtpParserImpl
+from sagas.nlu.uni_impl_ltp import LtpParserImpl, AnalzImpl
 from sagas.nlu.uni_impl_corenlp import CoreNlpParserImpl
-from sagas.nlu.uni_impl_spacy import SpacyParserImpl
+from sagas.nlu.uni_impl_spacy import SpacyParserImpl, AnalSpaImpl
 from sagas.nlu.uni_impl_hanlp import HanlpParserImpl
 from sagas.nlu.uni_impl_stanford import SfParserImpl
 from sagas.nlu.uni_impl_stanza import StanzaParserImpl
@@ -17,7 +17,9 @@ class UniCli(object):
         self._parsers={'corenlp': lambda lang, sents: CoreNlpParserImpl(lang)(sents),
                        'stanza': lambda lang, sents: StanzaParserImpl(lang)(sents),
                        'ltp': lambda lang, sents: LtpParserImpl(lang)(sents),
+                       'analz': lambda lang, sents: AnalzImpl()(sents),
                        'spacy': lambda lang, sents: SpacyParserImpl(lang)(sents),
+                       'analspa': lambda lang, sents: AnalSpaImpl(lang)(sents),
                        'hanlp': lambda lang, sents: HanlpParserImpl(lang)(sents),
                        'knp': lambda lang, sents: KnpParserImpl(lang)(sents),
                        'stanford': lambda lang, sents: SfParserImpl(lang)(sents),
@@ -31,6 +33,7 @@ class UniCli(object):
         """
         $ python -m sagas.nlu.uni_cli parse corenlp en 'it is a cat'
         $ python -m sagas.nlu.uni_cli parse ltp zh-CN '我送她一束花'
+        $ python -m sagas.nlu.uni_cli parse analz zh '我送她一束花'
         $ python -m sagas.nlu.uni_cli parse hanlp zh-CN '我送她一束花'
         $ python -m sagas.nlu.uni_cli parse spacy en 'it is a cat'
         $ python -m sagas.nlu.uni_cli parse knp ja '私の趣味は、多くの小旅行をすることです。'

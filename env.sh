@@ -30,8 +30,8 @@ alias prefab='python -m sagas.ofbiz.entity_prefabs persist_component'
 
 alias rabbit='docker exec -it rabbit_ws_rabbit_1 bash'
 
-# alias lookup='python -m sagas.ofbiz.resources lookup'
-alias lookup='python -m sagas.ru.ru_procs lookup'
+alias lookup='python -m sagas.ofbiz.resources lookup'
+# alias lookup='python -m sagas.ru.ru_procs lookup'
 alias ips='python -m sagas.ru.ru_procs ips'
 
 # python -m sagas.ofbiz.resource_indexer search 产品价格

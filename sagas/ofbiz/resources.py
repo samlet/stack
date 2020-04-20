@@ -1,15 +1,7 @@
-from sagas.ofbiz.services import OfService as s, oc, track
 import os
 import io_utils
 import xml.etree.ElementTree as ET
 from resources_pb2 import RsResource, RsProperty, RsIndex, RsLookups, RsStrings
-
-'''
-Usage:
-import sagas.ofbiz.resources as rs
-rd=rs.ResourceDigester()
-rd.lookup('产品')
-'''
 
 def property_json(prop_key, prop):
     rs={'key':prop_key}
@@ -26,10 +18,16 @@ def properties_json(props):
     return rs
 
 class ResourceDigester(object):
+    '''Usage:
+    >>> import sagas.ofbiz.resources as rs
+    >>> rd=rs.ResourceDigester()
+    >>> rd.lookup('产品')
+    '''
     def __init__(self, verbose=True):
         self.verbose=verbose
 
     def process(self):
+        from sagas.ofbiz.services import OfService as s, oc, track
         oc.import_package('org.apache.ofbiz.base.component.ComponentConfig')
         allComponents = oc.j.ComponentConfig.getAllComponents()
         properties = {}

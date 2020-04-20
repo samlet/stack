@@ -2,25 +2,16 @@ from typing import Text, Any, Dict, List, Union, Optional, Tuple
 
 from dataclasses import dataclass
 from sagas.nlu.anal_defs import terms_list
+from sagas.nlu.analz_base import Docz
 
-
-@dataclass
-class Docz:
-    words: List
-    postags: List
-    arcs: List
-    roles: List
-    netags: List
-    terms: List[Dict[Text,Text]]
 
 class Analz(object):
     """
-    >>> from sagas.nlu.analz import Analz
-    >>> z=Analz()
-    >>> z.add_pats('typ', ['寄账单地址'])
-    >>> z.add_pats('srv', ['新建'])
-    >>> doc=z.parse("我想要新建一些寄账单地址")
-    >>> z.vis(doc)
+    >>> from sagas.nlu.analz import analz
+    >>> analz.add_pats('typ', ['寄账单地址'])
+    >>> analz.add_pats('srv', ['新建'])
+    >>> doc=analz.parse("我想要新建一些寄账单地址")
+    >>> analz.vis(doc)
     >>> doc.terms
     """
     def __init__(self):
@@ -80,3 +71,4 @@ class Analz(object):
         return f
 
 
+analz=Analz()
