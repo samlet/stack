@@ -24,8 +24,9 @@ class LtpViz(object):
 
         for i in range(len(words)):
             a = words[int(arcs[i].head) - 1]
-            print("%s --> %s|%s|%s|%s" % (a, words[i], \
-                                          arcs[i].relation, postags[i], netags[i]))
+            print("%s --> %s|%s|%s|%s" % (a, words[i],
+                                          arcs[i].relation,
+                                          postags[i], netags[i]))
             self.f.edge(a, words[i], label=arcs[i].relation.lower())
         return self.f
 
