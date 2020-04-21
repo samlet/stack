@@ -30,7 +30,8 @@ def get_pos_mapping(pos, default_val='X'):
     return default_val
 
 class WordUnit(object):
-    def __init__(self, i, text, dependency_relation, governor, head_text, pos, netag):
+    def __init__(self, i, text, dependency_relation,
+                 governor, head_text, pos, netag, term):
         self.i=i
         self.text=text
         self.lemma=text
@@ -41,7 +42,7 @@ class WordUnit(object):
         self.upos=get_pos_mapping(pos)
 
         self.netag=netag
-
+        self.term=term
 
 class LtpWordImpl(WordIntf):
     def setup(self, token):
@@ -56,7 +57,8 @@ class LtpWordImpl(WordIntf):
                     'upos': token.upos, 'xpos': token.pos,
                     'feats': '', 'governor': int(governor),
                     'dependency_relation': rel,
-                    'entity': [token.netag]
+                    'entity': [token.netag],
+                    'term': token.term,
                     }
         return features
 
@@ -96,10 +98,14 @@ class LtpParserBase(object):
         for i in range(len(doc.words)):
             a = doc.words[int(doc.arcs[i].head) - 1]
             logger.debug("%s --> %s|%s|%s|%s" % (a, doc.words[i], doc.arcs[i].relation, doc.postags[i], doc.netags[i]))
+
             unit = WordUnit(i=i, text=doc.words[i],
                             dependency_relation=doc.arcs[i].relation.lower(),
                             governor=doc.arcs[i].head,
-                            head_text=a, pos=doc.postags[i], netag=doc.netags[i])
+                            head_text=a, pos=doc.postags[i],
+                            netag=doc.netags[i],
+                            term=doc.terms[i] if doc.terms else {},
+                            )
             # rel = unit.dependency_relation
             toks.append(unit)
 

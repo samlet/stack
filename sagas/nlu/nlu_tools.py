@@ -299,6 +299,23 @@ class NluTools(object):
             for ds in domains:
                     vis_tree(ds, lang)
 
+    def doc(self, sents, lang, engine=None):
+        """
+        $ nlu doc 'これを作ってあげました。' ja analspa
+        $ nlu doc '主FAX番号はありますか' ja analspa
+        $ nlu doc '你在北京的公司的主要传真号码是什么' zh analz
+        $ nlu doc '你在北京的公司的主要传真号码是什么' zh analspa
+
+        :param sents:
+        :param lang:
+        :param engine:
+        :return:
+        """
+        from sagas.nlu.ruleset_procs import parse_sents
+        data = {'lang': lang, "sents": sents, 'engine': engine or cf.engine(lang)}
+        doc_jsonify, resp = parse_sents(data)
+        pprint(doc_jsonify.as_json)
+
     def tree_comp(self, sents, lang):
         """
         $ nlu tree_comp 'What do you think about the war?' en

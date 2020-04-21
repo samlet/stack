@@ -1,0 +1,4 @@
+{"typ": {
+  "电子邮件管理员":{"key": "RoleType.description.EMAIL_ADMIN"},
+  "主要传真号码": {"key": "ContactMechPurposeType.description.FAX_NUMBER"}
+}}

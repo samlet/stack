@@ -1,6 +1,8 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple
 
 from dataclasses import dataclass
+
+from sagas.nlu.anal_conf import AnalConf
 from sagas.nlu.anal_defs import terms_list
 from sagas.nlu.analz_base import Docz
 
@@ -30,6 +32,9 @@ class Analz(object):
         self.labeller = SementicRoleLabeller()
         self.labeller.load(os.path.join(MODELDIR, "pisrl.model"))
 
+        self.conf = AnalConf('zh')
+        self.conf.setup(self)
+
     def add_pats(self, pat_name, pat_text_ls: List[Text]):
         import jieba
         for t in pat_text_ls:
@@ -39,7 +44,7 @@ class Analz(object):
         import jieba.posseg as pseg
         toks = pseg.cut(sents)
         terms = []
-        for word, flag in toks:
+        for i, (word, flag) in enumerate(toks):
             terms.append({'term': flag, 'value': word})
         return terms
 
@@ -51,7 +56,7 @@ class Analz(object):
         roles = self.labeller.label(words, postags, arcs)
         netags = self.recognizer.recognize(words, postags)
 
-        terms=list(filter(lambda x: x['term'] in terms_list, terms))
+        # terms=list(filter(lambda x: x['term'] in terms_list, terms))
         return Docz(words, postags, arcs, roles, netags, terms)
 
     def vis(self, doc):
