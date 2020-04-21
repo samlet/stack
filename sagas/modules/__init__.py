@@ -8,7 +8,7 @@ from sagas.conf.conf import cf
 
 @dataclass
 class ds_meta:
-    ds: Any
+    ds: Any  # has name property
     cond: List[Any]
 
 _global_meta_ls=[]

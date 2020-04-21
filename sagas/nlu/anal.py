@@ -764,6 +764,9 @@ class AnalNode(NodeMixin, Token):
     def __eq__(self, cond):
         return self.match(cond)
 
+    def is_term(self, term_name) -> bool:
+        return term_name==self.tok.term['term'] if self.tok.term else False
+
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
 def build_anal_tree(sents:Text, lang:Text, engine:Text,

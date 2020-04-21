@@ -18,6 +18,7 @@ class restaurant_agent(object):
                   'location: eat|吃',
                   'domain: commerce|商业'
                   ])
+
     def browse(self, pred):
         table_name = self.meta.ds.name
         query = f"select * from {table_name} limit 2"
@@ -41,6 +42,7 @@ class hotel_agent(object):
                   'location: reside|住下',
                   'domain: commerce|商业'
                   ])
+
     def __call__(self, f):
         print(f.text)
         return f.text
