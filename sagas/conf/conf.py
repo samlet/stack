@@ -92,6 +92,11 @@ class TransClipConf(object):
         clz=ext_node[item] if item in ext_node else ext_node['*']
         return class_from_module_path(clz)
 
+    def classes(self, item:Text) -> List[Any]:
+        from sagas.util.loader import class_from_module_path
+        ls=self.ensure(item)
+        return [class_from_module_path(clz) for clz in ls]
+
     def servant_by_lang(self, lang):
         return self.servant(self.get_opt('dialectors', lang))
 

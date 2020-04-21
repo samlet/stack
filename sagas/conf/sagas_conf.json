@@ -30,6 +30,10 @@
       "*": "sagas.nlu.uni_jsonifier.JsonifySentImpl"
     }
   },
+  "agents": [
+    "sagas.modules.life.agents.restaurant_agent",
+    "sagas.modules.life.agents.hotel_agent"
+  ],
   "collect_verbs":true,
   "trans_cache":true,
   "trans_tree":false,

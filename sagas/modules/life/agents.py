@@ -1,7 +1,7 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
 
-from sagas.modules import agent_base, ds_meta, registry_meta_ls, global_meta_ls
+from sagas.modules import ds_meta, global_meta_ls, match_agent
 from sagas.nlu.anal import build_anal_tree, Doc, AnalNode
 from sagas.modules.life.data_source import engine, restaurant, hotel, metadata
 from sagas.nlu.anal_expr import match
@@ -12,9 +12,14 @@ from pprint import pprint
 from sagas.conf.conf import cf
 import sagas.tracker_fn as tc
 
-class restaurant_agent(agent_base):
+class restaurant_agent(object):
+    meta=ds_meta(restaurant,
+                 ['InstitutePlace|场所',
+                  'location: eat|吃',
+                  'domain: commerce|商业'
+                  ])
     def browse(self, pred):
-        table_name = self.ds.name
+        table_name = self.meta.ds.name
         query = f"select * from {table_name} limit 2"
         df = pd.read_sql_query(query, engine)
         return json.loads(df.to_json(orient='records'))
@@ -29,26 +34,22 @@ class restaurant_agent(agent_base):
         return r
 
 
-class hotel_agent(agent_base):
+class hotel_agent(object):
+    meta=ds_meta(hotel,
+                 ['InstitutePlace|场所',
+                  'location: eat|吃',
+                  'location: reside|住下',
+                  'domain: commerce|商业'
+                  ])
     def __call__(self, f):
         print(f.text)
         return f.text
 
-
-registry_meta_ls([ds_meta(restaurant_agent(restaurant),
-                          ['InstitutePlace|场所',
-                           'location: eat|吃',
-                           'domain: commerce|商业'
-                           ]),
-                  ds_meta(hotel_agent(hotel),
-                          ['InstitutePlace|场所',
-                           'location: eat|吃',
-                           'location: reside|住下',
-                           'domain: commerce|商业'
-                           ]),
-                  ])
-
 class Agents(object):
+    def __init__(self):
+        # registry_meta_ls(restaurant_agent(), hotel_agent())
+        pass
+
     def do(self, sents, lang='en'):
         """
         $ python -m sagas.modules.life.agents do 'list some restaurants' en
@@ -64,13 +65,9 @@ class Agents(object):
 
         for m in global_meta_ls():
             print('-' * 25)
-
-            rset = [(cond, target.match(cond)) for cond in m.cond]
-            succ = all([r for c, r in rset])
-            tc.emp('green' if succ else 'white', '✔' if succ else '✘',
-                   m.agent.ds.name, rset)
+            succ=match_agent(target, m, verbose=True)
             if succ:
-                r = m.agent(f)
+                r = m(f)
                 if r:
                     pprint(r)
                 else:
