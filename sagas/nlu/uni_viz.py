@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union, Optional
 from sagas.nlu.corenlp_helper import get_nlp
 from sagas.nlu.env import sa_env
 import sagas.tracker_fn as tc
@@ -70,8 +71,8 @@ class EnhancedViz(object):
         else:
             # from IPython.display import display
             import sagas
-            df=sagas.to_df([(word.index, word.text, word.lemma, word.upos, word.xpos) for word in sentence.words],
-                           ['index', 'text', 'lemma', 'upos', 'xpos'])
+            df=sagas.to_df([(word.index, word.text, word.lemma, word.upos, word.xpos, word.entity) for word in sentence.words],
+                           ['index', 'text', 'lemma', 'upos', 'xpos', 'entity'])
             tc.dfs(df)
 
         def translit_chunk(chunk:str, lang):
@@ -178,4 +179,20 @@ def universal_viz(intp, sents):
 
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
     return cv.analyse_doc(doc, None)
+
+def vis_doc(doc, sents:Text, impl):
+    """
+    >>> from sagas.tracker_jupyter import enable_jupyter_tracker
+    >>> enable_jupyter_tracker()
+    >>> from sagas.nlu.uni_impl_stanza import StanzaSentImpl
+    >>> vis_doc(doc.sentences[0], sents, StanzaSentImpl)
+
+    :param doc:
+    :param sents:
+    :param impl:
+    :return:
+    """
+    cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
+    unidoc=impl(doc, text=sents)
+    return cv.analyse_doc(unidoc, None, console=False)
 

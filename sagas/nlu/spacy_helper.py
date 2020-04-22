@@ -1,3 +1,4 @@
+from typing import Text, Any, Dict, List, Union, Optional
 from spacy.symbols import nsubj, VERB
 import pandas as pd
 from sagas.conf.conf import cf
@@ -12,7 +13,7 @@ lang_spacy_mappings={'en':['en_core_web_sm', 'en_core_web_md'],
                      'es':['es-core-news-sm', 'es-core-news-sm'],
                      'no':['nb_core_news_sm', 'nb_core_news_sm'], # Norwegian Bokmaal
                      'lt':['lt_core_news_sm', 'lt_core_news_sm'], # Lithuanian(立陶宛语)
-                     'ru':[f'{cf.conf_dir}/ru2', f'{cf.conf_dir}/ru2'],
+                     # 'ru':[f'{cf.conf_dir}/ru2', f'{cf.conf_dir}/ru2'],
                      }
 
 def is_available(lang):
@@ -107,3 +108,11 @@ def get_lemmas(doc):
     toks = doc_collect(doc)
     lemmas = ' '.join(toks['lemma'])
     return lemmas
+
+def vis(doc, sents:Text):
+    from sagas.nlu.uni_viz import EnhancedViz
+    from sagas.nlu.uni_impl_spacy import SpacySentImpl
+    cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
+    unidoc=SpacySentImpl(doc, text=sents)
+    return cv.analyse_doc(unidoc, None, console=False)
+

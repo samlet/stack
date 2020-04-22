@@ -1,6 +1,7 @@
 from typing import Text, Any, Dict, List, Union, Optional
 from sagas.nlu.uni_intf import RootWordImpl, WordIntf, SentenceIntf
-from sagas.nlu.analspa import analspa
+from sagas.nlu.analspa import analspa, native_spa
+
 
 class SpacyWordImpl(WordIntf):
     def setup(self, token):
@@ -40,8 +41,10 @@ class SpacyParserImpl(object):
         self.lang = lang
 
     def __call__(self, sents:Text):
-        from sagas.nlu.spacy_helper import spacy_doc
-        doc = spacy_doc(sents, self.lang)
+        # from sagas.nlu.spacy_helper import spacy_doc
+        # doc = spacy_doc(sents, self.lang)
+        spa = native_spa(self.lang)
+        doc, terms = spa.parse(sents)
         return SpacySentImpl(doc, text=sents)
 
 class AnalSpaImpl(object):

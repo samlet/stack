@@ -10,3 +10,11 @@ class AnalConf(object):
         for term_name, termls in self.root.items():
             spa.add_pats(term_name, list(termls.keys()))
 
+    # def get_term_props(self, term_name, ):
+
+
+conf_map={}
+def anal_conf(lang):
+    if lang not in conf_map:
+        conf_map[lang]=AnalConf(lang)
+    return conf_map[lang]

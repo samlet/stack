@@ -305,6 +305,7 @@ class NluTools(object):
         $ nlu doc '主FAX番号はありますか' ja analspa
         $ nlu doc '你在北京的公司的主要传真号码是什么' zh analz
         $ nlu doc '你在北京的公司的主要传真号码是什么' zh analspa
+        $ nlu doc "Alex Smith was working at Acme Corp Inc." en spacy
 
         :param sents:
         :param lang:

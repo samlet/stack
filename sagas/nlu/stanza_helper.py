@@ -1,16 +1,19 @@
+from typing import Text, Any, Dict, List, Union, Optional
 import stanza
+from cachetools import cached
+
 from sagas.conf.conf import cf
 
-langs_models={}
-
-def get_nlp(lang, package='default', processors=None):
+@cached(cache={})
+def get_nlp(lang:Text, package:Text='default', processors:Text=None,
+            pretokenized:bool=False):
     processors = processors or {}
     alias={'zh':'zh-hans', 'no':'nb'}
     packages={'pl':'pdb'}
-    if lang not in langs_models:
-        langs_models[lang]= stanza.Pipeline(dir=f'{cf.conf_dir}/ai/corenlp/1.0',
-                                            package=packages[lang] if lang in packages else package,
-                                            processors=processors,
-                                            lang=alias[lang] if lang in alias else lang)
-    return langs_models[lang]
+    return stanza.Pipeline(dir=f'{cf.conf_dir}/ai/corenlp/1.0',
+                           package=packages[lang] if lang in packages else package,
+                           processors=processors,
+                           lang=alias[lang] if lang in alias else lang,
+                           tokenize_pretokenized=pretokenized
+                           )
 
