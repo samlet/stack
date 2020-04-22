@@ -11,6 +11,8 @@ from sagas.conf.conf import cf
 import pandas as pd
 import logging
 
+from sagas.nlu.anal_data_types import ref_
+from sagas.nlu.warehouse_bucket import AnalRecord
 from sagas.nlu.warehouse_intf import ResourceType
 from sagas.nlu.warehouse_service import AnalService
 from sagas.ofbiz.services import OfService as s, oc, track
@@ -19,7 +21,6 @@ from sagas.ofbiz.entities import OfEntity as e, all_entities
 logger = logging.getLogger(__name__)
 
 class Warehouse(NodeMixin, object):
-
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
         self.parent = parent
@@ -53,16 +54,21 @@ class Warehouse(NodeMixin, object):
 
     def __floordiv__(self, patt):
         """
-        >>> from sagas.nlu.warehouse import Warehouse
-        >>> wh=Warehouse.create()
+        >>> from sagas.nlu.warehouse import warehouse as wh
         >>> wh//'find*'
         >>> wh//'*Person*'
         >>> [(el, el.words) for el in wh//'*Person*']
         :param patt:
         :return:
         """
-        r = Resolver('name')
-        return r.glob(self, patt)
+        if isinstance(patt, str):
+            r = Resolver('name')
+            return r.glob(self, patt)
+        elif isinstance(patt, ref_):
+            val=self.resolve_entity(patt.val)
+            return [val]
+        else:
+            return []
 
     def __truediv__(self, patt):
         rs= self.__floordiv__(patt)
@@ -72,10 +78,14 @@ class Warehouse(NodeMixin, object):
         from sagas import from_global_id
         t, _ = from_global_id(gid)
         ent = self / t
-        return ent.meta.global_ref.get_record(gid)
+        val=ent.meta.global_ref.get_record(gid)
+        return AnalRecord(name=val.getEntityName(),
+                          resource_type=ResourceType.EntityValue,
+                          value=val)
 
     def get_gid(self, val):
         ent = self / val.getEntityName()
         return ent.meta.global_ref.get_gid(val)
 
-    
+warehouse=Warehouse.create()
+

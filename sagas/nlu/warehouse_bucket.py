@@ -6,6 +6,7 @@ from anytree.node.nodemixin import NodeMixin
 from anytree.node.util import _repr
 from anytree.search import findall, findall_by_attr, find
 from sagas.nlu.warehouse_intf import ResourceType, AnalResource
+from sagas.ofbiz.entities import OfEntity as e, oc, all_entities
 from sagas.conf.conf import cf
 import pandas as pd
 import logging
@@ -46,6 +47,10 @@ class AnalRecordset(AnalResource):
         return _repr(self)
 
 class AnalRecord(AnalResource):
+    value: Any
     def __repr__(self):
         return _repr(self)
+
+    def as_json(self):
+        return oc.j.ValueHelper.entityToJson(self.value, oc.jmap())
 

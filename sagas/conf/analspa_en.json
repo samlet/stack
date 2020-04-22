@@ -5,5 +5,9 @@
   "typ": {
     "RoleType.description.EMAIL_ADMIN": ["Email Administrator"],
     "ContactMechPurposeType.description.FAX_NUMBER": ["Main Fax Number"]
+  },
+  "ref": {
+    "UHJvZHVjdFR5cGU6RElHSVRBTF9HT09E": ["Digital Good"],
+    "UHJvZHVjdFR5cGU6RklOSVNIRURfR09PRA==": ["Finished Good"]
   }
 }

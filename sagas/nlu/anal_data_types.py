@@ -43,6 +43,11 @@ class pos_(path_):
 class ent_(path_):
     def __repr__(self):
         return f'entity: {self.val} -> {type(self.cond).__name__}'
+
+class ref_(path_):
+    def __repr__(self):
+        return f'entity.ref: {self.val} -> {type(self.cond).__name__}'
+
 class srv_(path_):
     def __repr__(self):
         return f'service: {self.val} -> {type(self.cond).__name__}'

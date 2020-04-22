@@ -2,7 +2,7 @@ from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
-from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_, Carrier
+from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_, Carrier, ref_
 
 from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
@@ -773,6 +773,13 @@ class AnalNode(NodeMixin, Token):
 
     def is_term(self, term_name) -> bool:
         return term_name==self.ref[0]
+
+    @property
+    def links(self):
+        from sagas.nlu.warehouse import warehouse as wh
+        if self.is_term('ref'):
+            return wh//ref_(self.ref[1])
+        return []
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
