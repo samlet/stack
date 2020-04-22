@@ -1,13 +1,9 @@
 {
-  "typ": {
-    "Email Administrator": {
-      "key": "RoleType.description.EMAIL_ADMIN"
-    },
-    "Main Fax Number": {
-      "key": "ContactMechPurposeType.description.FAX_NUMBER"
-    }
-  },
   "loc": {
-    "Acme Corp Inc": {}
+    "ref_acme": ["Acme Corp Inc"]
+  },
+  "typ": {
+    "RoleType.description.EMAIL_ADMIN": ["Email Administrator"],
+    "ContactMechPurposeType.description.FAX_NUMBER": ["Main Fax Number"]
   }
 }

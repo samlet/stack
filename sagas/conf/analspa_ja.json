@@ -1,4 +1,6 @@
-{"typ": {
-  "Eメール管理者":{"key": "RoleType.description.EMAIL_ADMIN"},
-  "主FAX番号": {"key": "ContactMechPurposeType.description.FAX_NUMBER"}
-}}
+{
+    "typ": {
+        "RoleType.description.EMAIL_ADMIN": ["Eメール管理者"],
+        "ContactMechPurposeType.description.FAX_NUMBER": ["主FAX番号"]
+    }
+}

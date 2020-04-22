@@ -20,6 +20,9 @@ class Analz(object):
         import os
         from sagas.conf.conf import cf
         from pyltp import Postagger, Parser, NamedEntityRecognizer, SementicRoleLabeller
+        from spacy.strings import StringStore
+
+        self.stringstore = StringStore()
 
         MODELDIR = f'{cf.conf_dir}/ai/ltp/ltp_data_v3.4.0'
         self.postagger = Postagger()
@@ -37,15 +40,20 @@ class Analz(object):
 
     def add_pats(self, pat_name, pat_text_ls: List[Text]):
         import jieba
+        id_hash = self.stringstore.add(pat_name)
         for t in pat_text_ls:
-            jieba.add_word(t, tag=pat_name)
+            jieba.add_word(t, tag=id_hash)
 
     def tokenize(self, sents: Text) -> List[Dict[Text,Text]]:
         import jieba.posseg as pseg
         toks = pseg.cut(sents)
         terms = []
         for i, (word, flag) in enumerate(toks):
-            terms.append({'term': flag, 'value': word})
+            if not isinstance(flag, str):
+                ref = self.stringstore[flag]
+            else:
+                ref = flag
+            terms.append({'term': ref, 'value': word})
         return terms
 
     def parse(self, sents: Text) -> Docz:

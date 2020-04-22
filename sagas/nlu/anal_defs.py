@@ -1,1 +1,2 @@
-terms_list=['ent', 'srv', 'fld', 'ref', 'typ']
+terms_list=['ent', 'srv', 'fld', 'ref', 'typ',
+            'loc']

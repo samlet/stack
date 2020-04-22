@@ -214,14 +214,14 @@ class ResourceDigester(object):
         import json_utils
         props = self.get_all_properties()
         json_utils.write_json_to_file(
-            './data/labels/labels.json', properties_json(props))
+            '~/pi/stack/data/labels/labels.json', properties_json(props))
 
 def read_resource():
     import protobuf_utils
     rs_lookups = RsLookups()
     resource = RsResource()
-    protobuf_utils.read_proto(rs_lookups, './data/resources/labels_index.data')
-    protobuf_utils.read_proto(resource, './data/resources/labels_res.data')
+    protobuf_utils.read_proto(rs_lookups, '~/pi/stack/data/resources/labels_index.data')
+    protobuf_utils.read_proto(resource, '~/pi/stack/data/resources/labels_res.data')
     return resource, rs_lookups
 
 if __name__ == '__main__':

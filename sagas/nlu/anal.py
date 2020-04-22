@@ -764,8 +764,15 @@ class AnalNode(NodeMixin, Token):
     def __eq__(self, cond):
         return self.match(cond)
 
+    @cached_property
+    def ref(self) -> Tuple[Optional[Text], Optional[Text]]:
+        from sagas.nlu.anal_conf import AnalConf
+        if self.tok.term:
+            return AnalConf.split_label(self.tok.term['term'])
+        return None, None
+
     def is_term(self, term_name) -> bool:
-        return term_name==self.tok.term['term'] if self.tok.term else False
+        return term_name==self.ref[0]
 
 # @cached(cache={}) ->  因为tree-nodes是可以修改的有状态的, 所以不用cached,
 #                       但anal-node.tok引用的是只读的文档结点.
