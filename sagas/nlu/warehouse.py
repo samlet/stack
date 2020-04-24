@@ -21,6 +21,8 @@ from sagas.ofbiz.entities import OfEntity as e, all_entities
 logger = logging.getLogger(__name__)
 
 class Warehouse(NodeMixin, object):
+    name: str
+
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
         self.parent = parent
@@ -86,6 +88,10 @@ class Warehouse(NodeMixin, object):
     def get_gid(self, val):
         ent = self / val.getEntityName()
         return ent.meta.global_ref.get_gid(val)
+
+    @property
+    def qualified(self):
+        return '_'
 
 warehouse=Warehouse.create()
 

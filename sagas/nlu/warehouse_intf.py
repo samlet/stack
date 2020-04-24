@@ -11,8 +11,18 @@ class ResourceType(Enum):
     EntityModel=1
     EntityValue=2
     ServiceModel=3
-    EntityAttribute=101
-    ServiceAttribute=102
+    EntityField=101
+    ServiceParameter=102
+
+    def __str__(self):
+        switch={
+            ResourceType.EntityModel: "ent",
+            ResourceType.EntityValue: 'val',
+            ResourceType.ServiceModel: 'srv',
+            ResourceType.EntityField: 'fld',
+            ResourceType.ServiceParameter: 'par',
+        }
+        return switch.get(self, '_unk_')
 
 def words(str):
     return ''.join([' ' + i.lower() if i.isupper()
@@ -41,3 +51,7 @@ class AnalResource(NodeMixin, object):
     @cached_property
     def words(self):
         return words(self.name)
+
+    @property
+    def qualified(self):
+        return str(self.resource_type)+':'+self.name
