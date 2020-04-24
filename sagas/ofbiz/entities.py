@@ -109,11 +109,15 @@ class OfEntity(object):
                     result=record_list_df(entity, result)
             elif method.startswith('ref'):
                 entity = method[3:]
-                result = MetaEntity(entity).record(args[0])
+                m=MetaEntity(entity)
+                result = m.record(args[0])
                 if self.operator == 'json':
                     result = oc.j.ValueHelper.entityToJson(result, oc.jmap())
+                elif self.operator == 'dict':
+                    result=m.to_json(result, filter=True, contains_gid=True)
                 elif self.operator=='table':
                     format(result)
+
                 if result is None:
                     raise ValueError("Cannot find record "+args[0])
             elif method.startswith('count'):

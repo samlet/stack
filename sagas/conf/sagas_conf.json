@@ -34,6 +34,10 @@
     "sagas.modules.life.agents.restaurant_agent",
     "sagas.modules.life.agents.hotel_agent"
   ],
+  "buckets": {
+    "Party": "sagas.modules.biz.agent_party.PartyAgent",
+    "*": "sagas.nlu.warehouse_bucket.AnalBucket"
+  },
   "collect_verbs":true,
   "trans_cache":true,
   "trans_tree":false,

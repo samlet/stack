@@ -42,8 +42,7 @@ class Warehouse(NodeMixin, object):
 
     @staticmethod
     def create() -> 'Warehouse':
-        from sagas.nlu.warehouse_bucket import AnalBucket
-        ents=[AnalBucket(name=e, resource_type=ResourceType.EntityModel) for e in all_entities(include_view=True)]
+        ents=[cf.get_bucket(e)(name=e, resource_type=ResourceType.EntityModel) for e in all_entities(include_view=True)]
         services = [AnalService(name=e, resource_type=ResourceType.ServiceModel) for e in Warehouse.all_services()]
         wh=Warehouse(name='_warehouse', children=[*ents, *services])
         return wh
@@ -92,6 +91,43 @@ class Warehouse(NodeMixin, object):
     @property
     def qualified(self):
         return '_'
+
+    def get(self, path):
+        """
+        >>> from sagas.nlu.warehouse import warehouse as wh
+        >>> wh.get("/_/ent:Person")
+
+        :param path:
+        :return:
+        """
+        r = Resolver('qualified')
+        return r.get(self, path)
+
+    def ping(self) -> Tuple[bool, Dict[Text, Any]]:
+        from sagas.ofbiz.services import OfService as s, oc, track
+        ok, r = track(lambda a: s().testScv(defaultValue=5.5, message="hello world"))
+        return ok, r
+
+    @property
+    def srv(self):
+        from sagas.ofbiz.services import OfService as s
+        return s()
+
+    @property
+    def ent(self):
+        from sagas.ofbiz.entities import OfEntity as e
+        return e()
+
+    def e(self, dialect=None):
+        """
+        >>> from sagas.nlu.warehouse import warehouse as wh
+        >>> wh.e('dict').refPerson('10000')
+
+        :param dialect:
+        :return:
+        """
+        from sagas.ofbiz.entities import OfEntity as e
+        return e(dialect)
 
 warehouse=Warehouse.create()
 

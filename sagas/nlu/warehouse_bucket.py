@@ -40,6 +40,11 @@ class AnalBucket(AnalResource):
 
     @cached_property
     def meta(self):
+        """
+        >>> from sagas.nlu.warehouse import warehouse as wh
+        >>> (wh/'Person').meta.primary, (wh/'ProductPrice').meta.primary
+        :return:
+        """
         return MetaEntity(self.name)
 
 class AnalRecordset(AnalResource):

@@ -2,7 +2,6 @@ import operator
 from typing import Text, Any, Dict, List, Union
 
 from cachetools import cachedmethod
-
 import json_utils
 
 def runtime_dir():
@@ -22,7 +21,8 @@ class TransClipConf(object):
         if runtime.is_docker():
             self.update_by_overrides()
 
-        self.cache = LRUCache(maxsize=1024)
+        # self.cache = LRUCache(maxsize=1024)
+        self.loaded_classes={}
 
     def update_by_overrides(self) -> None:
         overrides=json_utils.read_json_file(self.overrides_file)
@@ -85,17 +85,25 @@ class TransClipConf(object):
         import os
         return os.getenv('engine', self.get_opt('dialectors', lang))
 
-    @cachedmethod(operator.attrgetter('cache'))
-    def extensions(self, ext:Text, item:Text) -> Any:
+    def _cache_clz(self, clz):
         from sagas.util.loader import class_from_module_path
+        if clz not in self.loaded_classes:
+            self.loaded_classes[clz]=class_from_module_path(clz)
+        return self.loaded_classes[clz]
+
+    def get_bucket(self, entity) -> Any:
+        clz= self.get_opt('buckets', entity)
+        return self._cache_clz(clz)
+
+    # @cachedmethod(operator.attrgetter('cache'))
+    def extensions(self, ext:Text, item:Text) -> Any:
         ext_node=self.conf['extensions'][ext]
         clz=ext_node[item] if item in ext_node else ext_node['*']
-        return class_from_module_path(clz)
+        return self._cache_clz(clz)
 
     def classes(self, item:Text) -> List[Any]:
-        from sagas.util.loader import class_from_module_path
         ls=self.ensure(item)
-        return [class_from_module_path(clz) for clz in ls]
+        return [self._cache_clz(clz) for clz in ls]
 
     def servant_by_lang(self, lang):
         return self.servant(self.get_opt('dialectors', lang))
