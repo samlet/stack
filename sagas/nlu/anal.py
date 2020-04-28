@@ -2,7 +2,8 @@ from typing import Text, Any, Dict, List, Union, Optional, Tuple, Set
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
-from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_, Carrier, ref_
+from sagas.nlu.anal_data_types import path_, pos_, ConstType, PredCond, behave_, desc_, phrase_, _, rel_, Carrier, ref_, \
+    ExtensionHolder
 
 from sagas.nlu.ruleset_procs import cached_chunks
 from anytree.node.nodemixin import NodeMixin
@@ -247,8 +248,20 @@ class AnalNode(NodeMixin, Token):
         if children:
             self.children = children
 
+        self._ = self.extens = ExtensionHolder()
+
     def __repr__(self):
         return _repr(self)
+
+    def set_extension(self, attr_name, attr_val):
+        """
+        >>> t.set_extension('x','hello')
+        >>> t._.x
+        :param attr_name:
+        :param attr_val:
+        :return:
+        """
+        self._.attrs[attr_name] = attr_val
 
     @cached_property
     def feats_map(self) -> Dict[Text, Any]:
@@ -747,6 +760,8 @@ class AnalNode(NodeMixin, Token):
                 item_name, item_val=k.strip(), v.strip()
                 if item_name =='pos':
                     r=self.tok.upos==item_val.upper()
+                elif item_name=='term':
+                    r=self.is_term(item_val)
                 else:
                     r=self.has_role(**{item_name:item_val})
             elif '|' in val:

@@ -13,7 +13,7 @@ class ds_meta:
 
 _global_meta_ls=[]
 def registry_meta_ls(*meta_ls):
-    _global_meta_ls.extend(meta_ls)
+    _global_meta_ls.extend([m for m in meta_ls if m not in _global_meta_ls])
 
 def init_agents():
     ins=[c() for c in cf.classes('agents')]

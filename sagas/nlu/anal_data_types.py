@@ -147,3 +147,9 @@ _4=Carrier(4)
 _5=Carrier(5)
 _x=[_1,_2,_3,_4,_5]
 
+class ExtensionHolder(object):
+    def __init__(self):
+        self.attrs={}
+    def __getattr__(self, attr):
+        return self.attrs[attr] if attr in self.attrs else None
+
