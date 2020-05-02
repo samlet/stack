@@ -110,6 +110,16 @@ def get_lemmas(doc):
     return lemmas
 
 def vis(doc, sents:Text):
+    """
+    >>> from sagas.nlu.spacy_helper import spacy_mgr, vis
+    >>> nlp = spacy_mgr.get_model('en')
+    >>> doc = nlp(text)
+    >>> vis(doc, text)
+
+    :param doc:
+    :param sents:
+    :return:
+    """
     from sagas.nlu.uni_viz import EnhancedViz
     from sagas.nlu.uni_impl_spacy import SpacySentImpl
     cv = EnhancedViz(shape='egg', size='8,5', fontsize=20)
