@@ -67,6 +67,7 @@ class Doc(NodeMixin, object):
         self.parent = parent
         if children:
             self.children = children
+        self._ = self.extens = ExtensionHolder()
 
     def __repr__(self):
         return _repr(self)
@@ -131,6 +132,10 @@ class Doc(NodeMixin, object):
                                                  ))
             preds.append(pred)
         return preds
+
+    @property
+    def root(self):
+        return self.children[0]
 
 class Token(object):
     def __init__(self, tok:Optional[WordIntf]):
@@ -834,6 +839,10 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
             w.parent = node_map[w.tok.governor]
 
     list(map(set_parent, node_map.values()))
+
+    # process doc pipelines
+    for pipe in cf.pipelines(lang):
+        pipe.process(tree_root.doc)
     return tree_root
 
 def generic_paths(f:AnalNode):
@@ -842,6 +851,24 @@ def generic_paths(f:AnalNode):
     start=subjs[0] if subjs else f
     for n in chain(f.nouns, f.adjectives):
         start.walk_to(n, verbose=True)
+
+class AnalDelegator(object):
+    """
+    >>> from sagas.nlu.anal import delegator
+    >>> f=delegator.es('Nuestro horario es de nueve a cinco.')
+    >>> f.draw()
+    """
+    def __getattr__(self, lang):
+        return lambda sents: build_anal_tree(sents, lang, cf.engine(lang))
+
+    def doc(self, lang):
+        doccls = cf.extensions('anal.doc', lang)
+        return doccls
+
+    def node(self, lang):
+        return cf.extensions('anal', lang)
+
+delegator=AnalDelegator()
 
 class AnalProcs(object):
     def doc(self, sents, lang='en', engine='stanza'):

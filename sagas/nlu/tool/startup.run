@@ -9,9 +9,9 @@ function start_inventory(){
 }
 
 export PYTHONPATH=..:$PYTHONPATH
-python="$HOME/miniconda3/envs/bigdata/bin/python"
-jupyter="$HOME/miniconda3/envs/bigdata/bin/jupyter"
-streamlit="$HOME/miniconda3/envs/bigdata/bin/streamlit"
+python="$HOME/miniconda3/envs/rasa/bin/python"
+jupyter="$HOME/miniconda3/envs/rasa/bin/jupyter"
+streamlit="$HOME/miniconda3/envs/rasa/bin/streamlit"
 
 # startup 
 if [ $# -lt 1 ]; then	

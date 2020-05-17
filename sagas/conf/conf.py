@@ -101,6 +101,11 @@ class TransClipConf(object):
         clz=ext_node[item] if item in ext_node else ext_node['*']
         return self._cache_clz(clz)
 
+    def pipelines(self, lang:Text) -> List[Any]:
+        ext_node=self.conf['extensions']['anal.pipelines']
+        classes=ext_node[lang] if lang in ext_node else ext_node['*']
+        return [self._cache_clz(clz) for clz in classes]
+
     def classes(self, item:Text) -> List[Any]:
         ls=self.ensure(item)
         return [self._cache_clz(clz) for clz in ls]

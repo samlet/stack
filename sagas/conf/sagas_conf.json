@@ -23,6 +23,9 @@
     "anal.doc": {
       "*": "sagas.nlu.anal.Doc"
     },
+    "anal.pipelines": {
+      "*": ["sagas.nlu.anal_viz.AnalViz"]
+    },
     "doc.wrapper": {
       "ltp": "sagas.nlu.extensions.lang_zh.LtpSentWrapper",
       "analz": "sagas.nlu.extensions.lang_zh.LtpSentWrapper",
@@ -96,7 +99,7 @@
     "fr":"stanza_western",
     "de":"stanza_western",
     "it":"stanza_western",
-    "pt":"stanza_western",
+    "pt":"analspa",
     "nl":"stanza_western"
   }
 }
