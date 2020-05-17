@@ -842,7 +842,9 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
 
     # process doc pipelines
     for pipe in cf.pipelines(lang):
-        pipe.process(tree_root.doc)
+        p=pipe()
+        if p.support_langs=='*' or lang in p.support_langs:
+            p.process(tree_root.doc)
     return tree_root
 
 def generic_paths(f:AnalNode):
