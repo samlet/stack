@@ -157,6 +157,10 @@ def match_and_rep(a,b,c, flags, head) -> MatchResult:
         elif n is not None:
             r = n.match(chk)
         else:
+            # 如果位置标记不是通配符, 值也为空时, 则匹配失败;
+            # 特殊情况是"_2 << _"这样的形式, 虽然是通配符, 但如果该位置没有结点值,
+            # 也会匹配失败, 因为无法提取指定的结点. 所以当可能有值缺失的时候, 可以用两个分支,
+            # 分别匹配该位置有值/无值两种情况.
             r = False
         chk_rep.append((op, r))
 

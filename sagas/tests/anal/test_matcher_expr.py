@@ -44,3 +44,14 @@ def test_match_embed_expr():
               )
     assert ['expect', 'change'] == r
 
+def test_match_absent_part():
+    f = build_anal_tree('Nós estudamos.', 'pt', 'stanza')
+    f.draw()
+    r = match(f,
+              behave_(_, _1 << 'study', _2 << _, _), lambda arg, v1, v2: [v1.text, v2.text],
+              behave_(_, _1 << 'study', _, _), lambda arg, v1: [v1.text],
+              behave_(_, _1 << 'learn', _2 << _, _), lambda arg, v1, v2: [v1.text, v2.text],
+              _, None
+              )
+    assert ['estudamos'] == r
+
