@@ -1,0 +1,38 @@
+type Query {
+    behave_with_id(_id: ID!): Behave
+    behave_with_verb(_verb: String!): Behave
+    desc_with_id(_id: ID!): Desc
+    bucket_behaves(_id: ID!): Bucket
+}
+
+type Modifier{
+    part: String!
+    cont: String!
+}
+type Behave {
+    id: ID!
+    subj: String!
+    obj: String!
+    iobj: String!
+    behave: String!
+    behave_spec: String!
+    obj_spec: String!
+}
+type Desc {
+    id: ID!
+    subj: String!
+    aux: String!
+    desc: String!
+    modifiers: [Modifier]
+}
+type Phrase {
+    id: ID!
+    head: String!
+    modifiers: [Modifier]
+}
+type Bucket{
+    id: ID!
+    behaves: [Behave]
+    descs: [Desc]
+    phrases: [Phrase]
+}
