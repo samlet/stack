@@ -867,6 +867,9 @@ class AnalDelegator(object):
     def __getattr__(self, lang):
         return lambda sents: build_anal_tree(sents, lang, cf.engine(lang))
 
+    def f(self, sents, lang):
+        return build_anal_tree(sents, lang, cf.engine(lang))
+
     def doc(self, lang):
         doccls = cf.extensions('anal.doc', lang)
         return doccls

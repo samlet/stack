@@ -1,3 +1,6 @@
+from typing import Text, Any, Dict, List, Union, Optional
+
+from cachetools import cached
 from graphql import graphql_sync
 from ariadne import ObjectType, QueryType, make_executable_schema
 from ariadne import make_executable_schema, load_schema_from_path, ObjectType, QueryType
@@ -11,7 +14,8 @@ from sagas.nlu.anal import delegator
 from sagas.nlu.anal_expr import match
 from sagas.nlu.anal_data_types import behave_, desc_, phrase_, rel_, path_, _, _1, _2
 
-def get_corpus(lang, chapter):
+@cached(cache={})
+def get_corpus(lang:Text, chapter:Text):
     dfjson = pd.read_json(f'~/pi/stack/crawlers/langcrs/all_{lang}.json')
     ch=dfjson[dfjson['chapter'].str.match(chapter)]
     rs=[]
@@ -21,6 +25,7 @@ def get_corpus(lang, chapter):
 
 def node_text(n):
     return n.text if n is not None else '_'
+
 def wrap_behave(f_behave):
     return {'id':'0', 'subj':node_text(f_behave.subj),
             'obj':node_text(f_behave.obj),
@@ -33,7 +38,7 @@ def wrap_behave(f_behave):
 def resolve_behaves(bucket, info):
     results=[]
     for text in bucket.rs:
-        f=delegator.pt(text)
+        f=delegator.f(text, bucket.lang)
         f_behave=f.as_behave()
         if f_behave:
             if bucket.routine(f, f_behave):
@@ -52,6 +57,7 @@ def bucket_behaves(x, info, _id):
     mappings=vtable.all
     return wrap(id=_id,
                 routine=mappings[_id],
+                lang='pt',
                 rs=get_corpus('pt', 'At school')) if _id in mappings else None
 
 
@@ -68,10 +74,8 @@ class AnalQl(object):
         bucket.set_field('behaves', resolve_behaves)
         self.schema = make_executable_schema(self.type_defs, [behave, bucket, query])
 
-    def query_sync(self, q):
+    def query_sync(self, q:Text):
         return graphql_sync(self.schema, q)
-
-anal_ql=AnalQl()
 
 class AnalQlProcs(object):
     def bucket(self, id='study'):
@@ -100,6 +104,8 @@ class AnalQlProcs(object):
             }
         }
         """
+
+        anal_ql = AnalQl()
         result = anal_ql.query_sync(q)
         if not result.errors:
             pprint(result.data)
