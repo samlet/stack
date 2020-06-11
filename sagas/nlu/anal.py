@@ -60,7 +60,7 @@ class Doc(NodeMixin, object):
     engine: Text
     index_data: Dict[Text, Any]={}
     doc: SentenceIntf
-    _predicts: List[Any]
+    _predicts: List[Any]=[]
 
     def __init__(self, parent=None, children=None, **kwargs):
         self.__dict__.update(kwargs)
@@ -371,7 +371,7 @@ class AnalNode(NodeMixin, Token):
         :return:
         """
         def additional(n):
-            addons=[n.lemma]
+            addons=[str(n.index), n.lemma]
             if n.upos=='VERB':
                 if n.personal_pronoun_repr:
                     addons.append(n.personal_pronoun_repr)
@@ -698,6 +698,9 @@ class AnalNode(NodeMixin, Token):
         """ (f/'nsubj').lemma,
             (f/pos_('pron')).text
         """
+        if isinstance(other, int):
+            return self.get_by_index(other)
+
         rs= self.__floordiv__(other)
         return rs[0] if rs else None
 
@@ -829,13 +832,16 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
     doc, resp = dep_parse(sents, lang=lang, engine=engine, pipelines=['predicts'],
                           doc_impl=docimpl)
     predicts=resp['predicts'] if resp and 'predicts' in resp else []
+    return from_doc(doc, lang, engine, nodecls, predicts)
+
+def from_doc(doc:SentenceIntf, lang, engine, nodecls=None, predicts=None):
     words = doc.words
     if nodecls is None:
-        nodecls=cf.extensions('anal', lang)
+        nodecls = cf.extensions('anal', lang)
     node_map = {word.index: nodecls(word, lang=lang, position=doc.get_position(word.index)) for word in words}
-    doccls=cf.extensions('anal.doc', lang)
-    node_map[0] = doccls(sents=sents, lang=lang, engine=engine,
-                         doc=doc, _predicts=predicts)
+    doccls = cf.extensions('anal.doc', lang)
+    node_map[0] = doccls(sents=doc.sents, lang=lang, engine=engine,
+                         doc=doc, _predicts=predicts if predicts else [])
     tree_root = next(w for w in node_map.values() if w.governor == 0)
 
     def set_parent(w):
@@ -846,8 +852,8 @@ def build_anal_tree(sents:Text, lang:Text, engine:Text,
 
     # process doc pipelines
     for pipe in cf.pipelines(lang):
-        p=pipe()
-        if p.support_langs=='*' or lang in p.support_langs:
+        p = pipe()
+        if p.support_langs == '*' or lang in p.support_langs:
             p.process(tree_root.doc)
     return tree_root
 

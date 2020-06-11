@@ -1,6 +1,24 @@
 from typing import Text, Any, Dict, List, Union, Optional, Tuple
 
 from sagas.nlu.anal_conf import anal_conf
+from spacy.tokens import DocBin
+
+pretokenized_langs = ['zh']
+def get_model(lang, provider, enable_pretoken=False):
+    def stanza_model():
+        from sagas.nlu.stanza_helper import get_nlp
+        from spacy_stanza import StanzaLanguage
+        if enable_pretoken:
+            snlp = get_nlp(lang) if lang not in pretokenized_langs else get_nlp(lang, pretokenized=True)
+        else:
+            snlp = get_nlp(lang)
+        return StanzaLanguage(snlp)
+
+    def spacy_model():
+        from sagas.nlu.spacy_helper import spacy_mgr
+        return spacy_mgr.get_model(lang)
+
+    return stanza_model() if provider == 'stanza' else spacy_model()
 
 class AnalSpa(object):
     """
@@ -11,34 +29,16 @@ class AnalSpa(object):
     >>> print([(w.lemma_, w._.term) for w in doc])
     >>> spa.vis(doc)
     """
-    pretokenized_langs = ['zh']
-    enable_pretoken=False
-
-    def __init__(self, lang, provider='stanza'):
+    def __init__(self, lang, provider='stanza', enable_pretoken=False):
         from spacy.matcher import PhraseMatcher
 
         self.lang=lang
         self.provider=provider
-        self.nlp = self._get_model(lang)
+        self.enable_pretoken=enable_pretoken
+        self.nlp = get_model(lang, self.provider, enable_pretoken)
         self.matcher = PhraseMatcher(self.nlp.vocab, attr="LOWER")
         self.conf=anal_conf(lang)
         self.conf.setup(self)
-
-    def _get_model(self, lang):
-        def stanza_model():
-            from sagas.nlu.stanza_helper import get_nlp
-            from spacy_stanza import StanzaLanguage
-            if self.enable_pretoken:
-                snlp = get_nlp(lang) if lang not in self.pretokenized_langs else get_nlp(lang, pretokenized=True)
-            else:
-                snlp = get_nlp(lang)
-            return StanzaLanguage(snlp)
-
-        def spacy_model():
-            from sagas.nlu.spacy_helper import spacy_mgr
-            return spacy_mgr.get_model(lang)
-
-        return stanza_model() if self.provider=='stanza' else spacy_model()
 
     def add_pats(self, pat_name, pat_text_ls:List[Text]):
         patterns=[self.nlp.make_doc(text) for text in pat_text_ls]
@@ -53,7 +53,7 @@ class AnalSpa(object):
 
     def parse(self, sents:Text, merge=True) -> Tuple[Any, List[Dict]]:
         if self.enable_pretoken:
-            doc = self.nlp(sents) if self.lang not in self.pretokenized_langs else self._parse_pretokenized(sents)
+            doc = self.nlp(sents) if self.lang not in pretokenized_langs else self._parse_pretokenized(sents)
         else:
             doc = self.nlp(sents)
 
@@ -115,4 +115,30 @@ def init_analspa():
     Token.set_extension("term", default={})
 
 init_analspa()
+
+def write_doc_to(proto, file):
+    from os.path import expanduser
+    with open(expanduser(file), "wb") as f:
+        f.write(proto)
+
+def read_doc(lang, file) -> List[Any]:
+    from os.path import expanduser
+    nlp = get_model(lang, provider='spacy')
+    with open(expanduser(file), "rb") as f:
+        doc_bin = DocBin().from_bytes(f.read())
+        docs = list(doc_bin.get_docs(nlp.vocab))
+        return docs
+
+def write_docs(texts, attrs, lang, file, provider='spacy'):
+    from tqdm import tqdm
+    nlp = get_model(lang, provider=provider)
+    doc_bin = DocBin(attrs=[a.upper() for a in attrs], store_user_data=True)
+    # doc_bin = DocBin(attrs=["DEP", "HEAD"])
+    # for doc in nlp.pipe(texts):
+    # the tqdm library just wraps a loop. When you call it around nlp.pipe,
+    # the loop you're wrapping are the individual batches.
+    for doc in tqdm(nlp.pipe(texts)):
+        doc_bin.add(doc)
+    bytes_data = doc_bin.to_bytes()
+    write_doc_to(bytes_data, file)
 
