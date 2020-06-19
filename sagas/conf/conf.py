@@ -2,6 +2,7 @@ import operator
 from typing import Text, Any, Dict, List, Union
 
 from cachetools import cachedmethod
+from os.path import expanduser
 import json_utils
 
 def runtime_dir():
@@ -60,8 +61,11 @@ class TransClipConf(object):
 
     @property
     def conf_dir(self) -> Text:
-        from os.path import expanduser
         return expanduser(self.ensure('conf_dir'))
+
+    @property
+    def data_dir(self):
+        return expanduser(self.ensure('data_dir'))
 
     @property
     def common_s(self):

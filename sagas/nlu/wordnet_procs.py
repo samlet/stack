@@ -59,7 +59,7 @@ def get_chains(word, lang='en', pos=None):
 
     chains = []
     for index, c in enumerate(synsets):
-        print(c.offset(), c.name())
+        # print(c.offset(), c.name())
         chain_keys = []
         for c_c in [c] + list(c.closure(hyper)):
             key = c_c.name()

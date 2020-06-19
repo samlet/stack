@@ -1,6 +1,7 @@
 {
   "user": "samlet",
   "conf_dir": "~/pi",
+  "data_dir": "/usr/local/saai/ai",
   "delegates": {
     "iwn_hypers": {
       "url": "http://localhost:1700/hi/iwn/hypers"
