@@ -1,27 +1,33 @@
+from typing import Text, Any, Dict, List, Union, Optional
+import json
+
 class ListingsCli(object):
     def __init__(self):
+        self.configs={}
         self.preloads={}
 
-    def get_conf(self, conf, item):
-        import json
+    def get_conf(self, conf:Text, item:Text) -> Dict[Text, Any]:
         import _jsonnet
         import io
         from os.path import expanduser
 
-        conf_dir = expanduser('~/listings')
-        encoding = "utf-8"
-        filename = f"{conf_dir}/{conf}.jsonnet"
-        with io.open(filename, encoding=encoding) as f:
-            jsonnet_str = f.read()
-        json_str = _jsonnet.evaluate_snippet(
-            "snippet", jsonnet_str,
-            ext_vars={})
-        json_obj = json.loads(json_str)
+        if conf not in self.configs:
+            conf_dir = expanduser('~/listings')
+            encoding = "utf-8"
+            filename = f"{conf_dir}/{conf}.jsonnet"
+            with io.open(filename, encoding=encoding) as f:
+                jsonnet_str = f.read()
+            json_str = _jsonnet.evaluate_snippet(
+                "snippet", jsonnet_str,
+                ext_vars={})
+            json_obj = json.loads(json_str)
+            self.configs[conf]=json_obj
 
+        json_obj=self.configs[conf]
         conf_cnt = json_obj[item]
         return conf_cnt
 
-    def get_instance(self, conf_cnt):
+    def get_instance(self, conf_cnt:Dict[Text, Any]):
         from sagas.conf.conf import load_class
         type_name=conf_cnt['type']
         if type_name not in self.preloads:
