@@ -8,6 +8,9 @@ alias s2="$honcho start -f Procfile_langs"
 alias s3="python -m sagas.api.info_stack run 1700 False"
 alias s4="python -m sagas.api.info_stack run 1700 True"
 
+## listings
+alias list='python -m sagas.listings.listings_cli example'
+
 alias tool='python -m sagas.ofbiz.tools'
 ## import-data ./data/product/
 alias import-data='python -m sagas.ofbiz.tools import_dir'

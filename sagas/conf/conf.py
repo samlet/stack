@@ -89,7 +89,7 @@ class TransClipConf(object):
         import os
         return os.getenv('engine', self.get_opt('dialectors', lang))
 
-    def _cache_clz(self, clz):
+    def _cache_clz(self, clz:str):
         from sagas.util.loader import class_from_module_path
         if clz not in self.loaded_classes:
             self.loaded_classes[clz]=class_from_module_path(clz)
@@ -164,6 +164,9 @@ cf.common_s
 cf.is_enabled('print_not_matched')
 """
 cf=TransClipConf()
+
+def load_class(clz:str):
+    return cf._cache_clz(clz)
 
 if __name__ == '__main__':
     import fire
