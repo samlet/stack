@@ -1,4 +1,7 @@
 class ListingsCli(object):
+    def __init__(self):
+        self.preloads={}
+
     def get_conf(self, conf, item):
         import json
         import _jsonnet
@@ -18,6 +21,16 @@ class ListingsCli(object):
         conf_cnt = json_obj[item]
         return conf_cnt
 
+    def get_instance(self, conf_cnt):
+        from sagas.conf.conf import load_class
+        type_name=conf_cnt['type']
+        if type_name not in self.preloads:
+            co_clz = load_class(type_name)
+            co=co_clz(conf_cnt)
+            co.preload()
+            self.preloads[type_name] = co
+        return self.preloads[type_name]
+
     def proc(self, conf, item, input):
         """
         $ python -m sagas.listings.listings_cli proc simple Simple \
@@ -32,10 +45,8 @@ class ListingsCli(object):
         :param input:
         :return:
         """
-        from sagas.conf.conf import load_class
         conf_cnt=self.get_conf(conf, item)
-        co_clz = load_class(conf_cnt['type'])
-        co = co_clz(conf_cnt)
+        co = self.get_instance(conf_cnt)
         print(co.conf)
         return co.proc(input)
 

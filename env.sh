@@ -10,6 +10,7 @@ alias s4="python -m sagas.api.info_stack run 1700 True"
 
 ## listings
 alias list='python -m sagas.listings.listings_cli example'
+alias serv='python -m sagas.listings.listings_servant run'
 
 alias tool='python -m sagas.ofbiz.tools'
 ## import-data ./data/product/

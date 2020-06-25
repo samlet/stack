@@ -25,7 +25,7 @@ class InfoStack(object):
         $ python -m sagas.api.info_stack run 1700 False
         $ curl localhost:1700
         """
-        app.run(host='0.0.0.0', port=1700, debug=debug)
+        app.run(host='0.0.0.0', port=port, debug=debug)
 
 if __name__ == '__main__':
     import fire

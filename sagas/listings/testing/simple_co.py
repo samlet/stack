@@ -13,6 +13,9 @@ class SimpleCo(object):
     def __init__(self, conf):
         self.conf=SimpleConf(**conf)
 
+    def preload(self):
+        pass
+
     def proc(self, input:Union[str, Dict]) -> Dict[Text, Any]:
-        return {'input':input, 'result': self.conf}
+        return {'input':input, 'result': self.conf.json()}
 
