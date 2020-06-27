@@ -3,6 +3,9 @@ from sagas.util.name_util import to_global_id, from_global_id
 # from sagas.nlu.corenlp_helper import LangDialect as dia
 from sagas.util.collection_util import *
 # import sagas.nlu.locales as locales
+from sagas.tool.loggers import init_logger
+
+init_logger()
 
 def print_df(df):
     from tabulate import tabulate
@@ -16,3 +19,4 @@ def print_rs(rs, cols):
 def runtime_dir():
     import os
     return os.path.dirname(__file__)
+

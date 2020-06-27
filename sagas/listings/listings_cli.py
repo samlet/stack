@@ -60,14 +60,15 @@ class ListingsCli(object):
         """
         $ python -m sagas.listings.listings_cli example simple echo
         $ python -m sagas.listings.listings_cli example t5 fr
-
+        $ list simple echo
         :param conf:
         :param item:
         :return:
         """
         conf_cnt = self.get_conf(conf, 'Examples')
         example_item=conf_cnt[item]
-        return self.proc(conf, example_item['conf'], example_item['input'])
+        r= self.proc(conf, example_item['conf'], example_item['input'])
+        print(r)
 
 if __name__ == '__main__':
     import fire

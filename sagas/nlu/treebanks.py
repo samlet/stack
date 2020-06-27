@@ -3,6 +3,9 @@ import os
 import json_utils
 import json
 from sagas.conf.conf import cf
+import logging
+
+logger = logging.getLogger(__name__)
 
 treebanks_defs="""LANGUAGE	TREEBANK	LANGUAGE CODE	TREEBANK CODE	MODELS	VERSION	TREEBANK LICENSE	TREEBANK DOC	NOTES
 Afrikaans	AfriBooms	af	af_afribooms	download	0.2.0	Creative Commons License		 
@@ -83,6 +86,7 @@ Vietnamese	VTB	vi	vi_vtb	download	0.2.0	Creative Commons License
 class TreeBanks(object):
     def __init__(self):
         from sagas.conf import resource_json
+        logger.info('.. load treebanks definitions')
         self.conf=resource_json('treebanks.json')
         self.support_langs=[x['name'] for x in self.conf]
 
@@ -217,5 +221,5 @@ treebanks=TreeBanks()
 
 if __name__ == '__main__':
     import fire
-    fire.Fire(TreeBanks)
+    fire.Fire(treebanks)
 
