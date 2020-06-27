@@ -20,7 +20,7 @@ class T5Co(object):
         self.model = AutoModelWithLMHead.from_pretrained("t5-base")
         self.tokenizer = AutoTokenizer.from_pretrained("t5-base")
 
-    def proc(self, input:Union[str, Dict]) -> Dict[Text, Any]:
+    def proc(self, input:Any) -> Dict[Text, Any]:
         # self.preload()
         sentence=input if isinstance(input, str) else input['sentence']
         inputs = self.tokenizer.encode(

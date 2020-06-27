@@ -8,6 +8,11 @@ class AddOperation(faust.Record):
 
 @app.agent()
 async def add(stream):
+    """
+    Add function
+    :param stream:
+    :return:
+    """
     async for op in stream:
         yield op.x + op.y
 
