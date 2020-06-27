@@ -1,4 +1,5 @@
-from typing import List, Any
+from typing import List, Any, Mapping, Optional
+
 import faust
 
 class CoResult(faust.Record):
@@ -20,4 +21,19 @@ class SrlVerb(faust.Record):
 class SrlReform(faust.Record):
     verbs: List[SrlVerb]
     words: List[str]
+    pos: Optional[List[str]]
+    entities: Optional[List[str]]
+
+class CoReforms(faust.Record):
+    list: List[faust.Record]
+    notation: str = ''
+
+class PosReform(faust.Record):
+    words: List[str]
+    pos: List[str]
+
+class DeppReform(PosReform):
+    relations: List[str]
+    heads: List[str]
+    tree: Optional[Mapping]
 

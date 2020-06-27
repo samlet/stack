@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional
 import json
+from sagas.conf.conf import load_class
 
 class ListingsCli(object):
     def __init__(self):
@@ -28,7 +29,6 @@ class ListingsCli(object):
         return conf_cnt
 
     def get_instance(self, conf_cnt:Dict[Text, Any]):
-        from sagas.conf.conf import load_class
         type_name=conf_cnt['type']
         if type_name not in self.preloads:
             co_clz = load_class(type_name)
@@ -69,6 +69,9 @@ class ListingsCli(object):
         example_item=conf_cnt[item]
         r= self.proc(conf, example_item['conf'], example_item['input'])
         print(r)
+        if 'visualizer' in example_item:
+            vis=load_class(example_item['visualizer'])
+            vis().render(r.data)
 
 if __name__ == '__main__':
     import fire
