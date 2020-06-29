@@ -25,6 +25,12 @@ class BiaffineDeppCo(BaseCo):
         return CoResult(code='ok', data=reform)
 
 class DeppVisualizer(object):
+    """
+    >>> from sagas.listings.dependency.biaffine_depp import DeppVisualizer
+    >>> import sagas
+    >>> r = sagas.profs.depp.BiaffineDepp(sentence="Hugging Face is a technology company based in New York and Paris")
+    >>> DeppVisualizer().render(r['data'])
+    """
     def render(self, reform):
         from anytree.importer import DictImporter
         from anytree import RenderTree

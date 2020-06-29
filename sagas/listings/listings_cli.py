@@ -77,7 +77,9 @@ class ListingsCli(object):
             vis=load_class(prof['visualizer'])
             vis().render(r.data)
 
+listings=ListingsCli()
+
 if __name__ == '__main__':
     import fire
-    fire.Fire(ListingsCli)
+    fire.Fire(listings)
 

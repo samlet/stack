@@ -2,10 +2,9 @@ from sanic import Sanic
 from sanic.response import json
 from sanic import Blueprint
 
-from sagas.listings.listings_cli import ListingsCli
+from sagas.listings.listings_cli import ListingsCli, listings
 
 bp = Blueprint('root_blueprint')
-listings=ListingsCli()
 
 @bp.route('/')
 async def bp_root(request):

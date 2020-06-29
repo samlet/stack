@@ -16,17 +16,17 @@ with open("README.md", "r") as fh:
 REQUIRED = [
     "colorlog",
     "cached-property",
-    "PyExecJS",
+    # "PyExecJS",
     "fire",
     "simplejson",
     "PyYAML",
     "cachetools",
     "py4j",
-    'durable_rules',
-    'OdooRPC',
-    'salang-saara',
-    'stanza',
-    'wordfreq',
+    # 'durable_rules',
+    # 'OdooRPC',
+    # 'salang-saara',
+    # 'stanza',
+    # 'wordfreq',
 ]
 
 setuptools.setup(
