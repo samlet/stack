@@ -137,6 +137,10 @@ class TransClipConf(object):
     def delegates(self):
         return self.ensure('delegates')
 
+    @property
+    def comps(self):
+        return self.ensure('comps_delegator')
+
     def optional(self, item, defval):
         return self.conf[item] if item in self.conf else defval
 

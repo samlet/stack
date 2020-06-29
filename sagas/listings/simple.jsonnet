@@ -1,7 +1,14 @@
 {
+    // sagas.profs.simple.Simple(sentence='Hugging Face is a technology company')
     Simple: {
         'type': 'sagas.listings.testing.simple_co.SimpleCo',
         'id': '123',
+        'signup_ts': '2019-06-01 12:22',
+        'friends': [1, 2, '3']
+    },
+    Simple2: {
+        'type': 'sagas.listings.testing.simple_co.SimpleCo',
+        'id': '345',
         'signup_ts': '2019-06-01 12:22',
         'friends': [1, 2, '3']
     },

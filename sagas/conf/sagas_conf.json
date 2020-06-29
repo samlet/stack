@@ -58,6 +58,7 @@
   "print_tree":false,
   "assist_lang":"fr",
   "default_word_sets_langs":["en", "zh", "ja", "fr", "de", "id", "nl", "he"],
+  "comps_delegator": "http://localhost:1755/proc",
   "mongo":"mongodb://localhost/langs",
   "bert_servant":"localhost",
   "ofbiz_servant":"localhost",

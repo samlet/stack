@@ -1,25 +1,19 @@
 from typing import Text, Any, Dict, List, Union, Optional
 import logging
+
+from sagas import AttrDict
 from sagas.conf.conf import cf
 from sagas.listings.co_data import CoResult, DeppReform
 from sagas.listings.co_intf import BaseConf, BaseCo
 
 logger = logging.getLogger(__name__)
 
-
-class DeppConf(BaseConf):
-    model = ''
-
-
 class BiaffineDeppCo(BaseCo):
-    def __init__(self, conf):
-        self.conf = DeppConf(**conf)
-
     def preload(self):
         from allennlp_models.structured_prediction import BiaffineDependencyParserPredictor
         self.predictor_depp = BiaffineDependencyParserPredictor.from_path(f"{cf.data_dir}/allenai/biaffine-dependency-parser-ptb-2020.04.06.tar.gz")
 
-    def proc(self, input: Any) -> CoResult:
+    def proc(self, conf:AttrDict, input:Any) -> CoResult:
         sentence = input if isinstance(input, str) else input['sentence']
         r = self.predictor_depp.predict(sentence=sentence)
         reform = DeppReform(words=r['words'],
@@ -34,6 +28,9 @@ class DeppVisualizer(object):
     def render(self, reform):
         from anytree.importer import DictImporter
         from anytree import RenderTree
+
+        if isinstance(reform, dict):
+            reform=DeppReform.from_data(reform)
 
         importer = DictImporter()
         # tree_root = importer.import_(r['hierplane_tree']['root'])

@@ -1,5 +1,6 @@
 from typing import Text, Any, Dict, List, Union, Optional
 import allennlp.models
+from sagas import AttrDict
 from sagas.conf.conf import cf
 from sagas.listings.co_data import SrlReform, CoResult
 from sagas.listings.co_intf import BaseConf, BaseCo
@@ -18,21 +19,13 @@ def terms_tokens(terms: SrlReform):
         rs.append(tokens)
     return rs
 
-
-class SrlConf(BaseConf):
-    model = ''
-
-
 class BertSrlCo(BaseCo):
-    def __init__(self, conf):
-        self.conf = SrlConf(**conf)
-
     def preload(self):
         from allennlp_models.structured_prediction import SemanticRoleLabelerPredictor
         logger.info('.. load bert-base-srl')
         self.predictor = SemanticRoleLabelerPredictor.from_path(f"{cf.data_dir}/allenai/bert-base-srl-2020.03.24.tar.gz")
 
-    def proc(self, input: Any) -> CoResult:
+    def proc(self, conf:AttrDict, input:Any) -> CoResult:
         sentence = input if isinstance(input, str) else input['sentence']
         r = self.predictor.predict(sentence=sentence)
         data= SrlReform.from_data(r)

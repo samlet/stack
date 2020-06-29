@@ -1,6 +1,7 @@
 from typing import Text, Any, Dict, List, Union, Optional
 import logging
 
+from sagas import AttrDict
 from sagas.listings.co_data import CoResult
 from sagas.listings.co_intf import BaseConf, BaseCo
 from sagas.listings.co_data import SrlReform, CoReforms, SrlVerb
@@ -15,9 +16,6 @@ def norm_arg(tag, lead='B'):
         return f"{lead}-ARG{tag[1]}"
     return f"{lead}-{tag}"
 
-class PipelinesConf(BaseConf):
-    pipelines: List[Text]
-
 class LtpExt(LTP):
     @no_gard
     def ner_bio(self, hidden: dict):
@@ -29,9 +27,6 @@ class LtpExt(LTP):
         return ner_output
 
 class LtpSrlCo(BaseCo):
-    def __init__(self, conf):
-        self.conf = PipelinesConf(**conf)
-
     def preload(self):
         self.ltp = LtpExt()
 
@@ -53,7 +48,7 @@ class LtpSrlCo(BaseCo):
             reform.verbs.append(verb_form)
         return reform
 
-    def proc(self, input: Any) -> CoResult:
+    def proc(self, conf:AttrDict, input:Any) -> CoResult:
         ls = input if isinstance(input, List) else input['sents']
         sents = self.ltp.sent_split(ls)
         segs, hidden = self.ltp.seg(sents)
@@ -63,12 +58,12 @@ class LtpSrlCo(BaseCo):
             reform=self.build_reform(seg, srl)
             reforms.list.append(reform)
 
-        if 'pos' in self.conf.pipelines:
+        if 'pos' in conf.pipelines:
             pos_ls=self.ltp.pos(hidden)
             for reform, pos in zip(reforms.list, pos_ls):
                 reform.pos=pos
 
-        if 'ner' in self.conf.pipelines:
+        if 'ner' in conf.pipelines:
             ners=self.ltp.ner_bio(hidden)
             for reform, ner in zip(reforms.list, ners):
                 reform.entities=ner

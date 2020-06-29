@@ -32,7 +32,8 @@ class ListingsCli(object):
         type_name=conf_cnt['type']
         if type_name not in self.preloads:
             co_clz = load_class(type_name)
-            co=co_clz(conf_cnt)
+            # co=co_clz(conf_cnt)
+            co = co_clz()
             co.preload()
             self.preloads[type_name] = co
         return self.preloads[type_name]
@@ -51,10 +52,11 @@ class ListingsCli(object):
         :param input:
         :return:
         """
+        from sagas.util.collection_util import to_obj
         conf_cnt=self.get_conf(conf, item)
         co = self.get_instance(conf_cnt)
-        print(co.conf)
-        return co.proc(input)
+        print(conf_cnt)
+        return co.proc(to_obj(conf_cnt), input)
 
     def example(self, conf, item):
         """
@@ -69,8 +71,10 @@ class ListingsCli(object):
         example_item=conf_cnt[item]
         r= self.proc(conf, example_item['conf'], example_item['input'])
         print(r)
-        if 'visualizer' in example_item:
-            vis=load_class(example_item['visualizer'])
+
+        prof=self.get_conf(conf, example_item['conf'])
+        if 'visualizer' in prof:
+            vis=load_class(prof['visualizer'])
             vis().render(r.data)
 
 if __name__ == '__main__':

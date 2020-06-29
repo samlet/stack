@@ -24,9 +24,10 @@ async def proc(request, target, item):
     :param request:
     :return:
     """
+    from mode.utils.compat import want_bytes, want_str
     rd = request.json
     result=listings.proc(target, item, rd)
-    return json(result)
+    return json(result, dumps=lambda c: want_str(c.dumps(serializer='json')))
 
 app = Sanic(__name__)
 app.blueprint(bp)

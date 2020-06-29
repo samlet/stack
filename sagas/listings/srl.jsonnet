@@ -1,8 +1,10 @@
 {
+    // sagas.profs.srl.BertSrl(sentence="Hugging Face is a technology company based in New York and Paris")
     BertSrl: {
         'type': 'sagas.listings.srl.bert_srl_co.BertSrlCo',
         'model': ''
     },
+    // sagas.profs.srl.LtpSrl(sents=["他叫汤姆去拿外衣。"])
     LtpSrl: {
         'type': 'sagas.listings.srl.ltp_srl_co.LtpSrlCo',
         'pipelines': ['pos', 'ner'],

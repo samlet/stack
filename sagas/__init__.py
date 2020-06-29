@@ -20,3 +20,4 @@ def runtime_dir():
     import os
     return os.path.dirname(__file__)
 
+from sagas.tool.comps_delegator import profs
