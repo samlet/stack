@@ -3,6 +3,10 @@ import errno
 import os
 import io
 
+def home_dir():
+    import pathlib
+    return pathlib.Path.home()
+
 def exists(file):
     """
     Check file or director whether exists; other related methods:
