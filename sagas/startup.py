@@ -14,7 +14,7 @@ class Startup(object):
         import os
         import sys
         from sagas.conf import resource_files, resource_path
-        mod_files=[resource_path(f) for f in resource_files('startups_*.json')]
+        mod_files=[resource_path(f) for f in resource_files('startups_default*.json')]
         if os.path.exists('./assets'):
             mod_files.extend(glob.glob('./assets/startups_*.json'))
             sys.path.append(os.path.abspath('.'))
