@@ -41,7 +41,9 @@ setuptools.setup(
     packages=["", *find_packages(exclude=('actions', 'tests', 'test',
                                           'compose', 'crawlers', 'dart',
                                           'agents', ))],
-    entry_points={"console_scripts": ["sagas=sagas.__main__:main"]},
+    entry_points={"console_scripts": ["sagas=sagas.__main__:main",
+                                      "pallets=sagas.substrate.pallet_template:main",
+                                      ]},
     install_requires=REQUIRED,
     extras_require={
         'interactive': ['matplotlib>=3.0.3,<4.0.0', 'jupyter', 'streamlit',
