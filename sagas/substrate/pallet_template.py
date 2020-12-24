@@ -9,6 +9,8 @@ class PalletTemplate(object):
         $ python -m sagas.substrate.pallet_template bake simple-map new-map NewMap
         $ python -m sagas.substrate.pallet_template bake plain plain Plain
         $ python -m sagas.substrate.pallet_template bake dataset cookies Cookies
+        $ pallets bake delegator delegator Delegator
+
         :param template_dir:
         :param proj_name:
         :param name:
