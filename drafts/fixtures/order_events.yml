@@ -1,0 +1,24 @@
+eecas:
+    Order:
+        # 立即完成的订单的库存发出ECA
+        define: |
+            <!-- Inventory Issue ECAs for Immediately Fulfilled Orders -->
+            <eca entity="OrderHeader" operation="create-store" event="return">
+                <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>
+                <condition field-name="needsInventoryIssuance" operator="equals" value="Y"/>
+                <action service="issueImmediatelyFulfilledOrder" mode="sync"/>
+            </eca>
+
+            <eca entity="OrderItem" operation="create-store" event="return">
+                <condition field-name="quoteId" operator="is-not-empty"/>
+                <action service="checkUpdateQuoteStatus" mode="sync"/>
+            </eca>
+
+    OrderPaymentPreference:
+        define: |
+            <eca entity="OrderPaymentPreference" operation="create-store" event="return">
+                <condition field-name="orderPaymentPreferenceId" operator="is-not-empty"/>
+                <condition field-name="statusId" operator="is-not-empty"/>
+                <action service="changeOrderPaymentStatus" mode="sync"/>
+            </eca>
+

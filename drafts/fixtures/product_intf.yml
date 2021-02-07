@@ -1,0 +1,27 @@
+services:
+    PromoAction:
+        interface: interfaceProductPromoAction
+        impls:
+            # productGWP: This function return success if conditions are valid and generate gift with purchase
+            - productPromoActGiftGWP
+            # productActFreeShip: This function return success, if conditions are valid shipping will be set free
+            - productPromoActFreeShip
+            # productDISC: This function return success, if conditions are valid so X Product for Y% Discount
+            - productPromoActProdDISC
+            # productAMDISC: This function return success, if conditions are valid so X Product for Y Discount
+            - productPromoActProdAMDISC
+            # Product promo Action product price
+            - productPromoActProdPrice
+            - productPromoActOrderPercent
+            - productPromoActOrderAmount
+            - productPromoActProdSpecialPrice
+            - productPromoActTaxPercent
+            - productPromoActShipCharge
+
+    PromoCond:
+        interface: interfaceProductPromoCond
+        impls:
+            - productPromoCondProductAmount
+            - productPromoCondProductTotal
+            - productPromoCondProductQuant
+

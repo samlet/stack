@@ -1,0 +1,214 @@
+services:
+    # 批量订单变更
+    MassOrderChanges:
+        interface: massOrderChangeInterface
+        attrs:
+            orderIdList: {type: List, mode: IN, optional: false}
+        impls:
+            - massPickOrders    # 批量接单
+            - massChangeOrderApproved   # 批量变更单已批准
+            - massProcessOrders
+            - massHoldOrders    # 批量暂停订单
+            - massCancelOrders
+            - massCancelRemainingPurchaseOrderItems
+            - massRejectOrders  # 批量拒绝订单
+            - massQuickShipOrders   # 大量快速发货订单
+            - massPrintOrders
+            - massCreateFileForOrders
+        specs:
+            massPickOrders:
+                flows: |
+                    1.  facilityOrdersMap: grouped by facility
+                    2.  orderIdList: make the list per facility
+                    3.  invInfo = EntityQuery.use(delegator).from("OrderItemAndShipGrpInvResAndItem").where("orderId", orderId, "statusId",
+                                               "ITEM_APPROVED").queryList();
+                        facilityId = inv.getString("facilityId");
+                        facilityOrdersMap.put(facilityId, orderIdsByFacility);
+                    4.  now create the pick lists for each facility:
+                        ctx: orderIdList, facilityId
+                        dispatcher.runSync("createPicklistFromOrders", ctx);
+                blues: |
+                    1.  facility作为合约实例角色, 收到接单(pick-orders)会触发相应的事件;
+                    2.  得到事件通知的owner, 可以调用合约方法进行确认;
+                    3.  使用contracts方式来构建的话, 可以直接映射到现实组织,
+                        不同facility的owner会分别收到事件通知, 各自进行确认;
+
+            massCancelOrders:
+                flows: |
+                    1.  massChangeItemStatus(dctx, context, "ITEM_CANCELLED");
+                    2.  orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
+                    3.  with ctx: statusId, orderId
+                        dispatcher.runSync("changeOrderItemStatus", ctx);
+
+    CreateOrder:
+        services:
+            storeOrder:
+                description: Creates order entities
+                flows: |
+                    1.  check security permissions for order:
+                         SALES ORDERS - if userLogin has ORDERMGR_SALES_CREATE or ORDERMGR_CREATE permission, or if it is same party as the partyId, or
+                                        if it is an AGENT (sales rep) creating an order for his customer
+                         PURCHASE ORDERS - if there is a PURCHASE_ORDER permission
+                        final check - will pass if userLogin's partyId = partyId for order or if userLogin has ORDERMGR_CREATE permission
+                    2.  get the product store for the order, but it is required only for sales orders
+                    3.  figure out if the order is immediately fulfilled based on product store settings
+                        * 根据产品商店设置确定是否立即履行订单
+                    4.  lookup the order type entity
+                        make sure we have a valid order type
+                    5.  check to make sure we have something to order:
+                        - orderItems
+                        - orderAdjustments
+                        - orderItemShipGroupInfo
+                        - orderItemPriceInfos
+                    6.  check inventory and other things for each item
+                        * 检查每个项目的库存和其他内容
+                    7.  need to run through the items combining any cases where multiple lines refer to the
+                        same product so the inventory check will work correctly
+                        also count quantities ordered while going through the loop
+                        * 需要结合多个行涉及同一产品的所有情况下的所有项目，以便库存检查将正确运行，并且还可以计算循环中订购的数量
+                        count product ordered quantities
+                        run this synchronously so it will run in the same transaction
+                    8.  lookup the product entity for each normalized item; error on products not found
+                        When past orders are imported, they should be imported even if sales discontinuation date is in the past but if the order date was before it
+                        * 导入过去的订单时，即使销售终止日期是过去的日期，但即使订购日期早于该日期，也应将其导入
+                        check to see if salesDiscontinuationDate has passed
+                    9.  if ("SALES_ORDER".equals(orderTypeId))
+                        check to see if we have inventory available
+                    10. add the fixedAsset id to the workefforts map by obtaining the fixed Asset number from the FixedAssetProduct table
+                        for rental items:
+                            check to see if workefforts are available for this order type.
+                            find the related workEffortItem (workEffortId = orderSeqId)
+                            create the entity maps required.
+                    11. the inital status for ALL order types
+                        initialStatus = "ORDER_CREATED";
+                    12. create the order object
+                        dispatcher.runSync("getNextOrderId", getNextOrderIdContext);
+                    13. for purchase orders or when other orderId generation fails, a product store id should not be required to make an order
+                    14. with ctx: billingAccountId, orderDate = nowTimestamp, statusId, agreementId, needsInventoryIssuance
+                        delegator.makeValue("OrderHeader", orderHeaderMap);
+                    15. determine the sales channel (确定销售渠道)
+                    16. first try to create the OrderHeader; if this does not fail, continue.
+                    17. create the order status record
+                    18. before processing orderItems process orderItemGroups so that they'll be in place for the foreign keys and what not
+                    19. set the order items; create the item status record
+                    20. set the order attributes
+                    21. set the order item attributes
+                    22. create the order internal notes
+                        dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId,
+                                        "internalNote", "Y",
+                                        "note", orderInternalNote,
+                                        "userLogin", userLogin));
+                    23. create the order public notes
+                    24. create the workeffort records
+                        and connect them with the orderitem over the WorkOrderItemFulfillment
+                        create also the techData calendars to keep track of availability of the fixed asset.
+                        * 还创建techData日历以跟踪固定资产的可用性。
+                            find fixed asset supplied on the workeffort map
+                            see if this fixed asset has a calendar, when no create one and attach to fixed asset
+                            then create the workEffort and the workOrderItemFulfillment to connect to the order and orderItem
+                            now create the TechDataExcDay, when they do not exist, create otherwise update the capacity values
+                            please note that calendarId is the same for (TechData)Calendar, CalendarExcDay and CalendarExWeek
+                            find an existing Day exception record
+                            add the quantity to the quantity on the date record
+                    25. set the orderId on all adjustments; this list will include order and item adjustments...
+                    26. set the order contact mechs
+                    27. set the order item contact mechs
+                    28. set the order item ship groups
+                        this list will contain the ids of all the ship groups for drop shipments (no reservations)
+                        * 此列表将包含所有直接发货的船组的ID（无保留）
+                        ship group: carrierRoleTypeId, shipGroupSeqId
+                        shipping / tax adjustment(s): orderItemSeqId, orderAdjustmentId, createdDate, createdByUserLogin
+                    29. set the additional party roles
+                    30. set the item survey responses
+                    31. set the item price info; NOTE: this must be after the orderItems are stored for referential integrity
+                        * 设置商品价格信息； 注意：必须在存储orderItems之后，以确保引用完整性
+                    32. set the item associations
+                    33. store the orderProductPromoUseInfos
+                    34. store the orderProductPromoCodes
+                    35. see the attributeRoleMap definition near the top of this file for attribute-role mappings
+                        make sure the party is in the role before adding
+                    36. set the affiliate -- This is going to be removed...
+                    37. set the distributor
+                    38. find all parties in role VENDOR associated with WebSite OR ProductStore (where WebSite overrides, if specified), associated first valid with the Order
+                    39. set the order payment info
+                    40. store the trackingCodeOrder entities
+                    41. store the OrderTerm entities
+                    42. if a workEffortId is passed, then prepare a OrderHeaderWorkEffort value
+                        delegator.makeValue("OrderHeaderWorkEffort");
+                    43. store line items, etc so that they will be there for the foreign key checks
+                        * 存储订单项等，以便在那里可以进行外键检查
+                        add a product service to inventory
+                        inventory reservation
+
+    OrderNotification:
+        interface: orderNotificationInterface
+        impls:
+            - sendOrderConfirmation
+            - sendOrderChangeNotification
+            - sendOrderCompleteNotification
+            - sendOrderBackorderNotification    # 发送订单缺货通知
+            - sendOrderPayRetryNotification     # 发送订单付款重试通知
+        services:
+            sendPOEmail: |
+                Send Purchase Order Email
+            sendProcessNotification: |
+                Limit Service for order processing workflow; sends activitiy notifications
+            createOrderNotificationLog: |
+                Logs when a notification was sent
+                entity: OrderNotification
+
+    ShoppingCart:
+        services:
+            callProcessOrderPayments: |
+                type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"
+            createOrderFromShoppingCart: |
+                type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"
+            loadCartForUpdate: |
+                Load an existing shopping cart
+            saveUpdatedCartToOrder: |
+                Update the quantities/prices for an existing order
+
+    NonProductSalesOrder:
+        services:
+            createSimpleNonProductSalesOrder: |
+                paymentMethodId, productStoreId, currency, partyId, itemMap
+
+    Billing:
+        services:
+            createOrderItemBilling: |
+                Create a new order item billing record
+            createOrderAdjustmentBilling: |
+                Create a new order adjustment billing record
+
+    OrderAdjustment:
+        services:
+            orderAdjustmentPermissionCheck: |
+                Permission service for the creation and editing of order adjustments
+            createOrderAdjustment: |
+                Creates a new order adjustment record
+                permission-service service-name="orderAdjustmentPermissionCheck" main-action="CREATE"
+            updateOrderAdjustment: |
+                Update an order adjustment record
+                permission-service service-name="orderAdjustmentPermissionCheck" main-action="UPDATE"
+            deleteOrderAdjustment: |
+                Delete an order adjustment record
+                permission-service service-name="orderAdjustmentPermissionCheck" main-action="DELETE"
+            recreateOrderAdjustments: |
+                Remove all existing order adjustments, recalc them and persist in OrderAdjustment.
+
+    Payments:
+        services:
+            createPaymentFromPreference: |
+                Creates a payment using the order payment preference
+            processOrderPayments: |
+                Process payments for an order
+            updateOrderPaymentPreference: |
+                entity: OrderPaymentPreference
+
+    OrderStatus:
+        services:
+            checkOrderItemStatus: |
+                Check the status of all items and cancel/approve/complete the order if we can
+            updateOrderStatusFromReceipt: |
+                Updates the (purchase) order/order item status based on receipt
+

@@ -1,0 +1,866 @@
+types:
+    Agreement:
+        terms:
+            Agreement: |
+                (p.117) 协议是条款和条件的集合, 管理着两个当事人(例如一个客户和一个供应商)之间的关系.
+                订单和协议之间的关键区别是订单是购买产品的一次性委托, 而协议指明两个当事人怎样在以后从事商务行为.
+                协议角色可以用到当事人关系的关系或到协议角色的关系或两种方式来定义.
+            AgreementItem: |
+                (p.119) 每个协议会有协议项目, 是子协议或者协议的一部分; 这些部分可能是特殊的节或子句, 允许协议按节划分或引用.
+                此外, 协议可以具有一些部分, 适用于一定的地域, 一定类型的产品, 或在协议中涉及的组织机构的某些特定部分.
+            AgreementProductAppl: |
+                (p.121) 协议项目会明确为一定的地域, 产品或组织. 协议地理范围适用性, 协议产品适用性, 协议组织适用性, ...
+        refs: [协议项目, 协议条款, 协议定价]
+        entities:
+            - Product
+            - ProductPrice
+            - ProductCategoryMember
+            - PartyRole
+            - Agreement
+            - AgreementItem
+            - AgreementProductAppl
+        # test for product shipped from drop shipment and with agreement to resolve the purchase price
+        # To test: create a sales order for DemoCustomer with the product DS-100
+        # On shipping plan, select DemoSupplier as supplier and agreement DS-1000-PURCH as supplier agreement
+        # When the order will be create, the purchase order create will be have unit price 8 instead 9.
+        seed: |
+            <Product productId="DS-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="PROMOTIONS" productName="Drop ship product" internalName="drop ship" description="product shipped from drop shipment and with agreement to resolve the purchase price" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" requirementMethodEnumId="PRODRQM_DS"/>
+            <ProductPrice productId="DS-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="10" />
+            <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" supplierProductId="DS-1000_A" supplierProductName="Drop SP" availableFromDate="2005-01-01 00:00:00.000" canDropShip="Y"/>
+            <ProductCategoryMember productCategoryId="200" productId="DS-1000" fromDate="2011-08-02 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
+            <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
+            <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+            <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000"/>
+            <Agreement agreementId="DS-1000-PURCH" agreementTypeId="PURCHASE_AGREEMENT" description="Agreement with DemoSupplier" partyIdFrom="Company" partyIdTo="DemoSupplier" fromDate="2011-08-02 12:00:00.0"/>
+            <AgreementItem agreementId="DS-1000-PURCH" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
+            <AgreementProductAppl agreementId="DS-1000-PURCH" agreementItemSeqId="00001" price="8" productId="DS-1000"/>
+
+    CommissionAgreements:
+        # Commission Agreements, 比如, 不论价格如何，每件商品均收取佣金;
+        # 每件商品价格的3％佣金; 每单位无负佣金;
+        seed: |
+            <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
+            <AgreementItem agreementId="9000" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
+            <AgreementTerm agreementTermId="9000" invoiceItemTypeId="INV_FPROD_ITEM" termTypeId="FIN_COMM_FIXED" agreementId="9000" agreementItemSeqId="0001" termValue="1" termDays="30"/> <!-- $1 commission on every item no matter what price, pay in 30 days -->
+            <AgreementTerm agreementTermId="9001" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_VARIABLE" agreementId="9000" agreementItemSeqId="0001" termValue="3" termDays="30"/> <!-- 3% commission on the price of every item -->
+            <AgreementTerm agreementTermId="9002" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_MIN" agreementId="9000" agreementItemSeqId="0001" termValue="0" termDays="30"/> <!-- No negative commission per unit (returns would still be negative) -->
+            <!-- shows a virtual product can be used to model commission for all variants -->
+            <AgreementProductAppl agreementId="9000" agreementItemSeqId="0001" productId="WG-9943"/>
+    SalesAgreement:
+        seed: |
+            <!-- The agreement AGR_SALES is a SALES_AGREEMENT between the Company party and the DemoCustomer party (in the role of CUSTOMER)  -->
+            <!-- For a sales agreement the roleTypeIdFrom and roleTypeIdTo are not mandatory  see OrderAgreements.groovy[31] -->
+            <!-- Here is now to create a SALES_AGREEMENT
+                * create an agreement and set:
+                ** agreement type: Sales
+                ** party if from: the customer
+                ** party id to: the Company
+            * create an agreement item of type "Pricing" and set the currency
+                ** go to the "product" tab
+                ** enter the product id and price (they will override the ProductPrice if the agreement is selected in the order)
+                **  and (for a PO only) Supplier
+                ** go to the terms: they will be copied to the order and invoice
+            -->
+            <Agreement agreementId="AGR_SALES"  partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER"  roleTypeIdTo="INTERNAL_ORGANIZATIO" agreementTypeId="SALES_AGREEMENT" description="Agreement for DemoCustomer"/>
+            <AgreementItem agreementId="AGR_SALES" agreementItemSeqId="00001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR"  agreementText="Price list in US Dollars"/>
+            <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="9000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
+            <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
+            <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
+
+
+    Promotions:
+        # Some additional test promotions
+        # GWP example on >$100 purchase
+        # $ off items, any in category, limit use (try by order, customer, promo)
+        # 20% off any one item in product list, ie limit 1 per order
+        # 10% off entire purchase
+        # $ off entire purchase with promo code
+        # Buy 3 Get 2 Free in category, limit to two per order
+        # Buy 1 Get 1 At 50% off with promo code, no limit
+        # 4 for $50 in set of products
+        seed: |
+            <ProductPromo productPromoId="9000" promoName="Test Promo 1" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
+                <promoText><![CDATA[Spend more than $100 on your favorite widgets and gizmos and get a free <a href="/ecommerce/control/product?category_id=20111&amp;product_id=WG-1111">Micro Chrome Widget</a>!]]></promoText>
+            </ProductPromo>
+            <ProductPromo productPromoId="9010" promoName="Test Percent off product set " promoText="20% off any one item, either GZ-1005 (.NIT Gizmo) or GZ-1006 (Open Gizmo) with a limit of 1 per order" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9011" promoName="Test percent off entire purchase, no condition" promoText="10% off entire purchase" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9012" promoName="Test amount off order" promoText="$10 off entire purchase of $50 or more with promo code [9000], limit use of code to one per customer, limit for three uses total for the code" userEntered="Y" showToCustomer="Y" requireCode="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9013" promoName="Test buy X get Y free" promoText="Buy 3 Get 2 Free in the Widgets [200] or any sub-category (except the Small Widgets [201] category and sub-categories, but always including the Micro Widgets [20111] category), limit to two per order" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="2" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9014" promoName="Test buy X get Y at Z% discount" promoText="Buy 1 Big Gizmo [GZ-8544] or Massive Gizmo [GZ-7000] Get 1 Purple Gizmo [GZ-5005] At 50% off with promo code [9001] (must be associated with Party or Email), no limit" userEntered="Y" showToCustomer="Y" requireCode="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9015" promoName="Test X products for $Y" promoText="Buy 4 items for $50 from Purple Gizmo [GZ-5005], Rainbow Gizmo [GZ-1004], Round Gizmo [GZ-2644] or Square Gizmo [GZ-2002] limit 2 per customer" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerCustomer="2" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9016" promoName="Test $ off products in categories" promoText="Get $500 off any item in the Small Gizmos [101] category, limit 1 per order, 2 per customer, 3 for entire promotion. Discount not to exceed the price of the item." userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" useLimitPerCustomer="2" useLimitPerPromotion="3" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9017" promoName="Test Gift with Amount of Specific Product" userEntered="Y" useLimitPerOrder="2" createdDate="2001-05-13 12:00:00.0">
+                <promoText><![CDATA[Buy $50 of your favorite gizmos (all products in Gizmo [100] or sub-category) get a free <a href="/ecommerce/control/product?category_id=20111&amp;product_id=GZ-1006">Open Gizmo</a>! Limit 2 per order.]]></promoText>
+            </ProductPromo>
+            <ProductPromo productPromoId="9018" promoName="Test Gift with Total Amount of Product" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
+                <promoText><![CDATA[Spend more than $150 on your favorite gizmos (all products in Gizmo [100] or sub-category) and get a free <a href="/ecommerce/control/product?category_id=20111&amp;product_id=GZ-1006">Open Gizmo</a>!]]></promoText>
+            </ProductPromo>
+            <ProductPromo productPromoId="9019" promoName="Test Percent off when Customer Orders over $1000 in 12 months" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
+                <promoText><![CDATA[Spend more than $1000 in any 12 months on our fabulous Widgets and Gizmos and get a 5% discount.]]></promoText>
+            </ProductPromo>
+            <ProductPromo productPromoId="9020" promoName="Test Promotion Recurrence - Happy hour" promoText="Get 1 Free [WG-1111], between 15:00 - 18:00 at weekdays" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2008-01-01 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-01-01 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromo productPromoId="9022" promoName="Free Shipping in Utah" promoText="Free Shipping in Utah" requireCode="N" showToCustomer="Y" useLimitPerOrder="1" userEntered="Y"/>
+
+            <ProductPromoRule productPromoId="9000" productPromoRuleId="01" ruleName="Rule 1: Free Widget"/>
+            <ProductPromoRule productPromoId="9010" productPromoRuleId="01" ruleName="Test Percent off rule"/>
+            <ProductPromoRule productPromoId="9011" productPromoRuleId="01" ruleName="Test percent off order"/>
+            <ProductPromoRule productPromoId="9012" productPromoRuleId="01" ruleName="Test amount off order"/>
+            <ProductPromoRule productPromoId="9013" productPromoRuleId="01" ruleName="Test bogo"/>
+            <ProductPromoRule productPromoId="9014" productPromoRuleId="01" ruleName="Test buy 1 get 1 at 50%"/>
+            <ProductPromoRule productPromoId="9015" productPromoRuleId="01" ruleName="Test multiple promotion"/>
+            <ProductPromoRule productPromoId="9016" productPromoRuleId="01" ruleName="Dollar discount on Small Gizmos"/>
+            <ProductPromoRule productPromoId="9017" productPromoRuleId="01" ruleName="GWP for Gizmos Only"/>
+            <ProductPromoRule productPromoId="9018" productPromoRuleId="01" ruleName="GWP for Gizmos Only Not Counted"/>
+            <ProductPromoRule productPromoId="9019" productPromoRuleId="01" ruleName="Percent off for Ordered Sub-Total History"/>
+            <ProductPromoRule productPromoId="9020" productPromoRuleId="01" ruleName="Test Promotion Recurrence"/>
+            <ProductPromoRule productPromoId="9022" productPromoRuleId="01" ruleName="Free Shipping in Utah"/>
+
+            <ProductPromoAction productPromoId="9000" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="WG-1111"/>
+            <ProductPromoAction productPromoId="9010" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" amount="20.0"/>
+            <ProductPromoAction productPromoId="9011" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_ORDER_PERCENT" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="10.0"/>
+            <ProductPromoAction productPromoId="9012" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_ORDER_AMOUNT" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="10.0"/>
+            <ProductPromoAction productPromoId="9013" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="2.0" amount="100.0"/>
+            <ProductPromoAction productPromoId="9014" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" amount="50.0"/>
+            <ProductPromoAction productPromoId="9015" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_PRICE" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="4.0" amount="50.0"/>
+            <ProductPromoAction productPromoId="9016" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_AMDISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" amount="500.0"/>
+            <ProductPromoAction productPromoId="9017" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="GZ-1006"/>
+            <ProductPromoAction productPromoId="9018" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="GZ-1006"/>
+            <ProductPromoAction productPromoId="9019" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_ORDER_PERCENT" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="5.0"/>
+            <ProductPromoAction productPromoId="9020" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="WG-1111"/>
+            <ProductPromoAction productPromoId="9022" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_SHIP_CHARGE" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="100.000000"/>
+
+            <ProductPromoCond productPromoId="9000" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_ORDER_TOTAL" operatorEnumId="PPC_GT" condValue="100"/>
+            <ProductPromoCond productPromoId="9012" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_ORDER_TOTAL" operatorEnumId="PPC_GTE" condValue="50"/>
+            <ProductPromoCond productPromoId="9013" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_QUANT" operatorEnumId="PPC_EQ" condValue="3"/>
+            <ProductPromoCond productPromoId="9014" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_QUANT" operatorEnumId="PPC_EQ" condValue="1"/>
+            <ProductPromoCond productPromoId="9017" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_AMOUNT" operatorEnumId="PPC_EQ" condValue="50"/>
+            <ProductPromoCond productPromoId="9018" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_TOTAL" operatorEnumId="PPC_GTE" condValue="150"/>
+            <ProductPromoCond productPromoId="9019" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_ORST_HIST" operatorEnumId="PPC_GTE" condValue="1000" otherValue="12"/>
+            <ProductPromoCond productPromoId="9020" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_RECURRENCE" operatorEnumId="PPC_EQ" condValue="205"/>
+            <ProductPromoCond productPromoId="9022" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_GEO_ID" operatorEnumId="PPC_EQ" condValue="UT"/>
+
+            <ProductPromoCategory productPromoId="9013" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="200" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE" includeSubCategories="Y"/>
+            <ProductPromoCategory productPromoId="9013" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="201" andGroupId="_NA_" productPromoApplEnumId="PPPA_EXCLUDE" includeSubCategories="Y"/>
+            <ProductPromoCategory productPromoId="9013" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="20111" andGroupId="_NA_" productPromoApplEnumId="PPPA_ALWAYS" includeSubCategories="N"/>
+            <ProductPromoCategory productPromoId="9016" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="101" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE" includeSubCategories="N"/>
+            <ProductPromoCategory productPromoId="9017" productPromoRuleId="01" productPromoActionSeqId="_NA_" productPromoCondSeqId="01" productCategoryId="100" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE" includeSubCategories="Y"/>
+            <ProductPromoCategory productPromoId="9018" productPromoRuleId="01" productPromoActionSeqId="_NA_" productPromoCondSeqId="01" productCategoryId="100" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE" includeSubCategories="Y"/>
+            <ProductPromoProduct productPromoId="9010" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-1005" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9010" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productId="GZ-1006" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9014" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-5005" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9014" productPromoRuleId="01" productPromoActionSeqId="_NA_" productPromoCondSeqId="01" productId="GZ-7000" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9014" productPromoRuleId="01" productPromoActionSeqId="_NA_" productPromoCondSeqId="01" productId="GZ-8544" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9015" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-1004" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9015" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-2002" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9015" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-2644" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoProduct productPromoId="9015" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-5005" productPromoApplEnumId="PPPA_INCLUDE"/>
+            <ProductPromoCode productPromoCodeId="9000" productPromoId="9012" userEntered="Y" requireEmailOrParty="N" useLimitPerCode="3" useLimitPerCustomer="1" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromoCode productPromoCodeId="9001" productPromoId="9014" userEntered="Y" requireEmailOrParty="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9000" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9010" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9011" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9012" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9013" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9014" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9015" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9016" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9017" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9018" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9019" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9020" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9022" fromDate="2016-04-16 13:59:19.748" sequenceNum="1"/>
+
+            <ProductPromo productPromoId="9021" promoName="Test Products for Special Promo Price" promoText="With special code [9021] get products in the Featured Products category for their special promotion price." userEntered="Y" showToCustomer="Y" requireCode="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromoCode productPromoCodeId="9021" productPromoId="9021" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPromoRule productPromoId="9021" productPromoRuleId="01" ruleName="Test Special Promo Price"/>
+            <ProductPromoAction productPromoId="9021" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_SPPRC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT"/>
+            <ProductPromoCategory productPromoId="9021" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productCategoryId="PROMOTIONS" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE" includeSubCategories="N"/>
+            <ProductStorePromoAppl productStoreId="9000" productPromoId="9021" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+
+            <!-- a promotion recurrence example for happy hour-->
+            <RecurrenceRule recurrenceRuleId="205" frequency="DAILY" intervalNumber="1" countNumber="-1" byHourList="15,16,17" byDayList="MO,TU,WE,TH,FR"/>
+            <RecurrenceInfo recurrenceInfoId="205" startDateTime="2008-01-01 00:00:00.000" recurrenceRuleId="205" recurrenceCount="0"/>
+
+            <!-- a default pricing rule to play with; take 20% off all products in the PROMOTIONS category -->
+            <ProductPriceRule productPriceRuleId="9000" ruleName="Test Rule 1" isSale="Y"/>
+            <ProductPriceCond condValue="PROMOTIONS" inputParamEnumId="PRIP_PROD_CAT_ID" operatorEnumId="PRC_EQ" productPriceCondSeqId="01" productPriceRuleId="9000"/>
+            <ProductPriceAction amount="-20.0" productPriceActionSeqId="01" productPriceActionTypeId="PRICE_POL" productPriceRuleId="9000"/>
+
+            <!-- this is just an example of specifying a price for a particular product and party group membership -->
+            <ProductPriceRule productPriceRuleId="9001" ruleName="Test Rule 2" isSale="Y"/>
+            <ProductPriceCond inputParamEnumId="PRIP_PRODUCT_ID" operatorEnumId="PRC_EQ" condValue="WG-1111" productPriceCondSeqId="01" productPriceRuleId="9001"/>
+            <ProductPriceCond inputParamEnumId="PRIP_PARTY_GRP_MEM" operatorEnumId="PRC_EQ" condValue="DemoCustCompany" productPriceCondSeqId="02" productPriceRuleId="9001"/>
+            <ProductPriceAction productPriceRuleId="9001" productPriceActionSeqId="01" productPriceActionTypeId="PRICE_FLAT" amount="18.95"/>
+
+    GiftCard:
+        # example gift card product info
+        seed: |
+            <ProductCategory productCategoryId="GC-100" productCategoryTypeId="CATALOG_CATEGORY"/>
+            <ProductCategory productCategoryId="GC-101" productCategoryTypeId="CATALOG_CATEGORY"/>
+            <ProductCategory productCategoryId="GC-102" productCategoryTypeId="CATALOG_CATEGORY"/>
+            <ProductCategory productCategoryId="GC-103" productCategoryTypeId="GIFT_CARD_CATEGORY"/>
+
+            <Product productId="GC-002" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-102" internalName="Gift Card Reload" productName="Gift Card Reload" description="Add more money to your card!" requireAmount="Y" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-101" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="Y" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-C10" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-C100" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-C25" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-C50" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-CO" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" requireAmount="Y" amountUomTypeId="CURRENCY_MEASURE" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-H10" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-H100" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-H25" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-H50" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <Product productId="GC-001-HO" productTypeId="DIGITAL_GOOD" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" requireAmount="Y" amountUomTypeId="CURRENCY_MEASURE" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-C10" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-C100" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-C25" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-C50" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-CO" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-H10" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-H100" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-H25" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-H50" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductAssoc productId="GC-001" productIdTo="GC-001-HO" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductPrice productId="GC-002" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-C10" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="10.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-C100" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="100.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-C25" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-C50" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-CO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-H10" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="10.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-H100" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="100.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-H25" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-H50" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="GC-001-HO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+            <ProductCategoryMember productCategoryId="GC-100" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-100" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-102" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C10" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C100" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C25" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-C50" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-CO" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H10" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H100" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H25" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H50" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-HO" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C10" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C25" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C50" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C100" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
+            <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GC-100" productCategoryId="GC-101"/>
+            <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GC-100" productCategoryId="GC-102"/>
+            <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="GC-100"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-100-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-100-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-101-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-101-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-102-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-102-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-002-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-002-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C10-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C10-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C100-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C100-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C25-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C25-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C50-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C50-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-CO-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-CO-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H10-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H10-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H100-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H100-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H25-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H25-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H50-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H50-ALTEN" localeString="en_US"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-HO-ALT" localeString="en"/>
+            <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-HO-ALTEN" localeString="en_US"/>
+
+            <ElectronicText dataResourceId="GC-100-ALT" textData="gift-cards"/>
+            <ElectronicText dataResourceId="GC-101-ALT" textData="gift-cards-purchases"/>
+            <ElectronicText dataResourceId="GC-102-ALT" textData="gift-cards-reloads"/>
+            <ElectronicText dataResourceId="GC-002-ALT" textData="gift-card-reload"/>
+            <ElectronicText dataResourceId="GC-001-ALT" textData="gift-card-activation"/>
+            <ElectronicText dataResourceId="GC-001-C10-ALT" textData="gift-card-activation-c10"/>
+            <ElectronicText dataResourceId="GC-001-C100-ALT" textData="gift-card-activation-c100"/>
+            <ElectronicText dataResourceId="GC-001-C25-ALT" textData="gift-card-activation-c25"/>
+            <ElectronicText dataResourceId="GC-001-C50-ALT" textData="gift-card-activation-c50"/>
+            <ElectronicText dataResourceId="GC-001-CO-ALT" textData="gift-card-activation-co"/>
+            <ElectronicText dataResourceId="GC-001-H10-ALT" textData="gift-card-activation-h10"/>
+            <ElectronicText dataResourceId="GC-001-H100-ALT" textData="gift-card-activation-h100"/>
+            <ElectronicText dataResourceId="GC-001-H25-ALT" textData="gift-card-activation-h25"/>
+            <ElectronicText dataResourceId="GC-001-H50-ALT" textData="gift-card-activation-h50"/>
+            <ElectronicText dataResourceId="GC-001-HO-ALT" textData="gift-card-activation-ho"/>
+
+            <ElectronicText dataResourceId="DRGC-100-ALTEN" textData="gift-cards"/>
+            <ElectronicText dataResourceId="DRGC-101-ALTEN" textData="gift-cards-purchases"/>
+            <ElectronicText dataResourceId="DRGC-102-ALTEN" textData="gift-cards-reloads"/>
+            <ElectronicText dataResourceId="DRGC-002-ALTEN" textData="gift-card-reload"/>
+            <ElectronicText dataResourceId="DRGC-001-ALTEN" textData="gift-card-activation"/>
+            <ElectronicText dataResourceId="DRGC-001-C10-ALTEN" textData="gift-card-activation-c10"/>
+            <ElectronicText dataResourceId="DRGC-001-C100-ALTEN" textData="gift-card-activation-c100"/>
+            <ElectronicText dataResourceId="DRGC-001-C25-ALTEN" textData="gift-card-activation-c25"/>
+            <ElectronicText dataResourceId="DRGC-001-C50-ALTEN" textData="gift-card-activation-c50"/>
+            <ElectronicText dataResourceId="DRGC-001-CO-ALTEN" textData="gift-card-activation-co"/>
+            <ElectronicText dataResourceId="DRGC-001-H10-ALTEN" textData="gift-card-activation-h10"/>
+            <ElectronicText dataResourceId="DRGC-001-H100-ALTEN" textData="gift-card-activation-h100"/>
+            <ElectronicText dataResourceId="DRGC-001-H25-ALTEN" textData="gift-card-activation-h25"/>
+            <ElectronicText dataResourceId="DRGC-001-H50-ALTEN" textData="gift-card-activation-h50"/>
+            <ElectronicText dataResourceId="DRGC-001-HO-ALTEN" textData="gift-card-activation-ho"/>
+
+
+    RentalShipping:
+        # The Product For Test Rental of an asset which is shipped from and returned to inventory
+        seed: |
+            <!-- Demo product for rental shipping -->
+            <Product productId="RentalShip" productTypeId="ASSET_USAGE_OUT_IN" primaryProductCategoryId="201" productName="Rental Shipping" internalName="Rental Shipping" description="The Product For Test Rental of an asset which is shipped from and returned to inventory" reservMaxPersons="1" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin"/>
+            <FixedAsset fixedAssetId="RentalShip" fixedAssetName="Rental Ship" fixedAssetTypeId="PROPERTY" productionCapacity="10"/>
+            <FixedAssetProduct productId="RentalShip" fixedAssetId="RentalShip" fixedAssetProductTypeId="FAPT_USE" fromDate="2011-09-01 12:00:00.0"/>
+            <ProductPrice productId="RentalShip" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-09-01 12:00:00.0" price="15.99" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin" lastModifiedByUserLogin="admin"/>
+            <ProductPrice productId="RentalShip" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-09-01 12:00:00.0" price="15.0" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin" lastModifiedByUserLogin="admin"/>
+            <ProductCategoryMember productCategoryId="201" productId="RentalShip" fromDate="2011-09-01 12:00:00.0"/>
+            <ProductFacility productId="RentalShip" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>
+            <ProductFacilityLocation productId="RentalShip" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" minimumStock="5" moveQuantity="20"/>
+            <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="InventoryRentalShip" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="RentalShip" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
+            <InventoryItemDetail inventoryItemId="InventoryRentalShip" inventoryItemDetailSeqId="0001" effectiveDate="2011-09-01 12:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10" accountingQuantityDiff="10"/>
+
+    RentalShippingData:
+        terms:
+            QuantityBreak: |
+                数量分段; quantity break points 数量分段点;
+                quantity price break information 数量价格分段信息;
+                What is the lead time and quantity break on price? (发货时间和数量是否影响价格？)
+
+        seed: |
+            <!-- Demo Rental Shipping Data -->
+            <Party partyId="USPS" partyTypeId="PARTY_GROUP"/>
+            <Party partyId="UPS" partyTypeId="PARTY_GROUP"/>
+
+            <PartyGroup partyId="USPS" groupName="USPS"/>
+            <PartyGroup partyId="UPS" groupName="UPS"/>
+
+            <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
+            <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
+            <PartyRole partyId="Company" roleTypeId="CARRIER"/>
+            <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+
+            <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+            <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
+            <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
+            <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
+            <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
+            <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+            <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
+
+            <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
+            <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Priority"/>
+            <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="6" carrierServiceCode="Express"/>
+            <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3" carrierServiceCode="03"/>
+            <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2" carrierServiceCode="02"/>
+            <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
+            <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
+            <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="8"/>
+
+            <ProductStoreShipmentMeth productStoreShipMethId="9017" productStoreId="RentalStore" partyId="_NA_" includeNoChargeItems="Y" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="6"/>
+            <ProductStoreShipmentMeth productStoreShipMethId="9018" productStoreId="RentalStore" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3"/>
+            <ProductStoreShipmentMeth productStoreShipMethId="9019" productStoreId="RentalStore" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2"/>
+            <ProductStoreShipmentMeth productStoreShipMethId="9020" productStoreId="RentalStore" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1"/>
+            <ProductStoreShipmentMeth productStoreShipMethId="9021" productStoreId="RentalStore" partyId="USPS" includeNoChargeItems="N" allowUspsAddr="Y" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" serviceName="uspsRateInquire" sequenceNumber="5"/>
+            <ProductStoreShipmentMeth productStoreShipMethId="9022" productStoreId="RentalStore" partyId="USPS" includeNoChargeItems="N" allowUspsAddr="Y" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" serviceName="uspsRateInquire" sequenceNumber="4"/>
+
+            <QuantityBreak fromQuantity="0.0" quantityBreakId="RentalStore" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+            <QuantityBreak fromQuantity="0.0" quantityBreakId="9003" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+            <QuantityBreak fromQuantity="0.0" quantityBreakId="9009" quantityBreakTypeId="SHIP_WEIGHT" thruQuantity="0.0"/>
+
+            <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="5.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="RentalStore" shipmentMethodTypeId="AIR" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" weightBreakId="RentalStore" weightUnitPrice="0.2"/>
+            <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="3.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9001" shipmentMethodTypeId="GROUND" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" weightBreakId="9003" weightUnitPrice="0.1"/>
+            <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="5.0" orderItemFlatPrice="0.0" carrierPartyId="Company" carrierRoleTypeId="CARRIER" orderPricePercent="0.0" shipmentCostEstimateId="9002" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+            <ShipmentCostEstimate productStoreId="RentalStore" orderFlatPrice="10.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9003" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" weightBreakId="9009" weightUnitPrice="0.35"/>
+            <ShipmentCostEstimate productStoreId="RentalStore" shipmentCostEstimateId="9004" shipmentMethodTypeId="STANDARD" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" orderFlatPrice="0.0" orderPricePercent="20.0" orderItemFlatPrice="0.0"/>
+            <ShipmentCostEstimate productStoreId="RentalStore" shipmentCostEstimateId="9005" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" orderFlatPrice="0.0" orderPricePercent="0.0" orderItemFlatPrice="0.0"/>
+
+    ShippingData:
+        # Demo Shipping Data
+        seed: |
+            <Party partyId="USPS" partyTypeId="PARTY_GROUP"/>
+            <Party partyId="UPS" partyTypeId="PARTY_GROUP"/>
+            <Party partyId="DHL" partyTypeId="PARTY_GROUP"/>
+            <Party partyId="FEDEX" partyTypeId="PARTY_GROUP"/>
+
+            <PartyGroup partyId="USPS" groupName="USPS"/>
+            <PartyGroup partyId="UPS" groupName="UPS"/>
+            <PartyGroup partyId="DHL" groupName="DHL"/>
+            <PartyGroup partyId="FEDEX" groupName="Federal Express"/>
+
+            <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
+            <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
+            <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
+            <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
+
+            <PartyRole partyId="Company" roleTypeId="CARRIER"/>
+            <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+
+    FedexShippingOptions:
+        seed: |
+            <!-- Fedex shipping options -->
+            <CarrierShipmentMethod shipmentMethodTypeId="PR_OVERNIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="01" carrierServiceCode="PRIORITYOVERNIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="ST_OVERNIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="02" carrierServiceCode="STANDARDOVERNIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="FI_OVERNIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="03" carrierServiceCode="FIRSTOVERNIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="SECOND_DAY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="04" carrierServiceCode="FEDEX2DAY"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="EXPRESS_SAVER" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="05" carrierServiceCode="FEDEXEXPRESSSAVER"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="FIRST_DAY_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="06" carrierServiceCode="FEDEX1DAYFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="SECOND_DAY_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="07" carrierServiceCode="FEDEX2DAYFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="THIRD_DAY_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="08" carrierServiceCode="FEDEX3DAYFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="GROUND" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="09" carrierServiceCode="FEDEXGROUND"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="GROUND_HOME" partyId="FEDEX" roleTypeId="CARRIER"  sequenceNumber="10" carrierServiceCode="GROUNDHOMEDELIVERY"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="SECOND_DAY_AM" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="11" carrierServiceCode="SECONDDAYAM"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="SMART_POST" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="12" carrierServiceCode="SMARTPOST"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="FEDEX_NATIONAL_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="13" carrierServiceCode="FEDEXNATIONALFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="FEDEX_FREIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="14" carrierServiceCode="FEDEXFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="FEDEX_INT_GROUND" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="15" carrierServiceCode="INTERNATIONALGROUND"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_PRI" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="16" carrierServiceCode="INTERNATIONALPRIORITY"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_ECON" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="17" carrierServiceCode="INTERNATIONALECONOMY"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_FI" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="18" carrierServiceCode="INTERNATIONALFIRST"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_ECON_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="19" carrierServiceCode="INTERNATIONALECONOMYFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_PRI_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="20" carrierServiceCode="INTERNATIONALPRIORITYFREIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="EUROPE_FI_PRIORITY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="21" carrierServiceCode="EUROPEFIRSTINTERNATIONALPRIORITY"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="NEXT_AM" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="22" carrierServiceCode="FIRSTOVERNIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="NEXT_PM" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="23" carrierServiceCode="STANDARDOVERNIGHT"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="SAME_DAY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="24" carrierServiceCode="SAMEDAY"/>
+            <CarrierShipmentMethod shipmentMethodTypeId="NEXT_DAY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="25" carrierServiceCode="PRIORITYOVERNIGHT"/>
+
+    ProductTags:
+        # Demo product tags
+        seed: |
+            <!-- Demo product tags -->
+            <ProductKeyword productId="GZ-1000" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-1001" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-2002" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-2644" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-5005" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="WG-1111" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-1004" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-2644" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="SV-1001" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="SV-1000" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="CFSV1001" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="WG-5569" keyword="widget" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="WG-9943" keyword="widget" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-1000" keyword="small" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-2644" keyword="small" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="SV-1001" keyword="service" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="CFSV1001" keyword="service" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-1000" keyword="tiny" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-8544" keyword="big" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="WG-9943" keyword="black" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="WG-1111" keyword="chrome" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+            <ProductKeyword productId="GZ-1006" keyword="standard" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+
+    DemoCustCompany:
+        seed: |
+            <!-- DemoCustCompany -->
+            <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+            <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
+            <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+            <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
+            <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
+            <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
+            <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
+            <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
+
+            <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
+            <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+            <PartyContactMech partyId="DemoCustCompany" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+
+            <ContactMech contactMechId="9014" contactMechTypeId="POSTAL_ADDRESS"/>
+            <PostalAddress contactMechId="9014" toName="Demo Customer Company" address1="1234 Commerce Way" city="Los Angeles" stateProvinceGeoId="CA" postalCode="90010" countryGeoId="USA"/>
+            <PartyContactMech partyId="DemoCustCompany" contactMechId="9014" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+
+            <ContactMech contactMechId="9020" contactMechTypeId="TELECOM_NUMBER"/>
+            <TelecomNumber contactMechId="9020" areaCode="801" contactNumber="555-5555"/>
+            <PartyContactMech partyId="DemoCustCompany" contactMechId="9020" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9020" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
+            <ContactMech contactMechId="9021" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+            <PartyContactMech partyId="DemoCustCompany" contactMechId="9021" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9021" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+            <BillingAccount billingAccountId="9010" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
+            <BillingAccountRole billingAccountId="9010" partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.000"/>
+
+            <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.000" partyTaxId="12-3456789" isExempt="Y"/>
+            <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
+
+
+    DemoCustAgent:
+        seed: |
+            <!-- DemoCustAgent -->
+            <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+            <Person partyId="DemoCustAgent" firstName="Demo" lastName="Agent"/>
+            <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
+            <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
+            <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
+            <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
+            <PartyStatus partyId="DemoCustAgent" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+            <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
+            <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+            <PartyContactMech partyId="DemoCustAgent" contactMechId="9011" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <ContactMech contactMechId="9022" contactMechTypeId="TELECOM_NUMBER"/>
+            <TelecomNumber contactMechId="9022" areaCode="801" contactNumber="555-5555"/>
+            <PartyContactMech partyId="DemoCustAgent" contactMechId="9022" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9022" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
+            <ContactMech contactMechId="9023" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+            <PartyContactMech partyId="DemoCustAgent" contactMechId="9023" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9023" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+            <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="AGENT"
+                               fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="AGENT" comments="Allows the DemoCustAgent to purchase on behalf of DemoCustCompany, ie purchase against BillingAccount"/>
+            <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_"
+                               fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="GROUP_ROLLUP" comments="Specifies the DemoCustAgent is a member of the DemoCustCompany, for Price Rules, Promos, etc"/>
+
+    DemoCustomer:
+        seed: |
+            <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+            <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
+            <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+            <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+            <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+            <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+
+            <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
+            <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+            <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <ContactMech contactMechId="9025" contactMechTypeId="TELECOM_NUMBER"/>
+            <ContactMech contactMechId="9027" contactMechTypeId="TELECOM_NUMBER"/>
+            <TelecomNumber contactMechId="9025" countryCode="1" areaCode="801" contactNumber="555-5555"/>
+            <TelecomNumber contactMechId="9027" countryCode="1" areaCode="801" contactNumber="444-4444"/>
+            <PartyContactMech partyId="DemoCustomer" contactMechId="9025" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="222"/>
+            <PartyContactMech partyId="DemoCustomer" contactMechId="9027" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="212"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_HOME" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9027" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2001-05-13 00:00:00.000"/>
+            <ContactMech contactMechId="9026" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+            <PartyContactMech partyId="DemoCustomer" contactMechId="9026" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+            <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
+            <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="DEMO" lastNameOnCard="CUSTOMER" contactMechId="9015"/>
+
+    EuroCustomer:
+        # EuroCustomer want invoices in euro and be located in Amsterdam
+        seed: |
+            <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
+            <Person partyId="EuroCustomer" firstName="Euro" lastName="Customer"/>
+            <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
+            <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
+            <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+            <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+            <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
+
+            <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
+            <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD" geoPointId="9001"/>
+            <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+            <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+            <PartyContactMech partyId="EuroCustomer" contactMechId="EURO01" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+
+            <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
+            <CreditCard paymentMethodId="EUROCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" firstNameOnCard="EURO" lastNameOnCard="CUSTOMER" contactMechId="EUROCUSTOMER"/>
+
+    FrenchCustomer:
+        # FrenchCustomer want invoices in euro and be located in Poussan
+        seed: |
+            <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
+            <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
+            <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
+            <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
+            <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+            <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+            <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
+
+            <ContactMech contactMechId="FRENCHCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
+            <PostalAddress contactMechId="FRENCHCUSTOMER" toName="French Customer" address1="400 E Chemin de la Mouline" city="Poussan" postalCode="34560" countryGeoId="FRA" geoPointId="9002"/>
+            <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+            <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
+            <ContactMech contactMechId="FRA01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+            <PartyContactMech partyId="FrenchCustomer" contactMechId="FRA01" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
+            <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
+
+            <PaymentMethod paymentMethodId="FRENCHCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="FrenchCustomer" fromDate="2009-01-09 00:00:00.000"/>
+            <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2020" firstNameOnCard="FRENCH" lastNameOnCard="CUSTOMER" contactMechId="FRENCHCUSTOMER"/>
+
+            <PartyTaxAuthInfo partyId="FrenchCustomer" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2001-05-13 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/>
+            <!--PartyTaxAuthInfo partyId="Company" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2014-01-01 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/-->
+
+    SalesOrder:
+        # Demo data for a sales order
+        seed: |
+            <!--Demo data for a sales order -->
+            <OrderHeader orderId="DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y" webSiteId="WebStore"/>
+            <OrderItem orderId="DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
+            <OrderItemPriceInfo orderItemPriceInfoId="9000" orderId="DEMO10090" orderItemSeqId="00001" productPriceRuleId="9000" productPriceActionSeqId="01" modifyAmount="-9.600" description="[PRODUCT_CATEGORY_IDIsPROMOTIONS] [list:48.0;avgCost:48.0;margin:0.0] [type:PRICE_POL]"/>
+
+            <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+
+            <OrderRole orderId="DEMO10090" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
+            <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+            <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+            <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+            <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+
+            <OrderItemShipGroup orderId="DEMO10090" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" isGift="N"/>
+            <OrderItemShipGroupAssoc orderId="DEMO10090" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.0"/>
+            <OrderItemShipGrpInvRes orderId="DEMO10090" shipGroupSeqId="00001" orderItemSeqId="00001" inventoryItemId="9001" reserveOrderEnumId="INVRO_FIFO_REC" quantity="2.0" quantityNotAvailable="0.0" reservedDatetime="2008-04-23 16:49:31.474" createdDatetime="2008-04-23 16:49:31.474" promisedDatetime="2008-05-08 16:49:27.392" priority="2"/>
+
+            <OrderAdjustment orderAdjustmentId="9000" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" orderId="DEMO10090" orderItemSeqId="00001" shipGroupSeqId="_NA_" amount="-38.4" productPromoId="9016" productPromoRuleId="01" productPromoActionSeqId="01" createdDate="2008-04-23 16:49:27.866" createdByUserLogin="admin"/>
+            <OrderAdjustment orderAdjustmentId="9001" orderAdjustmentTypeId="SHIPPING_CHARGES" orderId="DEMO10090" orderItemSeqId="_NA_" shipGroupSeqId="00001" amount="12.45" createdDate="2008-04-23 16:49:27.866" createdByUserLogin="admin"/>
+
+            <OrderPaymentPreference orderPaymentPreferenceId="9000" orderId="DEMO10090" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" presentFlag="N" swipedFlag="N" overflowFlag="N" maxAmount="50.85" processAttempt="1" statusId="PAYMENT_AUTHORIZED" needsNsfRetry="N" createdDate="2008-04-23 16:49:27.966" createdByUserLogin="admin"/>
+            <PaymentGatewayResponse paymentGatewayResponseId="9000" orderPaymentPreferenceId="9000" altReference="1250501206473" amount="50.85" currencyUomId="USD" gatewayCode="100" gatewayFlag="A" gatewayMessage="This is a test processor; no payments were captured or authorized." paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" referenceNum="1250501206473" transCodeEnumId="PGT_AUTHORIZE" transactionDate="2009-08-17 14:56:46.498"/>
+
+            <OrderStatus orderStatusId="9000" statusId="ORDER_CREATED" orderId="DEMO10090" statusDatetime="2008-04-23 16:49:27.392" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9001" statusId="ITEM_CREATED" orderId="DEMO10090" orderItemSeqId="00001" statusDatetime="2008-04-23 16:49:27.392" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9002" statusId="PAYMENT_NOT_AUTH" orderId="DEMO10090" orderPaymentPreferenceId="9000" statusDatetime="2008-04-23 16:49:29.008" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9003" statusId="PAYMENT_AUTHORIZED" orderId="DEMO10090" orderPaymentPreferenceId="9000" statusDatetime="2008-04-23 16:49:33.094" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9004" statusId="ORDER_APPROVED" orderId="DEMO10090" statusDatetime="2008-04-23 16:49:33.196" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9005" statusId="ITEM_APPROVED" orderId="DEMO10090" orderItemSeqId="00001" statusDatetime="2008-04-23 16:49:33.513" statusUserLogin="admin"/>
+
+            <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="9015"/>
+            <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="9026"/>
+            <OrderContactMech orderId="DEMO10090" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9015"/>
+
+            <Shipment shipmentId="9998" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_INPUT" primaryOrderId="DEMO10090" primaryShipGroupSeqId="00001" estimatedShipCost="12.45" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer" createdDate="2008-06-10 12:59:26.8"/>
+
+    PurchaseOrder:
+        # Purchase order test data
+        seed: |
+            <!-- Purchase order test data -->
+            <!--for jira issue - 1782-->
+            <OrderHeader orderId="DEMO10091" orderTypeId="PURCHASE_ORDER" orderName="New Purchase Order" salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2008-06-10 13:27:07.024" entryDate="2008-06-10 13:27:07.024" visitId="10000" statusId="ORDER_CREATED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="108.0" grandTotal="108.0" webSiteId="WebStore"/>
+            <OrderItem orderId="DEMO10091" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="5.0" selectedAmount="0.0" unitPrice="21.6" unitListPrice="0.0" isModifiedPrice="N" itemDescription="GZ-2644-5 Round Gizmo" statusId="ITEM_CREATED"/>
+            <OrderItemPriceInfo orderItemPriceInfoId="10001" orderId="DEMO10091" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:5.0, lastPrice: 21.6]"/>
+            <OrderItemPriceInfo orderItemPriceInfoId="10002" orderId="DEMO10091" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.0, lastPrice: 24.0]"/>
+            <OrderRole orderId="DEMO10091" partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
+            <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
+            <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
+            <OrderRole orderId="DEMO10091" partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
+            <OrderItemShipGroup orderId="DEMO10091" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="9200" maySplit="N" isGift="N"/>
+            <OrderItemShipGroupAssoc orderId="DEMO10091" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="5.0"/>
+
+            <!-- for jira issue - 1784 -->
+            <Payment paymentId="9000" paymentTypeId="VENDOR_PAYMENT" paymentMethodId="SC_CHECKING" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="Company" partyIdTo="DemoSupplier" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="190.97" currencyUomId="USD"/>
+
+            <OrderStatus orderStatusId="9007" statusId="ORDER_CREATED" orderId="DEMO10091" statusDatetime="2008-06-10 13:27:07.024" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9008" statusId="ITEM_CREATED" orderId="DEMO10091" orderItemSeqId="00001" statusDatetime="2008-06-10 13:27:07.024" statusUserLogin="admin"/>
+            <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200"/>
+
+            <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" createdDate="2008-06-10 12:59:26.8"/>
+            <ShipmentItem shipmentId="9999" shipmentItemSeqId="00001" productId="GZ-2644" quantity="5"/>
+            <ItemIssuance itemIssuanceId="9003" orderId="DEMO10091" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9999" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="5"/>
+
+    PurchaseOrderForAccounting:
+        # Demo Purchase Order data for Accounting
+        seed: |
+            <!--Demo Purchase Order data for Accounting-->
+            <OrderHeader orderId="Demo1001" orderTypeId="PURCHASE_ORDER" orderName="Demo Purchase Order " salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2009-08-13 17:45:50.419" priority="2" entryDate="2009-08-13 17:45:50.419" statusId="ORDER_COMPLETED" currencyUom="USD" remainingSubTotal="48.00" grandTotal="48.00" webSiteId="WebStore" />
+            <OrderItem orderId="Demo1001" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="24.00" unitListPrice="0.00" isModifiedPrice="N" itemDescription="GZ-2644-0 Round Gizmo" statusId="ITEM_COMPLETED" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
+            <OrderItemPriceInfo orderItemPriceInfoId="9001" orderId="Demo1001" orderItemSeqId="00001" description="SupplierProduct [minimumOrderQuantity:0.000000, lastPrice: 24.000]"/>
+            <OrderRole orderId="Demo1001" partyId="Company" roleTypeId="BILL_TO_CUSTOMER" />
+            <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR"/>
+            <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SHIP_FROM_VENDOR"/>
+            <OrderRole orderId="Demo1001" partyId="DemoSupplier" roleTypeId="SUPPLIER_AGENT"/>
+            <OrderItemShipGroup orderId="Demo1001" shipGroupSeqId="00001" shipmentMethodTypeId="NO_SHIPPING" carrierPartyId="_NA_" carrierRoleTypeId="CARRIER" contactMechId="9200" maySplit="N" isGift="N" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
+            <OrderItemShipGroupAssoc orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
+
+            <OrderStatus orderStatusId="9009" statusId="ORDER_CREATED" orderId="Demo1001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9010" statusId="ITEM_CREATED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:45:50.419" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9011" statusId="ITEM_APPROVED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:46:15.144" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9012" statusId="ORDER_APPROVED" orderId="Demo1001" statusDatetime="2009-08-13 17:46:15.206" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9013" statusId="ITEM_COMPLETED" orderId="Demo1001" orderItemSeqId="00001" statusDatetime="2009-08-13 17:47:47.292" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="9014" statusId="ORDER_COMPLETED" orderId="Demo1001" statusDatetime="2009-08-13 17:47:47.344" statusUserLogin="admin"/>
+            <OrderContactMech orderId="Demo1001" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200"/>
+
+            <Shipment shipmentId="9997" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_RECEIVED" primaryOrderId="Demo1001" primaryShipGroupSeqId="00001" estimatedShipCost="0.00" destinationFacilityId="WebStoreWarehouse" destinationContactMechId="9200" destinationTelecomNumberId="9201" partyIdFrom="DemoSupplier" createdDate="2008-06-10 12:59:26.8"/>
+            <ShipmentItem shipmentId="9997" shipmentItemSeqId="00001" productId="GZ-2644" quantity="2.000000"/>
+            <ShipmentRouteSegment shipmentId="9997" shipmentRouteSegmentId="00001" destFacilityId="WebStoreWarehouse" destContactMechId="9200" destTelecomNumberId="9201" carrierPartyId="_NA_" shipmentMethodTypeId="NO_SHIPPING" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
+            <ShipmentPackage shipmentId="9997" shipmentPackageSeqId="00001" dateCreated="2009-08-13 17:46:29.751"/>
+            <ShipmentPackageContent shipmentId="9997" shipmentPackageSeqId="00001" shipmentItemSeqId="00001" quantity="2.000000"/>
+            <ShipmentPackageRouteSeg shipmentId="9997" shipmentPackageSeqId="00001" shipmentRouteSegmentId="00001"/>
+            <ShipmentStatus statusId="PURCH_SHIP_CREATED" shipmentId="9997" statusDate="2009-08-13 17:46:28.784"/>
+            <ShipmentStatus statusId="PURCH_SHIP_RECEIVED" shipmentId="9997" statusDate="2009-08-13 17:47:47.602"/>
+            <ShipmentStatus statusId="PURCH_SHIP_SHIPPED" shipmentId="9997" statusDate="2009-08-13 17:46:29.836"/>
+            <AcctgTrans acctgTransId="9000" acctgTransTypeId="SHIPMENT_RECEIPT" transactionDate="2009-08-13 17:47:48.642" isPosted="Y" postedDate="2009-08-13 17:47:49.281" glFiscalTypeId="ACTUAL" partyId="DemoSupplier" shipmentId="9997"/>
+            <AcctgTransEntry acctgTransId="9000" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9000" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+            <InventoryItem inventoryItemId="9025" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" datetimeReceived="2009-08-13 17:47:31.095" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" quantityOnHandTotal="2.000000" availableToPromiseTotal="2.000000" unitCost="24.000000" currencyUomId="USD"/>
+            <ShipmentReceipt receiptId="9000" inventoryItemId="9025" productId="GZ-2644" shipmentId="9997" orderId="Demo1001" orderItemSeqId="00001" datetimeReceived="2009-08-13 17:47:31.095" quantityAccepted="2.000000" quantityRejected="0.000000"/>
+            <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="00001" effectiveDate="2009-08-13 17:47:46.78" quantityOnHandDiff="2.000000" availableToPromiseDiff="2.000000" accountingQuantityDiff="2.000000" unitCost="24.000000" orderId="Demo1001" orderItemSeqId="00001" shipmentId="9997" receiptId="9000"/>
+            <ItemIssuance itemIssuanceId="9000" orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9997" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="2.000000"/>
+
+            <Invoice invoiceId="8008" invoiceTypeId="PURCHASE_INVOICE" description="Purchase Order Invoice" partyIdFrom="DemoSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-08-13 17:47:47.929" currencyUomId="USD"/>
+            <InvoiceItem invoiceId="8008" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FPROD_ITEM" productId="GZ-2644" quantity="2.000000" amount="24.000" description="GZ-2644-0 Round Gizmo"/>
+            <OrderItemBilling orderId="Demo1001" orderItemSeqId="00001" invoiceId="8008" invoiceItemSeqId="00001" shipmentReceiptId="9000" quantity="2.000000" amount="24.00"/>
+            <AcctgTrans acctgTransId="9001" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-08-13 18:58:34.65" isPosted="Y" postedDate="2009-08-13 18:58:35.08" glFiscalTypeId="ACTUAL" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" invoiceId="8008"/>
+            <AcctgTransEntry acctgTransId="9001" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountId="214000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9001" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+    SalesOrderForAccounting:
+        # Demo Sales Order for Accounting
+        seed: |
+            <!--Demo Sales Order for Accounting-->
+            <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09" webSiteId="WebStore"/>
+            <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
+            <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+            <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+
+            <OrderRole orderId="Demo1002" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
+            <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+            <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+            <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+            <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+
+            <OrderItemShipGroup orderId="Demo1002" shipGroupSeqId="00001" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="UPS" carrierRoleTypeId="CARRIER" contactMechId="9015" maySplit="N" isGift="N"/>
+            <OrderItemShipGroupAssoc orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" quantity="2.000000"/>
+            <OrderItemShipGroupAssoc orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="00001" quantity="1.000000"/>
+            <OrderAdjustment orderAdjustmentId="8000" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="_NA_" amount="-12.000" productPromoId="9011" productPromoRuleId="01" productPromoActionSeqId="01" createdDate="2009-08-17 14:56:44.515"/>
+            <OrderAdjustment orderAdjustmentId="8001" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="_NA_" amount="-59.990" productPromoId="9000" productPromoRuleId="01" productPromoActionSeqId="01" createdDate="2009-08-17 14:56:44.515"/>
+            <OrderAdjustment orderAdjustmentId="8002" orderAdjustmentTypeId="SHIPPING_CHARGES" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="00001" amount="12.100" createdDate="2009-08-17 14:56:44.515" createdByUserLogin="admin"/>
+            <OrderAdjustment orderAdjustmentId="8003" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="_NA_" shipGroupSeqId="00001" comments="Utah County, Utah Sales Tax" amount="-0.012" taxAuthorityRateSeqId="9005" sourcePercentage="0.100000" primaryGeoId="UT-UTAH" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" overrideGlAccountId="224153"/>
+            <OrderAdjustment orderAdjustmentId="8004" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" comments="Utah County, Utah Sales Tax" amount="0.120" taxAuthorityRateSeqId="9005" sourcePercentage="0.100000" primaryGeoId="UT-UTAH" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" overrideGlAccountId="224153" createdDate="2009-08-17 14:56:44.515"/>
+            <OrderAdjustment orderAdjustmentId="8005" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" comments="Utah State Sales Tax" amount="5.699" taxAuthorityRateSeqId="9004" sourcePercentage="4.750000" primaryGeoId="UT" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" overrideGlAccountId="224153" createdDate="2009-08-17 14:56:44.515"/>
+            <OrderAdjustment orderAdjustmentId="8006" orderAdjustmentTypeId="SALES_TAX" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" comments="1% OFB _NA_ Tax" amount="1.200" taxAuthorityRateSeqId="9000" sourcePercentage="1.000000" primaryGeoId="_NA_" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" overrideGlAccountId="224000" createdDate="2009-08-17 14:56:44.515"/>
+            <OrderPaymentPreference orderPaymentPreferenceId="9001" orderId="Demo1002" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" presentFlag="N" swipedFlag="N" overflowFlag="N" maxAmount="127.09" processAttempt="1" statusId="PAYMENT_SETTLED" needsNsfRetry="N" createdDate="2009-08-17 14:56:44.573"/>
+
+            <OrderStatus orderStatusId="8000" statusId="ORDER_CREATED" orderId="Demo1002" statusDatetime="2009-08-17 14:56:44.162" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8001" statusId="ITEM_CREATED" orderId="Demo1002" orderItemSeqId="00001" statusDatetime="2009-08-17 14:56:44.162" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8002" statusId="ITEM_CREATED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:56:44.162" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8003" statusId="PAYMENT_NOT_AUTH" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:56:44.938" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8004" statusId="PAYMENT_NOT_AUTH" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:56:46.344" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8005" statusId="PAYMENT_AUTHORIZED" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:56:46.523" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8006" statusId="ORDER_APPROVED" orderId="Demo1002" statusDatetime="2009-08-17 14:56:46.558" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8007" statusId="ITEM_APPROVED" orderId="Demo1002" orderItemSeqId="00001" statusDatetime="2009-08-17 14:56:46.712" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8008" statusId="ITEM_APPROVED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:56:46.712" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8009" statusId="ITEM_COMPLETED" orderId="Demo1002" orderItemSeqId="00001" statusDatetime="2009-08-17 14:57:01.657" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8010" statusId="ITEM_COMPLETED" orderId="Demo1002" orderItemSeqId="00004" statusDatetime="2009-08-17 14:57:02.401" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8011" statusId="ORDER_COMPLETED" orderId="Demo1002" statusDatetime="2009-08-17 14:57:02.433" statusUserLogin="admin"/>
+            <OrderStatus orderStatusId="8012" statusId="PAYMENT_SETTLED" orderId="Demo1002" orderPaymentPreferenceId="9001" statusDatetime="2009-08-17 14:57:04.825" statusUserLogin="admin"/>
+            <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="BILLING_LOCATION" contactMechId="9015"/>
+            <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="9026"/>
+            <OrderContactMech orderId="Demo1002" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9015"/>
+
+            <Shipment shipmentId="9996" shipmentTypeId="SALES_SHIPMENT" statusId="SHIPMENT_SHIPPED" primaryOrderId="Demo1002" primaryShipGroupSeqId="00001" estimatedShipCost="12.10" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destinationContactMechId="9015" destinationTelecomNumberId="9025" partyIdTo="DemoCustomer" partyIdFrom="Company" createdDate="2009-08-17 14:56:57.553"/>
+            <ShipmentItem shipmentId="9996" shipmentItemSeqId="00001" productId="WG-1111" quantity="3.000000"/>
+            <ShipmentRouteSegment shipmentId="9996" shipmentRouteSegmentId="00001" originFacilityId="WebStoreWarehouse" originContactMechId="9200" originTelecomNumberId="9201" destContactMechId="9015" destTelecomNumberId="9025" carrierPartyId="UPS" shipmentMethodTypeId="NEXT_DAY" carrierServiceStatusId="SHRSCS_NOT_STARTED"/>
+            <ShipmentPackage shipmentId="9996" shipmentPackageSeqId="00001" dateCreated="2009-08-17 14:57:02.742"/>
+            <ShipmentPackageContent shipmentId="9996" shipmentPackageSeqId="00001" shipmentItemSeqId="00001" quantity="3.000000"/>
+            <ShipmentPackageRouteSeg shipmentId="9996" shipmentPackageSeqId="00001" shipmentRouteSegmentId="00001"/>
+            <ShipmentStatus statusId="SHIPMENT_INPUT" shipmentId="9996" statusDate="2009-08-17 16:35:36.119"/>
+            <ShipmentStatus statusId="SHIPMENT_PACKED" shipmentId="9996" statusDate="2009-08-17 16:35:39.627"/>
+            <ShipmentStatus statusId="SHIPMENT_SHIPPED" shipmentId="9996" statusDate="2009-08-17 16:35:42.707"/>
+            <AcctgTrans acctgTransId="9002" acctgTransTypeId="SALES_SHIPMENT" transactionDate="2009-08-17 14:56:59.96" isPosted="Y" postedDate="2009-08-17 14:57:01.321" glFiscalTypeId="ACTUAL" shipmentId="9996"/>
+            <AcctgTransEntry acctgTransId="9002" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="9.00" currencyUomId="USD" origAmount="9.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9002" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000" organizationPartyId="Company" amount="9.00" currencyUomId="USD" origAmount="9.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTrans acctgTransId="9003" acctgTransTypeId="SALES_SHIPMENT" transactionDate="2009-08-17 14:57:01.955" isPosted="Y" postedDate="2009-08-17 14:57:02.345" glFiscalTypeId="ACTUAL" shipmentId="9996"/>
+            <AcctgTransEntry acctgTransId="9003" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" organizationPartyId="Company" amount="4.50" currencyUomId="USD" origAmount="4.50" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9003" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" productId="WG-1111" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000" organizationPartyId="Company" amount="4.50" currencyUomId="USD" origAmount="4.50" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+            <ItemIssuance itemIssuanceId="9001" orderId="Demo1002" orderItemSeqId="00001" shipGroupSeqId="00001" inventoryItemId="9005" shipmentId="9996" shipmentItemSeqId="00001" issuedDateTime="2009-08-17 14:56:58.664" issuedByUserLoginId="admin" quantity="2.000000"/>
+            <ItemIssuance itemIssuanceId="9002" orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="00001" inventoryItemId="9005" shipmentId="9996" shipmentItemSeqId="00001" issuedDateTime="2009-08-17 14:57:01.872" issuedByUserLoginId="admin" quantity="1.000000"/>
+
+            <Invoice invoiceId="8009" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_PAID" invoiceDate="2009-08-17 14:57:03.614" paidDate="2009-08-17 14:57:04.99" currencyUomId="USD"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="2.000000" amount="59.990" description="Micro Chrome Widget"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00002" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="0.120" description="Utah County, Utah Sales Tax" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthGeoId="UT-UTAH" taxAuthorityRateSeqId="9005"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00003" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="5.699" description="Utah State Sales Tax" taxAuthPartyId="UT_TAXMAN" taxAuthGeoId="UT" taxAuthorityRateSeqId="9004"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00004" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224000" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="1.200" description="1% OFB _NA_ Tax" taxAuthPartyId="_NA_" taxAuthGeoId="_NA_" taxAuthorityRateSeqId="9000"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00005" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="1.000000" amount="59.990" description="Micro Chrome Widget"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00006" invoiceItemTypeId="ITM_PROMOTION_ADJ" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00005" quantity="1.000000" amount="-59.990"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00007" invoiceItemTypeId="ITM_PROMOTION_ADJ" quantity="1.000000" amount="-12.000"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00008" invoiceItemTypeId="ITM_SHIPPING_CHARGES" quantity="1.000000" amount="12.100"/>
+            <InvoiceItem invoiceId="8009" invoiceItemSeqId="00009" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" quantity="1.000000" amount="-0.010" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthGeoId="UT-UTAH" taxAuthorityRateSeqId="9005"/>
+            <AcctgTrans acctgTransId="9004" acctgTransTypeId="SALES_INVOICE" transactionDate="2009-08-17 14:57:06.129" isPosted="Y" postedDate="2009-08-17 14:57:06.587" glFiscalTypeId="ACTUAL" invoiceId="8009"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="119.98" currencyUomId="USD" origAmount="119.98" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY" productId="WG-1111" glAccountId="224153" organizationPartyId="Company" amount="0.12" currencyUomId="USD" origAmount="0.12" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00003" acctgTransEntryTypeId="_NA_" partyId="UT_TAXMAN" roleTypeId="TAX_AUTHORITY" productId="WG-1111" glAccountId="224153" organizationPartyId="Company" amount="5.69" currencyUomId="USD" origAmount="5.69" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00004" acctgTransEntryTypeId="_NA_" partyId="_NA_" roleTypeId="TAX_AUTHORITY" productId="WG-1111" glAccountId="224000" organizationPartyId="Company" amount="1.20" currencyUomId="USD" origAmount="1.20" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00005" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="59.99" currencyUomId="USD" origAmount="59.99" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00006" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="59.99" currencyUomId="USD" origAmount="59.99" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00007" acctgTransEntryTypeId="_NA_" glAccountId="410000" organizationPartyId="Company" amount="12.00" currencyUomId="USD" origAmount="12.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00008" acctgTransEntryTypeId="_NA_" glAccountId="409000" organizationPartyId="Company" amount="12.10" currencyUomId="USD" origAmount="12.10" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00009" acctgTransEntryTypeId="_NA_" partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY" glAccountId="224153" organizationPartyId="Company" amount="0.01" currencyUomId="USD" origAmount="0.01" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9004" acctgTransEntrySeqId="00010" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.08" currencyUomId="USD" origAmount="127.08" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+            <PaymentGatewayResponse paymentGatewayResponseId="9001" paymentServiceTypeEnumId="PRDS_PAY_AUTH" orderPaymentPreferenceId="9001" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" transCodeEnumId="PGT_AUTHORIZE" amount="127.09" currencyUomId="USD" referenceNum="1250501206473" altReference="1250501206473" gatewayCode="100" gatewayFlag="A" gatewayMessage="This is a test processor; no payments were captured or authorized." transactionDate="2009-08-17 14:56:46.498"/>
+            <PaymentGatewayResponse paymentGatewayResponseId="9002" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" orderPaymentPreferenceId="9001" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" transCodeEnumId="PGT_CAPTURE" amount="127.09" currencyUomId="USD" referenceNum="1250501224763" altReference="1250501224763" gatewayFlag="C" gatewayMessage="This is a test capture; no money was transferred" transactionDate="2009-08-17 14:57:04.836"/>
+            <Payment paymentId="8004" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="CREDIT_CARD" paymentMethodId="9015" paymentGatewayResponseId="9002" paymentPreferenceId="9001" partyIdFrom="DemoCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2009-08-17 14:57:04.99" paymentRefNum="1250501224763" amount="127.09" currencyUomId="USD"/>
+            <AcctgTrans acctgTransId="9005" acctgTransTypeId="INCOMING_PAYMENT" transactionDate="2009-08-17 14:57:05.182" isPosted="Y" postedDate="2009-08-17 14:57:05.56" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" paymentId="8004"/>
+            <AcctgTransEntry acctgTransId="9005" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" glAccountId="122300" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9005" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+            <PaymentApplication paymentApplicationId="9003" paymentId="8004" invoiceId="8009" amountApplied="127.09"/>
+            <AcctgTrans acctgTransId="9006" acctgTransTypeId="PAYMENT_APPL" transactionDate="2009-08-17 14:57:05.741" isPosted="Y" postedDate="2009-08-17 14:57:05.878" glFiscalTypeId="ACTUAL" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" invoiceId="8009" paymentId="8004"/>
+            <AcctgTransEntry acctgTransId="9006" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9006" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="127.09" currencyUomId="USD" origAmount="127.09" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+            <OrderAdjustmentBilling orderAdjustmentId="8000" invoiceId="8009" invoiceItemSeqId="00007" amount="-12.00"/>
+            <OrderAdjustmentBilling orderAdjustmentId="8001" invoiceId="8009" invoiceItemSeqId="00006" amount="-59.99"/>
+            <OrderAdjustmentBilling orderAdjustmentId="8002" invoiceId="8009" invoiceItemSeqId="00008" amount="12.10"/>
+            <OrderAdjustmentBilling orderAdjustmentId="8003" invoiceId="8009" invoiceItemSeqId="00009" amount="-0.01"/>
+            <OrderAdjustmentBilling orderAdjustmentId="8004" invoiceId="8009" invoiceItemSeqId="00002" amount="0.12"/>
+            <OrderAdjustmentBilling orderAdjustmentId="8005" invoiceId="8009" invoiceItemSeqId="00003" amount="5.69"/>
+            <OrderAdjustmentBilling orderAdjustmentId="8006" invoiceId="8009" invoiceItemSeqId="00004" amount="1.20"/>
+            <ShipmentItemBilling shipmentId="9996" shipmentItemSeqId="00001" invoiceId="8009" invoiceItemSeqId="00001"/>
+            <OrderItemBilling orderId="Demo1002" orderItemSeqId="00001" invoiceId="8009" invoiceItemSeqId="00001" itemIssuanceId="9001" quantity="2.000000" amount="59.99"/>
+            <OrderItemBilling orderId="Demo1002" orderItemSeqId="00004" invoiceId="8009" invoiceItemSeqId="00005" itemIssuanceId="9002" quantity="1.000000" amount="59.99"/>
+
+            <Invoice invoiceId="8010" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_APPROVED" invoiceDate="2009-09-17 14:57:03.614" currencyUomId="USD"/>
+            <InvoiceItem invoiceId="8010" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="3.000000" amount="59.990" description="Micro Chrome Widget"/>
+            <AcctgTrans acctgTransId="9007" acctgTransTypeId="SALES_INVOICE" transactionDate="2009-09-17 14:57:06.129" isPosted="Y" postedDate="2009-09-17 14:57:06.587" glFiscalTypeId="ACTUAL" invoiceId="8010"/>
+            <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+            <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
