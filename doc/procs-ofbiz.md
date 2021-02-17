@@ -4,6 +4,9 @@
 ⊕ [OFBiz Tutorials | Get Started with Apache OFBiz Development](https://www.hotwaxsystems.com/ofbiz-8/tutorials/)
     ⊕ [What You Need to Know about Price Rules in OFBiz | HotWax](https://www.hotwaxsystems.com/ofbiz/ofbiz-tutorials/ofbiz-tutorial-price-rules/)
 
+## Business Process Reference
+⊕ [Business Process Reference Book - OFBiz Project Open Wiki - Apache Software Foundation](https://cwiki.apache.org/confluence/display/OFBIZ/Business+Process+Reference+Book)
+
 ## rest
 ```sh
 $ curl -k -X POST "https://localhost:8443/rest/auth/token" -H "accept: application/json" -H "Authorization: Basic YWRtaW46b2ZiaXo="
@@ -27,4 +30,14 @@ GET /rest/services/findProductById?inParams=%7B%22idToFind%22:%22GZ-1001%22%7D H
 Content-Type: application/json +
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJBcGFjaGVPRkJpeiIsImlhdCI6MTU0NzczOTM0OCwiZXhwIjoxNjc5Mjc1MzQ4LCJhdWQiOiJ3d3cuZXhhbXBsZS5jb20iLCJzdWIiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwiR2l2ZW5OYW1lIjoiSm9obm55IiwiU3VybmFtZSI6IlJvY2tldCIsIkVtYWlsIjoianJvY2tldEBleGFtcGxlLmNvbSIsInVzZXJMb2dpbklkIjoiYWRtaW4iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.fwafgrgpodBJcXxNTQdZknKeWKb3sDOsQrcR2vcRw97FznD6mkE79p10Tu7cqpUx7LiXuROUAnXEgqDice-BSg
 ```
+
+## plugins
+⊕ [From Ant to Gradle - trunk version - OFBiz Project Open Wiki - Apache Software Foundation](https://cwiki.apache.org/confluence/display/OFBIZ/From+Ant+to+Gradle+-+trunk+version#FromAnttoGradletrunkversion-Step-by-stepguide)
+
+```sh
+# Create a new plugin
+./gradlew createPlugin -PpluginId=myplugin
+./gradlew createPlugin -PpluginId=myplugin -PpluginResourceName=MyPlugin -PwebappName=mypluginweb -PbasePermission=MYSECURITY
+```
+
 

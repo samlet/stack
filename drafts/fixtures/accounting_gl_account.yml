@@ -1,0 +1,167 @@
+types:
+    GlAccounts_ASSETS:
+        # glAccountTypeId: CURRENT_ASSET(流动资产)
+        seed: |
+            <!-- General Chart of Accounts Demo Data -->
+            <GlAccount glAccountId="100000" accountCode="100000"
+                       glAccountClassId="ASSET" glResourceTypeId="MONEY"
+                       accountName="ASSETS"/>
+
+            <GlAccount parentGlAccountId="100000" glAccountId="110000" accountCode="110000"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="CASH"/>
+
+            <GlAccount parentGlAccountId="110000" glAccountId="111000" accountCode="111000"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="CASH IN BANK AND ON HAND"/>
+
+            <GlAccount parentGlAccountId="111000" glAccountId="111100" accountCode="111100"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="GENERAL CHECKING ACCOUNT"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111200" accountCode="111200"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="PAYROLL CHECKING ACCOUNT"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111300" accountCode="111300"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="SINGLE TITLE ORDER PLAN (STOP) CHECKING"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111400" accountCode="111400"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="MONEY MARKET"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111500" accountCode="111500"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="CERTIFICATES OF DEPOSIT"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111600" accountCode="111600"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="SAVINGS ACCOUNTS"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111700" accountCode="111700"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="CASH IN REGISTERS"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111800" accountCode="111800"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="CASH FOR OUT OF STORE EVENTS"/>
+            <GlAccount parentGlAccountId="111000" glAccountId="111900" accountCode="111900"
+                       glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+                       accountName="PETTY CASH"/>
+
+    TimePeriods:
+        seed: |
+            <!-- Some Sample Time Periods, two Years with Quarters -->
+            <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6010" periodTypeId="FISCAL_YEAR" fromDate="2010-01-01 00:00:00.000" thruDate="2011-01-01 23:59:59.000" isClosed="N" periodNum="1" periodName="2010"/>
+            <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6011" periodTypeId="FISCAL_QUARTER" fromDate="2010-01-01 00:00:00.000" thruDate="2010-04-01 23:59:59.000" isClosed="N" periodNum="2" periodName="2010/Q1" parentPeriodId="6010"/>
+            <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6012" periodTypeId="FISCAL_QUARTER" fromDate="2010-04-01 00:00:00.000" thruDate="2010-07-01 23:59:59.000" isClosed="N" periodNum="3" periodName="2010/Q2" parentPeriodId="6010"/>
+            <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6013" periodTypeId="FISCAL_QUARTER" fromDate="2010-07-01 00:00:00.000" thruDate="2010-10-01 23:59:59.000" isClosed="N" periodNum="4" periodName="2010/Q3" parentPeriodId="6010"/>
+            <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6014" periodTypeId="FISCAL_QUARTER" fromDate="2010-10-01 00:00:00.000" thruDate="2011-01-01 23:59:59.000" isClosed="N" periodNum="5" periodName="2010/Q4" parentPeriodId="6010"/>
+            <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6015" periodTypeId="FISCAL_YEAR" fromDate="2011-01-01 00:00:00.000" thruDate="2030-01-01 23:59:59.000" isClosed="N" periodNum="1" periodName="2011-2030"/>
+
+    GlAccountHistory:
+        seed: |
+            <GlAccountOrganization glAccountId="111100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="112000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="120000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="122300" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="140000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="141000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="171000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="174000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="188000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="210000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="213000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="214000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="224000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="224153" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="310000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="400000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="409000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="410000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="500000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="516100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="649000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+            <GlAccountOrganization glAccountId="675400" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0"/>
+
+            <GlAccountHistory glAccountId="111100" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="51263.22" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="112000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="20.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="120000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="159.96" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="122300" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="127.09" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="140000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="1936.40" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="141000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="320.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="171000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="76500.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="174000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="70000.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="188000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="2500.00"/>
+            <GlAccountHistory glAccountId="210000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="348.00"/>
+            <GlAccountHistory glAccountId="213000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="70.00"/>
+            <GlAccountHistory glAccountId="214000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="224000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="1.20"/>
+            <GlAccountHistory glAccountId="224153" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="5.80"/>
+            <GlAccountHistory glAccountId="310000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="200000.00"/>
+            <GlAccountHistory glAccountId="400000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="299.95"/>
+            <GlAccountHistory glAccountId="409000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="12.10"/>
+            <GlAccountHistory glAccountId="410000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="12.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="500000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="13.50" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="516100" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="24.88" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="649000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="360.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="675400" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="2500.00" postedCredits="0.00"/>
+
+            <GlAccountHistory glAccountId="111100" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="51380.07" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="112000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="120000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="122300" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="140000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="1799.93" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="141000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="320.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="171000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="76500.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="174000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="70000.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="188000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="2500.00"/>
+            <GlAccountHistory glAccountId="210000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="213000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="214000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="224000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="224153" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="310000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="200000.00"/>
+            <GlAccountHistory glAccountId="400000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="409000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="410000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="500000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="516100" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="649000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="675400" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="2500.00" postedCredits="0.00"/>
+
+            <GlAccountHistory glAccountId="111100" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="116.85"/>
+            <GlAccountHistory glAccountId="112000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="20.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="120000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="159.96" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="122300" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="127.09" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="140000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="136.47" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="141000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="171000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="174000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="188000" organizationPartyId="Company" customTimePeriodId="6011" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="210000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="348.00"/>
+            <GlAccountHistory glAccountId="213000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="70.00"/>
+            <GlAccountHistory glAccountId="214000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="224000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="1.20"/>
+            <GlAccountHistory glAccountId="224153" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="5.80"/>
+            <GlAccountHistory glAccountId="310000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="400000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="299.95"/>
+            <GlAccountHistory glAccountId="409000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="12.10"/>
+            <GlAccountHistory glAccountId="410000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="12.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="500000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="13.50" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="516100" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="24.88" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="649000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="360.00" postedCredits="0.00"/>
+            <GlAccountHistory glAccountId="675400" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="0.00"/>
+
+    GlReconciliation:
+        seed: |
+            <!-- Gl Reconciliation -->
+            <GlReconciliation glReconciliationId="9000" glReconciliationName="demoGlReconciliation" glAccountId="111100" statusId="GLREC_RECONCILED" organizationPartyId="Company" reconciledBalance="75000.00" reconciledDate="2009-08-08 20:03:14.000"/>
+            <GlReconciliation glReconciliationId="9001" glReconciliationName="testGlReconciliation" glAccountId="111100" statusId="GLREC_CREATED" organizationPartyId="Company" reconciledDate="2009-08-12 20:03:14.000"/>
+
+            <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9301" fromDate="2009-07-08 11:54:03.8" amountPercentage="50"/>
+            <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9302" fromDate="2009-07-08 11:54:03.8" amountPercentage="20"/>
+            <GlAccountCategoryMember glAccountId="112000" glAccountCategoryId="9303" fromDate="2009-07-08 11:54:03.8" amountPercentage="30"/>
+
+            <GlAccountCategoryMember glAccountId="140000" glAccountCategoryId="9301" fromDate="2009-05-08 11:54:03.8" amountPercentage="50"/>
+            <GlAccountCategoryMember glAccountId="140000" glAccountCategoryId="9302" fromDate="2009-06-08 11:54:03.8" amountPercentage="20"/>
+            <GlAccountCategoryMember glAccountId="140000" glAccountCategoryId="9303" fromDate="2009-07-08 11:54:03.8" amountPercentage="30"/>
+
+            <GlAccountCategoryMember glAccountId="516100" glAccountCategoryId="9301" fromDate="2009-06-08 11:54:03.8" amountPercentage="50"/>
+            <GlAccountCategoryMember glAccountId="516100" glAccountCategoryId="9302" fromDate="2009-08-08 11:54:03.8" amountPercentage="20"/>
+            <GlAccountCategoryMember glAccountId="516100" glAccountCategoryId="9303" fromDate="2009-07-08 11:54:03.8" amountPercentage="30"/>
+

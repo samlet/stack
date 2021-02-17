@@ -109,16 +109,16 @@ types:
     Category:
         services:
             addProductCategoryToCategory:
-                productCategoryId: 'TPC',
-                parentProductCategoryId: 'TPCP',
-                fromDate: UtilDateTime.nowTimestamp(),
+                productCategoryId: 'TPC'
+                parentProductCategoryId: 'TPCP'
+                fromDate: UtilDateTime.nowTimestamp()
                 userLogin: userLogin
                 _result: ProductCategoryRollup
             getProductCategoryAndLimitedMembers:
-                productCategoryId: '101',
-                prodCatalogId: 'DemoCatalog',
-                defaultViewSize: 10,
-                limitView: true,
+                productCategoryId: '101'
+                prodCatalogId: 'DemoCatalog'
+                defaultViewSize: 10
+                limitView: true
                 userLogin: userLogin
                 _result: ProductCategoryMember
         seed: |
@@ -192,15 +192,15 @@ types:
     Costs:
         services:
             calculateProductCosts:
-                productId: 'PROD_MANUF',
-                currencyUomId: 'USD',
-                costComponentTypePrefix: 'EST_STD',
+                productId: 'PROD_MANUF'
+                currencyUomId: 'USD'
+                costComponentTypePrefix: 'EST_STD'
                 userLogin: userLogin
                 _result: CostComponent
             getProductCost:
-                productId: 'PROD_MANUF',
-                currencyUomId: 'USD',
-                costComponentTypePrefix: 'EST_STD',
+                productId: 'PROD_MANUF'
+                currencyUomId: 'USD'
+                costComponentTypePrefix: 'EST_STD'
                 userLogin: userLogin
                 _result: resultMap.productCost
 
@@ -242,12 +242,12 @@ types:
     InventoryTests:
         services:
             getInventoryAvailableByFacility:
-                productId: 'GZ-2644',
-                facilityId: 'WebStoreWarehouse',
+                productId: 'GZ-2644'
+                facilityId: 'WebStoreWarehouse'
                 userLogin: userLogin
             createPhysicalInventoryAndVariance:
-                inventoryItemId: '9024',
-                varianceReasonId: 'VAR_LOST',
+                inventoryItemId: '9024'
+                varianceReasonId: 'VAR_LOST'
                 userLogin: userLogin
         seed: |
             <!--Demo Product Data-->
@@ -284,25 +284,25 @@ types:
     ProductPromoActionTests:
         services:
             loadCartFromOrder:
-                orderId: orderId,
+                orderId: orderId
                 skipInventoryChecks: true, # the items are already reserved, no need to check again
                 skipProductChecks: true, # the products are already in the order, no need to check their validity now
                 userLogin: getUserLogin("system")
                 _result: loadCartResp.shoppingCart
             productPromoActTaxPercent:
-                shoppingCart: cart,
-                nowTimestamp: UtilDateTime.nowTimestamp(),
-                actionResultInfo: new ActionResultInfo(),
+                shoppingCart: cart
+                nowTimestamp: UtilDateTime.nowTimestamp()
+                actionResultInfo: new ActionResultInfo()
                 productPromoAction: productPromoAction
             productPromoActShipCharge:
-                shoppingCart: cart,
-                nowTimestamp: UtilDateTime.nowTimestamp(),
-                actionResultInfo: new ActionResultInfo(),
+                shoppingCart: cart
+                nowTimestamp: UtilDateTime.nowTimestamp()
+                actionResultInfo: new ActionResultInfo()
                 productPromoAction: productPromoAction
             productPromoActProdSpecialPrice:
-                shoppingCart: cart,
-                nowTimestamp: UtilDateTime.nowTimestamp(),
-                actionResultInfo: new ActionResultInfo(),
+                shoppingCart: cart
+                nowTimestamp: UtilDateTime.nowTimestamp()
+                actionResultInfo: new ActionResultInfo()
                 productPromoAction: productPromoAction
 
     ProductTagTest:
@@ -312,10 +312,10 @@ types:
                 productTags: ['test']
                 _result: [ProductKeyword]
             updateProductKeyword:
-                userLogin: systemUserLogin,
-                productId: 'GZ-1000',
-                keyword: 'test',
-                keywordTypeId: 'KWT_TAG',
+                userLogin: systemUserLogin
+                productId: 'GZ-1000'
+                keyword: 'test'
+                keywordTypeId: 'KWT_TAG'
                 statusId: 'KW_APPROVED'
                 _result: [ProductKeyword]
         workflow: |
@@ -328,11 +328,11 @@ types:
                 assert productKeyword.statusId == 'KW_PENDING'
             Step 3) Approve a product tag.
                 updateProductKeywordMap = [
-                        userLogin : systemUserLogin,
-                        productId : 'GZ-1000',
-                        keyword : 'test',
-                        keywordTypeId : 'KWT_TAG',
-                        statusId : 'KW_APPROVED',
+                        userLogin : systemUserLogin
+                        productId : 'GZ-1000'
+                        keyword : 'test'
+                        keywordTypeId : 'KWT_TAG'
+                        statusId : 'KW_APPROVED'
                 ]
                 Map resultMap = dispatcher.runSync('updateProductKeyword', updateProductKeywordMap)
             Step 4) Check a product tag is approved.
@@ -358,11 +358,11 @@ types:
                 List<GenericValue> checkAllProductKeywordApproveList = from('ProductKeyword').where('productId', 'GZ-1000', 'statusId', 'KW_PENDING', 'keywordTypeId', 'KWT_TAG').queryList()
                 for (GenericValue checkAllProductKeywordApprove : checkAllProductKeywordApproveList) {
                     updateProductKeywordMap = [
-                            userLogin : systemUserLogin,
-                            productId : checkAllProductKeywordApprove.productId,
-                            keyword : checkAllProductKeywordApprove.keyword,
-                            keywordTypeId : checkAllProductKeywordApprove.keywordTypeId,
-                            statusId : 'KW_APPROVED',
+                            userLogin : systemUserLogin
+                            productId : checkAllProductKeywordApprove.productId
+                            keyword : checkAllProductKeywordApprove.keyword
+                            keywordTypeId : checkAllProductKeywordApprove.keywordTypeId
+                            statusId : 'KW_APPROVED'
                     ]
                     resultMap = dispatcher.runSync('updateProductKeyword', updateProductKeywordMap)
                     assert ServiceUtil.isSuccess(resultMap)
@@ -373,84 +373,91 @@ types:
     Product:
         services:
             createProduct:
-                internalName: internalName,
-                productTypeId: productTypeId,
+                internalName: internalName
+                productTypeId: productTypeId
                 userLogin: userLogin
                 _result: [serviceResult.productId, Product]
             updateProduct:
-                productId: productId,
-                productName: productName,
-                description: description,
+                productId: productId
+                productName: productName
+                description: description
                 userLogin: userLogin
             duplicateProduct:
-                productId: productId,
-                oldProductId: oldProductId,
+                productId: productId
+                oldProductId: oldProductId
                 userLogin: userLogin
             quickAddVariant:
-                productId: productId,
-                productFeatureIds: productFeatureIds,
-                productVariantId: productVariantId,
+                productId: productId
+                productFeatureIds: productFeatureIds
+                productVariantId: productVariantId
                 userLogin: userLogin
                 _result: [Product.isVariant, ProductAssoc, ProductFeature]
             deleteProductKeywords:
-                productId: productId,
+                productId: productId
                 userLogin: userLogin
                 _result: [ProductKeyword]
             # 停止产品销售
             discontinueProductSales:
-                productId: productId,
+                productId: productId
                 userLogin: userLogin
                 _result: [product.salesDiscontinuationDate]
             # 产品评论
             createProductReview:
-                productId: productId,
-                productStoreId: 'Test_store',
-                productRating: new BigDecimal('5'),
-                productReview: 'Test review',
+                productId: productId
+                productStoreId: 'Test_store'
+                productRating: new BigDecimal('5')
+                productReview: 'Test review'
                 userLogin: userLogin
                 _result: [ProductReview]
             updateProductReview:
-                productReviewId: productReviewId,
-                productRating: productRating,
-                productReview: productReview,
+                productReviewId: productReviewId
+                productRating: productRating
+                productReview: productReview
                 userLogin: userLogin
                 _result: [ProductReview]
 
             findProductById:
-                idToFind: 'Test_product_C',
+                idToFind: 'Test_product_C'
                 userLogin: userLogin
                 _result: [serviceResult.product]
             createProductPrice:
-                productId: productId,
-                productPriceTypeId: 'AVERAGE_COST',
-                productPricePurposeId: 'COMPONENT_PRICE',
-                productStoreGroupId: 'Test_group',
-                currencyUomId: 'USD',
-                price: new BigDecimal('30'),
-                fromDate: UtilDateTime.toTimestamp("04/07/2013 00:00:00"),
+                productId: productId
+                productPriceTypeId: 'AVERAGE_COST'
+                productPricePurposeId: 'COMPONENT_PRICE'
+                productStoreGroupId: 'Test_group'
+                currencyUomId: 'USD'
+                price: new BigDecimal('30')
+                fromDate: UtilDateTime.toTimestamp("04/07/2013 00:00:00")
                 userLogin: userLogin
                 _result: [ProductPrice]
             updateProductPrice:
-                productId: productId,
-                productPriceTypeId: productPriceTypeId,
-                productPricePurposeId: productPricePurposeId,
-                productStoreGroupId: productStoreGroupId,
-                currencyUomId: currencyUomId,
-                price: new BigDecimal('30'),
-                fromDate: fromDate,
+                productId: productId
+                productPriceTypeId: productPriceTypeId
+                productPricePurposeId: productPricePurposeId
+                productStoreGroupId: productStoreGroupId
+                currencyUomId: currencyUomId
+                price: new BigDecimal('30')
+                fromDate: fromDate
                 userLogin: userLogin
                 _result: [productPrice.price]
             deleteProductPrice:
-                productId: productId,
-                productPriceTypeId: productPriceTypeId,
-                productPricePurposeId: 'COMPONENT_PRICE',
-                productStoreGroupId: productStoreGroupId,
-                currencyUomId: currencyUomId,
-                fromDate: fromDate,
+                productId: productId
+                productPriceTypeId: productPriceTypeId
+                productPricePurposeId: 'COMPONENT_PRICE'
+                productStoreGroupId: productStoreGroupId
+                currencyUomId: currencyUomId
+                fromDate: fromDate
                 userLogin: userLogin
             createProductCategory:
-                productCategoryId: 'TEST_CATEGORY',
-                productCategoryTypeId: 'USAGE_CATEGORY',
+                productCategoryId: 'TEST_CATEGORY'
+                productCategoryTypeId: 'USAGE_CATEGORY'
+                userLogin: userLogin
+                _result: [ProductCategory]
+            updateProductCategory:
+                categoryName: 'Updated Test Product Category'
+                longDescription: 'Updated Long Test Product Category Description'
+                productCategoryId: 'CATALOG1_BEST_SELL'
+                productCategoryTypeId: 'BEST_SELL_CATEGORY'
                 userLogin: userLogin
                 _result: [ProductCategory]
 

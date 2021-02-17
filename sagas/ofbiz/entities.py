@@ -1,3 +1,5 @@
+from typing import Text, Any, Dict, List, Union, Optional
+
 import datetime
 
 from sagas.ofbiz.runtime_context import platform
@@ -235,14 +237,16 @@ def to_json(val, filter=False):
 def entity(entity_name):
     return MetaEntity(entity_name)
 
-def search_entity(name_filter):
+def search_entity(name_filter) -> List[Text]:
     name_filter=name_filter.lower()
     model_reader=oc.delegator.getModelReader()
     names=model_reader.getEntityNames()
     # print(len(names))
+    result=[]
     for name in names:
         if name_filter in name.lower():
-            print(name)
+            result.append(name)
+    return result
 
 def all_entities(include_view=True):
     model_reader=oc.delegator.getModelReader()

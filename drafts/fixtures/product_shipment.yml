@@ -1,0 +1,201 @@
+types:
+    ShipmentTests:
+        structs:
+            PackingSessionLine: |
+                private String orderId = null;
+                private String orderItemSeqId = null;
+                private String shipGroupSeqId = null;
+                private String productId = null;
+                private String inventoryItemId = null;
+                private String shipmentItemSeqId = null;
+                private BigDecimal quantity = BigDecimal.ZERO;
+                private BigDecimal weight = BigDecimal.ZERO;
+                private BigDecimal height = null;
+                private BigDecimal width = null;
+                private BigDecimal length = null;
+                private String shipmentBoxTypeId = null;
+                private String weightPackageSeqId = null;
+                private int packageSeq = 0;
+
+            PackingSession: |
+                private GenericValue userLogin = null;
+                private String pickerPartyId = null;
+                private String primaryOrderId = null;
+                private String primaryShipGrp = null;
+                private String dispatcherName = null;
+                private String delegatorName = null;
+                private String picklistBinId = null;
+                private String facilityId = null;
+                private String shipmentId = null;
+                private String instructions = null;
+                private String weightUomId = null;
+                private String shipmentBoxTypeId = null;
+                private BigDecimal additionalShippingCharge = null;
+                private Map<Integer, BigDecimal> packageWeights = null;
+                private List<PackingEvent> packEvents = null;
+                private List<PackingSessionLine> packLines = null;
+                private List<ItemDisplay> itemInfos = null;
+                private int packageSeq = -1;
+                private int status = 1;
+                private Map<Integer, String> shipmentBoxTypes = null;
+
+                /**
+                 * Add or increase line.
+                 * @param orderId        the order id
+                 * @param orderItemSeqId the order item seq id
+                 * @param shipGroupSeqId the ship group seq id
+                 * @param productId      the product id
+                 * @param quantity       the quantity
+                 * @param packageSeqId   the package seq id
+                 * @param weight         the weight
+                 * @param update         the update
+                 * @throws GeneralException the general exception
+                 */
+                public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity
+                                              int packageSeqId, BigDecimal weight, boolean update) throws GeneralException;
+                /**
+                 * Find line packing session line.
+                 * @param orderId         the order id
+                 * @param orderItemSeqId  the order item seq id
+                 * @param shipGroupSeqId  the ship group seq id
+                 * @param productId       the product id
+                 * @param inventoryItemId the inventory item id
+                 * @param packageSeq      the package seq
+                 * @return the packing session line
+                 */
+                public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId
+                                                   int packageSeq)
+
+                /**
+                 * Create pack line item.
+                 * @param checkCode      the check code
+                 * @param res            the res
+                 * @param orderId        the order id
+                 * @param orderItemSeqId the order item seq id
+                 * @param shipGroupSeqId the ship group seq id
+                 * @param productId      the product id
+                 * @param quantity       the quantity
+                 * @param weight         the weight
+                 * @param packageSeqId   the package seq id
+                 * @throws GeneralException the general exception
+                 */
+                protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId
+                                                  String productId, BigDecimal quantity, BigDecimal weight, int packageSeqId) throws GeneralException
+
+                /**
+                 * Add item info.
+                 * @param infos the infos
+                 */
+                public void addItemInfo(List<GenericValue> infos)
+                /**
+                 * Gets item infos.
+                 * @return the item infos
+                 */
+                public List<ItemDisplay> getItemInfos()
+                /**
+                 * <p>Delivers all the packing lines grouped by package.</p>
+                 * Output map:
+                 * <ul>
+                 * <li>packageMap - a Map of type {@code Map<Integer, List<PackingSessionLine>>}
+                 * that maps package sequence ids to the lines that belong in
+                 * that package</li>
+                 * <li>sortedKeys - a List of type List&lt;Integer&gt; with the sorted package
+                 * sequence numbers to index the packageMap</li>
+                 * </ul>
+                 * @return result Map with packageMap and sortedKeys
+                 */
+                public Map<Object, Object> getPackingSessionLinesByPackage()
+                /**
+                 * Clear item infos.
+                 */
+                public void clearItemInfos()
+                /**
+                 * Gets shipment id.
+                 * @return the shipment id
+                 */
+                public String getShipmentId()
+                /**
+                 * Next package seq int.
+                 * @return the int
+                 */
+                public int nextPackageSeq()
+                /**
+                 * Gets packed quantity.
+                 * @param orderId        the order id
+                 * @param orderItemSeqId the order item seq id
+                 * @param shipGroupSeqId the ship group seq id
+                 * @param productId      the product id
+                 * @return the packed quantity
+                 */
+                public BigDecimal getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId)
+
+                ....
+
+        services:
+            packSingleItem:
+                productId: 'GZ-2644'
+                orderId: 'DEMO10090'
+                shipGroupSeqId: '00001'
+                quantity: new BigDecimal('2')
+                packageSeq: 1
+                pickerPartyId: 'DemoCustomer'
+                handlingInstructions: 'Handle with care'
+                packingSession: packingSession
+                userLogin: userLogin
+            # 包装散装物品
+            packBulkItems:
+                updateQuantity: true
+                orderId: 'DEMO10090'
+                shipGroupSeqId: '00001'
+                pickerPartyId: 'DemoCustomer'
+                handlingInstructions: 'Handle with care'
+                nextPackageSeq: 1
+                packingSession: packingSession
+                userLogin: userLogin
+            # Complete the packging and set the shipment to packed
+            # (完成包装并将货件包装好)
+            completePack:
+                orderId: 'DEMO10090'
+                pickerPartyId: 'DemoCustomer'
+                handlingInstructions: 'Handle with care'
+                packingSession: packingSession
+                additionalShippingCharge: new BigDecimal('10')
+                forceComplete: true
+                userLogin: userLogin
+            # 从发货创建发票
+            createInvoicesFromShipment:
+                shipmentId: shipmentId
+                userLogin: userLogin
+                _result: [serviceResult.invoicesCreated, Invoice]
+            createShipment:
+                shipmentTypeId: 'SALES_SHIPMENT'
+                statusId: 'SHIPMENT_INPUT'
+                primaryOrderId: 'DEMO10090'
+                partyIdTo: 'DemoCustomer'
+                originFacilityId: 'WebStoreWarehouse'
+                userLogin: userLogin
+            updateShipment:
+                shipmentId: shipmentId
+                statusId: 'SHIPMENT_PACKED'
+                userLogin: userLogin
+                _result: [Shipment, shipment.statusId]
+
+            # testReceiveInventoryNonSerialized
+            receiveInventoryProduct:
+                facilityId: 'WebStoreWarehouse'
+                productId: 'GZ-2644'
+                quantityAccepted: new BigDecimal('2')
+                quantityRejected: BigDecimal.ZERO
+                unitCost: new BigDecimal('24')
+                inventoryItemTypeId: 'NON_SERIAL_INV_ITEM'
+                datetimeReceived: UtilDateTime.nowTimestamp()
+                userLogin: userLogin
+                _result: [serviceResult.inventoryItemId, InventoryItem, InventoryItemDetail
+                          ShipmentReceipt, shipmentReceipt.quantityAccepted, shipmentReceipt.productId]
+
+            createShipmentRouteSegment:
+                shipmentId: shipmentId
+                shipmentRouteSegmentId: '0001'
+                userLogin: userLogin
+                _result: [serviceResult.shipmentRouteSegmentId, ShipmentRouteSegment, shipmentRouteSegment.shipmentId]
+            

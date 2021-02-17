@@ -1,0 +1,56 @@
+types:
+    FixedAssetMaint:
+        entities:
+            - FixedAssetMaint   # fixedAssetId
+            - WorkEffort        # workEffortId, fixedAssetMaint.scheduleWorkEffortId
+        services:
+            createFixedAssetMaintUpdateWorkEffort: |
+                // Test case for service createFixedAssetMaintUpdateWorkEffort with a product Maintenance
+                String fixedAssetId = "DEMO_VEHICLE_01"
+                Map serviceCtx = [:]
+                serviceCtx.fixedAssetId = fixedAssetId
+                serviceCtx.statusId = "FAM_CREATED"
+                serviceCtx.productMaintSeqId = "seq03"  // product maintenance
+                serviceCtx.intervalMeterTypeId = "ODOMETER"
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                String estimatedStartDate = "2009-12-18 00:00:00.000"
+                serviceCtx.estimatedStartDate = new Timestamp(sdf.parse(estimatedStartDate).getTime());
+
+                String estimatedCompletionDate = "2009-12-18 01:00:00.000"
+                serviceCtx.estimatedCompletionDate = new Timestamp(sdf.parse(estimatedCompletionDate).getTime())
+
+                String actualStartDate = "2009-12-20 00:00:00.000"
+                serviceCtx.actualStartDate = new Timestamp(sdf.parse(actualStartDate).getTime())
+
+            # Test case for service updateFixedAssetMaintAndWorkEffort
+            updateFixedAssetMaintAndWorkEffort@1: |
+                String fixedAssetId = "DEMO_VEHICLE_01"
+                String maintHistSeqId = "00001"    // Sequence created by testCreateFixedAssetMaintUpdateWorkEffortWithProductMaint
+                Map serviceCtx = [:]
+                serviceCtx.fixedAssetId = fixedAssetId
+                serviceCtx.maintHistSeqId = maintHistSeqId
+                serviceCtx.statusId = "FAM_CREATED"
+                serviceCtx.productMaintTypeId = "OIL_CHANGE"
+                serviceCtx.intervalMeterTypeId = "ODOMETER"
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                String estimatedCompletionDate = "2009-12-22 01:00:00.000"  // Changed estimatedCompletionDate to test update service
+                serviceCtx.estimatedCompletionDate = new Timestamp(sdf.parse(estimatedCompletionDate).getTime())
+
+                GenericValue fixedAssetMaint = from("FixedAssetMaint").where("fixedAssetId", fixedAssetId).queryFirst()
+                serviceCtx.workEffortId = fixedAssetMaint.scheduleWorkEffortId
+
+                serviceCtx.userLogin = userLogin
+
+            # Test case for service updateFixedAssetMaintAndWorkEffort
+            updateFixedAssetMaintAndWorkEffort@2: |
+                GenericValue fixedAssetMaint = from("FixedAssetMaint").where("fixedAssetId", "DEMO_VEHICLE_01", "maintHistSeqId", "00001").queryOne()
+                Map serviceCtx = [:]
+                serviceCtx.fixedAssetId = fixedAssetMaint.fixedAssetId
+                serviceCtx.maintHistSeqId = fixedAssetMaint.maintHistSeqId
+                serviceCtx.scheduleWorkEffortId = fixedAssetMaint.scheduleWorkEffortId
+                serviceCtx.statusId = "FAM_COMPLETED"
+                serviceCtx.actualCompletionDate = UtilDateTime.nowTimestamp()
+                serviceCtx.userLogin = userLogin
+

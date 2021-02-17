@@ -1,0 +1,6 @@
+services:
+    WorkEffort:
+        interface: interfaceWorkEffort
+        impls:
+            - createWorkEffort
+            - createWorkEffortAndPartyAssign

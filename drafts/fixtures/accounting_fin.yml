@@ -1,0 +1,37 @@
+types:
+    FinAccount:
+        seed: |
+            <!-- For Testing service updateFinAccount -->
+            <FinAccount finAccountId="1001" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+            <!-- For Testing service deleteFinAccount -->
+            <FinAccount finAccountId="1002" finAccountTypeId="CREDIT_CARD_ACCOUNT" finAccountName="Credit Cart Account" finAccountCode="1002" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+            <!-- For Testing service createFinAccountStatus -->
+            <FinAccount finAccountId="1003" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+            <!-- For Testing service updateFinAccountRole -->
+            <FinAccount finAccountId="1004" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+            <FinAccountRole finAccountId="1004" partyId="DEMO_COMPANY" roleTypeId="SUPPLIER" fromDate="2016-11-03 00:00:00"/>
+            <!-- For Testing service setFinAccountTransStatus -->
+            <FinAccount finAccountId="1005" finAccountTypeId="DEPOSIT_ACCOUNT" finAccountName="Deposit Account" finAccountCode="1001" currencyUomId="USD" organizationPartyId="DEMO_COMPANY" fromDate="2016-11-03 00:00:00" actualBalance="2000.00" availableBalance="1500.00"/>
+            <FinAccountTrans finAccountTransId="1010" finAccountTransTypeId="ADJUSTMENT" finAccountId="1005" statusId="FINACT_TRNS_CREATED" />
+
+    FinAccountTrans:
+        seed: |
+            <!--Data for Batch Payments-->
+            <Payment paymentId="8003" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="COMPANY_CHECK" partyIdFrom="AcctBuyer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2009-08-12 16:33:34.922" amount="20.00" currencyUomId="USD" actualCurrencyAmount="20.00" actualCurrencyUomId="USD"/>
+            <AcctgTrans acctgTransId="8014" acctgTransTypeId="INCOMING_PAYMENT" transactionDate="2009-08-13 10:51:37.47" isPosted="Y" postedDate="2009-08-13 10:51:38.159" glFiscalTypeId="ACTUAL" partyId="AcctBuyer" roleTypeId="BILL_TO_CUSTOMER" paymentId="8003"/>
+            <AcctgTransEntry acctgTransId="8014" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" glAccountId="112000" organizationPartyId="Company" amount="20.00" currencyUomId="USD" origAmount="20.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED" />
+            <AcctgTransEntry acctgTransId="8014" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="20.00" currencyUomId="USD" origAmount="20.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+
+            <FinAccountTrans finAccountTransId="9100" finAccountTransTypeId="DEPOSIT" finAccountId="SC_CHECKING" amount="50000.00"
+                             partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
+            <FinAccountTrans finAccountTransId="9101" finAccountTransTypeId="DEPOSIT" finAccountId="ABN_CHECKING" amount="75000.00"
+                             partyId="Company" glReconciliationId="9000" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
+            <FinAccountTrans finAccountTransId="9102" finAccountTransTypeId="WITHDRAWAL" finAccountId="ABN_CHECKING" amount="500.00"
+                             partyId="Company" transactionDate="2009-07-18 00:00:01.000" entryDate="2009-07-18 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_CREATED" paymentId="8001"/>
+            <Payment paymentId="8001" finAccountTransId="9102"/>
+            <FinAccountTrans finAccountTransId="9103" finAccountTransTypeId="DEPOSIT" finAccountId="ABN_CHECKING" amount="20.00"
+                             partyId="Company" transactionDate="2009-08-12 16:34:33.306" entryDate="2009-08-12 16:34:33.306"  paymentId="8003" statusId="FINACT_TRNS_CREATED"/>
+            <Payment paymentId="8003" finAccountTransId="9103"/>
+            <FinAccountTrans finAccountTransId="9104" finAccountTransTypeId="WITHDRAWAL" finAccountId="ABN_CHECKING" amount="33.990"
+                             partyId="Company" transactionDate="2009-07-18 00:00:01.000" entryDate="2009-08-11 12:28:45.315" performedByPartyId="admin" statusId="FINACT_TRNS_CREATED" paymentId="8002"/>
+            <Payment paymentId="8002" finAccountTransId="9104"/>

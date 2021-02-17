@@ -154,20 +154,35 @@ class MetaService(object):
 
         print(tabulate(table_data, headers=table_header, tablefmt='psql'))
 
+def get_params_old(params):
+    model_desc = {'name': [str(get_field(param, "name")) for param in params],
+                  'type': [str(get_field(param, "type")) for param in params],
+                  'required': ['*' if not get_field(param, "optional") else ' ' for param in params],
+                  'override optional': ['*' if not get_field(param, "overrideOptional") else ' ' for param in params],
+                  'entity name': [str(get_field(param, "entityName")) for param in params],
+                  'mode': [str(get_field(param, "mode")) for param in params],
+                  'internal': ['*' if get_field(param, "internal") else ' ' for param in params],
+                  'description': [str(get_field(param, "description")) for param in params]
+                  }
+    return model_desc
+
+def get_params(params):
+    model_desc = {'name': [str(param.getName()) for param in params],
+                  'type': [str(param.getType()) for param in params],
+                  'required': ['*' if not param.isOptional() else ' ' for param in params],
+                  'override optional': ['*' if not param.isOverrideOptional() else ' ' for param in params],
+                  'entity name': [str(param.getEntityName()) for param in params],
+                  'mode': [str(param.getMode()) for param in params],
+                  'internal': ['*' if param.isInternal() else ' ' for param in params],
+                  # 'description': [str(param.getShortDisplayDescription()) for param in params]
+                  }
+    return model_desc
 
 def create_service_data_frame(name, show_internal=False):
     import pandas as pd
     model=MetaService(name).model
     params=model.getModelParamList()
-    model_desc={'name':[str(get_field(param, "name")) for param in params],
-                'type':[str(get_field(param, "type")) for param in params],
-                'required': ['*' if not get_field(param, "optional") else ' '  for param in params],
-                'override optional': ['*' if not get_field(param, "overrideOptional") else ' ' for param in params],
-                'entity name': [str(get_field(param, "entityName")) for param in params],
-                'mode':[str(get_field(param, "mode")) for param in params],
-                'internal': ['*' if get_field(param, "internal") else ' '  for param in params],
-                'description':[str(get_field(param, "description")) for param in params]
-               }
+    model_desc=get_params(params)
     df = pd.DataFrame(model_desc)
     # df['parameter mode']=df['mode'].astype('category')
     if not show_internal:

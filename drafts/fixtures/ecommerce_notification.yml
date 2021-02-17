@@ -1,0 +1,31 @@
+types:
+    OrderNotification:
+        services:
+            sendOrderConfirmation:
+                orderId: 'TEST_DEMO10090',
+                sendTo: 'test_email@example.com',
+                userLogin: userLogin
+                _result: serviceResult.emailType
+            sendOrderChangeNotification:
+                orderId: 'TEST_DEMO10090',
+                note: 'Test Note',
+                comments: 'Test comments',
+                sendTo: 'test_email@example.com',
+                userLogin: userLogin
+                _result: serviceResult.emailType
+            sendOrderBackorderNotification:
+                orderId: 'TEST_DEMO10090',
+                sendTo: 'test_email@example.com',
+                userLogin: userLogin
+                _assert: serviceResult.emailType.equals("PRDS_ODR_BACKORDER")
+            sendOrderPayRetryNotification:
+                orderId: 'TEST_DEMO10090',
+                sendTo: 'test_email@example.com',
+                userLogin: userLogin
+                _assert: serviceResult.emailType.equals("PRDS_ODR_PAYRETRY")
+            sendOrderCompleteNotification:
+                orderId: 'TEST_DEMO10090',
+                sendTo: 'test_email@example.com',
+                userLogin: userLogin
+                _assert: serviceResult.emailType.equals("PRDS_ODR_COMPLETE")
+

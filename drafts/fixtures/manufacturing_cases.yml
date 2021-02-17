@@ -1,0 +1,104 @@
+types:
+    ProductionRunCreation:
+        entities:
+            - WorkEffort # productionRunId
+            - WorkEffortGoodStandard # productionRunId
+            - WorkEffortCostCalc # Verify that the cost calcs were copied from the routing task to the production run task
+        services:
+            createProductionRun: |
+                <set field="productId" value="PROD_MANUF"/>
+                <set field="facilityId" value="WebStoreWarehouse"/>
+                <set field="quantity" value="5.0" type="BigDecimal"/>
+                <now-timestamp field="nowTimestamp"/>
+                <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+                <entity-one entity-name="UserLogin" value-field="userLogin">
+                    <field-map field-name="userLoginId" value="TestManufAdmin"/>
+                </entity-one>
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+
+                <set field="serviceCtx.productId" from-field="productId"/>
+                <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+                <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+                <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+    ProductionRunScheduleConfirm:
+        services:
+            # production run #1
+            createProductionRun: |
+                <set field="productId" value="PROD_MANUF"/>
+                <set field="facilityId" value="WebStoreWarehouse"/>
+                <set field="quantity" value="5.0" type="BigDecimal"/>
+                <now-timestamp field="nowTimestamp"/>
+                <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+                <entity-one entity-name="UserLogin" value-field="userLogin">
+                    <field-map field-name="userLoginId" value="TestManufAdmin"/>
+                </entity-one>
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productId" from-field="productId"/>
+                <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+                <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+                <set field="serviceCtx.facilityId" from-field="facilityId"/>
+            quickChangeProductionRunStatus: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+                <set field="serviceCtx.statusId" value="PRUN_DOC_PRINTED"/>
+
+    ProductionRunQuickIssueAndProduce:
+        services:
+            createProductionRun: |
+                <set field="productId" value="PROD_MANUF"/>
+                <set field="facilityId" value="WebStoreWarehouse"/>
+                <set field="quantity" value="2.0" type="BigDecimal"/>
+                <now-timestamp field="nowTimestamp"/>
+                <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+                <entity-one entity-name="UserLogin" value-field="userLogin">
+                    <field-map field-name="userLoginId" value="TestManufAdmin"/>
+                </entity-one>
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productId" from-field="productId"/>
+                <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+                <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+                <set field="serviceCtx.facilityId" from-field="facilityId"/>
+            quickChangeProductionRunStatus: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+                <set field="serviceCtx.statusId" value="PRUN_DOC_PRINTED"/>
+            quickStartAllProductionRunTasks: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+            calculateProductCosts: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productId" from-field="productId"/>
+                <set field="serviceCtx.currencyUomId" value="USD"/>
+                <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
+            productionRunDeclareAndProduce: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.workEffortId" from-field="productionRunId"/>
+                <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+                <set field="serviceCtx.lotId" value="LOT12345"/>
+                <set field="componentLocationMap.failIfItemsAreNotAvailable" from-field="Y"/>
+                <set field="componentLocationMap.locationSeqId" value=""/>
+                <set field="componentLocationMap.secondaryLocationSeqId" value=""/>
+                <set field="componentsLocationMap.${productionRunMaterialA}" from-field="componentLocationMap"/>
+                <set field="componentsLocationMap.${productionRunMaterialB}" from-field="componentLocationMap"/>
+                <set field="serviceCtx.componentsLocationMap" from-field="componentsLocationMap"/>
+                <set field="serviceCtx.quantity" value="1.0" type="BigDecimal"/>
+
+    ProductionRun:
+        services:
+            # Test the production run start date change
+            quickChangeProductionRunStatus: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+                <set field="serviceCtx.statusId" value="PRUN_SCHEDULED"/>
+            updateProductionRun: |
+                <set-calendar field="productionRunNewStartDate" from-field="nowTimestamp" days="8"/>
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+                <set field="serviceCtx.estimatedStartDate" from-field="productionRunNewStartDate"/>
+            cancelProductionRun: |
+                <set field="serviceCtx.userLogin" from-field="userLogin"/>
+                <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
