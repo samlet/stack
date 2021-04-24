@@ -1,4 +1,27 @@
 # procs-gradle-mirror.md
+⊕ [gradle 使用 国内镜像 - 正义的伙伴！ - 博客园](https://www.cnblogs.com/whm-blog/p/12407786.html)
+
+```js
+// 在项目文件中找到build.gradle文件，修改其中的buildscript和allprojects地址：
+
+buildscript {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha13'
+    }
+}
+
+allprojects {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+    }
+}
+```
+
 ⊕ [阿里云maven镜像库配置（gradle,maven） - 迟到的月亮 - CSDN博客](https://blog.csdn.net/qq_32193151/article/details/70907037)
 
 gradle配置：将原来的mavenCentral()直接替换掉或者放到这个的前面（默认是从上往下寻找，所以要放到mavenCentral的前面，如果加在mavenCentral后面，等同于没加）

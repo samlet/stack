@@ -178,15 +178,18 @@ def get_params(params):
                   }
     return model_desc
 
-def create_service_data_frame(name, show_internal=False):
+def create_service_data_frame(name, show_internal=False, show_entity_flds=True):
     import pandas as pd
     model=MetaService(name).model
+    default_ent=model.getDefaultEntityName()
     params=model.getModelParamList()
     model_desc=get_params(params)
     df = pd.DataFrame(model_desc)
     # df['parameter mode']=df['mode'].astype('category')
     if not show_internal:
         df=df[df['internal']!='*']
+    if not show_entity_flds and default_ent!='':
+        df = df[df['entity name'] != default_ent]
     # return df.sort_values(by='parameter mode')
     return df
 

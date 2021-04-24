@@ -1,5 +1,28 @@
 # procs-ofbiz-model.md
+## create ipython profile
+⊕ [Introduction to IPython configuration — IPython 7.22.0 documentation](https://ipython.readthedocs.io/en/stable/config/intro.html)
+
+```bash
+ipython profile create bluecc   # create the profile bluecc
+ipython locate profile bluecc
+# 在这个目录下startup子目录下创建00-first.py:
+# from sagas.modules.deles import *
+
+ipython --profile=bluecc        # start IPython using the new profile
+In [3]: invoices.getInvoiceTotal("demo10001")
+Out[3]: Decimal('36.43')
+```
+```python
+In [1]: e('relations').Person
+```
+
 ## quick start
+```python
+from sagas.modules.deles import *
+total=invoices.getInvoiceTotal('demo10000')
+print(f"total {total}")
+```
+
 ```python
 # ❶
 from sagas.ofbiz.services import OfService as s, oc, track
@@ -57,7 +80,9 @@ model=s('model').createProductReview
 print_table(model, 'engineName', 'location', 'invoke', 'defaultEntityName')
 
 ## testing service
-s().testScv(defaultValue=5.5, message="hello world")
+s().testScv(defaultValue=5.5, message="hello world")  # with kwargs
+s().testScv({'defaultValue':5.5, 'message':"hello world"})  # with dict
+# Out[2]: (True, {'responseMessage': 'success', 'resp': 'service done'})
 
 ## service logs
 from sagas.ofbiz.entities import OfEntity as e, oc

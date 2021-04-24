@@ -1,0 +1,3 @@
+bluecc:
+	ipython --profile=bluecc
+
