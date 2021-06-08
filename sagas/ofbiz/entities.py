@@ -153,6 +153,14 @@ class MetaEntity(object):
         return [str(v) for v in self.model.getPkFieldNames()]
 
     @property
+    def package_name(self):
+        return self.model.getPackageName()
+
+    @property
+    def description(self):
+        return self.model.getDescription()
+
+    @property
     def field_names(self):
         """
         import sagas.ofbiz.entities as ee

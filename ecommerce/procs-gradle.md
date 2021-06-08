@@ -1,4 +1,44 @@
 # procs-gradle.md
+⊕ [Declaring Dependencies between Subprojects](https://docs.gradle.org/current/userguide/declaring_dependencies_between_subprojects.html)
+
+```js
+dependencies {
+    implementation project(':shared')
+}
+```
+
+⊕ [java - Gradle application plugin with multiple main classes - Stack Overflow](https://stackoverflow.com/questions/43937169/gradle-application-plugin-with-multiple-main-classes/46938169)
+
+```bash
+# You can directly configure the Application Plugin with properties:
+application {
+    mainClassName = project.findProperty("chooseMain").toString()
+}
+# And after in command line you can pass the name of the main class:
+./gradlew run -PchooseMain=net.worcade.my.MainClass
+```
+
+```js
+pply plugin: 'java'
+
+task(runSimple, dependsOn: 'classes', type: JavaExec) {
+   main = 'com.mrhaki.java.Simple'
+   classpath = sourceSets.main.runtimeClasspath
+   args 'mrhaki'
+   systemProperty 'simple.message', 'Hello '
+}
+```
+Clearly then what you can change:
+    runSimple can be named whatever you want
+    set main as appropriate
+    clear out args and systemProperty if not needed
+    To run:
+
+```bash
+$ gradle runSimple
+# If you want to pass arguments from the command line you can do this with: gradle runSimple --args 'arg1 arg2' (You'll need to remove the args bit from the task() obviously) 
+```
+
 ⊕ [The Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html#sec:upgrading_wrapper)
 
 ## upgrade

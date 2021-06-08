@@ -11,6 +11,17 @@ importlib.reload(sagas.tool.loggers)
 # %autoreload 2 Reload all modules (except those excluded by %aimport) every time before executing the Python code typed.
 ```
 
++ svg
+    * http://www.xavierdupre.fr/app/jyquickhelper/helpsphinx/notebooks/notebook_html_svg.html#svg
+
+```python
+from IPython.display import SVG
+SVG("""<svg>
+    <rect x="10" y="10" height="100" width="100"
+          style="stroke:#ff0000; fill: #0000ff"/>
+</svg>""")
+```
+
 + env
 
 ```python
