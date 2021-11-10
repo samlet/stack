@@ -232,6 +232,8 @@ class MetaEntity(object):
             rel_ents = set([str(rel.getTitle() + rel.getRelEntityName()) for rel in self.rels])
         return rel_ents
 
+    def is_view(self):
+        return self.model.getClass().getSimpleName()!="ModelEntity"
 
 def to_json(val, filter=False):
     import sagas.graph.value_filter as vf

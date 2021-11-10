@@ -117,6 +117,10 @@ class MetaService(object):
     def default_entity(self):
         return get_field(self.model, "defaultEntityName")
 
+    @property
+    def description(self):
+        return self.model.getDescription()
+
     def desc(self, show_internal=True):
         from tabulate import tabulate
 

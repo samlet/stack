@@ -1,6 +1,7 @@
 # procs-groovy.md
 ⊕ [Creating New Gradle Builds](https://guides.gradle.org/creating-new-gradle-builds/)
 ⊕ [Gradle Build a Groovy Project](https://www.tutorialspoint.com/gradle/gradle_build_a_groovy_project.htm)
+⊕ [Building Java Applications with libraries Sample](https://docs.gradle.org/current/samples/sample_building_java_applications_multi_project.html)
 
 ## xml
 ⊕ [Groovy XML](https://www.tutorialspoint.com/groovy/groovy_xml.htm)

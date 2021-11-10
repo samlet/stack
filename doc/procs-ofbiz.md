@@ -4,6 +4,9 @@
 ⊕ [OFBiz Tutorials | Get Started with Apache OFBiz Development](https://www.hotwaxsystems.com/ofbiz-8/tutorials/)
     ⊕ [What You Need to Know about Price Rules in OFBiz | HotWax](https://www.hotwaxsystems.com/ofbiz/ofbiz-tutorials/ofbiz-tutorial-price-rules/)
 
++ release:
+  Released on October 2021, this is the first release of the 18.12 series, that has been stabilized since December 2018.
+
 ## framework
 ⊕ [SECAs and Error and Failure Management - OFBiz Project Open Wiki - Apache Software Foundation](https://cwiki.apache.org/confluence/display/OFBIZ/SECAs+and+Error+and+Failure+Management)
 ⊕ [Service Engine Guide - OFBiz Project Open Wiki - Apache Software Foundation](https://cwiki.apache.org/confluence/display/OFBIZ/Service+Engine+Guide#ServiceEngineGuide-ServiceEngineGuide-ecas)

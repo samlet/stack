@@ -1,4 +1,108 @@
 # procs-gradle.md
+⊕ [Building Java Applications with libraries Sample](https://docs.gradle.org/current/samples/sample_building_java_applications_multi_project.html)
+
+```bash
+$ mkdir demo
+$ cd demo
+$ gradle init
+
+Select type of project to generate:
+  1: basic
+  2: application
+  3: library
+  4: Gradle plugin
+Enter selection (default: basic) [1..4] 2
+
+Split functionality across multiple subprojects?:
+   1: no - only one application project
+   2: yes - application and library projects
+Enter selection (default: no - only one application project) [1..2] 2
+
+Select implementation language:
+  1: C++
+  2: Groovy
+  3: Java
+  4: Kotlin
+  5: Scala
+  6: Swift
+Enter selection (default: Java) [1..6] 3
+
+Select build script DSL:
+  1: Groovy
+  2: Kotlin
+Enter selection (default: Groovy) [1..2] 1
+
+Select test framework:
+  1: JUnit 4
+  2: TestNG
+  3: Spock
+  4: JUnit Jupiter
+Enter selection (default: JUnit 4) [1..4]
+
+Project name (default: demo):
+Source package (default: demo):
+
+
+BUILD SUCCESSFUL
+2 actionable tasks: 2 executed
+```
+```ini
+├── gradle 
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew 
+├── gradlew.bat 
+├── settings.gradle 
+├── buildSrc
+│   ├── build.gradle 
+│   └── src
+│       └── main
+│           └── groovy 
+│               ├── demo.java-application-conventions.gradle
+│               ├── demo.java-common-conventions.gradle
+│               └── demo.java-library-conventions.gradle
+├── app
+│   ├── build.gradle 
+│   └── src
+│       ├── main 
+│       │   └── java
+│       │       └── demo
+│       │           └── app
+│       │               ├── App.java
+│       │               └── MessageUtils.java
+│       └── test 
+│           └── java
+│               └── demo
+│                   └── app
+│                       └── MessageUtilsTest.java
+├── list
+│   ├── build.gradle 
+│   └── src
+│       ├── main 
+│       │   └── java
+│       │       └── demo
+│       │           └── list
+│       │               └── LinkedList.java
+│       └── test 
+│           └── java
+│               └── demo
+│                   └── list
+│                       └── LinkedListTest.java
+└── utilities
+    ├── build.gradle 
+    └── src
+        └── main 
+            └── java
+                └── demo
+                    └── utilities
+                        ├── JoinUtils.java
+                        ├── SplitUtils.java
+                        └── StringUtils.java
+```
+
+
+
 ⊕ [Declaring Dependencies between Subprojects](https://docs.gradle.org/current/userguide/declaring_dependencies_between_subprojects.html)
 
 ```js
