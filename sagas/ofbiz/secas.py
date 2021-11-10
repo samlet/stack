@@ -2,6 +2,7 @@ from typing import Text, Any, Dict, List, Union, Optional
 from sagas.modules.deles import *
 
 oc.import_package('org.apache.ofbiz.service.eca.ServiceEcaUtil')
+oc.import_package('com.bluecc.triggers.Hubs')
 
 indicators = {
     "commit": "✅",

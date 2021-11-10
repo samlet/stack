@@ -23,6 +23,8 @@ class OfbizConnector(object):
         java_import(self.j, 'com.sagas.generic.*')
         java_import(self.j, 'org.apache.ofbiz.entity.transaction.TransactionUtil')
 
+        self.import_package('com.bluecc.triggers.Hubs')
+
     def import_package(self, pkg):
         java_import(self.j, pkg)
 
@@ -33,6 +35,10 @@ class OfbizConnector(object):
         :return:
         """
         return self.gateway.entry_point.getComponent(name)
+
+    @property
+    def hubs(self):
+        return self.j.Hubs
 
     async def srv_connector(self):
         import asyncio
