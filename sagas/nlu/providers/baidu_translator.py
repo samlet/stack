@@ -79,7 +79,7 @@ class BaiduTranslator(object):
 
     def to_zh(self, s, t, q):
         """
-        $ python -m sagas.nlu.baidu_translator to_zh en zh "tom is a bad student"
+        $ python -m sagas.nlu.providers.baidu_translator to_zh en zh "tom is a bad student"
             [{'src': 'tom is a bad student', 'dst': '汤姆是个坏学生'}]
         $ python -m sagas.nlu.baidu_translator to_zh en ja "tom is a bad student"
         $ python -m sagas.nlu.baidu_translator to_zh vi zh "Cậu bé uống nước ép."

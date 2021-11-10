@@ -2,6 +2,9 @@ from sagas.ofbiz.runtime_context import platform
 from py4j.java_gateway import get_field
 from sagas.util.string_util import abbrev
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 oc=platform.oc
 finder=platform.finder
@@ -87,7 +90,11 @@ class OfService(object):
 class MetaService(object):
     def __init__(self, name):
         self.name = name
-        self.model = oc.service_model(name)
+        try:
+            self.model = oc.service_model(name)
+        except Exception as e:
+            logger.error(f"error: {e}")
+            self.model=None
 
     @property
     def parameters(self):

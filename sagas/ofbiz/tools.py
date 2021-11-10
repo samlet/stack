@@ -151,6 +151,14 @@ class OfTools(object):
         load_xml_seed(data_file)
 
     def service_model(self, service_name):
+        """
+        $ python -m sagas.ofbiz.tools service_model createPerson
+        $ python -m sagas.ofbiz.tools service_model receiveInventoryProduct
+        $ python -m sagas.ofbiz.tools service_model changeOrderStatus
+
+        :param service_name:
+        :return:
+        """
         from sagas.ofbiz.services import OfService as s, create_service_data_frame
         meta=create_service_data_frame(service_name)
         print(meta)
