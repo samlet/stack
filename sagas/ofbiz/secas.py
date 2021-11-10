@@ -26,6 +26,20 @@ def secas_summary(name) -> List[str]:
     return summary
 
 class Secas(object):
+    def all_secas(self):
+        """
+        $ python -m sagas.ofbiz.secas all_secas
+        $ python -m sagas.ofbiz.secas all_secas | grep -i payment
+        $ python -m sagas.ofbiz.secas all_secas | grep -i inventory | xargs -I {} python -m sagas.ofbiz.secas get_secas {}
+        :return:
+        """
+        services = oc.hubs.getComponent('services')
+        ecas = services.getEcaRules()
+        for cas in ecas.keySet():
+            print(cas)
+        # print(ecas.keySet(), "☑️ ️", len(ecas.keySet()))
+        print("☑️ ️", len(ecas.keySet()))
+
     def get_secas(self, name):
         """
         ## order
@@ -66,7 +80,7 @@ class Secas(object):
                 acts = [(action.getServiceName(), action.getServiceMode()) for action in ecaRule.getEcaActionList()]
                 print('\t➡️   ️️actions', acts)
                 for action in ecaRule.getEcaActionList():
-                    print('\t 〰️', colored(action.getServiceName(), "blue"), ':',
+                    print('\t 〰️', colored(action.getServiceName(), "green", attrs=["bold", "reverse"]), ':',
                           colored(MetaService(action.getServiceName()).description, "green"))
                     for succ_srv in secas_summary(action.getServiceName()):
                         print("\t\t", succ_srv)
