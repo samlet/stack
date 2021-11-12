@@ -4,6 +4,7 @@ class Eecas(object):
     def all_eecas(self):
         """
         $ python -m sagas.ofbiz.eecas all_eecas
+            ☑️ ️ 38
         :return:
         """
         models = oc.hubs.getComponent('models')

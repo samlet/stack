@@ -173,6 +173,16 @@ class OfTools(object):
         for el in rs:
             print(el)
 
+    def all_services(self):
+        """
+        $ python -m sagas.ofbiz.tools all_services
+        :return:
+        """
+        services = oc.all_service_names()
+        for s in services:
+            print(s)
+        print("#total", len(services))
+
     def form(self, form_name):
         from sagas.ofbiz.entities import OfEntity as e, oc, finder
         hub = oc.component('entity_event_hub')

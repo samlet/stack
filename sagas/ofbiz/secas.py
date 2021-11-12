@@ -1,4 +1,7 @@
+import json
 from typing import Text, Any, Dict, List, Union, Optional
+
+import io_utils
 from sagas.modules.deles import *
 
 oc.import_package('org.apache.ofbiz.service.eca.ServiceEcaUtil')
@@ -10,6 +13,7 @@ indicators = {
     "invoke": "↘️",
     "in-validate": "☑️",
 }
+
 
 def secas_summary(name) -> List[str]:
     model = MetaService(name).model
@@ -25,10 +29,12 @@ def secas_summary(name) -> List[str]:
         summary.append(f"{indicator}  {name} has {evs.size()} {key} events")
     return summary
 
+
 class Secas(object):
     def all_secas(self):
         """
         $ python -m sagas.ofbiz.secas all_secas
+            ☑️ ️ 188
         $ python -m sagas.ofbiz.secas all_secas | grep -i payment
         $ python -m sagas.ofbiz.secas all_secas | grep -i inventory | xargs -I {} python -m sagas.ofbiz.secas get_secas {}
         :return:
@@ -40,7 +46,24 @@ class Secas(object):
         # print(ecas.keySet(), "☑️ ️", len(ecas.keySet()))
         print("☑️ ️", len(ecas.keySet()))
 
-    def get_secas(self, name):
+    def all_groups(self):
+        """
+        $ python -m sagas.ofbiz.secas all_groups
+            ☑️ ️ 26
+        :return:
+        """
+        from termcolor import colored
+
+        services = oc.hubs.getComponent('services')
+        groups = services.getServiceGroups()
+        for g in groups:
+            m = g.getModel()
+            groupModel = g.getGroup()
+            print(colored(m.getName(), attrs=["bold"]))
+            print('\t', [(s.getName(), s.getMode()) for s in groupModel.getServices()])
+        print("☑️ ️", len(groups))
+
+    def get_secas(self, name, format=None):
         """
         ## order
             $ python -m sagas.ofbiz.secas get_secas storeOrder
@@ -54,37 +77,66 @@ class Secas(object):
         ## payment
             $ python -m sagas.ofbiz.secas get_secas setPaymentStatus
             $ python -m sagas.ofbiz.secas get_secas setFinAccountTransStatus
-
+            $ python -m sagas.ofbiz.secas get_secas setPaymentStatus json
         :param name:
         :return:
         """
         from termcolor import colored
 
+        def null_print(*args, sep=' ', end='\n', file=None):
+            pass
+
+        output = print
+        if format is not None:
+            output = null_print
+        else:
+            output = print
+
         model = MetaService(name).model
         if model is None:
-            print(f"No such service {name}")
+            output(f"No such service {name}")
             return
         default_ent = model.getDefaultEntityName()
         eventMap = oc.j.ServiceEcaUtil.getServiceEventMap(model.getName())
         if eventMap is None:
-            print(f"Service {name} doesn't have secas")
+            output(f"Service {name} doesn't have secas")
             return
-        print('➿ events', eventMap.keySet())
+        output('➿ events', eventMap.keySet())
+        ecas={}
         for key, evs in eventMap.items():
             indicator = indicators.get(key, "▶️")
-            # print(key, evs.size())
-            print(colored(f"{indicator}  {name} has {evs.size()} {key} events", attrs=["bold"]))
+            # output(key, evs.size())
+            output(colored(f"{indicator}  {name} has {evs.size()} {key} events", attrs=["bold"]))
+            rules=[]
             for ecaRule in evs:
                 conds = [cond.getShortDisplayDescription(False) for cond in ecaRule.getEcaConditionList()]
-                print("\t❓ conditions", colored(conds, "magenta", attrs=['underline']))
+                output("\t❓ conditions", colored(conds, "magenta", attrs=['underline']))
                 acts = [(action.getServiceName(), action.getServiceMode()) for action in ecaRule.getEcaActionList()]
-                print('\t➡️   ️️actions', acts)
+                output('\t➡️   ️️actions', acts)
+                acts=[]
                 for action in ecaRule.getEcaActionList():
-                    print('\t 〰️', colored(action.getServiceName(), "green", attrs=["bold", "reverse"]), ':',
-                          colored(MetaService(action.getServiceName()).description, "green"))
-                    for succ_srv in secas_summary(action.getServiceName()):
-                        print("\t\t", succ_srv)
+                    desc=MetaService(action.getServiceName()).description
+                    output('\t 〰️', colored(action.getServiceName(), "green", attrs=["bold", "reverse"]), ':',
+                           colored(desc, "green"))
+                    succ_srvs=secas_summary(action.getServiceName())
+                    for succ_srv in succ_srvs:
+                        output("\t\t", succ_srv)
+                    acts.append({"serviceName": action.getServiceName(),
+                                 "description": desc,
+                                 "succSrvs": succ_srvs,
+                                 })
+                rules.append({"conditionList": conds,
+                        "actionList": acts})
+            ecas[key]=rules
 
+        if format is not None:
+            srv_meta= {"name": name,
+                    "defaultEnt": default_ent,
+                    "ecas": ecas
+                    }
+            cnt=json.dumps(srv_meta, ensure_ascii=False, indent=2)
+            print(cnt)
+            io_utils.write_to_file(f"/opt/asset/meta/services/{name}.json", cnt, True)
 
 if __name__ == '__main__':
     import fire
