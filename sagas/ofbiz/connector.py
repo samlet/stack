@@ -20,7 +20,8 @@ class OfbizConnector(object):
         self.srv_rpc=None
         java_import(self.j, 'java.util.*')
         java_import(self.j, 'org.apache.ofbiz.base.util.*')
-        java_import(self.j, 'com.sagas.generic.*')
+        # java_import(self.j, 'com.sagas.generic.*')
+        java_import(self.j, 'com.drafts.generic.*')
         java_import(self.j, 'org.apache.ofbiz.entity.transaction.TransactionUtil')
 
         self.import_package('com.bluecc.triggers.Hubs')

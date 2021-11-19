@@ -332,13 +332,14 @@ def default_thru():
     return default_thru
 
 def record_list_df(ent_name:str, records, drop_null_cols=True,
-                   contains_internal=True) -> pd.DataFrame:
+                   contains_internal=True, skip_fields=None) -> pd.DataFrame:
     import pyarrow as pa
 
     ent = MetaEntity(ent_name)
     field_names = ent.field_names
     data = []
-    skip_fields = ['lastModifiedDate']
+    if skip_fields is None:
+        skip_fields = ['lastModifiedDate']
     pnames = []
     for fld in field_names:
         model_fld = ent.model.getField(fld)
