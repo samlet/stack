@@ -1,5 +1,7 @@
+import json
 import os
 
+import io_utils
 from sagas.ofbiz.services import OfService as s, oc, search_service
 from sagas.ofbiz.entities import OfEntity as e, MetaEntity, load_xml_seed, get_serv
 
@@ -29,6 +31,17 @@ def delete_table(entity_name):
             print(msg)
     else:
         print('ok')
+
+
+def to_list(vals):
+    import sagas.ofbiz.entities as ee
+    return [str(v) for v in vals if not ee.entity(v).is_view()]
+
+
+def trim_prefix(pkg_name:str):
+    if pkg_name.startswith("com.bluecc.") or pkg_name.startswith("org.apache.ofbiz."):
+        return pkg_name.replace("org.apache.ofbiz.", "").replace("com.bluecc.", "")
+    raise Exception(f"Cannot process package ${pkg_name}")
 
 class OfTools(object):
     def import_dir(self, dir):
@@ -101,10 +114,65 @@ class OfTools(object):
         result = record_list_df(entity_name, result, drop_null_cols=True, contains_internal=False)
         print(result)
 
-    def entity_package(self, package_name):
+    def entity_package(self, package_name='com.sagas.dss'):
+        """
+        $ python -m sagas.ofbiz.tools entity_package com.sagas.dss
+        :param package_name:
+        :return:
+        """
         from sagas.ofbiz.entities import OfEntity as e, get_package_entities
-        ents=get_package_entities('com.sagas.dss')
+        ents=get_package_entities(package_name)
         print(ents)
+
+    def dump_packages(self, package_name='com.sagas.dss'):
+        """
+        $ python -m sagas.ofbiz.tools dump_packages
+        """
+        model_reader = oc.delegator.getModelReader()
+        tree_map = model_reader.getEntitiesByPackage(None, None)
+        # print(tree_map)
+        py_tree_map={trim_prefix(k):to_list(vals) for (k,vals) in tree_map.items() }
+        for (k,vals) in py_tree_map.items():
+            print(k, vals)
+
+        json_str=json.dumps(py_tree_map, ensure_ascii=False, indent=2)
+        io_utils.write_to_file("dump_pkgs.json", json_str)
+
+    def dump_views(self, package_name='com.sagas.dss'):
+        """
+        $ python -m sagas.ofbiz.tools dump_views
+        """
+        from sagas.ofbiz import entity_view
+
+        model_reader = oc.delegator.getModelReader()
+        tree_map = model_reader.getEntitiesByPackage(None, None)
+
+        py_tree_map={trim_prefix(k):entity_view.get_views(vals) for (k,vals) in tree_map.items() }
+        for (k,vals) in py_tree_map.items():
+            print(k, vals)
+
+        json_str=json.dumps(py_tree_map, ensure_ascii=False, indent=2)
+        io_utils.write_to_file("dump_views.json", json_str)
+
+    def dump_view_files(self, package_name='com.sagas.dss'):
+        """
+        $ python -m sagas.ofbiz.tools dump_view_files
+        """
+        from sagas.ofbiz import entity_view
+
+        model_reader = oc.delegator.getModelReader()
+        tree_map = model_reader.getEntitiesByPackage(None, None)
+
+        py_tree_map={trim_prefix(k):entity_view.get_views(vals) for (k,vals) in tree_map.items() }
+        target_dir='/opt/app/hubs-common/asset/views'
+        for (k,vals) in py_tree_map.items():
+            # print(k, vals)
+            if len(vals)>0:
+                json_str = json.dumps({"views": vals}, ensure_ascii=False, indent=2)
+                io_utils.write_to_file(f"{target_dir}/{k}.json", json_str)
+
+        # json_str=json.dumps(py_tree_map, ensure_ascii=False, indent=2)
+        # io_utils.write_to_file("dump_views.json", json_str)
 
     def entity_ref(self, entity, id_val, disp='table'):
         from sagas.ofbiz.entities import format

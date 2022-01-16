@@ -25,3 +25,5 @@ dist/
 build/
 *.egg-info
 
+/dump_pkgs.json
+/dump_views.json
