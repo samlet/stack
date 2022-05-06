@@ -1,4 +1,45 @@
 # procs-gradle-mirror.md
+** https://developer.aliyun.com/mvn/guide
+在 build.gradle 文件中加入以下代码:
+
+```js
+allprojects {
+  repositories {
+    maven {
+      url 'https://maven.aliyun.com/repository/public/'
+    }
+    mavenLocal()
+    mavenCentral()
+  }
+}
+```
+```js
+// 如果想使用其它代理仓，以使用spring仓为例，代码如下:
+
+allProjects {
+  repositories {
+    maven {
+      url 'https://maven.aliyun.com/repository/public/'
+    }
+    maven {
+      url 'https://maven.aliyun.com/repository/spring/'
+    }
+    mavenLocal()
+    mavenCentral()
+  }
+}
+// 加入你要引用的文件信息：
+dependencies {
+  compile '[GROUP_ID]:[ARTIFACT_ID]:[VERSION]'
+}
+```
+
+执行命令：
+
+```sh
+gradle dependencies # 或 ./gradlew dependencies 安装依赖
+```
+
 ⊕ [gradle 使用 国内镜像 - 正义的伙伴！ - 博客园](https://www.cnblogs.com/whm-blog/p/12407786.html)
 
 ```js

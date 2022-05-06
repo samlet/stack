@@ -1,4 +1,12 @@
 # procs-gradle.md
+## gradle wrapper
+⊕ [The Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)
+
+```bash
+$ gradle wrapper --gradle-version 7.4.2 --distribution-type all
+```
+
+## ..
 ⊕ [Building Java Applications with libraries Sample](https://docs.gradle.org/current/samples/sample_building_java_applications_multi_project.html)
 
 ```bash
